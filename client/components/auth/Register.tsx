@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 export default function Register() {
   // create reference for the inputs
   const emailRef = useRef<HTMLDivElement>(null) as any;
+  const nameRef = useRef<HTMLDivElement>(null) as any;
   const passwordRef = useRef<HTMLDivElement>(null) as any;
   const passwordConfirmRef = useRef<HTMLDivElement>(null) as any;
 
@@ -26,9 +27,10 @@ export default function Register() {
       setLoading(true);
       await createAUserWithEmailAndPassword(
         emailRef.current.value,
-        passwordRef.current.value
+        passwordRef.current.value,
+        nameRef.current.value
       ).then(() => {
-        router.push("/");
+        router.push("/dashboard");
       });
     } catch (error: unknown) {
       console.log(error);
@@ -47,14 +49,15 @@ export default function Register() {
           Welcome! Let&#39;s get you set up with an account
         </p>
         <form onSubmit={handleAccountCreation}>
-          {/* <label className="text-sm text-stone-500">
+          <label className="text-sm text-stone-500">
             Name <span className="text-red-700"> * </span>
           </label>
           <input
+            ref={nameRef}
             type="text"
             required
             className="w-full mb-4 text-stone-300 form-input bg-transparent border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
-          /> */}
+          />
 
           <label className="text-sm text-stone-500">
             Email Address <span className="text-red-700"> * </span>

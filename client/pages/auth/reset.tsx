@@ -3,12 +3,8 @@ import { MainNavigation, Header } from "../../components/Navigation";
 import { registerIllustration } from "../../assets/illustrations";
 import { Reset } from "../../components/auth";
 import Image from "next/image";
-import { useAuthContext } from "../../contexts/AuthContext";
-import { useRouter } from "next/router";
 
 export default function Register() {
-  const router = useRouter();
-  const { currentUser } = useAuthContext();
   return (
     <div>
       <MainNavigation />
