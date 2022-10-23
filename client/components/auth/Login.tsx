@@ -1,9 +1,37 @@
 import Link from "next/link";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { apple, google } from "../../assets/icons";
 import Image from "next/image";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  // create reference for the inputs
+  const emailRef = useRef<HTMLDivElement>(null) as any;
+  const passwordRef = useRef<HTMLDivElement>(null) as any;
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  const { signInAUserWithEmailAndPassword } = useAuthContext();
+
+  const handleSignInAUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      await signInAUserWithEmailAndPassword(
+        emailRef.current.value,
+        passwordRef.current.value
+      ).then(() => {
+        router.push("/");
+      });
+    } catch (error: unknown) {
+      console.log(error);
+      if (error instanceof Error) alert(error.message);
+    }
+    setLoading(false);
+  };
   return (
     <div className="md:pt-20 pb-10 text-left md:border-r border-stone-800 min-w-[400px] flex-grow ">
       <div className="px-10 mx-auto max-w-[600px]">
@@ -13,11 +41,12 @@ export default function Login() {
         <p className="text-sm text-stone-400 mb-4">
           Welcome back, fill in your credentials to log in
         </p>
-        <form>
+        <form onSubmit={handleSignInAUser}>
           <label className="text-sm text-stone-500">
             Email Address <span className="text-red-700"> * </span>
           </label>
           <input
+            ref={emailRef}
             required
             type="email"
             className="w-full mb-4 form-input bg-transparent text-stone-300 border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
@@ -26,6 +55,7 @@ export default function Login() {
             Password <span className="text-red-700"> * </span>
           </label>
           <input
+            ref={passwordRef}
             required
             type="password"
             className="w-full text-stone-300 form-input bg-transparent border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
@@ -39,6 +69,7 @@ export default function Login() {
             </Link>
           </div>
           <button
+            disabled={loading}
             type="submit"
             className="w-full mt-14 mb-7 py-4 hover:bg-stone-500 rounded-full text-stone-500 hover:text-base border-2  border-stone-500"
           >

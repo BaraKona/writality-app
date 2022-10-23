@@ -1,5 +1,5 @@
 import React from "react";
-import { LandingNavigation, Header } from "../../components/Navigation";
+import { MainNavigation, Header } from "../../components/Navigation";
 import { welcomeIllustration } from "../../assets/illustrations";
 import Image from "next/image";
 import { Register } from "../../components/auth";
@@ -7,7 +7,7 @@ import { Register } from "../../components/auth";
 export default function register() {
   return (
     <div>
-      <LandingNavigation />
+      <MainNavigation />
       <Header header="Register" />
       <div className="container flex px-4 mx-auto flex-wrap-reverse">
         <Register />
