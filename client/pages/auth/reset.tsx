@@ -1,13 +1,17 @@
-import React from "react";
-import { LandingNavigation, Header } from "../../components/Navigation";
+import React, { useEffect } from "react";
+import { MainNavigation, Header } from "../../components/Navigation";
 import { registerIllustration } from "../../assets/illustrations";
 import { Reset } from "../../components/auth";
 import Image from "next/image";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useRouter } from "next/router";
 
-export default function register() {
+export default function Register() {
+  const router = useRouter();
+  const { currentUser } = useAuthContext();
   return (
     <div>
-      <LandingNavigation />
+      <MainNavigation />
       <Header header="Reset" />
       <div className="container flex px-4 mx-auto flex-wrap-reverse">
         <Reset />

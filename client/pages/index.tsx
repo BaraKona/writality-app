@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
-import { LandingNavigation, Header } from "../components/Navigation";
+import { MainNavigation, Header } from "../components/Navigation";
 import styles from "../styles/Home.module.scss";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const Home: NextPage = () => {
   return (
     <>
-      <LandingNavigation />
+      <MainNavigation />
       <div className={styles.container}>
         <Header header="" />
         <div className={styles.main}>

@@ -1,9 +1,42 @@
 import Link from "next/link";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { apple, google } from "../../assets/icons";
 import Image from "next/image";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useRouter } from "next/router";
 
 export default function Register() {
+  // create reference for the inputs
+  const emailRef = useRef<HTMLDivElement>(null) as any;
+  const passwordRef = useRef<HTMLDivElement>(null) as any;
+  const passwordConfirmRef = useRef<HTMLDivElement>(null) as any;
+
+  const router = useRouter();
+
+  const { createAUserWithEmailAndPassword } = useAuthContext();
+  const [loading, setLoading] = useState(false);
+
+  const handleAccountCreation = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return alert("Passwords do not match");
+    }
+
+    try {
+      setLoading(true);
+      await createAUserWithEmailAndPassword(
+        emailRef.current.value,
+        passwordRef.current.value
+      ).then(() => {
+        router.push("/");
+      });
+    } catch (error: unknown) {
+      console.log(error);
+      if (error instanceof Error) alert(error.message);
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="md:pt-16 pb-10 text-left md:border-r border-stone-800 flex-grow grid items-center">
       <div className="px-10 mx-auto max-w-[600px]">
@@ -13,20 +46,21 @@ export default function Register() {
         <p className="text-sm text-stone-400 mb-4">
           Welcome! Let&#39;s get you set up with an account
         </p>
-        <form>
-          <label className="text-sm text-stone-500">
+        <form onSubmit={handleAccountCreation}>
+          {/* <label className="text-sm text-stone-500">
             Name <span className="text-red-700"> * </span>
           </label>
           <input
             type="text"
             required
             className="w-full mb-4 text-stone-300 form-input bg-transparent border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
-          />
+          /> */}
 
           <label className="text-sm text-stone-500">
             Email Address <span className="text-red-700"> * </span>
           </label>
           <input
+            ref={emailRef}
             required
             type="email"
             className="w-full mb-4 form-input bg-transparent text-stone-300 border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
@@ -35,6 +69,7 @@ export default function Register() {
             Password <span className="text-red-700"> * </span>
           </label>
           <input
+            ref={passwordRef}
             required
             type="password"
             className="w-full mb-4 text-stone-300 form-input bg-transparent border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
@@ -43,6 +78,7 @@ export default function Register() {
             Password Confirmation <span className="text-red-700"> * </span>
           </label>
           <input
+            ref={passwordConfirmRef}
             required
             type="password"
             className="w-full text-stone-300 form-input bg-transparent border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
@@ -68,6 +104,7 @@ export default function Register() {
           Register with Google
         </button>
         <button
+          disabled={loading}
           type="submit"
           className=" flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-300 rounded-full text-stone-500 bg-slate-800 hover:text-base"
         >

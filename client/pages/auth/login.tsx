@@ -1,5 +1,5 @@
 import React from "react";
-import { LandingNavigation, Header } from "../../components/Navigation";
+import { MainNavigation, Header } from "../../components/Navigation";
 import { loginIllustration } from "../../assets/illustrations";
 import Image from "next/image";
 import { Login } from "../../components/auth";
@@ -7,7 +7,7 @@ import { Login } from "../../components/auth";
 export default function login() {
   return (
     <div>
-      <LandingNavigation />
+      <MainNavigation />
       <Header header="Login" />
       <div className="container flex px-4 mx-auto flex-wrap-reverse ">
         <Login />
