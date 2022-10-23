@@ -24,7 +24,7 @@ export default function Login() {
         emailRef.current.value,
         passwordRef.current.value
       ).then(() => {
-        router.push("/");
+        router.push("/dashboard");
       });
     } catch (error: unknown) {
       console.log(error);
