@@ -8,6 +8,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 
 export default function Navbar() {
   const { currentUser } = useAuthContext();
+
   const showNavbar = () => {
     if (currentUser) {
       return <UserNavigation />;

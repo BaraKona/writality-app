@@ -1,10 +1,44 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { projectListItem } from "../ListItems";
 import Image from "next/image";
 import { cyclops8 } from "../../assets/icons";
 import DashboardNavigation from "./DashboardNavigation";
+import { useDatabaseContext } from "../../contexts/DatabaseContext";
+import { useAuthContext } from "../../contexts/AuthContext";
+import ProjectListItem from "../ListItems/ProjectListItem";
+import { IProject } from "../interfaces/Iproject";
 
 export default function Sidebar() {
+  const { currentUser } = useAuthContext();
+  const {
+    addANewProjectToDatabase,
+    userProjects,
+    getAllUserProjects,
+    setUserProjects,
+  } = useDatabaseContext();
+
+  const addProject = () => {
+    addANewProjectToDatabase(currentUser.uid)
+      .then(() => {
+        getAllUserProjects(currentUser.uid);
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    if (currentUser) {
+      getAllUserProjects(currentUser.uid)
+        .then((fetchedProjects: IProject) => {
+          setUserProjects(fetchedProjects);
+          console.log("fetched");
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    }
+  }, [currentUser]);
   return (
     <aside
       className="w-52 h-full overflow-y-auto border-r border-stone-800"
@@ -52,6 +86,27 @@ export default function Sidebar() {
           <li>
             <h2 className="flex justify-between items-center ml-1 font-semibold text-stone-500 text-sm rounded-lg">
               Your Projects
+              <p
+                onClick={addProject}
+                className="text-red-500 font-bold px-2 rounded cursor-pointer hover:bg-stone-500"
+              >
+                +
+              </p>
+            </h2>
+          </li>
+          <>
+            {userProjects
+              ? userProjects.flatMap((project: IProject) => {
+                  return <ProjectListItem project={project} />;
+                })
+              : ""}
+          </>
+        </ul>
+        <hr className="my-5 border-stone-800" />
+        <ul>
+          <li>
+            <h2 className="flex justify-between items-center ml-1 font-semibold text-stone-500 text-sm rounded-lg">
+              Collaborative Projects
               <p className="text-red-500 font-bold px-2 rounded cursor-pointer hover:bg-stone-500">
                 +
               </p>

@@ -10,8 +10,6 @@ export default function DashboardNavigation() {
   const { currentUser, signOutCurrentUser } = useAuthContext();
   const [hidden, setHidden] = useState("hidden");
 
-  console.log(currentUser);
-
   const router = useRouter();
   const handleSignOut = async () => {
     await signOutCurrentUser().then(() => {
