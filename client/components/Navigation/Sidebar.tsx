@@ -1,12 +1,11 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { projectListItem } from "../ListItems";
+import { ProjectListItem, CategoryListItem } from "../ListItems";
 import Image from "next/image";
 import { cyclops8 } from "../../assets/icons";
 import DashboardNavigation from "./DashboardNavigation";
 import { useDatabaseContext } from "../../contexts/DatabaseContext";
 import { useAuthContext } from "../../contexts/AuthContext";
-import ProjectListItem from "../ListItems/ProjectListItem";
 import { IProject } from "../interfaces/Iproject";
 
 export default function Sidebar() {
@@ -46,84 +45,25 @@ export default function Sidebar() {
     >
       <div className=" py-2 px-3">
         <DashboardNavigation />
-        <ul className="space-y-1 mt-3">
-          <li>
-            <h2 className="flex items-center ml-1 font-semibold text-stone-500 text-sm rounded-lg">
-              Community
-            </h2>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center text-sm font-normal text-stone-300 rounded-lg dark:text-white hover:text-stone-800 hover:bg-stone-400 dark:hover:bg-gray-700"
-            >
-              <span className="ml-3">Posts</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center text-sm  font-normal text-stone-300 rounded-lg dark:text-white hover:text-stone-800 hover:bg-stone-400 dark:hover:bg-gray-700"
-            >
-              <span className="flex-1 ml-3 whitespace-nowrap">Projects </span>
-              <span className="inline-flex justify-center items-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
-                Pro
-              </span>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="flex items-center  text-sm font-normal text-stone-300 rounded-lg dark:text-white hover:text-stone-800 hover:bg-stone-400 dark:hover:bg-gray-700"
-            >
-              <span className="flex-1 ml-3 whitespace-nowrap">Users</span>
-            </a>
-          </li>
-        </ul>
+        <CategoryListItem name="Community">
+          <ProjectListItem name="Posts" />
+          <ProjectListItem name="Projects" />
+          <ProjectListItem name="Users" />
+        </CategoryListItem>
         <hr className="my-5 border-stone-800" />
-        <ul>
-          <li>
-            <h2 className="flex justify-between items-center ml-1 font-semibold text-stone-500 text-sm rounded-lg">
-              Your Projects
-              <p
-                onClick={addProject}
-                className="text-red-500 font-bold px-2 rounded cursor-pointer hover:bg-stone-500"
-              >
-                +
-              </p>
-            </h2>
-          </li>
+        <CategoryListItem name="Your Projects" button="+" onClick={addProject}>
           <>
             {userProjects
               ? userProjects.flatMap((project: IProject) => {
-                  return <ProjectListItem project={project} />;
+                  return <ProjectListItem name={project.projectTitle} />;
                 })
               : ""}
           </>
-        </ul>
+        </CategoryListItem>
         <hr className="my-5 border-stone-800" />
-        <ul>
-          <li>
-            <h2 className="flex justify-between items-center ml-1 font-semibold text-stone-500 text-sm rounded-lg">
-              Collaborative Projects
-              <p className="text-red-500 font-bold px-2 rounded cursor-pointer hover:bg-stone-500">
-                +
-              </p>
-            </h2>
-          </li>
-        </ul>
+        <CategoryListItem name="Collaborative Projects" button="+" />
         <hr className="my-5 border-stone-800" />
-        <ul>
-          <li>
-            <h2 className="flex justify-between items-center ml-1 font-semibold text-stone-500 text-sm rounded-lg">
-              Chats
-              <p className="text-red-500 font-bold px-2 rounded cursor-pointer hover:bg-stone-500">
-                +
-              </p>
-            </h2>
-          </li>
-        </ul>
+        <CategoryListItem name="Chats" button="+" />
         <div
           id="dropdown-cta"
           className="p-4 mt-6 bg-blue-50 rounded-lg "

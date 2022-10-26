@@ -1,1 +1,2 @@
-export { default as projectListItem } from "./ProjectListItem";
+export { ProjectListItem } from "./ProjectListItem";
+export { CategoryListItem } from "./CategoryListItem";
