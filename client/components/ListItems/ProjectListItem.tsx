@@ -1,12 +1,25 @@
-import React, { FC } from "react";
-
-export const ProjectListItem: FC<{ name?: string }> = ({ name }) => {
+import React, { ChangeEvent, FC } from "react";
+import { AiFillFolder, AiFillFolderOpen } from "react-icons/ai";
+import { useRouter } from "next/router";
+import { cyclops6, cyclops5 } from "../../assets/icons";
+import Image from "next/image";
+export const ProjectListItem: FC<{
+  name: string;
+  projectId?: string;
+  onClick?: () => void;
+}> = ({ name, onClick, projectId }) => {
+  const router = useRouter();
+  const changeFolder = () => {
+    if (projectId === router?.query.project) {
+      return <AiFillFolderOpen size={20} color={"#b8a285"} />;
+    } else {
+      return <AiFillFolder size={20} color={"#a8a29e"} />;
+    }
+  };
   return (
-    <li className="flex justify-between ">
-      <a
-        href="#"
-        className="flex justify-between pr-3 text-sm font-normal text-stone-300 rounded-lg w-32 dark:text-white hover:text-stone-800 hover:bg-stone-400"
-      >
+    <li onClick={onClick} className=" w-fit cursor-default">
+      <a className="  ml-3 flex pr-3 text-sm font-normal text-stone-300 rounded-lg dark:text-white hover:text-stone-800 hover:bg-stone-400">
+        {changeFolder()}
         <span className="ml-3">{name}</span>
       </a>
     </li>

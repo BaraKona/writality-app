@@ -1,6 +1,6 @@
 export type IProject = {
-  uid?: string;
+  uid: string;
   projectTitle: string;
-  createdAt: Date;
+  createdAt?: Date;
   owner: string;
 };

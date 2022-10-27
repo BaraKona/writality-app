@@ -1,10 +1,10 @@
 import React, { FC, ReactNode } from "react";
-
+import { AiFillPlusSquare } from "react-icons/ai";
 export const CategoryListItem: FC<{
   children?: ReactNode;
   onClick?: () => void;
   name: string;
-  button?: string;
+  button?: boolean;
 }> = ({ children, onClick, name, button }) => {
   return (
     <ul>
@@ -13,9 +13,9 @@ export const CategoryListItem: FC<{
           {name}
           <p
             onClick={onClick}
-            className="text-red-500 font-bold px-2 rounded cursor-pointer hover:bg-stone-500"
+            className="text-purple-300 font-bold px-2  cursor-pointer hover:text-purple-600 active:text-purple-500"
           >
-            {button}
+            {button ? <AiFillPlusSquare size={20} /> : ""}
           </p>
         </h2>
       </li>
