@@ -4,7 +4,7 @@ import { apple, google } from "../../assets/icons";
 import Image from "next/image";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useRouter } from "next/router";
-
+import toast from "react-hot-toast";
 export default function Login() {
   // create reference for the inputs
   const emailRef = useRef<HTMLDivElement>(null) as any;
@@ -13,7 +13,8 @@ export default function Login() {
 
   const router = useRouter();
 
-  const { signInAUserWithEmailAndPassword } = useAuthContext();
+  const { signInAUserWithEmailAndPassword, signInWithGoogle } =
+    useAuthContext();
 
   const handleSignInAUser = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +32,16 @@ export default function Login() {
       if (error instanceof Error) alert(error.message);
     }
     setLoading(false);
+  };
+  const signInWithGoogleProvider = async () => {
+    try {
+      await signInWithGoogle().then((loggedIn: boolean) => {
+        toast.success("Signed in successfully");
+        router.push("/dashboard");
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="md:pt-20 pb-10 text-left md:border-r border-stone-800 min-w-[400px] flex-grow ">
@@ -83,6 +94,7 @@ export default function Login() {
           </p>
         </div>
         <button
+          onClick={signInWithGoogleProvider}
           type="submit"
           className="flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-500 rounded-full text-stone-500 bg-slate-800 hover:text-base"
         >

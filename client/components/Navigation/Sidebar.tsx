@@ -8,6 +8,7 @@ import { useDatabaseContext } from "../../contexts/DatabaseContext";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { IProject } from "../../interfaces/Iproject";
 import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 
 export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const { currentUser } = useAuthContext();
@@ -25,6 +26,13 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
     addANewProjectToDatabase(currentUser.uid)
       .then(() => {
         getAllUserProjects(currentUser.uid);
+        toast.success("Project created successfully", {
+          style: {
+            borderRadius: "10px",
+            background: "#333350",
+            color: "#fff",
+          },
+        });
       })
       .catch((error: any) => {
         console.log(error);
@@ -63,15 +71,21 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
           >
             <>
               {userProjects
-                ? userProjects.flatMap((project: IProject) => {
-                    return (
-                      <ProjectListItem
-                        onClick={() => openProject(project.uid)}
-                        name={project.projectTitle}
-                        projectId={project.uid}
-                      />
-                    );
-                  })
+                ? userProjects.flatMap(
+                    (
+                      project: IProject,
+                      index: React.Key | null | undefined
+                    ) => {
+                      return (
+                        <ProjectListItem
+                          key={index}
+                          onClick={() => openProject(project.uid)}
+                          name={project.projectTitle}
+                          projectId={project.uid}
+                        />
+                      );
+                    }
+                  )
                 : ""}
             </>
           </CategoryListItem>
