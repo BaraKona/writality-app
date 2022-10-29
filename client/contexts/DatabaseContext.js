@@ -67,13 +67,17 @@ export function DatabaseContextWrapper({ children }) {
     const docRef = collection(db, "chapters");
     const queryData = query(
       docRef,
-      where("projectID", "==", id),
-      orderBy("chapterNumber", "asc")
+      where("projectID", "==", id)
+      // orderBy("chapterNumber", "asc")
     );
-    const querySnapshot = await getDocs(queryData);
-    const data = querySnapshot.docs.map((doc) => doc.data());
-    console.log(data);
-    return data;
+    try {
+      const querySnapshot = await getDocs(queryData);
+      const data = querySnapshot.docs.map((doc) => doc.data());
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   }
   async function createChapter(projectId) {
     const docRef = await addDoc(collection(db, "chapters"), {
@@ -84,10 +88,13 @@ export function DatabaseContextWrapper({ children }) {
     });
     console.log("Document written with ID: ", docRef.id);
     const Doc = doc(db, "chapters", docRef.id);
-    await updateDoc(Doc, {
-      chapterNumber: newDocs.length + 1,
-    });
     const newDocs = await getChaptersByProjectId(projectId);
+    console.log(newDocs);
+    await updateDoc(Doc, {
+      chapterNumber: newDocs.length,
+    }).then(() => {
+      console.log("chapter number updated");
+    });
     console.log(newDocs);
     return newDocs;
   }

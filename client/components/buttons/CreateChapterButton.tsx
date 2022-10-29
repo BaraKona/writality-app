@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { AiFillPlusSquare, AiFillFileAdd } from "react-icons/ai";
 
 export const CreateChapterButton: FC<{ createNewChapter: () => void }> = ({
   createNewChapter,
@@ -6,9 +7,9 @@ export const CreateChapterButton: FC<{ createNewChapter: () => void }> = ({
   return (
     <button
       onClick={createNewChapter}
-      className=" mt-3 bg-purple-400 hover:bg-purple-700 text-black font-bold py-2 px-4 rounded"
+      className="text-purple-300 font-bold px-2  cursor-pointer hover:text-purple-600 active:text-purple-500"
     >
-      Create
+      <AiFillFileAdd size={20} />
     </button>
   );
 };

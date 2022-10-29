@@ -1,18 +1,19 @@
 import React, { FC, useEffect, useState } from "react";
-import { Header, Sidebar } from "../../../components/Navigation";
-import { BaseProjectView } from "../../../components/Project";
-import { Editor } from "../../../components/Editor";
+import { Header, Sidebar } from "../../../../components/Navigation";
+import { BaseProjectView } from "../../../../components/Project";
+import { Editor } from "../../../../components/Editor";
 import { useRouter } from "next/router";
 import {
   NoChapters,
   Chapter,
   ChapterWrapper,
-} from "../../../components/Chapters";
-import { CreateChapterButton } from "../../../components/buttons";
-import { useDatabaseContext } from "../../../contexts/DatabaseContext";
-import { useAuthContext } from "../../../contexts/AuthContext";
-import { IProject } from "../../../interfaces/Iproject";
-import { IChapter } from "../../../interfaces/IChapter";
+} from "../../../../components/Chapters";
+import { CreateChapterButton } from "../../../../components/buttons";
+import { useDatabaseContext } from "../../../../contexts/DatabaseContext";
+import { useAuthContext } from "../../../../contexts/AuthContext";
+import { IProject } from "../../../../interfaces/Iproject";
+import { IChapter } from "../../../../interfaces/IChapter";
+import { toast } from "react-hot-toast";
 
 export default function project() {
   const router = useRouter();
@@ -24,10 +25,20 @@ export default function project() {
   const [project, setProject] = useState<IProject>({} as IProject);
   const [chapters, setChapters] = useState<IChapter[]>([] as IChapter[]);
 
+  const openChapter = (projectId: string, chapterId: string) => {
+    router.push(`/dashboard/project/${projectId}/chapter/${chapterId}`);
+  };
   const createNewChapter = async () => {
     try {
       const newChapter = await createChapter(project.uid);
       console.log(newChapter);
+      toast.success("New chapter created!", {
+        style: {
+          borderRadius: "10px",
+          background: "#333350",
+          color: "#fff",
+        },
+      });
       setChapters(newChapter);
     } catch (error) {
       console.log(error);
@@ -76,11 +87,19 @@ export default function project() {
             {chapters?.length == 0 ? (
               <NoChapters createNewChapter={createNewChapter} />
             ) : (
-              <ChapterWrapper>
+              <ChapterWrapper
+                createNewChapter={createNewChapter}
+                chapterCount={chapters.length}
+              >
                 {chapters?.map((chapter, index) => (
-                  <Chapter key={index} chapter={chapter} />
+                  <Chapter
+                    openChapter={() =>
+                      openChapter(chapter.projectID, chapter.uid)
+                    }
+                    key={index}
+                    chapter={chapter}
+                  />
                 ))}
-                <CreateChapterButton createNewChapter={createNewChapter} />
               </ChapterWrapper>
             )}
             {/* <Editor /> */}

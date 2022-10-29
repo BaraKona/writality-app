@@ -19,10 +19,10 @@ export function AuthContextWrapper({ children }) {
 
   function createAUserWithEmailAndPassword(email, password, name) {
     return createUserWithEmailAndPassword(auth, email, password)
-      .then({
-        updateProfile: updateProfile(auth.currentUser, {
+      .then(() => {
+        updateProfile(auth.currentUser, {
           displayName: name,
-        }),
+        });
       })
       .catch((error) => {
         console.log(error);
