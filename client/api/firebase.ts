@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // setup firebase interface
@@ -33,7 +33,7 @@ const firebaseConfig: Firebase = {
 };
 
 // Initialize Firebase
-
+export const googleAuthProvider = new GoogleAuthProvider();
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 // const analytics = getAnalytics(app);

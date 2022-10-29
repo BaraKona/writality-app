@@ -1,9 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { auth } from "../pages/api/firebase";
+import { auth, googleAuthProvider } from "../api/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  signInWithPopup,
 } from "firebase/auth";
 
 const AuthContext = createContext();
@@ -18,10 +19,10 @@ export function AuthContextWrapper({ children }) {
 
   function createAUserWithEmailAndPassword(email, password, name) {
     return createUserWithEmailAndPassword(auth, email, password)
-      .then({
-        updateProfile: updateProfile(auth.currentUser, {
+      .then(() => {
+        updateProfile(auth.currentUser, {
           displayName: name,
-        }),
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -33,7 +34,29 @@ export function AuthContextWrapper({ children }) {
   function signOutCurrentUser() {
     return auth.signOut();
   }
-
+  async function signInWithGoogle() {
+    await signInWithPopup(auth, googleAuthProvider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+        return true;
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+        return false;
+      });
+  }
   useEffect(() => {
     let unsubscribe = null;
     async function fetchUser() {
@@ -43,6 +66,7 @@ export function AuthContextWrapper({ children }) {
       });
     }
     fetchUser();
+    unsubscribe;
     // return unsubscribe;
   }, []);
 
@@ -51,6 +75,7 @@ export function AuthContextWrapper({ children }) {
     signInAUserWithEmailAndPassword,
     currentUser,
     signOutCurrentUser,
+    signInWithGoogle,
   };
   return (
     <AuthContext.Provider value={sharedState}>{children}</AuthContext.Provider>

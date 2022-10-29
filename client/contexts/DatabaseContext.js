@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { db } from "../pages/api/firebase";
+import { db } from "../api/firebase";
 import { useAuthContext } from "./AuthContext";
 import { v4 as uuidv4 } from "uuid";
 
@@ -15,7 +15,6 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { updateCurrentUser } from "firebase/auth";
 const DatabaseContext = createContext();
 
 export function useDatabaseContext() {
@@ -49,17 +48,17 @@ export function DatabaseContextWrapper({ children }) {
     return data;
     // setUserProjects(data);
   }
-  async function getProjectById(id) {
+  async function getProjectById(id, userId) {
     const docRef = collection(db, "projects");
     const queryData = query(
       docRef,
       where("uid", "==", id),
-      where("projectOwner", "==", currentUser.uid)
+      where("projectOwner", "==", userId)
     );
     try {
       const querySnapshot = await getDocs(queryData);
       const data = querySnapshot.docs.map((doc) => doc.data());
-      return data;
+      return data[0];
     } catch (error) {
       return "you don't have access to this project";
     }
@@ -68,12 +67,17 @@ export function DatabaseContextWrapper({ children }) {
     const docRef = collection(db, "chapters");
     const queryData = query(
       docRef,
-      where("projectID", "==", id),
-      orderBy("chapterNumber", "asc")
+      where("projectID", "==", id)
+      // orderBy("chapterNumber", "asc")
     );
-    const querySnapshot = await getDocs(queryData);
-    const data = querySnapshot.docs.map((doc) => doc.data());
-    return data;
+    try {
+      const querySnapshot = await getDocs(queryData);
+      const data = querySnapshot.docs.map((doc) => doc.data());
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   }
   async function createChapter(projectId) {
     const docRef = await addDoc(collection(db, "chapters"), {
@@ -87,8 +91,11 @@ export function DatabaseContextWrapper({ children }) {
     const newDocs = await getChaptersByProjectId(projectId);
     console.log(newDocs);
     await updateDoc(Doc, {
-      chapterNumber: newDocs.length + 1,
+      chapterNumber: newDocs.length,
+    }).then(() => {
+      console.log("chapter number updated");
     });
+    console.log(newDocs);
     return newDocs;
   }
   useEffect(() => {
