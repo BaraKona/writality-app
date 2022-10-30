@@ -11,7 +11,7 @@ export const BaseProjectView: FC<{
 }> = ({ children, project }) => {
   return (
     <div className=" w-full h-full drop-shadow  ">
-      <div className=" py-4 px-8 border-b border-stone-800">
+      <div className=" py-4 px-8 border-b border-baseBorder">
         <div className="relative flex w-full">
           <h2 className="text-md font-semibold">{project?.projectTitle}</h2>
           <div className="absolute right-0 cursor-pointer">

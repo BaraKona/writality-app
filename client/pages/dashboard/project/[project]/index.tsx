@@ -14,6 +14,7 @@ import { useAuthContext } from "../../../../contexts/AuthContext";
 import { IProject } from "../../../../interfaces/Iproject";
 import { IChapter } from "../../../../interfaces/IChapter";
 import { toast } from "react-hot-toast";
+import { CharacterWrapper } from "../../../../components/Characters/CharacterWrapper";
 
 export default function project() {
   const router = useRouter();
@@ -91,15 +92,18 @@ export default function project() {
                 createNewChapter={createNewChapter}
                 chapterCount={chapters.length}
               >
-                {chapters?.map((chapter, index) => (
-                  <Chapter
-                    openChapter={() =>
-                      openChapter(chapter.projectID, chapter.uid)
-                    }
-                    key={index}
-                    chapter={chapter}
-                  />
-                ))}
+                <div className="flex-grow">
+                  {chapters?.map((chapter, index) => (
+                    <Chapter
+                      openChapter={() =>
+                        openChapter(chapter.projectID, chapter.uid)
+                      }
+                      key={index}
+                      chapter={chapter}
+                    />
+                  ))}
+                </div>
+                <CharacterWrapper> - Protagonist </CharacterWrapper>
               </ChapterWrapper>
             )}
             {/* <Editor /> */}

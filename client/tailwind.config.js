@@ -11,6 +11,7 @@ module.exports = {
         baseLight: "#38312d85",
         baseMid: "#1b1c25",
         baseLighter: "#2d2f38",
+        baseBorder: "#363130",
       },
     },
   },

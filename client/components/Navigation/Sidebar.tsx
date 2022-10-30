@@ -53,7 +53,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className="h-full flex ">
       <aside
-        className="w-60 h-full overflow-y-auto border-r bg-baseMid border-stone-800"
+        className="w-60 h-full overflow-y-auto border-r bg-baseMid border-baseBorder"
         aria-label="Sidebar"
       >
         <div className=" py-2 px-3">
@@ -63,7 +63,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
             <ProjectListItem name="Projects" />
             <ProjectListItem name="Users" />
           </CategoryListItem>
-          <hr className="my-5 border-stone-800" />
+          <hr className="my-5 border-baseBorder" />
           <CategoryListItem
             name="Your Projects"
             button={true}
@@ -89,13 +89,13 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
                 : ""}
             </>
           </CategoryListItem>
-          <hr className="my-5 border-stone-800" />
+          <hr className="my-5 border-baseBorder" />
           <CategoryListItem name="Collaborative Projects" button={true} />
-          <hr className="my-5 border-stone-800" />
+          <hr className="my-5 border-baseBorder" />
           <CategoryListItem name="Chats" button={true} />
           <div
             id="dropdown-cta"
-            className="p-4 mt-6 bg-blue-50 rounded-lg "
+            className="p-4 mt-6 bg-blue-50  rounded-lg "
             role="alert"
           >
             <div className="flex items-center mb-3">

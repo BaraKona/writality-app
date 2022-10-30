@@ -18,7 +18,7 @@ export const ProjectListItem: FC<{
   };
   return (
     <li onClick={onClick} className=" w-fit cursor-default">
-      <a className="  ml-3 flex pr-3 text-sm font-normal text-stone-300 rounded-lg dark:text-white hover:text-stone-800 hover:bg-stone-400">
+      <a className="  ml-3 flex pr-3 text-sm font-normal text-stone-300 rounded dark:text-white hover:text-baseBorder hover:bg-stone-400">
         {changeFolder()}
         <span className="ml-3">{name}</span>
       </a>

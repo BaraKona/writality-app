@@ -8,8 +8,8 @@ export const Chapter: FC<{ chapter: IChapter; openChapter: () => void }> = ({
   openChapter,
 }) => {
   return (
-    <button
-      className="flex gap-3 border-b cursor-default hover:bg-stone-700 border-stone-800 py-2 px-8 text-center"
+    <div
+      className="flex gap-3 border-b cursor-default hover:bg-baseBorder border-baseBorder py-2 px-8 text-center"
       onClick={openChapter}
     >
       <Image
@@ -18,9 +18,9 @@ export const Chapter: FC<{ chapter: IChapter; openChapter: () => void }> = ({
         height={20}
         alt={chapter?.chapterNumber?.toString()}
       />
-      <h3>
+      <h4>
         {chapter.chapterTitle} <span>{chapter.chapterNumber}</span>
-      </h3>
-    </button>
+      </h4>
+    </div>
   );
 };

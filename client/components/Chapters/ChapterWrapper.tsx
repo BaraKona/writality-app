@@ -9,8 +9,8 @@ export const ChapterWrapper: FC<{
   createNewChapter: () => void;
 }> = ({ children, chapterCount, createNewChapter }) => {
   return (
-    <div className="w-full flex flex-col gap-2 ">
-      <div className=" flex font-semibold px-8 py-2 bg-baseMid">
+    <div className=" flex flex-col bg-baseMid  gap-2 m-3 mx-3 shadow-lg border border-baseBorder rounded-md">
+      <div className=" flex font-semibold py-2 px-4 bg-baseLight border-b border-baseBorder">
         <FaBuffer size={23} />
         <h3 className=" ml-2 flex">
           Chapters <span className=" ml-3 font-normal">{chapterCount}</span>
@@ -19,7 +19,7 @@ export const ChapterWrapper: FC<{
           <CreateChapterButton createNewChapter={createNewChapter} />
         </div>
       </div>
-      {children}
+      <div className="flex">{children}</div>
     </div>
   );
 };

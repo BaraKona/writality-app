@@ -18,7 +18,7 @@ export default function DashboardNavigation() {
   };
 
   return (
-    <nav className=" mx-auto flex space-x-4 justify-between relative border-solid border-b border-stone-800">
+    <nav className=" mx-auto flex space-x-4 justify-between relative border-solid border-b border-baseBorder">
       <div className="cursor-pointer">
         <Link href="/">
           <div className="my-1 flex">
@@ -45,7 +45,7 @@ export default function DashboardNavigation() {
 
         <div
           id="dropdownInformation"
-          className={`${hidden} z-10 w-44 bg-base border border-stone-800 rounded divide-y divide-gray-100 drop-shadow-lg dark:bg-gray-700 dark:divide-gray-600 absolute left-2 top-9`}
+          className={`${hidden} z-10 w-44 bg-base border border-baseBorder rounded divide-y divide-gray-100 drop-shadow-lg dark:bg-gray-700 dark:divide-gray-600 absolute left-2 top-9`}
         >
           <div className="py-3 px-4 text-sm text-stone-300 dark:text-white">
             <p>{currentUser?.displayName}</p>

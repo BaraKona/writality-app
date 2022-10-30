@@ -40,7 +40,7 @@ export default function Register() {
   };
 
   return (
-    <div className="md:pt-16 pb-10 text-left md:border-r border-stone-800 flex-grow grid items-center">
+    <div className="md:pt-16 pb-10 text-left md:border-r border-baseBorder flex-grow grid items-center">
       <div className="px-10 mx-auto max-w-[600px]">
         <h2 className="text-2xl font-bold text-stone-200">
           Create an account 👋
