@@ -51,9 +51,9 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
     }
   }, [currentUser]);
   return (
-    <div className="h-full flex">
+    <div className="h-full flex ">
       <aside
-        className="w-60 h-full overflow-y-auto border-r border-stone-800"
+        className="w-60 h-full overflow-y-auto border-r bg-baseMid border-stone-800"
         aria-label="Sidebar"
       >
         <div className=" py-2 px-3">

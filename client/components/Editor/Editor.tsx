@@ -11,7 +11,7 @@ export const Editor = () => {
     setState({ value });
   };
   return (
-    <div className="text-editor">
+    <div className="text-editor h-[800px] overflow-y-scroll">
       {/* <EditorToolbar /> */}
       <ReactQuill
         theme="snow"

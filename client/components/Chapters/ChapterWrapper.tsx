@@ -10,7 +10,7 @@ export const ChapterWrapper: FC<{
 }> = ({ children, chapterCount, createNewChapter }) => {
   return (
     <div className="w-full flex flex-col gap-2 ">
-      <div className=" flex font-semibold px-8 py-2 bg-baseLight">
+      <div className=" flex font-semibold px-8 py-2 bg-baseMid">
         <FaBuffer size={23} />
         <h3 className=" ml-2 flex">
           Chapters <span className=" ml-3 font-normal">{chapterCount}</span>
