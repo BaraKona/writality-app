@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import { CgClose, CgChevronUpR, CgChevronDownR } from "react-icons/cg";
+import { AiFillSave } from "react-icons/ai";
 
 export const EditorWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -13,6 +14,9 @@ export const EditorWrapper: FC<{ children: ReactNode }> = ({ children }) => {
         </button>
         <button className="p-2 rounded bg-baseLight hover:bg-baseLighter ">
           <CgChevronDownR size={18} color={"#d8b4fe"} />
+        </button>
+        <button className="ml-auto p-2 mr-2 ">
+          <AiFillSave size={18} color={"#d8b4fe"} />
         </button>
       </div>
       <div className="py-3 px-5">{children}</div>

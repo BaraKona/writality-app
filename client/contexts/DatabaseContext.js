@@ -14,6 +14,7 @@ import {
   where,
   doc,
   updateDoc,
+  setDoc,
 } from "firebase/firestore";
 const DatabaseContext = createContext();
 
@@ -26,19 +27,34 @@ export function DatabaseContextWrapper({ children }) {
   const { currentUser } = useAuthContext();
 
   async function addANewProjectToDatabase(owner) {
-    try {
-      const docRef = await addDoc(collection(db, "projects"), {
-        uid: uuidv4(),
-        projectOwner: owner,
-        projectTitle: "New Project",
-        createdAt: serverTimestamp(),
+    const docId = uuidv4();
+    const newProject = doc(db, `projects/${docId}`);
+    const data = {
+      uid: docId,
+      projectOwner: owner,
+      projectTitle: "New Project",
+      createdAt: serverTimestamp(),
+    };
+    await setDoc(newProject, data)
+      .then(() => {
+        return true;
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      console.log("Document written with ID: ", docRef.id);
-      const newDocs = await getAllUserProjects(owner);
-      setUserProjects(newDocs);
-    } catch (error) {
-      console.error("Error adding document: ", error);
-    }
+    // try {
+    //   const docRef = await addDoc(collection(db, "projects"), {
+    //     uid: uuidv4(),
+    //     projectOwner: owner,
+    //     projectTitle: "New Project",
+    //     createdAt: serverTimestamp(),
+    //   });
+    //   console.log("Document written with ID: ", docRef.id);
+    //   const newDocs = await getAllUserProjects(owner);
+    //   setUserProjects(newDocs);
+    // } catch (error) {
+    //   console.error("Error adding document: ", error);
+    // }
   }
   async function getAllUserProjects(owner) {
     const docRef = collection(db, "projects");

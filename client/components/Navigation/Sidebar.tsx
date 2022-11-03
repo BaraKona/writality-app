@@ -22,21 +22,26 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const openProject = (id: string) => {
     router.push(`/dashboard/project/${id}`);
   };
-  const addProject = () => {
-    addANewProjectToDatabase(currentUser.uid)
-      .then(() => {
-        getAllUserProjects(currentUser.uid);
-        toast.success("Project created successfully", {
-          style: {
-            borderRadius: "10px",
-            background: "#333350",
-            color: "#fff",
-          },
-        });
-      })
-      .catch((error: any) => {
-        console.log(error);
+  const addProject = async () => {
+    const isCreated = addANewProjectToDatabase(currentUser.uid);
+    if (isCreated) {
+      setUserProjects(await getAllUserProjects(currentUser.uid));
+      toast.success("Project created successfully", {
+        style: {
+          borderRadius: "10px",
+          background: "#333350",
+          color: "#fff",
+        },
       });
+    } else {
+      toast.error("Project creation failed", {
+        style: {
+          borderRadius: "10px",
+          background: "#333350",
+          color: "#fff",
+        },
+      });
+    }
   };
   useEffect(() => {
     if (currentUser) {
