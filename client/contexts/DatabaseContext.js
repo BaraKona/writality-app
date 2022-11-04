@@ -42,19 +42,6 @@ export function DatabaseContextWrapper({ children }) {
       .catch((error) => {
         console.log(error);
       });
-    // try {
-    //   const docRef = await addDoc(collection(db, "projects"), {
-    //     uid: uuidv4(),
-    //     projectOwner: owner,
-    //     projectTitle: "New Project",
-    //     createdAt: serverTimestamp(),
-    //   });
-    //   console.log("Document written with ID: ", docRef.id);
-    //   const newDocs = await getAllUserProjects(owner);
-    //   setUserProjects(newDocs);
-    // } catch (error) {
-    //   console.error("Error adding document: ", error);
-    // }
   }
   async function getAllUserProjects(owner) {
     const docRef = collection(db, "projects");
@@ -80,7 +67,7 @@ export function DatabaseContextWrapper({ children }) {
     }
   }
   async function getChaptersByProjectId(id) {
-    const docRef = collection(db, "chapters");
+    const docRef = collection(db, "projects/" + id + "/chapters");
     const queryData = query(
       docRef,
       where("projectID", "==", id)
@@ -96,23 +83,22 @@ export function DatabaseContextWrapper({ children }) {
     }
   }
   async function createChapter(projectId) {
-    const docRef = await addDoc(collection(db, "chapters"), {
-      uid: uuidv4(),
+    const docId = uuidv4();
+    const newChapter = doc(db, `projects/${projectId}/chapters/${docId}`);
+    const data = {
+      uid: docId,
       projectID: projectId,
       chapterTitle: "New Chapter",
       createdAt: serverTimestamp(),
-    });
-    console.log("Document written with ID: ", docRef.id);
-    const Doc = doc(db, "chapters", docRef.id);
-    const newDocs = await getChaptersByProjectId(projectId);
-    console.log(newDocs);
-    await updateDoc(Doc, {
-      chapterNumber: newDocs.length,
-    }).then(() => {
-      console.log("chapter number updated");
-    });
-    console.log(newDocs);
-    return newDocs;
+    };
+    await setDoc(newChapter, data, { merge: true })
+      .then(() => {
+        console.log("chapter created");
+        return 1;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   useEffect(() => {
     async function getUserProjects() {

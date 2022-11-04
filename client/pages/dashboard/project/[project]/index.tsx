@@ -30,19 +30,26 @@ export default function project() {
     router.push(`/dashboard/project/${projectId}/chapter/${chapterId}`);
   };
   const createNewChapter = async () => {
-    try {
-      const newChapter = await createChapter(project.uid);
-      console.log(newChapter);
-      toast.success("New chapter created!", {
+    const newChapter = createChapter(project.uid);
+    console.log(newChapter);
+    if (newChapter) {
+      // setChapters([...chapters, newChapter]);
+      setChapters(await getChaptersByProjectId(project.uid));
+      toast.success("Chapter created successfully", {
         style: {
           borderRadius: "10px",
           background: "#333350",
           color: "#fff",
         },
       });
-      setChapters(newChapter);
-    } catch (error) {
-      console.log(error);
+    } else {
+      toast.error("Chapter creation failed", {
+        style: {
+          borderRadius: "10px",
+          background: "#333350",
+          color: "#fff",
+        },
+      });
     }
   };
   useEffect(() => {
