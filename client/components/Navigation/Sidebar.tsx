@@ -23,24 +23,37 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
     router.push(`/dashboard/project/${id}`);
   };
   const addProject = async () => {
-    const isCreated = addANewProjectToDatabase(currentUser.uid);
-    if (isCreated) {
-      setUserProjects(await getAllUserProjects(currentUser.uid));
-      toast.success("Project created successfully", {
-        style: {
-          borderRadius: "10px",
-          background: "#333350",
-          color: "#fff",
-        },
-      });
+    if (userProjects?.length <= 2) {
+      const isCreated = addANewProjectToDatabase(currentUser.uid);
+      if (isCreated) {
+        setUserProjects(await getAllUserProjects(currentUser.uid));
+        toast.success("Project created successfully", {
+          style: {
+            borderRadius: "10px",
+            background: "#333350",
+            color: "#fff",
+          },
+        });
+      } else {
+        toast.error("Project creation failed", {
+          style: {
+            borderRadius: "10px",
+            background: "#333350",
+            color: "#fff",
+          },
+        });
+      }
     } else {
-      toast.error("Project creation failed", {
-        style: {
-          borderRadius: "10px",
-          background: "#333350",
-          color: "#fff",
-        },
-      });
+      toast.error(
+        "You can only have 3 projects, don't stretch yourself too thin ! 😄",
+        {
+          style: {
+            borderRadius: "10px",
+            background: "#333350",
+            color: "#fff",
+          },
+        }
+      );
     }
   };
   useEffect(() => {
@@ -48,7 +61,6 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
       getAllUserProjects(currentUser.uid)
         .then((fetchedProjects: IProject) => {
           setUserProjects(fetchedProjects);
-          console.log("fetched");
         })
         .catch((error: Event) => {
           console.log(error);
