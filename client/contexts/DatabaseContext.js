@@ -15,6 +15,7 @@ import {
   doc,
   updateDoc,
   setDoc,
+  getCountFromServer,
 } from "firebase/firestore";
 const DatabaseContext = createContext();
 
@@ -24,6 +25,11 @@ export function useDatabaseContext() {
 
 export function DatabaseContextWrapper({ children }) {
   const [userProjects, setUserProjects] = useState([]);
+  const [projectChapters, setProjectChapters] = useState([]);
+  const [currentProject, setCurrentProject] = useState(null);
+  const [currentChapter, setCurrentChapter] = useState(null);
+  const [currentChapterContent, setCurrentChapterContent] = useState({});
+
   const { currentUser } = useAuthContext();
 
   async function addANewProjectToDatabase(owner) {
@@ -68,6 +74,7 @@ export function DatabaseContextWrapper({ children }) {
   }
   async function getChaptersByProjectId(id) {
     const docRef = collection(db, "projects/" + id + "/chapters");
+
     const queryData = query(
       docRef,
       where("projectID", "==", id)
@@ -76,7 +83,6 @@ export function DatabaseContextWrapper({ children }) {
     try {
       const querySnapshot = await getDocs(queryData);
       const data = querySnapshot.docs.map((doc) => doc.data());
-      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -85,20 +91,84 @@ export function DatabaseContextWrapper({ children }) {
   async function createChapter(projectId) {
     const docId = uuidv4();
     const newChapter = doc(db, `projects/${projectId}/chapters/${docId}`);
+    // const docRef = collection(db, "projects/" + projectId + "/chapters");
+    // const counting = await getCountFromServer(docRef);
+    // const count = counting.data().count;
     const data = {
       uid: docId,
+      // chapterNumber: count + 1,
       projectID: projectId,
       chapterTitle: "New Chapter",
       createdAt: serverTimestamp(),
     };
     await setDoc(newChapter, data, { merge: true })
       .then(() => {
-        console.log("chapter created");
-        return 1;
+        createChapterContent(docId, projectId);
+        return true;
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+  async function updateProjectTitle(id, title) {
+    const docRef = doc(db, "projects", id);
+    await updateDoc(docRef, {
+      projectTitle: title,
+    }).then((e) => {
+      return title;
+    });
+  }
+  async function createChapterContent(id, projectId) {
+    const contentId = uuidv4();
+    const docRef = doc(
+      db,
+      `projects/${projectId}/chapters/${id}/content/${contentId}`
+    );
+    const data = {
+      uid: contentId,
+      chapterId: id,
+      projectId: projectId,
+      createdAt: serverTimestamp(),
+      content: "",
+    };
+    await setDoc(docRef, data, { merge: true })
+      .then(() => {
+        return true;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  async function updateChapterContent(
+    projectId,
+    chapterId,
+    contentId,
+    content
+  ) {
+    const docRef = doc(
+      db,
+      `projects/${projectId}/chapters/${chapterId}/content/${contentId}`
+    );
+    await updateDoc(docRef, {
+      content: content,
+      lastUpdated: serverTimestamp(),
+    }).then((e) => {
+      return true;
+    });
+  }
+  async function getChapterContent(projectId, chapterId) {
+    const docRef = collection(
+      db,
+      `projects/${projectId}/chapters/${chapterId}/content`
+    );
+    const queryData = query(docRef);
+    try {
+      const querySnapshot = await getDocs(queryData);
+      const data = querySnapshot.docs.map((doc) => doc.data());
+      return data[0];
+    } catch (error) {
+      console.log(error);
+    }
   }
   useEffect(() => {
     async function getUserProjects() {
@@ -122,6 +192,18 @@ export function DatabaseContextWrapper({ children }) {
     getProjectById,
     getChaptersByProjectId,
     createChapter,
+    projectChapters,
+    setProjectChapters,
+    currentProject,
+    setCurrentProject,
+    updateProjectTitle,
+    updateChapterContent,
+    currentChapter,
+    setCurrentChapter,
+    createChapterContent,
+    getChapterContent,
+    currentChapterContent,
+    setCurrentChapterContent,
   };
   return (
     <DatabaseContext.Provider value={sharedState}>

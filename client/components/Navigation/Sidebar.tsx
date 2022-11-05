@@ -18,6 +18,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
     userProjects,
     getAllUserProjects,
     setUserProjects,
+    currentProject,
   } = useDatabaseContext();
   const openProject = (id: string) => {
     router.push(`/dashboard/project/${id}`);
@@ -66,7 +67,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
           console.log(error);
         });
     }
-  }, [currentUser]);
+  }, [currentUser, currentProject]);
   return (
     <div className="h-full flex ">
       <aside

@@ -1,13 +1,18 @@
 import { FC, ReactNode } from "react";
 import { CgClose, CgChevronUpR, CgChevronDownR } from "react-icons/cg";
 import { AiFillSave } from "react-icons/ai";
+import { IChapter } from "../../interfaces/IChapter";
 
-export const EditorWrapper: FC<{ children: ReactNode }> = ({ children }) => {
+export const EditorWrapper: FC<{
+  children: ReactNode;
+  backToProject: () => void;
+  chapter: IChapter;
+}> = ({ children, backToProject, chapter }) => {
   return (
     <div className="w-full flex flex-col bg-baseMid  gap-2 m-3 mx-3 shadow-lg border border-baseBorder rounded-md">
       <div className=" flex font-semibold py-2  bg-baseLight border-b border-baseBorder">
         <button className="p-2 rounded hover:bg-baseLighter ml-2 mr-1">
-          <CgClose size={18} color={"#d8b4fe"} />
+          <CgClose size={18} color={"#d8b4fe"} onClick={backToProject} />
         </button>
         <button className="p-2 rounded bg-baseLight hover:bg-baseLighter ml-2 mr-1">
           <CgChevronUpR size={18} color={"#d8b4fe"} />
@@ -15,6 +20,7 @@ export const EditorWrapper: FC<{ children: ReactNode }> = ({ children }) => {
         <button className="p-2 rounded bg-baseLight hover:bg-baseLighter ">
           <CgChevronDownR size={18} color={"#d8b4fe"} />
         </button>
+        <p>{chapter?.chapterTitle}</p>
         <button className="ml-auto p-2 mr-2 ">
           <AiFillSave size={18} color={"#d8b4fe"} />
         </button>

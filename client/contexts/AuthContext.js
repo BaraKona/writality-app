@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { auth, googleAuthProvider } from "../api/firebase";
+import { auth, googleAuthProvider, db } from "../api/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -42,6 +42,7 @@ export function AuthContextWrapper({ children }) {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        console.log(user);
         // ...
         return true;
       })

@@ -9,6 +9,10 @@ import React, {
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import debounce from "lodash.debounce";
+import { useDatabaseContext } from "../../contexts/DatabaseContext";
+import { useRouter } from "next/router";
+import { IChapterContent } from "../../interfaces/IChapterContent";
+import { toast } from "react-hot-toast";
 
 const modules = {
   toolbar: [
@@ -25,19 +29,52 @@ const modules = {
 };
 
 export const Editor: FC = () => {
-  const [text, setText] = useState("");
+  const { updateChapterContent, currentChapterContent } = useDatabaseContext();
+  const [text, setText] = useState(currentChapterContent?.content || "");
+  const [baseText, setBaseText] = useState(text);
+  const router = useRouter();
   const textChangeHandler = (e: any) => {
     setText(e);
   };
 
   useEffect(() => {
-    checkText(text);
+    console.log(baseText);
+    console.log(text);
+    if (text !== baseText) checkText(text);
   }, [text]);
   /**
    * @description Runs this function when the text changes every 3seconds
    */
   const checkText = useCallback(
     debounce(async (text: string) => {
+      // console.log(router);
+      const projectId = router.asPath.split("/")[3];
+      // const projectId = router.query.project;
+      // const chapterId = router.query.chapter;
+      const chapterId = router.asPath.split("/")[5];
+      const contentId = router.asPath.split("/")[7];
+      // const contentId = currentChapterContent.uid;
+      console.log("debounced");
+      console.log(projectId, chapterId, contentId);
+      if (projectId && chapterId && contentId) {
+        const isUpdated = await updateChapterContent(
+          projectId,
+          chapterId,
+          contentId,
+          text
+        );
+        if (isUpdated) {
+          console.log("Chapter content updated");
+          toast.success("Saved", {
+            style: {
+              borderRadius: "10px",
+              background: "#333350",
+              color: "#fff",
+            },
+          });
+          setText(text);
+        }
+      }
       console.log("Checking text...", text);
     }, 3000),
     []
@@ -50,6 +87,7 @@ export const Editor: FC = () => {
           <ReactQuill
             modules={modules}
             theme="snow"
+            value={text}
             onChange={(e) => textChangeHandler(e)}
             placeholder="Content goes here..."
             className="border placeholder-slate-50"

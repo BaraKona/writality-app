@@ -20,21 +20,33 @@ export default function project() {
   const router = useRouter();
   const [error, setError] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [isForm, setIsForm] = useState(false);
   const { currentUser } = useAuthContext();
-  const { getProjectById, createChapter, getChaptersByProjectId } =
-    useDatabaseContext();
-  const [project, setProject] = useState<IProject>({} as IProject);
-  const [chapters, setChapters] = useState<IChapter[]>([] as IChapter[]);
+  const [title, setTitle] = useState("");
+  const {
+    getProjectById,
+    createChapter,
+    getChaptersByProjectId,
+    currentProject,
+    setCurrentProject,
+    projectChapters,
+    setProjectChapters,
+    updateProjectTitle,
+    setCurrentChapter,
+  } = useDatabaseContext();
 
-  const openChapter = (projectId: string, chapterId: string) => {
+  const openChapter = (
+    projectId: string,
+    chapterId: string,
+    chapter: IChapter
+  ) => {
+    setCurrentChapter(chapter);
     router.push(`/dashboard/project/${projectId}/chapter/${chapterId}`);
   };
   const createNewChapter = async () => {
-    const newChapter = createChapter(project.uid);
-    console.log(newChapter);
+    const newChapter = createChapter(currentProject.uid);
     if (newChapter) {
-      // setChapters([...chapters, newChapter]);
-      setChapters(await getChaptersByProjectId(project.uid));
+      setProjectChapters(await getChaptersByProjectId(currentProject.uid));
       toast.success("Chapter created successfully", {
         style: {
           borderRadius: "10px",
@@ -52,15 +64,34 @@ export default function project() {
       });
     }
   };
+  const changeTitle = async (e: any) => {
+    e.preventDefault();
+    try {
+      await updateProjectTitle(currentProject.uid, title);
+      toast.success("Title updated successfully", {
+        style: {
+          borderRadius: "10px",
+          background: "#333350",
+          color: "#fff",
+        },
+      });
+      setIsForm(false);
+      const doc = await getProjectById(router.query.project, currentUser.uid);
+      setCurrentProject(doc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     async function getProject() {
-      if (router?.query.project) {
+      if (!currentProject || currentProject.uid !== router?.query.project) {
         try {
           const doc = await getProjectById(
             router.query.project,
             currentUser.uid
           );
-          setProject(doc);
+          setCurrentProject(doc);
+          setTitle(doc.projectTitle);
           setError(false);
           console.log("doc", doc);
           await getChapters(doc.uid);
@@ -68,12 +99,14 @@ export default function project() {
           console.log(error);
           setError(error.message);
         }
+      } else {
+        setLoading(false);
       }
     }
     async function getChapters(id: string) {
       try {
         const chapters: [] = await getChaptersByProjectId(id);
-        setChapters(chapters);
+        setProjectChapters(chapters);
         console.log(chapters);
         setLoading(false);
       } catch (error) {
@@ -91,19 +124,26 @@ export default function project() {
         {loading ? (
           <div>loading</div>
         ) : (
-          <BaseProjectView project={project}>
-            {chapters?.length == 0 ? (
+          <BaseProjectView
+            setIsForm={setIsForm}
+            setTitle={setTitle}
+            isForm={isForm}
+            title={title}
+            changeTitle={changeTitle}
+            project={currentProject}
+          >
+            {projectChapters?.length == 0 ? (
               <NoChapters createNewChapter={createNewChapter} />
             ) : (
               <ChapterWrapper
                 createNewChapter={createNewChapter}
-                chapterCount={chapters.length}
+                chapterCount={projectChapters.length}
               >
-                <div className="flex-grow">
-                  {chapters?.map((chapter, index) => (
+                <div className="flex-grow overflow-y-auto h-[780px]">
+                  {projectChapters?.map((chapter: IChapter, index: number) => (
                     <Chapter
                       openChapter={() =>
-                        openChapter(chapter.projectID, chapter.uid)
+                        openChapter(chapter.projectID, chapter.uid, chapter)
                       }
                       key={index}
                       chapter={chapter}
