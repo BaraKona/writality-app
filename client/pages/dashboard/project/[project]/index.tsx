@@ -8,10 +8,8 @@ import {
   Chapter,
   ChapterWrapper,
 } from "../../../../components/Chapters";
-import { CreateChapterButton } from "../../../../components/buttons";
 import { useDatabaseContext } from "../../../../contexts/DatabaseContext";
 import { useAuthContext } from "../../../../contexts/AuthContext";
-import { IProject } from "../../../../interfaces/Iproject";
 import { IChapter } from "../../../../interfaces/IChapter";
 import { toast } from "react-hot-toast";
 import { CharacterWrapper } from "../../../../components/Characters/CharacterWrapper";

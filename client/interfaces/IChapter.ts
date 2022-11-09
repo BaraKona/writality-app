@@ -4,4 +4,5 @@ export type IChapter = {
   chapterTitle: string;
   createdAt: Date;
   chapterNumber: number;
+  type: string;
 };

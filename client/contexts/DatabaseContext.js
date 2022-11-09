@@ -29,7 +29,10 @@ export function DatabaseContextWrapper({ children }) {
   const [currentProject, setCurrentProject] = useState(null);
   const [currentChapter, setCurrentChapter] = useState(null);
   const [currentChapterContent, setCurrentChapterContent] = useState({});
-
+  const [currentChapterBranch, setCurrentChapterBranch] = useState({});
+  const [currentChapterBranches, setCurrentChapterBranches] = useState([]);
+  const [mainChapterContent, setMainChapterContent] = useState({});
+  const [versions, setVersions] = useState([]);
   const { currentUser } = useAuthContext();
 
   async function addANewProjectToDatabase(owner) {
@@ -130,6 +133,7 @@ export function DatabaseContextWrapper({ children }) {
       projectId: projectId,
       createdAt: serverTimestamp(),
       content: "",
+      type: "main",
     };
     await setDoc(docRef, data, { merge: true })
       .then(() => {
@@ -165,11 +169,140 @@ export function DatabaseContextWrapper({ children }) {
     try {
       const querySnapshot = await getDocs(queryData);
       const data = querySnapshot.docs.map((doc) => doc.data());
+      setMainChapterContent(data[0]);
       return data[0];
     } catch (error) {
       console.log(error);
     }
   }
+  async function createChapterBranch(
+    projectId,
+    chapterId,
+    chapter,
+    branchName
+  ) {
+    const branchId = uuidv4();
+    const docRef = doc(
+      db,
+      `projects/${projectId}/chapters/${chapterId}/branches/${branchId}`
+    );
+    const data = {
+      uid: branchId,
+      name: branchName,
+      chapterId: chapterId,
+      projectId: projectId,
+      content: chapter.content,
+      type: "branch",
+      createdAt: serverTimestamp(),
+    };
+    await setDoc(docRef, data, { merge: true })
+      .then(() => {
+        console.log("branch created");
+        return true;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  async function getChapterBranches(projectId, chapterId) {
+    const docRef = collection(
+      db,
+      `projects/${projectId}/chapters/${chapterId}/branches/`
+    );
+    const queryData = query(
+      docRef,
+      where("chapterId", "==", chapterId),
+      orderBy("createdAt", "asc")
+    );
+    try {
+      const querySnapshot = await getDocs(queryData);
+      const data = querySnapshot.docs.map((doc) => doc.data());
+      return data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+  async function updateChapterBranch(projectId, chapterId, branchId, content) {
+    const docRef = doc(
+      db,
+      `projects/${projectId}/chapters/${chapterId}/branches/${branchId}`
+    );
+    await updateDoc(docRef, {
+      content: content,
+      lastUpdated: serverTimestamp(),
+    }).then(async () => {
+      setCurrentChapterBranches(await getChapterBranches(projectId, chapterId));
+      return true;
+    });
+  }
+  async function getChapterVersions(projectId, chapterId) {
+    const docRef = collection(
+      db,
+      `projects/${projectId}/chapters/${chapterId}/versions/`
+    );
+    const queryData = query(
+      docRef,
+      where("chapterId", "==", chapterId),
+      orderBy("createdAt", "asc")
+    );
+    try {
+      const querySnapshot = await getDocs(queryData);
+      const data = querySnapshot.docs.map((doc) => doc.data());
+      return data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+  async function createVersion(projectId, chapterId, content) {
+    const versionId = uuidv4();
+    const docRef = doc(
+      db,
+      `projects/${projectId}/chapters/${chapterId}/versions/${versionId}`
+    );
+    const data = {
+      uid: versionId,
+      chapterId: chapterId,
+      projectId: projectId,
+      content: content,
+      name: content.name || "New Version",
+      type: "version",
+      createdAt: serverTimestamp(),
+    };
+    await setDoc(docRef, data, { merge: true })
+      .then(async () => {
+        setVersions(await getChapterVersions(projectId, chapterId));
+        return true;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  async function mergeBranchIntoMain(
+    projectId,
+    chapterId,
+    branchId,
+    branchContent
+  ) {
+    await createVersion(
+      projectId,
+      chapterId,
+      currentChapterContent.content
+    ).then(async () => {});
+    const docRef = doc(
+      db,
+      `projects/${projectId}/chapters/${chapterId}/content/`
+    );
+    await updateDoc(docRef, {
+      content: branchContent,
+      lastUpdated: serverTimestamp(),
+    }).then(async () => {
+      setMainChapterContent(await getChapterContent(projectId, chapterId));
+      return true;
+    });
+  }
+
   useEffect(() => {
     async function getUserProjects() {
       if (currentUser) {
@@ -204,6 +337,17 @@ export function DatabaseContextWrapper({ children }) {
     getChapterContent,
     currentChapterContent,
     setCurrentChapterContent,
+    createChapterBranch,
+    getChapterBranches,
+    currentChapterBranch,
+    setCurrentChapterBranch,
+    currentChapterBranches,
+    setCurrentChapterBranches,
+    updateChapterBranch,
+    createVersion,
+    getChapterVersions,
+    mainChapterContent,
+    setMainChapterContent,
   };
   return (
     <DatabaseContext.Provider value={sharedState}>
