@@ -4,7 +4,10 @@ import { Editor, EditorWrapper } from "../../../../../components/Editor";
 import { useRouter } from "next/router";
 import { Modal } from "@mantine/core";
 import { useDatabaseContext } from "../../../../../contexts/DatabaseContext";
-import { ChapterBranches } from "../../../../../components/Chapters";
+import {
+  ChapterBranches,
+  ChapterVersions,
+} from "../../../../../components/Chapters";
 import { toast } from "react-hot-toast";
 import { CreateBranchModal } from "../../../../../components/Modals/CreateBranchModal";
 import { MergeBranchModal } from "../../../../../components/Modals/MergeBranchModal";
@@ -22,11 +25,14 @@ export default function chapter() {
     updateChapterContent,
     createChapterBranch,
     getChapterBranches,
-    currentChapterBranches,
+    setCurrentChapterVersions,
+    getChapterVersions,
     setCurrentChapterBranches,
     updateChapterBranch,
-    setMainChapterContent,
+    createChapterVersion,
+    mergeBranchReplaceMain,
     mainChapterContent,
+    mergeBranchIntoMain,
   } = useDatabaseContext();
   const backButton = () => {
     console.log("back");
@@ -89,7 +95,87 @@ export default function chapter() {
     console.log(branch);
     setCurrentChapterContent(branch);
   };
-  const mergeBranch = async () => {};
+  const mergeBranch = async (position: string | null) => {
+    if (!position) return;
+    const projectId = router.query.project;
+    const chapterId = router.query.chapter;
+    const branchId = currentChapterContent.uid;
+    if (projectId && chapterId && currentChapterContent) {
+      await mergeBranchIntoMain(
+        projectId,
+        chapterId,
+        mainChapterContent.uid,
+        currentChapterContent,
+        position
+      )
+        .then(async () => {
+          setCurrentChapterContent(
+            await getChapterContent(projectId, chapterId)
+          );
+          setCurrentChapterVersions(
+            await getChapterVersions(projectId, chapterId)
+          );
+          setMergeOpened(false);
+          toast.success("Branch merged into main", {
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+        })
+        .catch((error: any) => {
+          console.log(error);
+          toast.error("Branch not merged into main", {
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+        });
+    }
+  };
+  const replaceMain = async () => {
+    const projectId = router.query.project;
+    const chapterId = router.query.chapter;
+    const branchId = currentChapterContent.uid;
+    console.log("replace");
+    if (projectId && chapterId && currentChapterContent) {
+      await mergeBranchReplaceMain(
+        projectId,
+        chapterId,
+        mainChapterContent.uid,
+        currentChapterContent
+      )
+        .then(async () => {
+          setCurrentChapterContent(
+            await getChapterContent(projectId, chapterId)
+          );
+          setCurrentChapterVersions(
+            await getChapterVersions(projectId, chapterId)
+          );
+          setMergeOpened(false);
+          toast.success("Branch merged into main", {
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+        })
+        .catch((error: any) => {
+          console.log(error);
+          toast.error("Branch not merged into main", {
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+        });
+    }
+  };
   const createBranch = async () => {
     const projectId = router.query.project;
     const chapterId = router.query.chapter;
@@ -117,6 +203,25 @@ export default function chapter() {
       }
     }
   };
+  const createVersion = async () => {
+    const projectId = router.query.project;
+    const chapterId = router.query.chapter;
+    const chapterContent = currentChapterContent;
+    if (projectId && chapterId && chapterContent) {
+      try {
+        await createChapterVersion(projectId, chapterId, chapterContent);
+        toast.success("Version created", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
   const getContent = async () => {
     console.log(router);
     const projectId = router.query.project;
@@ -126,6 +231,9 @@ export default function chapter() {
         setCurrentChapterContent(await getChapterContent(projectId, chapterId));
         setCurrentChapterBranches(
           await getChapterBranches(projectId, chapterId)
+        );
+        setCurrentChapterVersions(
+          await getChapterVersions(projectId, chapterId)
         );
         toast.success("Chapter content loaded", {
           style: {
@@ -165,21 +273,29 @@ export default function chapter() {
       <MergeBranchModal
         setMergeOpened={setMergeOpened}
         mergeOpened={mergeOpened}
+        replaceMain={replaceMain}
         mergeBranch={mergeBranch}
       />
       <Header header="Chapter" />
       <Sidebar>
         <EditorWrapper
           backToProject={backButton}
+          createVersion={createVersion}
           openBranchModal={() => setOpened(true)}
           save={save}
           chapter={currentChapter}
         >
           <Editor text={text} setText={setText} />
-          <ChapterBranches
-            openMergeModal={() => setMergeOpened(true)}
-            checkoutBranch={checkoutBranch}
-          />
+          <div>
+            <ChapterBranches
+              openMergeModal={() => setMergeOpened(true)}
+              checkoutBranch={checkoutBranch}
+            />
+            <ChapterVersions
+              openMergeModal={() => setMergeOpened(true)}
+              checkoutBranch={checkoutBranch}
+            />
+          </div>
         </EditorWrapper>
       </Sidebar>
     </div>

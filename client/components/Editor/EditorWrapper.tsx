@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect, useState } from "react";
 import { CgClose, CgChevronUpR, CgChevronDownR } from "react-icons/cg";
-import { VscSourceControl } from "react-icons/vsc";
+import { VscSourceControl, VscVersions } from "react-icons/vsc";
 import { AiFillSave } from "react-icons/ai";
 import { IChapter } from "../../interfaces/IChapter";
 import { useDatabaseContext } from "../../contexts/DatabaseContext";
@@ -12,7 +12,15 @@ export const EditorWrapper: FC<{
   chapter: IChapter;
   save: () => void;
   openBranchModal: () => void;
-}> = ({ children, backToProject, chapter, save, openBranchModal }) => {
+  createVersion: () => void;
+}> = ({
+  children,
+  backToProject,
+  chapter,
+  save,
+  openBranchModal,
+  createVersion,
+}) => {
   const [date, setDate] = useState("");
   const { currentChapterContent } = useDatabaseContext();
 
@@ -60,6 +68,14 @@ export const EditorWrapper: FC<{
         >
           <abbr title="Create Branch">
             <VscSourceControl size={18} color={"#d8b4fe"} />
+          </abbr>
+        </button>
+        <button
+          className="p-2 hover:bg-baseLighter rounded-sm"
+          onClick={createVersion}
+        >
+          <abbr title="Create Version">
+            <VscVersions size={18} color={"#d8b4fe"} />
           </abbr>
         </button>
         <button

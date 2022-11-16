@@ -31,8 +31,9 @@ export function DatabaseContextWrapper({ children }) {
   const [currentChapterContent, setCurrentChapterContent] = useState({});
   const [currentChapterBranch, setCurrentChapterBranch] = useState({});
   const [currentChapterBranches, setCurrentChapterBranches] = useState([]);
+  const [currentChapterVersions, setCurrentChapterVersions] = useState([]);
   const [mainChapterContent, setMainChapterContent] = useState({});
-  const [versions, setVersions] = useState([]);
+  // const [versions, setVersions] = useState([]);
   const { currentUser } = useAuthContext();
 
   async function addANewProjectToDatabase(owner) {
@@ -255,54 +256,95 @@ export function DatabaseContextWrapper({ children }) {
       return error;
     }
   }
-  async function createVersion(projectId, chapterId, content) {
+  async function createChapterVersion(projectId, chapterId, content) {
     const versionId = uuidv4();
     const docRef = doc(
       db,
       `projects/${projectId}/chapters/${chapterId}/versions/${versionId}`
     );
+    console.log("content", content);
     const data = {
       uid: versionId,
       chapterId: chapterId,
       projectId: projectId,
       content: content,
-      name: content.name || "New Version",
+      name: content.name || "Version",
       type: "version",
       createdAt: serverTimestamp(),
     };
     await setDoc(docRef, data, { merge: true })
       .then(async () => {
-        setVersions(await getChapterVersions(projectId, chapterId));
+        setCurrentChapterVersions(
+          await getChapterVersions(projectId, chapterId)
+        );
+        console.log("version created");
         return true;
       })
       .catch((error) => {
         console.log(error);
       });
   }
-  async function mergeBranchIntoMain(
+  async function mergeBranchReplaceMain(
     projectId,
     chapterId,
-    branchId,
+    mainChapterContentID,
+    // branchId,
     branchContent
   ) {
-    await createVersion(
+    console.log("branchContent", branchContent);
+    await createChapterVersion(
       projectId,
       chapterId,
       currentChapterContent.content
-    ).then(async () => {});
-    const docRef = doc(
-      db,
-      `projects/${projectId}/chapters/${chapterId}/content/`
-    );
-    await updateDoc(docRef, {
-      content: branchContent,
-      lastUpdated: serverTimestamp(),
-    }).then(async () => {
-      setMainChapterContent(await getChapterContent(projectId, chapterId));
-      return true;
+    ).then(async () => {
+      const docRef = doc(
+        db,
+        `projects/${projectId}/chapters/${chapterId}/content/${mainChapterContentID}`
+      );
+      await updateDoc(docRef, {
+        content: branchContent.content,
+        lastUpdated: serverTimestamp(),
+      }).then(async () => {
+        await getChapterContent(projectId, chapterId);
+        return true;
+      });
     });
   }
-
+  async function mergeBranchIntoMain(
+    projectId,
+    chapterId,
+    mainChapterContentID,
+    branchContent,
+    position
+  ) {
+    await createChapterVersion(
+      projectId,
+      chapterId,
+      currentChapterContent.content
+    ).then(async () => {
+      const docRef = doc(
+        db,
+        `projects/${projectId}/chapters/${chapterId}/content/${mainChapterContentID}`
+      );
+      if (position === "top") {
+        await updateDoc(docRef, {
+          content: branchContent.content + mainChapterContent.content,
+          lastUpdated: serverTimestamp(),
+        }).then(async () => {
+          await getChapterContent(projectId, chapterId);
+          return true;
+        });
+      } else if (position === "bottom") {
+        await updateDoc(docRef, {
+          content: mainChapterContent.content + branchContent.content,
+          lastUpdated: serverTimestamp(),
+        }).then(async () => {
+          await getChapterContent(projectId, chapterId);
+          return true;
+        });
+      }
+    });
+  }
   useEffect(() => {
     async function getUserProjects() {
       if (currentUser) {
@@ -344,10 +386,14 @@ export function DatabaseContextWrapper({ children }) {
     currentChapterBranches,
     setCurrentChapterBranches,
     updateChapterBranch,
-    createVersion,
+    createChapterVersion,
     getChapterVersions,
     mainChapterContent,
     setMainChapterContent,
+    currentChapterVersions,
+    setCurrentChapterVersions,
+    mergeBranchReplaceMain,
+    mergeBranchIntoMain,
   };
   return (
     <DatabaseContext.Provider value={sharedState}>
