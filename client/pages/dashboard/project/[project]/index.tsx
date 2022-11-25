@@ -42,9 +42,11 @@ export default function project() {
     router.push(`/dashboard/project/${projectId}/chapter/${chapterId}`);
   };
   const createNewChapter = async () => {
-    const newChapter = createChapter(currentProject.uid);
+    const newChapter = createChapter(currentProject.uid, currentUser.uid);
     if (newChapter) {
-      setProjectChapters(await getChaptersByProjectId(currentProject.uid));
+      setProjectChapters(
+        await getChaptersByProjectId(currentProject.uid, currentUser.uid)
+      );
       toast.success("Chapter created successfully", {
         style: {
           borderRadius: "10px",
@@ -101,9 +103,10 @@ export default function project() {
         setLoading(false);
       }
     }
-    async function getChapters(id: string) {
+    async function getChapters(id: string, userId: string = currentUser.uid) {
       try {
-        const chapters: [] = await getChaptersByProjectId(id);
+        const chapters: [] = await getChaptersByProjectId(id, userId);
+        console.log(currentUser.uid);
         setProjectChapters(chapters);
         console.log(chapters);
         setLoading(false);

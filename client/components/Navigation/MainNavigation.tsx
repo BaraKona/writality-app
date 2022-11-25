@@ -17,7 +17,7 @@ export default function Navbar() {
     }
   };
   return (
-    <nav className="container mx-auto flex space-x-4 justify-between px-4 border-solid border-b border-baseBorder">
+    <nav className="container mx-auto flex space-x-4 px-4 border-solid border-b border-baseBorder">
       <div className="cursor-pointer">
         <Link href="/">
           <div className="my-3 flex">
@@ -34,7 +34,7 @@ export default function Navbar() {
           </div>
         </Link>
       </div>
-      {showNavbar()}
+      <div className="ml-auto">{showNavbar()}</div>
     </nav>
   );
 }

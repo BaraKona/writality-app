@@ -4,7 +4,7 @@ import { VscSourceControl, VscVersions } from "react-icons/vsc";
 import { AiFillSave } from "react-icons/ai";
 import { IChapter } from "../../interfaces/IChapter";
 import { useDatabaseContext } from "../../contexts/DatabaseContext";
-import { convertDate } from "../scripts/convertDate";
+import { convertDate } from "../../scripts/convertDate";
 
 export const EditorWrapper: FC<{
   children: ReactNode;

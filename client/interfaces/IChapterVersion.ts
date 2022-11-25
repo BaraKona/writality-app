@@ -1,6 +1,7 @@
-export type IChapterContent = {
+export type IChapterVersion = {
   uid: string;
   title?: string;
+  name?: string;
   content: string;
   createdAt: Date;
   lastUpdated?: Date;

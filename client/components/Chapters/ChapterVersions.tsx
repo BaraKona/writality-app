@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useDatabaseContext } from "../../contexts/DatabaseContext";
-import { convertDate } from "../scripts/convertDate";
+import { convertDate } from "../../scripts/convertDate";
 import { VscRepoPull, VscRepo, VscInfo } from "react-icons/vsc";
 export const ChapterVersions: FC<{
   checkoutBranch: (branch: any) => void;
