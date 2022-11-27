@@ -1,14 +1,16 @@
-import Link from "next/link";
 import React, { FC, ReactNode, useEffect, useState } from "react";
-import { ProjectListItem, CategoryListItem } from "../ListItems";
-import Image from "next/image";
-import { cyclops8 } from "../../assets/icons";
+import {
+  ProjectListItem,
+  CategoryListItem,
+  CommunityListItem,
+} from "../ListItems";
 import DashboardNavigation from "./DashboardNavigation";
 import { useDatabaseContext } from "../../contexts/DatabaseContext";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { IProject } from "../../interfaces/Iproject";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
+import { FcConferenceCall, FcReading, FcRules } from "react-icons/fc";
 
 export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const { currentUser } = useAuthContext();
@@ -77,9 +79,18 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
         <div className=" py-2 px-3">
           <DashboardNavigation />
           <CategoryListItem name="Community">
-            <ProjectListItem name="Posts" />
-            <ProjectListItem name="Projects" />
-            <ProjectListItem name="Users" />
+            <CommunityListItem name="Posts">
+              <FcRules size={23} />
+            </CommunityListItem>
+            <CommunityListItem name="Stories">
+              <FcReading size={23} />
+            </CommunityListItem>
+            <CommunityListItem
+              name="Users"
+              onClick={() => router.push("/dashboard/users")}
+            >
+              <FcConferenceCall size={23} />
+            </CommunityListItem>
           </CategoryListItem>
           <hr className="my-5 border-baseBorder" />
           <CategoryListItem
