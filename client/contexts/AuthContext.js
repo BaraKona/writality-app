@@ -26,6 +26,7 @@ export function useAuthContext() {
 
 export function AuthContextWrapper({ children }) {
   const [currentUser, setCurrentUser] = useState();
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   function createAUserWithEmailAndPassword(email, password, name) {
@@ -55,18 +56,6 @@ export function AuthContextWrapper({ children }) {
         return false;
       });
   }
-  async function getSingleUserById(currentUser) {
-    const docRef = collection(db, "users");
-    console.log(docRef, currentUser.uid);
-    const queryData = query(docRef, where("uid", "==", currentUser.uid));
-    try {
-      const querySnapshot = await getDocs(queryData);
-      const data = querySnapshot.docs.map((doc) => doc.data());
-      return data[0];
-    } catch (error) {
-      console.log(error);
-    }
-  }
   function signInAUserWithEmailAndPassword(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
   }
@@ -74,7 +63,7 @@ export function AuthContextWrapper({ children }) {
     return auth.signOut();
   }
   async function getUsers() {
-    return await getAllUsers();
+    setUsers(await getAllUsers());
   }
   async function signInWithGoogle() {
     await signInWithPopup(auth, googleAuthProvider)
@@ -100,20 +89,20 @@ export function AuthContextWrapper({ children }) {
         return false;
       });
   }
-  useEffect(() => {
-    let unsubscribe = null;
-    async function fetchUser() {
-      unsubscribe = await auth.onAuthStateChanged(async (user) => {
-        console.log(user);
-        if (user) setCurrentUser(await getSingleUserById(user));
-        console.log(currentUser);
-        setLoading(false);
-      });
-    }
-    fetchUser();
-    unsubscribe;
-    // return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   let unsubscribe = null;
+  //   async function fetchUser() {
+  //     unsubscribe = await auth.onAuthStateChanged(async (user) => {
+  //       console.log(user);
+  //       if (user) setCurrentUser(await getSingleUserById(user));
+  //       console.log(currentUser);
+  //       setLoading(false);
+  //     });
+  //   }
+  //   fetchUser();
+  //   unsubscribe;
+  //   // return unsubscribe;
+  // }, []);
 
   const sharedState = {
     createAUserWithEmailAndPassword,
@@ -122,6 +111,8 @@ export function AuthContextWrapper({ children }) {
     signOutCurrentUser,
     signInWithGoogle,
     getUsers,
+    users,
+    setCurrentUser,
   };
   return (
     <AuthContext.Provider value={sharedState}>{children}</AuthContext.Provider>

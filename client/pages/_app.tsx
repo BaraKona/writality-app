@@ -4,6 +4,7 @@ import { AuthContextWrapper } from "../contexts/AuthContext";
 import { DatabaseContextWrapper } from "../contexts/DatabaseContext";
 import { Toaster } from "react-hot-toast";
 import { MantineProvider } from "@mantine/core";
+import { ComponentLoader } from "../components/ComponentLoader";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -13,11 +14,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           withGlobalStyles
           withNormalizeCSS
           theme={{
-            /** Put your mantine theme override here */
             colorScheme: "dark",
+            loader: "bars",
           }}
         >
-          <Component {...pageProps} />
+          <ComponentLoader>
+            <Component {...pageProps} />
+          </ComponentLoader>
         </MantineProvider>
         <Toaster position="top-right" />
       </DatabaseContextWrapper>

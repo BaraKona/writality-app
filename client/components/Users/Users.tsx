@@ -3,9 +3,10 @@ import { FcBusinesswoman } from "react-icons/fc";
 import Image from "next/image";
 
 export const Users: FC<{ users: any }> = ({ users }) => {
+  if (!users) return null;
   return (
     <div className="flex flex-wrap gap-4 px-4 py-2 justify-item-start">
-      {users?.map((user: any) => {
+      {users?.flatMap((user: any) => {
         return (
           <div className="px-3 py-3 flex-grow min-w-[250px] max-w-[250px] shadow-md hover:shadow-lg cursor-pointer rounded-md border border-baseLight ">
             <div className="flex justify-center align-middle h-16">

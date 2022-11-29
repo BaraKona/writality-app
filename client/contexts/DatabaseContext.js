@@ -5,6 +5,9 @@ import {
   getUserProjects,
   updateUserProjectTitle,
   getSingleProjectById,
+  addNewCollaborativeProject,
+  getUserCollaborativeProjects,
+  getSingleCollaborativeProjectById,
 } from "./database/Projects";
 import {
   getUserChaptersByProjectId,
@@ -21,6 +24,7 @@ import {
   mergeBranchAndReplaceMain,
   mergeBranchOntoMain,
 } from "./database/Merge";
+import { useToast } from "../hooks/useToast";
 const DatabaseContext = createContext();
 
 export function useDatabaseContext() {
@@ -29,6 +33,9 @@ export function useDatabaseContext() {
 
 export function DatabaseContextWrapper({ children }) {
   const [userProjects, setUserProjects] = useState([]);
+  const [userCollaborativeProjects, setUserCollaborativeProjects] = useState(
+    []
+  );
   const [projectChapters, setProjectChapters] = useState([]);
   const [currentProject, setCurrentProject] = useState(null);
   const [currentChapter, setCurrentChapter] = useState(null);
@@ -40,10 +47,41 @@ export function DatabaseContextWrapper({ children }) {
   const { currentUser } = useAuthContext();
 
   async function addANewProjectToDatabase(owner) {
-    return await addNewProjectToDatabase(owner);
+    await addNewProjectToDatabase(owner).then(() => {
+      getUserProjects(currentUser.uid)
+        .then((projects) => {
+          setUserProjects(projects);
+          useToast("success", "Project created successfully");
+        })
+        .catch((error) => {
+          useToast("error", "Ooops... something has gone wrong!");
+        });
+    });
   }
   async function getAllUserProjects(owner) {
-    return await getUserProjects(owner);
+    await getUserProjects(owner).then((projects) => {
+      setUserProjects(projects);
+    });
+  }
+  async function addANewCollaborativeProject(owner) {
+    return await addNewCollaborativeProject(owner).then(() => {
+      getUserCollaborativeProjects(currentUser.uid)
+        .then((projects) => {
+          setUserCollaborativeProjects(projects);
+          useToast("success", "Project created successfully");
+        })
+        .catch((error) => {
+          useToast("error", "Ooops... something has gone wrong!");
+        });
+    });
+  }
+  async function getAllUserCollaborativeProjects(owner) {
+    await getUserCollaborativeProjects(owner).then((projects) => {
+      setUserCollaborativeProjects(projects);
+    });
+  }
+  async function getCollaborativeProjectById(id, userId) {
+    return await getSingleCollaborativeProjectById(id, userId);
   }
   async function updateProjectTitle(id, title) {
     return await updateUserProjectTitle(id, title);
@@ -145,20 +183,21 @@ export function DatabaseContextWrapper({ children }) {
       currentChapterContent.content
     );
   }
-  useEffect(() => {
-    async function getUserProjects() {
-      if (currentUser) {
-        try {
-          const fetchedProjects = await getAllUserProjects(currentUser.uid);
-          setUserProjects(fetchedProjects);
-          console.log("fetched", fetchedProjects);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    }
-    getUserProjects();
-  }, [currentUser]);
+  // useEffect(() => {
+  // async function getUserProjects() {
+  //   if (currentUser) {
+  //     console.log();
+  //     try {
+  //       const fetchedProjects = await getAllUserProjects(currentUser.uid);
+  //       setUserProjects(fetchedProjects);
+  //       console.log("fetched", fetchedProjects);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // }
+  // getUserProjects();
+  // }, []);
   const sharedState = {
     addANewProjectToDatabase,
     getAllUserProjects,
@@ -193,6 +232,11 @@ export function DatabaseContextWrapper({ children }) {
     setCurrentChapterVersions,
     mergeBranchReplaceMain,
     mergeBranchIntoMain,
+    addANewCollaborativeProject,
+    getAllUserCollaborativeProjects,
+    userCollaborativeProjects,
+    setUserCollaborativeProjects,
+    getCollaborativeProjectById,
   };
   return (
     <DatabaseContext.Provider value={sharedState}>

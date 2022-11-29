@@ -10,7 +10,10 @@ export const ProjectListItem: FC<{
 }> = ({ name, onClick, projectId }) => {
   const router = useRouter();
   const changeFolder = () => {
-    if (projectId === router?.query.project) {
+    if (
+      projectId === router?.query.project ||
+      projectId === router?.query.collaboration
+    ) {
       return <AiFillFolderOpen size={20} color={"#b8a285"} />;
     } else {
       return <AiFillFolder size={20} color={"#a8a29e"} />;

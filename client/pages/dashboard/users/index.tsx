@@ -5,16 +5,9 @@ import { UserWrapper, Users } from "../../../components/Users";
 import { useAuthContext } from "../../../contexts/AuthContext";
 
 const Dashboard: NextPage = () => {
-  const { getUsers, currentUser } = useAuthContext();
-  const [users, setUsers] = useState([]);
+  const { getUsers, currentUser, users } = useAuthContext();
+  const fetchUsers = getUsers();
 
-  useEffect(() => {
-    const getAllUsers = async () => {
-      const users = await getUsers();
-      setUsers(users);
-    };
-    getAllUsers();
-  }, []);
   return (
     <div className="h-screen">
       <Header header="Users" />

@@ -2,7 +2,7 @@ import React from "react";
 import type { NextPage } from "next";
 import { Header, Sidebar } from "../../components/Navigation";
 
-const Dashboard: NextPage = () => {
+const User: NextPage = () => {
   return (
     <div className="h-screen">
       <Header header="Dashboard" />
@@ -13,4 +13,4 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export default Dashboard;
+export default User;

@@ -9,71 +9,50 @@ import { useDatabaseContext } from "../../contexts/DatabaseContext";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { IProject } from "../../interfaces/Iproject";
 import { useRouter } from "next/router";
-import toast from "react-hot-toast";
 import { FcConferenceCall, FcReading, FcRules } from "react-icons/fc";
+import { useToast } from "../../hooks/useToast";
 
 export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const { currentUser } = useAuthContext();
   const router = useRouter();
   const {
-    addANewProjectToDatabase,
     userProjects,
     getAllUserProjects,
-    setUserProjects,
+    userCollaborativeProjects,
     currentProject,
+    getAllUserCollaborativeProjects,
+    addANewProjectToDatabase,
+    addANewCollaborativeProject,
   } = useDatabaseContext();
   const openProject = (id: string) => {
     router.push(`/dashboard/project/${id}`);
   };
+  const openCollaboration = (id: string) => {
+    router.push(`/dashboard/collaboration/${id}`);
+  };
   const addProject = async () => {
-    if (userProjects?.length <= 2) {
-      const isCreated = addANewProjectToDatabase(currentUser.uid);
-      if (isCreated) {
-        setUserProjects(await getAllUserProjects(currentUser.uid));
-        toast.success("Project created successfully", {
-          style: {
-            borderRadius: "10px",
-            background: "#333350",
-            color: "#fff",
-          },
-        });
-      } else {
-        toast.error("Project creation failed", {
-          style: {
-            borderRadius: "10px",
-            background: "#333350",
-            color: "#fff",
-          },
-        });
-      }
+    if (userProjects.length <= 2) {
+      await addANewProjectToDatabase(currentUser.uid);
     } else {
-      toast.error(
-        "You can only have 3 projects, don't stretch yourself too thin ! 😄",
-        {
-          style: {
-            borderRadius: "10px",
-            background: "#333350",
-            color: "#fff",
-          },
-        }
+      useToast(
+        "error",
+        "You can only have 3 projects, don't stretch yourself too thin ! 😄"
       );
     }
   };
+  const addCollaborativeProject = async () => {
+    await addANewCollaborativeProject(currentUser.uid);
+  };
   useEffect(() => {
     if (currentUser) {
-      getAllUserProjects(currentUser.uid)
-        .then((fetchedProjects: IProject) => {
-          setUserProjects(fetchedProjects);
-        })
-        .catch((error: Event) => {
-          console.log(error);
-        });
+      getAllUserProjects(currentUser.uid);
+      getAllUserCollaborativeProjects(currentUser.uid);
     }
   }, [currentUser, currentProject]);
   return (
     <div className="h-full flex ">
       <aside
-        className="w-60 h-full overflow-y-auto border-r bg-baseMid border-baseBorder"
+        className="max-w-[225px] h-full overflow-y-auto border-r bg-baseMid border-baseBorder"
         aria-label="Sidebar"
       >
         <div className=" py-2 px-3">
@@ -100,7 +79,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
           >
             <>
               {userProjects
-                ? userProjects.flatMap(
+                ? userProjects.map(
                     (
                       project: IProject,
                       index: React.Key | null | undefined
@@ -119,12 +98,36 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
             </>
           </CategoryListItem>
           <hr className="my-5 border-baseBorder" />
-          <CategoryListItem name="Collaborative Projects" button={true} />
+          <CategoryListItem
+            name="Collaborative Projects"
+            button={true}
+            onClick={addCollaborativeProject}
+          >
+            <>
+              {userCollaborativeProjects
+                ? userCollaborativeProjects.flatMap(
+                    (
+                      project: IProject,
+                      index: React.Key | null | undefined
+                    ) => {
+                      return (
+                        <ProjectListItem
+                          key={index}
+                          onClick={() => openCollaboration(project.uid)}
+                          name={project.projectTitle}
+                          projectId={project.uid}
+                        />
+                      );
+                    }
+                  )
+                : ""}
+            </>
+          </CategoryListItem>
           <hr className="my-5 border-baseBorder" />
           <CategoryListItem name="Chats" button={true} />
           <div
             id="dropdown-cta"
-            className="p-4 mt-6 bg-blue-50  rounded-lg "
+            className="p-4 mt-6 bg-blue-50  rounded-lg"
             role="alert"
           >
             <div className="flex items-center mb-3">
@@ -154,15 +157,12 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
               </button>
             </div>
             <p className="mb-3 text-sm text-blue-900 ">
-              Preview the new Flowbite dashboard navigation! You can turn the
-              new navigation off for a limited time in your profile.
+              This is a collaborative writing platform. You can invite other
+              users to collaborate with you on your story. You can also invite
+              them to collaborate on other stories. <br /> <br />
+              You can add collaborators to your story by clicking on the
+              "Collaborators" button in the toolbar.
             </p>
-            <a
-              className="text-sm text-blue-900 underline hover:text-blue-800"
-              href="#"
-            >
-              Turn new navigation off
-            </a>
           </div>
         </div>
       </aside>

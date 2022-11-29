@@ -13,6 +13,7 @@ import { useAuthContext } from "../../../../contexts/AuthContext";
 import { IChapter } from "../../../../interfaces/IChapter";
 import { toast } from "react-hot-toast";
 import { CharacterWrapper } from "../../../../components/Characters/CharacterWrapper";
+import { Loading } from "../../../../components/Loading";
 
 export default function project() {
   const router = useRouter();
@@ -117,14 +118,18 @@ export default function project() {
     }
     getProject();
   }, [router, currentUser]);
+  21;
+  useEffect(() => {
+    setTitle(
+      currentProject?.projectTitle ? currentProject.projectTitle : "New Project"
+    );
+  }, [currentProject]);
 
   return (
     <div className="h-screen">
       <Header header="Project" />
       <Sidebar>
-        {loading ? (
-          <div>loading</div>
-        ) : (
+        <Loading isLoading={loading}>
           <BaseProjectView
             setIsForm={setIsForm}
             setTitle={setTitle}
@@ -156,7 +161,7 @@ export default function project() {
             )}
             {/* <Editor /> */}
           </BaseProjectView>
-        )}
+        </Loading>
       </Sidebar>
     </div>
   );

@@ -19,3 +19,15 @@ export async function getAllUsers() {
   const data = querySnapshot.docs.map((doc) => doc.data());
   return data;
 }
+export async function getSingleUserById(id: string) {
+  const docRef = collection(db, "users");
+  console.log(docRef, id);
+  const queryData = query(docRef, where("uid", "==", id));
+  try {
+    const querySnapshot = await getDocs(queryData);
+    const data = querySnapshot.docs.map((doc) => doc.data());
+    return data[0];
+  } catch (error) {
+    console.log(error);
+  }
+}
