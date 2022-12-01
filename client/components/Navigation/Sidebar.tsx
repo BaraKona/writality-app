@@ -23,6 +23,8 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
     getAllUserCollaborativeProjects,
     addANewProjectToDatabase,
     addANewCollaborativeProject,
+    getAllUserCollaborations,
+    userCollaborations,
   } = useDatabaseContext();
   const openProject = (id: string) => {
     router.push(`/dashboard/project/${id}`);
@@ -47,6 +49,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
     if (currentUser) {
       getAllUserProjects(currentUser.uid);
       getAllUserCollaborativeProjects(currentUser.uid);
+      getAllUserCollaborations(currentUser.uid);
     }
   }, [currentUser, currentProject]);
   return (
@@ -106,6 +109,25 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
             <>
               {userCollaborativeProjects
                 ? userCollaborativeProjects.flatMap(
+                    (
+                      project: IProject,
+                      index: React.Key | null | undefined
+                    ) => {
+                      return (
+                        <ProjectListItem
+                          key={index}
+                          onClick={() => openCollaboration(project.uid)}
+                          name={project.projectTitle}
+                          projectId={project.uid}
+                        />
+                      );
+                    }
+                  )
+                : ""}
+            </>
+            <>
+              {userCollaborations
+                ? userCollaborations.flatMap(
                     (
                       project: IProject,
                       index: React.Key | null | undefined

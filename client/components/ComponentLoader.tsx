@@ -12,7 +12,11 @@ export const ComponentLoader: FC<{ children: ReactNode }> = ({ children }) => {
     let unsubscribe = null;
     async function fetchUser() {
       unsubscribe = await auth.onAuthStateChanged(async (user: any) => {
-        setCurrentUser(await getSingleUserById(user.uid));
+        if (user) {
+          setCurrentUser(await getSingleUserById(user.uid));
+        } else {
+          setCurrentUser(undefined);
+        }
         await getUsers();
         setLoading(false);
       });

@@ -2,10 +2,11 @@ import { FC } from "react";
 export const CollaboratorsList: FC<{ collaborators: any }> = ({
   collaborators,
 }) => {
+  console.log(collaborators);
   const collaboratorsExist = () => {
     if (collaborators) {
       return collaborators.map((collaborator: any) => {
-        return <p>{collaborator.email}</p>;
+        return <p>{collaborator.collaborator}</p>;
       });
     } else {
       return <div>No collaborators</div>;

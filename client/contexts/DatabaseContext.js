@@ -8,6 +8,9 @@ import {
   addNewCollaborativeProject,
   getUserCollaborativeProjects,
   getSingleCollaborativeProjectById,
+  addCollaborativeProjectCollaborator,
+  getUserCollaborations,
+  getSingleCollaborativeProjectByIdForCollaborator,
 } from "./database/Projects";
 import {
   getUserChaptersByProjectId,
@@ -43,6 +46,7 @@ export function DatabaseContextWrapper({ children }) {
   const [currentChapterBranch, setCurrentChapterBranch] = useState({});
   const [currentChapterBranches, setCurrentChapterBranches] = useState([]);
   const [currentChapterVersions, setCurrentChapterVersions] = useState([]);
+  const [userCollaborations, setUserCollaborations] = useState([]);
   const [mainChapterContent, setMainChapterContent] = useState({});
   const { currentUser } = useAuthContext();
 
@@ -80,8 +84,39 @@ export function DatabaseContextWrapper({ children }) {
       setUserCollaborativeProjects(projects);
     });
   }
+  async function getAllUserCollaborations(owner) {
+    await getUserCollaborations(owner).then((projects) => {
+      setUserCollaborations(projects);
+    });
+  }
+  async function addACollaborativeProjectCollaborator(
+    projectId,
+    collaboratorId
+  ) {
+    await addCollaborativeProjectCollaborator(projectId, collaboratorId)
+      .then(() => {
+        getAllUserCollaborativeProjects(currentUser.uid);
+        useToast("success", "Collaborator added successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+        useToast(
+          "error",
+          "Ooops... something has gone wrong! Collaborator not added 😞"
+        );
+      });
+  }
   async function getCollaborativeProjectById(id, userId) {
     return await getSingleCollaborativeProjectById(id, userId);
+  }
+  async function getASingleCollaborativeProjectByIdForCollaborator(
+    projectId,
+    userId
+  ) {
+    return await getSingleCollaborativeProjectByIdForCollaborator(
+      projectId,
+      userId
+    );
   }
   async function updateProjectTitle(id, title) {
     return await updateUserProjectTitle(id, title);
@@ -237,6 +272,10 @@ export function DatabaseContextWrapper({ children }) {
     userCollaborativeProjects,
     setUserCollaborativeProjects,
     getCollaborativeProjectById,
+    addACollaborativeProjectCollaborator,
+    getAllUserCollaborations,
+    userCollaborations,
+    getASingleCollaborativeProjectByIdForCollaborator,
   };
   return (
     <DatabaseContext.Provider value={sharedState}>

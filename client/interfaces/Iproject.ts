@@ -3,4 +3,6 @@ export type IProject = {
   projectTitle: string;
   createdAt?: Date;
   owner: string;
+  projectOwner: string;
+  collaborators?: string[];
 };
