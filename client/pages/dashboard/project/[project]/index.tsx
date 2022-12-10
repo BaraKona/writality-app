@@ -42,29 +42,6 @@ export default function project() {
     setCurrentChapter(chapter);
     router.push(`/dashboard/project/${projectId}/chapter/${chapterId}`);
   };
-  const createNewChapter = async () => {
-    const newChapter = createChapter(currentProject.uid, currentUser.uid);
-    if (newChapter) {
-      setProjectChapters(
-        await getChaptersByProjectId(currentProject.uid, currentUser.uid)
-      );
-      toast.success("Chapter created successfully", {
-        style: {
-          borderRadius: "10px",
-          background: "#333350",
-          color: "#fff",
-        },
-      });
-    } else {
-      toast.error("Chapter creation failed", {
-        style: {
-          borderRadius: "10px",
-          background: "#333350",
-          color: "#fff",
-        },
-      });
-    }
-  };
   const changeTitle = async (e: any) => {
     e.preventDefault();
     try {
@@ -77,53 +54,33 @@ export default function project() {
         },
       });
       setIsForm(false);
-      const doc = await getProjectById(router.query.project, currentUser.uid);
-      setCurrentProject(doc);
+      await getProjectById(router.query.project, currentUser.uid);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
+    console.log(projectChapters);
     async function getProject() {
-      if (!currentProject || currentProject.uid !== router?.query.project) {
-        try {
-          const doc = await getProjectById(
-            router.query.project,
-            currentUser.uid
-          );
-          setCurrentProject(doc);
-          setTitle(doc.projectTitle);
-          setError(false);
-          console.log("doc", doc);
-          await getChapters(doc.uid);
-        } catch (error: any) {
-          console.log(error);
-          setError(error.message);
-        }
-      } else {
+      await getProjectById(router.query.project, currentUser.uid).then(() => {
         setLoading(false);
-      }
+      });
     }
-    async function getChapters(id: string, userId: string = currentUser.uid) {
-      try {
-        const chapters: [] = await getChaptersByProjectId(id, userId);
-        console.log(currentUser.uid);
-        setProjectChapters(chapters);
-        console.log(chapters);
-        setLoading(false);
-      } catch (error) {
-        setError(true);
-        console.log(error);
-      }
+    if (!currentProject) {
+      getProject();
     }
-    getProject();
-  }, [router, currentUser]);
-  21;
+  }, [router.query.project, currentUser]);
+
   useEffect(() => {
+    const chapters = async () => {
+      await getChaptersByProjectId(router.query.project, currentUser.uid);
+      setLoading(false);
+    };
     setTitle(
       currentProject?.projectTitle ? currentProject.projectTitle : "New Project"
     );
-  }, [currentProject]);
+    if (currentProject) chapters();
+  }, [currentProject, router.query.project]);
 
   return (
     <div className="h-screen">
@@ -139,13 +96,19 @@ export default function project() {
             project={currentProject}
           >
             {projectChapters?.length == 0 ? (
-              <NoChapters createNewChapter={createNewChapter} />
+              <NoChapters
+                createNewChapter={() =>
+                  createChapter(router.query.project, currentUser.uid)
+                }
+              />
             ) : (
               <ChapterWrapper
-                createNewChapter={createNewChapter}
-                chapterCount={projectChapters.length}
+                createNewChapter={() =>
+                  createChapter(router.query.project, currentUser.uid)
+                }
+                chapterCount={projectChapters?.length}
               >
-                <div className="flex-grow overflow-y-auto h-[780px]">
+                <div className="flex-grow overflow-y-auto h-[calc(100vh-140px)]">
                   {projectChapters?.map((chapter: IChapter, index: number) => (
                     <Chapter
                       openChapter={() =>
@@ -159,7 +122,6 @@ export default function project() {
                 <CharacterWrapper> - Protagonist </CharacterWrapper>
               </ChapterWrapper>
             )}
-            {/* <Editor /> */}
           </BaseProjectView>
         </Loading>
       </Sidebar>

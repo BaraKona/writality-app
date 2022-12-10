@@ -29,12 +29,33 @@ export async function getUserChaptersByProjectId(
   try {
     const querySnapshot = await getDocs(queryData);
     const data = querySnapshot.docs.map((doc) => doc.data());
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function getCollaborativeChaptersByProjectId(
+  collaborationId: string
+) {
+  const docRef = collection(
+    db,
+    "collaboration/" + collaborationId + "/chapters"
+  );
+  const queryData = query(
+    docRef,
+    where("collaborationId", "==", collaborationId)
+    // orderBy("chapterNumber", "asc")
+  );
+  try {
+    const querySnapshot = await getDocs(queryData);
+    const data = querySnapshot.docs.map((doc) => doc.data());
     console.log(data);
     return data;
   } catch (error) {
     console.log(error);
   }
 }
+
 export async function createSingleUserChapter(
   projectId: string,
   userId: string
@@ -58,6 +79,32 @@ export async function createSingleUserChapter(
       console.log(error);
     });
 }
+export async function createSingleCollaborativeChapter(
+  collaborationId: string,
+  userId: string
+) {
+  const docId = uuidv4();
+  const newChapter = doc(
+    db,
+    `collaboration/${collaborationId}/chapters/${docId}`
+  );
+  const data = {
+    uid: docId,
+    // chapterNumber: count + 1,
+    collaborationId: collaborationId,
+    chapterTitle: "New Coll Chapter",
+    chapterCreator: userId,
+    createdAt: serverTimestamp(),
+  };
+  await setDoc(newChapter, data, { merge: true })
+    .then(() => {
+      createCollaborationChapterContent(docId, collaborationId);
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 async function createSingleChapterContent(
   chapterId: string,
   projectId: string
@@ -71,6 +118,32 @@ async function createSingleChapterContent(
     uid: contentId,
     chapterId,
     projectId,
+    createdAt: serverTimestamp(),
+    content: "",
+    type: "main",
+  };
+  await setDoc(docRef, data, { merge: true })
+    .then(() => {
+      return;
+    })
+    .catch((error) => {
+      console.log(error);
+      return error;
+    });
+}
+async function createCollaborationChapterContent(
+  chapterId: string,
+  collaborationId: string
+) {
+  const contentId = uuidv4();
+  const docRef = doc(
+    db,
+    `collaborations/${collaborationId}/chapters/${chapterId}/content/${contentId}`
+  );
+  const data = {
+    uid: contentId,
+    chapterId,
+    collaborationId,
     createdAt: serverTimestamp(),
     content: "",
     type: "main",

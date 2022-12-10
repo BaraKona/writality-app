@@ -39,7 +39,7 @@ export const BaseProjectView: FC<{
         </form>
         {/* <h2>{error}</h2> */}
       </div>
-      <div className="h-fill">{children}</div>
+      <div>{children}</div>
     </div>
   );
 };

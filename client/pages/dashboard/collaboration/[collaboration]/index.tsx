@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { Header, Sidebar } from "../../../../components/Navigation";
-import { NoChapters } from "../../../../components/Chapters";
+import {
+  Chapter,
+  ChapterWrapper,
+  NoChapters,
+} from "../../../../components/Chapters";
 import {
   InviteUserDrawer,
   InviteUserModal,
@@ -18,16 +22,22 @@ import { Button } from "@mantine/core";
 import { CollaboratorsList } from "../../../../components/Project/CollaboratorsList";
 import { IconAffiliate } from "@tabler/icons";
 import { IProject } from "../../../../interfaces/Iproject";
+import { CharacterWrapper } from "../../../../components/Characters/CharacterWrapper";
+import { IChapter } from "../../../../interfaces/IChapter";
 const Collaboration: NextPage = () => {
   const {
     getCollaborativeProjectById,
     addACollaborativeProjectCollaborator,
-    currentProject,
+    projectChapters,
     getASingleCollaborativeProjectByIdForCollaborator,
+    getAllCollabChaptersByProjectId,
+    createCollabChapter,
+    collaboration,
+    setCollaboration,
   } = useDatabaseContext();
   const [opened, setOpened] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [collaboration, setCollaboration] = useState({} as IProject);
+  const [loading, setLoading] = useState(true);
 
   const { currentUser, users } = useAuthContext();
   const router = useRouter();
@@ -36,10 +46,6 @@ const Collaboration: NextPage = () => {
     e.preventDefault();
     setIsForm(false);
   };
-  // const collaboration = getCollaborativeProjectById(
-  //   router.query.collaboration,
-  //   currentUser.uid
-  // );
   const [title, setTitle] = useState(
     collaboration?.projectTitle
       ? collaboration.projectTitle
@@ -57,15 +63,28 @@ const Collaboration: NextPage = () => {
         router.query.collaboration,
         currentUser.uid
       );
-      setCollaboration(collaboration);
+      if (!collaboration) {
+        await getASingleCollaborativeProjectByIdForCollaborator(
+          router.query.collaboration,
+          currentUser.uid
+        );
+      }
     };
     getCollaboration();
-  }, []);
+  }, [router.query.collaboration]);
+  useEffect(() => {
+    const getChapters = async () => {
+      console.log(router.query.collaboration);
+      await getAllCollabChaptersByProjectId(router.query.collaboration);
+      setLoading(false);
+    };
+    getChapters();
+  }, [collaboration, router.query.collaboration]);
   return (
     <div className="h-screen">
       <Header header="Collaboration" />
       <Sidebar>
-        <Loading isLoading={collaboration ? false : true}>
+        <Loading isLoading={loading}>
           <BaseProjectView
             setIsForm={setIsForm}
             setTitle={setTitle}
@@ -94,9 +113,37 @@ const Collaboration: NextPage = () => {
               users={users}
               addProjectCollaborator={addProjectCollaborator}
             />
-            <NoChapters createNewChapter={() => {}} />
-            {/* {loading ? <Loading /> :  */}
+            {projectChapters?.length == 0 ? (
+              <NoChapters
+                createNewChapter={() =>
+                  createCollabChapter(router.query.collaboration)
+                }
+              />
+            ) : (
+              <ChapterWrapper
+                createNewChapter={() =>
+                  createCollabChapter(router.query.collaboration)
+                }
+                chapterCount={projectChapters.length}
+              >
+                <div className="flex-grow overflow-y-auto h-[calc(100vh-190px)]">
+                  {projectChapters?.map((chapter: IChapter, index: number) => (
+                    <Chapter
+                      openChapter={() => console.log("open chapter")}
+                      key={index}
+                      chapter={chapter}
+                    />
+                  ))}
+                </div>
+                <CharacterWrapper> - Protagonist </CharacterWrapper>
+              </ChapterWrapper>
+            )}
           </BaseProjectView>
+          {/* <NoChapters
+              createNewChapter={() =>
+                createCollabChapter(router.query.collaboration)
+              }
+            /> */}
         </Loading>
       </Sidebar>
     </div>

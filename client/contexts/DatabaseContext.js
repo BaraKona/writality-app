@@ -22,6 +22,8 @@ import {
   updateSingleChapterBranch,
   getAllChapterVersions,
   createSingleChapterVersion,
+  createSingleCollaborativeChapter,
+  getCollaborativeChaptersByProjectId,
 } from "./database/Chapters";
 import {
   mergeBranchAndReplaceMain,
@@ -47,6 +49,7 @@ export function DatabaseContextWrapper({ children }) {
   const [currentChapterBranches, setCurrentChapterBranches] = useState([]);
   const [currentChapterVersions, setCurrentChapterVersions] = useState([]);
   const [userCollaborations, setUserCollaborations] = useState([]);
+  const [collaboration, setCollaboration] = useState({});
   const [mainChapterContent, setMainChapterContent] = useState({});
   const { currentUser } = useAuthContext();
 
@@ -60,6 +63,11 @@ export function DatabaseContextWrapper({ children }) {
         .catch((error) => {
           useToast("error", "Ooops... something has gone wrong!");
         });
+    });
+  }
+  async function getAllCollabChaptersByProjectId(id) {
+    await getCollaborativeChaptersByProjectId(id).then((chapters) => {
+      setProjectChapters(chapters);
     });
   }
   async function getAllUserProjects(owner) {
@@ -77,6 +85,15 @@ export function DatabaseContextWrapper({ children }) {
         .catch((error) => {
           useToast("error", "Ooops... something has gone wrong!");
         });
+    });
+  }
+  async function createCollabChapter(projectId) {
+    return await createSingleCollaborativeChapter(
+      projectId,
+      currentUser.uid
+    ).then(() => {
+      getAllCollabChaptersByProjectId(projectId);
+      useToast("success", "Chapter created successfully");
     });
   }
   async function getAllUserCollaborativeProjects(owner) {
@@ -107,28 +124,44 @@ export function DatabaseContextWrapper({ children }) {
       });
   }
   async function getCollaborativeProjectById(id, userId) {
-    return await getSingleCollaborativeProjectById(id, userId);
+    await getSingleCollaborativeProjectById(id, userId).then((project) => {
+      if (project) {
+        setCollaboration(project);
+      }
+    });
   }
   async function getASingleCollaborativeProjectByIdForCollaborator(
     projectId,
     userId
   ) {
-    return await getSingleCollaborativeProjectByIdForCollaborator(
+    await getSingleCollaborativeProjectByIdForCollaborator(
       projectId,
       userId
-    );
+    ).then((project) => {
+      if (project) {
+        setCollaboration(project);
+      }
+    });
   }
   async function updateProjectTitle(id, title) {
     return await updateUserProjectTitle(id, title);
   }
   async function getProjectById(id, userId) {
-    return await getSingleProjectById(id, userId);
+    await getSingleProjectById(id, userId).then(async (project) => {
+      getChaptersByProjectId(id, userId);
+      setCurrentProject(project);
+    });
   }
   async function createChapter(projectId, userId) {
-    return await createSingleUserChapter(projectId, userId);
+    await createSingleUserChapter(projectId, userId).then(() => {
+      getChaptersByProjectId(projectId, userId);
+      useToast("success", "Chapter added successfully");
+    });
   }
   async function getChaptersByProjectId(projectId, userId) {
-    return await getUserChaptersByProjectId(projectId, userId);
+    await getUserChaptersByProjectId(projectId, userId).then((chapters) => {
+      setProjectChapters(chapters);
+    });
   }
   async function updateChapterContent(
     projectId,
@@ -276,6 +309,10 @@ export function DatabaseContextWrapper({ children }) {
     getAllUserCollaborations,
     userCollaborations,
     getASingleCollaborativeProjectByIdForCollaborator,
+    getAllCollabChaptersByProjectId,
+    createCollabChapter,
+    collaboration,
+    setCollaboration,
   };
   return (
     <DatabaseContext.Provider value={sharedState}>
