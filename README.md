@@ -17,7 +17,7 @@ To get started using the Collaborative Writing Platform, follow these steps:
 
 1. Clone this repository to your local machine
 ```
-git clone https://github.com/your-username/collaborative-writing-platform.git
+git clone https://github.com/BaraKona/Writality
 ```
 2. Install the dependencies
 ```
