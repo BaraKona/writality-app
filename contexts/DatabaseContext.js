@@ -61,7 +61,7 @@ export function DatabaseContextWrapper({ children }) {
           useToast("success", "Project created successfully");
         })
         .catch((error) => {
-          useToast("error", "Ooops... something has gone wrong!");
+          useToast("error", "Oops... something has gone wrong!");
         });
     });
   }
@@ -83,7 +83,7 @@ export function DatabaseContextWrapper({ children }) {
           useToast("success", "Project created successfully");
         })
         .catch((error) => {
-          useToast("error", "Ooops... something has gone wrong!");
+          useToast("error", "Oops... something has gone wrong!");
         });
     });
   }
@@ -169,12 +169,15 @@ export function DatabaseContextWrapper({ children }) {
     contentId,
     content
   ) {
-    return await updateUserChapterContent(
-      projectId,
-      chapterId,
-      contentId,
-      content
-    );
+    await updateUserChapterContent(projectId, chapterId, contentId, content)
+      .then(async () => {
+        setCurrentChapterContent(await getChapterContent(projectId, chapterId));
+        useToast("success", "Chapter content saved");
+      })
+      .catch((error) => {
+        console.log(error);
+        useToast("error", "Chapter content not saved");
+      });
   }
   async function getChapterContent(projectId, chapterId) {
     const chapterContent = await getSingleChapterContent(projectId, chapterId);
@@ -198,16 +201,17 @@ export function DatabaseContextWrapper({ children }) {
     return await getAllChapterBranches(projectId, chapterId);
   }
   async function updateChapterBranch(projectId, chapterId, branchId, content) {
-    await updateSingleChapterBranch(
-      projectId,
-      chapterId,
-      branchId,
-      content
-    ).then(async () => {
-      setCurrentChapterBranches(
-        await getAllChapterBranches(projectId, chapterId)
-      );
-    });
+    await updateSingleChapterBranch(projectId, chapterId, branchId, content)
+      .then(async () => {
+        setCurrentChapterBranches(
+          await getAllChapterBranches(projectId, chapterId)
+        );
+        useToast("success", "Chapter branch content saved");
+      })
+      .catch((error) => {
+        console.log(error);
+        useToast("error", "Chapter branch content not saved");
+      });
   }
   async function getChapterVersions(projectId, chapterId) {
     return await getAllChapterVersions(projectId, chapterId);
@@ -233,7 +237,19 @@ export function DatabaseContextWrapper({ children }) {
       mainChapterContentID,
       branchContent,
       currentChapterContent.content
-    );
+    )
+      .then(async () => {
+        setCurrentChapterContent(await getChapterContent(projectId, chapterId));
+        setCurrentChapterVersions(
+          await getChapterVersions(projectId, chapterId)
+        );
+        setMergeOpened(false);
+        useToast("success", "Branch merged into main");
+      })
+      .catch((error) => {
+        console.log(error);
+        useToast("error", "Branch not merged into main");
+      });
   }
   async function mergeBranchIntoMain(
     projectId,
@@ -242,14 +258,26 @@ export function DatabaseContextWrapper({ children }) {
     branchContent,
     position
   ) {
-    return await mergeBranchOntoMain(
+    console.log("onSomething ", currentChapterContent.content, branchContent);
+    await mergeBranchOntoMain(
       projectId,
       chapterId,
       mainChapterContentID,
       branchContent,
       position,
       currentChapterContent.content
-    );
+    )
+      .then(async () => {
+        setCurrentChapterContent(await getChapterContent(projectId, chapterId));
+        setCurrentChapterVersions(
+          await getChapterVersions(projectId, chapterId)
+        );
+        useToast("success", "Branch merged into main");
+      })
+      .catch((error) => {
+        console.log(error);
+        useToast("error", "Branch not merged into main");
+      });
   }
   // useEffect(() => {
   // async function getUserProjects() {

@@ -14,7 +14,7 @@ export const ChapterVersions: FC<{
     currentChapterVersions,
   } = useDatabaseContext();
   return (
-    <div className="min-w-auto max-w-md flex-grow  border-l border-baseBorder px-5">
+    <div className="min-w-auto max-w-md flex-grow ">
       {currentChapterVersions?.length > 0 ? (
         <div className="shadow-lg p-5 max-h-60 overflow-y-auto">
           <h3 className="text-lg flex font-bold gap-2">

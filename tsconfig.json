@@ -19,7 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "contexts/AuthContext.js"
+    "contexts/AuthContext.js",
+    "components/Editor/TextEditor.jsx"
   ],
   "exclude": ["node_modules"]
 }

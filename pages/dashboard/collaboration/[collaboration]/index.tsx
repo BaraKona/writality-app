@@ -19,7 +19,7 @@ import { useAuthContext } from "../../../../contexts/AuthContext";
 import { useRouter } from "next/router";
 import { Loading } from "../../../../components/Loading";
 import { Button } from "@mantine/core";
-import { CollaboratorsList } from "../../../../components/Project/CollaboratorsList";
+import { CollaboratorsList } from "../../../../components/Collaboration/CollaboratorsList";
 import { IconAffiliate } from "@tabler/icons";
 import { IProject } from "../../../../interfaces/Iproject";
 import { CharacterWrapper } from "../../../../components/Characters/CharacterWrapper";

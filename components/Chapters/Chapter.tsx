@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { IChapter } from "../../interfaces/IChapter";
 import { book8 } from "../../assets/icons";
 import Image from "next/image";
-
+import { convertDate } from "../../scripts/convertDate";
 export const Chapter: FC<{ chapter: IChapter; openChapter: () => void }> = ({
   chapter,
   openChapter,
@@ -19,7 +19,7 @@ export const Chapter: FC<{ chapter: IChapter; openChapter: () => void }> = ({
         alt={chapter?.chapterNumber?.toString()}
       />
       <h4>
-        {chapter.chapterTitle} <span>{chapter.chapterNumber}</span>
+        {chapter.chapterTitle} <span>{convertDate(chapter.createdAt)}</span>
       </h4>
     </div>
   );
