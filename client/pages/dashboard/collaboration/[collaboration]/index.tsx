@@ -21,7 +21,7 @@ import { Loading } from "../../../../components/Loading";
 import { Button } from "@mantine/core";
 import { CollaboratorsList } from "../../../../components/Collaboration/CollaboratorsList";
 import { IconAffiliate } from "@tabler/icons";
-import { IProject } from "../../../../interfaces/Iproject";
+import { IProject } from "../../../../interfaces/IProject";
 import { CharacterWrapper } from "../../../../components/Characters/CharacterWrapper";
 import { IChapter } from "../../../../interfaces/IChapter";
 const Collaboration: NextPage = () => {

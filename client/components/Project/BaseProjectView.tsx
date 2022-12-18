@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDatabaseContext } from "../../contexts/DatabaseContext";
-import { IProject } from "../../interfaces/Iproject";
+import { IProject } from "../../interfaces/IProject";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { AiFillSetting } from "react-icons/ai";
 

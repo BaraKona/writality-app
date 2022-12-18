@@ -1,8 +1,18 @@
 export type IProject = {
   uid: string;
-  projectTitle: string;
-  createdAt?: Date;
+  title?: string;
+  dateCreated: {
+    user: string;
+    date: Date;
+  };
   owner: string;
   projectOwner: string;
-  collaborators?: string[];
+  collaborators?: [
+    {
+      user: string;
+      dateJoined: Date;
+    }
+  ];
+  description?: string;
+  type: string;
 };

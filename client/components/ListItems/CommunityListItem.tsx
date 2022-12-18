@@ -9,7 +9,6 @@ export const CommunityListItem: FC<{
   const router = useRouter();
   const highlight = () => {
     if (router?.pathname.includes(name.toLowerCase())) {
-      console.log("true");
       return "text-purple-300";
     } else {
       return "text-stone-300";

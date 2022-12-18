@@ -7,7 +7,7 @@ import {
 import DashboardNavigation from "./DashboardNavigation";
 import { useDatabaseContext } from "../../contexts/DatabaseContext";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { IProject } from "../../interfaces/Iproject";
+import { IProject } from "../../interfaces/IProject";
 import { useRouter } from "next/router";
 import { FcConferenceCall, FcReading, FcRules } from "react-icons/fc";
 import { useToast } from "../../hooks/useToast";
@@ -91,7 +91,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
                         <ProjectListItem
                           key={index}
                           onClick={() => openProject(project.uid)}
-                          name={project.projectTitle}
+                          name={project.title || "Untitled Project"}
                           projectId={project.uid}
                         />
                       );
@@ -117,7 +117,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
                         <ProjectListItem
                           key={index}
                           onClick={() => openCollaboration(project.uid)}
-                          name={project.projectTitle}
+                          name={project.title || "Untitled Project"}
                           projectId={project.uid}
                         />
                       );
@@ -136,7 +136,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
                         <ProjectListItem
                           key={index}
                           onClick={() => openCollaboration(project.uid)}
-                          name={project.projectTitle}
+                          name={project.title || "Untitled Project"}
                           projectId={project.uid}
                         />
                       );
