@@ -7,6 +7,7 @@ import { Loading } from "../../../components/Loading";
 import { useCreateProject } from "../../../hooks/projects/useCreateProject";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getAllProjects, createProject } from "../../../api/projects";
+import { IProject } from "../../../interfaces/IProject";
 
 const Dashboard: NextPage = () => {
   const { getUsers, currentUser, users } = useAuthContext();
@@ -16,7 +17,7 @@ const Dashboard: NextPage = () => {
   const queryClient = useQueryClient();
   // const fetchUsers = getUsers();
   const createAProject = () => {
-    const project = {
+    const project: IProject = {
       type: "main",
       uid: "1234",
       owner: currentUser.uid,
@@ -24,7 +25,7 @@ const Dashboard: NextPage = () => {
       description: "test",
       dateCreated: {
         user: currentUser.uid,
-        date: new Date().toISOString(),
+        date: new Date(),
       },
     };
     console.log(project);
