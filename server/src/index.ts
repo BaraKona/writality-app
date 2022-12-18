@@ -4,7 +4,6 @@ import projects from "./routes/projects";
 import cors from "cors";
 import mongoose from "mongoose";
 const app = express();
-const port = 8080; // default port to listen
 
 // configure dotenv
 dotenv.config();
@@ -25,13 +24,17 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-
+// tslint:disable-next-line: no-console
+console.log(process.env.CONNECTION_URL);
+// tslint:disable-next-line: no-console
+console.log(process.env.PORT);
 // start the Express server and connect to the database
 mongoose
-  .connect(
-    "mongodb+srv://writalityAuth:NEb6c42mFrFpUMtK@cluster0.iycjlxm.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect(process.env.CONNECTION_URL)
   .then(() =>
+    // disable tslint for this line
+    // tslint:disable-next-line: no-console
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
   )
+  // tslint:disable-next-line: no-console
   .catch((error) => console.log(error.message));

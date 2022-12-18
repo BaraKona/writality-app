@@ -1,12 +1,10 @@
 {
-  "main": "dist/index.js",
+  "name": "writality",
+  "main": "src/index.ts",
   "scripts": {
-    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build": "tsc",
-    "prestart": "npm run build",
-    "start": "rm -rf dist/ && tsc --project . && node dist/app.js",
-    "dev": "nodemon .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon src/index.ts",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
