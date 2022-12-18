@@ -6,7 +6,6 @@ export type IProject = {
     date: Date;
   };
   owner: string;
-  projectOwner: string;
   collaborators?: [
     {
       user: string;
