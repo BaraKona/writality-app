@@ -1,4 +1,4 @@
-export type IChapterVersion = {
+export interface IChapterVersion {
   uid: string;
   title?: string;
   name?: string;
@@ -8,4 +8,4 @@ export type IChapterVersion = {
   projectId: string;
   chapterId: string;
   type: string;
-};
+}

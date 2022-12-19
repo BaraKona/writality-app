@@ -5,93 +5,93 @@ import { profileIllustration } from "../../assets/illustrations";
 import Image from "next/image";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useRouter } from "next/router";
-
+import { Menu, Button, Text } from "@mantine/core";
+import {
+  IconSettings,
+  IconPhoto,
+  IconMessageCircle,
+  IconSearch,
+  IconArrowsLeftRight,
+  IconLogout,
+} from "@tabler/icons";
 export default function DashboardNavigation() {
   const { currentUser, signOutCurrentUser } = useAuthContext();
-  const [hidden, setHidden] = useState("hidden");
 
-  const router = useRouter();
   const handleSignOut = async () => {
-    await signOutCurrentUser().then(() => {
-      router.push("/auth/login");
-    });
+    await signOutCurrentUser();
   };
-
   return (
-    <nav className=" mx-auto flex space-x-4 justify-between relative border-solid border-b border-baseBorder">
-      <div className="cursor-pointer">
-        <Link href="/">
-          <div className="my-1 flex">
-            <Image
-              src={cyclops8}
-              alt="writality"
-              width={30}
-              height={30}
-              className="inline-block"
-            />
-            <h1 className="font-bold px-2 text-lg text-slate-200">Writality</h1>
-          </div>
-        </Link>
-      </div>
-      <div className="flex cursor-pointer my-1">
-        <Image
-          src={profileIllustration}
-          alt="writality"
-          width={30}
-          height={30}
-          className="inline-block"
-          onClick={() => (hidden ? setHidden("") : setHidden("hidden"))}
-        />
-
-        <div
-          id="dropdownInformation"
-          className={`${hidden} z-10 w-44 bg-base border border-baseBorder rounded divide-y divide-gray-100 drop-shadow-lg dark:bg-gray-700 dark:divide-gray-600 absolute left-2 top-9`}
-        >
-          <div className="py-3 px-4 text-sm text-stone-300 dark:text-white">
-            <p>{currentUser?.displayName}</p>
-            <p className="font-medium truncate text-stone-400">
-              {currentUser?.email}
-            </p>
-          </div>
-          <ul
-            className="py-1 text-sm text-stone-300 dark:text-gray-200"
-            aria-labelledby="dropdownInformationButton"
-          >
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Settings
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Earnings
-              </a>
-            </li>
-          </ul>
-          <div className="py-1">
-            <button
-              onClick={handleSignOut}
-              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-            >
-              Sign out
-            </button>
-          </div>
+    <div className="border-b border-baseBorder flex">
+      <Menu
+        trigger="hover"
+        openDelay={100}
+        closeDelay={400}
+        offset={10}
+        withArrow
+        width={200}
+        shadow="md"
+        position="bottom-end"
+      >
+        <div className="cursor-pointer mr-auto">
+          <Link href="/">
+            <div className="my-1 flex">
+              <Image
+                src={cyclops8}
+                alt="writality"
+                width={30}
+                height={30}
+                className="inline-block"
+              />
+              <h1 className="font-bold px-2 text-lg text-slate-200">
+                Writality
+              </h1>
+            </div>
+          </Link>
         </div>
-      </div>
-    </nav>
+        <Menu.Target>
+          <Image
+            src={profileIllustration}
+            alt="writality"
+            width={30}
+            height={30}
+            className="cursor-pointer"
+          />
+        </Menu.Target>
+
+        <Menu.Dropdown>
+          <Menu.Label className="text-center">{currentUser?.name}</Menu.Label>
+          <Menu.Label className="text-center">{currentUser?.email}</Menu.Label>
+          <Menu.Divider />
+          <Menu.Label>Application</Menu.Label>
+          <Menu.Item icon={<IconSettings size={14} />}>Settings</Menu.Item>
+          <Menu.Item icon={<IconMessageCircle size={14} />}>Messages</Menu.Item>
+          <Menu.Item icon={<IconPhoto size={14} />}>Gallery</Menu.Item>
+          <Menu.Item
+            icon={<IconSearch size={14} />}
+            rightSection={
+              <Text size="xs" color="dimmed">
+                ⌘K
+              </Text>
+            }
+          >
+            Search
+          </Menu.Item>
+
+          <Menu.Divider />
+
+          <Menu.Label>Danger zone</Menu.Label>
+          <Menu.Item icon={<IconArrowsLeftRight size={14} />}>
+            Transfer my data
+          </Menu.Item>
+          <Menu.Item
+            onClick={handleSignOut}
+            color="red"
+            icon={<IconLogout size={14} />}
+          >
+            Sign out
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+    </div>
   );
 }

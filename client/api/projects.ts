@@ -4,9 +4,11 @@ import { IProject } from "../interfaces/IProject";
 const projectApi = axios.create({
   baseURL: "http://localhost:5000/projects",
 });
-
+const userProjectApi = axios.create({
+  baseURL: "http://localhost:5000/projects/user",
+});
 export const getUserProjects = async (uid: string) => {
-  const { data } = await projectApi.get(`/${uid}`);
+  const { data } = await userProjectApi.get(`/${uid}`);
   return data;
 };
 

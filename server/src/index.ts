@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import projects from "./routes/projects";
+import users from "./routes/users";
 import cors from "cors";
 import mongoose from "mongoose";
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors());
 
 // Routes for the API
 app.use("/projects", projects);
+app.use("/users", users);
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
@@ -24,10 +26,7 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-// tslint:disable-next-line: no-console
-console.log(process.env.CONNECTION_URL);
-// tslint:disable-next-line: no-console
-console.log(process.env.PORT);
+
 // start the Express server and connect to the database
 mongoose
   .connect(process.env.CONNECTION_URL)

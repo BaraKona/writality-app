@@ -1,11 +1,12 @@
 import { useAuthContext } from "../contexts/AuthContext";
 import { useState, useEffect, ReactNode, FC } from "react";
-import { getSingleUserById } from "../contexts/database/Users";
+import { getUser } from "../api/user";
 import { auth } from "../api/firebase";
 import { Loading } from "./Loading";
+import { useRouter } from "next/router";
 
 export const ComponentLoader: FC<{ children: ReactNode }> = ({ children }) => {
-  const { setCurrentUser, currentUser, getUsers } = useAuthContext();
+  const { setCurrentUser, currentUser } = useAuthContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,11 +14,10 @@ export const ComponentLoader: FC<{ children: ReactNode }> = ({ children }) => {
     async function fetchUser() {
       unsubscribe = await auth.onAuthStateChanged(async (user: any) => {
         if (user) {
-          setCurrentUser(await getSingleUserById(user.uid));
+          setCurrentUser(await getUser(user.uid));
         } else {
-          setCurrentUser(undefined);
+          setCurrentUser(undefined)
         }
-        await getUsers();
         setLoading(false);
       });
     }

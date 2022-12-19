@@ -3,8 +3,16 @@ import { MainNavigation, Header } from "../../components/Navigation";
 import { loginIllustration } from "../../assets/illustrations";
 import Image from "next/image";
 import { Login } from "../../components/auth";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useRouter } from "next/router";
 
 export default function login() {
+  const { currentUser } = useAuthContext();
+  const router = useRouter();
+
+  if (currentUser) {
+    router.push("/dashboard");
+  }
   return (
     <div>
       <MainNavigation />

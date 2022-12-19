@@ -1,4 +1,5 @@
 import React, { FC, ReactNode, useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
   ProjectListItem,
   CategoryListItem,
@@ -11,47 +12,48 @@ import { IProject } from "../../interfaces/IProject";
 import { useRouter } from "next/router";
 import { FcConferenceCall, FcReading, FcRules } from "react-icons/fc";
 import { useToast } from "../../hooks/useToast";
+import { useQuery, useMutation, useQueryClient } from "react-query";
+import { createProject, getUserProjects } from "../../api/projects";
 
 export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
-  const { currentUser } = useAuthContext();
   const router = useRouter();
+  const { currentUser } = useAuthContext();
+  const queryClient = useQueryClient();
+
   const {
-    userProjects,
-    getAllUserProjects,
-    userCollaborativeProjects,
-    currentProject,
-    getAllUserCollaborativeProjects,
-    addANewProjectToDatabase,
-    addANewCollaborativeProject,
-    getAllUserCollaborations,
-    userCollaborations,
-  } = useDatabaseContext();
+    isLoading,
+    error,
+    data: projects,
+  } = useQuery("projects", () => getUserProjects(currentUser.uid));
+  const addProject = useMutation(createProject, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("projects");
+    },
+  });
+
+  const createAProject = () => {
+    const project: IProject = {
+      type: "main",
+      uid: uuidv4(),
+      owner: currentUser.uid,
+      title: "New Project ",
+      description: " New Project ",
+      dateCreated: {
+        user: currentUser.uid,
+        date: new Date(),
+      },
+    };
+    addProject.mutate(project);
+    useToast("success", "Project Created");
+  };
+
   const openProject = (id: string) => {
     router.push(`/dashboard/project/${id}`);
   };
   const openCollaboration = (id: string) => {
     router.push(`/dashboard/collaboration/${id}`);
   };
-  const addProject = async () => {
-    if (userProjects.length <= 2) {
-      await addANewProjectToDatabase(currentUser.uid);
-    } else {
-      useToast(
-        "error",
-        "You can only have 3 projects, don't stretch yourself too thin ! 😄"
-      );
-    }
-  };
-  const addCollaborativeProject = async () => {
-    await addANewCollaborativeProject(currentUser.uid);
-  };
-  useEffect(() => {
-    if (currentUser) {
-      getAllUserProjects(currentUser.uid);
-      getAllUserCollaborativeProjects(currentUser.uid);
-      getAllUserCollaborations(currentUser.uid);
-    }
-  }, [currentUser, currentProject]);
+
   return (
     <div className="h-full flex ">
       <aside
@@ -78,11 +80,11 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
           <CategoryListItem
             name="Your Projects"
             button={true}
-            onClick={addProject}
+            onClick={createAProject}
           >
             <>
-              {userProjects
-                ? userProjects.map(
+              {projects
+                ? projects.map(
                     (
                       project: IProject,
                       index: React.Key | null | undefined
@@ -104,9 +106,9 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
           <CategoryListItem
             name="Collaborative Projects"
             button={true}
-            onClick={addCollaborativeProject}
+            // onClick={addCollaborativeProject}
           >
-            <>
+            {/* <>
               {userCollaborativeProjects
                 ? userCollaborativeProjects.flatMap(
                     (
@@ -143,7 +145,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
                     }
                   )
                 : ""}
-            </>
+            </> */}
           </CategoryListItem>
           <hr className="my-5 border-baseBorder" />
           <CategoryListItem name="Chats" button={true} />

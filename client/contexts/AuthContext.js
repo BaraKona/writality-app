@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth, googleAuthProvider, db } from "../api/firebase";
+import { router } from "next/router";
 import { v4 as uuidv4 } from "uuid";
+import { registerUser } from "../api/user";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -32,28 +34,17 @@ export function AuthContextWrapper({ children }) {
   function createAUserWithEmailAndPassword(email, password, name) {
     return createUserWithEmailAndPassword(auth, email, password)
       .then(async () => {
-        await addNewUser(auth.currentUser.uid, name, email);
+        setCurrentUser(
+          await registerUser({ uid: auth.currentUser.uid, name, email }).then(
+            () => {
+              // push route to dashboard
+              router.push("/dashboard");
+            }
+          )
+        );
       })
       .catch((error) => {
         console.log(error);
-      });
-  }
-  async function addNewUser(id, name, email) {
-    const docId = id;
-    const newUser = doc(db, `users/${docId}`);
-    const data = {
-      uid: docId,
-      displayName: name,
-      email,
-      createdAt: serverTimestamp(),
-    };
-    await setDoc(newUser, data)
-      .then(() => {
-        return true;
-      })
-      .catch((error) => {
-        console.log(error);
-        return false;
       });
   }
   function signInAUserWithEmailAndPassword(email, password) {
@@ -89,20 +80,6 @@ export function AuthContextWrapper({ children }) {
         return false;
       });
   }
-  // useEffect(() => {
-  //   let unsubscribe = null;
-  //   async function fetchUser() {
-  //     unsubscribe = await auth.onAuthStateChanged(async (user) => {
-  //       console.log(user);
-  //       if (user) setCurrentUser(await getSingleUserById(user));
-  //       console.log(currentUser);
-  //       setLoading(false);
-  //     });
-  //   }
-  //   fetchUser();
-  //   unsubscribe;
-  //   // return unsubscribe;
-  // }, []);
 
   const sharedState = {
     createAUserWithEmailAndPassword,

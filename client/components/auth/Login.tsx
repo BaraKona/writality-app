@@ -24,9 +24,7 @@ export default function Login() {
       await signInAUserWithEmailAndPassword(
         emailRef.current.value,
         passwordRef.current.value
-      ).then(() => {
-        router.push("/dashboard");
-      });
+      )
     } catch (error: unknown) {
       console.log(error);
       if (error instanceof Error) alert(error.message);
