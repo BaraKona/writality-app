@@ -1,35 +1,36 @@
 import User from "../models/userSchema";
+const bcrypt = require("bcrypt");
 
 export const createUser = async (req: any, res: any) => {
-  const { username, email, password } = req.body;
+  const { name, email, uid } = req.body;
   const newUser = new User({
-    username,
+    name,
     email,
-    password,
+    uid,
   });
+  // check if user already exists
+  const user = await User.findOne({
+    email: email,
+  });
+  if (user) {
+    return res.status(409).json({ message: "User already exists" });
+  }
   try {
     await newUser.save();
     res.status(201).json(newUser);
   } catch (error) {
-    res.status(409).json({ message: error.message });
+    res.status(409).json({
+      message: "Something went wrong, we could not get you registered",
+    });
   }
 };
 
-export const loginUser = async (req: any, res: any) => {
-  const { email, password } = req.body;
+export const getUser = async (req: any, res: any) => {
+  const { id } = req.params;
   try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    user.methods.comparePassword(password, (err: any, isMatch: any) => {
-      if (err) throw err;
-      if (!isMatch) {
-        return res.status(400).json({ message: "Incorrect password" });
-      }
-      res.status(200).json(user);
-    });
+    const user = await User.findOne({ uid: id });
+    res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
