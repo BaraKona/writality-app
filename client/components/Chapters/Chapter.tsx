@@ -19,7 +19,7 @@ export const Chapter: FC<{ chapter: IChapter; openChapter: () => void }> = ({
         alt={chapter?.chapterNumber?.toString()}
       />
       <h4>
-        {chapter.chapterTitle} <span>{convertDate(chapter.createdAt)}</span>
+        {chapter.title} <span>{chapter.dateCreated.date.toString()}</span>
       </h4>
     </div>
   );

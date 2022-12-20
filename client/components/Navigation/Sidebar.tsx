@@ -6,7 +6,6 @@ import {
   CommunityListItem,
 } from "../ListItems";
 import DashboardNavigation from "./DashboardNavigation";
-import { useDatabaseContext } from "../../contexts/DatabaseContext";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { IProject } from "../../interfaces/IProject";
 import { useRouter } from "next/router";
@@ -21,7 +20,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const queryClient = useQueryClient();
 
   const {
-    isLoading,
+    isLoading: projectsLoading,
     error,
     data: projects,
   } = useQuery("projects", () => getUserProjects(currentUser.uid));
@@ -82,25 +81,29 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
             button={true}
             onClick={createAProject}
           >
-            <>
-              {projects
-                ? projects.map(
-                    (
-                      project: IProject,
-                      index: React.Key | null | undefined
-                    ) => {
-                      return (
-                        <ProjectListItem
-                          key={index}
-                          onClick={() => openProject(project.uid)}
-                          name={project.title || "Untitled Project"}
-                          projectId={project.uid}
-                        />
-                      );
-                    }
-                  )
-                : ""}
-            </>
+            {projectsLoading ? (
+              <div>loading</div>
+            ) : (
+              <>
+                {projects
+                  ? projects.map(
+                      (
+                        project: IProject,
+                        index: React.Key | null | undefined
+                      ) => {
+                        return (
+                          <ProjectListItem
+                            key={index}
+                            onClick={() => openProject(project.uid)}
+                            name={project.title || "Untitled Project"}
+                            projectId={project.uid}
+                          />
+                        );
+                      }
+                    )
+                  : ""}
+              </>
+            )}
           </CategoryListItem>
           <hr className="my-5 border-baseBorder" />
           <CategoryListItem

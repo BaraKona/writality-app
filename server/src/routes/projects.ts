@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/", createProject);
 router.get("/", getAllProjects);
-router.get("/:uid", getProject);
-router.get("/user/:uid", getUserProjects);
+router.get("/:userId/:projectId", getProject);
+router.get("/user/:userId", getUserProjects);
 
 export default router;

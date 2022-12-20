@@ -56,7 +56,7 @@ export const EditorWrapper: FC<{
           )}
           &nbsp;
           {currentChapterContent?.type === "main"
-            ? chapter?.chapterTitle
+            ? chapter?.title
             : currentChapterContent?.name}
         </p>
         <p className="text-center my-auto font-medium text-sm ml-auto ">

@@ -153,7 +153,7 @@ export default function chapter() {
           save={save}
           chapter={currentChapter}
         >
-          <Editor text={text} setText={setText} />
+          {/* <Editor text={text} setText={setText} /> */}
           <div className="min-w-[350px] h-[calc(100vh-100px)] border-l border-baseBorder px-5">
             <ChapterBranches
               openMergeModal={() => setMergeOpened(true)}

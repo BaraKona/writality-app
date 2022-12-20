@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import projects from "./routes/projects";
 import users from "./routes/users";
+import chapters from "./routes/chapters";
+
 import cors from "cors";
 import mongoose from "mongoose";
 const app = express();
@@ -19,6 +21,7 @@ app.use(cors());
 // Routes for the API
 app.use("/projects", projects);
 app.use("/users", users);
+app.use("/chapters", chapters);
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
