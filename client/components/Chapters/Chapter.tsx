@@ -18,8 +18,9 @@ export const Chapter: FC<{ chapter: IChapter; openChapter: () => void }> = ({
         height={20}
         alt={chapter?.chapterNumber?.toString()}
       />
-      <h4>
-        {chapter.title} <span>{chapter.dateCreated.date.toString()}</span>
+      <h4 className="flex">
+        {chapter.title}
+        <span>{convertDate(chapter.dateCreated.date)}</span>
       </h4>
     </div>
   );

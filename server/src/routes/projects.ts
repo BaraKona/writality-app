@@ -11,6 +11,6 @@ const router = express.Router();
 router.post("/", createProject);
 router.get("/", getAllProjects);
 router.get("/:userId/:projectId", getProject);
-router.get("/user/:userId", getUserProjects);
+router.get("/:userId", getUserProjects);
 
 export default router;

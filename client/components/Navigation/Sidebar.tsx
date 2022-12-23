@@ -18,15 +18,16 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
   const { currentUser } = useAuthContext();
   const queryClient = useQueryClient();
-
   const {
     isLoading: projectsLoading,
     error,
     data: projects,
-  } = useQuery("projects", () => getUserProjects(currentUser.uid));
+  } = useQuery(["projects", currentUser.uid], () =>
+    getUserProjects(currentUser.uid)
+  );
   const addProject = useMutation(createProject, {
     onSuccess: () => {
-      queryClient.invalidateQueries("projects");
+      queryClient.invalidateQueries(["projects", currentUser.uid]);
     },
   });
 

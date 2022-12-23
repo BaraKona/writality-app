@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Header, Sidebar } from "../../../../../components/Navigation";
-import { Editor, EditorWrapper } from "../../../../../components/Editor";
+import { EditorWrapper } from "../../../../../components/Editor";
 import { useRouter } from "next/router";
 import { useDatabaseContext } from "../../../../../contexts/DatabaseContext";
 import { useToast } from "../../../../../hooks/useToast";

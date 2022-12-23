@@ -1,7 +1,7 @@
 export const convertDate = (timestamp: any): string => {
-  const date = timestamp.toDate();
-  const mm = date.getMonth();
-  const dd = date.getDate();
-  const yyyy = date.getFullYear();
-  return `${mm}/${dd}/${yyyy} ${date.getHours()}:${date.getMinutes()}`;
+  const time = new Date(timestamp);
+  const mm = time.getMonth();
+  const dd = time.getDate();
+  const yyyy = time.getFullYear();
+  return `${mm}/${dd}/${yyyy} ${time.getHours()}:${time.getMinutes()}`;
 };

@@ -12,7 +12,7 @@ const userProjectApi = axios.create({
 export const getUserProjects = async (userId: string) => {
   console.log("userId", userId);
   try {
-    const { data } = await userProjectApi.get(`/${userId}`);
+    const { data } = await projectApi.get(`${userId}`);
     return data;
   } catch (err: any) {
     const { data } = err.response;

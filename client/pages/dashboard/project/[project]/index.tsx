@@ -1,7 +1,6 @@
-import React, { FC, useEffect, useState } from "react";
+import React from "react";
 import { Header, Sidebar } from "../../../../components/Navigation";
 import { BaseProjectView } from "../../../../components/Project";
-import { Editor } from "../../../../components/Editor";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -11,7 +10,6 @@ import {
 } from "../../../../components/Chapters";
 import { useAuthContext } from "../../../../contexts/AuthContext";
 import { IChapter } from "../../../../interfaces/IChapter";
-import { useToast } from "../../../../hooks/useToast";
 import { CharacterWrapper } from "../../../../components/Characters/CharacterWrapper";
 import { Loading } from "../../../../components/Loading";
 import { useQuery, useMutation, useQueryClient } from "react-query";
@@ -28,11 +26,12 @@ export default function project() {
   }
   const queryClient = useQueryClient();
 
-  const { data: chapters } = useQuery("chapters", () =>
+  const { data: chapters } = useQuery(["chapters", project], () =>
     getProjectChapters(currentUser.uid, project as string)
   );
-  const { data: currentProject, isLoading } = useQuery("project", () =>
-    getSingleProject(currentUser.uid, project as string)
+  const { data: currentProject, isLoading } = useQuery(
+    ["project", project],
+    () => getSingleProject(currentUser.uid, project as string)
   );
   const addChapter = useMutation(createChapter, {
     onSuccess: () => {
