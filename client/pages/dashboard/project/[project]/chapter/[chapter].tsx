@@ -4,14 +4,19 @@ import { EditorWrapper } from "../../../../../components/Editor";
 import { useRouter } from "next/router";
 import { useDatabaseContext } from "../../../../../contexts/DatabaseContext";
 import { useToast } from "../../../../../hooks/useToast";
+import { useQuery } from "react-query";
 import {
   ChapterBranches,
   ChapterVersions,
 } from "../../../../../components/Chapters";
 import { CreateBranchModal } from "../../../../../components/Modals/CreateBranchModal";
 import { MergeBranchModal } from "../../../../../components/Modals/MergeBranchModal";
+import { getSingleChapter } from "../../../../../api/chapters";
+import { useAuthContext } from "../../../../../contexts/AuthContext";
+import { Loading } from "../../../../../components/Loading";
 export default function chapter() {
   const router = useRouter();
+  const { currentUser } = useAuthContext();
   const [text, setText] = useState("");
   const [opened, setOpened] = useState(false);
   const [branchName, setBranchName] = useState("");
@@ -30,15 +35,23 @@ export default function chapter() {
     updateChapterBranch,
     createChapterVersion,
     mergeBranchReplaceMain,
-    mainChapterContent,
     mergeBranchIntoMain,
+    mainChapterContent,
   } = useDatabaseContext();
   const backButton = () => {
-    router.push(`/dashboard/project/${router.query.project}`);
+    router.push(`/dashboard/project/${project}`);
   };
+  const { chapter, project } = router.query;
+
+  const { data: chapterContent, isLoading } = useQuery(
+    ["chapter", chapter],
+    () =>
+      getSingleChapter(currentUser.uid, project as string, chapter as string)
+  );
+
   const projectId = router.query.project;
   const chapterId = router.query.chapter;
-  const chapterContent = currentChapterContent;
+  // const chapterContent = currentChapterContent;
   const contentId = currentChapterContent.uid;
   const save = async () => {
     if (projectId && chapterId && contentId) {
@@ -105,32 +118,9 @@ export default function chapter() {
       }
     }
   };
-  const getContent = async () => {
-    if (projectId && chapterId) {
-      try {
-        setCurrentChapterContent(await getChapterContent(projectId, chapterId));
-        setCurrentChapterBranches(
-          await getChapterBranches(projectId, chapterId)
-        );
-        setCurrentChapterVersions(
-          await getChapterVersions(projectId, chapterId)
-        );
-        useToast("success", "Chapter content loaded");
-      } catch (error) {
-        useToast("error", "Chapter content not loaded");
-        console.log(error);
-      }
-    }
-  };
-  useEffect(() => {
-    if (router.query) getContent();
-  }, [currentChapter, router.query]);
-  useEffect(() => {
-    if (currentChapterContent !== text) setText(currentChapterContent.content);
-    console.log(currentChapterContent);
-  }, [currentChapterContent]);
+
   return (
-    <div className="h-screen">
+    <Loading isLoading={isLoading}>
       <CreateBranchModal
         branchName={branchName}
         setBranchName={setBranchName}
@@ -145,27 +135,25 @@ export default function chapter() {
         mergeBranch={mergeBranch}
       />
       <Header header="Chapter" />
-      <Sidebar>
-        <EditorWrapper
-          backToProject={backButton}
-          createVersion={createVersion}
-          openBranchModal={() => setOpened(true)}
-          save={save}
-          chapter={currentChapter}
-        >
-          {/* <Editor text={text} setText={setText} /> */}
-          <div className="min-w-[350px] h-[calc(100vh-100px)] border-l border-baseBorder px-5">
-            <ChapterBranches
-              openMergeModal={() => setMergeOpened(true)}
-              checkoutBranch={checkoutBranch}
-            />
-            <ChapterVersions
-              openMergeModal={() => setMergeOpened(true)}
-              checkoutBranch={checkoutBranch}
-            />
-          </div>
-        </EditorWrapper>
-      </Sidebar>
-    </div>
+      <EditorWrapper
+        backToProject={backButton}
+        createVersion={createVersion}
+        openBranchModal={() => setOpened(true)}
+        save={save}
+        chapter={chapterContent}
+      >
+        {/* <Editor text={text} setText={setText} /> */}
+        <div className="min-w-[350px]  border-l border-baseBorder px-5">
+          <ChapterBranches
+            openMergeModal={() => setMergeOpened(true)}
+            checkoutBranch={checkoutBranch}
+          />
+          <ChapterVersions
+            openMergeModal={() => setMergeOpened(true)}
+            checkoutBranch={checkoutBranch}
+          />
+        </div>
+      </EditorWrapper>
+    </Loading>
   );
 }

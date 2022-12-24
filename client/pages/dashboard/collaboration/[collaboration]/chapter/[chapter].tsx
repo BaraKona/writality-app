@@ -10,8 +10,7 @@ export const collaborationChapter = () => {
   return (
     <>
       <Header header="Chapter" />
-      <Sidebar>
-        {/* <EditorWrapper
+      {/* <EditorWrapper
           backToProject={backButton}
           createVersion={createVersion}
           openBranchModal={() => setOpened(true)}
@@ -19,8 +18,8 @@ export const collaborationChapter = () => {
           chapter={currentChapter}
         >
           <Editor text={text} setText={setText} /> */}
-        {/* <div className="min-w-[350px] h-[calc(100vh-100px)] border-l border-baseBorder px-5"> */}
-        {/* <ChapterBranches
+      {/* <div className="min-w-[350px] h-[calc(100vh-100px)] border-l border-baseBorder px-5"> */}
+      {/* <ChapterBranches
               openMergeModal={() => setMergeOpened(true)}
               checkoutBranch={checkoutBranch}
             />
@@ -28,9 +27,8 @@ export const collaborationChapter = () => {
               openMergeModal={() => setMergeOpened(true)}
               checkoutBranch={checkoutBranch}
             /> */}
-        {/* </div> */}
-        {/* </EditorWrapper> */}
-      </Sidebar>
+      {/* </div> */}
+      {/* </EditorWrapper> */}
     </>
   );
 };

@@ -1,13 +1,17 @@
 import Chapter from "../models/chapterSchema";
 
 export const createChapter = async (req: any, res: any) => {
-  const { title, projectId, uid, dateCreated, owner } = req.body;
+  const { title, projectId, uid, dateCreated, owner, dateUpdated, content } =
+    req.body;
+  console.log(req.body);
   const newChapter = new Chapter({
     owner,
     title,
     projectId,
     uid,
     dateCreated,
+    dateUpdated,
+    content,
   });
   try {
     await newChapter.save();
@@ -27,8 +31,6 @@ export const getAllChapters = async (req: any, res: any) => {
 
 export const getProjectChapters = async (req: any, res: any) => {
   const { userId, projectId } = req.params;
-  // tslint:disable-next-line: no-console
-  console.log(userId, projectId);
   try {
     const chapters = await Chapter.find({
       owner: userId,

@@ -22,8 +22,12 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
     isLoading: projectsLoading,
     error,
     data: projects,
-  } = useQuery(["projects", currentUser.uid], () =>
-    getUserProjects(currentUser.uid)
+  } = useQuery(
+    ["projects", "projects", currentUser.uid],
+    () => getUserProjects(currentUser.uid),
+    {
+      staleTime: Infinity,
+    }
   );
   const addProject = useMutation(createProject, {
     onSuccess: () => {
@@ -55,9 +59,9 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   return (
-    <div className="h-full flex ">
+    <div className="h-[100vh] flex ">
       <aside
-        className="max-w-[225px] h-full overflow-y-auto border-r bg-baseMid border-baseBorder"
+        className="max-w-[225px]  overflow-y-auto border-r bg-baseMid border-baseBorder"
         aria-label="Sidebar"
       >
         <div className=" py-2 px-3">

@@ -8,9 +8,6 @@ const User: NextPage = () => {
     <Authenticated>
       <div className="h-screen">
         <Header header="Dashboard" />
-        <Sidebar>
-          <div></div>
-        </Sidebar>
       </div>
     </Authenticated>
   );

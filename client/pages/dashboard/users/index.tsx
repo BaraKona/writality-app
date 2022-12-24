@@ -43,16 +43,14 @@ const Dashboard: NextPage = () => {
   if (isLoading) return <p>"Loading..."</p>;
 
   return (
-    <div className="h-screen">
+    <div className="h-screen ">
       <Header header="Users" />
-      <Sidebar>
-        <Loading isLoading={!users}>
-          <UserWrapper>
-            <Users users={users} />
-            <button onClick={createAProject}>Create Project</button>
-          </UserWrapper>
-        </Loading>
-      </Sidebar>
+      <Loading isLoading={!users}>
+        <UserWrapper>
+          <Users users={users} />
+          <button onClick={createAProject}>Create Project</button>
+        </UserWrapper>
+      </Loading>
     </div>
   );
 };

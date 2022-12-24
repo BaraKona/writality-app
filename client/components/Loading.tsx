@@ -7,7 +7,7 @@ export const Loading: FC<{ children: ReactNode; isLoading: boolean }> = ({
   return (
     <>
       {isLoading ? (
-        <div className="flex justify-center py-[300px] w-full">
+        <div className="flex justify-center py-[300px]">
           <Loader variant="bars" color="gray" />
         </div>
       ) : (

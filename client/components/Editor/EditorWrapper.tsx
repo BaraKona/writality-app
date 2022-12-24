@@ -1,9 +1,8 @@
-import { FC, ReactNode, useEffect, useState } from "react";
+import { FC, ReactNode } from "react";
 import { CgClose, CgChevronUpR, CgChevronDownR } from "react-icons/cg";
 import { VscSourceControl, VscVersions } from "react-icons/vsc";
 import { AiFillSave } from "react-icons/ai";
 import { IChapter } from "../../interfaces/IChapter";
-import { useDatabaseContext } from "../../contexts/DatabaseContext";
 import { convertDate } from "../../scripts/convertDate";
 
 export const EditorWrapper: FC<{
@@ -21,16 +20,8 @@ export const EditorWrapper: FC<{
   openBranchModal,
   createVersion,
 }) => {
-  const [date, setDate] = useState("");
-  const { currentChapterContent } = useDatabaseContext();
-
-  useEffect(() => {
-    if (currentChapterContent && currentChapterContent.lastUpdated) {
-      setDate(convertDate(currentChapterContent?.lastUpdated));
-    }
-  }, [currentChapterContent]);
   return (
-    <div className="w-full flex flex-col bg-baseMid  gap-2 m-3 mx-3 shadow-lg border border-baseBorder rounded-md">
+    <div className="w-full flex flex-col bg-baseMid  gap-2 m-3 mx-3 shadow-lg border border-baseBorder rounded-md ">
       <div className=" flex font-semibold py-2  bg-baseLight border-b border-baseBorder">
         <button
           onClick={backToProject}
@@ -45,7 +36,7 @@ export const EditorWrapper: FC<{
           <CgChevronDownR size={18} color={"#d8b4fe"} />
         </button>
         <p className="align-middle mx-2 my-auto">
-          {currentChapterContent?.type === "main" ? (
+          {chapter?.content?.type === "main" ? (
             <abbr title="You are on the main branch" className="text-blue-300">
               [Main]
             </abbr>
@@ -55,12 +46,12 @@ export const EditorWrapper: FC<{
             </abbr>
           )}
           &nbsp;
-          {currentChapterContent?.type === "main"
-            ? chapter?.title
-            : currentChapterContent?.name}
+          {chapter.title}
         </p>
         <p className="text-center my-auto font-medium text-sm ml-auto ">
-          {date ? "Last updated: " + date : "No updates yet"}
+          {chapter.content.dateUpdated.date
+            ? "Last updated: " + convertDate(chapter.content.dateUpdated.date)
+            : "No updates yet"}
         </p>
         <button
           className="p-2 ml-2 hover:bg-baseLighter rounded-sm"

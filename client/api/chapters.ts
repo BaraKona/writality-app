@@ -8,11 +8,13 @@ const chapterApi = axios.create({
 
 export const createChapter = async (chapter: IChapter) => {
   try {
+    console.log(chapter);
     const { data } = await chapterApi.post("/", chapter);
     useToast("success", "Chapter created successfully 😃");
     return data;
   } catch (err: any) {
     const { data } = err.response;
+    console.log(data);
     useToast("error", "something went wrong 😖");
   }
 };

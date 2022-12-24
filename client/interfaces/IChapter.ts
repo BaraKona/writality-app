@@ -9,7 +9,11 @@ export type IChapter = {
     user: string;
     date: Date;
   };
+  dateUpdated: {
+    user: string;
+    date: Date;
+  };
   chapterNumber?: number;
-  content?: IChapterContent[];
+  content: IChapterContent;
   type: string;
 };

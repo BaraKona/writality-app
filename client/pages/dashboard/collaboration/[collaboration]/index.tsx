@@ -83,69 +83,67 @@ const Collaboration: NextPage = () => {
   return (
     <div className="h-screen">
       <Header header="Collaboration" />
-      <Sidebar>
-        <Loading isLoading={loading}>
-          <BaseProjectView
-            setIsForm={setIsForm}
-            setTitle={setTitle}
-            isForm={isForm}
-            title={title}
-            changeTitle={changeTitle}
-            project={collaboration}
-          >
-            <CollaborationToolbar users={users} setOpened={setOpened} />
-            <InviteUserDrawer opened={opened} setOpened={setOpened}>
-              <CollaboratorsList collaborators={collaboration?.collaborators} />
+      <Loading isLoading={loading}>
+        <BaseProjectView
+          setIsForm={setIsForm}
+          setTitle={setTitle}
+          isForm={isForm}
+          title={title}
+          changeTitle={changeTitle}
+          project={collaboration}
+        >
+          <CollaborationToolbar users={users} setOpened={setOpened} />
+          <InviteUserDrawer opened={opened} setOpened={setOpened}>
+            <CollaboratorsList collaborators={collaboration?.collaborators} />
 
-              <Button
-                variant="default"
-                onClick={() => setModalOpen(true)}
-                className="flex ml-auto"
-                leftIcon={<IconAffiliate size={14} />}
-                disabled={collaboration.projectOwner !== currentUser.uid}
-              >
-                Invite Collaborator
-              </Button>
-            </InviteUserDrawer>
-            <InviteUserModal
-              opened={modalOpen}
-              setOpened={setModalOpen}
-              users={users}
-              addProjectCollaborator={addProjectCollaborator}
+            <Button
+              variant="default"
+              onClick={() => setModalOpen(true)}
+              className="flex ml-auto"
+              leftIcon={<IconAffiliate size={14} />}
+              disabled={collaboration.projectOwner !== currentUser.uid}
+            >
+              Invite Collaborator
+            </Button>
+          </InviteUserDrawer>
+          <InviteUserModal
+            opened={modalOpen}
+            setOpened={setModalOpen}
+            users={users}
+            addProjectCollaborator={addProjectCollaborator}
+          />
+          {projectChapters?.length == 0 ? (
+            <NoChapters
+              createNewChapter={() =>
+                createCollabChapter(router.query.collaboration)
+              }
             />
-            {projectChapters?.length == 0 ? (
-              <NoChapters
-                createNewChapter={() =>
-                  createCollabChapter(router.query.collaboration)
-                }
-              />
-            ) : (
-              <ChapterWrapper
-                createNewChapter={() =>
-                  createCollabChapter(router.query.collaboration)
-                }
-                chapterCount={projectChapters.length}
-              >
-                <div className="flex-grow overflow-y-auto h-[calc(100vh-190px)]">
-                  {projectChapters?.map((chapter: IChapter, index: number) => (
-                    <Chapter
-                      openChapter={() => console.log("open chapter")}
-                      key={index}
-                      chapter={chapter}
-                    />
-                  ))}
-                </div>
-                <CharacterWrapper> - Protagonist </CharacterWrapper>
-              </ChapterWrapper>
-            )}
-          </BaseProjectView>
-          {/* <NoChapters
+          ) : (
+            <ChapterWrapper
+              createNewChapter={() =>
+                createCollabChapter(router.query.collaboration)
+              }
+              chapterCount={projectChapters.length}
+            >
+              <div className="flex-grow overflow-y-auto h-[calc(100vh-190px)]">
+                {projectChapters?.map((chapter: IChapter, index: number) => (
+                  <Chapter
+                    openChapter={() => console.log("open chapter")}
+                    key={index}
+                    chapter={chapter}
+                  />
+                ))}
+              </div>
+              <CharacterWrapper> - Protagonist </CharacterWrapper>
+            </ChapterWrapper>
+          )}
+        </BaseProjectView>
+        {/* <NoChapters
               createNewChapter={() =>
                 createCollabChapter(router.query.collaboration)
               }
             /> */}
-        </Loading>
-      </Sidebar>
+      </Loading>
     </div>
   );
 };

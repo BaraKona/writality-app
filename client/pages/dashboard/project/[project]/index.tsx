@@ -21,17 +21,14 @@ export default function project() {
   const { currentUser } = useAuthContext();
   const { project } = router.query;
 
-  if (!project) {
-    return <Loading isLoading={true}> </Loading>;
-  }
   const queryClient = useQueryClient();
 
-  const { data: chapters } = useQuery(["chapters", project], () =>
-    getProjectChapters(currentUser.uid, project as string)
-  );
   const { data: currentProject, isLoading } = useQuery(
     ["project", project],
     () => getSingleProject(currentUser.uid, project as string)
+  );
+  const { data: chapters } = useQuery(["chapters", project], () =>
+    getProjectChapters(currentUser.uid, project as string)
   );
   const addChapter = useMutation(createChapter, {
     onSuccess: () => {
@@ -40,8 +37,9 @@ export default function project() {
   });
 
   const createNewChapter = () => {
+    const chapterId = uuidv4();
     addChapter.mutate({
-      uid: uuidv4(),
+      uid: chapterId,
       owner: currentUser.uid,
       projectId: project as string,
       type: "main",
@@ -50,47 +48,60 @@ export default function project() {
         user: currentUser.uid,
         date: new Date(),
       },
+      dateUpdated: {
+        user: currentUser.uid,
+        date: new Date(),
+      },
+      content: {
+        uid: uuidv4(),
+        type: "main",
+        content: "Lets start writing...",
+        dateCreated: {
+          user: currentUser.uid,
+          date: new Date(),
+        },
+        dateUpdated: {
+          user: currentUser.uid,
+          date: new Date(),
+        },
+        projectId: project as string,
+        chapterId: chapterId as string,
+      },
     });
   };
 
-  const openChapter = (
-    projectId: string,
-    chapterId: string,
-    chapter: IChapter
-  ) => {
+  const openChapter = (projectId: string, chapterId: string) => {
     router.push(`/dashboard/project/${projectId}/chapter/${chapterId}`);
   };
 
   return (
-    <div className="h-screen">
+    <div className="h-screen w-full">
       <Header header="Project" />
-      <Sidebar>
-        <Loading isLoading={isLoading}>
-          <BaseProjectView project={currentProject}>
-            {chapters?.length == 0 ? (
-              <NoChapters createNewChapter={createNewChapter} />
-            ) : (
-              <ChapterWrapper
-                createNewChapter={createNewChapter}
-                chapterCount={chapters?.length}
-              >
-                <div className="flex-grow overflow-y-auto h-[calc(100vh-140px)]">
-                  {chapters?.map((chapter: IChapter, index: number) => (
-                    <Chapter
-                      openChapter={() =>
-                        openChapter(chapter.projectId, chapter.uid, chapter)
-                      }
-                      key={index}
-                      chapter={chapter}
-                    />
-                  ))}
-                </div>
-                <CharacterWrapper> - Protagonist </CharacterWrapper>
-              </ChapterWrapper>
-            )}
-          </BaseProjectView>
-        </Loading>
-      </Sidebar>
+      <Loading isLoading={isLoading}>
+        <BaseProjectView project={currentProject}>
+          {chapters?.length == 0 ? (
+            <NoChapters createNewChapter={createNewChapter} />
+          ) : (
+            <ChapterWrapper
+              createNewChapter={createNewChapter}
+              chapterCount={chapters?.length}
+            >
+              <div className="flex-grow overflow-y-auto h-[calc(100vh-140px)]">
+                {chapters?.map((chapter: IChapter, index: number) => (
+                  <Chapter
+                    openChapter={() =>
+                      openChapter(chapter.projectId, chapter.uid)
+                    }
+                    key={index}
+                    chapter={chapter}
+                  />
+                ))}
+              </div>
+              <CharacterWrapper> - Protagonist </CharacterWrapper>
+            </ChapterWrapper>
+          )}
+        </BaseProjectView>
+      </Loading>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { MantineProvider } from "@mantine/core";
 import { ComponentLoader } from "../components/ComponentLoader";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-
+import { Layout } from "../components/Layout";
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
@@ -24,7 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             }}
           >
             <ComponentLoader>
-              <Component {...pageProps} />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
             </ComponentLoader>
           </MantineProvider>
           <ReactQueryDevtools initialIsOpen={false} position="bottom-left" />
