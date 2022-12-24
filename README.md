@@ -19,16 +19,25 @@ To get started using the Collaborative Writing Platform, follow these steps:
 ```
 git clone https://github.com/BaraKona/Writality
 ```
-2. Install the dependencies
+2. Install the dependencies for Front End
 ```
-cd collaborative-writing-platform
+cd client
 npm install
 ```
-3. Start the development server
+3. Install the dependencies for Server
+```
+cd server
+npm install
+```
+4. Start the front end
 ```
 npm run dev
 ```
-4. Open your web browser and navigate to http://localhost:3000 to access the platform.
+5. Start the server
+```
+npm start
+```
+6. Open your web browser and navigate to http://localhost:3000 to access the platform.
 
 ## Contributing
 
