@@ -21,10 +21,12 @@ import { getSingleChapter } from "../../../../../api/chapters";
 import { useAuthContext } from "../../../../../contexts/AuthContext";
 import { Loading } from "../../../../../components/Loading";
 import { Editor } from "../../../../../components/Editor";
+import { useSearchParams } from "next/navigation";
 import {
   createVersion,
   getAllChapterVersions,
 } from "../../../../../api/versions";
+import { createBranch, getAllBranches } from "../../../../../api/branches";
 export default function chapter() {
   const router = useRouter();
   const { currentUser } = useAuthContext();
@@ -32,7 +34,6 @@ export default function chapter() {
   const [opened, setOpened] = useState(false);
   const [branchName, setBranchName] = useState("");
   const [mergeOpened, setMergeOpened] = useState(false);
-  const { updateChapterContent } = useDatabaseContext();
   const backButton = () => {
     router.push(`/dashboard/project/${project}`);
   };
@@ -48,6 +49,15 @@ export default function chapter() {
     ["chapterVersions", chapter as string],
     () => getAllChapterVersions(chapter as string)
   );
+  const { data: chapterBranches } = useQuery(
+    ["chapterBranches", chapter as string],
+    () => getAllBranches(chapter as string)
+  );
+  const createBranchMutation = useMutation(createBranch, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["chapterBranches", chapter as string]);
+    },
+  });
 
   const createChapterVersion = useMutation(createVersion, {
     onSuccess: () => {
@@ -57,14 +67,29 @@ export default function chapter() {
 
   return (
     <Loading isLoading={isLoading}>
-      {/* <CreateBranchModal
+      <CreateBranchModal
         branchName={branchName}
         setBranchName={setBranchName}
-        createBranch={() => console.log("create branch")}
+        createBranch={() =>
+          createBranchMutation.mutate({
+            ...chapterContent.content,
+            name: branchName,
+            uid: uuidv4(),
+            type: "branch",
+            dateCreated: {
+              user: currentUser.uid,
+              date: new Date(),
+            },
+            dateUpdated: {
+              user: currentUser.uid,
+              date: new Date(),
+            },
+          })
+        }
         setOpened={setOpened}
         opened={opened}
       />
-      <MergeBranchModal
+      {/* <MergeBranchModal
         setMergeOpened={setMergeOpened}
         mergeOpened={mergeOpened}
         replaceMain={replaceMain}
@@ -95,10 +120,11 @@ export default function chapter() {
       >
         {/* <Editor text={text} setText={setText} /> */}
         <div className="min-w-[350px]  border-l border-baseBorder px-5">
-          {/* <ChapterBranches
+          <ChapterBranches
             openMergeModal={() => setMergeOpened(true)}
-            checkoutBranch={checkoutBranch}
-          /> */}
+            chapterBranches={chapterBranches}
+            currentVersion={chapterContent?.content}
+          />
           <ChapterVersions
             openMergeModal={() => setMergeOpened(true)}
             chapterVersions={chapterVersions}

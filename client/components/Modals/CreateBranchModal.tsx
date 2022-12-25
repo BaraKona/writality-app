@@ -10,7 +10,7 @@ import { IconDatabase } from "@tabler/icons";
 export const CreateBranchModal: FC<{
   opened: boolean;
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
-  createBranch: () => Promise<void>;
+  createBranch: () => void;
   branchName: string;
   setBranchName: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ opened, setOpened, createBranch, branchName, setBranchName }) => {

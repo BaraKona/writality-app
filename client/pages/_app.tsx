@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import { AuthContextWrapper } from "../contexts/AuthContext";
 import { DatabaseContextWrapper } from "../contexts/DatabaseContext";

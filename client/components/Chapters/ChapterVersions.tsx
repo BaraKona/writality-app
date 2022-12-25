@@ -61,7 +61,7 @@ export const ChapterVersions: FC<{
           <button className="text-stone-300">
             <VscRepo size={18} />
           </button>
-          You do not have any versions save for this chapter
+          You do not have any versions saved for this chapter
         </p>
       )}
     </div>
