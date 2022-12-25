@@ -17,13 +17,14 @@ import { createProject, getUserProjects } from "../../api/projects";
 export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
   const { currentUser } = useAuthContext();
+  console.log("render");
   const queryClient = useQueryClient();
   const {
     isLoading: projectsLoading,
     error,
     data: projects,
   } = useQuery(
-    ["projects", "projects", currentUser.uid],
+    ["projects", currentUser.uid],
     () => getUserProjects(currentUser.uid),
     {
       staleTime: Infinity,

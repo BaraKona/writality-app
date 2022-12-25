@@ -53,7 +53,10 @@ export const ChapterBranches: FC<{
                         : "text-stone-300"
                     }`}
                     onClick={() =>
-                      router.push(router.asPath + `?branch=${branch.uid}`)
+                      router.push(
+                        router.asPath.toString().split("?")[0] +
+                          `?branch=${branch.uid}`
+                      )
                     }
                   >
                     <VscGitPullRequestCreate size={18} />

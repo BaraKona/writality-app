@@ -17,18 +17,20 @@ import { getProjectChapters, createChapter } from "../../../../api/chapters";
 import { getSingleProject } from "../../../../api/projects";
 
 export default function project() {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const { currentUser } = useAuthContext();
   const { project } = router.query;
 
-  const queryClient = useQueryClient();
-
-  const { data: currentProject, isLoading } = useQuery(
+  const { data: currentProject } = useQuery(
     ["project", project],
-    () => getSingleProject(currentUser.uid, project as string)
+    () => getSingleProject(currentUser.uid, project as string),
+    { enabled: !!project }
   );
-  const { data: chapters } = useQuery(["chapters", project], () =>
-    getProjectChapters(currentUser.uid, project as string)
+  const { data: chapters, isLoading } = useQuery(
+    ["chapters", project],
+    () => getProjectChapters(currentUser.uid, project as string),
+    { enabled: !!currentProject }
   );
   const addChapter = useMutation(createChapter, {
     onSuccess: () => {

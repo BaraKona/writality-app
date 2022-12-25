@@ -4,17 +4,17 @@ import { EditorWrapper, Editor } from "../../../../../components/Editor";
 import { useRouter } from "next/router";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { v4 as uuidv4 } from "uuid";
+import { useAuthContext } from "../../../../../contexts/AuthContext";
+import { Loading } from "../../../../../components/Loading";
+import { CreateBranchModal } from "../../../../../components/Modals/CreateBranchModal";
 import {
   ChapterBranches,
   ChapterVersions,
 } from "../../../../../components/Chapters";
-import { CreateBranchModal } from "../../../../../components/Modals/CreateBranchModal";
 import {
   getSingleChapter,
   updateChapterContent,
 } from "../../../../../api/chapters";
-import { useAuthContext } from "../../../../../contexts/AuthContext";
-import { Loading } from "../../../../../components/Loading";
 import {
   createVersion,
   getAllChapterVersions,
@@ -37,7 +37,6 @@ export default function chapter() {
   const queryClient = useQueryClient();
   const { chapter, project, branch } = router.query;
   const branchId = branch?.toString().split("=")[0];
-  const enabled = branchId ? true : false;
   const {
     data: chapterContent,
     isLoading,
@@ -45,18 +44,21 @@ export default function chapter() {
   } = useQuery(["chapter", chapter], () =>
     getSingleChapter(currentUser.uid, project as string, chapter as string)
   );
+
   const { data: chapterVersions } = useQuery(
     ["chapterVersions", chapter as string],
-    () => getAllChapterVersions(chapter as string)
+    () => getAllChapterVersions(chapter as string),
+    { enabled: !!chapter }
   );
   const { data: chapterBranches } = useQuery(
     ["chapterBranches", chapter as string],
-    () => getAllBranches(chapter as string)
+    () => getAllBranches(chapter as string),
+    { enabled: !!chapter }
   );
   const { data: currentBranch } = useQuery(
     "currentBranch",
     () => getSingleBranch(chapter as string, branchId as string),
-    { enabled }
+    { enabled: !!branchId }
   );
 
   const createBranchMutation = useMutation(createBranch, {
