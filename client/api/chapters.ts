@@ -38,3 +38,23 @@ export const getSingleChapter = async (
   const { data } = await chapterApi.get(`/${userId}/${projectId}/${chapterId}`);
   return data;
 };
+
+export const updateChapterContent = async (
+  userId: string,
+  projectId: string,
+  chapterId: string,
+  chapter: IChapter
+) => {
+  console.log(chapter);
+  try {
+    const { data } = await chapterApi.put(
+      `${userId}/${projectId}/${chapterId}`,
+      chapter
+    );
+    useToast("success", "Chapter updated successfully 😃");
+    return data;
+  } catch (err: any) {
+    console.log(err);
+    useToast("error", "something went wrong 😖");
+  }
+};

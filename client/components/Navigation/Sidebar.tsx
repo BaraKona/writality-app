@@ -89,7 +89,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
             {projectsLoading ? (
               <div>loading</div>
             ) : (
-              <>
+              <div className="max-h-44 overflow-y-auto">
                 {projects
                   ? projects.map(
                       (
@@ -107,7 +107,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
                       }
                     )
                   : ""}
-              </>
+              </div>
             )}
           </CategoryListItem>
           <hr className="my-5 border-baseBorder" />

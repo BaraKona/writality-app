@@ -14,28 +14,29 @@ export const ChapterVersions: FC<{
   return (
     <div className="min-w-auto max-w-md flex-grow ">
       {chapterVersions.length > 0 ? (
-        <div className="shadow-lg p-5 max-h-60 overflow-y-auto">
+        <div className="shadow-lg p-5">
           <h3 className="text-lg flex font-bold gap-2">
             Versions <VscInfo size={18} className="cursor-pointer my-auto" />
           </h3>
-          {chapterVersions.map((version: any, index) => (
-            <div
-              key={index}
-              className="flex justify-between gap-2 border-b border-stone-700"
-            >
-              <div>
-                <div className="flex gap-1 transition-all ease-in-out duration-200">
-                  <button
-                    // onClick={() => checkoutBranch(version)}
-                    className={`hover:text-orange-200 ${
-                      version.uid === version.uid
-                        ? "text-blue-300"
-                        : "text-stone-300"
-                    }`}
-                  >
-                    <VscRepo size={18} />
-                  </button>
-                  {/* {currentChapterContent.uid === version.uid ? (
+          <div className="max-h-60 overflow-y-auto">
+            {chapterVersions.map((version: any, index) => (
+              <div
+                key={index}
+                className="flex justify-between gap-2 px-2 border-b border-stone-700"
+              >
+                <div className="">
+                  <div className="flex gap-1 transition-all ease-in-out duration-200">
+                    <button
+                      // onClick={() => checkoutBranch(version)}
+                      className={`hover:text-orange-200 ${
+                        version.uid === version.uid
+                          ? "text-blue-300"
+                          : "text-stone-300"
+                      }`}
+                    >
+                      <VscRepo size={18} />
+                    </button>
+                    {/* {currentChapterContent.uid === version.uid ? (
                     <div className="mt-1 ">
                       <button
                         onClick={openMergeModal}
@@ -47,14 +48,15 @@ export const ChapterVersions: FC<{
                   ) : (
                     ""
                   )} */}
-                  <p className="text-purple-300 font-semibold">
-                    {version.name ? version.name : "Version"}:
-                  </p>
+                    <p className="text-purple-300 font-semibold">
+                      {version.name ? version.name : "Version"}:
+                    </p>
+                  </div>
                 </div>
+                <p>{convertDate(version.dateCreated.date)}</p>
               </div>
-              <p>{convertDate(version.dateCreated.date)}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       ) : (
         <p className=" flex gap-2 text-center align-middle text-xs">
