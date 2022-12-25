@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Sidebar } from "../../../../components/Navigation";
+import { Header } from "../../../../components/Navigation";
 import { BaseProjectView } from "../../../../components/Project";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";

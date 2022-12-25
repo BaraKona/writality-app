@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import projects from "./routes/projects";
 import users from "./routes/users";
 import chapters from "./routes/chapters";
-
+import versions from "./routes/versions";
 import cors from "cors";
 import mongoose from "mongoose";
 const app = express();
@@ -22,6 +22,9 @@ app.use(cors());
 app.use("/projects", projects);
 app.use("/users", users);
 app.use("/chapters", chapters);
+app.use("/versions", versions);
+
+//s
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {

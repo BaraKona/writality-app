@@ -1,11 +1,5 @@
-export interface IChapterVersion {
-  uid: string;
-  title?: string;
-  name?: string;
-  content: string;
-  createdAt: Date;
-  lastUpdated?: Date;
-  projectId: string;
-  chapterId: string;
-  type: string;
-}
+import { IChapterContent } from "./IChapterContent";
+
+export type IChapterVersion = IChapterContent & {
+  name: string;
+};

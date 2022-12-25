@@ -1,28 +1,26 @@
 import { FC } from "react";
-import { useDatabaseContext } from "../../contexts/DatabaseContext";
 import { convertDate } from "../../scripts/convertDate";
 import { VscRepoPull, VscRepo, VscInfo } from "react-icons/vsc";
+import { IChapterVersion } from "../../interfaces/IChapterVersion";
 export const ChapterVersions: FC<{
-  checkoutBranch: (branch: any) => void;
+  checkoutBranch?: (branch: any) => void;
   openMergeModal: () => void;
-}> = ({ checkoutBranch, openMergeModal }) => {
-  const {
-    currentChapterBranches,
-    currentChapterContent,
-    setCurrentChapterContent,
-    mainChapterContent,
-    currentChapterVersions,
-  } = useDatabaseContext();
+  chapterVersions: IChapterVersion[];
+}> = ({ checkoutBranch, openMergeModal, chapterVersions }) => {
+  if (!chapterVersions) {
+    return null;
+  }
+
   return (
     <div className="min-w-auto max-w-md flex-grow ">
-      {currentChapterVersions?.length > 0 ? (
+      {chapterVersions.length > 0 ? (
         <div className="shadow-lg p-5 max-h-60 overflow-y-auto">
           <h3 className="text-lg flex font-bold gap-2">
             Versions <VscInfo size={18} className="cursor-pointer my-auto" />
           </h3>
-          {currentChapterVersions.map((version: any) => (
+          {chapterVersions.map((version: any, index) => (
             <div
-              key={version.uid}
+              key={index}
               className="flex justify-between gap-2 border-b border-stone-700"
             >
               <div>
@@ -30,7 +28,7 @@ export const ChapterVersions: FC<{
                   <button
                     // onClick={() => checkoutBranch(version)}
                     className={`hover:text-orange-200 ${
-                      currentChapterContent.uid === version.uid
+                      version.uid === version.uid
                         ? "text-blue-300"
                         : "text-stone-300"
                     }`}
@@ -54,12 +52,17 @@ export const ChapterVersions: FC<{
                   </p>
                 </div>
               </div>
-              <p>{convertDate(version.createdAt)}</p>
+              <p>{convertDate(version.dateCreated.date)}</p>
             </div>
           ))}
         </div>
       ) : (
-        <p>No Versions yet</p>
+        <p className=" flex gap-2 text-center align-middle text-xs">
+          <button className="text-stone-300">
+            <VscRepo size={18} />
+          </button>
+          You do not have any versions save for this chapter
+        </p>
       )}
     </div>
   );

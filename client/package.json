@@ -38,6 +38,7 @@
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.6.0",
     "react-query": "^3.39.2",
+    "react-quill": "^2.0.0",
     "sass": "^1.55.0",
     "uuid": "^9.0.0"
   },

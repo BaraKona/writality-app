@@ -4,54 +4,20 @@ import { Header, Sidebar } from "../../../components/Navigation";
 import { UserWrapper, Users } from "../../../components/Users";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { Loading } from "../../../components/Loading";
-import { useCreateProject } from "../../../hooks/projects/useCreateProject";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getAllProjects, createProject } from "../../../api/projects";
 import { IProject } from "../../../interfaces/IProject";
 
 const Dashboard: NextPage = () => {
-  const { getUsers, currentUser, users } = useAuthContext();
-  useEffect(() => {
-    getUsers();
-  }, []);
-  const queryClient = useQueryClient();
-  // const fetchUsers = getUsers();
-  const createAProject = () => {
-    const project: IProject = {
-      type: "main",
-      uid: "1234",
-      owner: currentUser.uid,
-      title: "test",
-      description: "test",
-      dateCreated: {
-        user: currentUser.uid,
-        date: new Date(),
-      },
-    };
-    console.log(project);
-    addProject.mutate(project);
-  };
-
-  const { isLoading, error, data } = useQuery("projects", getAllProjects);
-
-  const addProject = useMutation(createProject, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("projects");
-    },
-  });
-
-  if (isLoading) return <p>"Loading..."</p>;
+  const { currentUser } = useAuthContext();
 
   return (
-    <div className="h-screen ">
+    // <Loading isLoading={isLoading}>
+    <>
       <Header header="Users" />
-      <Loading isLoading={!users}>
-        <UserWrapper>
-          <Users users={users} />
-          <button onClick={createAProject}>Create Project</button>
-        </UserWrapper>
-      </Loading>
-    </div>
+      <UserWrapper>{/* <Users users={users} /> */}</UserWrapper>
+    </>
+    // </Loading>
   );
 };
 
