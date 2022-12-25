@@ -1,32 +1,29 @@
-import React, { FC, useEffect, useState } from "react";
-import { Header, Sidebar } from "../../../../../components/Navigation";
-import { EditorWrapper } from "../../../../../components/Editor";
+import React, { useState, useEffect } from "react";
+import { Header } from "../../../../../components/Navigation";
+import { EditorWrapper, Editor } from "../../../../../components/Editor";
 import { useRouter } from "next/router";
-import { useDatabaseContext } from "../../../../../contexts/DatabaseContext";
-import { useToast } from "../../../../../hooks/useToast";
-import {
-  useQuery,
-  useMutation,
-  QueryClient,
-  useQueryClient,
-} from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { v4 as uuidv4 } from "uuid";
 import {
   ChapterBranches,
   ChapterVersions,
 } from "../../../../../components/Chapters";
 import { CreateBranchModal } from "../../../../../components/Modals/CreateBranchModal";
-import { MergeBranchModal } from "../../../../../components/Modals/MergeBranchModal";
-import { getSingleChapter } from "../../../../../api/chapters";
+import {
+  getSingleChapter,
+  updateChapterContent,
+} from "../../../../../api/chapters";
 import { useAuthContext } from "../../../../../contexts/AuthContext";
 import { Loading } from "../../../../../components/Loading";
-import { Editor } from "../../../../../components/Editor";
-import { useSearchParams } from "next/navigation";
 import {
   createVersion,
   getAllChapterVersions,
 } from "../../../../../api/versions";
-import { createBranch, getAllBranches } from "../../../../../api/branches";
+import {
+  createBranch,
+  getAllBranches,
+  getSingleBranch,
+} from "../../../../../api/branches";
 export default function chapter() {
   const router = useRouter();
   const { currentUser } = useAuthContext();
@@ -38,12 +35,15 @@ export default function chapter() {
     router.push(`/dashboard/project/${project}`);
   };
   const queryClient = useQueryClient();
-  const { chapter, project } = router.query;
-
-  const { data: chapterContent, isLoading } = useQuery(
-    ["chapter", chapter],
-    () =>
-      getSingleChapter(currentUser.uid, project as string, chapter as string)
+  const { chapter, project, branch } = router.query;
+  const branchId = branch?.toString().split("=")[0];
+  const enabled = branchId ? true : false;
+  const {
+    data: chapterContent,
+    isLoading,
+    isSuccess,
+  } = useQuery(["chapter", chapter], () =>
+    getSingleChapter(currentUser.uid, project as string, chapter as string)
   );
   const { data: chapterVersions } = useQuery(
     ["chapterVersions", chapter as string],
@@ -53,9 +53,16 @@ export default function chapter() {
     ["chapterBranches", chapter as string],
     () => getAllBranches(chapter as string)
   );
+  const { data: currentBranch } = useQuery(
+    "currentBranch",
+    () => getSingleBranch(chapter as string, branchId as string),
+    { enabled }
+  );
+
   const createBranchMutation = useMutation(createBranch, {
     onSuccess: () => {
       queryClient.invalidateQueries(["chapterBranches", chapter as string]);
+      setOpened(false);
     },
   });
 
@@ -65,6 +72,39 @@ export default function chapter() {
     },
   });
 
+  const updateChapterContentMutation = useMutation(
+    () =>
+      updateChapterContent(
+        currentUser.uid,
+        project as string,
+        chapter as string,
+        {
+          ...chapterContent,
+          content: {
+            ...chapterContent.content,
+            content: text,
+            dateUpdated: {
+              user: currentUser.uid,
+              date: new Date(),
+            },
+          },
+          dateUpdated: {
+            user: currentUser.uid,
+            date: new Date(),
+          },
+        }
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["chapter", chapter as string]);
+      },
+    }
+  );
+  useEffect(() => {
+    if (isSuccess) {
+      setText(chapterContent.content.content);
+    }
+  }, [chapterContent, isSuccess]);
   return (
     <Loading isLoading={isLoading}>
       <CreateBranchModal
@@ -84,6 +124,7 @@ export default function chapter() {
               user: currentUser.uid,
               date: new Date(),
             },
+            content: text || chapterContent.content.content,
           })
         }
         setOpened={setOpened}
@@ -112,13 +153,14 @@ export default function chapter() {
               user: currentUser.uid,
               date: new Date(),
             },
+            content: text || chapterContent.content.content,
           })
         }
         openBranchModal={() => setOpened(true)}
-        save={() => console.log("save")}
+        save={updateChapterContentMutation.mutate}
         chapter={chapterContent}
       >
-        {/* <Editor text={text} setText={setText} /> */}
+        <Editor text={text} setText={setText} chapterContent={chapterContent} />
         <div className="min-w-[350px]  border-l border-baseBorder px-5">
           <ChapterBranches
             openMergeModal={() => setMergeOpened(true)}
