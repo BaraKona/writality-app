@@ -25,15 +25,24 @@ type AuthContextType = {
   users: any;
   setCurrentUser: any;
 };
+const authContextDefaultValues: AuthContextType = {
+  createAUserWithEmailAndPassword: () => Promise.resolve(),
+  signInAUserWithEmailAndPassword: () => Promise.resolve(),
+  currentUser: null,
+  signOutCurrentUser: () => Promise.resolve(),
+  signInWithGoogle: () => Promise.resolve(),
+  users: [],
+  setCurrentUser: () => {},
+};
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+const AuthContext = createContext<AuthContextType>(authContextDefaultValues);
 
 export function useAuthContext() {
   return useContext(AuthContext);
 }
 
 export function AuthContextWrapper({ children }: { children: ReactNode }) {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState("hh");
   const [users, setUsers] = useState([]);
   function createAUserWithEmailAndPassword(
     email: string,
@@ -46,6 +55,7 @@ export function AuthContextWrapper({ children }: { children: ReactNode }) {
           //@ts-ignore
           await registerUser({ uid: auth.currentUser.uid, name, email })
         );
+        console.log("hi");
       })
       .catch((error) => {
         console.log(error);
@@ -57,6 +67,7 @@ export function AuthContextWrapper({ children }: { children: ReactNode }) {
   function signOutCurrentUser() {
     return auth.signOut();
   }
+
   async function signInWithGoogle() {
     await signInWithPopup(auth, googleAuthProvider)
       .then((result) => {
@@ -93,10 +104,6 @@ export function AuthContextWrapper({ children }: { children: ReactNode }) {
   };
 
   return (
-    <>
-      <AuthContext.Provider value={sharedState}>
-        {children}
-      </AuthContext.Provider>
-    </>
+    <AuthContext.Provider value={sharedState}>{children}</AuthContext.Provider>
   );
 }

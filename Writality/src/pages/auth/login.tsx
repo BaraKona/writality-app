@@ -1,6 +1,6 @@
 import { MainNavigation } from "../../components/Navigation";
 import { loginIllustration } from "../../assets/illustrations";
-import { Login } from "../../components/auth";
+import Login from "../../components/auth/Login";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 export default function LoginPage() {

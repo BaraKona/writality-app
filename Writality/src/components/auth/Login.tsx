@@ -4,51 +4,53 @@ import { apple, google } from "../../assets/icons";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useToast } from "../../hooks/useToast";
 export default function Login() {
-  // create reference for the inputs
-  // const emailRef = useRef<HTMLDivElement>(null) as any;
-  // const passwordRef = useRef<HTMLDivElement>(null) as any;
-  // const [loading, setLoading] = useState(false);
-  // const navigate = useNavigate();
+  const emailRef = useRef<HTMLDivElement>(null) as any;
+  const passwordRef = useRef<HTMLDivElement>(null) as any;
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  // const { signInAUserWithEmailAndPassword, signInWithGoogle } =
-  //   useAuthContext();
+  const { signInAUserWithEmailAndPassword, signInWithGoogle } =
+    useAuthContext();
 
-  // const handleSignInAUser = async (e: React.FormEvent) => {
-  //   e.preventDefault();
+  console.log(useAuthContext());
+  const handleSignInAUser = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  //   try {
-  //     setLoading(true);
-  //     await signInAUserWithEmailAndPassword(
-  //       emailRef.current.value,
-  //       passwordRef.current.value
-  //     );
-  //   } catch (error: unknown) {
-  //     console.log(error);
-  //     if (error instanceof Error) alert(error.message);
-  //   }
-  //   setLoading(false);
-  // };
-  // const signInWithGoogleProvider = async () => {
-  //   try {
-  //     await signInWithGoogle().then((loggedIn: boolean) => {
-  //       toast.success("Signed in successfully");
-  //       navigate("/dashboard");
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+    try {
+      setLoading(true);
+      await signInAUserWithEmailAndPassword(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      useToast("success", "Signed in successfully 😎");
+    } catch (error: unknown) {
+      console.log(error);
+      if (error instanceof Error) alert(error.message);
+    }
+    setLoading(false);
+  };
+  const signInWithGoogleProvider = async () => {
+    try {
+      await signInWithGoogle().then((loggedIn: boolean) => {
+        toast.success("Signed in successfully");
+        navigate("/dashboard");
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="md:pt-20 pb-10 text-left md:border-r border-baseBorder min-w-[400px] flex-grow ">
-      {/* <div className="px-10 mx-auto max-w-[600px]">
+      <div className="px-10 mx-auto max-w-[600px]">
         <h2 className="text-2xl font-bold text-stone-200">
           Hey, Welcome Back! ✌️
         </h2>
         <p className="text-sm text-stone-400 mb-4">
           Welcome back, fill in your credentials to log in
         </p>
-        <form>
+        <form onSubmit={handleSignInAUser}>
           <label className="text-sm text-stone-500">
             Email Address <span className="text-red-700"> * </span>
           </label>
@@ -92,6 +94,7 @@ export default function Login() {
         <button
           type="submit"
           className="flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-500 rounded-full text-stone-500 bg-slate-800 hover:text-base"
+          onClick={signInWithGoogleProvider}
         >
           <img src={google} alt="google" />
           Continue with Google
@@ -111,7 +114,7 @@ export default function Login() {
             </span>
           </p>
         </Link>
-      </div> */}
+      </div>
     </div>
   );
 }

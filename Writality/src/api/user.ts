@@ -21,7 +21,6 @@ export const registerUser = async (user: IUser) => {
 };
 
 export const loginUser = async (user: { email: string; password: string }) => {
-  console.log(user);
   return await userApi
     .post("/", user)
     .then((res) => {
@@ -37,11 +36,9 @@ export const loginUser = async (user: { email: string; password: string }) => {
 export const getUser = async (id: string) => {
   try {
     const { data } = await userApi.get(`/${id}`);
-    console.log(data);
     return data;
   } catch (err: any) {
     const { data } = err.response;
-    console.log(data);
     useToast("error", data.message);
   }
 };

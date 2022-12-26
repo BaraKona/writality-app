@@ -10,7 +10,7 @@ export default function UserNavigation() {
     });
   };
   return (
-    <div className="flex bg-red-500">
+    <div className="flex">
       <Link to="/dashboard">
         <div className=" ml-auto my-3 flex cursor-pointer">
           <a className="font-medium px-2 py-3 text-sm text-slate-200">

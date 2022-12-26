@@ -7,7 +7,7 @@ export const Home: FC = () => {
   return (
     <>
       <MainNavigation />
-      <div className={styles.container}>
+      <div>
         <div className={styles.main}>
           <h1 className="text-3xl font-bold underline">Welcome to Writality</h1>
         </div>
