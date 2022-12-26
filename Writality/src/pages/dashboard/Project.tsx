@@ -15,10 +15,11 @@ export function Project() {
   const { currentUser } = useAuthContext();
   const { project } = useParams();
   const navigate = useNavigate();
+
   const { data: currentProject } = useQuery(
     ["project", project],
     () => getSingleProject(currentUser.uid, project as string),
-    { enabled: !!project }
+    { enabled: !!project && !!currentUser.uid }
   );
   const { data: chapters, isLoading } = useQuery(
     ["chapters", project],

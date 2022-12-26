@@ -2,15 +2,15 @@ import { FC } from "react";
 import { convertDate } from "../../scripts/convertDate";
 import { VscGitPullRequestCreate, VscGitMerge, VscInfo } from "react-icons/vsc";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
-import { useRouter } from "next/router";
+import { useNavigate, useLocation } from "react-router-dom";
 export const ChapterBranches: FC<{
   checkoutBranch?: (branch: any) => void;
   openMergeModal: () => void;
   chapterBranches: IChapterVersion[];
   currentVersion: IChapterVersion;
 }> = ({ checkoutBranch, openMergeModal, chapterBranches, currentVersion }) => {
-  const router = useRouter();
-
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   if (!chapterBranches) {
     return null;
   }
@@ -52,12 +52,6 @@ export const ChapterBranches: FC<{
                         ? "text-blue-300"
                         : "text-stone-300"
                     }`}
-                    onClick={() =>
-                      router.push(
-                        router.asPath.toString().split("?")[0] +
-                          `?branch=${branch.uid}`
-                      )
-                    }
                   >
                     <VscGitPullRequestCreate size={18} />
                   </button>

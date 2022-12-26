@@ -1,26 +1,24 @@
 import React from "react";
-import { MainNavigation, Header } from "../../components/Navigation";
+import { MainNavigation } from "../../components/Navigation";
 import { welcomeIllustration } from "../../assets/illustrations";
-import Image from "next/image";
 import { Register } from "../../components/auth";
-import { useRouter } from "next/router";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function register() {
   const { currentUser } = useAuthContext();
-  const router = useRouter();
+  const navigate = useNavigate();
 
   if (currentUser) {
-    router.push("/dashboard");
+    navigate("/dashboard");
   }
   return (
     <div>
       <MainNavigation />
-      <Header header="Register" />
       <div className="container flex px-4 mx-auto flex-wrap-reverse">
         <Register />
         <div className="flex flex-grow flex-shrink sm justify-center min-w-[400px]">
-          <Image src={welcomeIllustration} alt="login" width={500}></Image>
+          <img src={welcomeIllustration} alt="login" width={500}></img>
         </div>
       </div>
     </div>

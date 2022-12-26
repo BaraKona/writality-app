@@ -1,7 +1,7 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import React from "react";
 
-export default function Reset() {
+export function Reset() {
   return (
     <div className="md:pt-20 pb-10 text-left md:border-r border-baseBorder min-w-[400px] flex-grow ">
       <div className="px-10 mx-auto max-w-[600px]">
@@ -26,7 +26,7 @@ export default function Reset() {
           >
             Reset Password
           </button>
-          <Link href="/auth/login">
+          <Link to="/auth/login">
             <a className="text-stone-400 text-sm font-semibold underline hover:underline-offset-2 ease-in-out duration-300 text-center align-middle cursor-pointer">
               &#8592; Back to Login
             </a>

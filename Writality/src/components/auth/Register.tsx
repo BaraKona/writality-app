@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useRouter } from "next/router";
 
-export default function Register() {
+export function Register() {
   // create reference for the inputs
   const emailRef = useRef<HTMLDivElement>(null) as any;
   const nameRef = useRef<HTMLDivElement>(null) as any;
