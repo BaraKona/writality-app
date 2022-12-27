@@ -50,7 +50,10 @@ a {
 .ql-toolbar.ql-snow {
   border: none !important;
 }
-
+.ql-editor,
+.ql-editor:focus {
+  outline: none !important;
+}
 body {
   min-width: 320px;
   min-height: 100vh;
@@ -60,7 +63,9 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-input:focus {
+input:focus,
+textarea:focus,
+select:focus {
   outline: none !important;
 }
 #root {

@@ -54,7 +54,7 @@ export const Editor: FC<{
             setValue({ text: e, date: new Date() });
           }}
           placeholder="Content goes here..."
-          className="placeholder-slate-50 h-[calc(100vh-150px)]"
+          className="placeholder-slate-50 h-[calc(100vh-150px)] "
         />
       </div>
     </div>
