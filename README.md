@@ -21,7 +21,7 @@ git clone https://github.com/BaraKona/Writality
 ```
 2. Install the dependencies for Front End
 ```
-cd client
+cd platform
 npm install
 ```
 3. Install the dependencies for Server
