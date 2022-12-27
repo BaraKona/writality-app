@@ -2,7 +2,7 @@ import { ComponentLoader } from "./components/ComponentLoader";
 function App() {
   return (
     <ComponentLoader>
-      <div className="App"></div>
+      <div className="App" />
     </ComponentLoader>
   );
 }

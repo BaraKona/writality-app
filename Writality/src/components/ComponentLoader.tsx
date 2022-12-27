@@ -3,10 +3,13 @@ import { useState, useEffect, ReactNode, FC } from "react";
 import { getUser } from "../api/user";
 import { auth } from "../api/firebase";
 import { Loading } from "./Loading";
-
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export const ComponentLoader: FC<{ children: ReactNode }> = ({ children }) => {
   const { setCurrentUser, currentUser } = useAuthContext();
   const [loading, setLoading] = useState(true);
+  const pathname = window.location.pathname;
+  console.log(pathname);
 
   useEffect(() => {
     let unsubscribe = null;

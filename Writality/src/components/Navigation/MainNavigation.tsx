@@ -16,7 +16,7 @@ export default function Navbar() {
     }
   };
   return (
-    <nav className="container mx-auto flex space-x-4 px-4 border-solid border-b border-baseBorder">
+    <nav className="container mx-auto flex justify-between  px-4 border-solid border-b border-baseBorder">
       <div className="cursor-pointer">
         <Link to="/">
           <div className="my-3 flex">

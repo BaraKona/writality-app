@@ -5,7 +5,7 @@ import { Register } from "../../components/auth";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-export default function register() {
+export function RegisterPage() {
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
 

@@ -1,10 +1,8 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import React, { useRef, useState } from "react";
 import { apple, google } from "../../assets/icons";
-import Image from "next/image";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { useRouter } from "next/router";
-
+import { useNavigate } from "react-router-dom";
 export function Register() {
   // create reference for the inputs
   const emailRef = useRef<HTMLDivElement>(null) as any;
@@ -12,7 +10,7 @@ export function Register() {
   const passwordRef = useRef<HTMLDivElement>(null) as any;
   const passwordConfirmRef = useRef<HTMLDivElement>(null) as any;
 
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const { createAUserWithEmailAndPassword } = useAuthContext();
   const [loading, setLoading] = useState(false);
@@ -30,7 +28,7 @@ export function Register() {
         passwordRef.current.value,
         nameRef.current.value
       ).then(() => {
-        router.push("/dashboard");
+        navigate("/dashboard");
       });
     } catch (error: unknown) {
       console.log(error);
@@ -103,7 +101,7 @@ export function Register() {
           type="submit"
           className="flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-500 rounded-full text-stone-500 bg-slate-800 hover:text-base"
         >
-          <Image src={google} alt="google" />
+          <img src={google} alt="google" />
           Register with Google
         </button>
         <button
@@ -111,10 +109,10 @@ export function Register() {
           type="submit"
           className=" flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-300 rounded-full text-stone-500 bg-slate-800 hover:text-base"
         >
-          <Image src={apple} alt="apple" />
+          <img src={apple} alt="apple" />
           Register with Apple
         </button>
-        <Link href="/auth/login">
+        <Link to="/auth/login">
           <p className="text-center mt-10 font-medium text-stone-400">
             Already have an account ?
             <span className="underline pl-5 cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-stone-400 font-semibold">

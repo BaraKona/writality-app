@@ -3,7 +3,7 @@ import { loginIllustration } from "../../assets/illustrations";
 import Login from "../../components/auth/Login";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-export default function LoginPage() {
+export function LoginPage() {
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
 

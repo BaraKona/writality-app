@@ -60,9 +60,10 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+input:focus {
+  outline: none !important;
+}
 #root {
   // max-width: 1280px;
   margin: 0 auto;
-  text-align: center;
 }

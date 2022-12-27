@@ -4,6 +4,7 @@ import { cyclops8 } from "../../assets/icons";
 import { profileIllustration } from "../../assets/illustrations";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { Menu, Button, Text } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 import {
   IconSettings,
   IconPhoto,
@@ -13,10 +14,13 @@ import {
   IconLogout,
 } from "@tabler/icons";
 export default function DashboardNavigation() {
+  const navigate = useNavigate();
   const { currentUser, signOutCurrentUser } = useAuthContext();
 
   const handleSignOut = async () => {
-    await signOutCurrentUser();
+    await signOutCurrentUser().then(() => {
+      navigate("/auth/login");
+    });
   };
   return (
     <div className="border-b border-baseBorder flex">
