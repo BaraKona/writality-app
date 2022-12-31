@@ -3,7 +3,7 @@ import ReactQuill from "react-quill";
 import React from "react";
 // const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-// import { Quill } from "react-quill";
+import { Quill } from "react-quill";
 
 // Custom Undo button icon component for Quill editor. You can import it directly
 // from 'quill/assets/icons/undo.svg' but I found that a number of loaders do not
@@ -53,7 +53,46 @@ Font.whitelist = [
   "lucida",
 ];
 ReactQuill.register(Font, true);
+class Counter {
+  constructor(quills: any, option: any) {
+    const quill = quills;
+    const options = option;
+    const container = document.querySelector(options.container);
+    quill.on("text-change", this.update.bind(this));
+    this.update(); // Account for initial contents
+  }
 
+  calculate() {
+    let text = quill.getText();
+    if (this.options.unit === "word") {
+      text = text.trim();
+      // Splitting empty text returns a non-empty array
+      return text.length > 0 ? text.split(/\s+/).length : 0;
+    } else {
+      return text.length;
+    }
+  }
+
+  update() {
+    let length = this.calculate();
+    let label = this.options.unit;
+    if (length !== 1) {
+      label += "s";
+    }
+    this.container.innerText = length + " " + label;
+  }
+}
+
+Quill.register("modules/counter", Counter);
+
+var quill = new Quill("#editor", {
+  modules: {
+    counter: {
+      container: "#counter",
+      unit: "character",
+    },
+  },
+});
 // Modules object for setting up the Quill editor
 export const modules = {
   toolbar: {
@@ -67,6 +106,10 @@ export const modules = {
     delay: 500,
     maxStack: 100,
     userOnly: true,
+  },
+  counter: {
+    container: "#counter",
+    unit: "character",
   },
 };
 

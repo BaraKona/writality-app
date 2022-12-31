@@ -5,6 +5,7 @@ import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
 import { Project } from "./pages/dashboard/Project";
 import { Sidebar } from "./components/Navigation";
 import { Chapter } from "./pages/dashboard/Chapter";
+import { Collaboration } from "./pages/dashboard/Collaboration";
 import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
 export const router = createBrowserRouter([
@@ -54,6 +55,15 @@ export const router = createBrowserRouter([
     element: (
       <Sidebar>
         <Chapter />
+      </Sidebar>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: "/dashboard/collaboration/:collaborationId",
+    element: (
+      <Sidebar>
+        <Collaboration />
       </Sidebar>
     ),
     errorElement: <Error />,

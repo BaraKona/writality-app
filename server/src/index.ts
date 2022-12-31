@@ -5,6 +5,7 @@ import users from "./routes/users";
 import chapters from "./routes/chapters";
 import versions from "./routes/versions";
 import branches from "./routes/branches";
+import collaborations from "./routes/collabProject";
 import cors from "cors";
 import mongoose from "mongoose";
 const app = express();
@@ -25,7 +26,7 @@ app.use("/users", users);
 app.use("/chapters", chapters);
 app.use("/versions", versions);
 app.use("/branches", branches);
-
+app.use("/collaborations", collaborations);
 //s
 
 // define a route handler for the default home page

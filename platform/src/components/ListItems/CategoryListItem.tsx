@@ -1,11 +1,13 @@
 import React, { FC, ReactNode } from "react";
 import { AiFillPlusSquare } from "react-icons/ai";
+import { Loading } from "../Loading";
 export const CategoryListItem: FC<{
   children?: ReactNode;
+  loading?: boolean;
   onClick?: () => void;
   name: string;
   button?: boolean;
-}> = ({ children, onClick, name, button }) => {
+}> = ({ children, onClick, name, button, loading }) => {
   return (
     <ul>
       <li>
@@ -19,7 +21,7 @@ export const CategoryListItem: FC<{
           </p>
         </h2>
       </li>
-      {children}
+      <Loading isLoading={loading || false}>{children}</Loading>
     </ul>
   );
 };

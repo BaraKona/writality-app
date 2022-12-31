@@ -13,6 +13,10 @@ import { FcConferenceCall, FcReading, FcRules } from "react-icons/fc";
 import { useToast } from "../../hooks/useToast";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { createProject, getUserProjects } from "../../api/projects";
+import {
+  createCollabProject,
+  getUserCollabProjects,
+} from "../../api/collabProjects";
 
 export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
@@ -30,6 +34,24 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
       enabled: !!currentUser,
     }
   );
+  const {
+    isLoading: collabProjectsLoading,
+    error: collabError,
+    data: collaboration,
+  } = useQuery(
+    ["collaboration", currentUser.uid],
+    () => getUserCollabProjects(currentUser.uid),
+    {
+      staleTime: Infinity,
+      enabled: !!currentUser,
+    }
+  );
+
+  const addCollaboration = useMutation(createCollabProject, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["collaboration", currentUser.uid]);
+    },
+  });
   const addProject = useMutation(createProject, {
     onSuccess: () => {
       queryClient.invalidateQueries(["projects", currentUser.uid]);
@@ -57,6 +79,28 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
     }
     addProject.mutate(project);
     useToast("success", "Project Created");
+  };
+
+  const createACollaboration = () => {
+    const project: IProject = {
+      uid: uuidv4(),
+      owner: currentUser.uid,
+      title: "New Collaboration ",
+      description: " New Collaboration ",
+      dateCreated: {
+        user: currentUser.uid,
+        date: new Date(),
+      },
+      type: "collaboration",
+    };
+    if (collaboration && collaboration.length >= 3) {
+      useToast(
+        "error",
+        "You can only have 3 collaborations. Try not to spread yourself too thin. ⚡"
+      );
+      return;
+    }
+    addCollaboration.mutate(project);
   };
 
   const openProject = (id: string) => {
@@ -93,75 +137,54 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
             name="Your Projects"
             button={true}
             onClick={createAProject}
+            loading={projectsLoading}
           >
-            {projectsLoading ? (
-              <div>loading</div>
-            ) : (
-              <div className="max-h-44 overflow-y-auto">
-                {projects
-                  ? projects.map(
-                      (
-                        project: IProject,
-                        index: React.Key | null | undefined
-                      ) => {
-                        return (
-                          <ProjectListItem
-                            key={index}
-                            onClick={() => openProject(project.uid)}
-                            name={project.title || "Untitled Project"}
-                            projectId={project.uid}
-                          />
-                        );
-                      }
-                    )
-                  : ""}
-              </div>
-            )}
+            <div className="max-h-44 overflow-y-auto">
+              {projects
+                ? projects.map(
+                    (
+                      project: IProject,
+                      index: React.Key | null | undefined
+                    ) => {
+                      return (
+                        <ProjectListItem
+                          key={index}
+                          onClick={() => openProject(project.uid)}
+                          name={project.title || "Untitled Project"}
+                          projectId={project.uid}
+                        />
+                      );
+                    }
+                  )
+                : ""}
+            </div>
           </CategoryListItem>
           <hr className="my-5 border-baseBorder" />
           <CategoryListItem
             name="Collaborative Projects"
             button={true}
-            // onClick={addCollaborativeProject}
+            onClick={createACollaboration}
+            loading={collabProjectsLoading}
           >
-            {/* <>
-              {userCollaborativeProjects
-                ? userCollaborativeProjects.flatMap(
+            <div className="max-h-44 overflow-y-auto">
+              {collaboration
+                ? collaboration.map(
                     (
-                      project: IProject,
+                      collaboration: IProject,
                       index: React.Key | null | undefined
                     ) => {
                       return (
                         <ProjectListItem
                           key={index}
-                          onClick={() => openCollaboration(project.uid)}
-                          name={project.title || "Untitled Project"}
-                          projectId={project.uid}
+                          onClick={() => openCollaboration(collaboration.uid)}
+                          name={collaboration.title || "Untitled Collaboration"}
+                          projectId={collaboration.uid}
                         />
                       );
                     }
                   )
                 : ""}
-            </>
-            <>
-              {userCollaborations
-                ? userCollaborations.flatMap(
-                    (
-                      project: IProject,
-                      index: React.Key | null | undefined
-                    ) => {
-                      return (
-                        <ProjectListItem
-                          key={index}
-                          onClick={() => openCollaboration(project.uid)}
-                          name={project.title || "Untitled Project"}
-                          projectId={project.uid}
-                        />
-                      );
-                    }
-                  )
-                : ""}
-            </> */}
+            </div>
           </CategoryListItem>
           <hr className="my-5 border-baseBorder" />
           <CategoryListItem name="Chats" button={true} />

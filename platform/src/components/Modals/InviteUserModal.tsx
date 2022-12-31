@@ -6,7 +6,7 @@ export const InviteUserModal: FC<{
   opened: boolean;
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
   users: any;
-  addProjectCollaborator: (collaboratorId: any) => Promise<void>;
+  addProjectCollaborator: () => void;
 }> = ({ opened, setOpened, users, addProjectCollaborator }) => {
   const [value, setValue] = useState<string | null>(null);
   return (
@@ -53,7 +53,7 @@ export const InviteUserModal: FC<{
           color="gray"
           className="mt-4"
           // styles={purpleButton}
-          onClick={() => addProjectCollaborator(value)}
+          onClick={addProjectCollaborator}
           rightIcon={<IconBrandTelegram size={14} />}
           type="submit"
         >
