@@ -32,10 +32,16 @@ export const addCollaboratorToProject = async (
   projectId: string,
   collaboratorId: string
 ) => {
-  const { data } = await collabApi.put(`${userId}/${projectId}`, {
-    collaboratorId,
-  });
-  return data;
+  try {
+    const { data } = await collabApi.put(`${userId}/${projectId}`, {
+      collaboratorId,
+    });
+    useToast("success", " Collaborator added! 😎");
+    return data;
+  } catch (err: any) {
+    const { data } = err.response;
+    useToast("error", data.message);
+  }
 };
 
 export const getSingleCollabProject = async (

@@ -1,6 +1,12 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { auth, googleAuthProvider, db } from "../api/firebase";
-import { registerUser } from "../api/user";
+import { registerUser, getAllUsers } from "../api/user";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -92,7 +98,13 @@ export function AuthContextWrapper({ children }: { children: ReactNode }) {
         return false;
       });
   }
-
+  useEffect(() => {
+    const gettingUsers = async () => {
+      const users = await getAllUsers();
+      setUsers(users);
+    };
+    gettingUsers();
+  }, []);
   const sharedState = {
     createAUserWithEmailAndPassword,
     signInAUserWithEmailAndPassword,
@@ -101,6 +113,7 @@ export function AuthContextWrapper({ children }: { children: ReactNode }) {
     signInWithGoogle,
     users,
     setCurrentUser,
+    setUsers,
   };
 
   return (

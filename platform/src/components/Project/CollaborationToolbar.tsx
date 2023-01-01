@@ -6,7 +6,6 @@ export const CollaborationToolbar: FC<{
   users: any;
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ users, setOpened }) => {
-  console.log(users);
   return (
     <div className="flex flex-col gap-2  border-b border-baseBorder px-8 py-2">
       <div className="ml-auto">

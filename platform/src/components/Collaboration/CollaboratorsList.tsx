@@ -1,18 +1,17 @@
 import { FC } from "react";
+import { Loading } from "../Loading";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { getUser } from "../../api/user";
+
 export const CollaboratorsList: FC<{ collaborators: any }> = ({
   collaborators,
 }) => {
   const { users } = useAuthContext();
-
-  console.log(collaborators, users);
   const collaboratorsExist = () => {
     if (collaborators) {
       return collaborators.map((collaborator: any) => {
-        const user = users?.find(
-          (user: any) => user.uid === collaborator.collaborator
-        );
-        return <p> O {user?.displayName}</p>;
+        const user = users?.find((user: any) => user.uid === collaborator.user);
+        return <p> O {user?.name}</p>;
       });
     } else {
       return <div>No collaborators</div>;

@@ -1,14 +1,27 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
+import mongoose from "mongoose";
+import http from "http";
+import socketIo from "socket.io";
+import { Server } from "socket.io";
+
 import projects from "./routes/projects";
 import users from "./routes/users";
 import chapters from "./routes/chapters";
 import versions from "./routes/versions";
 import branches from "./routes/branches";
 import collaborations from "./routes/collabProject";
-import cors from "cors";
-import mongoose from "mongoose";
+
 const app = express();
+const server = http.createServer(app);
+
+// TODO: add cors options
+const io = new Server(server, {
+  cors: {
+    origin: ["http://localhost:5173"],
+  },
+});
 
 // configure dotenv
 dotenv.config();
@@ -34,6 +47,18 @@ app.get("/", (req, res) => {
   res.send("Connected to server!");
 });
 
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+  socket.on("join-collaboration", (room, callback) => {
+    socket.join(room);
+    callback(
+      "This is a collaborative project, and you have joined the collaboration 😃👍"
+    );
+  });
+});
 const PORT = process.env.PORT || 5000;
 
 // start the Express server and connect to the database
@@ -42,7 +67,7 @@ mongoose
   .then(() =>
     // disable tslint for this line
     // tslint:disable-next-line: no-console
-    app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
+    server.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
   )
   // tslint:disable-next-line: no-console
   .catch((error) => console.log(error.message));

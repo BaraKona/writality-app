@@ -42,3 +42,13 @@ export const getUser = async (id: string) => {
     useToast("error", data.message);
   }
 };
+
+export const getAllUsers = async () => {
+  try {
+    const { data } = await userApi.get("/");
+    return data;
+  } catch (err: any) {
+    const { data } = err.response;
+    useToast("error", data.message);
+  }
+};

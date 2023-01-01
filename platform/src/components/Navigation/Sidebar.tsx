@@ -113,7 +113,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className="h-[100vh] flex ">
       <aside
-        className="max-w-[225px]  overflow-y-auto border-r bg-baseMid border-baseBorder"
+        className="w-[250px]  overflow-y-auto border-r bg-baseMid border-baseBorder"
         aria-label="Sidebar"
       >
         <div className=" py-2 px-3">
@@ -186,9 +186,9 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
                 : ""}
             </div>
           </CategoryListItem>
-          <hr className="my-5 border-baseBorder" />
-          <CategoryListItem name="Chats" button={true} />
-          <div
+          {/* <hr className="my-5 border-baseBorder" />
+          <CategoryListItem name="Chats" button={true} /> */}
+          {/* <div
             id="dropdown-cta"
             className="p-4 mt-6 bg-blue-50  rounded-lg"
             role="alert"
@@ -226,7 +226,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
               You can add collaborators to your story by clicking on the
               "Collaborators" button in the toolbar.
             </p>
-          </div>
+          </div> */}
         </div>
       </aside>
       {children}

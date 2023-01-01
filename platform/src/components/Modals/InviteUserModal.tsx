@@ -1,14 +1,16 @@
 import { Button, Modal, Select, useMantineTheme } from "@mantine/core";
 import { IconBrandTelegram, IconSend } from "@tabler/icons";
 import React, { FC, useState } from "react";
+import { UseMutationResult } from "react-query";
 // import { purpleButton } from "../../styles";
 export const InviteUserModal: FC<{
   opened: boolean;
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
   users: any;
-  addProjectCollaborator: () => void;
+  addProjectCollaborator: UseMutationResult<any, unknown, string, unknown>;
 }> = ({ opened, setOpened, users, addProjectCollaborator }) => {
   const [value, setValue] = useState<string | null>(null);
+  console.log(users);
   return (
     <Modal
       size="lg"
@@ -40,7 +42,8 @@ export const InviteUserModal: FC<{
           onChange={setValue}
           // change mantine select background color to transparent
           data={users.map((user: any) => ({
-            label: user.displayName,
+            // label: user.displayName,
+            label: user.name,
             value: user.uid,
           }))}
           // on submit add collaborator
@@ -53,7 +56,7 @@ export const InviteUserModal: FC<{
           color="gray"
           className="mt-4"
           // styles={purpleButton}
-          onClick={addProjectCollaborator}
+          onClick={() => addProjectCollaborator.mutate(value as string)}
           rightIcon={<IconBrandTelegram size={14} />}
           type="submit"
         >

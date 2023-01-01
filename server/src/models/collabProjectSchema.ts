@@ -45,11 +45,12 @@ const collabProjectSchema = new Schema({
     {
       user: {
         type: String,
-        required: false,
+        required: true,
+        unique: true,
       },
       dateJoined: {
         type: Date,
-        required: false,
+        required: true,
       },
     },
   ],

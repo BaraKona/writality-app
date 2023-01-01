@@ -8,9 +8,6 @@ import { useNavigate } from "react-router-dom";
 export const ComponentLoader: FC<{ children: ReactNode }> = ({ children }) => {
   const { setCurrentUser, currentUser } = useAuthContext();
   const [loading, setLoading] = useState(true);
-  const pathname = window.location.pathname;
-  console.log(pathname);
-
   useEffect(() => {
     let unsubscribe = null;
     async function fetchUser() {
