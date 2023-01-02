@@ -1,6 +1,6 @@
 # Collaborative Writing Platform
 
-Welcome to the Collaborative Writing Platform, a platform for writers to come together and create amazing content. This platform is built using [Next.js](https://nextjs.org), a popular framework for building server-rendered React applications.
+Welcome to the Collaborative Writing Platform, a platform for writers to come together and create amazing content. This platform is built using [Vite](https://vitejs.dev/), a popular framework for building server-rendered React applications.
 
 ## Features
 
