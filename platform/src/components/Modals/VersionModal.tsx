@@ -1,0 +1,82 @@
+import {
+  Button,
+  Input,
+  Modal,
+  TextInput,
+  useMantineTheme,
+} from "@mantine/core";
+import React, { FC } from "react";
+import { IconTrash } from "@tabler/icons";
+import { IChapterVersion } from "../../interfaces/IChapterVersion";
+export const VersionModal: FC<{
+  opened: boolean;
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteBranch: () => void;
+  version: IChapterVersion;
+  currentContent: IChapterVersion;
+}> = ({ opened, setOpened, deleteBranch, version, currentContent }) => {
+  const theme = useMantineTheme();
+
+  if (!version) {
+    return null;
+  }
+  // transform richtext string into html
+  const html = (content: string) => {
+    return { __html: content };
+  };
+
+  return (
+    <>
+      <Modal
+        size="calc(100vw - 20%)"
+        opened={opened}
+        overlayColor={
+          theme.colorScheme === "dark"
+            ? theme.colors.dark[9]
+            : theme.colors.gray[2]
+        }
+        styles={{
+          modal: { backgroundColor: "#1b1c25", border: "solid 1px #363130" },
+        }}
+        overlayOpacity={0.55}
+        overlayBlur={3}
+        onClose={() => setOpened(false)}
+        title="Version"
+      >
+        <div className="flex flex-wrap max-w-[1600px] mx-auto">
+          <div className="px-5 border-r border-baseBorder grow shrink max-w-2xl mx-auto">
+            <h2 className="text-blue-400 font-bold text-lg my-2">
+              {currentContent.name || "Main"}
+            </h2>
+            <div
+              className=" h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto"
+              dangerouslySetInnerHTML={html(currentContent.content)}
+            />
+          </div>
+          <div className="px-5 grow shrink max-w-2xl mx-auto">
+            <h2 className="text-blue-400 font-bold text-lg my-2">
+              {version?.name}
+            </h2>
+            <div
+              className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto"
+              dangerouslySetInnerHTML={html(version?.content)}
+            />
+          </div>
+        </div>
+        <div className="mt-5">
+          <Button
+            variant="light"
+            color="red"
+            leftIcon={<IconTrash size={14} />}
+            onClick={deleteBranch}
+          >
+            Delete
+          </Button>
+          <Button color="gray" onClick={() => setOpened(false)}>
+            Cancel
+          </Button>
+        </div>
+      </Modal>
+    </>
+  );
+};

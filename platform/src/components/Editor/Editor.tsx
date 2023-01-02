@@ -7,6 +7,7 @@ import debounce from "lodash.debounce";
 // ignore typescript error
 // @ts-ignore
 import Countable from "countable";
+import { ScrollArea } from "@mantine/core";
 
 const modules = {
   toolbar: [
@@ -48,23 +49,32 @@ export const Editor: FC<{
   }, [chapterContent]);
 
   return (
-    <div className="text-editor flex-grow h-[100vh] w-auto overflow-y-auto px-5">
-      <div className="max-w-[875px] m-auto h-[100vh]">
-        <ReactQuill
-          ref={quillRef}
-          modules={modules}
-          theme="snow"
-          value={text}
-          onChange={(e) => {
-            setText(e);
-            setValue({ text: e, date: new Date() });
-          }}
-          placeholder="Content goes here..."
-          className="placeholder-slate-50 h-[calc(100vh-150px)]"
-        />
-        {/* <p>{Countable.count(quillRef, (counter) => console.log(counter))}</p> */}
-      </div>
-    </div>
+    // <div className="text-editor flex-grow h-[100vh] w-auto px-5">
+    <ScrollArea
+      style={{
+        height: "calc(100vh - 7.5rem)",
+        maxWidth: "875px",
+        margin: "0 auto",
+        padding: "0 5px",
+      }}
+      offsetScrollbars
+      scrollbarSize={6}
+    >
+      <ReactQuill
+        ref={quillRef}
+        modules={modules}
+        theme="snow"
+        value={text}
+        onChange={(e) => {
+          setText(e);
+          setValue({ text: e, date: new Date() });
+        }}
+        placeholder="Content goes here..."
+        className="placeholder-slate-50 "
+      />
+      {/* <p>{Countable.count(quillRef, (counter) => console.log(counter))}</p> */}
+    </ScrollArea>
+    // </div>
   );
 };
 

@@ -15,8 +15,14 @@ import {
   getAllBranches,
   getSingleBranch,
   updateBranch,
+  deleteBranch,
 } from "../../api/branches";
-import { MergeBranchModal, UpdateContentModal } from "../../components/Modals";
+import {
+  MergeBranchModal,
+  UpdateContentModal,
+  DeleteBranchModal,
+  VersionModal,
+} from "../../components/Modals";
 
 export const Chapter = () => {
   const navigate = useNavigate();
@@ -26,12 +32,15 @@ export const Chapter = () => {
   const [opened, setOpened] = useState(false);
   const [branchName, setBranchName] = useState("");
   const [mergeOpened, setMergeOpened] = useState(false);
-  const [currentContent, setCurrentContent] = useState({} as any);
+  const [versionModalOpen, setVersionModalOpen] = useState(false);
   const [UpdateContentModalOpen, setUpdateContentModalOpen] = useState(false);
+  const [openDeleteBranch, setOpenDeleteBranch] = useState(false);
+  const [version, setVersion] = useState({} as any);
+  const { chapter, project } = useParams();
 
   const queryClient = useQueryClient();
-  const { chapter, project } = useParams();
   const branch = searchParams.get("branch");
+
   const backButton = () => {
     navigate(`/dashboard/project/${project}`);
   };
@@ -74,10 +83,17 @@ export const Chapter = () => {
       queryClient.invalidateQueries(["chapterVersions", chapter as string]);
     },
   });
-  const resetMain = () => {
-    console.log(searchParams);
-    searchParams.delete("branch");
-  };
+  const deleteBranchMutation = useMutation(
+    () => deleteBranch(chapter as string, branch as string),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["chapterBranches", chapter as string]);
+        setOpenDeleteBranch(false);
+        navigate(`/dashboard/project/${project}/chapter/${chapter}`);
+      },
+    }
+  );
+
   const updateChapterContentMutation = useMutation(
     () =>
       updateChapterContent(
@@ -123,7 +139,6 @@ export const Chapter = () => {
     }
   );
 
-  // if (!chapterContent) return <Loading isLoading={true}> </Loading>;
   if (isLoading)
     return (
       <div className="w-full h-full grid place-items-center">
@@ -150,6 +165,7 @@ export const Chapter = () => {
         <Loading isLoading={true}> </Loading>
       </div>
     );
+
   return (
     <>
       <CreateBranchModal
@@ -175,14 +191,26 @@ export const Chapter = () => {
         setOpened={setOpened}
         opened={opened}
       />
+      <DeleteBranchModal
+        setOpened={setOpenDeleteBranch}
+        opened={openDeleteBranch}
+        deleteBranch={deleteBranchMutation.mutate}
+      />
       <UpdateContentModal
         setOpened={setUpdateContentModalOpen}
         opened={UpdateContentModalOpen}
         setText={() => {
-          setText(
-            JSON.parse(localStorage.getItem(currentBranch?.uid) as string).text
-          ),
-            setUpdateContentModalOpen(false);
+          currentBranch
+            ? setText(
+                JSON.parse(localStorage.getItem(currentBranch?.uid) as string)
+                  .text
+              )
+            : setText(
+                JSON.parse(
+                  localStorage.getItem(chapterContent?.content.uid) as string
+                ).text
+              );
+          setUpdateContentModalOpen(false);
         }}
       />
       <MergeBranchModal
@@ -191,6 +219,13 @@ export const Chapter = () => {
         replaceMain={() => {}}
         mergeBranch={() => {}}
         currentBranch={currentBranch}
+      />
+      <VersionModal
+        setOpened={setVersionModalOpen}
+        opened={versionModalOpen}
+        deleteBranch={() => {}}
+        version={version}
+        currentContent={branch ? currentBranch : chapterContent.content}
       />
       <EditorWrapper
         backToProject={backButton}
@@ -232,17 +267,21 @@ export const Chapter = () => {
           <ChapterBranches
             openMergeModal={() => setMergeOpened(true)}
             chapterBranches={chapterBranches}
-            currentContent={currentContent}
             currentBranch={
               currentBranch ? currentBranch : chapterContent.content
             }
             mainContent={chapterContent?.content}
             setSearchParams={setSearchParams}
-            checkoutMain={resetMain}
+            checkoutMain={() =>
+              navigate(`/dashboard/project/${project}/chapter/${chapter}`)
+            }
+            openDeleteBranch={setOpenDeleteBranch}
           />
           <ChapterVersions
             openMergeModal={() => setMergeOpened(true)}
             chapterVersions={chapterVersions}
+            setOpen={setVersionModalOpen}
+            setVersion={setVersion}
           />
         </div>
       </EditorWrapper>

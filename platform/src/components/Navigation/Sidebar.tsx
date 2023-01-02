@@ -13,6 +13,7 @@ import { FcConferenceCall, FcReading, FcRules } from "react-icons/fc";
 import { useToast } from "../../hooks/useToast";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { createProject, getUserProjects } from "../../api/projects";
+import { ScrollArea } from "@mantine/core";
 import {
   createCollabProject,
   getUserCollabProjects,
@@ -139,7 +140,11 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
             onClick={createAProject}
             loading={projectsLoading}
           >
-            <div className="max-h-44 overflow-y-auto">
+            <ScrollArea.Autosize
+              maxHeight={178}
+              offsetScrollbars
+              scrollbarSize={6}
+            >
               {projects
                 ? projects.map(
                     (
@@ -157,7 +162,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
                     }
                   )
                 : ""}
-            </div>
+            </ScrollArea.Autosize>
           </CategoryListItem>
           <hr className="my-5 border-baseBorder" />
           <CategoryListItem
@@ -166,7 +171,11 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
             onClick={createACollaboration}
             loading={collabProjectsLoading}
           >
-            <div className="max-h-44 overflow-y-auto">
+            <ScrollArea.Autosize
+              maxHeight={178}
+              offsetScrollbars
+              scrollbarSize={6}
+            >
               {collaboration
                 ? collaboration.map(
                     (
@@ -184,7 +193,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
                     }
                   )
                 : ""}
-            </div>
+            </ScrollArea.Autosize>
           </CategoryListItem>
           {/* <hr className="my-5 border-baseBorder" />
           <CategoryListItem name="Chats" button={true} /> */}

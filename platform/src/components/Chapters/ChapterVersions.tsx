@@ -2,11 +2,21 @@ import { FC } from "react";
 import { convertDate } from "../../scripts/convertDate";
 import { VscRepoPull, VscRepo, VscInfo } from "react-icons/vsc";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
+import { ScrollArea } from "@mantine/core";
+
 export const ChapterVersions: FC<{
   checkoutBranch?: (branch: any) => void;
   openMergeModal: () => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setVersion: React.Dispatch<React.SetStateAction<any>>;
   chapterVersions: IChapterVersion[];
-}> = ({ checkoutBranch, openMergeModal, chapterVersions }) => {
+}> = ({
+  checkoutBranch,
+  openMergeModal,
+  chapterVersions,
+  setOpen,
+  setVersion,
+}) => {
   if (!chapterVersions) {
     return null;
   }
@@ -18,7 +28,11 @@ export const ChapterVersions: FC<{
           <h3 className="text-lg flex font-bold gap-2">
             Versions <VscInfo size={18} className="cursor-pointer my-auto" />
           </h3>
-          <div className="max-h-60 overflow-y-auto">
+          <ScrollArea.Autosize
+            offsetScrollbars
+            scrollbarSize={6}
+            maxHeight={192}
+          >
             {chapterVersions.map((version: any, index) => (
               <div
                 key={index}
@@ -27,7 +41,9 @@ export const ChapterVersions: FC<{
                 <div className="">
                   <div className="flex gap-1 transition-all ease-in-out duration-200">
                     <button
-                      // onClick={() => checkoutBranch(version)}
+                      onClick={() => {
+                        setOpen(true), setVersion(version);
+                      }}
                       className={`hover:text-orange-200 ${
                         version.uid === version.uid
                           ? "text-blue-300"
@@ -56,7 +72,7 @@ export const ChapterVersions: FC<{
                 <p>{convertDate(version.dateCreated.date)}</p>
               </div>
             ))}
-          </div>
+          </ScrollArea.Autosize>
         </div>
       ) : (
         <p className=" flex gap-2 text-center align-middle text-xs">

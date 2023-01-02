@@ -1,25 +1,32 @@
-import { FC } from "react";
+import { FC, SetStateAction } from "react";
 import { convertDate } from "../../scripts/convertDate";
-import { VscGitPullRequestCreate, VscGitMerge, VscInfo } from "react-icons/vsc";
+import {
+  VscGitPullRequestCreate,
+  VscGitMerge,
+  VscInfo,
+  VscGitPullRequestClosed,
+} from "react-icons/vsc";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useNavigate, useLocation } from "react-router-dom";
+
 import { IChapterContent } from "../../interfaces/IChapterContent";
+import { ScrollArea } from "@mantine/core";
 export const ChapterBranches: FC<{
   openMergeModal: () => void;
   setSearchParams: (params: any) => void;
   chapterBranches: IChapterVersion[];
-  currentContent: IChapterContent;
   mainContent: IChapterContent;
   currentBranch: IChapterContent;
   checkoutMain: any;
+  openDeleteBranch: React.Dispatch<SetStateAction<boolean>>;
 }> = ({
   openMergeModal,
   chapterBranches,
   setSearchParams,
-  currentContent,
   mainContent,
   currentBranch,
   checkoutMain,
+  openDeleteBranch,
 }) => {
   if (!chapterBranches) {
     return null;
@@ -27,34 +34,36 @@ export const ChapterBranches: FC<{
   return (
     <div className="min-w-auto max-w-md flex-grow">
       {chapterBranches.length > 0 ? (
-        <div className="shadow-lg p-5 max-h-60 overflow-y-auto">
+        <div className="shadow-lg p-5">
           <h3 className="text-lg flex font-bold gap-2">
             Branches <VscInfo size={18} className="cursor-pointer my-auto" />
           </h3>
           <div className="flex justify-between gap-2 border-b border-stone-700">
-            <div>
-              <div className="flex gap-1 transition-all ease-in-out duration-200">
-                <button
-                  className={`hover:text-orange-200 ${
-                    currentBranch.uid === mainContent.uid
-                      ? "text-blue-300"
-                      : "text-stone-300"
-                  }`}
-                  onClick={checkoutMain}
-                >
-                  <VscGitPullRequestCreate size={18} />
-                </button>
-                <p className="text-purple-300 font-semibold">main</p>
-              </div>
+            <div className="flex gap-1 transition-all ease-in-out duration-200">
+              <button
+                className={`hover:text-orange-200 ${
+                  currentBranch.uid === mainContent.uid
+                    ? "text-blue-300"
+                    : "text-stone-300"
+                }`}
+                onClick={checkoutMain}
+              >
+                <VscGitPullRequestCreate size={18} />
+              </button>
+              <p className="text-purple-300 font-semibold">main</p>
             </div>
             {/* <p>{convertDate(chapter.createdAt)}</p> */}
           </div>
-          {chapterBranches.map((branch: any) => (
-            <div
-              key={branch.uid}
-              className="flex justify-between gap-2 border-b border-stone-700"
-            >
-              <div>
+          <ScrollArea.Autosize
+            maxHeight={192}
+            offsetScrollbars
+            scrollbarSize={6}
+          >
+            {chapterBranches.map((branch: any) => (
+              <div
+                key={branch.uid}
+                className="flex justify-between gap-2 border-b border-stone-700"
+              >
                 <div className="flex gap-1 transition-all ease-in-out duration-200">
                   <button
                     className={`hover:text-orange-200 ${
@@ -67,12 +76,18 @@ export const ChapterBranches: FC<{
                     <VscGitPullRequestCreate size={18} />
                   </button>
                   {branch.uid === currentBranch.uid ? (
-                    <div className="mt-1 ">
+                    <div className="mt-1 flex">
                       <button
                         onClick={openMergeModal}
-                        className="flex gap-1 hover:text-red-300"
+                        className="flex gap-1 hover:text-green-300"
                       >
                         <VscGitMerge size={18} />
+                      </button>
+                      <button
+                        onClick={() => openDeleteBranch(true)}
+                        className="flex text-red-400"
+                      >
+                        <VscGitPullRequestClosed size={18} />
                       </button>
                     </div>
                   ) : (
@@ -82,10 +97,10 @@ export const ChapterBranches: FC<{
                     {branch.name ? branch.name : "Branch"}:
                   </p>
                 </div>
+                <p>{convertDate(branch.dateCreated.date)}</p>
               </div>
-              <p>{convertDate(branch.dateCreated.date)}</p>
-            </div>
-          ))}
+            ))}
+          </ScrollArea.Autosize>
         </div>
       ) : (
         <p className=" flex gap-2 text-center align-middle text-xs">

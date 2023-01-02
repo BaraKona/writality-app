@@ -69,3 +69,16 @@ export const updateBranch = async (req: any, res: any) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const deleteBranch = async (req: any, res: any) => {
+  const { chapterId, branchId } = req.params;
+  try {
+    await Branch.findOneAndDelete({
+      uid: branchId,
+      chapterId,
+    });
+    res.status(200).json({ message: "Branch deleted successfully" });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

@@ -41,3 +41,13 @@ export const updateBranch = async (
     console.log(err);
   }
 };
+
+export const deleteBranch = async (chapterId: string, branchId: string) => {
+  try {
+    await branchApi.delete(`/${chapterId}/${branchId}`);
+    useToast("success", "Branch deleted successfully 😃");
+  } catch (err: any) {
+    useToast("error", "Something went wrong... branch not deleted 😞");
+    console.log(err);
+  }
+};

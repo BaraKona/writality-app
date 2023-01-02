@@ -15,7 +15,7 @@ export const CategoryListItem: FC<{
           {name}
           <p
             onClick={onClick}
-            className="text-purple-300 font-bold px-2  cursor-pointer hover:text-purple-600 active:text-purple-500"
+            className="text-purple-300 font-bold   cursor-pointer hover:text-purple-600 active:text-purple-500"
           >
             {button ? <AiFillPlusSquare size={20} /> : ""}
           </p>
