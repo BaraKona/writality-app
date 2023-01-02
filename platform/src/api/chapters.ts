@@ -58,3 +58,20 @@ export const updateChapterContent = async (
     useToast("error", "something went wrong 😖");
   }
 };
+
+export const deleteSingleChapter = async (
+  userId: string,
+  projectId: string,
+  chapterId: string
+) => {
+  try {
+    const { data } = await chapterApi.delete(
+      `/${userId}/${projectId}/${chapterId}`
+    );
+    useToast("success", "Chapter deleted successfully 😃");
+    return data;
+  } catch (err: any) {
+    console.log(err);
+    useToast("error", "something went wrong 😖");
+  }
+};

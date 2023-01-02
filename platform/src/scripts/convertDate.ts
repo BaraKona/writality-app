@@ -3,5 +3,5 @@ export const convertDate = (timestamp: any): string => {
   const mm = time.getMonth();
   const dd = time.getDate();
   const yyyy = time.getFullYear();
-  return `${mm}/${dd}/${yyyy} ${time.getHours()}:${time.getMinutes()}`;
+  return `${dd}/${mm}/${yyyy} ${time.getHours()}:${time.getMinutes()}`;
 };

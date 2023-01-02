@@ -55,3 +55,16 @@ export const getSingleChapterVersion = async (req: any, res: any) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const deleteSingleChapterVersion = async (req: any, res: any) => {
+  const { chapterId, versionId } = req.params;
+  try {
+    const version = await Version.findOneAndDelete({
+      chapterId,
+      uid: versionId,
+    });
+    res.status(200).json(version);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

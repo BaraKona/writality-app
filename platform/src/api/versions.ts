@@ -29,3 +29,17 @@ export const createVersion = async (version: IChapterVersion) => {
     console.log(err);
   }
 };
+
+export const deleteSingleChapterVersion = async (
+  chapterId: string,
+  versionId: string
+) => {
+  try {
+    const { data } = await api.delete(`/${chapterId}/${versionId}`);
+    useToast("success", "Version deleted successfully 😃");
+    return data;
+  } catch (err: any) {
+    useToast("error", "something went wrong, version not deleted 😖");
+    console.log(err);
+  }
+};

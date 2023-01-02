@@ -76,7 +76,7 @@ export const Collaboration = () => {
   return (
     <div className="h-screen w-full">
       <Loading isLoading={isLoading}>
-        <BaseProjectView project={collaboration}>
+        <BaseProjectView project={collaboration} openModal={() => {}}>
           <CollaborationToolbar users={users} setOpened={setOpened} />
           <InviteUserDrawer opened={opened} setOpened={setOpened}>
             <CollaboratorsList collaborators={collaboration?.collaborators} />

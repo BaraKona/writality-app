@@ -1,4 +1,6 @@
 import Chapter from "../models/chapterSchema";
+import Branch from "../models/branchSchema";
+import Version from "../models/versionSchema";
 
 export const createChapter = async (req: any, res: any) => {
   const { title, projectId, uid, dateCreated, owner, dateUpdated, content } =
@@ -67,6 +69,23 @@ export const updateChapterContent = async (req: any, res: any) => {
     });
     chapter.content = content;
     await chapter.save();
+    res.status(200).json(chapter);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const deleteSingleChapter = async (req: any, res: any) => {
+  const { userId, chapterId, projectId } = req.params;
+  try {
+    const chapter = await Chapter.findOne({
+      owner: userId,
+      projectId: projectId,
+      uid: chapterId,
+    });
+    await Version.deleteMany({ chapterId: chapterId });
+    await Branch.deleteMany({ chapterId: chapterId });
+    await chapter.remove();
     res.status(200).json(chapter);
   } catch (error) {
     res.status(404).json({ message: error.message });

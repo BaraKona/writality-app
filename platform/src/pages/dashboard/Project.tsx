@@ -6,14 +6,23 @@ import { IChapter } from "../../interfaces/IChapter";
 import { CharacterWrapper } from "../../components/Characters/CharacterWrapper";
 import { Loading } from "../../components/Loading";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { getProjectChapters, createChapter } from "../../api/chapters";
-import { getSingleProject } from "../../api/projects";
+import {
+  getProjectChapters,
+  createChapter,
+  deleteSingleChapter,
+} from "../../api/chapters";
+import { DeleteModal } from "../../components/Modals";
+import { getSingleProject, deleteSingleProject } from "../../api/projects";
 import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export function Project() {
   const queryClient = useQueryClient();
   const { currentUser } = useAuthContext();
   const { project } = useParams();
+  const [openModal, setOpenModal] = useState(false);
+  const [openDeleteProject, setOpenDeleteProject] = useState(false);
+  const [chapterId, setChapterId] = useState("");
   const navigate = useNavigate();
 
   const { data: currentProject } = useQuery(
@@ -31,7 +40,28 @@ export function Project() {
       queryClient.invalidateQueries("chapters");
     },
   });
-
+  const deleteProject = useMutation(
+    () => deleteSingleProject(currentUser.uid, project as string),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["projects", currentUser.uid]);
+        navigate("/dashboard");
+      },
+    }
+  );
+  const deleteChapter = useMutation(
+    () => deleteSingleChapter(currentUser.uid, project as string, chapterId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("chapters");
+        setOpenModal(false);
+      },
+    }
+  );
+  const openChapterModal = (chapterId: string) => {
+    setChapterId(chapterId);
+    setOpenModal(true);
+  };
   const createNewChapter = () => {
     const chapterId = uuidv4();
     addChapter.mutate({
@@ -73,7 +103,22 @@ export function Project() {
   return (
     <div className="h-screen w-full">
       <Loading isLoading={isLoading}>
-        <BaseProjectView project={currentProject}>
+        <BaseProjectView
+          project={currentProject}
+          openModal={() => setOpenDeleteProject(true)}
+        >
+          <DeleteModal
+            opened={openDeleteProject}
+            setOpened={setOpenDeleteProject}
+            deleteBranch={deleteProject.mutate}
+            type="project"
+          />
+          <DeleteModal
+            opened={openModal}
+            setOpened={setOpenModal}
+            deleteBranch={deleteChapter.mutate}
+            type="chapter"
+          />
           {chapters?.length == 0 ? (
             <NoChapters createNewChapter={createNewChapter} />
           ) : (
@@ -89,6 +134,7 @@ export function Project() {
                     }
                     key={index}
                     chapter={chapter}
+                    openChapterModal={() => openChapterModal(chapter.uid)}
                   />
                 ))}
               </div>

@@ -7,11 +7,12 @@ import {
 } from "@mantine/core";
 import React, { FC } from "react";
 import { IconTrash } from "@tabler/icons";
-export const DeleteBranchModal: FC<{
+export const DeleteModal: FC<{
   opened: boolean;
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
   deleteBranch: () => void;
-}> = ({ opened, setOpened, deleteBranch }) => {
+  type: string;
+}> = ({ opened, setOpened, deleteBranch, type }) => {
   const theme = useMantineTheme();
   return (
     <>
@@ -29,12 +30,22 @@ export const DeleteBranchModal: FC<{
         overlayOpacity={0.55}
         overlayBlur={3}
         onClose={() => setOpened(false)}
-        title="Are you sure you want to delete this branch ? 🤔"
+        title={`Are you sure you want to delete this ${type} ? 🤔`}
       >
         <p className="border-t-stone-800">
-          This action is irreversible. If you want to recover this branch, you
+          This action is irreversible. If you want to recover this {type}, you
           will have to create a new one. Are you sure you want to delete this
           branch?
+          {type === "chapter" ||
+            (type === "project" && (
+              <>
+                <br />
+                <br />
+                <span className="text-red-500">Warning: </span>Deleting this{" "}
+                {type} will also delete all of its Versions, Branches and their
+                content.
+              </>
+            ))}
         </p>
         <div className="mt-5">
           <Button

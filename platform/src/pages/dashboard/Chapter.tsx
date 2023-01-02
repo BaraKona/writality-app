@@ -7,7 +7,11 @@ import { Loading } from "../../components/Loading";
 import { CreateBranchModal } from "../../components/Modals/CreateBranchModal";
 import { ChapterBranches, ChapterVersions } from "../../components/Chapters";
 import { getSingleChapter, updateChapterContent } from "../../api/chapters";
-import { createVersion, getAllChapterVersions } from "../../api/versions";
+import {
+  createVersion,
+  getAllChapterVersions,
+  deleteSingleChapterVersion,
+} from "../../api/versions";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -20,7 +24,7 @@ import {
 import {
   MergeBranchModal,
   UpdateContentModal,
-  DeleteBranchModal,
+  DeleteModal,
   VersionModal,
 } from "../../components/Modals";
 
@@ -77,7 +81,6 @@ export const Chapter = () => {
       setOpened(false);
     },
   });
-
   const createChapterVersion = useMutation(createVersion, {
     onSuccess: () => {
       queryClient.invalidateQueries(["chapterVersions", chapter as string]);
@@ -90,6 +93,15 @@ export const Chapter = () => {
         queryClient.invalidateQueries(["chapterBranches", chapter as string]);
         setOpenDeleteBranch(false);
         navigate(`/dashboard/project/${project}/chapter/${chapter}`);
+      },
+    }
+  );
+  const deleteChapterVersionMutation = useMutation(
+    () => deleteSingleChapterVersion(chapter as string, version.uid),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["chapterVersions", chapter as string]);
+        setVersionModalOpen(false);
       },
     }
   );
@@ -191,10 +203,11 @@ export const Chapter = () => {
         setOpened={setOpened}
         opened={opened}
       />
-      <DeleteBranchModal
+      <DeleteModal
         setOpened={setOpenDeleteBranch}
         opened={openDeleteBranch}
         deleteBranch={deleteBranchMutation.mutate}
+        type="branch"
       />
       <UpdateContentModal
         setOpened={setUpdateContentModalOpen}
@@ -223,9 +236,10 @@ export const Chapter = () => {
       <VersionModal
         setOpened={setVersionModalOpen}
         opened={versionModalOpen}
-        deleteBranch={() => {}}
+        deleteVersion={deleteChapterVersionMutation.mutate}
         version={version}
         currentContent={branch ? currentBranch : chapterContent.content}
+        setText={setText}
       />
       <EditorWrapper
         backToProject={backButton}

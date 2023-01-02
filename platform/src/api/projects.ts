@@ -38,3 +38,20 @@ export const getSingleProject = async (userId: string, projectId: string) => {
   const { data } = await projectApi.get(`${userId}/${projectId}`);
   return data;
 };
+
+export const deleteSingleProject = async (
+  userId: string,
+  projectId: string
+) => {
+  try {
+    const { data } = await projectApi.delete(`${userId}/${projectId}`);
+    useToast(
+      "success",
+      "Project deleted successfully along with all its components 😃"
+    );
+    return data;
+  } catch (err: any) {
+    const { data } = err.response;
+    useToast("error", "something went wrong, project not deleted 😖");
+  }
+};
