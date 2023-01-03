@@ -1,6 +1,6 @@
 import axios from "axios";
-import { IProject } from "../interfaces/IProject";
-import { useToast } from "../hooks/useToast";
+import { IProject } from "../../interfaces/IProject";
+import { useToast } from "../../hooks/useToast";
 
 const collabApi = axios.create({
   baseURL: "http://localhost:5000/collaborations",

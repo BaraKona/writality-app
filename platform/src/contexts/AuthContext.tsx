@@ -10,7 +10,6 @@ import { registerUser, getAllUsers } from "../api/user";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile,
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";

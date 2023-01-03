@@ -12,6 +12,7 @@ import chapters from "./routes/chapters";
 import versions from "./routes/versions";
 import branches from "./routes/branches";
 import collaborations from "./routes/collabProject";
+import collabChapters from "./routes/collabChapters";
 
 const app = express();
 const server = http.createServer(app);
@@ -40,7 +41,7 @@ app.use("/chapters", chapters);
 app.use("/versions", versions);
 app.use("/branches", branches);
 app.use("/collaborations", collaborations);
-//s
+app.use("/collaboration-chapters", collabChapters);
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
@@ -57,6 +58,9 @@ io.on("connection", (socket) => {
     callback(
       "This is a collaborative project, and you have joined the collaboration 😃👍"
     );
+  });
+  socket.on("create-col-chapter", (room, chapter) => {
+    socket.to(room).emit("create-col-chapter", chapter);
   });
 });
 const PORT = process.env.PORT || 5000;

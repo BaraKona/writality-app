@@ -5,6 +5,7 @@ import {
   BaseProjectView,
   CollaborationToolbar,
 } from "../../components/Project";
+import { v4 as uuidv4 } from "uuid";
 import { io } from "socket.io-client";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -16,12 +17,16 @@ import { useParams } from "react-router-dom";
 import {
   getSingleCollabProject,
   addCollaboratorToProject,
-} from "../../api/collabProjects";
+} from "../../api/collaboration/collabProjects";
+import {
+  getCollabChapters,
+  createCollabChapter,
+} from "../../api/collaboration/collabChapters";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getAllUsers } from "../../api/user";
+import { useToast } from "../../hooks/useToast";
 import { CharacterWrapper } from "../../components/Characters/CharacterWrapper";
 import { IChapter } from "../../interfaces/IChapter";
-import { useToast } from "../../hooks/useToast";
 
 const socket = io("http://localhost:5000");
 socket.on("connect", () => {});
@@ -40,10 +45,91 @@ export const Collaboration = () => {
     () => getSingleCollabProject(currentUser.uid, collaborationId as string),
     { enabled: !!collaborationId && !!currentUser.uid }
   );
-  const { data: allUsers, isLoading } = useQuery("users", getAllUsers, {
+  const { data: allUsers } = useQuery("users", getAllUsers, {
     enabled: !!currentUser.uid && !!collaboration,
   });
-
+  const addChapter = useMutation(createCollabChapter, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["chapters", collaborationId]);
+    },
+  });
+  const { data: chapters, isLoading } = useQuery(
+    ["chapters", collaborationId],
+    () => getCollabChapters(collaborationId as string),
+    { enabled: !!collaboration }
+  );
+  const createNewChapter = () => {
+    // socket and api call to create new chapter
+    socket.emit("create-col-chapter", collaborationId, (message: string) => {
+      useToast("success", "Chapter created successfully 😇");
+    });
+    const chapterId = uuidv4();
+    addChapter.mutate({
+      uid: chapterId as string,
+      owner: currentUser.uid,
+      projectId: collaborationId as string,
+      type: "main",
+      title: "New Chapter",
+      dateCreated: {
+        user: currentUser.uid,
+        date: new Date(),
+      },
+      dateUpdated: {
+        user: currentUser.uid,
+        date: new Date(),
+      },
+      content: {
+        uid: uuidv4(),
+        type: "main",
+        content: "Lets start writing...",
+        dateCreated: {
+          user: currentUser.uid,
+          date: new Date(),
+        },
+        dateUpdated: {
+          user: currentUser.uid,
+          date: new Date(),
+        },
+        projectId: collaborationId as string,
+        chapterId: chapterId as string,
+      },
+    });
+  };
+  socket.on("create-col-chapter", () => {
+    queryClient.invalidateQueries(["chapters", collaborationId]);
+  });
+  // const chapterId = uuidv4();
+  // addChapter.mutate({
+  //   uid: chapterId as string,
+  //   owner: currentUser.uid,
+  //   projectId: collaborationId as string,
+  //   type: "main",
+  //   title: "New Chapter",
+  //   dateCreated: {
+  //     user: currentUser.uid,
+  //     date: new Date(),
+  //   },
+  //   dateUpdated: {
+  //     user: currentUser.uid,
+  //     date: new Date(),
+  //   },
+  //   content: {
+  //     uid: uuidv4(),
+  //     type: "main",
+  //     content: "Lets start writing...",
+  //     dateCreated: {
+  //       user: currentUser.uid,
+  //       date: new Date(),
+  //     },
+  //     dateUpdated: {
+  //       user: currentUser.uid,
+  //       date: new Date(),
+  //     },
+  //     projectId: collaborationId as string,
+  //     chapterId: chapterId as string,
+  //   },
+  // });
+  // };
   const addCollaborator = useMutation(
     (collaboratorId: string) =>
       addCollaboratorToProject(
@@ -80,7 +166,6 @@ export const Collaboration = () => {
           <CollaborationToolbar users={users} setOpened={setOpened} />
           <InviteUserDrawer opened={opened} setOpened={setOpened}>
             <CollaboratorsList collaborators={collaboration?.collaborators} />
-
             <Button
               variant="default"
               onClick={() => setModalOpen(true)}
@@ -97,34 +182,29 @@ export const Collaboration = () => {
             users={allUsers}
             addProjectCollaborator={addCollaborator}
           />
-          {/* {collaboration?.length == 0 ? (
-            <NoChapters createNewChapter={() => console.log("")} />
+          {!chapters || chapters.length == 0 ? (
+            <NoChapters createNewChapter={createNewChapter} />
           ) : (
             <ChapterWrapper
-              createNewChapter={() => console.log("")}
-              chapterCount={collaboration.length}
+              createNewChapter={createNewChapter}
+              chapterCount={chapters?.length}
             >
               <div className="flex-grow overflow-y-auto h-[calc(100vh-190px)]">
-                {collaboration?.map((chapter: IChapter, index: number) => (
+                {chapters?.map((chapter: IChapter, index: number) => (
                   <Chapter
                     openChapter={() => console.log("open chapter")}
                     key={index}
                     chapter={chapter}
+                    openChapterModal={() => console.log("open chapter modal")}
                   />
                 ))}
               </div>
               <CharacterWrapper> - Protagonist </CharacterWrapper>
             </ChapterWrapper>
-          )} */}
+          )}
         </BaseProjectView>
-        {/* <NoChapters
-              createNewChapter={() =>
-                createCollabChapter(router.query.collaboration)
-              }
-            /> */}
+        <NoChapters createNewChapter={createNewChapter} />
       </Loading>
     </div>
   );
 };
-
-export default Collaboration;

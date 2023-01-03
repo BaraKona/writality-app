@@ -10,7 +10,6 @@ export const InviteUserModal: FC<{
   addProjectCollaborator: UseMutationResult<any, unknown, string, unknown>;
 }> = ({ opened, setOpened, users, addProjectCollaborator }) => {
   const [value, setValue] = useState<string | null>(null);
-  console.log(users);
   return (
     <Modal
       size="lg"

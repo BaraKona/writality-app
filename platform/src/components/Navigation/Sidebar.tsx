@@ -17,7 +17,7 @@ import { ScrollArea } from "@mantine/core";
 import {
   createCollabProject,
   getUserCollabProjects,
-} from "../../api/collabProjects";
+} from "../../api/collaboration/collabProjects";
 
 export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
