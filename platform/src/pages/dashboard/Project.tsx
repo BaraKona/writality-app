@@ -135,6 +135,7 @@ export function Project() {
                     key={index}
                     chapter={chapter}
                     openChapterModal={() => openChapterModal(chapter.uid)}
+                    disabled={false}
                   />
                 ))}
               </div>

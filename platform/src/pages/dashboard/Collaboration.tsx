@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Chapter, ChapterWrapper, NoChapters } from "../../components/Chapters";
-import { InviteUserDrawer, InviteUserModal } from "../../components/Modals";
+import {
+  InviteUserDrawer,
+  InviteUserModal,
+  DeleteModal,
+} from "../../components/Modals";
 import {
   BaseProjectView,
   CollaborationToolbar,
@@ -14,6 +18,7 @@ import { Button } from "@mantine/core";
 import { CollaboratorsList } from "../../components/Collaboration/CollaboratorsList";
 import { IconAffiliate } from "@tabler/icons";
 import { useParams } from "react-router-dom";
+
 import {
   getSingleCollabProject,
   addCollaboratorToProject,
@@ -21,6 +26,7 @@ import {
 import {
   getCollabChapters,
   createCollabChapter,
+  deleteCollabChapter,
 } from "../../api/collaboration/collabChapters";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getAllUsers } from "../../api/user";
@@ -36,6 +42,9 @@ export const Collaboration = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const { collaborationId } = useParams();
   const { currentUser, users } = useAuthContext();
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [chapterId, setChapterId] = useState("");
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [isForm, setIsForm] = useState(false);
@@ -53,6 +62,23 @@ export const Collaboration = () => {
       queryClient.invalidateQueries(["chapters", collaborationId]);
     },
   });
+  const deleteChapter = useMutation(
+    () =>
+      deleteCollabChapter(
+        currentUser.uid,
+        collaborationId as string,
+        chapterId
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["chapters", collaborationId]);
+        socket.on("delete-col-chapter", (chapterId: string) => {
+          queryClient.invalidateQueries(["chapters", collaborationId]);
+        });
+        setDeleteModal(false);
+      },
+    }
+  );
   const { data: chapters, isLoading } = useQuery(
     ["chapters", collaborationId],
     () => getCollabChapters(collaborationId as string),
@@ -98,38 +124,7 @@ export const Collaboration = () => {
   socket.on("create-col-chapter", () => {
     queryClient.invalidateQueries(["chapters", collaborationId]);
   });
-  // const chapterId = uuidv4();
-  // addChapter.mutate({
-  //   uid: chapterId as string,
-  //   owner: currentUser.uid,
-  //   projectId: collaborationId as string,
-  //   type: "main",
-  //   title: "New Chapter",
-  //   dateCreated: {
-  //     user: currentUser.uid,
-  //     date: new Date(),
-  //   },
-  //   dateUpdated: {
-  //     user: currentUser.uid,
-  //     date: new Date(),
-  //   },
-  //   content: {
-  //     uid: uuidv4(),
-  //     type: "main",
-  //     content: "Lets start writing...",
-  //     dateCreated: {
-  //       user: currentUser.uid,
-  //       date: new Date(),
-  //     },
-  //     dateUpdated: {
-  //       user: currentUser.uid,
-  //       date: new Date(),
-  //     },
-  //     projectId: collaborationId as string,
-  //     chapterId: chapterId as string,
-  //   },
-  // });
-  // };
+
   const addCollaborator = useMutation(
     (collaboratorId: string) =>
       addCollaboratorToProject(
@@ -143,7 +138,15 @@ export const Collaboration = () => {
       },
     }
   );
-
+  const openChapter = (chapterId: string) => {
+    navigate(
+      `/dashboard/collaboration/${collaborationId}/chapter/${chapterId}`
+    );
+  };
+  const openChapterModal = (chapterId: string) => {
+    setChapterId(chapterId);
+    setDeleteModal(true);
+  };
   useEffect(() => {
     if (collaborationId) {
       socket.emit("join-collaboration", collaborationId, (message: string) => {
@@ -176,6 +179,12 @@ export const Collaboration = () => {
               Invite Collaborator
             </Button>
           </InviteUserDrawer>
+          <DeleteModal
+            opened={deleteModal}
+            setOpened={setDeleteModal}
+            deleteBranch={deleteChapter.mutate}
+            type="Chapter"
+          />
           <InviteUserModal
             opened={modalOpen}
             setOpened={setModalOpen}
@@ -192,10 +201,11 @@ export const Collaboration = () => {
               <div className="flex-grow overflow-y-auto h-[calc(100vh-190px)]">
                 {chapters?.map((chapter: IChapter, index: number) => (
                   <Chapter
-                    openChapter={() => console.log("open chapter")}
+                    openChapter={() => openChapter(chapter.uid)}
                     key={index}
                     chapter={chapter}
-                    openChapterModal={() => console.log("open chapter modal")}
+                    openChapterModal={() => openChapterModal(chapter.uid)}
+                    disabled={chapter.owner !== currentUser.uid}
                   />
                 ))}
               </div>
@@ -203,7 +213,6 @@ export const Collaboration = () => {
             </ChapterWrapper>
           )}
         </BaseProjectView>
-        <NoChapters createNewChapter={createNewChapter} />
       </Loading>
     </div>
   );

@@ -29,3 +29,21 @@ export const getCollabChapters = async (projectId: string) => {
     return [];
   }
 };
+
+export const deleteCollabChapter = async (
+  userId: string,
+  projectId: string,
+  chapterId: string
+) => {
+  console.log(userId, projectId, chapterId);
+  try {
+    const { data } = await collabApi.delete(
+      `${userId}/${projectId}/${chapterId}`
+    );
+    useToast("success", "Chapter deleted successfully 😃");
+    return data;
+  } catch (err: any) {
+    console.log(err);
+    useToast("error", "something went wrong 😖");
+  }
+};

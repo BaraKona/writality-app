@@ -8,7 +8,8 @@ export const Chapter: FC<{
   chapter: IChapter;
   openChapter: () => void;
   openChapterModal: () => void;
-}> = ({ chapter, openChapter, openChapterModal }) => {
+  disabled: boolean;
+}> = ({ chapter, openChapter, openChapterModal, disabled }) => {
   return (
     <div className="flex gap-3 border-b cursor-default  border-baseBorder py-2 px-8 text-center">
       <div
@@ -23,15 +24,18 @@ export const Chapter: FC<{
         />
         <h4>{chapter.title}</h4>
       </div>
-      <div className=" ml-auto flex align-middle">
+      <div className=" ml-auto flex place-items-center">
         <p className="mr-2">{convertDate(chapter.dateCreated.date)}</p>
-        <IconTrash
+
+        <Button
+          variant="light"
           onClick={openChapterModal}
-          className=" hover:text-red-500"
-          color="pink"
-          cursor={"pointer"}
-          size={20}
-        />
+          disabled={disabled}
+          color="red"
+          size="xs"
+        >
+          <IconTrash size={18} />
+        </Button>
       </div>
     </div>
   );
