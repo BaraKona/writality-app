@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { EditorWrapper, Editor } from "../../../components/Editor";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { v4 as uuidv4 } from "uuid";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { Loading } from "../../../components/Loading";
 import { CreateBranchModal } from "../../../components/Modals/CreateBranchModal";
@@ -30,7 +29,7 @@ import {
   DeleteModal,
   VersionModal,
 } from "../../../components/Modals";
-
+import { branchCreator, versionCreator } from "../../../utils";
 export const Chapter = () => {
   const navigate = useNavigate();
   const { currentUser } = useAuthContext();
@@ -159,21 +158,9 @@ export const Chapter = () => {
         branchName={branchName}
         setBranchName={setBranchName}
         createBranch={() =>
-          createBranchMutation.mutate({
-            ...chapterContent.content,
-            name: branchName,
-            uid: uuidv4(),
-            type: "branch",
-            dateCreated: {
-              user: currentUser.uid,
-              date: new Date(),
-            },
-            dateUpdated: {
-              user: currentUser.uid,
-              date: new Date(),
-            },
-            content: text || chapterContent.content.content,
-          })
+          createBranchMutation.mutate(
+            branchCreator(chapterContent, branchName, currentUser.uid, text)
+          )
         }
         setOpened={setOpened}
         opened={opened}
@@ -219,21 +206,14 @@ export const Chapter = () => {
       <EditorWrapper
         backToProject={() => navigate(`/dashboard/project/${project}`)}
         createVersion={() =>
-          createChapterVersion.mutate({
-            ...chapterContent.content,
-            type: "version",
-            name: "version " + (chapterVersions.length + 1),
-            uid: uuidv4(),
-            dateCreated: {
-              user: currentUser.uid,
-              date: new Date(),
-            },
-            dateUpdated: {
-              user: currentUser.uid,
-              date: new Date(),
-            },
-            content: text || chapterContent.content.content,
-          })
+          createChapterVersion.mutate(
+            versionCreator(
+              chapterContent,
+              currentUser.uid,
+              chapterVersions,
+              text
+            )
+          )
         }
         openBranchModal={() => setOpened(true)}
         save={

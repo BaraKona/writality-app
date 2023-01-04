@@ -22,7 +22,7 @@ import {
 } from "../../../api/project/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import { chapterCreator } from "../../../utils/chapterCreator";
 export function Project() {
   const queryClient = useQueryClient();
   const { currentUser } = useAuthContext();
@@ -70,37 +70,7 @@ export function Project() {
     setOpenModal(true);
   };
   const createNewChapter = () => {
-    const chapterId = uuidv4();
-    addChapter.mutate({
-      uid: chapterId,
-      owner: currentUser.uid,
-      projectId: project as string,
-      type: "main",
-      title: "New Chapter",
-      dateCreated: {
-        user: currentUser.uid,
-        date: new Date(),
-      },
-      dateUpdated: {
-        user: currentUser.uid,
-        date: new Date(),
-      },
-      content: {
-        uid: uuidv4(),
-        type: "main",
-        content: "Lets start writing...",
-        dateCreated: {
-          user: currentUser.uid,
-          date: new Date(),
-        },
-        dateUpdated: {
-          user: currentUser.uid,
-          date: new Date(),
-        },
-        projectId: project as string,
-        chapterId: chapterId as string,
-      },
-    });
+    addChapter.mutate(chapterCreator(currentUser.uid, project as string));
   };
 
   const openChapter = (projectId: string, chapterId: string) => {

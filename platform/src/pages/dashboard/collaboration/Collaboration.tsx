@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import {
   Chapter,
   ChapterWrapper,
@@ -13,8 +13,6 @@ import {
   BaseProjectView,
   CollaborationToolbar,
 } from "../../../components/Project";
-import { v4 as uuidv4 } from "uuid";
-import { io } from "socket.io-client";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../../components/Loading";
@@ -22,7 +20,7 @@ import { Button } from "@mantine/core";
 import { CollaboratorsList } from "../../../components/Collaboration/CollaboratorsList";
 import { IconAffiliate } from "@tabler/icons";
 import { useParams } from "react-router-dom";
-
+import { chapterCreator } from "../../../utils/chapterCreator";
 import {
   getSingleCollabProject,
   addCollaboratorToProject,
@@ -38,10 +36,7 @@ import { useToast } from "../../../hooks/useToast";
 import { CharacterWrapper } from "../../../components/Characters/CharacterWrapper";
 import { IChapter } from "../../../interfaces/IChapter";
 
-const socket = io("http://localhost:5000");
-// socket.on("connect", () => {});
-
-export const Collaboration = () => {
+export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
   const [opened, setOpened] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const { collaborationId } = useParams();
@@ -87,6 +82,7 @@ export const Collaboration = () => {
   );
   socket.on("delete-col-chapter", (message: string) => {
     queryClient.invalidateQueries(["chapters", collaborationId]);
+    // useToast("success", "A chapter has been deleted");
   });
   const { data: chapters, isLoading } = useQuery(
     ["chapters", collaborationId],
@@ -100,37 +96,9 @@ export const Collaboration = () => {
     socket.emit("create-col-chapter", collaborationId, (message: string) => {
       useToast("success", "Chapter created successfully 😇");
     });
-    const chapterId = uuidv4();
-    addChapter.mutate({
-      uid: chapterId as string,
-      owner: currentUser.uid,
-      projectId: collaborationId as string,
-      type: "main",
-      title: "New Chapter",
-      dateCreated: {
-        user: currentUser.uid,
-        date: new Date(),
-      },
-      dateUpdated: {
-        user: currentUser.uid,
-        date: new Date(),
-      },
-      content: {
-        uid: uuidv4(),
-        type: "main",
-        content: "Lets start writing...",
-        dateCreated: {
-          user: currentUser.uid,
-          date: new Date(),
-        },
-        dateUpdated: {
-          user: currentUser.uid,
-          date: new Date(),
-        },
-        projectId: collaborationId as string,
-        chapterId: chapterId as string,
-      },
-    });
+    addChapter.mutate(
+      chapterCreator(currentUser.uid, collaborationId as string)
+    );
   };
   socket.on("create-col-chapter", (message: string) => {
     queryClient.invalidateQueries(["chapters", collaborationId]);

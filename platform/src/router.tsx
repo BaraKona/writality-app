@@ -2,7 +2,7 @@ import { createBrowserRouter, Link, Navigate } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Dashboard } from "./pages/Dashboard";
 import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
-
+import { io } from "socket.io-client";
 import { Sidebar } from "./components/Navigation";
 import { Chapter, Project } from "./pages/dashboard/project";
 import {
@@ -11,6 +11,9 @@ import {
 } from "./pages/dashboard/collaboration";
 import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
+
+const socket = io("http://localhost:5000");
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -66,7 +69,7 @@ export const router = createBrowserRouter([
     path: "/dashboard/collaboration/:collaborationId",
     element: (
       <Sidebar>
-        <Collaboration />
+        <Collaboration socket={socket} />
       </Sidebar>
     ),
     errorElement: <Error />,
@@ -75,7 +78,7 @@ export const router = createBrowserRouter([
     path: "/dashboard/collaboration/:collaborationId/chapter/:chapterId",
     element: (
       <Sidebar>
-        <CollaborationChapter />
+        <CollaborationChapter socket={socket} />
       </Sidebar>
     ),
     errorElement: <Error />,
