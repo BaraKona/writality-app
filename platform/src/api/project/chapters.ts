@@ -1,6 +1,6 @@
 import axios from "axios";
-import { IChapter } from "../interfaces/IChapter";
-import { useToast } from "../hooks/useToast";
+import { IChapter } from "../../interfaces/IChapter";
+import { useToast } from "../../hooks/useToast";
 
 const chapterApi = axios.create({
   baseURL: "http://localhost:5000/chapters",

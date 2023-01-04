@@ -6,12 +6,15 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import { Loading } from "../../../components/Loading";
 import { CreateBranchModal } from "../../../components/Modals/CreateBranchModal";
 import { ChapterBranches, ChapterVersions } from "../../../components/Chapters";
-import { getSingleChapter, updateChapterContent } from "../../../api/chapters";
+import {
+  getSingleChapter,
+  updateChapterContent,
+} from "../../../api/project/chapters";
 import {
   createVersion,
   getAllChapterVersions,
   deleteSingleChapterVersion,
-} from "../../../api/versions";
+} from "../../../api/project/versions";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -20,7 +23,7 @@ import {
   getSingleBranch,
   updateBranch,
   deleteBranch,
-} from "../../../api/branches";
+} from "../../../api/project/branches";
 import {
   MergeBranchModal,
   UpdateContentModal,
@@ -45,15 +48,7 @@ export const Chapter = () => {
   const queryClient = useQueryClient();
   const branch = searchParams.get("branch");
 
-  const backButton = () => {
-    navigate(`/dashboard/project/${project}`);
-  };
-  const {
-    data: chapterContent,
-    isLoading,
-    isSuccess,
-    isFetched,
-  } = useQuery(
+  const { data: chapterContent } = useQuery(
     ["chapter", chapter],
     () =>
       getSingleChapter(currentUser.uid, project as string, chapter as string),
@@ -151,26 +146,6 @@ export const Chapter = () => {
     }
   );
 
-  if (isLoading)
-    return (
-      <div className="w-full h-full grid place-items-center">
-        <Loading isLoading={true}> </Loading>
-      </div>
-    );
-
-  if (isFetched && !chapterContent)
-    return (
-      <div className="w-full h-full grid place-items-center">
-        <Loading isLoading={true}> </Loading>
-      </div>
-    );
-
-  if (!chapterContent)
-    return (
-      <div className="w-full h-full grid place-items-center">
-        <Loading isLoading={true}> </Loading>
-      </div>
-    );
   if (branch && !currentBranch)
     return (
       <div className="w-full h-full grid place-items-center">
@@ -238,11 +213,11 @@ export const Chapter = () => {
         opened={versionModalOpen}
         deleteVersion={deleteChapterVersionMutation.mutate}
         version={version}
-        currentContent={branch ? currentBranch : chapterContent.content}
+        currentContent={branch ? currentBranch : chapterContent?.content}
         setText={setText}
       />
       <EditorWrapper
-        backToProject={backButton}
+        backToProject={() => navigate(`/dashboard/project/${project}`)}
         createVersion={() =>
           createChapterVersion.mutate({
             ...chapterContent.content,
@@ -266,15 +241,15 @@ export const Chapter = () => {
             ? updateBranchMutation.mutate
             : updateChapterContentMutation.mutate
         }
-        content={currentBranch ? currentBranch : chapterContent.content}
-        title={chapterContent.title}
+        content={currentBranch ? currentBranch : chapterContent?.content}
+        title={chapterContent?.title}
       >
         <Editor
           text={text}
           setOpen={setUpdateContentModalOpen}
           setText={setText}
           chapterContent={
-            currentBranch ? currentBranch : chapterContent.content
+            currentBranch ? currentBranch : chapterContent?.content
           }
         />
         <div className="min-w-[350px]  border-l border-baseBorder px-5">
@@ -282,7 +257,7 @@ export const Chapter = () => {
             openMergeModal={() => setMergeOpened(true)}
             chapterBranches={chapterBranches}
             currentBranch={
-              currentBranch ? currentBranch : chapterContent.content
+              currentBranch ? currentBranch : chapterContent?.content
             }
             mainContent={chapterContent?.content}
             setSearchParams={setSearchParams}

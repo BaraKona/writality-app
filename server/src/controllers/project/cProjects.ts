@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import Project from "../models/projectSchema";
-import Chapter from "../models/chapterSchema";
-import Branch from "../models/branchSchema";
-import Version from "../models/versionSchema";
+import Project from "../../models/projectSchema";
+import Chapter from "../../models/chapterSchema";
+import Branch from "../../models/branchSchema";
+import Version from "../../models/versionSchema";
 
 export const createProject = async (req: any, res: any) => {
   const { type, uid, owner, title, description, dateCreated } = req.body;

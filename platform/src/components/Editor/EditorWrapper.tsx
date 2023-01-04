@@ -40,15 +40,20 @@ export const EditorWrapper: FC<{
         <p className="align-middle mx-2 my-auto">
           <abbr
             className="text-blue-300"
-            title={`You are on ${content.type.toUpperCase()}`}
+            title={`You are on ${
+              content?.type ? content?.type.toUpperCase() : ""
+            }`}
           >
-            [{content.type.charAt(0).toUpperCase() + content.type.slice(1)}
-            {content.name ? ` - ${content.name}` : ""}]
+            [
+            {content?.type
+              ? content.type.charAt(0).toUpperCase() + content.type.slice(1)
+              : ""}
+            {content?.name ? ` - ${content.name}` : ""}]
           </abbr>{" "}
           {title}
         </p>
         <p className="text-center my-auto font-medium text-sm ml-auto ">
-          {content?.dateUpdated.date
+          {content?.dateUpdated?.date
             ? "Last updated: " + convertDate(content.dateUpdated.date)
             : "No updates yet"}
         </p>

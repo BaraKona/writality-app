@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { FcConferenceCall, FcReading, FcRules } from "react-icons/fc";
 import { useToast } from "../../hooks/useToast";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { createProject, getUserProjects } from "../../api/projects";
+import { createProject, getUserProjects } from "../../api/project/projects";
 import { ScrollArea } from "@mantine/core";
 import {
   createCollabProject,

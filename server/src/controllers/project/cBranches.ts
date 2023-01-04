@@ -1,4 +1,4 @@
-import Branch from "../models/branchSchema";
+import Branch from "../../models/branchSchema";
 
 export const createBranch = async (req: any, res: any) => {
   const {

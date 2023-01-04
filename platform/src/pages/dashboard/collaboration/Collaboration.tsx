@@ -1,41 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { Chapter, ChapterWrapper, NoChapters } from "../../components/Chapters";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  Chapter,
+  ChapterWrapper,
+  NoChapters,
+} from "../../../components/Chapters";
 import {
   InviteUserDrawer,
   InviteUserModal,
   DeleteModal,
-} from "../../components/Modals";
+} from "../../../components/Modals";
 import {
   BaseProjectView,
   CollaborationToolbar,
-} from "../../components/Project";
+} from "../../../components/Project";
 import { v4 as uuidv4 } from "uuid";
 import { io } from "socket.io-client";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Loading } from "../../components/Loading";
+import { Loading } from "../../../components/Loading";
 import { Button } from "@mantine/core";
-import { CollaboratorsList } from "../../components/Collaboration/CollaboratorsList";
+import { CollaboratorsList } from "../../../components/Collaboration/CollaboratorsList";
 import { IconAffiliate } from "@tabler/icons";
 import { useParams } from "react-router-dom";
 
 import {
   getSingleCollabProject,
   addCollaboratorToProject,
-} from "../../api/collaboration/collabProjects";
+} from "../../../api/collaboration/collabProjects";
 import {
   getCollabChapters,
   createCollabChapter,
   deleteCollabChapter,
-} from "../../api/collaboration/collabChapters";
+} from "../../../api/collaboration/collabChapters";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { getAllUsers } from "../../api/user";
-import { useToast } from "../../hooks/useToast";
-import { CharacterWrapper } from "../../components/Characters/CharacterWrapper";
-import { IChapter } from "../../interfaces/IChapter";
+import { getAllUsers } from "../../../api/user";
+import { useToast } from "../../../hooks/useToast";
+import { CharacterWrapper } from "../../../components/Characters/CharacterWrapper";
+import { IChapter } from "../../../interfaces/IChapter";
 
 const socket = io("http://localhost:5000");
-socket.on("connect", () => {});
+// socket.on("connect", () => {});
 
 export const Collaboration = () => {
   const [opened, setOpened] = useState(false);
@@ -46,13 +50,16 @@ export const Collaboration = () => {
   const [chapterId, setChapterId] = useState("");
 
   const queryClient = useQueryClient();
+  // const socket = useMemo(() => io("http://localhost:5000"), []);
   const navigate = useNavigate();
   const [isForm, setIsForm] = useState(false);
 
   const { data: collaboration } = useQuery(
     ["collaboration", collaborationId],
     () => getSingleCollabProject(currentUser.uid, collaborationId as string),
-    { enabled: !!collaborationId && !!currentUser.uid }
+    {
+      enabled: !!collaborationId && !!currentUser.uid,
+    }
   );
   const { data: allUsers } = useQuery("users", getAllUsers, {
     enabled: !!currentUser.uid && !!collaboration,
@@ -60,6 +67,7 @@ export const Collaboration = () => {
   const addChapter = useMutation(createCollabChapter, {
     onSuccess: () => {
       queryClient.invalidateQueries(["chapters", collaborationId]);
+      socket.emit("create-col-chapter", collaborationId);
     },
   });
   const deleteChapter = useMutation(
@@ -72,17 +80,20 @@ export const Collaboration = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["chapters", collaborationId]);
-        socket.on("delete-col-chapter", (chapterId: string) => {
-          queryClient.invalidateQueries(["chapters", collaborationId]);
-        });
+        socket.emit("delete-col-chapter", collaborationId);
         setDeleteModal(false);
       },
     }
   );
+  socket.on("delete-col-chapter", (message: string) => {
+    queryClient.invalidateQueries(["chapters", collaborationId]);
+  });
   const { data: chapters, isLoading } = useQuery(
     ["chapters", collaborationId],
     () => getCollabChapters(collaborationId as string),
-    { enabled: !!collaboration }
+    {
+      enabled: !!collaboration,
+    }
   );
   const createNewChapter = () => {
     // socket and api call to create new chapter
@@ -121,7 +132,7 @@ export const Collaboration = () => {
       },
     });
   };
-  socket.on("create-col-chapter", () => {
+  socket.on("create-col-chapter", (message: string) => {
     queryClient.invalidateQueries(["chapters", collaborationId]);
   });
 

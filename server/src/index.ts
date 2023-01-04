@@ -6,13 +6,13 @@ import http from "http";
 import socketIo from "socket.io";
 import { Server } from "socket.io";
 
-import projects from "./routes/projects";
+import projects from "./routes/project/projects";
 import users from "./routes/users";
-import chapters from "./routes/chapters";
-import versions from "./routes/versions";
-import branches from "./routes/branches";
-import collaborations from "./routes/collabProject";
-import collabChapters from "./routes/collabChapters";
+import chapters from "./routes/project/chapters";
+import versions from "./routes/project/versions";
+import branches from "./routes/project/branches";
+import collaborations from "./routes/collaboration/collabProject";
+import collabChapters from "./routes/collaboration/collabChapters";
 
 const app = express();
 const server = http.createServer(app);
@@ -61,6 +61,9 @@ io.on("connection", (socket) => {
   });
   socket.on("create-col-chapter", (room, chapter) => {
     socket.to(room).emit("create-col-chapter", chapter);
+  });
+  socket.on("delete-col-chapter", (room, chapter) => {
+    socket.to(room).emit("delete-col-chapter", chapter);
   });
 });
 const PORT = process.env.PORT || 5000;

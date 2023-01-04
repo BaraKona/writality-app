@@ -30,22 +30,21 @@ export const Editor: FC<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ text, setText, chapterContent, setOpen }) => {
   const [value, setValue] = useLocalStorage({
-    key: chapterContent.uid,
+    key: chapterContent?.uid,
     defaultValue: { text, date: new Date() },
   });
   const quillRef = useRef<ReactQuill>(null);
   useEffect(() => {
-    if (localStorage.getItem(chapterContent.uid)!) {
+    if (localStorage.getItem(chapterContent?.uid)!) {
       if (
-        JSON.parse(localStorage.getItem(chapterContent.uid)!).date >
+        JSON.parse(localStorage.getItem(chapterContent?.uid)!).date >
         chapterContent?.dateUpdated.date
       ) {
         setOpen(true);
       }
     }
 
-    setText(chapterContent.content);
-    console.log(chapterContent);
+    setText(chapterContent?.content);
   }, [chapterContent]);
 
   return (

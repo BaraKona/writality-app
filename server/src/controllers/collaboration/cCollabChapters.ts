@@ -1,6 +1,6 @@
-import Version from "../models/versionSchema";
-import CollabChapter from "../models/collabChapterSchema";
-import Branch from "../models/branchSchema";
+import Version from "../../models/versionSchema";
+import CollabChapter from "../../models/collabChapterSchema";
+import Branch from "../../models/branchSchema";
 
 export const createCollabChapter = async (req: any, res: any) => {
   const { title, uid, dateCreated, projectId, content, owner } = req.body;
@@ -27,6 +27,19 @@ export const getCollabChapters = async (req: any, res: any) => {
       projectId,
     });
     res.status(200).json(chapters);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getSingleCollabChapter = async (req: any, res: any) => {
+  const { projectId, chapterId } = req.params;
+  try {
+    const chapter = await CollabChapter.findOne({
+      projectId,
+      uid: chapterId,
+    });
+    res.status(200).json(chapter);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

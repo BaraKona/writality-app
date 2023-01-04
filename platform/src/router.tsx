@@ -2,10 +2,13 @@ import { createBrowserRouter, Link, Navigate } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Dashboard } from "./pages/Dashboard";
 import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
-import { Project } from "./pages/dashboard/Project";
+
 import { Sidebar } from "./components/Navigation";
-import { Chapter, CollaborationChapter } from "./pages/dashboard/Chapters";
-import { Collaboration } from "./pages/dashboard/Collaboration";
+import { Chapter, Project } from "./pages/dashboard/project";
+import {
+  Collaboration,
+  CollaborationChapter,
+} from "./pages/dashboard/collaboration";
 import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
 export const router = createBrowserRouter([
@@ -69,7 +72,7 @@ export const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/dashboard/collaboration/:collaborationId/chapter/:chapter",
+    path: "/dashboard/collaboration/:collaborationId/chapter/:chapterId",
     element: (
       <Sidebar>
         <CollaborationChapter />

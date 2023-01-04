@@ -1,6 +1,6 @@
-import Chapter from "../models/chapterSchema";
-import Branch from "../models/branchSchema";
-import Version from "../models/versionSchema";
+import Chapter from "../../models/chapterSchema";
+import Branch from "../../models/branchSchema";
+import Version from "../../models/versionSchema";
 
 export const createChapter = async (req: any, res: any) => {
   const { title, projectId, uid, dateCreated, owner, dateUpdated, content } =

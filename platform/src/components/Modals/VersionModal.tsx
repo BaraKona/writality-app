@@ -54,11 +54,11 @@ export const VersionModal: FC<{
         <div className="flex flex-wrap max-w-[1600px] mx-auto">
           <div className="px-5 border-r border-baseBorder grow shrink max-w-2xl mx-auto">
             <h2 className="text-blue-400 font-bold text-lg my-2">
-              {currentContent.name || "Main"}
+              {currentContent?.name || "Main"}
             </h2>
             <div
               className=" h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto"
-              dangerouslySetInnerHTML={html(currentContent.content)}
+              dangerouslySetInnerHTML={html(currentContent?.content)}
             />
           </div>
           <div className="px-5 border-l border-baseBorder grow shrink max-w-2xl mx-auto">
@@ -78,7 +78,7 @@ export const VersionModal: FC<{
             className="mr-auto"
             leftIcon={<IconReplace size={14} />}
             onClick={() => {
-              setText(version.content), setOpened(false);
+              setText(version?.content), setOpened(false);
             }}
           >
             Replace

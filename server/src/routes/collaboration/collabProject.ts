@@ -4,7 +4,7 @@ import {
   createCollabProject,
   getAllCollabProjectsByUserId,
   getSingleCollabProject,
-} from "../controllers/cCollabProject";
+} from "../../controllers/collaboration/cCollabProject";
 
 const router = express.Router();
 

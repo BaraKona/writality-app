@@ -6,7 +6,7 @@ import {
   getSingleChapter,
   updateChapterContent,
   deleteSingleChapter,
-} from "../controllers/cChapters";
+} from "../../controllers/project/cChapters";
 
 const router = express.Router();
 

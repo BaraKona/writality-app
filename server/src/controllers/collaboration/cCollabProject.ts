@@ -1,4 +1,4 @@
-import CollabProject from "../models/collabProjectSchema";
+import CollabProject from "../../models/collabProjectSchema";
 
 export const createCollabProject = async (req: any, res: any) => {
   const { title, uid, dateCreated, owner, collaborators, description, type } =

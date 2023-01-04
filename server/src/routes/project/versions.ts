@@ -4,7 +4,7 @@ import {
   getSingleChapterVersion,
   createVersion,
   deleteSingleChapterVersion,
-} from "../controllers/cVersions";
+} from "../../controllers/project/cVersions";
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-import Version from "../models/versionSchema";
+import Version from "../../models/versionSchema";
 
 export const createVersion = async (req: any, res: any) => {
   const {

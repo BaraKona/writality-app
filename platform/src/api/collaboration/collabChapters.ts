@@ -30,6 +30,14 @@ export const getCollabChapters = async (projectId: string) => {
   }
 };
 
+export const getSingleCollabChapter = async (
+  projectId: string,
+  chapterId: string
+) => {
+  const { data } = await collabApi.get(`/${projectId}/${chapterId}`);
+  return data;
+};
+
 export const deleteCollabChapter = async (
   userId: string,
   projectId: string,

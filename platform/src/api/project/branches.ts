@@ -1,6 +1,6 @@
 import axios from "axios";
-import { IChapterVersion } from "../interfaces/IChapterVersion";
-import { useToast } from "../hooks/useToast";
+import { IChapterVersion } from "../../interfaces/IChapterVersion";
+import { useToast } from "../../hooks/useToast";
 
 const branchApi = axios.create({
   baseURL: "http://localhost:5000/branches",
