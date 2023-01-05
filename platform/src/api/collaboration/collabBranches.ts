@@ -15,8 +15,12 @@ export const getSingleCollabBranch = async (
   chapterId: string,
   branchId: string
 ) => {
-  const { data } = await branchApi.get(`/${chapterId}/${branchId}`);
-  return data;
+  try {
+    const { data } = await branchApi.get(`/${chapterId}/${branchId}`);
+    return data;
+  } catch (err: any) {
+    console.log(err);
+  }
 };
 
 export const createCollabBranch = async (branch: IChapterVersion) => {
@@ -34,7 +38,6 @@ export const updateCollabBranch = async (
   branchId: string,
   branch: IChapterVersion
 ) => {
-  console.log("branch", branch);
   try {
     const { data } = await branchApi.patch(`/${chapterId}/${branchId}`, branch);
     useToast("success", "Branch updated successfully 😃");

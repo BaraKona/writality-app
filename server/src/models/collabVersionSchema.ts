@@ -65,7 +65,7 @@ const collabVersionSchema = new Schema<IVersion>({
 });
 
 const CollabVersion = model<IVersion>(
-  "collaboration-CollabVersion",
+  "collaboration-versions",
   collabVersionSchema
 );
 

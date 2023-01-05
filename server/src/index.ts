@@ -81,6 +81,9 @@ io.on("connection", (socket) => {
   socket.on("create-col-branch", (room, branch) => {
     socket.to(room).emit("create-col-branch", branch);
   });
+  socket.on("update-col-branch", (room, name) => {
+    socket.to(room).emit("update-col-branch", name);
+  });
 });
 const PORT = process.env.PORT || 5000;
 

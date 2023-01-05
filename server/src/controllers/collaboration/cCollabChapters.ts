@@ -63,3 +63,19 @@ export const deleteCollabChapters = async (req: any, res: any) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const updateCollabChapterContent = async (req: any, res: any) => {
+  const { chapterId, projectId } = req.params;
+  const { content } = req.body;
+  try {
+    const collabChapter = await CollabChapter.findOne({
+      projectId: projectId,
+      uid: chapterId,
+    });
+    collabChapter.content = content;
+    await collabChapter.save();
+    res.status(200).json(collabChapter);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

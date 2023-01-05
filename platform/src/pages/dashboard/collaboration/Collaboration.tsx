@@ -80,10 +80,12 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
       },
     }
   );
-  socket.on("delete-col-chapter", (message: string) => {
-    queryClient.invalidateQueries(["chapters", collaborationId]);
-    // useToast("success", "A chapter has been deleted");
-  });
+  socket
+    .off("delete-col-chapter")
+    .on("delete-col-chapter", (message: string) => {
+      queryClient.invalidateQueries(["chapters", collaborationId]);
+      useToast("success", "A chapter has been deleted");
+    });
   const { data: chapters, isLoading } = useQuery(
     ["chapters", collaborationId],
     () => getCollabChapters(collaborationId as string),
@@ -92,17 +94,16 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
     }
   );
   const createNewChapter = () => {
-    // socket and api call to create new chapter
-    socket.emit("create-col-chapter", collaborationId, (message: string) => {
-      useToast("success", "Chapter created successfully 😇");
-    });
     addChapter.mutate(
       chapterCreator(currentUser.uid, collaborationId as string)
     );
   };
-  socket.on("create-col-chapter", (message: string) => {
-    queryClient.invalidateQueries(["chapters", collaborationId]);
-  });
+  socket
+    .off("create-col-chapter")
+    .on("create-col-chapter", (message: string) => {
+      queryClient.invalidateQueries(["chapters", collaborationId]);
+      useToast("success", "A chapter has been created");
+    });
 
   const addCollaborator = useMutation(
     (collaboratorId: string) =>

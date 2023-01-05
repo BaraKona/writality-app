@@ -55,3 +55,21 @@ export const deleteCollabChapter = async (
     useToast("error", "something went wrong 😖");
   }
 };
+
+export const updateCollabChapterContent = async (
+  projectId: string,
+  chapterId: string,
+  chapter: IChapter
+) => {
+  try {
+    const { data } = await collabApi.patch(
+      `/${projectId}/${chapterId}`,
+      chapter
+    );
+    useToast("success", "Chapter updated successfully 😃");
+    return data;
+  } catch (err: any) {
+    useToast("error", "Something went wrong... chapter content not saved 😞");
+    console.log(err);
+  }
+};

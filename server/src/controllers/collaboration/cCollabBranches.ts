@@ -57,12 +57,21 @@ export const getSingleCollabChapterBranch = async (req: any, res: any) => {
 export const updateCollabBranch = async (req: any, res: any) => {
   const { chapterId, branchId } = req.params;
   const { content, dateUpdated } = req.body;
+
+  console.log(
+    "updateCollabBranch: ",
+    chapterId,
+    branchId,
+    content,
+    dateUpdated
+  );
   try {
     const branch = await CollabBranch.findOneAndUpdate(
       { uid: branchId, chapterId },
       { content: content, dateUpdated: dateUpdated },
       { new: true }
     );
+    console.log(branch);
     res.status(200).json(branch);
   } catch (error) {
     console.log(error);
