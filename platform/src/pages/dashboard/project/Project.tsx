@@ -4,6 +4,7 @@ import {
   NoChapters,
   Chapter,
   ChapterWrapper,
+  ChapterRenderer,
 } from "../../../components/Chapters";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IChapter } from "../../../interfaces/IChapter";
@@ -22,7 +23,7 @@ import {
 } from "../../../api/project/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { chapterCreator } from "../../../utils/chapterCreator";
+import { chapterCreator } from "../../../hooks";
 export function Project() {
   const queryClient = useQueryClient();
   const { currentUser } = useAuthContext();
@@ -77,50 +78,51 @@ export function Project() {
     navigate(`/dashboard/project/${projectId}/chapter/${chapterId}`);
   };
 
+  if (isLoading) {
+    return <Loading isLoading={isLoading}> </Loading>;
+  }
   return (
-    <div className="h-screen w-full">
-      <Loading isLoading={isLoading}>
-        <BaseProjectView
-          project={currentProject}
-          openModal={() => setOpenDeleteProject(true)}
-        >
-          <DeleteModal
-            opened={openDeleteProject}
-            setOpened={setOpenDeleteProject}
-            deleteBranch={deleteProject.mutate}
-            type="project"
-          />
-          <DeleteModal
-            opened={openModal}
-            setOpened={setOpenModal}
-            deleteBranch={deleteChapter.mutate}
-            type="chapter"
-          />
-          {chapters?.length == 0 ? (
-            <NoChapters createNewChapter={createNewChapter} />
-          ) : (
-            <ChapterWrapper
-              createNewChapter={createNewChapter}
-              chapterCount={chapters?.length}
-            >
-              <div className="flex-grow overflow-y-auto h-[calc(100vh-140px)]">
-                {chapters?.map((chapter: IChapter, index: number) => (
-                  <Chapter
-                    openChapter={() =>
-                      openChapter(chapter.projectId, chapter.uid)
-                    }
-                    key={index}
-                    chapter={chapter}
-                    openChapterModal={() => openChapterModal(chapter.uid)}
-                    disabled={false}
-                  />
-                ))}
-              </div>
-              <CharacterWrapper> - Protagonist </CharacterWrapper>
-            </ChapterWrapper>
-          )}
-        </BaseProjectView>
-      </Loading>
-    </div>
+    <>
+      <BaseProjectView
+        project={currentProject}
+        openModal={() => setOpenDeleteProject(true)}
+      >
+        <DeleteModal
+          opened={openDeleteProject}
+          setOpened={setOpenDeleteProject}
+          deleteBranch={deleteProject.mutate}
+          type="project"
+        />
+        <DeleteModal
+          opened={openModal}
+          setOpened={setOpenModal}
+          deleteBranch={deleteChapter.mutate}
+          type="chapter"
+        />
+        {chapters?.length == 0 ? (
+          <NoChapters createNewChapter={createNewChapter} />
+        ) : (
+          <ChapterWrapper
+            createNewChapter={createNewChapter}
+            chapterCount={chapters?.length}
+          >
+            <ChapterRenderer>
+              {chapters?.map((chapter: IChapter, index: number) => (
+                <Chapter
+                  openChapter={() =>
+                    openChapter(chapter.projectId, chapter.uid)
+                  }
+                  key={index}
+                  chapter={chapter}
+                  openChapterModal={() => openChapterModal(chapter.uid)}
+                  disabled={false}
+                />
+              ))}
+            </ChapterRenderer>
+            <CharacterWrapper> - Protagonist </CharacterWrapper>
+          </ChapterWrapper>
+        )}
+      </BaseProjectView>
+    </>
   );
 }

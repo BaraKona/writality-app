@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { IChapter } from "../../interfaces/IChapter";
 import { book8 } from "../../assets/icons";
 import Image from "next/image";
-import { convertDate } from "../../scripts/convertDate";
+import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 export const Chapter: FC<{ chapter: IChapter; openChapter: () => void }> = ({
   chapter,
   openChapter,
@@ -20,7 +20,7 @@ export const Chapter: FC<{ chapter: IChapter; openChapter: () => void }> = ({
       />
       <h4 className="flex">
         {chapter.title}
-        <span>{convertDate(chapter.dateCreated.date)}</span>
+        <span>{useTimeFromNow(chapter.dateCreated.date)}</span>
       </h4>
     </div>
   );

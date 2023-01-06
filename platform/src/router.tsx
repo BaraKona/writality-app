@@ -50,9 +50,11 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard/project/:project",
     element: (
-      <Sidebar>
-        <Project />
-      </Sidebar>
+      <div className="h-screen w-screen flex flex-col">
+        <Sidebar>
+          <Project />
+        </Sidebar>
+      </div>
     ),
     errorElement: <Error />,
   },

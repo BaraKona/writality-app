@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { MantineProvider } from "@mantine/core";
 import { router } from "./router";
-import App from "./App";
+import { UserLoader } from "./UserLoader";
 import "./App.scss";
 import { Toaster } from "react-hot-toast";
 
@@ -15,8 +15,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <QueryClientProvider client={new QueryClient()}>
       <MantineProvider theme={{ colorScheme: "dark" }}>
         <AuthContextWrapper>
-          <RouterProvider router={router} />
-          <App />
+          <UserLoader>
+            <RouterProvider router={router} />
+          </UserLoader>
         </AuthContextWrapper>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-left" />
         <Toaster position="top-center" />

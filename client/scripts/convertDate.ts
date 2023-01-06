@@ -1,4 +1,4 @@
-export const convertDate = (timestamp: any): string => {
+export const useTimeFromNow = (timestamp: any): string => {
   const time = new Date(timestamp);
   const mm = time.getMonth();
   const dd = time.getDate();

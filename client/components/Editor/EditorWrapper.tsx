@@ -3,7 +3,7 @@ import { CgClose, CgChevronUpR, CgChevronDownR } from "react-icons/cg";
 import { VscSourceControl, VscVersions } from "react-icons/vsc";
 import { AiFillSave } from "react-icons/ai";
 import { IChapter } from "../../interfaces/IChapter";
-import { convertDate } from "../../scripts/convertDate";
+import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 
 export const EditorWrapper: FC<{
   children: ReactNode;
@@ -50,7 +50,8 @@ export const EditorWrapper: FC<{
         </p>
         <p className="text-center my-auto font-medium text-sm ml-auto ">
           {chapter.content.dateUpdated.date
-            ? "Last updated: " + convertDate(chapter.content.dateUpdated.date)
+            ? "Last updated: " +
+              useTimeFromNow(chapter.content.dateUpdated.date)
             : "No updates yet"}
         </p>
         <button

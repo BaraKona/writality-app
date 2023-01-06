@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { convertDate } from "../../scripts/convertDate";
+import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { VscRepoPull, VscRepo, VscInfo } from "react-icons/vsc";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 export const ChapterVersions: FC<{
@@ -53,7 +53,7 @@ export const ChapterVersions: FC<{
                     </p>
                   </div>
                 </div>
-                <p>{convertDate(version.dateCreated.date)}</p>
+                <p>{useTimeFromNow(version.dateCreated.date)}</p>
               </div>
             ))}
           </div>

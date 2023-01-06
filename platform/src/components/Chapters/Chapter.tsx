@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import { IChapter } from "../../interfaces/IChapter";
 import { book8 } from "../../assets/icons";
-import { convertDate } from "../../scripts/convertDate";
+import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { Button } from "@mantine/core";
 import { IconTrash } from "@tabler/icons";
 export const Chapter: FC<{
@@ -13,7 +13,7 @@ export const Chapter: FC<{
   return (
     <div className="flex gap-3 border-b cursor-default  border-baseBorder py-2 px-8 text-center">
       <div
-        className="flex w-9/12 gap-3 cursor-pointer text-center hover:text-blue-400"
+        className="flex place-items-center gap-3 cursor-pointer text-center hover:text-blue-400"
         onClick={openChapter}
       >
         <img
@@ -24,8 +24,10 @@ export const Chapter: FC<{
         />
         <h4>{chapter.title}</h4>
       </div>
-      <div className=" ml-auto flex place-items-center">
-        <p className="mr-2">{convertDate(chapter.dateCreated.date)}</p>
+      <div className="ml-auto flex ">
+        <p className="mr-2">
+          {useTimeFromNow(chapter.dateCreated.date.toString())}
+        </p>
 
         <Button
           variant="light"

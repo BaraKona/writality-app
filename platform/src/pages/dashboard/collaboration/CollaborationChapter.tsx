@@ -3,25 +3,39 @@ import { Editor, EditorWrapper } from "../../../components/Editor";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   getSingleCollabChapter,
-  createCollabChapter,
   updateCollabChapterContent,
 } from "../../../api/collaboration/collabChapters";
 import {
   getAllCollabChapterVersions,
   createCollabVersion,
+  deleteSingleCollabChapterVersion,
 } from "../../../api/collaboration/collabVersions";
 import {
   getAllCollabBranches,
   createCollabBranch,
   getSingleCollabBranch,
   updateCollabBranch,
+  deleteCollabBranch,
 } from "../../../api/collaboration/collabBranches";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { ChapterBranches, ChapterVersions } from "../../../components/Chapters";
-import { versionCreator, branchCreator } from "../../../utils";
+import {
+  ChapterBranches,
+  ChapterVersions,
+  ChapterHistory,
+} from "../../../components/Chapters";
+import {
+  versionCreator,
+  branchCreator,
+  useToast,
+  useUpdateChapter,
+} from "../../../hooks";
 import { useAuthContext } from "../../../contexts/AuthContext";
-import { useToast } from "../../../hooks/useToast";
-import { CreateBranchModal } from "../../../components/Modals";
+import {
+  CreateBranchModal,
+  DeleteModal,
+  MergeBranchModal,
+  VersionModal,
+} from "../../../components/Modals";
 import { useSearchParams } from "react-router-dom";
 
 export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
@@ -54,6 +68,12 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
     { enabled: !!collaborationId }
   );
 
+  const { data: branch, isSuccess: branchSuccess } = useQuery(
+    ["branch", branchId as string],
+    () => getSingleCollabBranch(chapterId as string, branchId as string),
+    { enabled: !!chapter && !!branchId }
+  );
+
   const { data: branches } = useQuery(
     ["branches", chapterId],
     () => getAllCollabBranches(chapterId as string),
@@ -71,13 +91,30 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
     onSuccess: () => {
       queryClient.invalidateQueries(["branches", chapterId]),
         socket.emit("create-col-branch", chapterId);
+      setOpened(false);
     },
   });
 
-  const { data: branch, isSuccess: branchSuccess } = useQuery(
-    ["branch", branchId as string],
-    () => getSingleCollabBranch(chapterId as string, branchId as string),
-    { enabled: !!chapter && !!branchId }
+  const deleteBranch = useMutation(
+    () => deleteCollabBranch(chapterId as string, branchId as string),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["branches", chapterId]),
+          socket.emit("delete-col-branch", chapterId, branch.name);
+        setOpenDeleteBranch(false);
+      },
+    }
+  );
+
+  const deleteVersion = useMutation(
+    () => deleteSingleCollabChapterVersion(chapterId as string, version.uid),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["versions", chapterId]),
+          socket.emit("delete-col-version", chapterId, version.uid);
+        setVersionModalOpen(false);
+      },
+    }
   );
 
   socket.off("create-col-branch").on("create-col-branch", () => {
@@ -92,26 +129,28 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
     console.log("update");
     useToast("success", `[Branch] ${name} updated`);
   });
+  socket.off("delete-col-branch").on("delete-col-branch", (name: string) => {
+    queryClient.invalidateQueries(["branches", chapterId]);
+    useToast("success", `[Branch] ${name} deleted`);
+  });
+  socket
+    .off("delete-col-version")
+    .on("delete-col-version", (deletedVersion: string) => {
+      queryClient.invalidateQueries(["versions", chapterId]);
+      useToast("success", "Version deleted");
+
+      if (deletedVersion === version.uid) {
+        setVersionModalOpen(false);
+        alert("This version has been deleted");
+      }
+    });
+
   const updateChapterContentMutation = useMutation(
     () =>
       updateCollabChapterContent(
         collaborationId as string,
         chapterId as string,
-        {
-          ...chapter,
-          content: {
-            ...chapter.content,
-            content: text,
-            dateUpdated: {
-              user: currentUser.uid,
-              date: new Date(),
-            },
-          },
-          dateUpdated: {
-            user: currentUser.uid,
-            date: new Date(),
-          },
-        }
+        useUpdateChapter(chapter, text, currentUser.uid)
       ),
     {
       onSuccess: () => {
@@ -158,6 +197,27 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
         setOpened={setOpened}
         opened={opened}
       />
+      <DeleteModal
+        setOpened={setOpenDeleteBranch}
+        opened={openDeleteBranch}
+        deleteBranch={deleteBranch.mutate}
+        type="branch"
+      />
+      <VersionModal
+        setOpened={setVersionModalOpen}
+        opened={versionModalOpen}
+        deleteVersion={deleteVersion.mutate}
+        version={version}
+        currentContent={branch || chapter?.content}
+        setText={setText}
+      />
+      <MergeBranchModal
+        setMergeOpened={setMergeOpened}
+        mergeOpened={mergeOpened}
+        replaceMain={() => {}}
+        mergeBranch={() => {}}
+        currentBranch={branch}
+      />
       <EditorWrapper
         backToProject={() =>
           navigate(`/dashboard/collaboration/${collaborationId}`)
@@ -182,7 +242,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
           setText={setText}
           chapterContent={branch || chapter?.content}
         />
-        <div className="min-w-[350px]  border-l border-baseBorder px-5">
+        <div className="w-[350px] flex flex-col gap-5 border-l border-baseBorder px-5">
           <ChapterVersions
             openMergeModal={() => setMergeOpened(true)}
             chapterVersions={versions}
@@ -202,6 +262,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
             }
             openDeleteBranch={setOpenDeleteBranch}
           />
+          <ChapterHistory history={chapter?.history} />
         </div>
       </EditorWrapper>
     </>

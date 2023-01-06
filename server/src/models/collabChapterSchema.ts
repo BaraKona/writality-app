@@ -28,6 +28,11 @@ interface CollabChapter {
     user: string;
     date: Date;
   };
+  history: {
+    date: Date;
+    user: string;
+    action: string;
+  }[];
   content: IChapterContent;
 }
 const chapterSchema = new Schema<CollabChapter>({
@@ -67,6 +72,22 @@ const chapterSchema = new Schema<CollabChapter>({
       required: false,
     },
   },
+  history: [
+    {
+      date: {
+        type: Date,
+        required: true,
+      },
+      user: {
+        type: String,
+        required: true,
+      },
+      action: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   content: {
     type: {
       type: String,

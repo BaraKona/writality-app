@@ -3,8 +3,16 @@ import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
 
 export const createChapter = async (req: any, res: any) => {
-  const { title, projectId, uid, dateCreated, owner, dateUpdated, content } =
-    req.body;
+  const {
+    title,
+    projectId,
+    uid,
+    dateCreated,
+    owner,
+    dateUpdated,
+    content,
+    history,
+  } = req.body;
   console.log(req.body);
   const newChapter = new Chapter({
     owner,
@@ -14,6 +22,7 @@ export const createChapter = async (req: any, res: any) => {
     dateCreated,
     dateUpdated,
     content,
+    history,
   });
   try {
     await newChapter.save();
@@ -60,7 +69,7 @@ export const getSingleChapter = async (req: any, res: any) => {
 
 export const updateChapterContent = async (req: any, res: any) => {
   const { userId, chapterId, projectId } = req.params;
-  const { content } = req.body;
+  const { content, history } = req.body;
   try {
     const chapter = await Chapter.findOne({
       owner: userId,
@@ -68,6 +77,7 @@ export const updateChapterContent = async (req: any, res: any) => {
       uid: chapterId,
     });
     chapter.content = content;
+    chapter.history = history;
     await chapter.save();
     res.status(200).json(chapter);
   } catch (error) {

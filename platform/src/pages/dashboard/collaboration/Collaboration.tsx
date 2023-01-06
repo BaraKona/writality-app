@@ -3,6 +3,7 @@ import {
   Chapter,
   ChapterWrapper,
   NoChapters,
+  ChapterRenderer,
 } from "../../../components/Chapters";
 import {
   InviteUserDrawer,
@@ -20,7 +21,7 @@ import { Button } from "@mantine/core";
 import { CollaboratorsList } from "../../../components/Collaboration/CollaboratorsList";
 import { IconAffiliate } from "@tabler/icons";
 import { useParams } from "react-router-dom";
-import { chapterCreator } from "../../../utils/chapterCreator";
+import { chapterCreator } from "../../../hooks";
 import {
   getSingleCollabProject,
   addCollaboratorToProject,
@@ -135,42 +136,35 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
     }
   }, [collaborationId]);
 
-  if (!collaboration || !allUsers) {
-    return (
-      <div className="w-full grid place-items-center">
-        <Loading isLoading={true}> </Loading>
-      </div>
-    );
-  }
   return (
-    <div className="h-screen w-full">
+    <>
       <Loading isLoading={isLoading}>
+        <InviteUserDrawer opened={opened} setOpened={setOpened}>
+          <CollaboratorsList collaborators={collaboration?.collaborators} />
+          <Button
+            variant="default"
+            onClick={() => setModalOpen(true)}
+            className="flex ml-auto"
+            leftIcon={<IconAffiliate size={14} />}
+            disabled={collaboration?.owner !== currentUser.uid}
+          >
+            Invite Collaborator
+          </Button>
+        </InviteUserDrawer>
+        <DeleteModal
+          opened={deleteModal}
+          setOpened={setDeleteModal}
+          deleteBranch={deleteChapter.mutate}
+          type="Chapter"
+        />
+        <InviteUserModal
+          opened={modalOpen}
+          setOpened={setModalOpen}
+          users={allUsers}
+          addProjectCollaborator={addCollaborator}
+        />
         <BaseProjectView project={collaboration} openModal={() => {}}>
-          <CollaborationToolbar users={users} setOpened={setOpened} />
-          <InviteUserDrawer opened={opened} setOpened={setOpened}>
-            <CollaboratorsList collaborators={collaboration?.collaborators} />
-            <Button
-              variant="default"
-              onClick={() => setModalOpen(true)}
-              className="flex ml-auto"
-              leftIcon={<IconAffiliate size={14} />}
-              disabled={collaboration?.owner !== currentUser.uid}
-            >
-              Invite Collaborator
-            </Button>
-          </InviteUserDrawer>
-          <DeleteModal
-            opened={deleteModal}
-            setOpened={setDeleteModal}
-            deleteBranch={deleteChapter.mutate}
-            type="Chapter"
-          />
-          <InviteUserModal
-            opened={modalOpen}
-            setOpened={setModalOpen}
-            users={allUsers}
-            addProjectCollaborator={addCollaborator}
-          />
+          <CollaborationToolbar setOpened={setOpened} />
           {!chapters || chapters.length == 0 ? (
             <NoChapters createNewChapter={createNewChapter} />
           ) : (
@@ -178,7 +172,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
               createNewChapter={createNewChapter}
               chapterCount={chapters?.length}
             >
-              <div className="flex-grow overflow-y-auto h-[calc(100vh-190px)]">
+              <ChapterRenderer>
                 {chapters?.map((chapter: IChapter, index: number) => (
                   <Chapter
                     openChapter={() => openChapter(chapter.uid)}
@@ -188,12 +182,12 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
                     disabled={chapter.owner !== currentUser.uid}
                   />
                 ))}
-              </div>
+              </ChapterRenderer>
               <CharacterWrapper> - Protagonist </CharacterWrapper>
             </ChapterWrapper>
           )}
         </BaseProjectView>
       </Loading>
-    </div>
+    </>
   );
 };

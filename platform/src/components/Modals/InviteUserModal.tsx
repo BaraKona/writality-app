@@ -40,7 +40,7 @@ export const InviteUserModal: FC<{
           value={value}
           onChange={setValue}
           // change mantine select background color to transparent
-          data={users.map((user: any) => ({
+          data={users?.map((user: any) => ({
             // label: user.displayName,
             label: user.name,
             value: user.uid,

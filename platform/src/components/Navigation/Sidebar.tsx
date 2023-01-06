@@ -112,9 +112,9 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   return (
-    <div className="h-[100vh] flex ">
+    <div className="flex h-screen">
       <aside
-        className="w-[250px]  overflow-y-auto border-r bg-baseMid border-baseBorder"
+        className="w-[250px]  overflow-y-auto border-r bg-baseMid border-baseBorder h-full"
         aria-label="Sidebar"
       >
         <div className=" py-2 px-3">
@@ -145,23 +145,16 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
               offsetScrollbars
               scrollbarSize={6}
             >
-              {projects
-                ? projects.map(
-                    (
-                      project: IProject,
-                      index: React.Key | null | undefined
-                    ) => {
-                      return (
-                        <ProjectListItem
-                          key={index}
-                          onClick={() => openProject(project.uid)}
-                          name={project.title || "Untitled Project"}
-                          projectId={project.uid}
-                        />
-                      );
-                    }
-                  )
-                : ""}
+              {projects?.map((project: IProject, index: number) => {
+                return (
+                  <ProjectListItem
+                    key={index}
+                    onClick={() => openProject(project.uid)}
+                    name={project.title || "Untitled Project"}
+                    projectId={project.uid}
+                  />
+                );
+              })}
             </ScrollArea.Autosize>
           </CategoryListItem>
           <hr className="my-5 border-baseBorder" />
@@ -176,23 +169,16 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
               offsetScrollbars
               scrollbarSize={6}
             >
-              {collaboration
-                ? collaboration.map(
-                    (
-                      collaboration: IProject,
-                      index: React.Key | null | undefined
-                    ) => {
-                      return (
-                        <ProjectListItem
-                          key={index}
-                          onClick={() => openCollaboration(collaboration.uid)}
-                          name={collaboration.title || "Untitled Collaboration"}
-                          projectId={collaboration.uid}
-                        />
-                      );
-                    }
-                  )
-                : ""}
+              {collaboration?.map((collaboration: IProject, index: number) => {
+                return (
+                  <ProjectListItem
+                    key={index}
+                    onClick={() => openCollaboration(collaboration.uid)}
+                    name={collaboration.title || "Untitled Collaboration"}
+                    projectId={collaboration.uid}
+                  />
+                );
+              })}
             </ScrollArea.Autosize>
           </CategoryListItem>
           {/* <hr className="my-5 border-baseBorder" />

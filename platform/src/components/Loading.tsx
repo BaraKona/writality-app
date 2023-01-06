@@ -5,7 +5,7 @@ export const Loading: FC<{
   isLoading: boolean;
 }> = ({ children, isLoading }) => {
   return (
-    <div>
+    <>
       {isLoading ? (
         <div className="flex justify-center py-[300px]">
           <Loader variant="bars" color="gray" />
@@ -13,6 +13,6 @@ export const Loading: FC<{
       ) : (
         <>{children}</>
       )}
-    </div>
+    </>
   );
 };

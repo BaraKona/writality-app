@@ -3,7 +3,8 @@ import CollabChapter from "../../models/collabChapterSchema";
 import Branch from "../../models/branchSchema";
 
 export const createCollabChapter = async (req: any, res: any) => {
-  const { title, uid, dateCreated, projectId, content, owner } = req.body;
+  const { title, uid, dateCreated, projectId, content, owner, history } =
+    req.body;
   const newCollabChapter = new CollabChapter({
     owner,
     title,
@@ -11,6 +12,7 @@ export const createCollabChapter = async (req: any, res: any) => {
     dateCreated,
     projectId,
     content,
+    history,
   });
   try {
     await newCollabChapter.save();
@@ -66,13 +68,14 @@ export const deleteCollabChapters = async (req: any, res: any) => {
 
 export const updateCollabChapterContent = async (req: any, res: any) => {
   const { chapterId, projectId } = req.params;
-  const { content } = req.body;
+  const { content, history } = req.body;
   try {
     const collabChapter = await CollabChapter.findOne({
       projectId: projectId,
       uid: chapterId,
     });
     collabChapter.content = content;
+    collabChapter.history = history;
     await collabChapter.save();
     res.status(200).json(collabChapter);
   } catch (error) {

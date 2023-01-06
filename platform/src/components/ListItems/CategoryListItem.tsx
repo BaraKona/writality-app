@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { Loading } from "../Loading";
+import { Loader } from "@mantine/core";
 export const CategoryListItem: FC<{
   children?: ReactNode;
   loading?: boolean;
@@ -21,7 +22,16 @@ export const CategoryListItem: FC<{
           </p>
         </h2>
       </li>
-      <Loading isLoading={loading || false}>{children}</Loading>
+      {loading ? (
+        <Loader
+          variant="bars"
+          color="gray"
+          className="mx-auto my-2"
+          size={25}
+        />
+      ) : (
+        <>{children}</>
+      )}
     </ul>
   );
 };

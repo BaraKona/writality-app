@@ -32,6 +32,13 @@ export const chapterCreator = (userId: string, projectId: string) => {
       projectId: projectId,
       chapterId: id,
     },
+    history: [
+      {
+        date: new Date(),
+        user: userId,
+        action: "created",
+      },
+    ],
   };
   return chapter;
 };

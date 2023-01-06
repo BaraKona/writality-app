@@ -16,4 +16,9 @@ export type IChapter = {
   chapterNumber?: number;
   content: IChapterContent;
   type: string;
+  history: {
+    date: Date;
+    user: string;
+    action: string;
+  }[];
 };

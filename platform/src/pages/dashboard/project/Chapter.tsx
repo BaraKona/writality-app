@@ -4,7 +4,11 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { Loading } from "../../../components/Loading";
 import { CreateBranchModal } from "../../../components/Modals/CreateBranchModal";
-import { ChapterBranches, ChapterVersions } from "../../../components/Chapters";
+import {
+  ChapterBranches,
+  ChapterVersions,
+  ChapterHistory,
+} from "../../../components/Chapters";
 import {
   getSingleChapter,
   updateChapterContent,
@@ -29,7 +33,11 @@ import {
   DeleteModal,
   VersionModal,
 } from "../../../components/Modals";
-import { branchCreator, versionCreator } from "../../../utils";
+import {
+  branchCreator,
+  useUpdateChapter,
+  versionCreator,
+} from "../../../hooks";
 export const Chapter = () => {
   const navigate = useNavigate();
   const { currentUser } = useAuthContext();
@@ -106,21 +114,7 @@ export const Chapter = () => {
         currentUser.uid,
         project as string,
         chapter as string,
-        {
-          ...chapterContent,
-          content: {
-            ...chapterContent.content,
-            content: text,
-            dateUpdated: {
-              user: currentUser.uid,
-              date: new Date(),
-            },
-          },
-          dateUpdated: {
-            user: currentUser.uid,
-            date: new Date(),
-          },
-        }
+        useUpdateChapter(chapterContent, text, currentUser.uid)
       ),
     {
       onSuccess: () => {
@@ -232,7 +226,7 @@ export const Chapter = () => {
             currentBranch ? currentBranch : chapterContent?.content
           }
         />
-        <div className="min-w-[350px]  border-l border-baseBorder px-5">
+        <div className="min-w-[350px] border-l border-baseBorder px-5">
           <ChapterBranches
             openMergeModal={() => setMergeOpened(true)}
             chapterBranches={chapterBranches}
@@ -252,6 +246,7 @@ export const Chapter = () => {
             setOpen={setVersionModalOpen}
             setVersion={setVersion}
           />
+          <ChapterHistory history={chapterContent?.history} />
         </div>
       </EditorWrapper>
     </>

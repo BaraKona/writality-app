@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { convertDate } from "../../scripts/convertDate";
+import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { VscGitPullRequestCreate, VscGitMerge, VscInfo } from "react-icons/vsc";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useRouter } from "next/router";
@@ -37,7 +37,7 @@ export const ChapterBranches: FC<{
                 <p className="text-purple-300 font-semibold">main</p>
               </div>
             </div>
-            {/* <p>{convertDate(chapter.createdAt)}</p> */}
+            {/* <p>{useTimeFromNow(chapter.createdAt)}</p> */}
           </div>
           {chapterBranches.map((branch: any) => (
             <div
@@ -78,7 +78,7 @@ export const ChapterBranches: FC<{
                   </p>
                 </div>
               </div>
-              <p>{convertDate(branch.dateCreated.date)}</p>
+              <p>{useTimeFromNow(branch.dateCreated.date)}</p>
             </div>
           ))}
         </div>

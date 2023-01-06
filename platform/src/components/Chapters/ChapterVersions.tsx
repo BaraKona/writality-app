@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { convertDate } from "../../scripts/convertDate";
+import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { VscRepoPull, VscRepo, VscInfo } from "react-icons/vsc";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { ScrollArea } from "@mantine/core";
@@ -22,9 +22,9 @@ export const ChapterVersions: FC<{
   }
 
   return (
-    <div className="min-w-auto max-w-md flex-grow ">
+    <div className="min-w-auto max-w-md ">
       {chapterVersions.length > 0 ? (
-        <div className="shadow-lg p-5">
+        <div className="border border-baseLight  hover:bg-base p-5">
           <h3 className="text-lg flex font-bold gap-2">
             Versions <VscInfo size={18} className="cursor-pointer my-auto" />
           </h3>
@@ -69,7 +69,7 @@ export const ChapterVersions: FC<{
                     </p>
                   </div>
                 </div>
-                <p>{convertDate(version.dateCreated.date)}</p>
+                <p>{useTimeFromNow(version.dateCreated.date)}</p>
               </div>
             ))}
           </ScrollArea.Autosize>
