@@ -63,10 +63,27 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
 input:focus,
 textarea:focus,
-select:focus {
+select:focus,
+input:active,
+textarea:active,
+select:active {
   outline: none !important;
+  background: none;
 }
 #root {
   // max-width: 1280px;

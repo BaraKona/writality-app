@@ -31,7 +31,7 @@ export const ChapterVersions: FC<{
           <ScrollArea.Autosize
             offsetScrollbars
             scrollbarSize={6}
-            maxHeight={192}
+            maxHeight={128}
           >
             {chapterVersions.map((version: any, index) => (
               <div

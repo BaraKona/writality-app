@@ -18,6 +18,7 @@ export const getUserCollabProjects = async (userId: string) => {
 
 export const createCollabProject = async (project: IProject) => {
   try {
+    console.log(project);
     const { data } = await collabApi.post("/", project);
     useToast("success", " Collaborative Project created! Let's go! 😎");
     return data;

@@ -7,7 +7,6 @@ import {
   VscGitPullRequestClosed,
 } from "react-icons/vsc";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
-import { useNavigate, useLocation } from "react-router-dom";
 
 import { IChapterContent } from "../../interfaces/IChapterContent";
 import { ScrollArea } from "@mantine/core";
@@ -55,7 +54,7 @@ export const ChapterBranches: FC<{
             {/* <p>{useTimeFromNow(chapter.createdAt)}</p> */}
           </div>
           <ScrollArea.Autosize
-            maxHeight={192}
+            maxHeight={128}
             offsetScrollbars
             scrollbarSize={6}
           >
@@ -67,7 +66,7 @@ export const ChapterBranches: FC<{
                 <div className="flex gap-1 transition-all ease-in-out duration-200">
                   <button
                     className={`hover:text-orange-200 ${
-                      branch.uid === currentBranch.uid
+                      branch.uid === currentBranch?.uid
                         ? "text-blue-300"
                         : "text-stone-300"
                     }`}
@@ -75,7 +74,7 @@ export const ChapterBranches: FC<{
                   >
                     <VscGitPullRequestCreate size={18} />
                   </button>
-                  {branch.uid === currentBranch.uid ? (
+                  {branch.uid === currentBranch?.uid ? (
                     <div className="mt-1 flex">
                       <button
                         onClick={openMergeModal}

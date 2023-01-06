@@ -8,7 +8,7 @@ interface ICollabProject {
     date: Date;
   };
   owner: string;
-  collaborators?: [
+  collaborators: [
     {
       user: string;
       dateJoined: Date;
@@ -46,7 +46,6 @@ const collabProjectSchema = new Schema({
       user: {
         type: String,
         required: true,
-        unique: true,
       },
       dateJoined: {
         type: Date,
@@ -64,4 +63,7 @@ const collabProjectSchema = new Schema({
   },
 });
 
-export default model<ICollabProject>("CollabProject", collabProjectSchema);
+export default model<ICollabProject>(
+  "collaboration-projects",
+  collabProjectSchema
+);

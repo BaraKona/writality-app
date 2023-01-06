@@ -6,8 +6,10 @@ import http from "http";
 import socketIo from "socket.io";
 import { Server } from "socket.io";
 
-import projects from "./routes/project/projects";
 import users from "./routes/users";
+import chats from "./routes/chat/chat";
+
+import projects from "./routes/project/projects";
 import chapters from "./routes/project/chapters";
 import versions from "./routes/project/versions";
 import branches from "./routes/project/branches";
@@ -39,6 +41,7 @@ app.use(cors());
 
 // Routes for the API
 app.use("/users", users);
+app.use("/chats", chats);
 
 app.use("/projects", projects);
 app.use("/chapters", chapters);
@@ -89,6 +92,9 @@ io.on("connection", (socket) => {
   });
   socket.on("delete-col-version", (room, version) => {
     socket.to(room).emit("delete-col-version", version);
+  });
+  socket.on("comment-col-chat", (room, comment) => {
+    socket.to(room).emit("comment-col-chat", comment);
   });
 });
 const PORT = process.env.PORT || 5000;

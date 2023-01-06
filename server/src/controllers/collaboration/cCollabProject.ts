@@ -1,21 +1,39 @@
 import CollabProject from "../../models/collabProjectSchema";
+import Chat from "../../models/chat/chapterSchema";
+
+// @ts-ignore
+import { v4 as uuidv4 } from "uuid";
 
 export const createCollabProject = async (req: any, res: any) => {
-  const { title, uid, dateCreated, owner, collaborators, description, type } =
-    req.body;
+  const { title, uid, dateCreated, owner, description, type } = req.body;
   const newCollabProject = new CollabProject({
     owner,
     title,
     uid,
     dateCreated,
-    collaborators,
     description,
     type,
+    collaborators: [
+      {
+        user: owner,
+        dateJoined: dateCreated.date,
+      },
+    ],
   });
+  const newChat = new Chat({
+    uid: uuidv4(),
+    projectId: uid,
+    comments: [],
+  });
+  console.log(newCollabProject);
+  console.log(newChat);
   try {
     await newCollabProject.save();
+    await newChat.save();
     res.status(201).json(newCollabProject);
   } catch (error) {
+    console.log(error.message);
+    console.log(error);
     res.status(409).json({ message: error.message });
   }
 };

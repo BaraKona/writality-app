@@ -9,7 +9,7 @@ import DashboardNavigation from "./DashboardNavigation";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { IProject } from "../../interfaces/IProject";
 import { useNavigate } from "react-router-dom";
-import { FcConferenceCall, FcReading, FcRules } from "react-icons/fc";
+import { FcReading, FcRules } from "react-icons/fc";
 import { useToast } from "../../hooks/useToast";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { createProject, getUserProjects } from "../../api/project/projects";
@@ -56,6 +56,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const addProject = useMutation(createProject, {
     onSuccess: () => {
       queryClient.invalidateQueries(["projects", currentUser.uid]);
+      useToast("success", "Project created successfully! 🎉");
     },
   });
 
@@ -71,7 +72,12 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
         date: new Date(),
       },
     };
-    if (projects && projects.length >= 3) {
+
+    const numberOfProjects = projects?.filter(
+      (project: IProject) => project.owner === currentUser.uid
+    );
+    console.log(numberOfProjects);
+    if (numberOfProjects && numberOfProjects.length >= 3) {
       useToast(
         "error",
         "You can only have 3 projects. Try not to spread yourself too thin. ⚡"
@@ -79,7 +85,6 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
       return;
     }
     addProject.mutate(project);
-    useToast("success", "Project Created");
   };
 
   const createACollaboration = () => {
@@ -94,7 +99,11 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
       },
       type: "collaboration",
     };
-    if (collaboration && collaboration.length >= 3) {
+
+    const numberOfProjects = collaboration?.filter(
+      (project: IProject) => project.owner == currentUser.uid
+    );
+    if (numberOfProjects && collaboration.length >= 3) {
       useToast(
         "error",
         "You can only have 3 collaborations. Try not to spread yourself too thin. ⚡"
@@ -126,12 +135,12 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
             <CommunityListItem name="Stories">
               <FcReading size={23} />
             </CommunityListItem>
-            <CommunityListItem
+            {/* <CommunityListItem
               name="Users"
               onClick={() => navigate("/dashboard/users")}
             >
               <FcConferenceCall size={23} />
-            </CommunityListItem>
+            </CommunityListItem> */}
           </CategoryListItem>
           <hr className="my-5 border-baseBorder" />
           <CategoryListItem
