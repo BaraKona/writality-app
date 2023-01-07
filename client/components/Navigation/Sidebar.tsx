@@ -164,7 +164,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
             role="alert"
           >
             <div className="flex items-center mb-3">
-              <span className="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">
+              <span className="bg-orange-100 text-orange-800 text-md font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">
                 Beta
               </span>
               <button
@@ -189,7 +189,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
                 </svg>
               </button>
             </div>
-            <p className="mb-3 text-sm text-blue-900 ">
+            <p className="mb-3 text-md text-blue-900 ">
               This is a collaborative writing platform. You can invite other
               users to collaborate with you on your story. You can also invite
               them to collaborate on other stories. <br /> <br />

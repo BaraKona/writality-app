@@ -11,7 +11,7 @@ export const ProjectListItem: FC<{
 
   return (
     <li onClick={onClick} className=" w-fit cursor-default">
-      <a className="  ml-3 flex pr-3 text-sm font-normal text-stone-300 rounded dark:text-white hover:text-baseBorder hover:bg-stone-400">
+      <a className="  ml-3 flex pr-3 text-md font-normal text-stone-300 rounded dark:text-white hover:text-baseBorder hover:bg-stone-400">
         {projectId === router?.query.project ||
         projectId === router?.query.collaboration ? (
           <>

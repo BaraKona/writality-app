@@ -52,7 +52,7 @@ export const EditorWrapper: FC<{
           </abbr>{" "}
           {title}
         </p>
-        <p className="text-center my-auto font-medium text-sm ml-auto ">
+        <p className="text-center my-auto font-medium text-md ml-auto ">
           {content?.dateUpdated?.date
             ? "Last updated: " + useTimeFromNow(content.dateUpdated.date)
             : "No updates yet"}

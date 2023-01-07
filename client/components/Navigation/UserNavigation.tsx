@@ -15,7 +15,7 @@ export default function UserNavigation() {
     <div className="flex ">
       <Link href="/dashboard">
         <div className=" ml-auto my-3 flex cursor-pointer">
-          <a className="font-medium px-2 py-3 text-sm text-slate-200">
+          <a className="font-medium px-2 py-3 text-md text-slate-200">
             Dashboard
           </a>
         </div>
@@ -23,7 +23,7 @@ export default function UserNavigation() {
       <Link href="/auth/register">
         <div className="my-3 flex cursor-pointer">
           <a
-            className="font-medium px-2 py-3 text-sm text-slate-200"
+            className="font-medium px-2 py-3 text-md text-slate-200"
             onClick={handleSignOut}
           >
             Logout

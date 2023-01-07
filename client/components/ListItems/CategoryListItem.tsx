@@ -9,7 +9,7 @@ export const CategoryListItem: FC<{
   return (
     <ul>
       <li>
-        <h2 className="flex justify-between items-center ml-1 mt-3 font-semibold text-stone-500 text-sm rounded-lg">
+        <h2 className="flex justify-between items-center ml-1 mt-3 font-semibold text-stone-500 text-md rounded-lg">
           {name}
           <p
             onClick={onClick}

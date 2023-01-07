@@ -47,11 +47,11 @@ export default function Login() {
         <h2 className="text-2xl font-bold text-stone-200">
           Hey, Welcome Back! ✌️
         </h2>
-        <p className="text-sm text-stone-400 mb-4">
+        <p className="text-md text-stone-400 mb-4">
           Welcome back, fill in your credentials to log in
         </p>
         <form onSubmit={handleSignInAUser}>
-          <label className="text-sm text-stone-500">
+          <label className="text-md text-stone-500">
             Email Address <span className="text-red-700"> * </span>
           </label>
           <input
@@ -60,7 +60,7 @@ export default function Login() {
             type="email"
             className="w-full mb-4 form-input bg-transparent text-stone-300 border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
           />
-          <label className="text-sm text-stone-500">
+          <label className="text-md text-stone-500">
             Password <span className="text-red-700"> * </span>
           </label>
           <input
@@ -69,7 +69,7 @@ export default function Login() {
             type="password"
             className="w-full text-stone-300 form-input bg-transparent border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
           />
-          <div className="flex justify-between mt-5 text-xs">
+          <div className="flex justify-between mt-5 text-sm">
             <p className="text-stone-200"> Forgot Password? </p>
             <Link to="/auth/reset">
               <a className="text-stone-500 underline cursor-pointer hover:underline-offset-2 ease-in-out duration-300">
@@ -87,7 +87,7 @@ export default function Login() {
         </form>
         <div className="flex justify-center">
           <hr className="w-full my-10 border-stone-400" />
-          <p className="absolute mt-7 bg-base px-4 text-stone-300 align-middle text-sm">
+          <p className="absolute mt-7 bg-base px-4 text-stone-300 align-middle text-md">
             Or
           </p>
         </div>

@@ -48,7 +48,7 @@ export const EditorWrapper: FC<{
           &nbsp;
           {chapter.title}
         </p>
-        <p className="text-center my-auto font-medium text-sm ml-auto ">
+        <p className="text-center my-auto font-medium text-md ml-auto ">
           {chapter.content.dateUpdated.date
             ? "Last updated: " +
               useTimeFromNow(chapter.content.dateUpdated.date)

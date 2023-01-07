@@ -15,7 +15,7 @@ export const ProjectListItem: FC<{
           onClick={onClick}
           className="p-[0.1rem] hover:bg-base bg-base cursor-default"
         >
-          <a className="ml-3 flex text-sm font-normal">
+          <a className="ml-3 flex text-md font-normal">
             <AiFillFolderOpen size={20} color={"#b8a285"} />{" "}
             <span className="ml-3 text-purple-300">{name}</span>
           </a>
@@ -25,7 +25,7 @@ export const ProjectListItem: FC<{
           onClick={onClick}
           className="p-[0.1rem] hover:bg-base cursor-default"
         >
-          <a className="ml-3 flex text-sm font-normal">
+          <a className="ml-3 flex text-md font-normal">
             <AiFillFolder size={20} color={"#a8a29e"} />
             <span className="ml-3">{name}</span>
           </a>

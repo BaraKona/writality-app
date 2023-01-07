@@ -59,7 +59,7 @@ export const ChapterVersions: FC<{
           </div>
         </div>
       ) : (
-        <p className=" flex gap-2 text-center align-middle text-xs">
+        <p className=" flex gap-2 text-center align-middle text-sm">
           <button className="text-stone-300">
             <VscRepo size={18} />
           </button>
