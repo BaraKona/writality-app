@@ -28,7 +28,7 @@ export function Register() {
         passwordRef.current.value,
         nameRef.current.value
       ).then(() => {
-        navigate("/dashboard");
+        navigate("auth/login");
       });
     } catch (error: unknown) {
       console.log(error);

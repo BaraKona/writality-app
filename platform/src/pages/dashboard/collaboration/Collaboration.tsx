@@ -14,6 +14,7 @@ import {
 import {
   BaseProjectView,
   CollaborationToolbar,
+  ProjectDescription,
 } from "../../../components/Project";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +23,7 @@ import { Button, Tabs } from "@mantine/core";
 import {
   CollaboratorsList,
   CollaborationChat,
-} from "../../../components/Collaboration";
+} from "../../../components/Project/Collaboration";
 import { getProjectChat, commentOnChat } from "../../../api/chat/chats";
 import { IconAffiliate } from "@tabler/icons";
 import { useParams } from "react-router-dom";
@@ -250,6 +251,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
                         />
                       ))}
                     </ChapterRenderer>
+                    <ProjectDescription project={collaboration} />
                     <Loading isLoading={chat ? false : true}>
                       <CollaborationChat
                         commentViewportRef={commentViewportRef}

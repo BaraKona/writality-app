@@ -1,12 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Elsie+Swash+Caps&family=Fredericka+the+Great&family=Raleway:wght@100&display=swap");
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -19,6 +15,14 @@
 }
 html,
 body {
+  /* font-family: 'Fredericka the Great', cursive; */
+  /* font-family: 'Raleway', sans-serif; */
+  /* font-family: 'Elsie Swash Caps', cursive; */
+  font-family: "Cormorant Garamond", serif !important;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,

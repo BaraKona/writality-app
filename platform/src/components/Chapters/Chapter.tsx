@@ -11,7 +11,7 @@ export const Chapter: FC<{
   disabled: boolean;
 }> = ({ chapter, openChapter, openChapterModal, disabled }) => {
   return (
-    <div className="flex gap-3 border-b cursor-default  border-baseBorder py-2 px-8 text-center">
+    <div className="flex gap-3 border-b cursor-default  border-baseBorder  px-8 text-center">
       <div
         className="flex place-items-center gap-3 cursor-pointer text-center hover:text-blue-400"
         onClick={openChapter}

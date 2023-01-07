@@ -1,4 +1,7 @@
-import { BaseProjectView } from "../../../components/Project";
+import {
+  BaseProjectView,
+  ProjectDescription,
+} from "../../../components/Project";
 import { v4 as uuidv4 } from "uuid";
 import {
   NoChapters,
@@ -24,6 +27,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { chapterCreator } from "../../../hooks";
+import { Tabs } from "@mantine/core";
 export function Project() {
   const queryClient = useQueryClient();
   const { currentUser } = useAuthContext();
@@ -106,20 +110,45 @@ export function Project() {
             createNewChapter={createNewChapter}
             chapterCount={chapters?.length}
           >
-            <ChapterRenderer>
-              {chapters?.map((chapter: IChapter, index: number) => (
-                <Chapter
-                  openChapter={() =>
-                    openChapter(chapter.projectId, chapter.uid)
-                  }
-                  key={index}
-                  chapter={chapter}
-                  openChapterModal={() => openChapterModal(chapter.uid)}
-                  disabled={false}
-                />
-              ))}
-            </ChapterRenderer>
-            <CharacterWrapper> - Protagonist </CharacterWrapper>
+            <Tabs
+              className="w-full"
+              color="grape"
+              defaultValue="home"
+              orientation="vertical"
+              variant="outline"
+            >
+              <Tabs.List>
+                <Tabs.Tab value="home">Home</Tabs.Tab>
+                <Tabs.Tab value="world-info">World</Tabs.Tab>
+                <Tabs.Tab value="settings">Settings</Tabs.Tab>
+              </Tabs.List>
+
+              <Tabs.Panel value="home">
+                <div className="flex flex-wrap">
+                  <ChapterRenderer>
+                    {chapters?.map((chapter: IChapter, index: number) => (
+                      <Chapter
+                        openChapter={() =>
+                          openChapter(chapter.projectId, chapter.uid)
+                        }
+                        key={index}
+                        chapter={chapter}
+                        openChapterModal={() => openChapterModal(chapter.uid)}
+                        disabled={false}
+                      />
+                    ))}
+                  </ChapterRenderer>
+                  <ProjectDescription project={currentProject} />
+                  <CharacterWrapper> - Protagonist </CharacterWrapper>
+                </div>
+              </Tabs.Panel>
+
+              <Tabs.Panel value="world-info">
+                <CharacterWrapper> - Protagonist </CharacterWrapper>
+              </Tabs.Panel>
+
+              <Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
+            </Tabs>
           </ChapterWrapper>
         )}
       </BaseProjectView>

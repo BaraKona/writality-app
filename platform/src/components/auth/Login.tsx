@@ -34,8 +34,8 @@ export default function Login() {
   const signInWithGoogleProvider = async () => {
     try {
       await signInWithGoogle().then((loggedIn: boolean) => {
-        toast.success("Signed in successfully");
         navigate("/dashboard");
+        toast.success("Signed in successfully");
       });
     } catch (error) {
       console.log(error);

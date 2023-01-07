@@ -92,7 +92,8 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
       uid: uuidv4(),
       owner: currentUser.uid,
       title: "New Collaboration ",
-      description: " New Collaboration ",
+      description:
+        " A brief description of the story. You can also add a link to the story or general information about the story and/or updates",
       dateCreated: {
         user: currentUser.uid,
         date: new Date(),
@@ -103,14 +104,15 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
     const numberOfProjects = collaboration?.filter(
       (project: IProject) => project.owner == currentUser.uid
     );
-    if (numberOfProjects && collaboration.length >= 3) {
+    if (numberOfProjects.length >= 3) {
       useToast(
         "error",
         "You can only have 3 collaborations. Try not to spread yourself too thin. ⚡"
       );
       return;
+    } else {
+      addCollaboration.mutate(project);
     }
-    addCollaboration.mutate(project);
   };
 
   const openProject = (id: string) => {
