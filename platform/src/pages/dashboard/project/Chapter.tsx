@@ -226,7 +226,7 @@ export const Chapter = () => {
             currentBranch ? currentBranch : chapterContent?.content
           }
         />
-        <div className="min-w-[350px] border-l border-baseBorder px-5">
+        <div className="min-w-[350px] border-l flex flex-col gap-3 border-baseBorder px-5">
           <ChapterBranches
             openMergeModal={() => setMergeOpened(true)}
             chapterBranches={chapterBranches}
