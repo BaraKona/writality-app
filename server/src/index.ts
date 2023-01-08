@@ -8,6 +8,7 @@ import { Server } from "socket.io";
 
 import users from "./routes/users";
 import chats from "./routes/chat/chat";
+import posts from "./routes/posts";
 
 import projects from "./routes/project/projects";
 import chapters from "./routes/project/chapters";
@@ -42,6 +43,7 @@ app.use(cors());
 // Routes for the API
 app.use("/users", users);
 app.use("/chats", chats);
+app.use("/posts", posts);
 
 app.use("/projects", projects);
 app.use("/chapters", chapters);

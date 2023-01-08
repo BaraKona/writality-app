@@ -13,11 +13,12 @@ import { FcReading, FcRules } from "react-icons/fc";
 import { useToast } from "../../hooks/useToast";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { createProject, getUserProjects } from "../../api/project/projects";
-import { ScrollArea } from "@mantine/core";
+import { Divider, ScrollArea, Box } from "@mantine/core";
 import {
   createCollabProject,
   getUserCollabProjects,
 } from "../../api/collaboration/collabProjects";
+import { IconSearch } from "@tabler/icons";
 
 export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
@@ -131,7 +132,10 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
         <div className=" py-2 px-3">
           <DashboardNavigation />
           <CategoryListItem name="Community">
-            <CommunityListItem name="Posts">
+            <CommunityListItem
+              name="Posts"
+              onClick={() => navigate("/dashboard/posts")}
+            >
               <FcRules size={23} />
             </CommunityListItem>
             <CommunityListItem name="Stories">

@@ -7,18 +7,17 @@ export const CommunityListItem: FC<{
 }> = ({ name, onClick, children }) => {
   const { pathname } = useLocation();
 
-  const highlight = () => {
-    if (pathname.includes(name.toLowerCase())) {
-      return "text-purple-300";
-    } else {
-      return "text-stone-300";
-    }
-  };
   return (
-    <li onClick={onClick} className=" w-fit cursor-default">
-      <a className="  ml-3 flex pr-3 text-md font-normal text-stone-300 rounded dark:text-white hover:text-baseBorder hover:bg-stone-400">
+    <li onClick={onClick} className="cursor-default">
+      <a
+        className={`ml-3 flex text-md font-normal rounded  ${
+          pathname.includes(name.toLowerCase())
+            ? "text-purple-300 bg-base"
+            : "text-stone-300"
+        } hover:bg-base`}
+      >
         {children}
-        <span className={`ml-3 ${highlight()}`}>{name}</span>
+        <span className={`ml-3 `}>{name}</span>
       </a>
     </li>
   );

@@ -13,7 +13,9 @@ import { Toaster } from "react-hot-toast";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={new QueryClient()}>
-      <MantineProvider theme={{ colorScheme: "dark" }}>
+      <MantineProvider
+        theme={{ colorScheme: "dark", fontFamily: "Cormorant Garamond, serif" }}
+      >
         <AuthContextWrapper>
           <UserLoader>
             <RouterProvider router={router} />

@@ -243,12 +243,6 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
           chapterContent={branch || chapter?.content}
         />
         <div className="w-[350px] flex flex-col gap-5 border-l border-baseBorder px-5">
-          <ChapterVersions
-            openMergeModal={() => setMergeOpened(true)}
-            chapterVersions={versions}
-            setOpen={setVersionModalOpen}
-            setVersion={setVersion}
-          />
           <ChapterBranches
             openMergeModal={() => setMergeOpened(true)}
             chapterBranches={branches}
@@ -261,6 +255,12 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
               )
             }
             openDeleteBranch={setOpenDeleteBranch}
+          />
+          <ChapterVersions
+            openMergeModal={() => setMergeOpened(true)}
+            chapterVersions={versions}
+            setOpen={setVersionModalOpen}
+            setVersion={setVersion}
           />
           <ChapterHistory history={chapter?.history} />
         </div>

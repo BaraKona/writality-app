@@ -1,10 +1,16 @@
-import { createBrowserRouter, Link, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Link,
+  Navigate,
+  redirect,
+} from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Dashboard } from "./pages/Dashboard";
 import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
 import { io } from "socket.io-client";
 import { Sidebar } from "./components/Navigation";
 import { Chapter, Project } from "./pages/dashboard/project";
+import { PostsPage } from "./pages/dashboard/PostsPage";
 import {
   Collaboration,
   CollaborationChapter,
@@ -43,6 +49,15 @@ export const router = createBrowserRouter([
     element: (
       <Sidebar>
         <Dashboard />
+      </Sidebar>
+    ),
+    errorElement: <Error />,
+  },
+  {
+    path: "/dashboard/posts",
+    element: (
+      <Sidebar>
+        <PostsPage />
       </Sidebar>
     ),
     errorElement: <Error />,

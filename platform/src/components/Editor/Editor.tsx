@@ -38,7 +38,9 @@ export const Editor: FC<{
     if (localStorage.getItem(chapterContent?.uid)!) {
       if (
         JSON.parse(localStorage.getItem(chapterContent?.uid)!).date >
-        chapterContent?.dateUpdated.date
+          chapterContent?.dateUpdated.date &&
+        JSON.parse(localStorage.getItem(chapterContent?.uid)!).text !==
+          chapterContent?.content
       ) {
         setOpen(true);
       }

@@ -4,6 +4,7 @@ import {
   Modal,
   TextInput,
   useMantineTheme,
+  TypographyStylesProvider,
 } from "@mantine/core";
 import React, { FC } from "react";
 import { IconTrash, IconReplace } from "@tabler/icons";
@@ -28,11 +29,6 @@ export const VersionModal: FC<{
   if (!version) {
     return null;
   }
-  // transform richtext string into html
-  const html = (content: string) => {
-    return { __html: content };
-  };
-
   return (
     <>
       <Modal
@@ -56,19 +52,23 @@ export const VersionModal: FC<{
             <h2 className="text-blue-400 font-bold text-lg my-2">
               {currentContent?.name || "Main"}
             </h2>
-            <div
-              className=" h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto"
-              dangerouslySetInnerHTML={html(currentContent?.content)}
-            />
+            <TypographyStylesProvider>
+              <div
+                className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto"
+                dangerouslySetInnerHTML={{ __html: currentContent?.content }}
+              />
+            </TypographyStylesProvider>
           </div>
           <div className="px-5 border-l border-baseBorder grow shrink max-w-2xl mx-auto">
             <h2 className="text-blue-400 font-bold text-lg my-2">
               {version?.name}
             </h2>
-            <div
-              className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto"
-              dangerouslySetInnerHTML={html(version?.content)}
-            />
+            <TypographyStylesProvider>
+              <div
+                className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto"
+                dangerouslySetInnerHTML={{ __html: version?.content }}
+              />
+            </TypographyStylesProvider>
           </div>
         </div>
         <div className="mt-5 flex">
