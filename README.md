@@ -11,6 +11,8 @@ Welcome to the Collaborative Writing Platform, a platform for writers to come to
 - User accounts: writers can create their own user accounts and manage their own profile and settings
 - Versioning: writers can use GitHub-like versioning on their writing projects, allowing them to easily track and manage changes to their documents over time.
 
+![A collaborative project view](image_url_or_file_location)
+
 ## Getting started
 
 To get started using the Collaborative Writing Platform, follow these steps:
