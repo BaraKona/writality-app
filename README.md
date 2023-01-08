@@ -10,8 +10,8 @@ Welcome to the Collaborative Writing Platform, a platform for writers to come to
 - Document management: writers can create, edit, and delete documents as well as organize them into folders
 - User accounts: writers can create their own user accounts and manage their own profile and settings
 - Versioning: writers can use GitHub-like versioning on their writing projects, allowing them to easily track and manage changes to their documents over time.
-
-![A collaborative project view](https://github.com/BaraKona/Writality/Writality_1.png)
+![View chapter](Writality_2.png)
+![A collaborative project view](Writality_1.png)
 
 ## Getting started
 
