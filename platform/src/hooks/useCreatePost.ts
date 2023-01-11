@@ -3,19 +3,19 @@ import { v4 as uuidv4 } from "uuid";
 import { useToast } from "../hooks";
 export const useCreatePost = (
   userId: string,
-  title: string,
+  postTitle: string,
   description: string,
   genres: string[],
   postType: string,
   collaborationType: string,
   collaboration: string,
-  subTitle?: string
+  projectTitle?: string
 ) => {
   const post = {
     uid: uuidv4(),
     owner: userId,
-    title: title,
-    subtitle: subTitle,
+    postTitle,
+    projectTitle,
     description: description,
     genres: genres,
     collaboration,

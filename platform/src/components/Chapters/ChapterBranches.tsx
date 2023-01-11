@@ -31,7 +31,7 @@ export const ChapterBranches: FC<{
     return null;
   }
   return (
-    <div className="min-w-auto max-w-md">
+    <div className="min-w-auto w-80">
       {chapterBranches?.length > 0 ? (
         <div className="border border-baseLight  hover:bg-base p-5">
           <h3 className="text-lg flex font-bold gap-2">
@@ -96,7 +96,7 @@ export const ChapterBranches: FC<{
                     {branch.name ? branch.name : "Branch"}:
                   </p>
                 </div>
-                <p>{useTimeFromNow(branch.dateCreated.date)}</p>
+                <p>{useTimeFromNow(branch.dateUpdated.date)}</p>
               </div>
             ))}
           </ScrollArea.Autosize>

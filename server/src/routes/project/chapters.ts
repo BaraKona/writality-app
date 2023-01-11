@@ -6,6 +6,8 @@ import {
   getSingleChapter,
   updateChapterContent,
   deleteSingleChapter,
+  mergeReplaceMain,
+  mergePositionMain,
 } from "../../controllers/project/cChapters";
 
 const router = express.Router();
@@ -15,5 +17,10 @@ router.put("/:userId/:projectId/:chapterId/", updateChapterContent);
 router.get("/:userId/:projectId/:chapterId/", getSingleChapter);
 router.get("/:userId/:projectId", getProjectChapters);
 router.delete("/:userId/:projectId/:chapterId/", deleteSingleChapter);
+router.patch("/merge/replace/:userId/:projectId/:chapterId/", mergeReplaceMain);
+router.patch(
+  "/merge/position/:userId/:projectId/:chapterId/",
+  mergePositionMain
+);
 
 export default router;

@@ -19,7 +19,7 @@ export const CreatePostModal: FC<{
   setDescription: React.Dispatch<React.SetStateAction<string>>;
   setCollaborationType: React.Dispatch<React.SetStateAction<string>>;
   setPostType: React.Dispatch<React.SetStateAction<string>>;
-  setSubtitle: React.Dispatch<React.SetStateAction<string>>;
+  setProjectTitle: React.Dispatch<React.SetStateAction<string>>;
   setCollaboration: React.Dispatch<React.SetStateAction<string>>;
 }> = ({
   opened,
@@ -29,7 +29,7 @@ export const CreatePostModal: FC<{
   setDescription,
   setGenres,
   setPostType,
-  setSubtitle,
+  setProjectTitle,
   setTitle,
   setCollaboration,
 }) => {
@@ -109,8 +109,8 @@ export const CreatePostModal: FC<{
             <div className="flex flex-wrap">
               <div className="w-full md:w-1/2">
                 <TextInput
-                  label="Title"
-                  placeholder="Title"
+                  label="Post Title"
+                  placeholder="Post Title"
                   required
                   className="mt-3 "
                   variant="default"
@@ -119,20 +119,21 @@ export const CreatePostModal: FC<{
               </div>
               <div className="w-full md:w-1/2">
                 <TextInput
-                  label="Subtitle"
-                  placeholder="Subtitle"
+                  label="Project Title"
+                  placeholder="Project Title"
                   className="mt-3 "
                   variant="default"
-                  onChange={(e) => setSubtitle(e.target.value)}
+                  onChange={(e) => setProjectTitle(e.target.value)}
                 />
               </div>
               <div className="w-full mt-4">
-                <TextInput
+                <Textarea
                   label="Description"
                   placeholder="Description"
                   required
                   className="mt-3 "
                   variant="default"
+                  maxRows={5}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
@@ -143,6 +144,7 @@ export const CreatePostModal: FC<{
                   required
                   className="mt-3 "
                   variant="default"
+                  maxRows={5}
                   onChange={(e) => setCollaboration(e.target.value)}
                 />
               </div>

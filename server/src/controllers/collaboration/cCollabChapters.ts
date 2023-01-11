@@ -10,6 +10,7 @@ export const createCollabChapter = async (req: any, res: any) => {
     title,
     uid,
     dateCreated,
+    dateUpdated: dateCreated,
     projectId,
     content,
     history,

@@ -22,7 +22,7 @@ export const ChapterVersions: FC<{
   }
 
   return (
-    <div className="min-w-auto max-w-md ">
+    <div className="min-w-auto w-80">
       {chapterVersions.length > 0 ? (
         <div className="border border-baseLight  hover:bg-base p-5">
           <h3 className="text-lg flex font-bold gap-2">

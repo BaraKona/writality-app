@@ -18,19 +18,22 @@ export const MergeBranchModal: FC<{
   mergeBranch: () => void;
   replaceMain: () => void;
   currentBranch: IChapterVersion;
+  setPosition: React.Dispatch<React.SetStateAction<string | null>>;
+  position: string;
 }> = ({
   mergeOpened,
   setMergeOpened,
   mergeBranch,
   replaceMain,
   currentBranch,
+  setPosition,
+  position,
 }) => {
   const theme = useMantineTheme();
-  const [value, setValue] = useState<string | null>(null);
 
   const selectionData = [
-    { label: "Merge at top", value: "top" },
-    { label: "Merge at bottom", value: "bottom" },
+    { label: "Merge at top", value: "before" },
+    { label: "Merge at bottom", value: "after" },
   ];
   return (
     <>
@@ -97,14 +100,14 @@ export const MergeBranchModal: FC<{
             data={selectionData}
             clearable
             className="bg-baseMid mr-1"
-            value={value}
-            onChange={setValue}
+            value={position}
+            onChange={setPosition}
             color="orange"
-            error={value ? undefined || null : "Please select a position"}
+            error={position ? undefined || null : "Please select a position"}
           />
           <Button
             className=" bg-stone-700 text-orange-100"
-            onClick={() => mergeBranch}
+            onClick={mergeBranch}
             color="orange"
             variant="light"
           >

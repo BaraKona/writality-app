@@ -1,6 +1,8 @@
 import axios from "axios";
 import { IChapter } from "../../interfaces/IChapter";
 import { useToast } from "../../hooks/useToast";
+import { IChapterContent } from "../../interfaces/IChapterContent";
+import { IChapterVersion } from "../../interfaces/IChapterVersion";
 
 const chapterApi = axios.create({
   baseURL: "http://localhost:5000/chapters",
@@ -69,6 +71,63 @@ export const deleteSingleChapter = async (
       `/${userId}/${projectId}/${chapterId}`
     );
     useToast("success", "Chapter deleted successfully 😃");
+    return data;
+  } catch (err: any) {
+    console.log(err);
+    useToast("error", "something went wrong 😖");
+  }
+};
+
+export const mergePositionMain = async (
+  userId: string,
+  projectId: string,
+  chapterId: string,
+  position: string,
+  content: IChapterVersion,
+  history: {
+    date: Date;
+    user: string;
+    action: string;
+  }[],
+  dateUpdated: {
+    user: string;
+    date: number;
+  }
+) => {
+  try {
+    const { data } = await chapterApi.patch(
+      `/merge/position/${userId}/${projectId}/${chapterId}`,
+      { position, content, history, dateUpdated }
+    );
+    useToast("success", "Chapter merged successfully 😃");
+    return data;
+  } catch (err: any) {
+    console.log(err);
+    useToast("error", "something went wrong 😖");
+  }
+};
+
+export const mergeReplaceMain = async (
+  userId: string,
+  projectId: string,
+  chapterId: string,
+  content: IChapterVersion,
+  history: {
+    date: Date;
+    user: string;
+    action: string;
+  }[],
+  dateUpdated: {
+    user: string;
+    date: Date;
+  }
+) => {
+  try {
+    const { data } = await chapterApi.patch(
+      `/merge/replace/${userId}/${projectId}/${chapterId}`,
+      { content, history, dateUpdated }
+    );
+    useToast("success", "Chapter merged successfully 😃");
     return data;
   } catch (err: any) {
     console.log(err);

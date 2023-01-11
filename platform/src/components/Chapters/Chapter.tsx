@@ -26,7 +26,8 @@ export const Chapter: FC<{
       </div>
       <div className="ml-auto flex ">
         <p className="mr-2">
-          {useTimeFromNow(chapter.dateCreated.date.toString())}
+          {useTimeFromNow(chapter?.dateUpdated.date.toString()) ||
+            useTimeFromNow(chapter?.dateCreated.date.toString())}
         </p>
 
         <Button

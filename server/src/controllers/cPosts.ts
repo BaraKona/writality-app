@@ -14,8 +14,8 @@ export const getPosts = async (req: any, res: any) => {
 export const createPost = async (req: any, res: any) => {
   const {
     owner,
-    title,
-    subtitle,
+    postTitle,
+    projectTitle,
     description,
     genres,
     postType,
@@ -27,8 +27,8 @@ export const createPost = async (req: any, res: any) => {
   } = req.body;
   const newPost = new Posts({
     owner,
-    title,
-    subtitle,
+    postTitle,
+    projectTitle,
     description,
     genres,
     postType,

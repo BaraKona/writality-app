@@ -12,6 +12,8 @@ import {
 import {
   getSingleChapter,
   updateChapterContent,
+  mergePositionMain,
+  mergeReplaceMain,
 } from "../../../api/project/chapters";
 import {
   createVersion,
@@ -37,6 +39,7 @@ import {
   branchCreator,
   useUpdateChapter,
   versionCreator,
+  useAppendHistory,
 } from "../../../hooks";
 export const Chapter = () => {
   const navigate = useNavigate();
@@ -49,6 +52,7 @@ export const Chapter = () => {
   const [versionModalOpen, setVersionModalOpen] = useState(false);
   const [UpdateContentModalOpen, setUpdateContentModalOpen] = useState(false);
   const [openDeleteBranch, setOpenDeleteBranch] = useState(false);
+  const [position, setPosition] = useState<string | null>(null);
   const [version, setVersion] = useState({} as any);
   const { chapter, project } = useParams();
 
@@ -138,7 +142,48 @@ export const Chapter = () => {
       },
     }
   );
-
+  const mergePosition = useMutation(
+    () =>
+      mergePositionMain(
+        currentUser.uid,
+        project as string,
+        chapter as string,
+        position || "",
+        currentBranch,
+        useAppendHistory(currentUser.uid, chapterContent, currentBranch.name),
+        {
+          user: currentUser.uid,
+          date: Date.now(),
+        }
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["chapter", chapter as string]);
+        searchParams.delete("branch");
+        setSearchParams(searchParams);
+        setMergeOpened(false);
+      },
+    }
+  );
+  const replaceMain = useMutation(
+    () =>
+      mergeReplaceMain(
+        currentUser.uid,
+        project as string,
+        chapter as string,
+        currentBranch,
+        useAppendHistory(currentUser.uid, chapterContent, currentBranch.name),
+        { user: currentUser.uid, date: new Date() }
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["chapter", chapter as string]);
+        setMergeOpened(false);
+        searchParams.delete("branch");
+        setSearchParams(searchParams);
+      },
+    }
+  );
   if (branch && !currentBranch)
     return (
       <div className="w-full h-full grid place-items-center">
@@ -185,9 +230,11 @@ export const Chapter = () => {
       <MergeBranchModal
         setMergeOpened={setMergeOpened}
         mergeOpened={mergeOpened}
-        replaceMain={() => {}}
-        mergeBranch={() => {}}
+        replaceMain={replaceMain.mutate}
+        mergeBranch={mergePosition.mutate}
         currentBranch={currentBranch}
+        setPosition={setPosition}
+        position={position || ""}
       />
       <VersionModal
         setOpened={setVersionModalOpen}

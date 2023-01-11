@@ -10,7 +10,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useCreatePost } from "../../hooks/useCreatePost";
 import { Loading } from "../../components/Loading";
 import { PostCard } from "../../components/Posts/PostCard";
-
+import { PostHeader } from "../../components/Posts/PostHeader";
 export const PostsPage: FC = () => {
   const [createProjectModal, setCreateProjectModal] = useState(false);
   const { currentUser } = useAuthContext();
@@ -22,7 +22,7 @@ export const PostsPage: FC = () => {
   const [genres, setGenres] = useState<string[]>([]);
   const [postType, setPostType] = useState<string>("");
   const [collaborationType, setCollaborationType] = useState<string>("");
-  const [subtitle, setSubtitle] = useState<string>("");
+  const [projectTitle, setProjectTitle] = useState<string>("");
 
   const { data: posts, isLoading } = useQuery("posts", getPosts);
 
@@ -37,7 +37,7 @@ export const PostsPage: FC = () => {
           postType,
           collaborationType,
           collaboration,
-          subtitle
+          projectTitle
         )
       ),
     {
@@ -64,7 +64,10 @@ export const PostsPage: FC = () => {
     createAPost.mutate();
   };
   return (
-    <div className="w-full p-4 h-screen bg-base overflow-y-auto">
+    <PostHeader
+      title="Post Board"
+      openModal={() => setCreateProjectModal(true)}
+    >
       <CreatePostModal
         opened={createProjectModal}
         setOpened={setCreateProjectModal}
@@ -74,10 +77,9 @@ export const PostsPage: FC = () => {
         setGenres={setGenres}
         setPostType={setPostType}
         setCollaborationType={setCollaborationType}
-        setSubtitle={setSubtitle}
+        setProjectTitle={setProjectTitle}
         setCollaboration={setCollaboration}
       />
-      <h2 className="text-4xl font-bold ">All Projects</h2>
       <Loading isLoading={isLoading}>
         <Grid gutter="md">
           {posts?.map((post: IPost) => (
@@ -87,16 +89,6 @@ export const PostsPage: FC = () => {
           ))}
         </Grid>
       </Loading>
-      <Affix position={{ bottom: 20, right: 20 }}>
-        <Button
-          color="grape"
-          variant="light"
-          leftIcon={<IconPencilPlus />}
-          onClick={() => setCreateProjectModal(true)}
-        >
-          Create Post
-        </Button>
-      </Affix>
-    </div>
+    </PostHeader>
   );
 };

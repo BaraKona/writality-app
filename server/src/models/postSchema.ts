@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 
 interface IPost {
-  title: string;
-  subtitle?: string;
+  postTitle: string;
+  projectTitle?: string;
   description: string;
   genres: string[];
   postType: string;
@@ -22,11 +22,11 @@ interface IPost {
 }
 
 const postSchema = new Schema<IPost>({
-  title: {
+  postTitle: {
     type: String,
     required: true,
   },
-  subtitle: {
+  projectTitle: {
     type: String,
   },
   description: {

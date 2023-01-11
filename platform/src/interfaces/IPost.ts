@@ -1,8 +1,8 @@
 export type IPost = {
   uid: string;
   owner: string;
-  title: string;
-  subtitle?: string;
+  postTitle: string;
+  projectTitle?: string;
   description: string;
   collaborationType: string;
   collaboration: string;

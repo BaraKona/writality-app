@@ -45,6 +45,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
   const [opened, setOpened] = useState(false);
   const [version, setVersion] = useState({} as any);
   const [updateContentModalOpen, setUpdateContentModalOpen] = useState(false);
+  const [position, setPosition] = useState<string | null>(null);
   const [openDeleteBranch, setOpenDeleteBranch] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [text, setText] = useState("");
@@ -216,6 +217,8 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
         mergeOpened={mergeOpened}
         replaceMain={() => {}}
         mergeBranch={() => {}}
+        setPosition={setPosition}
+        position={position || ""}
         currentBranch={branch}
       />
       <EditorWrapper

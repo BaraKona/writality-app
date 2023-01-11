@@ -8,6 +8,7 @@ import {
   IconGitCommit,
   IconMessageDots,
   IconFilePlus,
+  IconGitMerge,
 } from "@tabler/icons";
 type chapterHistoryType = {
   user: string;
@@ -21,8 +22,14 @@ export const ChapterHistory: FC<{ history: chapterHistoryType }> = ({
     return null;
   }
   const active = history.length <= 1 ? history.length : history.length - 2;
+
+  const historyAction = {
+    created: <IconFilePlus size={12} />,
+    merged: <IconGitMerge size={12} />,
+    updated: <IconGitCommit size={12} />,
+  };
   return (
-    <div className="min-w-auto max-w-md mt-auto">
+    <div className="min-w-auto w-80 mt-auto">
       <div className=" border border-baseLight  hover:bg-base p-5">
         <h3 className="text-lg flex font-bold gap-2 mb-2">
           History <VscInfo size={14} className="cursor-pointer my-auto" />
@@ -33,11 +40,8 @@ export const ChapterHistory: FC<{ history: chapterHistoryType }> = ({
               <Timeline.Item
                 key={index}
                 bullet={
-                  item.action == "created" ? (
-                    <IconFilePlus size={12} />
-                  ) : (
-                    <IconGitCommit size={12} />
-                  )
+                  // @ts-ignore
+                  historyAction[item.action] || <IconMessageDots size={12} />
                 }
                 title={`Chapter ${item.action}`}
               >
