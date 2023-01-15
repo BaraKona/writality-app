@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { apple, google } from "../../assets/icons";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { router } from "../../router";
 export function Register() {
   // create reference for the inputs
   const emailRef = useRef<HTMLDivElement>(null) as any;
@@ -12,7 +13,7 @@ export function Register() {
 
   const navigate = useNavigate();
 
-  const { createAUserWithEmailAndPassword } = useAuthContext();
+  const { createAUserWithEmailAndPassword, currentUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
 
   const handleAccountCreation = async (e: React.FormEvent) => {
@@ -28,7 +29,8 @@ export function Register() {
         passwordRef.current.value,
         nameRef.current.value
       ).then(() => {
-        navigate("auth/login");
+        if (!currentUser) navigate("/auth/login");
+        else navigate("/dashboard/posts");
       });
     } catch (error: unknown) {
       console.log(error);

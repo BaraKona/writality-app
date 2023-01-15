@@ -11,7 +11,7 @@ export default function UserNavigation() {
   };
   return (
     <div className="flex">
-      <Link to="/dashboard">
+      <Link to="/dashboard/posts">
         <div className=" ml-auto my-3 flex cursor-pointer">
           <a className="font-medium px-2 py-3 text-md text-slate-200">
             Dashboard

@@ -14,7 +14,6 @@ export default function Login() {
   const { signInAUserWithEmailAndPassword, signInWithGoogle } =
     useAuthContext();
 
-  console.log(useAuthContext());
   const handleSignInAUser = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -34,8 +33,8 @@ export default function Login() {
   const signInWithGoogleProvider = async () => {
     try {
       await signInWithGoogle().then((loggedIn: boolean) => {
-        navigate("/dashboard");
         toast.success("Signed in successfully");
+        navigate("/dashboard/posts");
       });
     } catch (error) {
       console.log(error);
