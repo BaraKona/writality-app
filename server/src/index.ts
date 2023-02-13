@@ -25,9 +25,9 @@ const server = http.createServer(app);
 
 // TODO: add cors options
 const io = new Server(server, {
-  cors: {
-    origin: ["http://localhost:5173"],
-  },
+	cors: {
+		origin: ["http://localhost:5173"],
+	},
 });
 
 // configure dotenv
@@ -57,57 +57,57 @@ app.use("/collaboration-branches", collabBranches);
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
-  res.send("Connected to server!");
+	res.send("Connected to server!");
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
-  });
-  socket.on("join-collaboration", (room, callback) => {
-    socket.join(room);
-    callback(
-      "This is a collaborative project, and you have joined the collaboration 😃👍"
-    );
-  });
-  socket.on("join-chapter", (room, callback) => {
-    socket.join(room);
-  });
-  socket.on("create-col-chapter", (room, chapter) => {
-    socket.to(room).emit("create-col-chapter", chapter);
-  });
-  socket.on("delete-col-chapter", (room, chapter) => {
-    socket.to(room).emit("delete-col-chapter", chapter);
-  });
-  socket.on("create-col-version", (room, version) => {
-    socket.to(room).emit("create-col-version", version);
-  });
-  socket.on("create-col-branch", (room, branch) => {
-    socket.to(room).emit("create-col-branch", branch);
-  });
-  socket.on("update-col-branch", (room, name) => {
-    socket.to(room).emit("update-col-branch", name);
-  });
-  socket.on("delete-col-branch", (room, name) => {
-    socket.to(room).emit("delete-col-branch", name);
-  });
-  socket.on("delete-col-version", (room, version) => {
-    socket.to(room).emit("delete-col-version", version);
-  });
-  socket.on("comment-col-chat", (room, comment) => {
-    socket.to(room).emit("comment-col-chat", comment);
-  });
+	console.log("a user connected");
+	socket.on("disconnect", () => {
+		console.log("user disconnected");
+	});
+	socket.on("join-collaboration", (room, callback) => {
+		socket.join(room);
+		callback(
+			"This is a collaborative project, and you have joined the collaboration 😃👍"
+		);
+	});
+	socket.on("join-chapter", (room, callback) => {
+		socket.join(room);
+	});
+	socket.on("create-col-chapter", (room, chapter) => {
+		socket.to(room).emit("create-col-chapter", chapter);
+	});
+	socket.on("delete-col-chapter", (room, chapter) => {
+		socket.to(room).emit("delete-col-chapter", chapter);
+	});
+	socket.on("create-col-version", (room, version) => {
+		socket.to(room).emit("create-col-version", version);
+	});
+	socket.on("create-col-branch", (room, branch) => {
+		socket.to(room).emit("create-col-branch", branch);
+	});
+	socket.on("update-col-branch", (room, name) => {
+		socket.to(room).emit("update-col-branch", name);
+	});
+	socket.on("delete-col-branch", (room, name) => {
+		socket.to(room).emit("delete-col-branch", name);
+	});
+	socket.on("delete-col-version", (room, version) => {
+		socket.to(room).emit("delete-col-version", version);
+	});
+	socket.on("comment-col-chat", (room, comment) => {
+		socket.to(room).emit("comment-col-chat", comment);
+	});
 });
 const PORT = process.env.PORT || 5000;
 
 // start the Express server and connect to the database
 mongoose
-  .connect(process.env.CONNECTION_URL)
-  .then(() =>
-    // disable tslint for this line
-    // tslint:disable-next-line: no-console
-    server.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
-  )
-  // tslint:disable-next-line: no-console
-  .catch((error) => console.log(error.message));
+	.connect(process.env.CONNECTION_URL)
+	.then(() =>
+		// disable tslint for this line
+		// tslint:disable-next-line: no-console
+		server.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
+	)
+	// tslint:disable-next-line: no-console
+	.catch((error) => console.log(error.message));
