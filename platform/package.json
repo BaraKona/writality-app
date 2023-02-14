@@ -24,6 +24,7 @@
 		"@tiptap/react": "^2.0.0-beta.209",
 		"@tiptap/starter-kit": "^2.0.0-beta.209",
 		"axios": "^1.2.1",
+		"cheerio": "^1.0.0-rc.12",
 		"dayjs": "^1.11.7",
 		"firebase": "^9.15.0",
 		"lodash.debounce": "^4.0.8",

@@ -34,6 +34,7 @@ import {
 	UpdateContentModal,
 	DeleteModal,
 	VersionModal,
+	AdvancedMergeModal,
 } from "../../../components/Modals";
 import {
 	branchCreator,
@@ -54,6 +55,7 @@ export const Chapter = () => {
 	const [openDeleteBranch, setOpenDeleteBranch] = useState(false);
 	const [position, setPosition] = useState<string | null>(null);
 	const [version, setVersion] = useState({} as any);
+	const [advancedMergeOpened, setAdvancedMergeOpened] = useState(false);
 	const { chapter, project } = useParams();
 
 	const queryClient = useQueryClient();
@@ -204,6 +206,14 @@ export const Chapter = () => {
 				setOpened={setOpened}
 				opened={opened}
 			/>
+			<AdvancedMergeModal
+				setOpened={setAdvancedMergeOpened}
+				opened={advancedMergeOpened}
+				main={chapterContent?.content}
+				setText={setText}
+				currentContent={currentBranch}
+			/>
+
 			<DeleteModal
 				setOpened={setOpenDeleteBranch}
 				opened={openDeleteBranch}
@@ -235,6 +245,9 @@ export const Chapter = () => {
 				currentBranch={currentBranch}
 				setPosition={setPosition}
 				position={position || ""}
+				openAdvancedMerge={() => {
+					setAdvancedMergeOpened(true), setMergeOpened(false);
+				}}
 			/>
 			<VersionModal
 				setOpened={setVersionModalOpen}
