@@ -46,8 +46,8 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 				)}
 				<RichTextEditor.ControlsGroup>
 					<button
-						onClick={() => editor.chain().focus().undo().run()}
-						disabled={!editor.can().undo()}
+						onClick={() => editor?.chain().focus().undo().run()}
+						disabled={!editor?.can().undo()}
 						className="border border-zinc-700  rounded p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-zinc-700 hover:bg-opacity-40 "
 					>
 						<IconArrowBackUp size={14} />
@@ -55,8 +55,8 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 
 					<button
 						className="border border-zinc-700  rounded p-[0.3rem] rounded-l-none cursor-pointer hover:bg-zinc-700 hover:bg-opacity-40 "
-						onClick={() => editor.chain().focus().redo().run()}
-						disabled={!editor.can().redo()}
+						onClick={() => editor?.chain().focus().redo().run()}
+						disabled={!editor?.can().redo()}
 					>
 						<IconArrowForwardUp size={14} />
 					</button>

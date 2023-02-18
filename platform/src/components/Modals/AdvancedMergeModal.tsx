@@ -1,5 +1,5 @@
 import { Button, Modal, useMantineTheme } from "@mantine/core";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { AdvancedMergeSidebar } from "../Merge/AdvancedMergeSidebar";
 import { IconGitMerge } from "@tabler/icons";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
@@ -38,18 +38,17 @@ export const AdvancedMergeModal: FC<{
 			Color as any,
 			TextAlign.configure({ types: ["heading", "paragraph"] }),
 		],
-		content:
-			main && currentContent
-				? advancedMerge(main.content, currentContent.content)
-				: "",
+		content: "",
 	});
 	if (!main || !currentContent) {
 		return null;
 	}
-	if (!editor) {
-		return null;
-	}
 
+	useEffect(() => {
+		editor?.commands.setContent(
+			advancedMerge(main.content, currentContent.content)
+		);
+	}, [main, currentContent, editor]);
 	return (
 		<>
 			<Modal
@@ -86,7 +85,7 @@ export const AdvancedMergeModal: FC<{
 						variant="light"
 						color="green"
 						leftIcon={<IconGitMerge size={18} />}
-						onClick={() => mergeBranch(editor?.getHTML())}
+						onClick={() => mergeBranch(editor?.getHTML() || "")}
 					>
 						Merge
 					</Button>

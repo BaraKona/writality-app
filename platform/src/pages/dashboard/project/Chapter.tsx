@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { EditorWrapper, Editor } from "../../../components/Editor";
+import {
+	EditorWrapper,
+	ChapterEditorController,
+} from "../../../components/Editor";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { Loading } from "../../../components/Loading";
@@ -42,7 +45,18 @@ import {
 	versionCreator,
 	useAppendHistory,
 } from "../../../hooks";
-import { IChapterVersion } from "../../../interfaces/IChapterVersion";
+
+import { RichTextEditor, Link } from "@mantine/tiptap";
+import { useEditor } from "@tiptap/react";
+import Highlight from "@tiptap/extension-highlight";
+import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
+import TextAlign from "@tiptap/extension-text-align";
+import Superscript from "@tiptap/extension-superscript";
+import SubScript from "@tiptap/extension-subscript";
+import TextStyle from "@tiptap/extension-text-style";
+import Color from "@tiptap/extension-color";
+
 export const Chapter = () => {
 	const navigate = useNavigate();
 	const { currentUser } = useAuthContext();
@@ -189,13 +203,26 @@ export const Chapter = () => {
 			},
 		}
 	);
-	if (branch && !currentBranch)
+	const editor = useEditor({
+		extensions: [
+			StarterKit,
+			Underline,
+			Link,
+			TextStyle,
+			Superscript,
+			SubScript,
+			Highlight,
+			Color as any,
+			TextAlign.configure({ types: ["heading", "paragraph"] }),
+		],
+	});
+
+	if ((branch && !currentBranch) || !chapterContent || !editor)
 		return (
 			<div className="w-full h-full grid place-items-center">
 				<Loading isLoading={true}> </Loading>
 			</div>
 		);
-
 	return (
 		<>
 			<CreateBranchModal
@@ -209,14 +236,16 @@ export const Chapter = () => {
 				setOpened={setOpened}
 				opened={opened}
 			/>
-			<AdvancedMergeModal
-				setOpened={setAdvancedMergeOpened}
-				opened={advancedMergeOpened}
-				main={chapterContent?.content}
-				setText={setText}
-				currentContent={currentBranch}
-				mergeBranch={replaceMain.mutate}
-			/>
+			{branch && currentBranch && (
+				<AdvancedMergeModal
+					setOpened={setAdvancedMergeOpened}
+					opened={advancedMergeOpened}
+					main={chapterContent?.content}
+					setText={setText}
+					currentContent={currentBranch}
+					mergeBranch={replaceMain.mutate}
+				/>
+			)}
 
 			<DeleteModal
 				setOpened={setOpenDeleteBranch}
@@ -275,22 +304,24 @@ export const Chapter = () => {
 				}
 				openBranchModal={() => setOpened(true)}
 				save={
-					currentBranch
+					branch
 						? updateBranchMutation.mutate
 						: updateChapterContentMutation.mutate
 				}
 				content={currentBranch ? currentBranch : chapterContent?.content}
 				title={chapterContent?.title}
 			>
-				<Editor
-					text={text}
-					setOpen={setUpdateContentModalOpen}
-					setText={setText}
-					chapterContent={
-						currentBranch ? currentBranch : chapterContent?.content
-					}
-				/>
-				<div className="min-w-[350px] border-l flex flex-col gap-3 border-baseBorder px-5">
+				{editor && (
+					<ChapterEditorController
+						setText={setText}
+						editor={editor}
+						setOpen={setUpdateContentModalOpen}
+						content={
+							branch ? currentBranch.content : chapterContent?.content.content
+						}
+					/>
+				)}
+				<div className="min-w-[350px] border-l flex flex-col gap-3 border-baseBorder px-5 hover:bg-base">
 					<ChapterBranches
 						openMergeModal={() => setMergeOpened(true)}
 						chapterBranches={chapterBranches}
