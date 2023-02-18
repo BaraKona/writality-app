@@ -17,6 +17,8 @@ Examples of Platform:
 ![View chapter](Writality_2.png)
 - View of the collaboration
 ![A collaborative project view](Writality_1.png)
+- View Merge
+![Merging - Resolving Conflicts](Writality_Merge.png)
 
 ## Getting started
 
