@@ -72,6 +72,7 @@ export const Editor: FC<{
 					margin: "auto",
 					border: "none",
 					maxWidth: "850px",
+					minWidth: "400px",
 					paddingRight: "20px",
 				}}
 				styles={{
@@ -86,6 +87,10 @@ export const Editor: FC<{
 					stickyOffset={10}
 					style={{
 						margin: "0 auto",
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "center",
+						alignItems: "center",
 					}}
 				>
 					<RichTextEditor.ControlsGroup>
@@ -94,8 +99,8 @@ export const Editor: FC<{
 						<RichTextEditor.Underline />
 						<RichTextEditor.Strikethrough />
 						<RichTextEditor.ClearFormatting />
-						<RichTextEditor.Highlight />
-						<RichTextEditor.Code />
+						{/* <RichTextEditor.Highlight /> */}
+						{/* <RichTextEditor.Code /> */}
 					</RichTextEditor.ControlsGroup>
 
 					{/* <RichTextEditor.ControlsGroup>

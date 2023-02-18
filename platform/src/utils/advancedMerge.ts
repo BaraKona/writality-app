@@ -33,11 +33,11 @@ export function advancedMerge(main: string, branch: string): string {
 				}
 			}
 
-			result += `<span style='color: #F0E68C; text-decoration: line-through;'>${main.slice(
+			result += `<span style='color: #e64980; text-decoration: line-through; text-decoration-color:#e64980;'>${main.slice(
 				mainStart,
 				mainIndex
 			)}</span>`;
-			result += `<span style='color: #90EE90;'>${branch.slice(
+			result += `<span style='color: #00b894;'>${branch.slice(
 				branchStart,
 				branchIndex
 			)}</span>`;
@@ -45,14 +45,14 @@ export function advancedMerge(main: string, branch: string): string {
 	}
 
 	if (mainIndex < main.length) {
-		result += `<span style='color: #F0E68C; text-decoration: line-through;'>${main.slice(
+		result += `<span style='color: #e64980; text-decoration: line-through; text-decoration-color:#e64980;'>${main.slice(
 			mainIndex,
 			main.length
 		)}</span>`;
 	}
 
 	if (branchIndex < branch.length) {
-		result += `<span style='color: #90EE90;'>${branch.slice(
+		result += `<span style='color: #00b894;'>${branch.slice(
 			branchIndex,
 			branch.length
 		)}</span>`;

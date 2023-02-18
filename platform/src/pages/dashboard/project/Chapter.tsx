@@ -42,6 +42,7 @@ import {
 	versionCreator,
 	useAppendHistory,
 } from "../../../hooks";
+import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 export const Chapter = () => {
 	const navigate = useNavigate();
 	const { currentUser } = useAuthContext();
@@ -168,12 +169,13 @@ export const Chapter = () => {
 		}
 	);
 	const replaceMain = useMutation(
-		() =>
+		(content: string) =>
 			mergeReplaceMain(
 				currentUser.uid,
 				project as string,
 				chapter as string,
-				currentBranch,
+				{ ...currentBranch, content: content },
+
 				useAppendHistory(currentUser.uid, chapterContent, currentBranch.name),
 				{ user: currentUser.uid, date: new Date() }
 			),
@@ -181,6 +183,7 @@ export const Chapter = () => {
 			onSuccess: () => {
 				queryClient.invalidateQueries(["chapter", chapter as string]);
 				setMergeOpened(false);
+				setAdvancedMergeOpened(false);
 				searchParams.delete("branch");
 				setSearchParams(searchParams);
 			},
@@ -212,6 +215,7 @@ export const Chapter = () => {
 				main={chapterContent?.content}
 				setText={setText}
 				currentContent={currentBranch}
+				mergeBranch={replaceMain.mutate}
 			/>
 
 			<DeleteModal

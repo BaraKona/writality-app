@@ -1,33 +1,61 @@
-import {
-	Button,
-	Input,
-	Modal,
-	TextInput,
-	useMantineTheme,
-	TypographyStylesProvider,
-} from "@mantine/core";
+import { Button, Modal, useMantineTheme } from "@mantine/core";
 import React, { FC } from "react";
-import { IconTrash, IconReplace } from "@tabler/icons";
+import { AdvancedMergeSidebar } from "../Merge/AdvancedMergeSidebar";
+import { IconGitMerge } from "@tabler/icons";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { advancedMerge } from "../../utils/advancedMerge";
+
+import Highlight from "@tiptap/extension-highlight";
+import StarterKit from "@tiptap/starter-kit";
+import { Color } from "@tiptap/extension-color";
+import Underline from "@tiptap/extension-underline";
+import TextAlign from "@tiptap/extension-text-align";
+import Superscript from "@tiptap/extension-superscript";
+import TextStyle from "@tiptap/extension-text-style";
+import SubScript from "@tiptap/extension-subscript";
+import Link from "@tiptap/extension-link";
+import { BaseEditor } from "../Editor";
+import { useEditor } from "@tiptap/react";
+
 export const AdvancedMergeModal: FC<{
 	opened: boolean;
 	setOpened: React.Dispatch<React.SetStateAction<boolean>>;
 	main: IChapterVersion;
 	setText: React.Dispatch<React.SetStateAction<string>>;
 	currentContent: IChapterVersion;
-}> = ({ opened, setOpened, main, currentContent, setText }) => {
+	mergeBranch: (content: string) => void;
+}> = ({ opened, setOpened, main, currentContent, setText, mergeBranch }) => {
 	const theme = useMantineTheme();
-
+	const editor = useEditor({
+		extensions: [
+			StarterKit,
+			Underline,
+			Link,
+			TextStyle,
+			Superscript,
+			SubScript,
+			Highlight,
+			Color as any,
+			TextAlign.configure({ types: ["heading", "paragraph"] }),
+		],
+		content:
+			main && currentContent
+				? advancedMerge(main.content, currentContent.content)
+				: "",
+	});
 	if (!main || !currentContent) {
+		return null;
+	}
+	if (!editor) {
 		return null;
 	}
 
 	return (
 		<>
 			<Modal
-				size="calc(100vw - 20%)"
+				size="100"
 				opened={opened}
+				closeOnClickOutside={false}
 				overlayColor={
 					theme.colorScheme === "dark"
 						? theme.colors.dark[9]
@@ -41,35 +69,26 @@ export const AdvancedMergeModal: FC<{
 				onClose={() => setOpened(false)}
 				title="Advanced Merge"
 			>
-				<div className="flex flex-wrap max-w-[1600px] mx-auto">
-					<div className="px-5 border-r border-baseBorder grow shrink max-w-2xl mx-auto">
-						<h2 className="text-blue-400 font-bold text-lg my-2">
-							{currentContent?.name || "Main"}
-						</h2>
-						<TypographyStylesProvider>
-							<div
-								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto"
-								dangerouslySetInnerHTML={{
-									__html: advancedMerge(main.content, currentContent?.content),
-								}}
-							/>
-						</TypographyStylesProvider>
+				<div className="flex flex-wrap max-w-[1600px] gap-3">
+					<div className=" border-r border-baseBorder grow shrink max-w-2xl overflow-y-auto ">
+						<BaseEditor editor={editor} height="650px" />
 					</div>
+					<AdvancedMergeSidebar
+						currentContent={currentContent}
+						editor={editor}
+					/>
 				</div>
-				<div className="mt-5 flex">
+				<div className="mt-5 flex justify-end gap-2">
+					<Button color="gray" onClick={() => setOpened(false)}>
+						Cancel
+					</Button>
 					<Button
 						variant="light"
 						color="green"
-						className="mr-auto"
-						leftIcon={<IconReplace size={14} />}
-						onClick={() => {
-							setText(main?.content), setOpened(false);
-						}}
+						leftIcon={<IconGitMerge size={18} />}
+						onClick={() => mergeBranch(editor?.getHTML())}
 					>
-						Replace
-					</Button>
-					<Button color="gray" onClick={() => setOpened(false)}>
-						Cancel
+						Merge
 					</Button>
 				</div>
 			</Modal>

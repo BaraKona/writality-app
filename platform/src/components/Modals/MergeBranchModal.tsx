@@ -16,7 +16,7 @@ export const MergeBranchModal: FC<{
 	mergeOpened: boolean;
 	setMergeOpened: React.Dispatch<React.SetStateAction<boolean>>;
 	mergeBranch: () => void;
-	replaceMain: () => void;
+	replaceMain: (content: string) => void;
 	currentBranch: IChapterVersion;
 	setPosition: React.Dispatch<React.SetStateAction<string | null>>;
 	position: string;
@@ -83,7 +83,7 @@ export const MergeBranchModal: FC<{
 						variant="light"
 						color="orange"
 						leftIcon={<VscGitMerge size={14} />}
-						onClick={replaceMain}
+						onClick={() => replaceMain(currentBranch?.content)}
 						className="bg-stone-700 mr-3"
 					>
 						Replace Main
