@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
 	getSingleCollabChapter,
 	updateCollabChapterContent,
+	mergeReplaceMain,
 } from "../../../api/collaboration/collabChapters";
 import {
 	getAllCollabChapterVersions,
@@ -31,12 +32,14 @@ import {
 	branchCreator,
 	useToast,
 	useUpdateChapter,
+	useAppendHistory,
 } from "../../../hooks";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import {
 	CreateBranchModal,
 	DeleteModal,
 	MergeBranchModal,
+	AdvancedMergeModal,
 	VersionModal,
 } from "../../../components/Modals";
 import { useSearchParams } from "react-router-dom";
@@ -51,6 +54,7 @@ import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
+import CharacterCount from "@tiptap/extension-character-count";
 
 export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 	const [mergeOpened, setMergeOpened] = useState(false);
@@ -58,6 +62,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 	const [branchName, setBranchName] = useState("");
 	const [opened, setOpened] = useState(false);
 	const [version, setVersion] = useState({} as any);
+	const [advancedMergeModalOpen, setAdvancedMergeModalOpen] = useState(false);
 	const [updateContentModalOpen, setUpdateContentModalOpen] = useState(false);
 	const [position, setPosition] = useState<string | null>(null);
 	const [openDeleteBranch, setOpenDeleteBranch] = useState(false);
@@ -131,10 +136,37 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 			},
 		}
 	);
+	const replaceMain = useMutation(
+		(content: string) =>
+			mergeReplaceMain(
+				currentUser.uid,
+				collaborationId as string,
+				chapterId as string,
+				{ ...branch, content: content },
+
+				useAppendHistory(currentUser.uid, chapter, branch.name),
+				{ user: currentUser.uid, date: new Date() }
+			),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(["chapter", chapterId as string]);
+				queryClient.invalidateQueries(["versions", chapterId as string]);
+				socket.emit("merge-col-branch", chapterId, branch.name);
+				setMergeOpened(false);
+				setAdvancedMergeModalOpen(false);
+				searchParams.delete("branch");
+				setSearchParams(searchParams);
+			},
+		}
+	);
 
 	socket.off("create-col-branch").on("create-col-branch", () => {
 		queryClient.invalidateQueries(["branches", chapterId]);
 		useToast("success", "New Branch created");
+	});
+	socket.off("save").on("save", () => {
+		queryClient.invalidateQueries(["chapter", chapterId]);
+		useToast("success", "Main has been updated");
 	});
 	socket.off("create-col-version").on("create-col-version", () => {
 		queryClient.invalidateQueries(["versions", chapterId]);
@@ -159,6 +191,13 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 				alert("This version has been deleted");
 			}
 		});
+	socket
+		.off("merge-col-branch")
+		.on("merge-col-branch", (branchName: string) => {
+			queryClient.invalidateQueries(["chapter", chapterId]);
+			queryClient.invalidateQueries(["versions", chapterId as string]);
+			useToast("success", `[Branch] ${branchName} merged to main`);
+		});
 
 	const updateChapterContentMutation = useMutation(
 		() =>
@@ -170,6 +209,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["chapter", chapterId]);
+				socket.emit("save", chapterId);
 			},
 		}
 	);
@@ -202,6 +242,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 			Superscript,
 			SubScript,
 			Highlight,
+			CharacterCount,
 			Color as any,
 			TextAlign.configure({ types: ["heading", "paragraph"] }),
 		],
@@ -240,15 +281,26 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 				currentContent={branch || chapter?.content}
 				setText={setText}
 			/>
-			{/* <MergeBranchModal
+			{branchId && branch && (
+				<AdvancedMergeModal
+					setOpened={setAdvancedMergeModalOpen}
+					opened={advancedMergeModalOpen}
+					mergeBranch={replaceMain.mutate}
+					setText={setText}
+					main={chapter?.content}
+					currentContent={branch}
+				/>
+			)}
+			<MergeBranchModal
 				setMergeOpened={setMergeOpened}
 				mergeOpened={mergeOpened}
-				replaceMain={() => {}}
+				replaceMain={replaceMain.mutate}
 				mergeBranch={() => {}}
 				setPosition={setPosition}
 				position={position || ""}
 				currentBranch={branch}
-			/> */}
+				openAdvancedMerge={() => setAdvancedMergeModalOpen(true)}
+			/>
 			<EditorWrapper
 				backToProject={() =>
 					navigate(`/dashboard/collaboration/${collaborationId}`)

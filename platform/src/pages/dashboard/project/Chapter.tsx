@@ -56,6 +56,7 @@ import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
+import CharacterCount from "@tiptap/extension-character-count";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -176,6 +177,7 @@ export const Chapter = () => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["chapter", chapter as string]);
+				queryClient.invalidateQueries(["chapterVersions", chapter as string]);
 				searchParams.delete("branch");
 				setSearchParams(searchParams);
 				setMergeOpened(false);
@@ -196,6 +198,7 @@ export const Chapter = () => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["chapter", chapter as string]);
+				queryClient.invalidateQueries(["chapterVersions", chapter as string]);
 				setMergeOpened(false);
 				setAdvancedMergeOpened(false);
 				searchParams.delete("branch");
@@ -212,6 +215,7 @@ export const Chapter = () => {
 			Superscript,
 			SubScript,
 			Highlight,
+			CharacterCount,
 			Color as any,
 			TextAlign.configure({ types: ["heading", "paragraph"] }),
 		],

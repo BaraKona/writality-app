@@ -41,7 +41,7 @@ export const ChapterEditorController: FC<{
 	// }
 	const html = editor?.getHTML();
 	useEffect(() => {
-		editor.commands.clearContent(true);
+		// editor.commands.clearContent(true);
 		editor.commands.setContent(content);
 	}, [content]);
 

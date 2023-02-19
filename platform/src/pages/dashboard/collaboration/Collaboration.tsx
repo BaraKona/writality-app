@@ -237,7 +237,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 							orientation="vertical"
 							variant="outline"
 						>
-							<Tabs.List>
+							<Tabs.List className="">
 								<Tabs.Tab value="home">Home</Tabs.Tab>
 								<Tabs.Tab value="world-info">World</Tabs.Tab>
 								<Tabs.Tab value="settings">Settings</Tabs.Tab>

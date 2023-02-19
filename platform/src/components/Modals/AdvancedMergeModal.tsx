@@ -16,6 +16,7 @@ import SubScript from "@tiptap/extension-subscript";
 import Link from "@tiptap/extension-link";
 import { BaseEditor } from "../Editor";
 import { useEditor } from "@tiptap/react";
+import CharacterCount from "@tiptap/extension-character-count";
 
 export const AdvancedMergeModal: FC<{
 	opened: boolean;
@@ -34,6 +35,7 @@ export const AdvancedMergeModal: FC<{
 			TextStyle,
 			Superscript,
 			SubScript,
+			CharacterCount,
 			Highlight,
 			Color as any,
 			TextAlign.configure({ types: ["heading", "paragraph"] }),

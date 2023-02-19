@@ -74,6 +74,9 @@ io.on("connection", (socket) => {
 	socket.on("join-chapter", (room, callback) => {
 		socket.join(room);
 	});
+	socket.on("save", (room, content) => {
+		socket.to(room).emit("save", content);
+	});
 	socket.on("create-col-chapter", (room, chapter) => {
 		socket.to(room).emit("create-col-chapter", chapter);
 	});
@@ -97,6 +100,9 @@ io.on("connection", (socket) => {
 	});
 	socket.on("comment-col-chat", (room, comment) => {
 		socket.to(room).emit("comment-col-chat", comment);
+	});
+	socket.on("merge-col-branch", (room, branchName) => {
+		socket.to(room).emit("merge-col-branch", branchName);
 	});
 });
 const PORT = process.env.PORT || 5000;

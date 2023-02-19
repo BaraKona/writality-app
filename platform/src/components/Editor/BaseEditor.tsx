@@ -45,6 +45,11 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 					</BubbleMenu>
 				)}
 				<RichTextEditor.ControlsGroup>
+					<p className="text-zinc-400">
+						{editor.storage.characterCount.words()} words{" "}
+					</p>
+				</RichTextEditor.ControlsGroup>
+				<RichTextEditor.ControlsGroup>
 					<button
 						onClick={() => editor?.chain().focus().undo().run()}
 						disabled={!editor?.can().undo()}
@@ -52,7 +57,6 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 					>
 						<IconArrowBackUp size={14} />
 					</button>
-
 					<button
 						className="border border-zinc-700  rounded p-[0.3rem] rounded-l-none cursor-pointer hover:bg-zinc-700 hover:bg-opacity-40 "
 						onClick={() => editor?.chain().focus().redo().run()}

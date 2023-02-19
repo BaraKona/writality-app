@@ -166,7 +166,7 @@ export const mergeReplaceMain = async (req: any, res: any) => {
 				date: new Date(),
 			},
 			type: "Main",
-			name: "version main",
+			name: "previous main",
 		});
 		await newVersion.save();
 		await chapter.save();
