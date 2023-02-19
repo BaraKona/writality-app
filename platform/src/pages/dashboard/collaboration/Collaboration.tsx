@@ -31,6 +31,7 @@ import { chapterCreator } from "../../../hooks";
 import {
 	getSingleCollabProject,
 	addCollaboratorToProject,
+	updateCollabDescription,
 } from "../../../api/collaboration/collabProjects";
 import {
 	getCollabChapters,
@@ -42,6 +43,8 @@ import { getAllUsers } from "../../../api/user";
 import { useToast } from "../../../hooks/useToast";
 import { CharacterWrapper } from "../../../components/Characters/CharacterWrapper";
 import { IChapter } from "../../../interfaces/IChapter";
+import { useEditor } from "@tiptap/react";
+import { extensions } from "../../../components/Editor/utils/editorExtensions";
 
 export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 	const [opened, setOpened] = useState(false);
@@ -105,6 +108,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 			chapterCreator(currentUser.uid, collaborationId as string)
 		);
 	};
+
 	socket
 		.off("delete-col-chapter")
 		.on("delete-col-chapter", (message: string) => {
@@ -117,6 +121,10 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 			queryClient.invalidateQueries(["chapters", collaborationId]);
 			useToast("success", "A chapter has been created");
 		});
+	socket.off("update-col-desc").on("update-col-desc", (message: string) => {
+		queryClient.invalidateQueries(["collaboration", collaborationId]);
+		useToast("success", "The description has been updated");
+	});
 	socket.off("comment-col-chat").on("comment-col-chat", (message: string) => {
 		queryClient.invalidateQueries(["chat", collaborationId]);
 		// @ts-ignore
@@ -162,6 +170,21 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 		}
 	);
 
+	const updateDescription = useMutation(
+		(description: string) =>
+			updateCollabDescription(
+				currentUser.uid,
+				collaborationId as string,
+				description
+			),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(["collaboration", collaborationId]);
+				socket.emit("update-col-desc", collaborationId);
+			},
+		}
+	);
+
 	const openChapter = (chapterId: string) => {
 		navigate(
 			`/dashboard/collaboration/${collaborationId}/chapter/${chapterId}`
@@ -189,7 +212,11 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 		}
 	}, [chat]);
 
-	if (isLoading)
+	const editor = useEditor({
+		extensions,
+	});
+
+	if (isLoading || !editor)
 		return (
 			<div className="w-full h-full grid place-items-center">
 				<Loading isLoading={true}> </Loading>
@@ -256,7 +283,14 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 											/>
 										))}
 									</ChapterRenderer>
-									<ProjectDescription project={collaboration} />
+									{editor && collaboration && (
+										<ProjectDescription
+											project={collaboration}
+											user={currentUser.uid}
+											editor={editor}
+											updateDescription={updateDescription.mutate}
+										/>
+									)}
 									<Loading isLoading={chat ? false : true}>
 										<CollaborationChat
 											commentViewportRef={commentViewportRef}

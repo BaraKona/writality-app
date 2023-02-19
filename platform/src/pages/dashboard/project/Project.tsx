@@ -23,11 +23,15 @@ import { DeleteModal } from "../../../components/Modals";
 import {
 	getSingleProject,
 	deleteSingleProject,
+	updateProjectDescription,
+	updateProjectTitle,
 } from "../../../api/project/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { chapterCreator } from "../../../hooks";
 import { Tabs } from "@mantine/core";
+import { useEditor } from "@tiptap/react";
+import { extensions } from "../../../components/Editor/utils/editorExtensions";
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
@@ -70,6 +74,24 @@ export function Project() {
 			},
 		}
 	);
+	const updateTitle = useMutation(
+		(title: string) =>
+			updateProjectTitle(currentUser.uid, project as string, title),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(["project", project]);
+			},
+		}
+	);
+	const updateDescription = useMutation(
+		(description: string) =>
+			updateProjectDescription(currentUser.uid, project as string, description),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(["project", project]);
+			},
+		}
+	);
 	const openChapterModal = (chapterId: string) => {
 		setChapterId(chapterId);
 		setOpenModal(true);
@@ -82,7 +104,11 @@ export function Project() {
 		navigate(`/dashboard/project/${projectId}/chapter/${chapterId}`);
 	};
 
-	if (isLoading) {
+	const editor = useEditor({
+		extensions,
+	});
+
+	if (isLoading || !editor) {
 		return (
 			<div className="w-full h-full grid place-items-center">
 				<Loading isLoading={true}> </Loading>
@@ -142,7 +168,14 @@ export function Project() {
 											/>
 										))}
 									</ChapterRenderer>
-									<ProjectDescription project={currentProject} />
+									{editor && currentProject && (
+										<ProjectDescription
+											project={currentProject}
+											user={currentUser.uid}
+											editor={editor}
+											updateDescription={updateDescription.mutate}
+										/>
+									)}
 									<CharacterWrapper> - Protagonist </CharacterWrapper>
 								</div>
 							</Tabs.Panel>

@@ -77,6 +77,9 @@ io.on("connection", (socket) => {
 	socket.on("save", (room, content) => {
 		socket.to(room).emit("save", content);
 	});
+	socket.on("update-col-desc", (room, desc) => {
+		socket.to(room).emit("update-col-desc", desc);
+	});
 	socket.on("create-col-chapter", (room, chapter) => {
 		socket.to(room).emit("create-col-chapter", chapter);
 	});

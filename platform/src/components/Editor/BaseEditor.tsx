@@ -11,7 +11,7 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 		<RichTextEditor
 			editor={editor}
 			style={{
-				margin: "auto",
+				margin: "0 auto",
 				border: "none",
 				maxWidth: "850px",
 				minWidth: "400px",
@@ -134,6 +134,7 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 					height: height,
 					border: "none",
 					backgroundColor: "transparent",
+					minWidth: "400px",
 				}}
 			/>
 		</RichTextEditor>
