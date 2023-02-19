@@ -55,6 +55,7 @@ import SubScript from "@tiptap/extension-subscript";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 import CharacterCount from "@tiptap/extension-character-count";
+import { extensions } from "../../../components/Editor/utils/editorExtensions";
 
 export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 	const [mergeOpened, setMergeOpened] = useState(false);
@@ -234,18 +235,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 	);
 
 	const editor = useEditor({
-		extensions: [
-			StarterKit,
-			Underline,
-			Link,
-			TextStyle,
-			Superscript,
-			SubScript,
-			Highlight,
-			CharacterCount,
-			Color as any,
-			TextAlign.configure({ types: ["heading", "paragraph"] }),
-		],
+		extensions,
 	});
 
 	useEffect(() => {

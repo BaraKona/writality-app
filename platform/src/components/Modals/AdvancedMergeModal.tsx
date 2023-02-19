@@ -17,6 +17,7 @@ import Link from "@tiptap/extension-link";
 import { BaseEditor } from "../Editor";
 import { useEditor } from "@tiptap/react";
 import CharacterCount from "@tiptap/extension-character-count";
+import { extensions } from "../Editor/utils/editorExtensions";
 
 export const AdvancedMergeModal: FC<{
 	opened: boolean;
@@ -28,19 +29,7 @@ export const AdvancedMergeModal: FC<{
 }> = ({ opened, setOpened, main, currentContent, setText, mergeBranch }) => {
 	const theme = useMantineTheme();
 	const editor = useEditor({
-		extensions: [
-			StarterKit,
-			Underline,
-			Link,
-			TextStyle,
-			Superscript,
-			SubScript,
-			CharacterCount,
-			Highlight,
-			Color as any,
-			TextAlign.configure({ types: ["heading", "paragraph"] }),
-		],
-		content: "",
+		extensions,
 	});
 	if (!main || !currentContent) {
 		return null;

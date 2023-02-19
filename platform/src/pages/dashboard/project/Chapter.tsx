@@ -48,6 +48,7 @@ import {
 
 import { RichTextEditor, Link } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
+import { extensions } from "../../../components/Editor/utils/editorExtensions";
 import Highlight from "@tiptap/extension-highlight";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
@@ -207,18 +208,7 @@ export const Chapter = () => {
 		}
 	);
 	const editor = useEditor({
-		extensions: [
-			StarterKit,
-			Underline,
-			Link,
-			TextStyle,
-			Superscript,
-			SubScript,
-			Highlight,
-			CharacterCount,
-			Color as any,
-			TextAlign.configure({ types: ["heading", "paragraph"] }),
-		],
+		extensions,
 	});
 
 	if ((branch && !currentBranch) || !chapterContent || !editor)
