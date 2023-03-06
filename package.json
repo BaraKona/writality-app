@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@tiptap/extension-color": "^2.0.0-beta.217",
-    "@tiptap/extension-history": "^2.0.0-beta.217"
-  }
-}
