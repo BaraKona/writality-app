@@ -14,7 +14,6 @@ export const createChapter = async (req: any, res: any) => {
 		content,
 		history,
 	} = req.body;
-	console.log(req.body);
 	const newChapter = new Chapter({
 		owner,
 		title,
@@ -106,7 +105,6 @@ export const deleteSingleChapter = async (req: any, res: any) => {
 export const mergePositionMain = async (req: any, res: any) => {
 	const { userId, projectId, chapterId } = req.params;
 	const { content, history, position, dateUpdated } = req.body;
-	// TODO: Fix this mess
 	try {
 		const chapter = await Chapter.findOne({
 			uid: chapterId,

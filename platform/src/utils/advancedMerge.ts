@@ -1,31 +1,49 @@
+/**
+ * This function takes two strings, main and branch, and returns a merged string with some formatting.
+ * @param {string} main - The main string to be merged with the branch string.
+ * @param {string} branch - The branch string to be merged with the main string.
+ * @returns {string} The merged string with some formatting.
+ */
 export function advancedMerge(main: string, branch: string): string {
+	// Initialize an empty string to store the resulting merged string.
 	let result = "";
+	// Initialize two index variables, one for the main string and one for the branch string.
 	let mainIndex = 0;
 	let branchIndex = 0;
 
+	// Loop through the main string and branch string until one of them is exhausted.
 	while (mainIndex < main.length && branchIndex < branch.length) {
+		// Get the current characters at the main and branch indices.
 		let mainChar = main.charAt(mainIndex);
 		let branchChar = branch.charAt(branchIndex);
 
+		// If the characters are the same, add them to the resulting string and move both indices forward.
 		if (mainChar === branchChar) {
 			result += mainChar;
 			mainIndex++;
 			branchIndex++;
-		} else {
+		}
+		// If the characters are different, find the next matching character or the end of one or both strings.
+		else {
+			// Remember the current indices in case we need to add strikethrough to the main string.
 			let mainStart = mainIndex;
 			let branchStart = branchIndex;
 
+			// Loop through both strings until we find the next matching character or the end of one or both strings.
 			while (
 				mainChar !== branchChar &&
 				mainIndex < main.length &&
 				branchIndex < branch.length
 			) {
+				// Move the main index forward if the current main character is less than the current branch character.
 				if (mainChar < branchChar) {
 					mainIndex++;
 					if (mainIndex < main.length) {
 						mainChar = main.charAt(mainIndex);
 					}
-				} else {
+				}
+				// Otherwise, move the branch index forward.
+				else {
 					branchIndex++;
 					if (branchIndex < branch.length) {
 						branchChar = branch.charAt(branchIndex);
@@ -33,10 +51,12 @@ export function advancedMerge(main: string, branch: string): string {
 				}
 			}
 
+			// Add the strikethrough styling to the main string characters that were skipped.
 			result += `<span style='color: #e64980; text-decoration: line-through; text-decoration-color:#e64980;'>${main.slice(
 				mainStart,
 				mainIndex
 			)}</span>`;
+			// Add the green styling to the branch string characters that were skipped.
 			result += `<span style='color: #00b894;'>${branch.slice(
 				branchStart,
 				branchIndex
@@ -44,13 +64,14 @@ export function advancedMerge(main: string, branch: string): string {
 		}
 	}
 
+	// If there are any remaining characters in the main string, add them with strikethrough styling.
 	if (mainIndex < main.length) {
 		result += `<span style='color: #e64980; text-decoration: line-through; text-decoration-color:#e64980;'>${main.slice(
 			mainIndex,
 			main.length
 		)}</span>`;
 	}
-
+	// If there are any remaining characters in the branch string, add them with green styling.
 	if (branchIndex < branch.length) {
 		result += `<span style='color: #00b894;'>${branch.slice(
 			branchIndex,
@@ -58,8 +79,71 @@ export function advancedMerge(main: string, branch: string): string {
 		)}</span>`;
 	}
 
+	// Return the resulting merged string with formatting.
 	return result;
 }
+// export function advancedMerge(main: string, branch: string): string {
+// 	let result = "";
+// 	let mainIndex = 0;
+// 	let branchIndex = 0;
+
+// 	while (mainIndex < main.length && branchIndex < branch.length) {
+// 		let mainChar = main.charAt(mainIndex);
+// 		let branchChar = branch.charAt(branchIndex);
+
+// 		if (mainChar === branchChar) {
+// 			result += mainChar;
+// 			mainIndex++;
+// 			branchIndex++;
+// 		} else {
+// 			let mainStart = mainIndex;
+// 			let branchStart = branchIndex;
+
+// 			while (
+// 				mainChar !== branchChar &&
+// 				mainIndex < main.length &&
+// 				branchIndex < branch.length
+// 			) {
+// 				if (mainChar < branchChar) {
+// 					mainIndex++;
+// 					if (mainIndex < main.length) {
+// 						mainChar = main.charAt(mainIndex);
+// 					}
+// 				} else {
+// 					branchIndex++;
+// 					if (branchIndex < branch.length) {
+// 						branchChar = branch.charAt(branchIndex);
+// 					}
+// 				}
+// 			}
+
+// 			result += `<span style='color: #e64980; text-decoration: line-through; text-decoration-color:#e64980;'>${main.slice(
+// 				mainStart,
+// 				mainIndex
+// 			)}</span>`;
+// 			result += `<span style='color: #00b894;'>${branch.slice(
+// 				branchStart,
+// 				branchIndex
+// 			)}</span>`;
+// 		}
+// 	}
+
+// 	if (mainIndex < main.length) {
+// 		result += `<span style='color: #e64980; text-decoration: line-through; text-decoration-color:#e64980;'>${main.slice(
+// 			mainIndex,
+// 			main.length
+// 		)}</span>`;
+// 	}
+
+// 	if (branchIndex < branch.length) {
+// 		result += `<span style='color: #00b894;'>${branch.slice(
+// 			branchIndex,
+// 			branch.length
+// 		)}</span>`;
+// 	}
+
+// 	return result;
+// }
 // export function advancedMerge(main: string, branch: string): string {
 // 	let result = "";
 // 	let mainIndex = 0;

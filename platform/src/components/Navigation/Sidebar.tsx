@@ -78,7 +78,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 		const numberOfProjects = projects?.filter(
 			(project: IProject) => project.owner === currentUser.uid
 		);
-		console.log(numberOfProjects);
+
 		if (numberOfProjects && numberOfProjects.length >= 3) {
 			useToast(
 				"error",

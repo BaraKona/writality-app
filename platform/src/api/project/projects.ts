@@ -21,7 +21,6 @@ export const getUserProjects = async (userId: string) => {
 };
 
 export const createProject = async (project: IProject) => {
-	console.log(project);
 	const { data } = await projectApi.post("/", project);
 	return data;
 };
