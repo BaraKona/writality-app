@@ -54,7 +54,7 @@ export const EditorWrapper: FC<{
 				</p>
 				<p className="text-center my-auto font-medium text-md ml-auto ">
 					{content?.dateUpdated?.date
-						? "Last updated: " + useTimeFromNow(content.dateUpdated.date)
+						? "Last updated: " + useTimeFromNow(content.dateUpdated.date + "")
 						: "No updates yet"}
 				</p>
 				<button
