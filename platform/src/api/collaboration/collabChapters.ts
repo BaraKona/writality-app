@@ -5,7 +5,7 @@ import { IChapter } from "../../interfaces/IChapter";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 
 const collabApi = axios.create({
-	baseURL: "http://localhost:5000/collaboration-chapters",
+	baseURL: import.meta.env.VITE_API_URL + "collaboration-chapters",
 });
 
 export const createCollabChapter = async (chapter: IChapter) => {

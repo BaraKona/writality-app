@@ -5,7 +5,7 @@ import { IChapterContent } from "../../interfaces/IChapterContent";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 
 const chapterApi = axios.create({
-	baseURL: "http://localhost:5000/chapters",
+	baseURL: import.meta.env.VITE_API_URL + "chapters",
 });
 
 export const createChapter = async (chapter: IChapter) => {

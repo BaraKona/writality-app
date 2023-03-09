@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import http from "http";
-import socketIo from "socket.io";
 import { Server } from "socket.io";
 
 import users from "./routes/users";

@@ -3,10 +3,10 @@ import { IProject } from "../../interfaces/IProject";
 import { useToast } from "../../hooks/useToast";
 
 const projectApi = axios.create({
-	baseURL: "http://localhost:5000/projects",
+	baseURL: import.meta.env.VITE_API_URL + "projects",
 });
 const userProjectApi = axios.create({
-	baseURL: "http://localhost:5000/projects/user",
+	baseURL: import.meta.env.VITE_API_URL + "projects/user",
 });
 
 export const getUserProjects = async (userId: string) => {
