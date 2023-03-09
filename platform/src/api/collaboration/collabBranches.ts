@@ -3,7 +3,7 @@ import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useToast } from "../../hooks/useToast";
 
 const branchApi = axios.create({
-	baseURL: import.meta.env.VITE_API_URL + "collaboration-branches",
+	baseURL: import.meta.env.VITE_API_URL + "/collaboration-branches",
 });
 
 export const getAllCollabBranches = async (chapterId: string) => {

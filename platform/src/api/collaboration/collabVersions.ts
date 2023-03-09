@@ -3,7 +3,7 @@ import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useToast } from "../../hooks/useToast";
 
 const api = axios.create({
-	baseURL: import.meta.env.VITE_API_URL + "collaboration-versions",
+	baseURL: import.meta.env.VITE_API_URL + "/collaboration-versions",
 });
 
 export const getAllCollabChapterVersions = async (chapterId: string) => {

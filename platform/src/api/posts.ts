@@ -3,7 +3,7 @@ import { IPost } from "../interfaces/IPost";
 import { useToast } from "../hooks";
 
 const postApi = axios.create({
-	baseURL: import.meta.env.VITE_API_URL + "posts",
+	baseURL: import.meta.env.VITE_API_URL + "/posts",
 });
 
 export const createPost = async (post: IPost) => {

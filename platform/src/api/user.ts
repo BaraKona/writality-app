@@ -2,10 +2,10 @@ import axios from "axios";
 import { IUser } from "../interfaces/IUser";
 import { useToast } from "../hooks/useToast";
 const userApi = axios.create({
-	baseURL: import.meta.env.VITE_API_URL + "users",
+	baseURL: import.meta.env.VITE_API_URL + "/users",
 });
 const registerApi = axios.create({
-	baseURL: import.meta.env.VITE_API_URL + "users/signup",
+	baseURL: import.meta.env.VITE_API_URL + "/users/signup",
 });
 
 export const registerUser = async (user: IUser) => {

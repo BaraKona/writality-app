@@ -3,7 +3,7 @@ import { IProject } from "../../interfaces/IProject";
 import { useToast } from "../../hooks/useToast";
 
 const collabApi = axios.create({
-	baseURL: import.meta.env.VITE_API_URL + "collaborations",
+	baseURL: import.meta.env.VITE_API_URL + "/collaborations",
 });
 
 export const getUserCollabProjects = async (userId: string) => {
