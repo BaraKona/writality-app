@@ -1,6 +1,7 @@
 # Collaborative Writing Platform
-
 Welcome to the Collaborative Writing Platform, a platform for writers to come together and create amazing content. This platform is built using [Vite](https://vitejs.dev/)
+
+[Writality](https://writality.com/) is now LIVE!! 
 
 ## Features
 
