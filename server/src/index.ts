@@ -20,7 +20,7 @@ import collabChapters from "./routes/collaboration/collabChapters";
 import collabVersions from "./routes/collaboration/collabVersions";
 import collabBranches from "./routes/collaboration/collabBranches";
 
-const app = express();
+const app = express() as express.Application;
 const server = http.createServer(app);
 
 // TODO: add cors options
