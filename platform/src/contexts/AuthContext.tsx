@@ -60,7 +60,8 @@ export function AuthContextWrapper({ children }: { children: ReactNode }) {
 					//@ts-ignore
 					await registerUser({ uid: auth.currentUser.uid, name, email })
 				);
-				console.log("success");
+				// reload page and redirect to dashboard
+				window.location.href = "/dashboard/posts";
 			})
 			.catch((error) => {
 				console.log(error);
