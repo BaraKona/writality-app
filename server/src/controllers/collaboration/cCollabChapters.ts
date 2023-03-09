@@ -135,11 +135,6 @@ export const mergeReplaceMain = async (req: any, res: any) => {
 		});
 		if (chapter.owner !== userId)
 			return res.status(404).json({ message: "Not authorized" });
-		console.log("replace");
-		chapter.content.content = content.content;
-		chapter.history = history;
-		chapter.dateUpdated = dateUpdated;
-		chapter.content.dateUpdated = dateUpdated;
 		const newVersion = new CollabVersion({
 			...chapter.content,
 			uid: uuidv4(),
@@ -150,6 +145,11 @@ export const mergeReplaceMain = async (req: any, res: any) => {
 			type: "Main",
 			name: "previous main",
 		});
+		console.log("replace");
+		chapter.content.content = content.content;
+		chapter.history = history;
+		chapter.dateUpdated = dateUpdated;
+		chapter.content.dateUpdated = dateUpdated;
 		await newVersion.save();
 		await chapter.save();
 		res.status(200).json(chapter);
