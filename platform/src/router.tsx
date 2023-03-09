@@ -18,7 +18,7 @@ import {
 import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
 
-const socket = io(import.meta.env.VITE_API_URL as string);
+const socket = io(import.meta.env.VITE_API_URL);
 
 export const router = createBrowserRouter([
 	{
