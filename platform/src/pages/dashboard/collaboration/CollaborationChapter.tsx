@@ -270,6 +270,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 				version={version}
 				currentContent={branch || chapter?.content}
 				setText={setText}
+				editor={editor}
 			/>
 			{branchId && branch && (
 				<AdvancedMergeModal

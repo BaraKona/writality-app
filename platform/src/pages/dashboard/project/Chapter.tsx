@@ -283,6 +283,7 @@ export const Chapter = () => {
 				version={version}
 				currentContent={branch ? currentBranch : chapterContent?.content}
 				setText={setText}
+				editor={editor}
 			/>
 			<EditorWrapper
 				backToProject={() => navigate(`/dashboard/project/${project}`)}
