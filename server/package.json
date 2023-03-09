@@ -5,7 +5,10 @@
 		"start": "nodemon src/index.ts",
 		"dev": "nodemon src/index.ts",
 		"build": "tsc",
-		"postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src"
+		"postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src",
+		"watch-node": "nodemon dist/index.js",
+		"watch-ts": "tsc -w",
+		"deploy": "git add . && git commit -m Heroku && git push heroku master"
 	},
 	"dependencies": {
 		"bcrypt": "^5.1.0",
