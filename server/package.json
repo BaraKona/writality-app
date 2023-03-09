@@ -2,8 +2,8 @@
 	"name": "writality",
 	"main": "src/index.ts",
 	"scripts": {
-		"start": "nodemon src/index.ts",
-		"dev": "nodemon src/index.ts",
+		"start": "nodemon dist/index.ts",
+		"dev": "nodemon dist/index.ts",
 		"build": "tsc"
 	},
 	"dependencies": {
