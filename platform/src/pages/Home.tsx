@@ -1,15 +1,17 @@
 import { FC } from "react";
 import { MainNavigation } from "../components/Navigation";
-
+import { HomeBanner } from "../components/Home/HomeBanner";
+import { HomeInfo } from "../components/Home/HomeInfo";
+import { HomeAccount } from "../components/Home/HomeAccount";
+import { HomeFooter } from "../components/Home/HomeFooter";
 export const Home: FC = () => {
-  return (
-    <div className="h-screen">
-      <MainNavigation />
-      <div className="w-7/12 grid place-items-center m-auto h-4/6 ">
-        <h1 className="text-3xl font-bold text-center underline">
-          Welcome to Writality
-        </h1>
-      </div>
-    </div>
-  );
+	return (
+		<div className="h-full bg-baseMid pb-5">
+			<MainNavigation />
+			<HomeBanner />
+			<HomeInfo />
+			<HomeAccount />
+			<HomeFooter />
+		</div>
+	);
 };
