@@ -26,11 +26,19 @@ export function HomeAccount({}: Props) {
 			<div className="flex flex-row  items-center justify-between p-5 hover:bg-base border border-transparent hover:border-baseBorderDark transition-all duration-500 ease-in-out">
 				<div className="flex flex-col  ">
 					<Text size="md" weight={500} className="p-5 max-w-md text-stone-300">
-						Are you ready to put your ideas on paper? Our collaborative version
-						controlled creative writing platform is here to help. Our
-						user-friendly interface and powerful writing tools make it easy to
-						get started on your writing project. Whether you're writing a novel,
-						a memoir, or a short story, we've got you covered.
+						Welcome to our collaborative creative writing platform! <br />
+						To get started, sign up for an account and start exploring the many
+						features we have to offer. <br /> <br />
+						As a member of our community, you'll be able to create and edit your
+						own writing projects, collaborate with others, and share your work
+						with a wider audience. Plus, with our versioning system, you'll
+						never have to worry about losing your progress or overwriting
+						previous versions of your work. We've designed our platform to make
+						it easy for you to stay organized and focused on your writing, so
+						you can spend more time doing what you love.
+						<br /> <br />
+						Ready to get started? Click the "Sign Up" button below and let's get
+						writing!
 					</Text>
 					<Button
 						variant="outline"
