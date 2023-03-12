@@ -26,8 +26,10 @@ export default function Login() {
 			);
 			useToast("success", "Signed in successfully 😎");
 		} catch (error: unknown) {
-			console.log(error);
-			if (error instanceof Error) alert(error.message);
+			useToast(
+				"error",
+				"Failed to sign in 😔. Try your credentials again or reset your password"
+			);
 		}
 		setLoading(false);
 	};

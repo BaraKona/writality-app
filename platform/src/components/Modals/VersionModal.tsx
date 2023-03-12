@@ -34,18 +34,27 @@ export const VersionModal: FC<{
 	return (
 		<>
 			<Modal
-				size="calc(100vw - 20%)"
+				size="65rem"
 				opened={opened}
-				overlayColor={
-					theme.colorScheme === "dark"
-						? theme.colors.dark[9]
-						: theme.colors.gray[2]
-				}
-				styles={{
-					modal: { backgroundColor: "#1b1c25", border: "solid 1px #363130" },
+				overlayProps={{
+					color:
+						theme.colorScheme === "dark"
+							? theme.colors.dark[9]
+							: theme.colors.gray[2],
+					opacity: 0.55,
+					blur: 3,
 				}}
-				overlayOpacity={0.55}
-				overlayBlur={3}
+				styles={{
+					content: {
+						background: theme.colorScheme === "dark" ? "#191a23" : "#fff",
+						border: "1px solid #363130",
+					},
+					header: {
+						background: theme.colorScheme === "dark" ? "#191a23" : "#fff",
+						borderBottom: "1px solid #363130",
+					},
+				}}
+				scrollAreaComponent={Modal.NativeScrollArea}
 				onClose={() => setOpened(false)}
 				title="Version"
 			>
