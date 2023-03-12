@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useRef, useState } from "react";
-import { TextInput } from "@mantine/core";
+import { TextInput, PasswordInput } from "@mantine/core";
 import { apple, google } from "../../assets/icons";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -65,12 +65,7 @@ export default function Login() {
 					<label className="text-md text-stone-500">
 						Password <span className="text-red-700"> * </span>
 					</label>
-					<TextInput
-						ref={passwordRef}
-						required
-						type="password"
-						className="w-full text-stone-300 form-input bg-transparent  px-0 focus:ring-0 border-0"
-					/>
+					<PasswordInput ref={passwordRef} required variant="unstyled" />
 					<div className="flex justify-between mt-5 text-sm">
 						<p className="text-stone-200"> Forgot Password? </p>
 						<Link to="/auth/reset">

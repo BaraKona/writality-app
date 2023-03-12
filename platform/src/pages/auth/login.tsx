@@ -4,21 +4,21 @@ import Login from "../../components/auth/Login";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 export function LoginPage() {
-  const { currentUser } = useAuthContext();
-  const navigate = useNavigate();
+	const { currentUser } = useAuthContext();
+	const navigate = useNavigate();
 
-  if (currentUser) {
-    navigate("/dashboard");
-  }
-  return (
-    <div>
-      <MainNavigation />
-      <div className="container flex px-4 mx-auto flex-wrap-reverse ">
-        <Login />
-        <div className="flex flex-grow sm justify-center min-w-[400px]">
-          <img src={loginIllustration} alt="login" width={500}></img>
-        </div>
-      </div>
-    </div>
-  );
+	if (currentUser) {
+		navigate("/dashboard/posts");
+	}
+	return (
+		<div>
+			<MainNavigation />
+			<div className="container flex px-4 mx-auto flex-wrap-reverse ">
+				<Login />
+				<div className="flex flex-grow sm justify-center min-w-[400px]">
+					<img src={loginIllustration} alt="login" width={500}></img>
+				</div>
+			</div>
+		</div>
+	);
 }

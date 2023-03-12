@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { apple, google } from "../../assets/icons";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { TextInput } from "@mantine/core";
+import { PasswordInput, TextInput } from "@mantine/core";
 export function Register() {
 	const emailRef = useRef<HTMLDivElement>(null) as any;
 	const nameRef = useRef<HTMLDivElement>(null) as any;
@@ -70,19 +70,19 @@ export function Register() {
 					<label className="text-md text-stone-500">
 						Password <span className="text-red-700"> * </span>
 					</label>
-					<TextInput
+					<PasswordInput
+						variant="unstyled"
 						ref={passwordRef}
 						required
-						type="password"
 						className="w-full mb-4 text-stone-300 form-input bg-transparent border-0 px-0 focus:ring-0"
 					/>
 					<label className="text-md text-stone-500">
 						Password Confirmation <span className="text-red-700"> * </span>
 					</label>
-					<TextInput
+					<PasswordInput
+						variant="unstyled"
 						ref={passwordConfirmRef}
 						required
-						type="password"
 						className="w-full text-stone-300 form-input bg-transparent border-0 px-0 focus:ring-0"
 					/>
 					<button
