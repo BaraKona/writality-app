@@ -156,11 +156,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 						onClick={createAProject}
 						loading={projectsLoading}
 					>
-						<ScrollArea.Autosize
-							maxHeight={178}
-							offsetScrollbars
-							scrollbarSize={6}
-						>
+						<ScrollArea.Autosize mah={178} offsetScrollbars scrollbarSize={6}>
 							{projects?.map((project: IProject, index: number) => {
 								return (
 									<ProjectListItem
@@ -180,11 +176,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 						onClick={createACollaboration}
 						loading={collabProjectsLoading}
 					>
-						<ScrollArea.Autosize
-							maxHeight={178}
-							offsetScrollbars
-							scrollbarSize={6}
-						>
+						<ScrollArea.Autosize mah={178} offsetScrollbars scrollbarSize={6}>
 							{collaboration?.map((collaboration: IProject, index: number) => {
 								return (
 									<ProjectListItem

@@ -53,11 +53,7 @@ export const ChapterBranches: FC<{
 						</div>
 						{/* <p>{useTimeFromNow(chapter.createdAt)}</p> */}
 					</div>
-					<ScrollArea.Autosize
-						maxHeight={128}
-						offsetScrollbars
-						scrollbarSize={6}
-					>
+					<ScrollArea.Autosize mah={128} offsetScrollbars scrollbarSize={6}>
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}

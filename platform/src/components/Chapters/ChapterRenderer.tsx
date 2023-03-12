@@ -22,7 +22,7 @@ export const ChapterRenderer: FC<{ children: ReactNode }> = ({ children }) => {
 			style={{ height: window.innerHeight - 190 }}
 		>
 			<ScrollArea.Autosize
-				maxHeight={window.innerHeight - 190}
+				mah={window.innerHeight - 190}
 				offsetScrollbars
 				scrollbarSize={6}
 			>

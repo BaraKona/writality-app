@@ -37,7 +37,7 @@ export const ChapterHistory: FC<{ history: chapterHistoryType }> = ({
 				<h3 className="text-lg flex font-bold gap-2 mb-2">
 					History <VscInfo size={14} className="cursor-pointer my-auto" />
 				</h3>
-				<ScrollArea.Autosize maxHeight={192} offsetScrollbars scrollbarSize={6}>
+				<ScrollArea.Autosize mah={192} offsetScrollbars scrollbarSize={6}>
 					<Timeline active={1} bulletSize={24} lineWidth={2} color="violet">
 						{dateSortedHistory?.map((item, index) => (
 							<Timeline.Item

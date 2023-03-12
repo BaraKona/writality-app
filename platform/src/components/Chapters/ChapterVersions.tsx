@@ -28,11 +28,7 @@ export const ChapterVersions: FC<{
 					<h3 className="text-lg flex font-bold gap-2">
 						Versions <VscInfo size={18} className="cursor-pointer my-auto" />
 					</h3>
-					<ScrollArea.Autosize
-						offsetScrollbars
-						scrollbarSize={6}
-						maxHeight={128}
-					>
+					<ScrollArea.Autosize offsetScrollbars scrollbarSize={6} mah={128}>
 						{chapterVersions.map((version: any, index) => (
 							<div
 								key={index}

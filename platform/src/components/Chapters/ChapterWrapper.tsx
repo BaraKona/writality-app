@@ -11,7 +11,7 @@ export const ChapterWrapper: FC<{
 }> = ({ children, chapterCount, createNewChapter }) => {
 	return (
 		<ScrollArea.Autosize
-			maxHeight={window.innerHeight - 135}
+			mah={window.innerHeight - 135}
 			offsetScrollbars
 			scrollbarSize={6}
 			className="h-[calc(100% - 20px)] flex flex-col bg-baseMid  gap-2 m-3 mx-3 shadow-lg border border-baseBorder rounded-md overflow-y-auto"
