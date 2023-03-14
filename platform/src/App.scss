@@ -3,83 +3,83 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Elsie+Swash+Caps&family=Fredericka+the+Great&family=Raleway:wght@100&display=swap");
 :root {
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
 }
 html,
 body {
-  /* font-family: 'Fredericka the Great', cursive; */
-  /* font-family: 'Raleway', sans-serif; */
-  /* font-family: 'Elsie Swash Caps', cursive; */
-  font-family: "Cormorant Garamond", serif !important;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+	/* font-family: 'Fredericka the Great', cursive; */
+	/* font-family: 'Raleway', sans-serif; */
+	/* font-family: 'Elsie Swash Caps', cursive; */
+	font-family: "Cormorant Garamond", serif !important;
+	font-size: 16px;
+	line-height: 24px;
+	font-weight: 400;
 
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background: #191a23;
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	background: #1b1c24;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: #eeeffc;
-    background-color: #191a23 !important;
-  }
+	html {
+		color-scheme: dark;
+	}
+	body {
+		color: #eeeffc;
+		background-color: #191a23 !important;
+	}
 }
 .ql-container.ql-snow {
-  border: none !important;
+	border: none !important;
 }
 .ql-toolbar.ql-snow {
-  border: none !important;
+	border: none !important;
 }
 .ql-editor,
 .ql-editor:focus {
-  outline: none !important;
+	outline: none !important;
 }
 body {
-  min-width: 320px;
-  min-height: 100vh;
+	min-width: 320px;
+	min-height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+	font-size: 3.2em;
+	line-height: 1.1;
 }
 input,
 textarea,
 select {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: inherit;
-  border: none;
-  outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: none !important;
-  appearance: none;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	color: inherit;
+	border: none;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: none !important;
+	appearance: none;
 }
 input:focus,
 textarea:focus,
@@ -87,10 +87,21 @@ select:focus,
 input:active,
 textarea:active,
 select:active {
-  outline: none !important;
-  background: none;
+	outline: none !important;
+	background: none;
 }
 #root {
-  // max-width: 1280px;
-  margin: 0 auto;
+	// max-width: 1280px;
+	margin: 0 auto;
+}
+*::-webkit-scrollbar {
+	width: 7px; /* width of the entire scrollbar */
+}
+*::-webkit-scrollbar-track {
+	background: #1b1c24; /* color of the tracking area */
+}
+*::-webkit-scrollbar-thumb {
+	background-color: #36363b; /* color of the scroll thumb */
+	border-radius: 20px; /* roundness of the scroll thumb */
+	border: 3px solid #36363b; /* creates padding around scroll thumb */
 }
