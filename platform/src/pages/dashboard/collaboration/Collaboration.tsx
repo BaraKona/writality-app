@@ -272,6 +272,9 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 								<Tabs.Tab value="settings" disabled>
 									Settings
 								</Tabs.Tab>
+								<Tabs.Tab value="publish" disabled>
+									Publish
+								</Tabs.Tab>
 							</Tabs.List>
 
 							<Tabs.Panel value="home">
