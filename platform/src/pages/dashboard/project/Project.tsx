@@ -180,7 +180,7 @@ export function Project() {
 											updateDescription={updateDescription.mutate}
 										/>
 									)}
-									<CharacterWrapper> - Protagonist </CharacterWrapper>
+									{/* <CharacterWrapper> - Protagonist </CharacterWrapper> */}
 								</div>
 							</Tabs.Panel>
 
