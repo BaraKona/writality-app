@@ -23,9 +23,18 @@ export function HomeAccount({}: Props) {
 				className="my-20"
 			/>
 
-			<div className="flex flex-row  items-center justify-between p-5 hover:bg-base border border-transparent hover:border-baseBorderDark transition-all duration-500 ease-in-out">
+			<div className="flex   flex-wrap gap-5  items-center justify-between sm:justify-center flex-row p-5 hover:bg-base border border-transparent hover:border-baseBorderDark transition-all duration-500 ease-in-out">
+				<Image
+					src={circle4}
+					alt="Writality Edit"
+					className=" animate-pulse max-w-sm p-2 hover:bg-base border border-transparent hover:border-baseBorderDark transition-all duration-500 ease-in-out "
+				/>
 				<div className="flex flex-col  ">
-					<Text size="md" weight={500} className="p-5 max-w-md text-stone-300">
+					<Text
+						size="md"
+						weight={500}
+						className="p-5 max-w-md text-stone-300 text-center sm:text-left"
+					>
 						Welcome to our collaborative creative writing platform! <br />
 						To get started, sign up for an account and start exploring the many
 						features we have to offer. <br /> <br />
@@ -55,11 +64,6 @@ export function HomeAccount({}: Props) {
 						Create an Account
 					</Button>
 				</div>
-				<Image
-					src={circle4}
-					alt="Writality Edit"
-					className=" animate-pulse max-w-sm p-2 hover:bg-base border border-transparent hover:border-baseBorderDark transition-all duration-500 ease-in-out "
-				/>
 			</div>
 		</Container>
 	);
