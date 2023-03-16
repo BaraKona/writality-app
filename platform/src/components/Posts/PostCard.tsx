@@ -82,7 +82,7 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 				</Text>
 			</ScrollArea>
 			<div className="flex gap-2 flex-wrap mt-2 h-12">
-				{post?.genres.map((genre) => (
+				{post?.genres.slice(0, 6).map((genre) => (
 					<Badge color="cyan" variant="light">
 						{genre}
 					</Badge>
@@ -90,9 +90,9 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 			</div>
 			<Divider className="my-3" />
 
-			<Button variant="light" color="indigo" fullWidth mt="md" radius="md">
+			{/* <Button variant="light" color="indigo" fullWidth mt="md" radius="md">
 				View Post
-			</Button>
+			</Button> */}
 		</Card>
 
 		// <div className="">
