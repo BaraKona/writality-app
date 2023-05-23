@@ -60,15 +60,14 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-	console.log("a user connected");
-	socket.on("disconnect", () => {
-		console.log("user disconnected");
-	});
 	socket.on("join-collaboration", (room, callback) => {
 		socket.join(room);
 		callback(
 			"This is a collaborative project, and you have joined the collaboration 😃👍"
 		);
+	});
+	socket.on("disconnect", () => {
+		console.log("user disconnected");
 	});
 	socket.on("join-chapter", (room, callback) => {
 		socket.join(room);
@@ -107,6 +106,7 @@ io.on("connection", (socket) => {
 		socket.to(room).emit("merge-col-branch", branchName);
 	});
 });
+
 const PORT = process.env.PORT || 5000;
 
 // start the Express server and connect to the database

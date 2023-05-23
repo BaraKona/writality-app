@@ -6,16 +6,16 @@ export function HomeInfo({}: Props) {
 	const cardClass =
 		"max-w-[25rem] max-w-2xl p-5 mb-5 bg-baseMid hover:bg-base transition-all duration-300 ease-in-out hover:border-baseBorderDark hover:border border-transparent border";
 	return (
-		<Container size="xl" className="mt-10">
+		<Container size="xl" className="mt-5 sm:mt-10">
 			<Divider
 				my="sm"
 				label={
-					<h2 className=" text-[1.8rem] text-slate-300 text-center">
+					<h2 className=" text-[1.2rem] sm:text-[1.8rem] text-slate-300 text-center">
 						What Makes Writality Different?
 					</h2>
 				}
 				labelPosition="center"
-				className="my-20"
+				className="my-10 md:my-20"
 			/>
 			<Flex justify="center" direction="row" wrap="wrap" gap={20}>
 				<Card shadow="sm" className={cardClass}>
@@ -23,7 +23,7 @@ export function HomeInfo({}: Props) {
 						<IconEdit size={30} className="mr-5" />
 						<h3 className="text-lg">Start writing</h3>
 					</Flex>
-					<Text size="md" weight={500}>
+					<Text size="md sm:md" weight={500}>
 						Are you ready to put your ideas on paper? Our collaborative version
 						controlled creative writing platform is here to help. Our
 						user-friendly interface and powerful writing tools make it easy to
