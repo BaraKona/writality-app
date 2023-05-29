@@ -3,7 +3,7 @@ import { loginIllustration } from "../../assets/illustrations";
 import Login from "../../components/auth/Login";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Image } from "@mantine/core";
+import { Container, Image } from "@mantine/core";
 export function LoginPage() {
 	const { currentUser } = useAuthContext();
 	const navigate = useNavigate();
@@ -12,9 +12,9 @@ export function LoginPage() {
 		navigate("/dashboard/posts");
 	}
 	return (
-		<div>
+		<Container size="lg">
 			<MainNavigation />
-			<div className="container flex px-4 mx-auto flex-wrap-reverse ">
+			<div className=" flex px-4 mx-auto flex-wrap-reverse ">
 				<Login />
 				<div className="flex flex-grow sm justify-center">
 					<Image
@@ -25,6 +25,6 @@ export function LoginPage() {
 					{/* <img src={loginIllustration} alt="login" width={500}></img> */}
 				</div>
 			</div>
-		</div>
+		</Container>
 	);
 }

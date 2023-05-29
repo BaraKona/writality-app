@@ -3,6 +3,7 @@ import { registerIllustration } from "../../assets/illustrations";
 import { Reset } from "../../components/auth";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Container } from "@mantine/core";
 
 export function ResetPage() {
 	const { currentUser } = useAuthContext();
@@ -12,7 +13,7 @@ export function ResetPage() {
 		navigate("/dashboard/posts");
 	}
 	return (
-		<div>
+		<Container size="lg">
 			<MainNavigation />
 			<div className="container flex px-4 mx-auto flex-wrap-reverse">
 				<Reset />
@@ -20,6 +21,6 @@ export function ResetPage() {
 					<img src={registerIllustration} alt="login" className=""></img>
 				</div>
 			</div>
-		</div>
+		</Container>
 	);
 }

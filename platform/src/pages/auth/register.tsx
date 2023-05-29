@@ -4,7 +4,7 @@ import { welcomeIllustration } from "../../assets/illustrations";
 import { Register } from "../../components/auth";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Image } from "@mantine/core";
+import { Container, Image } from "@mantine/core";
 
 export function RegisterPage() {
 	const { currentUser } = useAuthContext();
@@ -14,7 +14,7 @@ export function RegisterPage() {
 		navigate("/dashboard/posts");
 	}
 	return (
-		<div>
+		<Container size="lg">
 			<MainNavigation />
 			<div className="container flex px-4 mx-auto flex-wrap-reverse">
 				<Register />
@@ -26,6 +26,6 @@ export function RegisterPage() {
 					/>
 				</div>
 			</div>
-		</div>
+		</Container>
 	);
 }
