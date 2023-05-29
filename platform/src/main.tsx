@@ -20,9 +20,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 				}}
 			>
 				<AuthContextWrapper>
-					<UserLoader>
-						<RouterProvider router={router} />
-					</UserLoader>
+					{/* <UserLoader> */}
+					<RouterProvider router={router} />
+					{/* </UserLoader> */}
 				</AuthContextWrapper>
 				<ReactQueryDevtools initialIsOpen={false} position="bottom-left" />
 				<Toaster position="top-center" />

@@ -19,6 +19,7 @@ import {
 	getUserCollabProjects,
 } from "../../api/collaboration/collabProjects";
 import { IconSearch } from "@tabler/icons";
+import { UserLoader } from "../../UserLoader";
 
 export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 	const navigate = useNavigate();
@@ -125,73 +126,76 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 	};
 
 	return (
-		<div className="flex h-screen">
-			<aside
-				className="w-[250px]  overflow-y-auto border-r bg-baseMid border-baseBorder h-full"
-				aria-label="Sidebar"
-			>
-				<div className=" py-2 px-3">
-					<DashboardNavigation />
-					<CategoryListItem name="Community">
-						<CommunityListItem
-							name="Posts"
-							onClick={() => navigate("/dashboard/posts")}
-						>
-							<FcRules size={23} />
-						</CommunityListItem>
-						<CommunityListItem name="Stories">
-							<FcReading size={23} />
-						</CommunityListItem>
-						{/* <CommunityListItem
+		<UserLoader>
+			<div className="flex h-screen">
+				<aside
+					className="w-[250px]  overflow-y-auto border-r bg-baseMid border-baseBorder h-full"
+					aria-label="Sidebar"
+				>
+					<div className=" py-2 px-3">
+						<DashboardNavigation />
+						<CategoryListItem name="Community">
+							<CommunityListItem
+								name="Posts"
+								onClick={() => navigate("/dashboard/posts")}
+							>
+								<FcRules size={23} />
+							</CommunityListItem>
+							<CommunityListItem name="Stories">
+								<FcReading size={23} />
+							</CommunityListItem>
+							{/* <CommunityListItem
               name="Users"
               onClick={() => navigate("/dashboard/users")}
             >
               <FcConferenceCall size={23} />
             </CommunityListItem> */}
-					</CategoryListItem>
-					<hr className="my-5 border-baseBorder" />
-					<CategoryListItem
-						name="Your Projects"
-						button={true}
-						onClick={createAProject}
-						loading={projectsLoading}
-					>
-						<ScrollArea.Autosize mah={178} offsetScrollbars scrollbarSize={6}>
-							{projects?.map((project: IProject, index: number) => {
-								return (
-									<ProjectListItem
-										key={index}
-										onClick={() => openProject(project.uid)}
-										name={project.title || "Untitled Project"}
-										projectId={project.uid}
-									/>
-								);
-							})}
-						</ScrollArea.Autosize>
-					</CategoryListItem>
-					<hr className="my-5 border-baseBorder" />
-					<CategoryListItem
-						name="Collaborative Projects"
-						button={true}
-						onClick={createACollaboration}
-						loading={collabProjectsLoading}
-					>
-						<ScrollArea.Autosize mah={178} offsetScrollbars scrollbarSize={6}>
-							{collaboration?.map((collaboration: IProject, index: number) => {
-								return (
-									<ProjectListItem
-										key={index}
-										onClick={() => openCollaboration(collaboration.uid)}
-										name={collaboration.title || "Untitled Collaboration"}
-										projectId={collaboration.uid}
-									/>
-								);
-							})}
-						</ScrollArea.Autosize>
-					</CategoryListItem>
-					{/* <hr className="my-5 border-baseBorder" />
+						</CategoryListItem>
+						<hr className="my-5 border-baseBorder" />
+						<CategoryListItem
+							name="Your Projects"
+							button={true}
+							onClick={createAProject}
+							loading={projectsLoading}
+						>
+							<ScrollArea.Autosize mah={178} offsetScrollbars scrollbarSize={6}>
+								{projects?.map((project: IProject, index: number) => {
+									return (
+										<ProjectListItem
+											key={index}
+											onClick={() => openProject(project.uid)}
+											name={project.title || "Untitled Project"}
+											projectId={project.uid}
+										/>
+									);
+								})}
+							</ScrollArea.Autosize>
+						</CategoryListItem>
+						<hr className="my-5 border-baseBorder" />
+						<CategoryListItem
+							name="Collaborative Projects"
+							button={true}
+							onClick={createACollaboration}
+							loading={collabProjectsLoading}
+						>
+							<ScrollArea.Autosize mah={178} offsetScrollbars scrollbarSize={6}>
+								{collaboration?.map(
+									(collaboration: IProject, index: number) => {
+										return (
+											<ProjectListItem
+												key={index}
+												onClick={() => openCollaboration(collaboration.uid)}
+												name={collaboration.title || "Untitled Collaboration"}
+												projectId={collaboration.uid}
+											/>
+										);
+									}
+								)}
+							</ScrollArea.Autosize>
+						</CategoryListItem>
+						{/* <hr className="my-5 border-baseBorder" />
           <CategoryListItem name="Chats" button={true} /> */}
-					{/* <div
+						{/* <div
             id="dropdown-cta"
             className="p-4 mt-6 bg-blue-50  rounded-lg"
             role="alert"
@@ -230,9 +234,10 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
               "Collaborators" button in the toolbar.
             </p>
           </div> */}
-				</div>
-			</aside>
-			{children}
-		</div>
+					</div>
+				</aside>
+				{children}
+			</div>
+		</UserLoader>
 	);
 };
