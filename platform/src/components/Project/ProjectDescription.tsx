@@ -13,7 +13,7 @@ export const ProjectDescription: FC<{
 	}, [project]);
 
 	return (
-		<div className="flex flex-col flex-grow px-3 mx-auto w-80 border-r bg-baseMid border-baseBorder hover:bg-base">
+		<div className="flex flex-col flex-grow px-3 mx-auto w-80 border-r bg-baseMid border-baseBorder hover:bg-baseColour">
 			<div className="border-b border-baseBorder">
 				<h3 className="text-center font-semibold shadow-lg">
 					Project Description{" "}

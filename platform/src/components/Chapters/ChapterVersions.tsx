@@ -24,7 +24,7 @@ export const ChapterVersions: FC<{
 	return (
 		<div className="min-w-auto w-80">
 			{chapterVersions.length > 0 ? (
-				<div className="border border-baseLight  hover:bg-base p-5">
+				<div className="border border-baseLight  hover:bg-baseColour p-5">
 					<h3 className="text-lg flex font-bold gap-2">
 						Versions <VscInfo size={18} className="cursor-pointer my-auto" />
 					</h3>

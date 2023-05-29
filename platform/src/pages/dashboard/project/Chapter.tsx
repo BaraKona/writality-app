@@ -316,7 +316,7 @@ export const Chapter = () => {
 						}
 					/>
 				)}
-				<div className="min-w-[350px] border-l flex flex-col gap-3 border-baseBorder px-5 hover:bg-base">
+				<div className="min-w-[350px] border-l flex flex-col gap-3 border-baseBorder px-5 hover:bg-baseColour">
 					<ChapterBranches
 						openMergeModal={() => setMergeOpened(true)}
 						chapterBranches={chapterBranches}

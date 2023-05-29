@@ -33,7 +33,7 @@ export const ChapterHistory: FC<{ history: chapterHistoryType }> = ({
 	});
 	return (
 		<div className="min-w-auto w-80 mt-auto">
-			<div className=" border border-baseLight  hover:bg-base p-5">
+			<div className=" border border-baseLight  hover:bg-baseColour p-5">
 				<h3 className="text-lg flex font-bold gap-2 mb-2">
 					History <VscInfo size={14} className="cursor-pointer my-auto" />
 				</h3>

@@ -15,25 +15,25 @@ export function HomeAccount({}: Props) {
 			<Divider
 				my="sm"
 				label={
-					<h2 className=" text-[1.8rem] text-slate-300 text-center">
+					<h2 className=" text-xl sm:text-2xl text-slate-300 text-center">
 						Create an Account
 					</h2>
 				}
 				labelPosition="center"
-				className="my-20"
+				className="my-10 md:my-20"
 			/>
 
-			<div className="flex   flex-wrap gap-5  items-center justify-between sm:justify-center flex-row p-5 hover:bg-base border border-transparent hover:border-baseBorderDark transition-all duration-500 ease-in-out">
+			<div className="flex flex-wrap gap-5  items-center justify-between sm:justify-center flex-row p-5 hover:bg-baseColour border border-transparent hover:border-baseBorderDark transition-all duration-500 ease-in-out">
 				<Image
 					src={circle4}
 					alt="Writality Edit"
-					className=" animate-pulse max-w-sm p-2 hover:bg-base border border-transparent hover:border-baseBorderDark transition-all duration-500 ease-in-out "
+					className=" animate-pulse max-w-sm p-2 hover:bg-baseColour border border-transparent hover:border-baseBorderDark transition-all duration-500 ease-in-out "
 				/>
 				<div className="flex flex-col  ">
 					<Text
 						size="md"
 						weight={500}
-						className="p-5 max-w-md text-stone-300 text-center sm:text-left"
+						className="p-5 max-w-md text-stone-300 text-center text-sm sm:text-base sm:text-left"
 					>
 						Welcome to our collaborative creative writing platform! <br />
 						To get started, sign up for an account and start exploring the many

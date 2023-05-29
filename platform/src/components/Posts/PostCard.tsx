@@ -44,7 +44,7 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 			shadow="sm"
 			padding="lg"
 			radius="sm"
-			className="hover:bg-base bg-baseMid hover:border-0 border-baseBorder max-w-[335px]"
+			className="hover:bg-baseColour bg-baseMid hover:border-0 border-baseBorder max-w-[335px]"
 		>
 			<Card.Section component="a" href="https://mantine.dev/">
 				<Image src={postCardPicture()} height={160} alt="Post" />

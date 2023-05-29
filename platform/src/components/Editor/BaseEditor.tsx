@@ -128,7 +128,7 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 			</RichTextEditor.Toolbar>
 
 			<RichTextEditor.Content
-				className="hover:bg-base bg-transparent transition-all duration-300 ease-in-out"
+				className="hover:bg-baseColour bg-transparent transition-all duration-300 ease-in-out"
 				style={{
 					overflowY: "auto",
 					height: height,

@@ -77,20 +77,20 @@ export default function Login() {
 					<button
 						disabled={loading}
 						type="submit"
-						className="w-full mt-14 mb-7 py-4 hover:bg-stone-500 rounded-full text-stone-500 hover:text-base border-2  border-stone-500"
+						className="w-full mt-14 mb-7 py-4 hover:bg-stone-500 rounded-full text-stone-500 hover:text-baseColour border-2  border-stone-500"
 					>
 						Login
 					</button>
 				</form>
 				<div className="flex justify-center">
 					<hr className="w-full my-10 border-stone-400" />
-					<p className="absolute mt-7 bg-base px-4 text-stone-300 align-middle text-md">
+					<p className="absolute mt-7 bg-baseColour px-4 text-stone-300 align-middle text-md">
 						Or
 					</p>
 				</div>
 				<button
 					type="submit"
-					className="flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-500 rounded-full text-stone-500 bg-slate-800 hover:text-base"
+					className="flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-500 rounded-full text-stone-500 bg-slate-800 hover:text-baseColour"
 					onClick={signInWithGoogleProvider}
 				>
 					<img src={google} alt="google" />
@@ -98,7 +98,7 @@ export default function Login() {
 				</button>
 				<button
 					type="submit"
-					className=" flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-300 rounded-full text-stone-500 bg-slate-800 hover:text-base"
+					className=" flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-300 rounded-full text-stone-500 bg-slate-800 hover:text-baseColour"
 				>
 					<img src={apple} alt="apple" />
 					Continue with Apple
