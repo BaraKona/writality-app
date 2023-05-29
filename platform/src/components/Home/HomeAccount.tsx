@@ -11,7 +11,7 @@ export function HomeAccount({}: Props) {
 	const { currentUser } = useAuthContext();
 	const navigate = useNavigate();
 	return (
-		<Container size="md" className="">
+		<Container size="lg" className="">
 			<Divider
 				my="sm"
 				label={

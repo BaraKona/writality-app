@@ -6,7 +6,7 @@ export function HomeInfo({}: Props) {
 	const cardClass =
 		"max-w-[25rem] max-w-2xl p-5 mb-5 bg-baseMid hover:bg-baseColour transition-all duration-300 ease-in-out hover:border-baseBorderDark hover:border border-transparent border";
 	return (
-		<Container size="xl" className="mt-5 sm:mt-10">
+		<Container size="lg" className="mt-5 sm:mt-10">
 			<Divider
 				my="sm"
 				label={

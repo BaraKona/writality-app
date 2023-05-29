@@ -1,4 +1,4 @@
-import { Affix, Button, Grid, Flex } from "@mantine/core";
+import { Affix, Button, Container, Flex, SimpleGrid } from "@mantine/core";
 import { IconPencilPlus } from "@tabler/icons";
 import { useToast } from "../../hooks";
 import { CreatePostModal } from "../../components/Modals";
@@ -11,6 +11,7 @@ import { useCreatePost } from "../../hooks/useCreatePost";
 import { Loading } from "../../components/Loading";
 import { PostCard } from "../../components/Posts/PostCard";
 import { PostHeader } from "../../components/Posts/PostHeader";
+
 export const PostsPage: FC = () => {
 	const [createProjectModal, setCreateProjectModal] = useState(false);
 	const { currentUser } = useAuthContext();
@@ -81,17 +82,21 @@ export const PostsPage: FC = () => {
 				setCollaboration={setCollaboration}
 			/>
 			<Loading isLoading={isLoading}>
-				<Flex
-					direction={{ base: "column", sm: "row" }}
-					gap={{ base: "sm", sm: "lg" }}
-					justify={{ sm: "center" }}
-					wrap="wrap"
-					className="pb-5"
-				>
-					{posts?.map((post: IPost) => (
-						<PostCard post={post!} />
-					))}
-				</Flex>
+				<Container size={1600}>
+					<SimpleGrid
+						cols={4}
+						spacing="lg"
+						breakpoints={[
+							{ maxWidth: "90rem", cols: 3, spacing: "xs" },
+							{ maxWidth: "72rem", cols: 2, spacing: "xs" },
+							{ maxWidth: "54rem", cols: 1, spacing: "xs" },
+						]}
+					>
+						{posts?.map((post: IPost) => (
+							<PostCard post={post!} />
+						))}
+					</SimpleGrid>
+				</Container>
 			</Loading>
 		</PostHeader>
 	);

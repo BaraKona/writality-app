@@ -5,7 +5,7 @@ type Props = {};
 export function HomeBanner({}: Props) {
 	return (
 		<Container
-			size="xl"
+			size="lg"
 			className="w-full grid place-items-center m-auto h-52 md:h-72 "
 		>
 			<div className="group w-full h-3/4 bg-stone-400 rounded-lg shadow-lg flex flex-col justify-center items-center  hover:bg-baseColour transition-all duration-500 ease-in-out hover:border-baseBorderDark hover:border border-transparent">

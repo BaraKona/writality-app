@@ -58,8 +58,8 @@ export const VersionModal: FC<{
 				onClose={() => setOpened(false)}
 				title="Version"
 			>
-				<div className="flex flex-wrap max-w-[1600px] mx-auto">
-					<div className="px-5 border-r border-baseBorder grow shrink max-w-2xl mx-auto">
+				<div className="flex flex-wrap mx-auto">
+					<div className="px-5 border-r border-baseBorder grow shrink w-1/2 mx-auto">
 						<h2 className="text-blue-400 font-bold text-lg my-2">
 							{currentContent?.name || "Main"}
 						</h2>
@@ -70,7 +70,7 @@ export const VersionModal: FC<{
 							/>
 						</TypographyStylesProvider>
 					</div>
-					<div className="px-5 border-l border-baseBorder grow shrink max-w-2xl mx-auto">
+					<div className="px-5 border-l border-baseBorder grow shrink w-1/2 mx-auto">
 						<h2 className="text-blue-400 font-bold text-lg my-2">
 							{version?.name}
 						</h2>

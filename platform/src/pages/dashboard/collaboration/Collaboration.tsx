@@ -57,6 +57,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 	const commentViewportRef = useRef(null);
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
+	const viewport = useRef<HTMLDivElement>(null);
 
 	const { data: collaboration } = useQuery(
 		["collaboration", collaborationId],
@@ -279,26 +280,28 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 
 							<Tabs.Panel value="home">
 								<div className="flex flex-wrap">
-									<ChapterRenderer>
-										{chapters?.map((chapter: IChapter, index: number) => (
-											<Chapter
-												openChapter={() => openChapter(chapter.uid)}
-												key={index}
-												chapter={chapter}
-												openChapterModal={() => openChapterModal(chapter.uid)}
-												disabled={chapter.owner !== currentUser.uid}
+									<div className=" w-full md:flex ">
+										<ChapterRenderer>
+											{chapters?.map((chapter: IChapter, index: number) => (
+												<Chapter
+													openChapter={() => openChapter(chapter.uid)}
+													key={index}
+													chapter={chapter}
+													openChapterModal={() => openChapterModal(chapter.uid)}
+													disabled={chapter.owner !== currentUser.uid}
+												/>
+											))}
+										</ChapterRenderer>
+										{editor && collaboration && (
+											<ProjectDescription
+												project={collaboration}
+												user={currentUser.uid}
+												editor={editor}
+												updateDescription={updateDescription.mutate}
 											/>
-										))}
-									</ChapterRenderer>
-									{editor && collaboration && (
-										<ProjectDescription
-											project={collaboration}
-											user={currentUser.uid}
-											editor={editor}
-											updateDescription={updateDescription.mutate}
-										/>
-									)}
-									<Loading isLoading={chat ? false : true}>
+										)}
+									</div>
+									{/* <Loading isLoading={chat ? false : true}>
 										<CollaborationChat
 											commentViewportRef={commentViewportRef}
 											setComment={setComment}
@@ -306,7 +309,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 											sendComment={addComment.mutate}
 											comments={chat?.comments}
 										/>
-									</Loading>
+									</Loading> */}
 								</div>
 							</Tabs.Panel>
 
