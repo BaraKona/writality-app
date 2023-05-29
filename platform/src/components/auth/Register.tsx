@@ -39,8 +39,8 @@ export function Register() {
 	};
 
 	return (
-		<div className="md:pt-16 pb-10 text-left md:border-r border-baseBorder flex-grow grid items-center">
-			<div className="px-10 mx-auto min-w-[600px] max-w-[800px]">
+		<div className="md:pt-20 pb-10 text-left md:border-r border-baseBorder flex-grow ">
+			<div className="px-10 mx-auto max-w-[600px]">
 				<h2 className="text-2xl font-bold text-stone-200">
 					Create an account 👋
 				</h2>
@@ -55,7 +55,7 @@ export function Register() {
 						ref={nameRef}
 						type="text"
 						required
-						className="w-full mb-4 text-stone-300 form-input bg-transparent border-0 px-0 focus:ring-0"
+						className="w-full mb-4 form-input bg-transparent text-stone-300  px-0 focus:ring-0 border-0"
 					/>
 
 					<label className="text-md text-stone-500">

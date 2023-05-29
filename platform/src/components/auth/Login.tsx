@@ -44,7 +44,7 @@ export default function Login() {
 		}
 	};
 	return (
-		<div className="md:pt-20 pb-10 text-left md:border-r border-baseBorder min-w-[400px] flex-grow ">
+		<div className="md:pt-20 pb-10 text-left md:border-r border-baseBorder flex-grow ">
 			<div className="px-10 mx-auto max-w-[600px]">
 				<h2 className="text-2xl font-bold text-stone-200">
 					Hey, Welcome Back! ✌️

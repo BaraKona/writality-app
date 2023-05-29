@@ -4,6 +4,7 @@ import { welcomeIllustration } from "../../assets/illustrations";
 import { Register } from "../../components/auth";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Image } from "@mantine/core";
 
 export function RegisterPage() {
 	const { currentUser } = useAuthContext();
@@ -17,8 +18,12 @@ export function RegisterPage() {
 			<MainNavigation />
 			<div className="container flex px-4 mx-auto flex-wrap-reverse">
 				<Register />
-				<div className="flex flex-grow flex-shrink sm justify-center min-w-[400px]">
-					<img src={welcomeIllustration} alt="login" width={500}></img>
+				<div className="flex flex-grow flex-shrink sm justify-center">
+					<Image
+						src={welcomeIllustration}
+						alt="login"
+						className="animate-pulse max-w-sm m-8 border-transparent  transition-all duration-500 ease-in-out "
+					/>
 				</div>
 			</div>
 		</div>

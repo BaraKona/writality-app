@@ -17,7 +17,7 @@ export function ResetPage() {
 			<div className="container flex px-4 mx-auto flex-wrap-reverse">
 				<Reset />
 				<div className="flex flex-grow flex-shrink sm justify-center min-w-[400px]">
-					<img src={registerIllustration} alt="login" width={500}></img>
+					<img src={registerIllustration} alt="login" className=""></img>
 				</div>
 			</div>
 		</div>
