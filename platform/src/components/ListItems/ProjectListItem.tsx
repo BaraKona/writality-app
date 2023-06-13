@@ -13,17 +13,17 @@ export const ProjectListItem: FC<{
 			{projectId === project || projectId === collaborationId ? (
 				<li
 					onClick={onClick}
-					className="p-[0.1rem] hover:bg-baseColour bg-baseColour cursor-default border border-baseBorderDark "
+					className="py-1 px-[0.1rem] bg-white hover:bg-white cursor-default rounded-md"
 				>
 					<a className="ml-3 flex text-md font-normal">
-						<AiFillFolderOpen size={20} color={"#b8a285"} />{" "}
-						<span className="ml-3 text-purple-300 ">{name}</span>
+						<AiFillFolderOpen size={20} color={"#000"} />{" "}
+						<span className="ml-3 text-black">{name}</span>
 					</a>
 				</li>
 			) : (
 				<li
 					onClick={onClick}
-					className="p-[0.1rem] hover:bg-baseColour cursor-default border border-transparent hover:border-baseBorderDark"
+					className="py-1 px-[0.1rem] hover:bg-white rounded-md cursor-default "
 				>
 					<a className="ml-3 flex text-md font-normal">
 						<AiFillFolder size={20} color={"#a8a29e"} />

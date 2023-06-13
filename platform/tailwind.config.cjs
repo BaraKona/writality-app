@@ -7,12 +7,12 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				baseColour: "#191a22",
-				baseLight: "#1b1e24",
-				baseMid: "#1b1c24",
-				baseBorderDark: "#232329",
-				baseLighter: "#2d2f38",
-				baseBorder: "#363130",
+				baseColour: "#f2f2f2",
+				baseLight: "#ffffff",
+				baseMid: "#f2f2f2",
+				baseBorderDark: "#fff",
+				baseLighter: "#ffff",
+				baseBorder: "#fff",
 			},
 		},
 	},

@@ -14,9 +14,9 @@ export const ChapterWrapper: FC<{
 			mah={window.innerHeight - 135}
 			offsetScrollbars
 			scrollbarSize={6}
-			className="h-[calc(100% - 20px)] flex flex-col bg-baseMid  gap-2 m-3 mx-3 shadow-lg border border-baseBorder rounded-md overflow-y-auto"
+			className="h-[calc(100% - 20px)] flex flex-col bg-white  gap-2 m-3 mx-3 shadow-lg border  rounded-md overflow-y-auto"
 		>
-			<div className=" flex font-semibold py-2 px-4 bg-baseLight border-b border-baseBorder">
+			<div className=" flex font-semibold py-2 px-4 bg-white ">
 				<FaBuffer size={23} />
 				<h3 className=" ml-2 flex">
 					Chapters <span className=" ml-3 font-normal">{chapterCount}</span>

@@ -10,7 +10,7 @@ export const BaseProjectView: FC<{
 }> = ({ children, project, openModal }) => {
   return (
     <div className=" w-full h-full drop-shadow ">
-      <div className=" py-4 px-8 border-b border-baseBorder ">
+      <div className=" py-4 px-8 ">
         <div className="relative flex w-full">
           <h2 className="mr-auto"> {project?.title} </h2>
           <div className=" flex cursor-pointer">

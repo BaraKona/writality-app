@@ -18,7 +18,7 @@ import {
 	createCollabProject,
 	getUserCollabProjects,
 } from "../../api/collaboration/collabProjects";
-import { IconSearch } from "@tabler/icons";
+import { IconBooks, IconSearch, IconTemplate } from "@tabler/icons";
 import { UserLoader } from "../../UserLoader";
 
 export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
@@ -129,20 +129,20 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 		<UserLoader>
 			<div className="flex h-screen">
 				<aside
-					className="w-[250px]  overflow-y-auto border-r bg-baseMid border-baseBorder h-full"
+					className="w-[250px]  overflow-y-auto h-full"
 					aria-label="Sidebar"
 				>
 					<div className=" py-2 px-3">
 						<DashboardNavigation />
-						<CategoryListItem name="Community">
+						<CategoryListItem name="" mt="mt-2">
 							<CommunityListItem
 								name="Posts"
 								onClick={() => navigate("/dashboard/posts")}
 							>
-								<FcRules size={23} />
+								<IconTemplate size={23} />
 							</CommunityListItem>
 							<CommunityListItem name="Stories">
-								<FcReading size={23} />
+								<IconBooks size={23} />
 							</CommunityListItem>
 							{/* <CommunityListItem
               name="Users"
@@ -151,8 +151,8 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
               <FcConferenceCall size={23} />
             </CommunityListItem> */}
 						</CategoryListItem>
-						<hr className="my-5 border-baseBorder" />
 						<CategoryListItem
+							mt="mt-8"
 							name="Your Projects"
 							button={true}
 							onClick={createAProject}
@@ -171,8 +171,8 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 								})}
 							</ScrollArea.Autosize>
 						</CategoryListItem>
-						<hr className="my-5 border-baseBorder" />
 						<CategoryListItem
+							mt="mt-8"
 							name="Collaborative Projects"
 							button={true}
 							onClick={createACollaboration}
