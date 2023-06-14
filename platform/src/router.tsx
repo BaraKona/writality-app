@@ -3,6 +3,7 @@ import {
 	Link,
 	Navigate,
 	redirect,
+	RouteObject,
 } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Dashboard } from "./pages/Dashboard";
@@ -20,14 +21,60 @@ import { FourOFour } from "./pages/404";
 
 const socket = io(import.meta.env.VITE_API_URL);
 
-export const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <Home />,
-	},
+const dashboardRoutes: RouteObject[] = [
 	{
 		path: "*",
 		element: <FourOFour />,
+	},
+	// {
+	// 	path: "/auth/reset",
+	// 	element: <ResetPage />,
+	// 	errorElement: <Error />,
+	// },
+	{
+		path: "/dashboard",
+		loader: () => redirect("/dashboard/posts"),
+	},
+	{
+		path: "dashboard/posts",
+		element: <PostsPage />,
+		errorElement: <Error />,
+	},
+	{
+		path: "dashboard/project/:project",
+		element: (
+			<div className="h-screen w-screen flex flex-col">
+				<Project />
+			</div>
+		),
+		errorElement: <Error />,
+	},
+	{
+		path: "dashboard/project/:project/chapter/:chapter",
+		element: <Chapter />,
+		errorElement: <Error />,
+	},
+	{
+		path: "dashboard/collaboration/:collaborationId",
+		element: <Collaboration socket={socket} />,
+		errorElement: <Error />,
+	},
+	{
+		path: "dashboard/collaboration/:collaborationId/chapter/:chapterId",
+		element: <CollaborationChapter socket={socket} />,
+		errorElement: <Error />,
+	},
+];
+
+export const router = createBrowserRouter([
+	{
+		path: "/dashboard",
+		element: <Sidebar />,
+		children: dashboardRoutes,
+	},
+	{
+		path: "/",
+		element: <Home />,
 	},
 	{
 		path: "/auth/login",
@@ -37,67 +84,6 @@ export const router = createBrowserRouter([
 	{
 		path: "/auth/register",
 		element: <RegisterPage />,
-		errorElement: <Error />,
-	},
-	{
-		path: "/auth/reset",
-		element: <ResetPage />,
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard",
-		element: (
-			<Sidebar>
-				<Dashboard />
-			</Sidebar>
-		),
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard/posts",
-		element: (
-			<Sidebar>
-				<PostsPage />
-			</Sidebar>
-		),
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard/project/:project",
-		element: (
-			<div className="h-screen w-screen flex flex-col">
-				<Sidebar>
-					<Project />
-				</Sidebar>
-			</div>
-		),
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard/project/:project/chapter/:chapter",
-		element: (
-			<Sidebar>
-				<Chapter />
-			</Sidebar>
-		),
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard/collaboration/:collaborationId",
-		element: (
-			<Sidebar>
-				<Collaboration socket={socket} />
-			</Sidebar>
-		),
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard/collaboration/:collaborationId/chapter/:chapterId",
-		element: (
-			<Sidebar>
-				<CollaborationChapter socket={socket} />
-			</Sidebar>
-		),
 		errorElement: <Error />,
 	},
 ]);

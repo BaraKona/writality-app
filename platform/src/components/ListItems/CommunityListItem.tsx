@@ -17,7 +17,7 @@ export const CommunityListItem: FC<{
 				} hover:bg-white`}
 			>
 				{children}
-				<span className={`ml-3 `}>{name}</span>
+				<span className={`ml-2 `}>{name}</span>
 			</a>
 		</li>
 	);

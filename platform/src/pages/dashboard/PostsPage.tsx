@@ -26,7 +26,7 @@ export const PostsPage: FC = () => {
 	const [projectTitle, setProjectTitle] = useState<string>("");
 
 	const { data: posts, isLoading } = useQuery("posts", getPosts);
-
+	console.log(posts);
 	const createAPost = useMutation(
 		() =>
 			createPost(

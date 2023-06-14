@@ -14,21 +14,21 @@ export const ProjectListItem: FC<{
 			{projectId === project || projectId === collaborationId ? (
 				<li
 					onClick={onClick}
-					className="my-1 py-1 px-[0.1rem] bg-white hover:bg-white cursor-default rounded-md"
+					className="p-1.5 flex mb-1 text-sm font-medium bg-white hover:bg-white cursor-default rounded-md"
 				>
-					<a className="ml-3 flex text-sm font-medium text-black">
-						<IconBook size={20} />
-						<span className="ml-3">{name}</span>
+					<a className=" flex text-black">
+						<IconBook size={23} />
+						<span className="ml-2">{name}</span>
 					</a>
 				</li>
 			) : (
 				<li
 					onClick={onClick}
-					className="my-1 py-1 px-[0.1rem] hover:bg-white rounded-md cursor-default "
+					className="p-1.5 flex mb-1 text-sm font-medium rounded-md hover:bg-white cursor-default "
 				>
-					<a className="ml-3 flex text-sm font-medium text-blueText">
-						<IconBook2 size={20} />
-						<span className="ml-3">{name}</span>
+					<a className=" flex text-blueText">
+						<IconBook2 size={23} />
+						<span className="ml-2">{name}</span>
 					</a>
 				</li>
 			)}
