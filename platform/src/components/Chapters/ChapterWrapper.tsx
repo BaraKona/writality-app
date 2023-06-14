@@ -11,10 +11,9 @@ export const ChapterWrapper: FC<{
 }> = ({ children, chapterCount, createNewChapter }) => {
 	return (
 		<ScrollArea.Autosize
-			mah={window.innerHeight - 135}
 			offsetScrollbars
 			scrollbarSize={6}
-			className="h-[calc(100% - 20px)] flex flex-col bg-white  gap-2 m-3 mx-3 shadow-lg border  rounded-md overflow-y-auto"
+			className="flex flex-col bg-white  gap-2  overflow-y-auto h-[calc(100vh-48px)]"
 		>
 			<div className=" flex font-semibold py-2 px-4 bg-white ">
 				<FaBuffer size={23} />

@@ -36,31 +36,27 @@ const dashboardRoutes: RouteObject[] = [
 		loader: () => redirect("/dashboard/posts"),
 	},
 	{
-		path: "dashboard/posts",
+		path: "/dashboard/posts",
 		element: <PostsPage />,
 		errorElement: <Error />,
 	},
 	{
-		path: "dashboard/project/:project",
-		element: (
-			<div className="h-screen w-screen flex flex-col">
-				<Project />
-			</div>
-		),
+		path: "/dashboard/project/:project",
+		element: <Project />,
 		errorElement: <Error />,
 	},
 	{
-		path: "dashboard/project/:project/chapter/:chapter",
+		path: "/dashboard/project/:project/chapter/:chapter",
 		element: <Chapter />,
 		errorElement: <Error />,
 	},
 	{
-		path: "dashboard/collaboration/:collaborationId",
+		path: "/dashboard/collaboration/:collaborationId",
 		element: <Collaboration socket={socket} />,
 		errorElement: <Error />,
 	},
 	{
-		path: "dashboard/collaboration/:collaborationId/chapter/:chapterId",
+		path: "/dashboard/collaboration/:collaborationId/chapter/:chapterId",
 		element: <CollaborationChapter socket={socket} />,
 		errorElement: <Error />,
 	},

@@ -28,9 +28,13 @@ import {
 } from "@tabler/icons";
 import { UserLoader } from "../../UserLoader";
 import { cyclops8 } from "../../assets/icons";
+import { useTabContext } from "../../contexts/TabContext";
+
 export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 	const navigate = useNavigate();
 	const { currentUser, signOutCurrentUser } = useAuthContext();
+	const { setTabs, tabs } = useTabContext();
+	console.log(tabs);
 	const queryClient = useQueryClient();
 	const handleSignOut = async () => {
 		await signOutCurrentUser().then(() => {
@@ -42,7 +46,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 		error,
 		data: projects,
 	} = useQuery(
-		["projects", currentUser.uid],
+		["projects", currentUser?.uid],
 		() => getUserProjects(currentUser.uid),
 		{
 			staleTime: Infinity,
@@ -54,7 +58,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 		error: collabError,
 		data: collaboration,
 	} = useQuery(
-		["collaboration", currentUser.uid],
+		["collaboration", currentUser?.uid],
 		() => getUserCollabProjects(currentUser.uid),
 		{
 			staleTime: Infinity,
@@ -129,12 +133,26 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 			addCollaboration.mutate(project);
 		}
 	};
+	const openProject = (
+		id: string,
+		projectTitle: string,
+		projectType: string
+	) => {
+		const findTab = tabs.find(
+			(tab) => tab.path === `/dashboard/${projectType}/${id}`
+		);
+		if (findTab) {
+			navigate(`/dashboard/${projectType}/${id}`);
+			return;
+		}
+		const newTab = {
+			id,
+			title: projectTitle,
+			path: `/dashboard/${projectType}/${id}`,
+		};
 
-	const openProject = (id: string) => {
-		navigate(`/dashboard/project/${id}`);
-	};
-	const openCollaboration = (id: string) => {
-		navigate(`/dashboard/collaboration/${id}`);
+		setTabs((prevTabs: any) => [...prevTabs, newTab]);
+		navigate(`/dashboard/${projectType}/${id}`);
 	};
 
 	return (
@@ -163,7 +181,16 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 							</CommunityListItem>
 							<CommunityListItem
 								name="Posts"
-								onClick={() => navigate("/dashboard/posts")}
+								onClick={() => {
+									setTabs(
+										tabs.push({
+											title: "Posts",
+											path: "/dashboard/posts",
+											id: uuidv4(),
+										})
+									);
+									navigate("/dashboard/posts");
+								}}
 							>
 								<IconTemplate size={23} />
 							</CommunityListItem>
@@ -183,7 +210,13 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 									return (
 										<ProjectListItem
 											key={index}
-											onClick={() => openProject(project.uid)}
+											onClick={() => {
+												openProject(
+													project.uid,
+													project.title || "New Project",
+													"project"
+												);
+											}}
 											name={project.title || "Untitled Project"}
 											projectId={project.uid}
 										/>
@@ -204,7 +237,13 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 										return (
 											<ProjectListItem
 												key={index}
-												onClick={() => openCollaboration(collaboration.uid)}
+												onClick={() => {
+													openProject(
+														collaboration.uid,
+														collaboration.title || "New collaboration",
+														"collaboration"
+													);
+												}}
 												name={collaboration.title || "Untitled Collaboration"}
 												projectId={collaboration.uid}
 											/>
