@@ -154,6 +154,20 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 		setTabs((prevTabs: any) => [...prevTabs, newTab]);
 		navigate(`/dashboard/${projectType}/${id}`);
 	};
+	const openPages = (path: string, id: string, title: string) => {
+		const findTab = tabs.find((tab) => tab.id === id);
+		if (findTab) {
+			navigate(path);
+			return;
+		}
+		const newTab = {
+			id,
+			title,
+			path: `/dashboard/${path}`,
+		};
+		setTabs((prevTabs: any) => [...prevTabs, newTab]);
+		navigate(path);
+	};
 
 	return (
 		<UserLoader>
@@ -176,25 +190,22 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 							</div>
 						</Link>
 						<CategoryListItem name="" mt="mt-2">
-							<CommunityListItem name="Dashboard">
+							<CommunityListItem
+								name="Dashboard"
+								onClick={() => openPages("dashboard", "dashboard", "Dashboard")}
+							>
 								<IconLayoutDashboard size={23} />
 							</CommunityListItem>
 							<CommunityListItem
 								name="Posts"
-								onClick={() => {
-									setTabs(
-										tabs.push({
-											title: "Posts",
-											path: "/dashboard/posts",
-											id: uuidv4(),
-										})
-									);
-									navigate("/dashboard/posts");
-								}}
+								onClick={() => openPages("posts", "posts", "Posts")}
 							>
 								<IconTemplate size={23} />
 							</CommunityListItem>
-							<CommunityListItem name="Stories">
+							<CommunityListItem
+								name="Stories"
+								onClick={() => openPages("stories", "stories", "Stories")}
+							>
 								<IconBooks size={23} />
 							</CommunityListItem>
 						</CategoryListItem>
@@ -226,7 +237,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 						</CategoryListItem>
 						<CategoryListItem
 							mt="mt-8 mb-3"
-							name="Collaborative Projects"
+							name="Collaborations"
 							button={true}
 							onClick={createACollaboration}
 							loading={collabProjectsLoading}

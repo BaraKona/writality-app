@@ -14,11 +14,13 @@ export const ProjectListItem: FC<{
 			{projectId === project || projectId === collaborationId ? (
 				<li
 					onClick={onClick}
-					className="p-1.5 flex mb-1 text-sm font-medium bg-white hover:bg-white cursor-default rounded-md"
+					className="p-1.5 flex mb-1 text-sm font-medium bg-white hover:bg-white cursor-default rounded-md "
 				>
 					<a className=" flex text-black">
 						<IconBook size={23} />
-						<span className="ml-2">{name}</span>
+						<span className="ml-2 whitespace-nowrap w-28 text-ellipsis overflow-hidden">
+							{name}
+						</span>
 					</a>
 				</li>
 			) : (
@@ -28,7 +30,9 @@ export const ProjectListItem: FC<{
 				>
 					<a className=" flex text-blueText">
 						<IconBook2 size={23} />
-						<span className="ml-2">{name}</span>
+						<span className="ml-2 whitespace-nowrap w-28 text-ellipsis overflow-hidden">
+							{name}
+						</span>
 					</a>
 				</li>
 			)}

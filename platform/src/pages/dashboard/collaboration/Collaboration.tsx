@@ -249,7 +249,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 				users={allUsers}
 				addProjectCollaborator={addCollaborator}
 			/>
-			<BaseProjectView project={collaboration} openModal={() => {}}>
+			<BaseProjectView projectId={collaborationId} openModal={() => {}}>
 				{/* <CollaborationToolbar setOpened={setOpened} /> */}
 				{!chapters || chapters.length == 0 ? (
 					<NoChapters createNewChapter={createNewChapter} />

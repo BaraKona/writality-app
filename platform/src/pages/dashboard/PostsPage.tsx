@@ -11,6 +11,7 @@ import { useCreatePost } from "../../hooks/useCreatePost";
 import { Loading } from "../../components/Loading";
 import { PostCard } from "../../components/Posts/PostCard";
 import { PostHeader } from "../../components/Posts/PostHeader";
+import { BaseProjectView } from "../../components/Project";
 
 export const PostsPage: FC = () => {
 	const [createProjectModal, setCreateProjectModal] = useState(false);
@@ -26,7 +27,7 @@ export const PostsPage: FC = () => {
 	const [projectTitle, setProjectTitle] = useState<string>("");
 
 	const { data: posts, isLoading } = useQuery("posts", getPosts);
-	console.log(posts);
+
 	const createAPost = useMutation(
 		() =>
 			createPost(
@@ -65,9 +66,9 @@ export const PostsPage: FC = () => {
 		createAPost.mutate();
 	};
 	return (
-		<PostHeader
-			title="Post Board"
+		<BaseProjectView
 			openModal={() => setCreateProjectModal(true)}
+			projectId="posts"
 		>
 			<CreatePostModal
 				opened={createProjectModal}
@@ -82,22 +83,24 @@ export const PostsPage: FC = () => {
 				setCollaboration={setCollaboration}
 			/>
 			<Loading isLoading={isLoading}>
-				<Container size={1600}>
-					<SimpleGrid
-						cols={4}
-						spacing="lg"
-						breakpoints={[
-							{ maxWidth: "90rem", cols: 3, spacing: "xs" },
-							{ maxWidth: "72rem", cols: 2, spacing: "xs" },
-							{ maxWidth: "54rem", cols: 1, spacing: "xs" },
-						]}
-					>
-						{posts?.map((post: IPost) => (
-							<PostCard post={post!} />
-						))}
-					</SimpleGrid>
-				</Container>
+				{/* <Container size={1600}> */}
+				<SimpleGrid
+					className="p-4 h-[calc(100vh-50px)] overflow-y-auto"
+					bg={"white"}
+					cols={4}
+					spacing="lg"
+					breakpoints={[
+						{ maxWidth: "90rem", cols: 3, spacing: "xs" },
+						{ maxWidth: "72rem", cols: 2, spacing: "xs" },
+						{ maxWidth: "54rem", cols: 1, spacing: "xs" },
+					]}
+				>
+					{posts?.map((post: IPost) => (
+						<PostCard post={post!} />
+					))}
+				</SimpleGrid>
+				{/* </Container> */}
 			</Loading>
-		</PostHeader>
+		</BaseProjectView>
 	);
 };

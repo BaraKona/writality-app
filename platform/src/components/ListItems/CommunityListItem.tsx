@@ -6,12 +6,13 @@ export const CommunityListItem: FC<{
 	onClick?: () => void;
 }> = ({ name, onClick, children }) => {
 	const { pathname } = useLocation();
-
+	const path = pathname.split("/")[2];
+	console.log(path);
 	return (
 		<li onClick={onClick} className="cursor-default">
 			<a
 				className={`p-1.5 flex mb-1 text-sm font-medium rounded-md  ${
-					pathname.includes(name.toLowerCase())
+					path.includes(name.toLowerCase())
 						? "text-lack bg-white font-medium"
 						: "text-blueText"
 				} hover:bg-white`}

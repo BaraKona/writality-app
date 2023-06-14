@@ -118,7 +118,7 @@ export function Project() {
 	return (
 		<>
 			<BaseProjectView
-				project={currentProject}
+				projectId={project as string}
 				openModal={() => setOpenDeleteProject(true)}
 			>
 				<DeleteModal

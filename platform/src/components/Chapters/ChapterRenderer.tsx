@@ -18,7 +18,7 @@ export const ChapterRenderer: FC<{ children: ReactNode }> = ({ children }) => {
 
 	return (
 		<div
-			className={`flex-grow w-80 min-w-[20rem] mx-auto  border-r bg-baseMid border-baseBorder hover:bg-baseColour`}
+			className={`flex-grow w-80 min-w-[20rem] mx-auto  border-r bg-white `}
 			style={{ height: window.innerHeight - 190 }}
 		>
 			<ScrollArea.Autosize
