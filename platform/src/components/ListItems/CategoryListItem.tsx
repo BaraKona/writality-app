@@ -14,7 +14,7 @@ export const CategoryListItem: FC<{
 		<ul>
 			<li>
 				<h2
-					className={`flex justify-between items-center ml-1 ${mt} font-semibold text-md rounded-lg`}
+					className={`flex justify-between items-center ml-1 ${mt} font-[600] text-sm rounded-lg`}
 				>
 					{name}
 					<p

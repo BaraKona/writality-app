@@ -13,6 +13,7 @@ module.exports = {
 				baseBorderDark: "#fff",
 				baseLighter: "#ffff",
 				baseBorder: "#fff",
+				blueText: "#394251",
 			},
 		},
 	},

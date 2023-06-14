@@ -10,10 +10,10 @@ export const CommunityListItem: FC<{
 	return (
 		<li onClick={onClick} className="cursor-default">
 			<a
-				className={`p-1.5 flex mb-1 text-sm font-normal rounded-md  ${
+				className={`p-1.5 flex mb-1 text-sm font-medium rounded-md  ${
 					pathname.includes(name.toLowerCase())
-						? "text-black bg-white"
-						: "text-black"
+						? "text-lack bg-white font-medium"
+						: "text-blueText"
 				} hover:bg-white`}
 			>
 				{children}

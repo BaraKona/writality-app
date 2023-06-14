@@ -17,7 +17,7 @@ export default function Navbar() {
 	};
 	return (
 		<Container size="lg">
-			<nav className=" mx-auto flex justify-between  px-4 border-solid border-b border-baseBorder">
+			<nav className=" mx-auto flex justify-between  px-4 border-solid">
 				<div className="cursor-pointer">
 					<Link to="/">
 						<div className="my-3 flex">
@@ -28,7 +28,7 @@ export default function Navbar() {
 								height={35}
 								className="inline-block"
 							/>
-							<p className="font-bold px-2 py-2 text-lg text-slate-200">
+							<p className="font-bold px-2 py-2 text-lg text-black">
 								Writality
 							</p>
 						</div>

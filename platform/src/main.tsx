@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 			<MantineProvider
 				theme={{
 					colorScheme: "dark",
-					fontFamily: "Cormorant Garamond, serif",
+					// fontFamily: "Noto Sans JP, sans-serif",
 				}}
 			>
 				<AuthContextWrapper>
