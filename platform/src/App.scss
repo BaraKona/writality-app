@@ -4,8 +4,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Elsie+Swash+Caps&family=Fredericka+the+Great&family=Raleway:wght@100&display=swap");
 :root {
 	color-scheme: light dark;
-	color: rgb(22, 22, 22);
-	background-color: #f2f2f2;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -27,7 +27,7 @@ body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-	background: #f2f2f2;
+	background: #1b1c24;
 }
 
 a {
@@ -39,15 +39,15 @@ a {
 	box-sizing: border-box;
 }
 
-// @media (prefers-color-scheme: dark) {
-// 	html {
-// 		color-scheme: dark;
-// 	}
-// 	body {
-// 		color: #eeeffc;
-// 		background-color: #191a23 !important;
-// 	}
-// }
+@media (prefers-color-scheme: dark) {
+	html {
+		color-scheme: dark;
+	}
+	body {
+		color: #eeeffc;
+		background-color: #191a23 !important;
+	}
+}
 .ql-container.ql-snow {
 	border: none !important;
 }
