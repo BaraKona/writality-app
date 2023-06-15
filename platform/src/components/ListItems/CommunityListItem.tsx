@@ -9,7 +9,7 @@ export const CommunityListItem: FC<{
 	const path = pathname.split("/")[2];
 
 	return (
-		<li onClick={onClick} className="cursor-default">
+		<li onClick={onClick} className="cursor-default list-none">
 			<a
 				className={`p-1.5 flex mb-1 text-sm font-medium rounded-md  ${
 					path.includes(name.toLowerCase())
