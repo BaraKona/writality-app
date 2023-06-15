@@ -9,6 +9,7 @@ import { router } from "./router";
 import { UserLoader } from "./UserLoader";
 import "./App.scss";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/react";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 				<AuthContextWrapper>
 					{/* <UserLoader> */}
 					<RouterProvider router={router} />
+					<Analytics />
 					{/* </UserLoader> */}
 				</AuthContextWrapper>
 				<ReactQueryDevtools initialIsOpen={false} position="bottom-left" />
