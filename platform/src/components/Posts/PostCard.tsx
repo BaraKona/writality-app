@@ -11,6 +11,7 @@ import {
 	Divider,
 } from "@mantine/core";
 import { Project } from "../../pages/dashboard/project";
+import { useTimeFromNow } from "../../utils/convertDate";
 
 export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 	const postCardPicture = () => {
@@ -39,8 +40,28 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 
 	return (
 		<>
-			<div className="flex flex-grow px-3 bg-white max-w-3xl gap-10 text-blueText">
+			<div className="flex flex-grow px-3 bg-white max-w-3xl gap-10 text-blueText items-center">
 				<div>
+					<div className="flex items-center gap-2 mb-3">
+						<Image
+							src={
+								post?.owner ||
+								"https://images.unsplash.com/photo-1490709501740-c7ac36b7d587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80,"
+							}
+							alt="Profile picture"
+							width={40}
+							height={40}
+							radius="lg"
+						/>
+						<div className="flex flex-col">
+							<Text className="text-sm font-semibold">
+								{post?.owner || "User Name"}
+							</Text>
+							<Text className="text-xs font-normal" color="dimmed">
+								{useTimeFromNow(post?.dateCreated)}
+							</Text>
+						</div>
+					</div>
 					<Text className="text-xl font-semibold mb-2" lineClamp={1}>
 						{post?.postTitle || "Post Title"}
 					</Text>
@@ -60,7 +81,15 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 								{post?.postType}
 							</Badge>
 						</div>
-						{/* <Text>{post.dateCreated.getDay()}</Text> */}
+						{post.genres?.length > 0 && (
+							<div className="flex flex-wrap gap-2 my-4 cursor-default">
+								{post.genres.map((genre) => (
+									<Text className="text-sm font-semibold" color="dimmed">
+										#{genre}
+									</Text>
+								))}
+							</div>
+						)}
 					</div>
 				</div>
 				<div className="ml-auto px-2">
