@@ -5,7 +5,7 @@ export const NoChapters: FC<{
 	createNewChapter: () => void;
 }> = ({ createNewChapter }) => {
 	return (
-		<div className="py-4 px-8 w-full h-full">
+		<div className="py-4 px-8 w-full h-full bg-white rounded-t-md">
 			<div className=" flex my-52 gap-5 w-5/12 m-auto flex-wrap">
 				<div className="w-52 my-auto">
 					<img src={circle4} alt="circle4" width={200} height={200} />

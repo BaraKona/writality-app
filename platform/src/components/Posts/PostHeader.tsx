@@ -1,38 +1,38 @@
 import { FC, ReactNode } from "react";
 import { IProject } from "../../interfaces/IProject";
 import { AiFillSetting } from "react-icons/ai";
-import { IconPencilPlus, IconTrash } from "@tabler/icons";
-import { Affix, Button } from "@mantine/core";
+import {
+	IconNote,
+	IconPencilPlus,
+	IconTrash,
+	IconWriting,
+} from "@tabler/icons";
+import { Affix, Button, Divider } from "@mantine/core";
 
 export const PostHeader: FC<{
-	children: ReactNode;
+	children?: ReactNode;
 	title: string;
 	openModal: () => void;
 }> = ({ children, title, openModal }) => {
 	return (
-		<div className=" w-full h-full drop-shadow overflow-y-auto">
-			<div className=" py-4 px-8 border-b border-baseBorder ">
-				<div className="relative flex w-full">
-					<h2 className="mr-auto"> {title} </h2>
-					<div className=" flex cursor-pointer">
-						{/* <AiFillSetting size={23} color={"#a8a29e"} /> */}
-						<Affix
-							position={{ top: 10, right: 20 }}
-							className="bg-baseColour rounded-md"
+		<div className=" w-full overflow-y-auto bg-white rounded-t-md text-blueText ">
+			<div className="px-7 pt-4">
+				<div className="relative flex w-full items-center">
+					<h2 className="mr-auto text-sm font-medium ">Browse posts</h2>
+					<div className=" ml-auto flex cursor-pointer">
+						<Button
+							size="sm"
+							className="text-blueText ml-auto important-hover:bg-gray-200 border-gray-20"
+							variant="default"
+							leftIcon={<IconNote size={20} />}
+							onClick={openModal}
 						>
-							<Button
-								color="grape"
-								variant="light"
-								leftIcon={<IconPencilPlus />}
-								onClick={openModal}
-							>
-								Create Post
-							</Button>
-						</Affix>
+							Post
+						</Button>
 					</div>
 				</div>
+				<Divider className="mt-2 border-gray-200" />
 			</div>
-			<div className="mt-4 px-4">{children}</div>
 		</div>
 	);
 };

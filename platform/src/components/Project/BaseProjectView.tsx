@@ -56,9 +56,12 @@ export const BaseProjectView: FC<{
 						}  flex items-center justify-between px-2 py-2 w-44 rounded-t-2xl `}
 						onClick={() => navigate(tab.path)}
 					>
-						<div className="flex w-full items-center flex-row cursor-default text-blueText">
+						<div
+							className={`flex w-full items-center flex-row cursor-default ${
+								tab.id === projectId ? "text-black" : "text-blueText"
+							}`}
+						>
 							<IconPoint size={16} />
-
 							<span className="ml-1 text-sm font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
 								{tab.title}
 							</span>

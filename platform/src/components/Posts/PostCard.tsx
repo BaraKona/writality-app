@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { IPost } from "../../interfaces/IPost";
 import {
-	Card,
 	Image,
 	Text,
 	Badge,
@@ -39,73 +38,42 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 	};
 
 	return (
-		// render the post here as a card using the post object
-		<Card
-			shadow="sm"
-			padding="lg"
-			radius="sm"
-			className="hover:bg-baseColour bg-baseMid hover:border-0 border-baseBorder max-w-[335px]"
-		>
-			<Card.Section component="a" href="https://mantine.dev/">
-				<Image src={postCardPicture()} height={160} alt="Post" />
-			</Card.Section>
-
-			<Group position="apart" mt="md" mb="xs">
-				<Text weight={500} size="lg" className="w-full">
-					{post?.postTitle || "Post Title"}
-				</Text>
-				<div className="flex gap-2">
-					<Badge color="pink" variant="light">
-						{post?.collaborationType}
-					</Badge>
-					<Badge color="cyan" variant="light">
-						{post?.postType}
-					</Badge>
+		<>
+			<div className="flex flex-grow px-3 bg-white max-w-3xl gap-10 text-blueText">
+				<div>
+					<Text className="text-xl font-semibold mb-2" lineClamp={1}>
+						{post?.postTitle || "Post Title"}
+					</Text>
+					<div className="flex flex-col">
+						<Text
+							color="dimmed"
+							lineClamp={3}
+							className="text-[0.85rem] font-normal leading-tight"
+						>
+							{post.description}
+						</Text>
+						<div className="flex gap-2 my-4 cursor-default">
+							<Badge color="gray" variant="outline">
+								{post?.collaborationType}
+							</Badge>
+							<Badge color="cyan" variant="outline">
+								{post?.postType}
+							</Badge>
+						</div>
+						{/* <Text>{post.dateCreated.getDay()}</Text> */}
+					</div>
 				</div>
-			</Group>
-			<Divider className="my-3" />
-			<Text>
-				<Title order={4}>{post?.projectTitle || "Project 0"}</Title>
-			</Text>
-
-			{/* <Text className="text-pink-400">Description: </Text>
-      <ScrollArea style={{ height: 200 }} scrollbarSize={4}>
-        <Text size="md" color="dimmed">
-          {post?.description}
-        </Text>
-      </ScrollArea> */}
-
-			<Text className="text-pink-400 mt-5">Description: </Text>
-			<ScrollArea style={{ height: 200 }} scrollbarSize={4}>
-				<Text size="md" color="dimmed">
-					{post?.collaboration}
-				</Text>
-			</ScrollArea>
-			<div className="flex gap-2 flex-wrap mt-2 h-12">
-				{post?.genres.slice(0, 6).map((genre) => (
-					<Badge color="cyan" variant="light">
-						{genre}
-					</Badge>
-				))}
+				<div className="ml-auto px-2">
+					<Image
+						src={postCardPicture()}
+						alt="Post card picture"
+						width={192}
+						height={130}
+						radius="md"
+					/>
+				</div>
 			</div>
-			<Divider className="my-3" />
-
-			{/* <Button variant="light" color="indigo" fullWidth mt="md" radius="md">
-				View Post
-			</Button> */}
-		</Card>
-
-		// <div className="">
-		//   <h4>{post?.title}</h4>
-		//   <h5>{post.subtitle}</h5>
-		//   <p>{post.description}</p>
-		//   <div className="flex">
-		//     {post?.genres.map((genre) => (
-		//       <p>{genre}</p>
-		//     ))}
-		//   </div>
-		//   <p>{post?.postType}</p>
-		//   <p>{post?.collaborationType}</p>
-		// </div>
+			<Divider className="border-gray-200 max-w-3xl" />
+		</>
 	);
 };

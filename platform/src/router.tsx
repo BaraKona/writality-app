@@ -12,6 +12,7 @@ import { io } from "socket.io-client";
 import { Sidebar } from "./components/Navigation";
 import { Chapter, Project } from "./pages/dashboard/project";
 import { PostsPage } from "./pages/dashboard/PostsPage";
+import { DashboardPage } from "./pages/dashboard/DashboardPage";
 import {
 	Collaboration,
 	CollaborationChapter,
@@ -33,7 +34,7 @@ const dashboardRoutes: RouteObject[] = [
 	// },
 	{
 		path: "/dashboard",
-		loader: () => redirect("/dashboard/posts"),
+		element: <DashboardPage />,
 	},
 	{
 		path: "/dashboard/posts",

@@ -3,6 +3,7 @@ import { AiFillFolderOpen } from "react-icons/ai";
 import { CreateChapterButton } from "../buttons";
 import { FaBuffer } from "react-icons/fa";
 import { ScrollArea } from "@mantine/core";
+import { IconFileStack, IconFiles } from "@tabler/icons";
 
 export const ChapterWrapper: FC<{
 	children: ReactNode;
@@ -13,12 +14,12 @@ export const ChapterWrapper: FC<{
 		<ScrollArea.Autosize
 			offsetScrollbars
 			scrollbarSize={6}
-			className="flex flex-col bg-white  gap-2  overflow-y-auto h-[calc(100vh-48px)]"
+			className="flex flex-col bg-white  gap-2  overflow-y-auto h-[calc(100vh-48px)] rounded-t-md"
 		>
-			<div className=" flex font-semibold py-2 px-4 bg-white ">
-				<FaBuffer size={23} />
+			<div className=" flex font-semibold py-2 px-4 bg-white text-blueText">
+				<IconFiles size={23} />
 				<h3 className=" ml-2 flex">
-					Chapters <span className=" ml-3 font-normal">{chapterCount}</span>
+					Chapters <span className=" ml-2 font-medium">{chapterCount}</span>
 				</h3>
 				<div className="ml-auto">
 					<CreateChapterButton createNewChapter={createNewChapter} />

@@ -1,4 +1,11 @@
-import { Affix, Button, Container, Flex, SimpleGrid } from "@mantine/core";
+import {
+	Affix,
+	Button,
+	Container,
+	Divider,
+	Flex,
+	SimpleGrid,
+} from "@mantine/core";
 import { IconPencilPlus } from "@tabler/icons";
 import { useToast } from "../../hooks";
 import { CreatePostModal } from "../../components/Modals";
@@ -70,37 +77,36 @@ export const PostsPage: FC = () => {
 			openModal={() => setCreateProjectModal(true)}
 			projectId="posts"
 		>
-			<CreatePostModal
-				opened={createProjectModal}
-				setOpened={setCreateProjectModal}
-				createPost={postCreate}
-				setTitle={setTitle}
-				setDescription={setDescription}
-				setGenres={setGenres}
-				setPostType={setPostType}
-				setCollaborationType={setCollaborationType}
-				setProjectTitle={setProjectTitle}
-				setCollaboration={setCollaboration}
-			/>
-			<Loading isLoading={isLoading}>
-				{/* <Container size={1600}> */}
-				<SimpleGrid
-					className="p-4 h-[calc(100vh-50px)] overflow-y-auto"
-					bg={"white"}
-					cols={4}
-					spacing="lg"
-					breakpoints={[
-						{ maxWidth: "90rem", cols: 3, spacing: "xs" },
-						{ maxWidth: "72rem", cols: 2, spacing: "xs" },
-						{ maxWidth: "54rem", cols: 1, spacing: "xs" },
-					]}
-				>
-					{posts?.map((post: IPost) => (
-						<PostCard post={post!} />
-					))}
-				</SimpleGrid>
-				{/* </Container> */}
-			</Loading>
+			<PostHeader title="Posts" openModal={() => setCreateProjectModal(true)} />
+			<div className="flex flex-row bg-white">
+				<div>
+					<CreatePostModal
+						opened={createProjectModal}
+						setOpened={setCreateProjectModal}
+						createPost={postCreate}
+						setTitle={setTitle}
+						setDescription={setDescription}
+						setGenres={setGenres}
+						setPostType={setPostType}
+						setCollaborationType={setCollaborationType}
+						setProjectTitle={setProjectTitle}
+						setCollaboration={setCollaboration}
+					/>
+					<Loading isLoading={isLoading}>
+						<div className="bg-white pl-4 pt-4 overflow-y-auto flex flex-col rounded-tl-md h-[calc(100vh-110px)] border-r border-r-gray-200">
+							<div className="grid grid-cols-1 gap-4">
+								{posts?.map((post: IPost) => (
+									<PostCard post={post!} />
+								))}
+							</div>
+						</div>
+					</Loading>
+				</div>
+				<div className=" ">
+					<Divider className="border-gray-200 " orientation="vertical" />
+					<p>ihoihioh</p>
+				</div>
+			</div>
 		</BaseProjectView>
 	);
 };

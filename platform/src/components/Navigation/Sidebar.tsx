@@ -157,7 +157,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 	const openPages = (path: string, id: string, title: string) => {
 		const findTab = tabs.find((tab) => tab.id === id);
 		if (findTab) {
-			navigate(path);
+			navigate(`/dashboard/${path}`);
 			return;
 		}
 		const newTab = {
@@ -192,7 +192,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 						<CategoryListItem name="" mt="mt-2">
 							<CommunityListItem
 								name="Dashboard"
-								onClick={() => openPages("dashboard", "dashboard", "Dashboard")}
+								onClick={() => openPages(" ", "dashboard", "Dashboard")}
 							>
 								<IconLayoutDashboard size={23} />
 							</CommunityListItem>

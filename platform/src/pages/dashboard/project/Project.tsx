@@ -141,20 +141,26 @@ export function Project() {
 						chapterCount={chapters?.length}
 					>
 						<Tabs
-							className="w-full"
-							color="grape"
+							className="w-full border-none important:border-none"
 							defaultValue="home"
+							color="gray"
+							radius={"md"}
 							orientation="vertical"
-							variant="outline"
+							variant="pills"
+							styles={{
+								tab: {
+									backgroundColor: "#f2f2f2",
+									borderTopLeftRadius: "0px",
+									borderBottomLeftRadius: "0px",
+								},
+							}}
 						>
 							<Tabs.List>
 								<Tabs.Tab value="home">Home</Tabs.Tab>
 								<Tabs.Tab value="world-info" disabled>
 									World
 								</Tabs.Tab>
-								<Tabs.Tab value="settings" disabled>
-									Settings
-								</Tabs.Tab>
+								<Tabs.Tab value="settings">Settings</Tabs.Tab>
 								<Tabs.Tab value="publish" disabled>
 									Publish
 								</Tabs.Tab>
