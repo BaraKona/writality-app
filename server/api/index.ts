@@ -5,19 +5,19 @@ import mongoose from "mongoose";
 import http from "http";
 import { Server } from "socket.io";
 
-import users from "./routes/users";
-import chats from "./routes/chat/chat";
-import posts from "./routes/posts";
+import users from "../src/routes/users";
+import chats from "../src/routes/chat/chat";
+import posts from "../src/routes/posts";
 
-import projects from "./routes/project/projects";
-import chapters from "./routes/project/chapters";
-import versions from "./routes/project/versions";
-import branches from "./routes/project/branches";
+import projects from "../src/routes/project/projects";
+import chapters from "../src/routes/project/chapters";
+import versions from "../src/routes/project/versions";
+import branches from "../src/routes/project/branches";
 
-import collaborations from "./routes/collaboration/collabProject";
-import collabChapters from "./routes/collaboration/collabChapters";
-import collabVersions from "./routes/collaboration/collabVersions";
-import collabBranches from "./routes/collaboration/collabBranches";
+import collaborations from "../src/routes/collaboration/collabProject";
+import collabChapters from "../src/routes/collaboration/collabChapters";
+import collabVersions from "../src/routes/collaboration/collabVersions";
+import collabBranches from "../src/routes/collaboration/collabBranches";
 
 const app = express() as express.Application;
 const server = http.createServer(app);
