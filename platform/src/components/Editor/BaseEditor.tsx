@@ -1,6 +1,6 @@
 import { RichTextEditor } from "@mantine/tiptap";
 import { FC } from "react";
-import { Button } from "@mantine/core";
+import { Button, Text } from "@mantine/core";
 import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons";
 import { BubbleMenu } from "@tiptap/react";
 export const BaseEditor: FC<{ editor: any; height: string }> = ({
@@ -45,9 +45,9 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 					</BubbleMenu>
 				)}
 				<RichTextEditor.ControlsGroup>
-					<p className="text-zinc-400">
-						{editor.storage.characterCount.words()} words{" "}
-					</p>
+					<Text color="dimmed" className=" text-sm font-semibold">
+						{editor.storage.characterCount.words()} words
+					</Text>
 				</RichTextEditor.ControlsGroup>
 				<RichTextEditor.ControlsGroup>
 					<button
