@@ -2,6 +2,7 @@ import { FC, ReactNode } from "react";
 import { IProject } from "../../interfaces/IProject";
 import { AiFillSetting } from "react-icons/ai";
 import {
+	IconCards,
 	IconNote,
 	IconPencilPlus,
 	IconTrash,
@@ -11,14 +12,17 @@ import { Affix, Button, Divider } from "@mantine/core";
 
 export const PostHeader: FC<{
 	children?: ReactNode;
-	title: string;
+	title?: string;
 	openModal: () => void;
 }> = ({ children, title, openModal }) => {
 	return (
 		<div className=" w-full overflow-y-auto bg-white rounded-t-md text-blueText ">
 			<div className="px-7 pt-4">
 				<div className="relative flex w-full items-center">
-					<h2 className="mr-auto text-sm font-medium ">Browse posts</h2>
+					<h2 className="mr-auto text-sm font-medium flex gap-2 ">
+						{" "}
+						<IconCards size={20} /> Browse posts
+					</h2>
 					<div className=" ml-auto flex cursor-pointer">
 						<Button
 							size="sm"

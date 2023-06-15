@@ -29,6 +29,7 @@ import {
 import { UserLoader } from "../../UserLoader";
 import { cyclops8 } from "../../assets/icons";
 import { useTabContext } from "../../contexts/TabContext";
+import { ITabs } from "../../interfaces/ITabs";
 
 export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 	const navigate = useNavigate();
@@ -133,6 +134,15 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 			addCollaboration.mutate(project);
 		}
 	};
+	type tabs = {
+		userId: string;
+		tabs: {
+			id: string;
+			title: string;
+			path: string;
+		}[];
+	};
+
 	const openProject = (
 		id: string,
 		projectTitle: string,
@@ -151,7 +161,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 			path: `/dashboard/${projectType}/${id}`,
 		};
 
-		setTabs((prevTabs: any) => [...prevTabs, newTab]);
+		setTabs((prevTabs: ITabs) => [...prevTabs, newTab]);
 		navigate(`/dashboard/${projectType}/${id}`);
 	};
 	const openPages = (path: string, id: string, title: string) => {
@@ -165,7 +175,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 			title,
 			path: `/dashboard/${path}`,
 		};
-		setTabs((prevTabs: any) => [...prevTabs, newTab]);
+		setTabs((prevTabs: ITabs) => [...prevTabs, newTab]);
 		navigate(path);
 	};
 
@@ -173,7 +183,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 		<UserLoader>
 			<div className="flex h-screen">
 				<aside
-					className="w-[250px] flex overflow-y-auto h-full"
+					className="w-48 flex overflow-y-auto h-full"
 					aria-label="Sidebar"
 				>
 					<div className=" flex flex-col py-2 px-3">

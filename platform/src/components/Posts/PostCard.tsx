@@ -40,7 +40,7 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 
 	return (
 		<>
-			<div className="flex flex-grow px-3 bg-white max-w-3xl gap-10 text-blueText items-center">
+			<div className="flex flex-grow px-3 bg-white max-w-3xl gap-10 text-blueText items-center group">
 				<div>
 					<div className="flex items-center gap-2 mb-3">
 						<Image
@@ -99,6 +99,7 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 						width={192}
 						height={130}
 						radius="md"
+						className="group-hover:grayscale-0 grayscale transition-all ease-in-out duration-300"
 					/>
 				</div>
 			</div>

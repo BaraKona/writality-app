@@ -2,6 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { Loading } from "../Loading";
 import { Loader } from "@mantine/core";
+import { IconPlus, IconSquareRoundedPlus } from "@tabler/icons";
 export const CategoryListItem: FC<{
 	children?: ReactNode;
 	mt: string;
@@ -19,9 +20,9 @@ export const CategoryListItem: FC<{
 					{name}
 					<p
 						onClick={onClick}
-						className="text-purple-300 font-bold  cursor-pointer hover:font-semibold active:font-semibold"
+						className="text-blueText font-bold cursor-pointer hover:font-semibold hover:text-black"
 					>
-						{button ? <AiFillPlusSquare size={20} /> : ""}
+						{button ? <IconSquareRoundedPlus size={20} /> : ""}
 					</p>
 				</h2>
 			</li>

@@ -7,7 +7,7 @@ export const CommunityListItem: FC<{
 }> = ({ name, onClick, children }) => {
 	const { pathname } = useLocation();
 	const path = pathname.split("/")[2];
-	console.log(path);
+
 	return (
 		<li onClick={onClick} className="cursor-default">
 			<a

@@ -1,7 +1,18 @@
 import { FC, ReactNode } from "react";
 import { IProject } from "../../interfaces/IProject";
 import { AiFillSetting } from "react-icons/ai";
-import { IconPin, IconPinned, IconPoint, IconX } from "@tabler/icons";
+import {
+	IconBook,
+	IconBook2,
+	IconBooks,
+	IconLayoutBoard,
+	IconLayoutDashboard,
+	IconPin,
+	IconPinned,
+	IconPoint,
+	IconTemplate,
+	IconX,
+} from "@tabler/icons";
 import { useTabContext } from "../../contexts/TabContext";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +27,26 @@ export const BaseProjectView: FC<{
 }> = ({ children, projectId, openModal }) => {
 	const { setTabs: setTab, tabs } = useTabContext();
 	const navigate = useNavigate();
+
+	// array of tabs and their icons
+	const tabIcons = [
+		{
+			title: "Dashboard",
+			icon: <IconLayoutDashboard size={20} />,
+		},
+		{
+			title: "Stories",
+			icon: <IconBooks size={20} />,
+		},
+		{
+			title: "Posts",
+			icon: <IconTemplate size={20} />,
+		},
+		{
+			title: "Settings",
+			icon: <AiFillSetting size={20} />,
+		},
+	];
 
 	const closeTab = (
 		e: React.MouseEvent<SVGElement>,
@@ -46,7 +77,7 @@ export const BaseProjectView: FC<{
 	}
 
 	return (
-		<div className="w-full">
+		<div className="w-[calc(100vw-12rem)]">
 			<div className="mt-3 flex overflow-x-auto w-[calc(100vw-200px)]">
 				{tabs.map((tab, index) => (
 					<div
@@ -61,7 +92,12 @@ export const BaseProjectView: FC<{
 								tab.id === projectId ? "text-black" : "text-blueText"
 							}`}
 						>
-							<IconPoint size={16} />
+							{tabIcons.find((t) => t.title === tab.title)?.icon ||
+								(tab.id === projectId ? (
+									<IconBook size={20} />
+								) : (
+									<IconBook2 size={20} />
+								))}
 							<span className="ml-1 text-sm font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
 								{tab.title}
 							</span>

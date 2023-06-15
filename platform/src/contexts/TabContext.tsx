@@ -2,24 +2,15 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 import { useLocalStorage } from "@mantine/hooks";
-
+import { useAuthContext } from "./AuthContext";
+import { ITabs } from "../interfaces/ITabs";
 type TabContextType = {
-	tabs: {
-		path: string;
-		title: string;
-		id: string;
-	}[];
+	tabs: ITabs;
 	setTabs: any;
 };
 
 const tabContextDefaultValues: TabContextType = {
-	tabs: [
-		{
-			path: "/dashboard",
-			title: "Dashboard",
-			id: "1",
-		},
-	],
+	tabs: [{ path: "/dashboard/", title: "Dashboard", id: "dashboard" }],
 	setTabs: () => {},
 };
 
@@ -30,14 +21,14 @@ export function useTabContext() {
 }
 
 export function TabContextWrapper({ children }: { children: ReactNode }) {
+	const { currentUser } = useAuthContext();
+	// check if the tab userid matches current user id
+	// if not, then use default tab and add userId to tab
+
 	const [tab, currentTab] = useLocalStorage({
-		key: "tabs  ",
+		key: `${currentUser?.uid}-tabs`,
 		defaultValue: [
-			{
-				path: "/dashboard",
-				title: "Dashboard",
-				id: "1",
-			},
+			{ path: "/dashboard/", title: "Dashboard", id: "dashboard" },
 		],
 	});
 

@@ -32,6 +32,7 @@ import { chapterCreator } from "../../../hooks";
 import { Tabs } from "@mantine/core";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../../../components/Editor/utils/editorExtensions";
+
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();

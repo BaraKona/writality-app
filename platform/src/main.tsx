@@ -20,15 +20,15 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 					// fontFamily: "Noto Sans JP, sans-serif",
 				}}
 			>
-				<TabContextWrapper>
-					<AuthContextWrapper>
-						{/* <UserLoader> */}
+				<AuthContextWrapper>
+					{/* <UserLoader> */}
+					<TabContextWrapper>
 						<RouterProvider router={router} />
 						{/* </UserLoader> */}
-					</AuthContextWrapper>
-					<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
-					<Toaster position="top-center" />
-				</TabContextWrapper>
+					</TabContextWrapper>
+				</AuthContextWrapper>
+				<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+				<Toaster position="top-center" />
 			</MantineProvider>
 		</QueryClientProvider>
 	</React.StrictMode>

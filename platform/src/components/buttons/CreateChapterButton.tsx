@@ -1,15 +1,17 @@
+import { IconFilePlus } from "@tabler/icons";
 import { FC } from "react";
 import { AiFillPlusSquare, AiFillFileAdd } from "react-icons/ai";
 
 export const CreateChapterButton: FC<{ createNewChapter: () => void }> = ({
-  createNewChapter,
+	createNewChapter,
 }) => {
-  return (
-    <button
-      onClick={createNewChapter}
-      className="text-purple-300 font-bold px-2  cursor-pointer hover:text-purple-600 active:text-purple-500"
-    >
-      <AiFillFileAdd size={20} />
-    </button>
-  );
+	return (
+		<button
+			onClick={createNewChapter}
+			className="text-blueText font-medium text-sm px-2 flex cursor-pointer hover:underline "
+		>
+			<IconFilePlus size={20} className="cursor-pointer" />
+			New Chapters
+		</button>
+	);
 };
