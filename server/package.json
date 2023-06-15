@@ -4,7 +4,7 @@
 	"scripts": {
 		"start": "nodemon dist/index.js",
 		"dev": "nodemon dist/index.js",
-		"build": "tsc --output public"
+		"build": "tsc"
 	},
 	"dependencies": {
 		"bcrypt": "^5.1.0",
