@@ -1,1 +1,1 @@
-export { CreateChapterButton } from "./CreateChapterButton";
+export { CreateButton as CreateChapterButton } from "./CreateChapterButton";

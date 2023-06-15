@@ -9,6 +9,7 @@ import {
 	IconWriting,
 } from "@tabler/icons";
 import { Affix, Button, Divider } from "@mantine/core";
+import { CreateButton } from "../buttons/CreateChapterButton";
 
 export const PostHeader: FC<{
 	children?: ReactNode;
@@ -17,22 +18,17 @@ export const PostHeader: FC<{
 }> = ({ children, title, openModal }) => {
 	return (
 		<div className=" w-full overflow-y-auto bg-white rounded-t-md text-blueText ">
-			<div className="px-7 pt-4">
+			<div className="px-7  pt-6">
 				<div className="relative flex w-full items-center">
-					<h2 className="mr-auto text-sm font-medium flex gap-2 ">
-						{" "}
+					<h2 className="mr-auto text-sm font-medium flex gap-2 pb-3">
 						<IconCards size={20} /> Browse posts
 					</h2>
 					<div className=" ml-auto flex cursor-pointer">
-						<Button
-							size="sm"
-							className="text-blueText ml-auto important-hover:bg-gray-200 border-gray-20"
-							variant="default"
-							leftIcon={<IconNote size={20} />}
-							onClick={openModal}
-						>
-							Post
-						</Button>
+						<CreateButton
+							createNewChapter={openModal}
+							text="New Post"
+							icon={<IconNote size={20} />}
+						/>
 					</div>
 				</div>
 				<Divider className="mt-2 border-gray-200" />

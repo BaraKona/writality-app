@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import { CreateChapterButton } from "../buttons";
 import { Divider } from "@mantine/core";
-import { IconFiles } from "@tabler/icons";
+import { IconFilePlus, IconFiles } from "@tabler/icons";
 
 export const ChapterWrapper: FC<{
 	children: ReactNode;
@@ -10,13 +10,17 @@ export const ChapterWrapper: FC<{
 }> = ({ children, chapterCount, createNewChapter }) => {
 	return (
 		<div className="flex flex-col bg-white px-7 h-[calc(100vh-48px)] gap-2 rounded-t-md">
-			<div className=" flex font-medium gap-2 bg-white text-blueText pb-2 pt-6">
+			<div className=" flex font-medium gap-2 bg-white text-blueText pt-6">
 				<IconFiles size={20} />
 				<h3 className=" flex text-sm gap-2">
 					Chapters <span className=" ml-2">{chapterCount}</span>
 				</h3>
 				<div className="ml-auto">
-					<CreateChapterButton createNewChapter={createNewChapter} />
+					<CreateChapterButton
+						createNewChapter={createNewChapter}
+						text="New Chapter"
+						icon={<IconFilePlus size={20} />}
+					/>
 				</div>
 			</div>
 			<Divider className="mt-2 border-gray-200" />
