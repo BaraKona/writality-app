@@ -1,34 +1,52 @@
 import { FC, ReactNode } from "react";
-import { IProject } from "../../interfaces/IProject";
 import { AiFillSetting } from "react-icons/ai";
 import {
 	IconBook,
 	IconBook2,
 	IconBooks,
-	IconLayoutBoard,
+	IconHelp,
 	IconLayoutDashboard,
 	IconPin,
-	IconPinned,
-	IconPoint,
+	IconSettings,
 	IconTemplate,
 	IconX,
 } from "@tabler/icons";
 import { useTabContext } from "../../contexts/TabContext";
-import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
-// import { Loading } from "../Loading";
-import { Divider, Skeleton } from "@mantine/core";
 
-export const BaseProjectView: FC<{
+export const MainFrame: FC<{
 	children: ReactNode;
-	projectId?: string;
-	openModal?: () => void;
-}> = ({ children, projectId, openModal }) => {
+	tabName?: string;
+}> = ({ children, tabName }) => {
 	const { setTabs: setTab, tabs } = useTabContext();
 	const navigate = useNavigate();
+	const location = useLocation();
+	const { project, collaborationId } = useParams();
+	const pathname =
+		project || collaborationId
+			? location.pathname.split("/")[1] + "/" + (project || collaborationId)
+			: location.pathname.split("/")[1];
 
-	// array of tabs and their icons
+	// check if tab already exists
+	const tabExists = tabs.some((tab) => tab.id === pathname);
+	// if tab does not exist, add it to the tabs array
+	if (!tabExists) {
+		setTab([
+			...tabs,
+			{
+				path: location.pathname,
+				title:
+					location.pathname.split("/")[1][0].toUpperCase() +
+					location.pathname.split("/")[1].slice(1),
+				id: pathname,
+			},
+		]);
+	}
+
+	if (pathname === "project" || pathname === "collaboration") {
+	}
 	const tabIcons = [
 		{
 			title: "Dashboard",
@@ -44,8 +62,12 @@ export const BaseProjectView: FC<{
 		},
 		{
 			title: "Settings",
-			icon: <AiFillSetting size={20} />,
+			icon: <IconSettings size={20} />,
 		},
+		{
+			title: "Help",
+			icon: <IconHelp size={20} />,
+		}
 	];
 
 	const closeTab = (
@@ -53,9 +75,9 @@ export const BaseProjectView: FC<{
 		tab: { path: string; title: string; id: string }
 	) => {
 		e.stopPropagation();
-		if (tabs.length === 1) return;
+		if (tabs.length === 1) navigate("/dashboard");
 		setTab(tabs.filter((t) => t.id !== tab.id));
-		if (tab.id === projectId) {
+		if (tab.id === pathname) {
 			const index = tabs.findIndex((t) => t.id === tab.id);
 
 			const prevTab = tabs[index - 1];
@@ -67,15 +89,6 @@ export const BaseProjectView: FC<{
 			}
 		}
 	};
-	// make a skeleton loader for this component that keeps a tab open
-	if (!projectId) {
-		return (
-			<div className="w-full h-full flex items-center justify-center">
-				<Skeleton height={50} width={50} />
-			</div>
-		);
-	}
-
 	return (
 		<div className="w-[calc(100vw-12rem)]">
 			<div className="mt-3 flex overflow-x-auto w-[calc(100vw-200px)]">
@@ -83,23 +96,23 @@ export const BaseProjectView: FC<{
 					<div
 						key={tab.id}
 						className={` ${
-							tab.id === projectId && "bg-white rounded-t-2xl"
+							tab.id === pathname && "bg-white rounded-t-2xl"
 						}  flex items-center justify-between px-2 py-2 w-44 rounded-t-2xl `}
 						onClick={() => navigate(tab.path)}
 					>
 						<div
 							className={`flex w-full items-center flex-row cursor-default ${
-								tab.id === projectId ? "text-black" : "text-blueText"
+								tab.id === pathname ? "text-black" : "text-blueText"
 							}`}
 						>
 							{tabIcons.find((t) => t.title === tab.title)?.icon ||
-								(tab.id === projectId ? (
+								(tab.id === pathname ? (
 									<IconBook size={20} />
 								) : (
 									<IconBook2 size={20} />
 								))}
 							<span className="ml-1 text-sm font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
-								{tab.title}
+								{tabName ? tabName : tab.title}
 							</span>
 							<div className="flex gap-0.5 ml-auto">
 								<IconPin
@@ -120,36 +133,3 @@ export const BaseProjectView: FC<{
 		</div>
 	);
 };
-/**
- *<div
-						className={`${
-							tab.id === project.uid ? "bg-white" : "hover:bg-opacity-80 "
-						}  px-2 py-2 rounded-t-2xl w-44 hover:bg-white cursor-default group`}
-						key={index}
-						onClick={() => navigate(tab.path)}
-					>
-						<h2 className="text-sm font-medium text-blueText flex gap-1 items-center">
-							<IconPoint size={20} onClick={(e) => navigate(tab.path)} />
-							<span className="whitespace-nowrap w-24 text-ellipsis overflow-hidden">
-								{tab.title}
-							</span>
-							{/* {
-								tab.
-							<IconPinned
-								size={13}
-								/>
-							}
-							<IconPin
-								className={`ml-auto hover:bg-gray-100 ${"invisible"} rounded-sm  group-hover:visible`}
-								size={13}
-							/>
-							<IconX
-								className="hover:bg-gray-100 rounded-sm"
-								size={13}
-								onClick={(e) => closeTab(e, tab)}
-							/>
-						</h2>
-					</div>
-				))}
-			</div>
- */

@@ -4,6 +4,8 @@ import { VscSourceControl, VscVersions } from "react-icons/vsc";
 import { AiFillSave } from "react-icons/ai";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
+import { IconDeviceFloppy, IconGitBranch, IconVersions } from "@tabler/icons";
+import { Text } from "@mantine/core";
 
 export const EditorWrapper: FC<{
 	children: ReactNode;
@@ -23,19 +25,22 @@ export const EditorWrapper: FC<{
 	title,
 }) => {
 	return (
-		<div className="w-full flex flex-col bg-baseMid  gap-2 m-3 mx-3 shadow-lg border border-baseBorder rounded-md ">
-			<div className=" flex font-semibold py-2  bg-baseLight border-b border-baseBorder">
+		<div className="w-[calc(100vw-12rem)] flex flex-col bg-white gap-2 ">
+			<div className=" flex font-semibold py-2  bg-baseLight border-b ">
 				<button
 					onClick={backToProject}
 					className="p-2 rounded hover:bg-baseLighter ml-2 mr-1"
 				>
-					<CgClose size={18} color={"#d8b4fe"} />
+					<CgClose size={20} className="text-blueText hover:text-black" />
 				</button>
 				<button className="p-2 rounded bg-baseLight hover:bg-baseLighter ml-2 mr-1">
-					<CgChevronUpR size={18} color={"#d8b4fe"} />
+					<CgChevronUpR size={20} className="text-blueText hover:text-black" />
 				</button>
 				<button className="p-2 rounded bg-baseLight hover:bg-baseLighter ">
-					<CgChevronDownR size={18} color={"#d8b4fe"} />
+					<CgChevronDownR
+						size={20}
+						className="text-blueText hover:text-black"
+					/>
 				</button>
 				<p className="align-middle mx-2 my-auto">
 					<abbr
@@ -52,17 +57,23 @@ export const EditorWrapper: FC<{
 					</abbr>{" "}
 					{title}
 				</p>
-				<p className="text-center my-auto font-medium text-md ml-auto ">
+				<Text
+					className="text-center my-auto font-medium text-sm  ml-auto  "
+					color="dimmed"
+				>
 					{content?.dateUpdated?.date
 						? "Last updated: " + useTimeFromNow(content.dateUpdated.date + "")
 						: "No updates yet"}
-				</p>
+				</Text>
 				<button
 					className="p-2 ml-2 hover:bg-baseLighter rounded-sm"
 					onClick={openBranchModal}
 				>
 					<abbr title="Create Branch">
-						<VscSourceControl size={18} color={"#d8b4fe"} />
+						<IconGitBranch
+							size={20}
+							className="text-blueText hover:text-black"
+						/>
 					</abbr>
 				</button>
 				<button
@@ -70,14 +81,20 @@ export const EditorWrapper: FC<{
 					onClick={createVersion}
 				>
 					<abbr title="Create Version">
-						<VscVersions size={18} color={"#d8b4fe"} />
+						<IconVersions
+							size={20}
+							className="text-blueText hover:text-black"
+						/>
 					</abbr>
 				</button>
 				<button
 					onClick={save}
 					className=" p-2 mr-2 hover:bg-baseLighter rounded-sm"
 				>
-					<AiFillSave size={18} color={"#d8b4fe"} />
+					<IconDeviceFloppy
+						size={20}
+						className="text-blueText hover:text-black"
+					/>
 				</button>
 			</div>
 			<div className="py-3 px-5 overflow-y-hidden">

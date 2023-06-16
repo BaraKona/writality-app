@@ -293,9 +293,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 				openAdvancedMerge={() => setAdvancedMergeModalOpen(true)}
 			/>
 			<EditorWrapper
-				backToProject={() =>
-					navigate(`/dashboard/collaboration/${collaborationId}`)
-				}
+				backToProject={() => navigate(`/collaboration/${collaborationId}`)}
 				createVersion={() =>
 					createVersion.mutate(
 						versionCreator(chapter, currentUser.uid, versions, text)
@@ -326,9 +324,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 						mainContent={chapter?.content}
 						setSearchParams={setSearchParams}
 						checkoutMain={() =>
-							navigate(
-								`/dashboard/collaboration/${collaborationId}/chapter/${chapterId}`
-							)
+							navigate(`/collaboration/${collaborationId}/chapter/${chapterId}`)
 						}
 						openDeleteBranch={setOpenDeleteBranch}
 					/>

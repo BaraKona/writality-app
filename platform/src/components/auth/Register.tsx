@@ -29,7 +29,7 @@ export function Register() {
 				nameRef.current.value
 			).then(() => {
 				if (!currentUser) navigate("/auth/login");
-				else navigate("/dashboard/posts");
+				else navigate("/");
 			});
 		} catch (error: unknown) {
 			console.log(error);

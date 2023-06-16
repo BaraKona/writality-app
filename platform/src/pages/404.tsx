@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 
 export const FourOFour = () => {
 	return (
-		<div className="flex w-full flex-col items-center justify-center h-screen">
+		<div className="flex w-[calc(100vw-12rem)] bg-white flex-col items-center justify-center h-[calc(100vh-48px)] rounded-md text-blueText">
 			<img src={FourOFourIllustration} alt="404" width={500}></img>
-			<h1 className="text-4xl font-bold">Ooops, seems you're a bit lost 😅</h1>
+			<h1 className="text-4xl font-bold mt-5">
+				We could not find the page you were looking for.
+			</h1>
 			<Link to="/">
 				<button className="bg-slate-200 text-slate-900 hover:bg-slate-400 px-4 py-2 rounded-md mt-8">
 					Go Back Home

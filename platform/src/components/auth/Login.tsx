@@ -37,7 +37,7 @@ export default function Login() {
 		try {
 			await signInWithGoogle().then((loggedIn: boolean) => {
 				toast.success("Signed in successfully");
-				navigate("/dashboard/posts");
+				navigate("/");
 			});
 		} catch (error) {
 			console.log(error);

@@ -11,7 +11,7 @@ export function RegisterPage() {
 	const navigate = useNavigate();
 
 	if (currentUser) {
-		navigate("/dashboard/posts");
+		navigate("/");
 	}
 	return (
 		<Container size="lg">

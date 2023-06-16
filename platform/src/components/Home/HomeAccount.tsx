@@ -55,7 +55,7 @@ export function HomeAccount({}: Props) {
 						className="mt-5"
 						onClick={() => {
 							if (currentUser) {
-								navigate("/dashboard/posts");
+								navigate("/");
 							} else {
 								navigate("auth/register");
 							}

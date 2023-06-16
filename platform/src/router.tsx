@@ -1,7 +1,6 @@
 import {
 	createBrowserRouter,
 	Link,
-	Navigate,
 	redirect,
 	RouteObject,
 } from "react-router-dom";
@@ -13,6 +12,7 @@ import { Sidebar } from "./components/Navigation";
 import { Chapter, Project } from "./pages/dashboard/project";
 import { PostsPage } from "./pages/dashboard/PostsPage";
 import { DashboardPage } from "./pages/dashboard/DashboardPage";
+import { Stories } from "./pages/dashboard/Stories";
 import {
 	Collaboration,
 	CollaborationChapter,
@@ -27,37 +27,37 @@ const dashboardRoutes: RouteObject[] = [
 		path: "*",
 		element: <FourOFour />,
 	},
-	// {
-	// 	path: "/auth/reset",
-	// 	element: <ResetPage />,
-	// 	errorElement: <Error />,
-	// },
+	{ path: "/", loader: () => redirect("/dashboard") },
 	{
 		path: "/dashboard",
 		element: <DashboardPage />,
 	},
 	{
-		path: "/dashboard/posts",
+		path: "/stories",
+		element: <Stories />,
+	},
+	{
+		path: "/posts",
 		element: <PostsPage />,
 		errorElement: <Error />,
 	},
 	{
-		path: "/dashboard/project/:project",
+		path: "/project/:project",
 		element: <Project />,
 		errorElement: <Error />,
 	},
 	{
-		path: "/dashboard/project/:project/chapter/:chapter",
+		path: "/project/:project/chapter/:chapter",
 		element: <Chapter />,
 		errorElement: <Error />,
 	},
 	{
-		path: "/dashboard/collaboration/:collaborationId",
+		path: "/collaboration/:collaborationId",
 		element: <Collaboration socket={socket} />,
 		errorElement: <Error />,
 	},
 	{
-		path: "/dashboard/collaboration/:collaborationId/chapter/:chapterId",
+		path: "/collaboration/:collaborationId/chapter/:chapterId",
 		element: <CollaborationChapter socket={socket} />,
 		errorElement: <Error />,
 	},
@@ -65,13 +65,9 @@ const dashboardRoutes: RouteObject[] = [
 
 export const router = createBrowserRouter([
 	{
-		path: "/dashboard",
+		path: "/",
 		element: <Sidebar />,
 		children: dashboardRoutes,
-	},
-	{
-		path: "/",
-		element: <Home />,
 	},
 	{
 		path: "/auth/login",

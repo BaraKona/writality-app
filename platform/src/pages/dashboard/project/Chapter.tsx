@@ -117,7 +117,7 @@ export const Chapter = () => {
 			onSuccess: () => {
 				queryClient.invalidateQueries(["chapterBranches", chapter as string]);
 				setOpenDeleteBranch(false);
-				navigate(`/dashboard/project/${project}/chapter/${chapter}`);
+				navigate(`/project/${project}/chapter/${chapter}`);
 			},
 		}
 	);
@@ -286,7 +286,7 @@ export const Chapter = () => {
 				editor={editor}
 			/>
 			<EditorWrapper
-				backToProject={() => navigate(`/dashboard/project/${project}`)}
+				backToProject={() => navigate(`/project/${project}`)}
 				createVersion={() =>
 					createChapterVersion.mutate(
 						versionCreator(
@@ -326,7 +326,7 @@ export const Chapter = () => {
 						mainContent={chapterContent?.content}
 						setSearchParams={setSearchParams}
 						checkoutMain={() =>
-							navigate(`/dashboard/project/${project}/chapter/${chapter}`)
+							navigate(`/project/${project}/chapter/${chapter}`)
 						}
 						openDeleteBranch={setOpenDeleteBranch}
 					/>

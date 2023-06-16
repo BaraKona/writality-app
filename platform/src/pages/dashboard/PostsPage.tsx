@@ -1,12 +1,4 @@
-import {
-	Affix,
-	Button,
-	Container,
-	Divider,
-	Flex,
-	SimpleGrid,
-	UnstyledButton,
-} from "@mantine/core";
+import { Divider } from "@mantine/core";
 import { IconPencilPlus } from "@tabler/icons";
 import { useToast } from "../../hooks";
 import { CreatePostModal } from "../../components/Modals";
@@ -19,7 +11,6 @@ import { useCreatePost } from "../../hooks/useCreatePost";
 import { Loading } from "../../components/Loading";
 import { PostCard } from "../../components/Posts/PostCard";
 import { PostHeader } from "../../components/Posts/PostHeader";
-import { BaseProjectView } from "../../components/Project";
 import { Text } from "@mantine/core";
 import { CategoryListItem } from "../../components/ListItems";
 import { circle1 } from "../../assets/icons";
@@ -78,10 +69,7 @@ export const PostsPage: FC = () => {
 		createAPost.mutate();
 	};
 	return (
-		<BaseProjectView
-			openModal={() => setCreateProjectModal(true)}
-			projectId="posts"
-		>
+		<>
 			<PostHeader title="Posts" openModal={() => setCreateProjectModal(true)} />
 			<div className="flex flex-row bg-white">
 				<div>
@@ -98,7 +86,7 @@ export const PostsPage: FC = () => {
 						setCollaboration={setCollaboration}
 					/>
 					<Loading isLoading={isLoading}>
-						<div className="bg-white px-4 pt-4 overflow-y-auto flex flex-col rounded-tl-md h-[calc(100vh-118px)] border-r border-r-gray-200">
+						<div className="bg-white px-4 pt-4 overflow-y-auto flex flex-col rounded-tl-md h-[calc(100vh-113px)] border-r border-r-gray-200">
 							<div className="grid grid-cols-1 gap-4">
 								{posts?.map((post: IPost) => (
 									<PostCard post={post!} />
@@ -133,6 +121,6 @@ export const PostsPage: FC = () => {
 					</div>
 				</section>
 			</div>
-		</BaseProjectView>
+		</>
 	);
 };

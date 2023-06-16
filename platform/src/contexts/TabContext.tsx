@@ -27,9 +27,7 @@ export function TabContextWrapper({ children }: { children: ReactNode }) {
 
 	const [tab, currentTab] = useLocalStorage({
 		key: `${currentUser?.uid}-tabs`,
-		defaultValue: [
-			{ path: "/dashboard/", title: "Dashboard", id: "dashboard" },
-		],
+		defaultValue: [{ path: "/dashboard", title: "Dashboard", id: "dashboard" }],
 	});
 
 	return (

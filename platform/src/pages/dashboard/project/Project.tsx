@@ -1,7 +1,4 @@
-import {
-	BaseProjectView,
-	ProjectDescription,
-} from "../../../components/Project";
+import { ProjectDescription } from "../../../components/Project";
 import { v4 as uuidv4 } from "uuid";
 import {
 	NoChapters,
@@ -102,7 +99,7 @@ export function Project() {
 	};
 
 	const openChapter = (projectId: string, chapterId: string) => {
-		navigate(`/dashboard/project/${projectId}/chapter/${chapterId}`);
+		navigate(`/project/${projectId}/chapter/${chapterId}`);
 	};
 
 	const editor = useEditor({
@@ -118,91 +115,86 @@ export function Project() {
 	}
 	return (
 		<>
-			<BaseProjectView
-				projectId={project as string}
-				openModal={() => setOpenDeleteProject(true)}
-			>
-				<DeleteModal
-					opened={openDeleteProject}
-					setOpened={setOpenDeleteProject}
-					deleteBranch={deleteProject.mutate}
-					type="project"
-				/>
-				<DeleteModal
-					opened={openModal}
-					setOpened={setOpenModal}
-					deleteBranch={deleteChapter.mutate}
-					type="chapter"
-				/>
-				{chapters?.length == 0 ? (
-					<NoChapters createNewChapter={createNewChapter} />
-				) : (
-					<ChapterWrapper
-						createNewChapter={createNewChapter}
-						chapterCount={chapters?.length}
+			<DeleteModal
+				opened={openDeleteProject}
+				setOpened={setOpenDeleteProject}
+				deleteBranch={deleteProject.mutate}
+				type="project"
+			/>
+			<DeleteModal
+				opened={openModal}
+				setOpened={setOpenModal}
+				deleteBranch={deleteChapter.mutate}
+				type="chapter"
+			/>
+			{chapters?.length == 0 ? (
+				<NoChapters createNewChapter={createNewChapter} />
+			) : (
+				<ChapterWrapper
+					createNewChapter={createNewChapter}
+					chapterCount={chapters?.length}
+				>
+					<Tabs
+						className="w-full border-none important:border-none"
+						defaultValue="home"
+						color="gray"
+						radius={"md"}
+						orientation="vertical"
+						variant="pills"
+						styles={{
+							tab: {
+								backgroundColor: "#f2f2f2",
+								borderTopLeftRadius: "0px",
+								borderBottomLeftRadius: "0px",
+							},
+						}}
 					>
-						<Tabs
-							className="w-full border-none important:border-none"
-							defaultValue="home"
-							color="gray"
-							radius={"md"}
-							orientation="vertical"
-							variant="pills"
-							styles={{
-								tab: {
-									backgroundColor: "#f2f2f2",
-									borderTopLeftRadius: "0px",
-									borderBottomLeftRadius: "0px",
-								},
-							}}
-						>
-							<Tabs.List>
-								<Tabs.Tab value="home">Home</Tabs.Tab>
-								<Tabs.Tab value="world-info" disabled>
-									World
-								</Tabs.Tab>
-								<Tabs.Tab value="settings">Settings</Tabs.Tab>
-								<Tabs.Tab value="publish" disabled>
-									Publish
-								</Tabs.Tab>
-							</Tabs.List>
+						<Tabs.List>
+							<Tabs.Tab value="home">Home</Tabs.Tab>
+							<Tabs.Tab value="world-info" disabled>
+								World
+							</Tabs.Tab>
+							<Tabs.Tab value="settings">Settings</Tabs.Tab>
+							<Tabs.Tab value="publish" disabled>
+								Publish
+							</Tabs.Tab>
+						</Tabs.List>
 
-							<Tabs.Panel value="home">
-								<div className="flex flex-wrap">
-									<ChapterRenderer>
-										{chapters?.map((chapter: IChapter, index: number) => (
-											<Chapter
-												openChapter={() =>
-													openChapter(chapter.projectId, chapter.uid)
-												}
-												key={index}
-												chapter={chapter}
-												openChapterModal={() => openChapterModal(chapter.uid)}
-												disabled={false}
-											/>
-										))}
-									</ChapterRenderer>
-									{editor && currentProject && (
-										<ProjectDescription
-											project={currentProject}
-											user={currentUser.uid}
-											editor={editor}
-											updateDescription={updateDescription.mutate}
+						<Tabs.Panel value="home">
+							<div className="flex flex-wrap">
+								<ChapterRenderer>
+									{chapters?.map((chapter: IChapter, index: number) => (
+										<Chapter
+											openChapter={() =>
+												openChapter(chapter.projectId, chapter.uid)
+											}
+											key={index}
+											chapter={chapter}
+											openChapterModal={() => openChapterModal(chapter.uid)}
+											disabled={false}
 										/>
-									)}
-									{/* <CharacterWrapper> - Protagonist </CharacterWrapper> */}
-								</div>
-							</Tabs.Panel>
+									))}
+								</ChapterRenderer>
+								{editor && currentProject && (
+									<ProjectDescription
+										project={currentProject}
+										user={currentUser.uid}
+										editor={editor}
+										updateDescription={updateDescription.mutate}
+									/>
+								)}
+								{/* <CharacterWrapper> - Protagonist </CharacterWrapper> */}
+							</div>
+						</Tabs.Panel>
 
-							<Tabs.Panel value="world-info">
-								<CharacterWrapper> - Protagonist </CharacterWrapper>
-							</Tabs.Panel>
+						<Tabs.Panel value="world-info">
+							<CharacterWrapper> - Protagonist </CharacterWrapper>
+						</Tabs.Panel>
 
-							<Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
-						</Tabs>
-					</ChapterWrapper>
-				)}
-			</BaseProjectView>
+						<Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
+					</Tabs>
+				</ChapterWrapper>
+			)}
 		</>
 	);
 }

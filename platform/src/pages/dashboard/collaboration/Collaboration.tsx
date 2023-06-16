@@ -12,7 +12,6 @@ import {
 	DeleteModal,
 } from "../../../components/Modals";
 import {
-	BaseProjectView,
 	CollaborationToolbar,
 	ProjectDescription,
 } from "../../../components/Project";
@@ -187,9 +186,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 	);
 
 	const openChapter = (chapterId: string) => {
-		navigate(
-			`/dashboard/collaboration/${collaborationId}/chapter/${chapterId}`
-		);
+		navigate(`/collaboration/${collaborationId}/chapter/${chapterId}`);
 	};
 	const openChapterModal = (chapterId: string) => {
 		setChapterId(chapterId);
@@ -249,59 +246,58 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 				users={allUsers}
 				addProjectCollaborator={addCollaborator}
 			/>
-			<BaseProjectView projectId={collaborationId} openModal={() => {}}>
-				{/* <CollaborationToolbar setOpened={setOpened} /> */}
-				{!chapters || chapters.length == 0 ? (
-					<NoChapters createNewChapter={createNewChapter} />
-				) : (
-					<ChapterWrapper
-						createNewChapter={createNewChapter}
-						chapterCount={chapters?.length}
+			{/* <CollaborationToolbar setOpened={setOpened} /> */}
+			{!chapters || chapters.length == 0 ? (
+				<NoChapters createNewChapter={createNewChapter} />
+			) : (
+				<ChapterWrapper
+					createNewChapter={createNewChapter}
+					chapterCount={chapters?.length}
+				>
+					<Tabs
+						className="w-full"
+						color="grape"
+						defaultValue="home"
+						orientation="vertical"
+						variant="outline"
 					>
-						<Tabs
-							className="w-full"
-							color="grape"
-							defaultValue="home"
-							orientation="vertical"
-							variant="outline"
-						>
-							<Tabs.List className="">
-								<Tabs.Tab value="home">Home</Tabs.Tab>
-								<Tabs.Tab value="world-info" disabled>
-									World
-								</Tabs.Tab>
-								<Tabs.Tab value="settings" disabled>
-									Settings
-								</Tabs.Tab>
-								<Tabs.Tab value="publish" disabled>
-									Publish
-								</Tabs.Tab>
-							</Tabs.List>
+						<Tabs.List className="">
+							<Tabs.Tab value="home">Home</Tabs.Tab>
+							<Tabs.Tab value="world-info" disabled>
+								World
+							</Tabs.Tab>
+							<Tabs.Tab value="settings" disabled>
+								Settings
+							</Tabs.Tab>
+							<Tabs.Tab value="publish" disabled>
+								Publish
+							</Tabs.Tab>
+						</Tabs.List>
 
-							<Tabs.Panel value="home">
-								<div className="flex flex-wrap">
-									<div className=" w-full md:flex ">
-										<ChapterRenderer>
-											{chapters?.map((chapter: IChapter, index: number) => (
-												<Chapter
-													openChapter={() => openChapter(chapter.uid)}
-													key={index}
-													chapter={chapter}
-													openChapterModal={() => openChapterModal(chapter.uid)}
-													disabled={chapter.owner !== currentUser.uid}
-												/>
-											))}
-										</ChapterRenderer>
-										{editor && collaboration && (
-											<ProjectDescription
-												project={collaboration}
-												user={currentUser.uid}
-												editor={editor}
-												updateDescription={updateDescription.mutate}
+						<Tabs.Panel value="home">
+							<div className="flex flex-wrap">
+								<div className=" w-full md:flex ">
+									<ChapterRenderer>
+										{chapters?.map((chapter: IChapter, index: number) => (
+											<Chapter
+												openChapter={() => openChapter(chapter.uid)}
+												key={index}
+												chapter={chapter}
+												openChapterModal={() => openChapterModal(chapter.uid)}
+												disabled={chapter.owner !== currentUser.uid}
 											/>
-										)}
-									</div>
-									{/* <Loading isLoading={chat ? false : true}>
+										))}
+									</ChapterRenderer>
+									{editor && collaboration && (
+										<ProjectDescription
+											project={collaboration}
+											user={currentUser.uid}
+											editor={editor}
+											updateDescription={updateDescription.mutate}
+										/>
+									)}
+								</div>
+								{/* <Loading isLoading={chat ? false : true}>
 										<CollaborationChat
 											commentViewportRef={commentViewportRef}
 											setComment={setComment}
@@ -310,18 +306,17 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 											comments={chat?.comments}
 										/>
 									</Loading> */}
-								</div>
-							</Tabs.Panel>
+							</div>
+						</Tabs.Panel>
 
-							<Tabs.Panel value="world-info">
-								<CharacterWrapper> - Protagonist </CharacterWrapper>
-							</Tabs.Panel>
+						<Tabs.Panel value="world-info">
+							<CharacterWrapper> - Protagonist </CharacterWrapper>
+						</Tabs.Panel>
 
-							<Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
-						</Tabs>
-					</ChapterWrapper>
-				)}
-			</BaseProjectView>
+						<Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
+					</Tabs>
+				</ChapterWrapper>
+			)}
 		</>
 	);
 };

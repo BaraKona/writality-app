@@ -5,10 +5,16 @@ import {
 	CategoryListItem,
 	CommunityListItem,
 } from "../ListItems";
-import DashboardNavigation from "./DashboardNavigation";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { IProject } from "../../interfaces/IProject";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import {
+	Link,
+	Outlet,
+	useNavigate,
+	useParams,
+	useResolvedPath,
+	useMatch,
+} from "react-router-dom";
 import { useToast } from "../../hooks/useToast";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { createProject, getUserProjects } from "../../api/project/projects";
@@ -30,13 +36,39 @@ import { UserLoader } from "../../UserLoader";
 import { cyclops8 } from "../../assets/icons";
 import { useTabContext } from "../../contexts/TabContext";
 import { ITabs } from "../../interfaces/ITabs";
+import { MainFrame } from "../Project";
+import { AiFillSetting } from "react-icons/ai";
+import { useLocation } from "react-router-dom";
 
 export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 	const navigate = useNavigate();
 	const { currentUser, signOutCurrentUser } = useAuthContext();
 	const { setTabs, tabs } = useTabContext();
-	console.log(tabs);
 	const queryClient = useQueryClient();
+	const location = useLocation();
+
+	const path = location.pathname.split("/")[1];
+
+	// const closeTab = (
+	// 	e: React.MouseEvent<SVGElement>,
+	// 	tab: { path: string; title: string; id: string }
+	// ) => {
+	// 	e.stopPropagation();
+	// 	if (tabs.length === 1) return;
+	// 	setTabs(tabs.filter((t) => t.id !== tab.id));
+	// 	if (tab.id === projectId) {
+	// 		const index = tabs.findIndex((t) => t.id === tab.id);
+
+	// 		const prevTab = tabs[index - 1];
+	// 		const nextTab = tabs[index + 1];
+	// 		if (prevTab) {
+	// 			navigate(prevTab.path);
+	// 		} else {
+	// 			navigate(nextTab.path);
+	// 		}
+	// 	}
+	// };
+
 	const handleSignOut = async () => {
 		await signOutCurrentUser().then(() => {
 			navigate("/auth/login");
@@ -143,40 +175,11 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 		}[];
 	};
 
-	const openProject = (
-		id: string,
-		projectTitle: string,
-		projectType: string
-	) => {
-		const findTab = tabs.find(
-			(tab) => tab.path === `/dashboard/${projectType}/${id}`
-		);
-		if (findTab) {
-			navigate(`/dashboard/${projectType}/${id}`);
-			return;
-		}
-		const newTab = {
-			id,
-			title: projectTitle,
-			path: `/dashboard/${projectType}/${id}`,
-		};
-
-		setTabs((prevTabs: ITabs) => [...prevTabs, newTab]);
-		navigate(`/dashboard/${projectType}/${id}`);
+	const openProject = (route: string) => {
+		navigate(route);
 	};
-	const openPages = (path: string, id: string, title: string) => {
-		const findTab = tabs.find((tab) => tab.id === id);
-		if (findTab) {
-			navigate(`/dashboard/${path}`);
-			return;
-		}
-		const newTab = {
-			id,
-			title,
-			path: `/dashboard/${path}`,
-		};
-		setTabs((prevTabs: ITabs) => [...prevTabs, newTab]);
-		navigate(path);
+	const openPages = (route: string) => {
+		navigate(route);
 	};
 
 	return (
@@ -202,19 +205,19 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 						<CategoryListItem name="" mt="mt-2">
 							<CommunityListItem
 								name="Dashboard"
-								onClick={() => openPages(" ", "dashboard", "Dashboard")}
+								onClick={() => openPages("dashboard")}
 							>
 								<IconLayoutDashboard size={23} />
 							</CommunityListItem>
 							<CommunityListItem
 								name="Posts"
-								onClick={() => openPages("posts", "posts", "Posts")}
+								onClick={() => openPages("posts")}
 							>
 								<IconTemplate size={23} />
 							</CommunityListItem>
 							<CommunityListItem
 								name="Stories"
-								onClick={() => openPages("stories", "stories", "Stories")}
+								onClick={() => openPages("stories")}
 							>
 								<IconBooks size={23} />
 							</CommunityListItem>
@@ -231,13 +234,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 									return (
 										<ProjectListItem
 											key={index}
-											onClick={() => {
-												openProject(
-													project.uid,
-													project.title || "New Project",
-													"project"
-												);
-											}}
+											onClick={() => openProject(`project/${project.uid}`)}
 											name={project.title || "Untitled Project"}
 											projectId={project.uid}
 										/>
@@ -258,13 +255,9 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 										return (
 											<ProjectListItem
 												key={index}
-												onClick={() => {
-													openProject(
-														collaboration.uid,
-														collaboration.title || "New collaboration",
-														"collaboration"
-													);
-												}}
+												onClick={() =>
+													openProject(`collaboration/${collaboration.uid}`)
+												}
 												name={collaboration.title || "Untitled Collaboration"}
 												projectId={collaboration.uid}
 											/>
@@ -276,14 +269,11 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 						<div className="mt-auto mb-4">
 							<CommunityListItem
 								name="Settings"
-								onClick={() => navigate("/dashboard/settings")}
+								onClick={() => navigate("/settings")}
 							>
 								<IconSettings size={23} />
 							</CommunityListItem>
-							<CommunityListItem
-								name="Help"
-								onClick={() => navigate("/dashboard/help")}
-							>
+							<CommunityListItem name="Help" onClick={() => navigate("/help")}>
 								<IconHelp size={23} />
 							</CommunityListItem>
 							<CommunityListItem name="Logout" onClick={handleSignOut}>
@@ -292,7 +282,9 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 						</div>
 					</div>
 				</aside>
-				<Outlet />
+				<MainFrame>
+					<Outlet />
+				</MainFrame>
 			</div>
 		</UserLoader>
 	);

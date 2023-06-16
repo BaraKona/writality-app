@@ -9,6 +9,7 @@ export const ProjectListItem: FC<{
 	onClick?: () => void;
 }> = ({ name, onClick, projectId }) => {
 	const { project, collaborationId } = useParams();
+
 	return (
 		<>
 			{projectId === project || projectId === collaborationId ? (
