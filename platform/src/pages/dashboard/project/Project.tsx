@@ -29,6 +29,7 @@ import { chapterCreator } from "../../../hooks";
 import { Tabs } from "@mantine/core";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../../../components/Editor/utils/editorExtensions";
+import { useTabContext } from "../../../contexts/TabContext";
 
 export function Project() {
 	const queryClient = useQueryClient();
@@ -37,6 +38,7 @@ export function Project() {
 	const [openModal, setOpenModal] = useState(false);
 	const [openDeleteProject, setOpenDeleteProject] = useState(false);
 	const [chapterId, setChapterId] = useState("");
+	const { tabs, setTabs } = useTabContext();
 	const navigate = useNavigate();
 
 	const { data: currentProject } = useQuery(

@@ -1,5 +1,4 @@
 import { FC, ReactNode } from "react";
-import { AiFillSetting } from "react-icons/ai";
 import {
 	IconBook,
 	IconBook2,
@@ -23,11 +22,31 @@ export const MainFrame: FC<{
 	const { setTabs: setTab, tabs } = useTabContext();
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { project, collaborationId } = useParams();
+	const { project, collaborationId, chapter } = useParams();
 	const pathname =
 		project || collaborationId
 			? location.pathname.split("/")[1] + "/" + (project || collaborationId)
 			: location.pathname.split("/")[1];
+
+	const tab = tabs.find((tab) => tab.id === pathname);
+
+	// Add chapter to tab path if chapter exists
+	if (chapter) {
+		if (tab) {
+			if (!tab.path.includes(chapter)) {
+				tab.path = tab.path + "/chapter/" + chapter;
+			}
+		}
+	}
+
+	// Remove chapter from tab path if chapter does not exist
+	if (!chapter) {
+		if (tab) {
+			if (tab.path.includes("chapter")) {
+				tab.path = tab.path.split("/chapter")[0];
+			}
+		}
+	}
 
 	// check if tab already exists
 	const tabExists = tabs.some((tab) => tab.id === pathname);
@@ -67,7 +86,7 @@ export const MainFrame: FC<{
 		{
 			title: "Help",
 			icon: <IconHelp size={20} />,
-		}
+		},
 	];
 
 	const closeTab = (
