@@ -315,7 +315,7 @@ export const Chapter = () => {
 						}
 					/>
 				)}
-				<div className="border-l flex flex-col gap-3 px-5">
+				<div className="border-l flex flex-col gap-3 pl-3">
 					<ChapterBranchMenu
 						openMergeModal={() => setMergeOpened(true)}
 						chapterBranches={chapterBranches}
@@ -330,10 +330,19 @@ export const Chapter = () => {
 						openDeleteBranch={setOpenDeleteBranch}
 					/>
 					<ChapterVersionMenu
-						openMergeModal={() => setMergeOpened(true)}
 						chapterVersions={chapterVersions}
 						setOpen={setVersionModalOpen}
 						setVersion={setVersion}
+						createVersion={() =>
+							createChapterVersion.mutate(
+								versionCreator(
+									chapterContent,
+									currentUser.uid,
+									chapterVersions,
+									text
+								)
+							)
+						}
 					/>
 					<ChapterHistoryMenu history={chapterContent?.history} />
 					{/* <ChapterBranches

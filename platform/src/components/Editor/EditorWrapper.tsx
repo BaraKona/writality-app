@@ -86,7 +86,7 @@ export const EditorWrapper: FC<{
 						/>
 					</abbr>
 				</button>
-				<button onClick={save} className=" p-2 mr-2 rounded-sm">
+				<button onClick={save} className=" p-2 rounded-sm">
 					<IconDeviceFloppy
 						size={20}
 						className="text-blueText hover:text-black"

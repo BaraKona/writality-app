@@ -5,11 +5,11 @@ import { IconVersions } from "@tabler/icons";
 import { IChapter } from "../../../interfaces/IChapter";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 export const ChapterVersionMenu: FC<{
-	openMergeModal: () => void;
 	chapterVersions: IChapterVersion[];
 	setOpen: React.Dispatch<SetStateAction<boolean>>;
 	setVersion: (version: IChapterVersion) => void;
-}> = ({ openMergeModal, chapterVersions, setOpen, setVersion }) => {
+	createVersion: () => void;
+}> = ({ chapterVersions, setOpen, setVersion, createVersion }) => {
 	return (
 		<Menu position="left-start" offset={5}>
 			<Menu.Target>
@@ -24,7 +24,7 @@ export const ChapterVersionMenu: FC<{
 			</Menu.Target>
 			<Menu.Dropdown className="bg-white border-none shadow-md">
 				<ChapterVersions
-					openMergeModal={openMergeModal}
+					createVersion={createVersion}
 					chapterVersions={chapterVersions}
 					setOpen={setOpen}
 					setVersion={setVersion}

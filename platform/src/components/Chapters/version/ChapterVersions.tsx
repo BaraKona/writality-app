@@ -3,21 +3,19 @@ import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import { VscRepo } from "react-icons/vsc";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { Divider, ScrollArea, Text } from "@mantine/core";
-import { IconRectangleVertical, IconSquare } from "@tabler/icons";
+import {
+	IconPlus,
+	IconRectangleVertical,
+	IconSquare,
+	IconVersions,
+} from "@tabler/icons";
 
 export const ChapterVersions: FC<{
-	checkoutBranch?: (branch: any) => void;
-	openMergeModal: () => void;
+	createVersion: () => void;
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setVersion: React.Dispatch<React.SetStateAction<any>>;
 	chapterVersions: IChapterVersion[];
-}> = ({
-	checkoutBranch,
-	openMergeModal,
-	chapterVersions,
-	setOpen,
-	setVersion,
-}) => {
+}> = ({ chapterVersions, setOpen, setVersion, createVersion }) => {
 	if (!chapterVersions) {
 		return null;
 	}
@@ -28,6 +26,11 @@ export const ChapterVersions: FC<{
 				<div>
 					<div className="flex font-bold my-2 px-2 text-blueText text-sm">
 						Versions
+						<IconPlus
+							size={18}
+							onClick={createVersion}
+							className="ml-auto hover:text-black cursor-pointer"
+						/>
 					</div>
 					<Divider className="border-gray-200" />
 
