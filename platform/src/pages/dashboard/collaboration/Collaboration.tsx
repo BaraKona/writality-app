@@ -214,12 +214,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 		extensions,
 	});
 
-	if (isLoading || !editor)
-		return (
-			<div className="w-full h-full grid place-items-center">
-				<Loading isLoading={true}> </Loading>
-			</div>
-		);
+	if (isLoading || !editor) return <Loading isLoading={true}> </Loading>;
 	return (
 		<>
 			<InviteUserDrawer opened={opened} setOpened={setOpened}>

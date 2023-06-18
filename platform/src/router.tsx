@@ -69,6 +69,11 @@ export const router = createBrowserRouter([
 		element: <Sidebar />,
 		children: dashboardRoutes,
 	},
+]);
+
+export const publicRouter = createBrowserRouter([
+	{ path: "/", loader: () => redirect("/auth/login") },
+
 	{
 		path: "/auth/login",
 		element: <LoginPage />,

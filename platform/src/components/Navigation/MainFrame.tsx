@@ -19,7 +19,7 @@ export const MainFrame: FC<{
 	children: ReactNode;
 	tabName?: string;
 }> = ({ children, tabName }) => {
-	const { setTabs: setTab, tabs } = useTabContext();
+	const { setTabs, tabs } = useTabContext();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { project, collaborationId, chapter } = useParams();
@@ -34,7 +34,7 @@ export const MainFrame: FC<{
 	if (chapter) {
 		if (tab) {
 			if (!tab.path.includes(chapter)) {
-				tab.path = tab.path + "/chapter/" + chapter;
+				tab.path = tab.path + "/chapter" + chapter;
 			}
 		}
 	}
@@ -52,7 +52,7 @@ export const MainFrame: FC<{
 	const tabExists = tabs.some((tab) => tab.id === pathname);
 	// if tab does not exist, add it to the tabs array
 	if (!tabExists) {
-		setTab([
+		setTabs([
 			...tabs,
 			{
 				path: location.pathname,
@@ -95,7 +95,7 @@ export const MainFrame: FC<{
 	) => {
 		e.stopPropagation();
 		if (tabs.length === 1) navigate("/dashboard");
-		setTab(tabs.filter((t) => t.id !== tab.id));
+		setTabs(tabs.filter((t) => t.id !== tab.id));
 		if (tab.id === pathname) {
 			const index = tabs.findIndex((t) => t.id === tab.id);
 

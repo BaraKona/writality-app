@@ -85,15 +85,13 @@ export const PostsPage: FC = () => {
 						setProjectTitle={setProjectTitle}
 						setCollaboration={setCollaboration}
 					/>
-					<Loading isLoading={isLoading}>
-						<div className="bg-white px-4 pt-4 overflow-y-auto flex flex-col rounded-tl-md h-[calc(100vh-113px)] border-r border-r-gray-200">
-							<div className="grid grid-cols-1 gap-4">
-								{posts?.map((post: IPost) => (
-									<PostCard post={post!} />
-								))}
-							</div>
+					<div className="bg-white px-4 pt-4 overflow-y-auto flex flex-col rounded-tl-md h-[calc(100vh-113px)] border-r border-r-gray-200">
+						<div className="grid grid-cols-1 gap-4">
+							{posts?.map((post: IPost) => (
+								<PostCard post={post!} />
+							))}
 						</div>
-					</Loading>
+					</div>
 				</div>
 				<section>
 					<Divider className="border-gray-200" orientation="vertical" />

@@ -212,11 +212,7 @@ export const Chapter = () => {
 	});
 
 	if ((branch && !currentBranch) || !chapterContent || !editor)
-		return (
-			<div className="w-full h-full grid place-items-center">
-				<Loading isLoading={true}> </Loading>
-			</div>
-		);
+		return <Loading isLoading={true}> </Loading>;
 	return (
 		<>
 			<CreateBranchModal
