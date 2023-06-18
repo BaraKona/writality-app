@@ -1,11 +1,5 @@
-import {
-	createBrowserRouter,
-	Link,
-	redirect,
-	RouteObject,
-} from "react-router-dom";
+import { createBrowserRouter, redirect, RouteObject } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { Dashboard } from "./pages/Dashboard";
 import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
 import { io } from "socket.io-client";
 import { Sidebar } from "./components/Navigation";
@@ -82,6 +76,11 @@ export const publicRouter = createBrowserRouter([
 	{
 		path: "/auth/register",
 		element: <RegisterPage />,
+		errorElement: <Error />,
+	},
+	{
+		path: "/auth/reset",
+		element: <ResetPage />,
 		errorElement: <Error />,
 	},
 ]);

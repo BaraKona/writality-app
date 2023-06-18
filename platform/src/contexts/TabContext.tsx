@@ -21,13 +21,8 @@ export function useTabContext() {
 	return useContext(TabContext);
 }
 
-export function TabContextWrapper({
-	children,
-	currentUser,
-}: {
-	children: ReactNode;
-	currentUser: IUser;
-}) {
+export function TabContextWrapper({ children }: { children: ReactNode }) {
+	const { currentUser } = useAuthContext();
 	const [tabs, setTabs] = useLocalStorage<ITabs>({
 		key: currentUser?.uid + "-tabs",
 		defaultValue: tabContextDefaultValues.tabs,

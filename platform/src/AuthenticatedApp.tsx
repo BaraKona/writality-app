@@ -3,7 +3,8 @@ import { AuthContextWrapper, useAuthContext } from "./contexts/AuthContext";
 import { RouterProvider } from "react-router-dom";
 import { TabContextWrapper } from "./contexts/TabContext";
 import { publicRouter, router } from "./router";
-
+import { getUser } from "./api/user";
+import { UserLoader } from "./UserLoader";
 export function AuthenticatedApp({}) {
 	const { currentUser } = useAuthContext();
 
@@ -12,8 +13,10 @@ export function AuthenticatedApp({}) {
 	}
 
 	return (
-		<TabContextWrapper currentUser={currentUser}>
-			<RouterProvider router={router} />
-		</TabContextWrapper>
+		<UserLoader>
+			<TabContextWrapper>
+				<RouterProvider router={router} />
+			</TabContextWrapper>
+		</UserLoader>
 	);
 }

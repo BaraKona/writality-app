@@ -71,7 +71,10 @@ export function AuthContextWrapper({ children }: { children: ReactNode }) {
 		return signInWithEmailAndPassword(auth, email, password);
 	}
 	function signOutCurrentUser() {
-		return auth.signOut();
+		return auth.signOut().then(() => {
+			// Sign-out successful.
+			window.location.href = "/";
+		});
 	}
 
 	async function signInWithGoogle() {
@@ -97,13 +100,13 @@ export function AuthContextWrapper({ children }: { children: ReactNode }) {
 				return false;
 			});
 	}
-	useEffect(() => {
-		const gettingUsers = async () => {
-			const users = await getAllUsers();
-			setUsers(users);
-		};
-		gettingUsers();
-	}, []);
+	// useEffect(() => {
+	// 	const gettingUsers = async () => {
+	// 		const users = await getAllUsers();
+	// 		setUsers(users);
+	// 	};
+	// 	gettingUsers();
+	// }, []);
 	const sharedState = {
 		createAUserWithEmailAndPassword,
 		signInAUserWithEmailAndPassword,

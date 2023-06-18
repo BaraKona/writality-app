@@ -24,6 +24,7 @@ export default function Login() {
 				emailRef.current.value,
 				passwordRef.current.value
 			);
+			// navigate("/");
 			useToast("success", "Signed in successfully 😎");
 		} catch (error: unknown) {
 			useToast(
