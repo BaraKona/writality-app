@@ -1,12 +1,10 @@
 import { FC } from "react";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
-import { VscRepo } from "react-icons/vsc";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { Divider, ScrollArea, Text } from "@mantine/core";
 import {
 	IconPlus,
 	IconRectangleVertical,
-	IconSquare,
 	IconVersions,
 } from "@tabler/icons";
 
@@ -22,7 +20,7 @@ export const ChapterVersions: FC<{
 
 	return (
 		<div className="min-w-auto w-56">
-			<div className="flex font-bold my-2 px-2 text-blueText text-sm">
+			<div className="flex font-medium my-2 px-2 text-blueText text-sm">
 				Versions
 				<IconPlus
 					size={18}
@@ -49,7 +47,7 @@ export const ChapterVersions: FC<{
 										>
 											<IconRectangleVertical size={18} />
 										</div>
-										<p className="text-blueText font-semibold">
+										<p className="text-blueText font-medium">
 											{version.name ? version.name : "Version"}:
 										</p>
 									</div>

@@ -3,8 +3,6 @@ import { VscInfo } from "react-icons/vsc";
 import { Timeline, Text, ScrollArea, Divider } from "@mantine/core";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import {
-	IconGitBranch,
-	IconGitPullRequest,
 	IconGitCommit,
 	IconMessageDots,
 	IconFilePlus,
@@ -31,7 +29,7 @@ export const ChapterHistory: FC<{ history: IChapter["history"] }> = ({
 	return (
 		<div className="min-w-auto w-56">
 			<div>
-				<div className="flex font-bold my-2 px-2 text-blueText text-sm">
+				<div className="flex font-medium my-2 px-2 text-blueText text-sm">
 					History <VscInfo size={14} className="cursor-pointer my-auto" />
 				</div>
 				<Divider className="border-gray-200" />

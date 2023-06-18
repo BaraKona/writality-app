@@ -3,14 +3,13 @@ import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import {
 	VscGitPullRequestCreate,
 	VscGitMerge,
-	VscInfo,
 	VscGitPullRequestClosed,
 } from "react-icons/vsc";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 
 import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { Divider, ScrollArea, Text } from "@mantine/core";
-import { IconGitBranch, IconGitPullRequest, IconPlus } from "@tabler/icons";
+import { IconGitBranch,  IconPlus } from "@tabler/icons";
 export const ChapterBranches: FC<{
 	openMergeModal: () => void;
 	setSearchParams: (params: any) => void;
@@ -35,7 +34,7 @@ export const ChapterBranches: FC<{
 	}
 	return (
 		<div className="min-w-auto w-56">
-			<div className="flex font-bold my-2 px-2 text-blueText text-sm">
+			<div className="flex font-medium my-2 px-2 text-blueText text-sm">
 				Branches
 				<IconPlus
 					size={18}
