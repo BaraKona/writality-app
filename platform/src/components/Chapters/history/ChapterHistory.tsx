@@ -42,11 +42,11 @@ export const ChapterHistory: FC<{ history: IChapter["history"] }> = ({
 					className="px-2"
 				>
 					<Timeline
-						active={1}
+						active={0}
 						bulletSize={24}
 						lineWidth={2}
-						color="violet"
 						className="py-2"
+						radius="md"
 					>
 						{dateSortedHistory?.map((item, index) => (
 							<Timeline.Item

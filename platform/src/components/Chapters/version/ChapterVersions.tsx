@@ -22,18 +22,17 @@ export const ChapterVersions: FC<{
 
 	return (
 		<div className="min-w-auto w-56">
+			<div className="flex font-bold my-2 px-2 text-blueText text-sm">
+				Versions
+				<IconPlus
+					size={18}
+					onClick={createVersion}
+					className="ml-auto hover:text-black cursor-pointer"
+				/>
+			</div>
+			<Divider className="border-gray-200" />
 			{chapterVersions.length > 0 ? (
 				<div>
-					<div className="flex font-bold my-2 px-2 text-blueText text-sm">
-						Versions
-						<IconPlus
-							size={18}
-							onClick={createVersion}
-							className="ml-auto hover:text-black cursor-pointer"
-						/>
-					</div>
-					<Divider className="border-gray-200" />
-
 					<ScrollArea.Autosize offsetScrollbars scrollbarSize={6} mah={400}>
 						{chapterVersions.map((version: any, index) => (
 							<div
@@ -63,12 +62,12 @@ export const ChapterVersions: FC<{
 					</ScrollArea.Autosize>
 				</div>
 			) : (
-				<p className=" flex gap-2 text-center align-middle text-sm">
-					<button className="text-stone-300">
-						<VscRepo size={18} />
-					</button>
+				<div className="flex gap-2 items-center text-xs p-2">
+					<div className="text-blueText">
+						<IconVersions size={18} />
+					</div>
 					You do not have any versions saved for this chapter
-				</p>
+				</div>
 			)}
 		</div>
 	);

@@ -10,25 +10,15 @@ import {
 	IconGitBranch,
 	IconVersions,
 } from "@tabler/icons";
-import { Divider, Text } from "@mantine/core";
+import { Divider, Text, Tooltip } from "@mantine/core";
 
 export const EditorWrapper: FC<{
 	children: ReactNode;
 	backToProject: () => void;
 	content: IChapterVersion;
 	save: () => void;
-	openBranchModal: () => void;
-	createVersion: () => void;
 	title: string;
-}> = ({
-	children,
-	backToProject,
-	content,
-	save,
-	openBranchModal,
-	createVersion,
-	title,
-}) => {
+}> = ({ children, backToProject, content, save, title }) => {
 	return (
 		<div className="w-[calc(100vw-12rem)] flex flex-col bg-white rounded-t-md gap-2 pt-4 px-7 ">
 			<div className=" flex   ">
@@ -63,14 +53,14 @@ export const EditorWrapper: FC<{
 					</div>
 				</div>
 				<Text
-					className="text-center my-auto font-medium text-sm  ml-auto  "
+					className="text-center my-auto font-medium text-sm  ml-auto mr-3"
 					color="dimmed"
 				>
 					{content?.dateUpdated?.date
 						? "Last updated: " + useTimeFromNow(content.dateUpdated.date + "")
 						: "No updates yet"}
 				</Text>
-				<button className="p-2 ml-2 rounded-sm" onClick={openBranchModal}>
+				{/* <button className="p-2 ml-2 rounded-sm" onClick={openBranchModal}>
 					<abbr title="Create Branch">
 						<IconGitBranch
 							size={20}
@@ -85,16 +75,20 @@ export const EditorWrapper: FC<{
 							className="text-blueText hover:text-black"
 						/>
 					</abbr>
-				</button>
-				<button onClick={save} className=" p-2 rounded-sm">
-					<IconDeviceFloppy
-						size={20}
-						className="text-blueText hover:text-black"
-					/>
-				</button>
+				</button> */}
+				<div className="border-l border-gray-200 group" onClick={save}>
+					<Tooltip label="Save" position="left" withArrow>
+						<div className="ml-3 p-2 border rounded-md ">
+							<IconDeviceFloppy
+								size={20}
+								className="text-blueText group-hover:text-black"
+							/>
+						</div>
+					</Tooltip>
+				</div>
 			</div>
 			<Divider className="border-gray-200" />
-			<div className="h-[calc(100vh-118px)] overflow-y-hidden bg-white">
+			<div className="h-[calc(100vh-120px)] overflow-y-hidden bg-white">
 				<div className="text-editor flex justify-between align-middle">
 					{children}
 				</div>

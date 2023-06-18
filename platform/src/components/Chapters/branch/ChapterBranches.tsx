@@ -10,6 +10,7 @@ import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 
 import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { Divider, ScrollArea, Text } from "@mantine/core";
+import { IconGitBranch, IconGitPullRequest, IconPlus } from "@tabler/icons";
 export const ChapterBranches: FC<{
 	openMergeModal: () => void;
 	setSearchParams: (params: any) => void;
@@ -18,6 +19,7 @@ export const ChapterBranches: FC<{
 	currentBranch: IChapterContent;
 	checkoutMain: any;
 	openDeleteBranch: React.Dispatch<SetStateAction<boolean>>;
+	openBranchModal: () => void;
 }> = ({
 	openMergeModal,
 	chapterBranches,
@@ -26,18 +28,24 @@ export const ChapterBranches: FC<{
 	currentBranch,
 	checkoutMain,
 	openDeleteBranch,
+	openBranchModal,
 }) => {
 	if (!chapterBranches) {
 		return null;
 	}
 	return (
 		<div className="min-w-auto w-56">
+			<div className="flex font-bold my-2 px-2 text-blueText text-sm">
+				Branches
+				<IconPlus
+					size={18}
+					onClick={openBranchModal}
+					className="ml-auto hover:text-black cursor-pointer"
+				/>
+			</div>
+			<Divider className="border-gray-200" />
 			{chapterBranches?.length > 0 ? (
 				<div className="border border-baseLight text-blueText">
-					<div className="flex font-bold my-2 px-2 text-blueText text-sm">
-						Branches
-					</div>
-					<Divider className="border-gray-200" />
 					<div className="flex justify-between gap-2 border-b border-gray-200 items-center">
 						<div className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-sm font-medium">
 							<div
@@ -100,12 +108,12 @@ export const ChapterBranches: FC<{
 					</ScrollArea.Autosize>
 				</div>
 			) : (
-				<p className=" flex gap-2 text-center align-middle text-sm">
-					<button className="text-blueText">
-						<VscGitMerge size={18} />
-					</button>
+				<div className=" flex gap-2  items-center text-xs p-2">
+					<div className="text-blueText">
+						<IconGitBranch size={18} />
+					</div>
 					You do not have any branches for this chapter
-				</p>
+				</div>
 			)}
 		</div>
 	);

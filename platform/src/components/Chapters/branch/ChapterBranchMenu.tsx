@@ -12,6 +12,7 @@ export const ChapterBranchMenu: FC<{
 	setSearchParams: () => void;
 	checkoutMain: () => void;
 	openDeleteBranch: React.Dispatch<SetStateAction<boolean>>;
+	openBranchModal: () => void;
 }> = ({
 	openMergeModal,
 	chapterBranches,
@@ -20,6 +21,7 @@ export const ChapterBranchMenu: FC<{
 	setSearchParams,
 	checkoutMain,
 	openDeleteBranch,
+	openBranchModal,
 }) => {
 	return (
 		<Menu position="left-start" offset={5}>
@@ -42,6 +44,7 @@ export const ChapterBranchMenu: FC<{
 					setSearchParams={setSearchParams}
 					checkoutMain={checkoutMain}
 					openDeleteBranch={openDeleteBranch}
+					openBranchModal={openBranchModal}
 				/>
 			</Menu.Dropdown>
 		</Menu>

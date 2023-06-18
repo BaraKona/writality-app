@@ -3,6 +3,7 @@ import { IProject } from "../../interfaces/IProject";
 import { AiFillSetting } from "react-icons/ai";
 import {
 	IconCards,
+	IconEdit,
 	IconNote,
 	IconPencilPlus,
 	IconTrash,
@@ -27,7 +28,7 @@ export const PostHeader: FC<{
 						<CreateButton
 							createNewChapter={openModal}
 							text="New Post"
-							icon={<IconNote size={20} />}
+							icon={<IconEdit size={20} />}
 						/>
 					</div>
 				</div>

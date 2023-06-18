@@ -286,17 +286,6 @@ export const Chapter = () => {
 			/>
 			<EditorWrapper
 				backToProject={() => navigate(`/project/${project}`)}
-				createVersion={() =>
-					createChapterVersion.mutate(
-						versionCreator(
-							chapterContent,
-							currentUser.uid,
-							chapterVersions,
-							text
-						)
-					)
-				}
-				openBranchModal={() => setOpened(true)}
 				save={
 					branch
 						? updateBranchMutation.mutate
@@ -328,6 +317,7 @@ export const Chapter = () => {
 							navigate(`/project/${project}/chapter/${chapter}`)
 						}
 						openDeleteBranch={setOpenDeleteBranch}
+						openBranchModal={() => setOpened(true)}
 					/>
 					<ChapterVersionMenu
 						chapterVersions={chapterVersions}
@@ -345,27 +335,6 @@ export const Chapter = () => {
 						}
 					/>
 					<ChapterHistoryMenu history={chapterContent?.history} />
-					{/* <ChapterBranches
-						openMergeModal={() => setMergeOpened(true)}
-						chapterBranches={chapterBranches}
-						currentBranch={
-							currentBranch ? currentBranch : chapterContent?.content
-						}
-						mainContent={chapterContent?.content}
-						setSearchParams={setSearchParams}
-						checkoutMain={() =>
-							navigate(`/project/${project}/chapter/${chapter}`)
-						}
-						openDeleteBranch={setOpenDeleteBranch}
-					/>
-					<ChapterVersions
-						openMergeModal={() => setMergeOpened(true)}
-						chapterVersions={chapterVersions}
-						setOpen={setVersionModalOpen}
-						setVersion={setVersion}
-					/>
-
-				 */}
 				</div>
 			</EditorWrapper>
 		</>
