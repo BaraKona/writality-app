@@ -34,7 +34,7 @@ export const MainFrame: FC<{
 	if (chapter) {
 		if (tab) {
 			if (!tab.path.includes(chapter)) {
-				tab.path = tab.path + "/chapter" + chapter;
+				tab.path = tab.path + "/chapter/" + chapter;
 			}
 		}
 	}
@@ -43,7 +43,7 @@ export const MainFrame: FC<{
 	if (!chapter) {
 		if (tab) {
 			if (tab.path.includes("chapter")) {
-				tab.path = tab.path.split("/chapter")[0];
+				tab.path = tab.path.split("/chapter/")[0];
 			}
 		}
 	}

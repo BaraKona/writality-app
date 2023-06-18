@@ -58,6 +58,9 @@ import SubScript from "@tiptap/extension-subscript";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 import CharacterCount from "@tiptap/extension-character-count";
+import { ChapterBranchMenu } from "../../../components/Chapters/branch/ChapterBranchMenu";
+import { ChapterVersionMenu } from "../../../components/Chapters/version/ChapterVersionMenu";
+import { ChapterHistoryMenu } from "../../../components/Chapters/history/ChapterHistoryMenu";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -312,8 +315,16 @@ export const Chapter = () => {
 						}
 					/>
 				)}
-				<div className="min-w-[350px] border-l flex flex-col gap-3 border-baseBorder px-5 hover:bg-baseColour">
-					<ChapterBranches
+				<div className="border-l flex flex-col gap-3 px-5">
+					<ChapterBranchMenu />
+					<ChapterVersionMenu
+						openMergeModal={() => setMergeOpened(true)}
+						chapterVersions={chapterVersions}
+						setOpen={setVersionModalOpen}
+						setVersion={setVersion}
+					/>
+					<ChapterHistoryMenu history={chapterContent?.history} />
+					{/* <ChapterBranches
 						openMergeModal={() => setMergeOpened(true)}
 						chapterBranches={chapterBranches}
 						currentBranch={
@@ -333,7 +344,7 @@ export const Chapter = () => {
 						setVersion={setVersion}
 					/>
 
-					<ChapterHistory history={chapterContent?.history} />
+				 */}
 				</div>
 			</EditorWrapper>
 		</>

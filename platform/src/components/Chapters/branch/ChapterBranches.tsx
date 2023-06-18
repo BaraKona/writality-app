@@ -1,14 +1,14 @@
 import { FC, SetStateAction } from "react";
-import { useTimeFromNow } from "../../hooks/useTimeFromNow";
+import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import {
 	VscGitPullRequestCreate,
 	VscGitMerge,
 	VscInfo,
 	VscGitPullRequestClosed,
 } from "react-icons/vsc";
-import { IChapterVersion } from "../../interfaces/IChapterVersion";
+import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 
-import { IChapterContent } from "../../interfaces/IChapterContent";
+import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { ScrollArea } from "@mantine/core";
 export const ChapterBranches: FC<{
 	openMergeModal: () => void;
