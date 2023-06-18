@@ -316,7 +316,19 @@ export const Chapter = () => {
 					/>
 				)}
 				<div className="border-l flex flex-col gap-3 px-5">
-					<ChapterBranchMenu />
+					<ChapterBranchMenu
+						openMergeModal={() => setMergeOpened(true)}
+						chapterBranches={chapterBranches}
+						currentBranch={
+							currentBranch ? currentBranch : chapterContent?.content
+						}
+						mainContent={chapterContent?.content}
+						setSearchParams={setSearchParams}
+						checkoutMain={() =>
+							navigate(`/project/${project}/chapter/${chapter}`)
+						}
+						openDeleteBranch={setOpenDeleteBranch}
+					/>
 					<ChapterVersionMenu
 						openMergeModal={() => setMergeOpened(true)}
 						chapterVersions={chapterVersions}

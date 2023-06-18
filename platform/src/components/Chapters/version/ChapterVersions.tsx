@@ -1,14 +1,9 @@
 import { FC } from "react";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
-import { VscRepoPull, VscRepo, VscInfo } from "react-icons/vsc";
+import { VscRepo } from "react-icons/vsc";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { Divider, ScrollArea, Text } from "@mantine/core";
-import {
-	IconColumns,
-	IconRectangle,
-	IconRectangleVertical,
-	IconSquare,
-} from "@tabler/icons";
+import { IconRectangleVertical, IconSquare } from "@tabler/icons";
 
 export const ChapterVersions: FC<{
 	checkoutBranch?: (branch: any) => void;

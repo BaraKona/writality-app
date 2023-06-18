@@ -9,7 +9,7 @@ import {
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 
 import { IChapterContent } from "../../../interfaces/IChapterContent";
-import { ScrollArea } from "@mantine/core";
+import { Divider, ScrollArea, Text } from "@mantine/core";
 export const ChapterBranches: FC<{
 	openMergeModal: () => void;
 	setSearchParams: (params: any) => void;
@@ -31,40 +31,40 @@ export const ChapterBranches: FC<{
 		return null;
 	}
 	return (
-		<div className="min-w-auto w-80">
+		<div className="min-w-auto w-56">
 			{chapterBranches?.length > 0 ? (
-				<div className="border border-baseLight  hover:bg-baseColour p-5">
-					<h3 className="text-lg flex font-bold gap-2">
-						Branches <VscInfo size={18} className="cursor-pointer my-auto" />
-					</h3>
-					<div className="flex justify-between gap-2 border-b border-stone-700">
-						<div className="flex gap-1 transition-all ease-in-out duration-200">
-							<button
-								className={`hover:text-orange-200 ${
+				<div className="border border-baseLight text-blueText">
+					<div className="flex font-bold my-2 px-2 text-blueText text-sm">
+						Branches
+					</div>
+					<Divider className="border-gray-200" />
+					<div className="flex justify-between gap-2 border-b border-gray-200 items-center">
+						<div className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-sm font-medium">
+							<div
+								className={`hover:text-black ${
 									currentBranch?.uid === mainContent?.uid
-										? "text-blue-300"
-										: "text-stone-300"
+										? "text-blueText"
+										: "text-gray-400"
 								}`}
 								onClick={checkoutMain}
 							>
 								<VscGitPullRequestCreate size={18} />
-							</button>
-							<p className="text-purple-300 font-semibold">main</p>
+							</div>
+							main
 						</div>
-						{/* <p>{useTimeFromNow(chapter.createdAt)}</p> */}
 					</div>
-					<ScrollArea.Autosize mah={128} offsetScrollbars scrollbarSize={6}>
+					<ScrollArea.Autosize mah={400} offsetScrollbars scrollbarSize={6}>
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}
-								className="flex justify-between gap-2 border-b border-stone-700"
+								className="flex justify-between gap-2 border-b border-gray-200 py-1 px-2"
 							>
 								<div className="flex gap-1 transition-all ease-in-out duration-200">
 									<button
-										className={`hover:text-orange-200 ${
+										className={`hover:text-black ${
 											branch.uid === currentBranch?.uid
-												? "text-blue-300"
-												: "text-stone-300"
+												? "text-black"
+												: "text-gray-400"
 										}`}
 										onClick={() => setSearchParams({ branch: branch.uid })}
 									>
@@ -88,18 +88,20 @@ export const ChapterBranches: FC<{
 									) : (
 										""
 									)}
-									<p className="text-purple-300 font-semibold">
+									<p className="text-blueText font-medium text-sm">
 										{branch.name ? branch.name : "Branch"}:
 									</p>
 								</div>
-								<p>{useTimeFromNow(branch.dateUpdated.date)}</p>
+								<Text size="xs" color="dimmed">
+									{useTimeFromNow(branch.dateUpdated.date)}
+								</Text>
 							</div>
 						))}
 					</ScrollArea.Autosize>
 				</div>
 			) : (
 				<p className=" flex gap-2 text-center align-middle text-sm">
-					<button className="text-stone-300">
+					<button className="text-blueText">
 						<VscGitMerge size={18} />
 					</button>
 					You do not have any branches for this chapter

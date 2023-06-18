@@ -94,7 +94,7 @@ export const EditorWrapper: FC<{
 				</button>
 			</div>
 			<Divider className="border-gray-200" />
-			<div className="h-[calc(100vh-108px)] overflow-y-hidden bg-white">
+			<div className="h-[calc(100vh-118px)] overflow-y-hidden bg-white">
 				<div className="text-editor flex justify-between align-middle">
 					{children}
 				</div>
