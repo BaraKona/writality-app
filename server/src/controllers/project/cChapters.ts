@@ -61,6 +61,8 @@ export const getSingleChapter = async (req: any, res: any) => {
 			projectId: projectId,
 			uid: chapterId,
 		});
+		// reverse history array
+		chapter.history = chapter.history.reverse();
 		res.status(200).json(chapter);
 	} catch (error) {
 		res.status(404).json({ message: error.message });

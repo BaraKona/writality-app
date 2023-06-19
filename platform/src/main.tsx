@@ -11,6 +11,7 @@ import { UserLoader } from "./UserLoader";
 import "./App.scss";
 import { Toaster } from "react-hot-toast";
 import { AuthenticatedApp } from "./AuthenticatedApp";
+import { Analytics } from "@vercel/analytics/react";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
@@ -23,6 +24,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 			>
 				<AuthContextWrapper>
 					<AuthenticatedApp />
+					{/* <UserLoader> */}
+					<Analytics />
+					{/* </UserLoader> */}
 				</AuthContextWrapper>
 				<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
 				<Toaster position="top-center" />
