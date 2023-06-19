@@ -1,5 +1,4 @@
 import { Divider } from "@mantine/core";
-import { IconPencilPlus } from "@tabler/icons";
 import { useToast } from "../../hooks";
 import { CreatePostModal } from "../../components/Modals";
 import { FC, useState } from "react";
@@ -8,7 +7,6 @@ import { useQueryClient, useQuery, useMutation } from "react-query";
 import { IPost } from "../../interfaces/IPost";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useCreatePost } from "../../hooks/useCreatePost";
-import { Loading } from "../../components/Loading";
 import { PostCard } from "../../components/Posts/PostCard";
 import { PostHeader } from "../../components/Posts/PostHeader";
 import { Text } from "@mantine/core";
@@ -29,7 +27,7 @@ export const PostsPage: FC = () => {
 	const [collaborationType, setCollaborationType] = useState<string>("");
 	const [projectTitle, setProjectTitle] = useState<string>("");
 
-	const { data: posts, isLoading } = useQuery("posts", getPosts);
+	const { data: posts } = useQuery("posts", getPosts);
 
 	const createAPost = useMutation(
 		() =>
