@@ -213,7 +213,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 								name="Posts"
 								onClick={() => openPages("posts")}
 							>
-								<FcRules size={23} />
+								{/* <FcRules size={23} /> */}
 							</CommunityListItem>
 							<CommunityListItem
 								name="Stories"
