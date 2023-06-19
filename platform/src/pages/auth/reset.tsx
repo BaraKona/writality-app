@@ -10,7 +10,7 @@ export function ResetPage() {
 	const navigate = useNavigate();
 
 	if (currentUser) {
-		navigate("/dashboard/posts");
+		navigate("/");
 	}
 	return (
 		<Container size="lg">

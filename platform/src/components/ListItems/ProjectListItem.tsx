@@ -1,3 +1,4 @@
+import { IconBook, IconBook2 } from "@tabler/icons";
 import React, { FC } from "react";
 import { AiFillFolder, AiFillFolderOpen } from "react-icons/ai";
 import { useParams } from "react-router-dom";
@@ -8,26 +9,31 @@ export const ProjectListItem: FC<{
 	onClick?: () => void;
 }> = ({ name, onClick, projectId }) => {
 	const { project, collaborationId } = useParams();
+
 	return (
 		<>
 			{projectId === project || projectId === collaborationId ? (
 				<li
 					onClick={onClick}
-					className="p-[0.1rem] hover:bg-baseColour bg-baseColour cursor-default border border-baseBorderDark "
+					className="p-1.5 flex mb-1 text-sm font-medium bg-white hover:bg-white cursor-default rounded-md "
 				>
-					<a className="ml-3 flex text-md font-normal">
-						<AiFillFolderOpen size={20} color={"#b8a285"} />{" "}
-						<span className="ml-3 text-purple-300 ">{name}</span>
+					<a className=" flex text-black">
+						<IconBook size={23} />
+						<span className="ml-2 whitespace-nowrap w-28 text-ellipsis overflow-hidden">
+							{name}
+						</span>
 					</a>
 				</li>
 			) : (
 				<li
 					onClick={onClick}
-					className="p-[0.1rem] hover:bg-baseColour cursor-default border border-transparent hover:border-baseBorderDark"
+					className="p-1.5 flex mb-1 text-sm font-medium rounded-md hover:bg-white cursor-default "
 				>
-					<a className="ml-3 flex text-md font-normal">
-						<AiFillFolder size={20} color={"#a8a29e"} />
-						<span className="ml-3">{name}</span>
+					<a className=" flex text-blueText">
+						<IconBook2 size={23} />
+						<span className="ml-2 whitespace-nowrap w-28 text-ellipsis overflow-hidden">
+							{name}
+						</span>
 					</a>
 				</li>
 			)}

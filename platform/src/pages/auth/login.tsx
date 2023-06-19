@@ -9,7 +9,7 @@ export function LoginPage() {
 	const navigate = useNavigate();
 
 	if (currentUser) {
-		navigate("/dashboard/posts");
+		navigate("/posts");
 	}
 	return (
 		<Container size="lg">

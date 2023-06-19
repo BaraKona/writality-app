@@ -5,32 +5,81 @@ import {
 	CategoryListItem,
 	CommunityListItem,
 } from "../ListItems";
-import DashboardNavigation from "./DashboardNavigation";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { IProject } from "../../interfaces/IProject";
-import { useNavigate } from "react-router-dom";
-import { FcReading, FcRules } from "react-icons/fc";
+import {
+	Link,
+	Outlet,
+	useNavigate,
+	useParams,
+	useResolvedPath,
+	useMatch,
+} from "react-router-dom";
 import { useToast } from "../../hooks/useToast";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { createProject, getUserProjects } from "../../api/project/projects";
-import { Divider, ScrollArea, Box } from "@mantine/core";
+import { ScrollArea } from "@mantine/core";
 import {
 	createCollabProject,
 	getUserCollabProjects,
 } from "../../api/collaboration/collabProjects";
-import { IconSearch } from "@tabler/icons";
+import {
+	IconBooks,
+	IconLogout,
+	IconSearch,
+	IconHelp,
+	IconSettings,
+	IconTemplate,
+	IconLayoutDashboard,
+} from "@tabler/icons";
 import { UserLoader } from "../../UserLoader";
+import { cyclops8 } from "../../assets/icons";
+import { useTabContext } from "../../contexts/TabContext";
+import { ITabs } from "../../interfaces/ITabs";
+import { MainFrame } from "../Project";
+import { AiFillSetting } from "react-icons/ai";
+import { useLocation } from "react-router-dom";
 
-export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
+export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 	const navigate = useNavigate();
-	const { currentUser } = useAuthContext();
+	const { currentUser, signOutCurrentUser } = useAuthContext();
+	const { setTabs, tabs } = useTabContext();
 	const queryClient = useQueryClient();
+	const location = useLocation();
+
+	const path = location.pathname.split("/")[1];
+
+	// const closeTab = (
+	// 	e: React.MouseEvent<SVGElement>,
+	// 	tab: { path: string; title: string; id: string }
+	// ) => {
+	// 	e.stopPropagation();
+	// 	if (tabs.length === 1) return;
+	// 	setTabs(tabs.filter((t) => t.id !== tab.id));
+	// 	if (tab.id === projectId) {
+	// 		const index = tabs.findIndex((t) => t.id === tab.id);
+
+	// 		const prevTab = tabs[index - 1];
+	// 		const nextTab = tabs[index + 1];
+	// 		if (prevTab) {
+	// 			navigate(prevTab.path);
+	// 		} else {
+	// 			navigate(nextTab.path);
+	// 		}
+	// 	}
+	// };
+
+	const handleSignOut = async () => {
+		await signOutCurrentUser().then(() => {
+			navigate("/auth/login");
+		});
+	};
 	const {
 		isLoading: projectsLoading,
 		error,
 		data: projects,
 	} = useQuery(
-		["projects", currentUser.uid],
+		["projects", currentUser?.uid],
 		() => getUserProjects(currentUser.uid),
 		{
 			staleTime: Infinity,
@@ -42,7 +91,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 		error: collabError,
 		data: collaboration,
 	} = useQuery(
-		["collaboration", currentUser.uid],
+		["collaboration", currentUser?.uid],
 		() => getUserCollabProjects(currentUser.uid),
 		{
 			staleTime: Infinity,
@@ -117,42 +166,65 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 			addCollaboration.mutate(project);
 		}
 	};
-
-	const openProject = (id: string) => {
-		navigate(`/dashboard/project/${id}`);
+	type tabs = {
+		userId: string;
+		tabs: {
+			id: string;
+			title: string;
+			path: string;
+		}[];
 	};
-	const openCollaboration = (id: string) => {
-		navigate(`/dashboard/collaboration/${id}`);
+
+	const openProject = (route: string) => {
+		navigate(route);
+	};
+	const openPages = (route: string) => {
+		navigate(route);
 	};
 
 	return (
 		<UserLoader>
 			<div className="flex h-screen">
 				<aside
-					className="w-[250px]  overflow-y-auto border-r bg-baseMid border-baseBorder h-full"
+					className="w-48 flex overflow-y-auto h-full"
 					aria-label="Sidebar"
 				>
-					<div className=" py-2 px-3">
-						<DashboardNavigation />
-						<CategoryListItem name="Community">
+					<div className=" flex flex-col py-2 px-3">
+						<Link to="/">
+							<div className="ml-2 my-2 flex">
+								<img
+									src={cyclops8}
+									alt="writality"
+									width={30}
+									height={30}
+									className="inline-block"
+								/>
+								<h1 className="font-semibold px-2 text-base">Writality</h1>
+							</div>
+						</Link>
+						<CategoryListItem name="" mt="mt-2">
+							<CommunityListItem
+								name="Dashboard"
+								onClick={() => openPages("dashboard")}
+							>
+								<IconLayoutDashboard size={23} />
+							</CommunityListItem>
 							<CommunityListItem
 								name="Posts"
-								onClick={() => navigate("/dashboard/posts")}
+								onClick={() => openPages("posts")}
 							>
-								<FcRules size={23} />
+								{/* <FcRules size={23} /> */}
 							</CommunityListItem>
-							<CommunityListItem name="Stories">
-								<FcReading size={23} />
+							<CommunityListItem
+								name="Stories"
+								onClick={() => openPages("stories")}
+							>
+								<IconBooks size={23} />
 							</CommunityListItem>
-							{/* <CommunityListItem
-              name="Users"
-              onClick={() => navigate("/dashboard/users")}
-            >
-              <FcConferenceCall size={23} />
-            </CommunityListItem> */}
 						</CategoryListItem>
 						<hr className="my-5 border-baseBorder" />
 						<CategoryListItem
+							mt="mt-8 mb-3"
 							name="Your Projects"
 							button={true}
 							onClick={createAProject}
@@ -163,7 +235,7 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 									return (
 										<ProjectListItem
 											key={index}
-											onClick={() => openProject(project.uid)}
+											onClick={() => openProject(`project/${project.uid}`)}
 											name={project.title || "Untitled Project"}
 											projectId={project.uid}
 										/>
@@ -173,7 +245,8 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 						</CategoryListItem>
 						<hr className="my-5 border-baseBorder" />
 						<CategoryListItem
-							name="Collaborative Projects"
+							mt="mt-8 mb-3"
+							name="Collaborations"
 							button={true}
 							onClick={createACollaboration}
 							loading={collabProjectsLoading}
@@ -184,7 +257,9 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 										return (
 											<ProjectListItem
 												key={index}
-												onClick={() => openCollaboration(collaboration.uid)}
+												onClick={() =>
+													openProject(`collaboration/${collaboration.uid}`)
+												}
 												name={collaboration.title || "Untitled Collaboration"}
 												projectId={collaboration.uid}
 											/>
@@ -193,50 +268,25 @@ export const Sidebar: FC<{ children: ReactNode }> = ({ children }) => {
 								)}
 							</ScrollArea.Autosize>
 						</CategoryListItem>
-						{/* <hr className="my-5 border-baseBorder" />
-          <CategoryListItem name="Chats" button={true} /> */}
-						{/* <div
-            id="dropdown-cta"
-            className="p-4 mt-6 bg-blue-50  rounded-lg"
-            role="alert"
-          >
-            <div className="flex items-center mb-3">
-              <span className="bg-orange-100 text-orange-800 text-md font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">
-                Beta
-              </span>
-              <button
-                type="button"
-                className="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 inline-flex h-6 w-6 "
-                data-collapse-toggle="dropdown-cta"
-                aria-label="Close"
-              >
-                <span className="sr-only">Close</span>
-                <svg
-                  aria-hidden="true"
-                  className="w-4 h-4"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="#a8a29e"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-            <p className="mb-3 text-md text-blue-900 ">
-              This is a collaborative writing platform. You can invite other
-              users to collaborate with you on your story. You can also invite
-              them to collaborate on other stories. <br /> <br />
-              You can add collaborators to your story by clicking on the
-              "Collaborators" button in the toolbar.
-            </p>
-          </div> */}
+						<div className="mt-auto mb-4">
+							<CommunityListItem
+								name="Settings"
+								onClick={() => navigate("/settings")}
+							>
+								<IconSettings size={23} />
+							</CommunityListItem>
+							<CommunityListItem name="Help" onClick={() => navigate("/help")}>
+								<IconHelp size={23} />
+							</CommunityListItem>
+							<CommunityListItem name="Logout" onClick={handleSignOut}>
+								<IconLogout size={23} />
+							</CommunityListItem>
+						</div>
 					</div>
 				</aside>
-				{children}
+				<MainFrame>
+					<Outlet />
+				</MainFrame>
 			</div>
 		</UserLoader>
 	);

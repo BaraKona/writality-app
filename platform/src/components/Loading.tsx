@@ -1,18 +1,18 @@
 import { Loader } from "@mantine/core";
 import { FC, ReactNode } from "react";
 export const Loading: FC<{
-  children: ReactNode;
-  isLoading: boolean;
+	children?: ReactNode;
+	isLoading: boolean;
 }> = ({ children, isLoading }) => {
-  return (
-    <>
-      {isLoading ? (
-        <div className="flex justify-center py-[300px]">
-          <Loader variant="bars" color="gray" />
-        </div>
-      ) : (
-        <>{children}</>
-      )}
-    </>
-  );
+	return (
+		<>
+			{isLoading ? (
+				<div className="flex justify-center items-center h-[calc(100vh-48px)] bg-white rounded-t-md">
+					<Loader variant="bars" color="gray" />
+				</div>
+			) : (
+				<>{children}</>
+			)}
+		</>
+	);
 };

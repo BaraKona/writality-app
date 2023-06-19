@@ -23,7 +23,7 @@ export default function DashboardNavigation() {
 		});
 	};
 	return (
-		<div className="border-b border-baseBorder flex">
+		<div className=" flex">
 			<Menu
 				trigger="hover"
 				openDelay={100}
@@ -44,9 +44,7 @@ export default function DashboardNavigation() {
 								height={30}
 								className="inline-block"
 							/>
-							<h1 className="font-bold px-2 text-lg text-slate-200">
-								Writality
-							</h1>
+							<h1 className="font-semibold px-2 text-base">Writality</h1>
 						</div>
 					</Link>
 				</div>

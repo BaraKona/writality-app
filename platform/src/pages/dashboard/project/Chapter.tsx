@@ -58,6 +58,9 @@ import SubScript from "@tiptap/extension-subscript";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 import CharacterCount from "@tiptap/extension-character-count";
+import { ChapterBranchMenu } from "../../../components/Chapters/branch/ChapterBranchMenu";
+import { ChapterVersionMenu } from "../../../components/Chapters/version/ChapterVersionMenu";
+import { ChapterHistoryMenu } from "../../../components/Chapters/history/ChapterHistoryMenu";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -117,7 +120,7 @@ export const Chapter = () => {
 			onSuccess: () => {
 				queryClient.invalidateQueries(["chapterBranches", chapter as string]);
 				setOpenDeleteBranch(false);
-				navigate(`/dashboard/project/${project}/chapter/${chapter}`);
+				navigate(`/project/${project}/chapter/${chapter}`);
 			},
 		}
 	);
@@ -212,11 +215,7 @@ export const Chapter = () => {
 	});
 
 	if ((branch && !currentBranch) || !chapterContent || !editor)
-		return (
-			<div className="w-full h-full grid place-items-center">
-				<Loading isLoading={true}> </Loading>
-			</div>
-		);
+		return <Loading isLoading={true}> </Loading>;
 	return (
 		<>
 			<CreateBranchModal
@@ -286,18 +285,7 @@ export const Chapter = () => {
 				editor={editor}
 			/>
 			<EditorWrapper
-				backToProject={() => navigate(`/dashboard/project/${project}`)}
-				createVersion={() =>
-					createChapterVersion.mutate(
-						versionCreator(
-							chapterContent,
-							currentUser.uid,
-							chapterVersions,
-							text
-						)
-					)
-				}
-				openBranchModal={() => setOpened(true)}
+				backToProject={() => navigate(`/project/${project}`)}
 				save={
 					branch
 						? updateBranchMutation.mutate
@@ -316,8 +304,8 @@ export const Chapter = () => {
 						}
 					/>
 				)}
-				<div className="min-w-[350px] border-l flex flex-col gap-3 border-baseBorder px-5 hover:bg-baseColour">
-					<ChapterBranches
+				<div className="border-l flex flex-col gap-3 pl-3">
+					<ChapterBranchMenu
 						openMergeModal={() => setMergeOpened(true)}
 						chapterBranches={chapterBranches}
 						currentBranch={
@@ -326,18 +314,27 @@ export const Chapter = () => {
 						mainContent={chapterContent?.content}
 						setSearchParams={setSearchParams}
 						checkoutMain={() =>
-							navigate(`/dashboard/project/${project}/chapter/${chapter}`)
+							navigate(`/project/${project}/chapter/${chapter}`)
 						}
 						openDeleteBranch={setOpenDeleteBranch}
+						openBranchModal={() => setOpened(true)}
 					/>
-					<ChapterVersions
-						openMergeModal={() => setMergeOpened(true)}
+					<ChapterVersionMenu
 						chapterVersions={chapterVersions}
 						setOpen={setVersionModalOpen}
 						setVersion={setVersion}
+						createVersion={() =>
+							createChapterVersion.mutate(
+								versionCreator(
+									chapterContent,
+									currentUser.uid,
+									chapterVersions,
+									text
+								)
+							)
+						}
 					/>
-
-					<ChapterHistory history={chapterContent?.history} />
+					<ChapterHistoryMenu history={chapterContent?.history} />
 				</div>
 			</EditorWrapper>
 		</>

@@ -1,16 +1,12 @@
-import {
-	createBrowserRouter,
-	Link,
-	Navigate,
-	redirect,
-} from "react-router-dom";
+import { createBrowserRouter, redirect, RouteObject } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { Dashboard } from "./pages/Dashboard";
 import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
 import { io } from "socket.io-client";
 import { Sidebar } from "./components/Navigation";
 import { Chapter, Project } from "./pages/dashboard/project";
 import { PostsPage } from "./pages/dashboard/PostsPage";
+import { DashboardPage } from "./pages/dashboard/DashboardPage";
+import { Stories } from "./pages/dashboard/Stories";
 import {
 	Collaboration,
 	CollaborationChapter,
@@ -20,15 +16,58 @@ import { FourOFour } from "./pages/404";
 
 const socket = io(import.meta.env.VITE_API_URL);
 
-export const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <Home />,
-	},
+const dashboardRoutes: RouteObject[] = [
 	{
 		path: "*",
 		element: <FourOFour />,
 	},
+	{ path: "/", loader: () => redirect("/dashboard") },
+	{
+		path: "/dashboard",
+		element: <DashboardPage />,
+	},
+	{
+		path: "/stories",
+		element: <Stories />,
+	},
+	{
+		path: "/posts",
+		element: <PostsPage />,
+		errorElement: <Error />,
+	},
+	{
+		path: "/project/:project",
+		element: <Project />,
+		errorElement: <Error />,
+	},
+	{
+		path: "/project/:project/chapter/:chapter",
+		element: <Chapter />,
+		errorElement: <Error />,
+	},
+	{
+		path: "/collaboration/:collaborationId",
+		element: <Collaboration socket={socket} />,
+		errorElement: <Error />,
+	},
+	{
+		path: "/collaboration/:collaborationId/chapter/:chapterId",
+		element: <CollaborationChapter socket={socket} />,
+		errorElement: <Error />,
+	},
+];
+
+export const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <Sidebar />,
+		children: dashboardRoutes,
+	},
+]);
+
+export const publicRouter = createBrowserRouter([
+	{ path: "/", loader: () => redirect("/auth/login") },
+
 	{
 		path: "/auth/login",
 		element: <LoginPage />,
@@ -42,62 +81,6 @@ export const router = createBrowserRouter([
 	{
 		path: "/auth/reset",
 		element: <ResetPage />,
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard",
-		element: (
-			<Sidebar>
-				<Dashboard />
-			</Sidebar>
-		),
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard/posts",
-		element: (
-			<Sidebar>
-				<PostsPage />
-			</Sidebar>
-		),
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard/project/:project",
-		element: (
-			<div className="h-screen w-screen flex flex-col">
-				<Sidebar>
-					<Project />
-				</Sidebar>
-			</div>
-		),
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard/project/:project/chapter/:chapter",
-		element: (
-			<Sidebar>
-				<Chapter />
-			</Sidebar>
-		),
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard/collaboration/:collaborationId",
-		element: (
-			<Sidebar>
-				<Collaboration socket={socket} />
-			</Sidebar>
-		),
-		errorElement: <Error />,
-	},
-	{
-		path: "/dashboard/collaboration/:collaborationId/chapter/:chapterId",
-		element: (
-			<Sidebar>
-				<CollaborationChapter socket={socket} />
-			</Sidebar>
-		),
 		errorElement: <Error />,
 	},
 ]);

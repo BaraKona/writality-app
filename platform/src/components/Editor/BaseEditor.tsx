@@ -1,6 +1,6 @@
 import { RichTextEditor } from "@mantine/tiptap";
 import { FC } from "react";
-import { Button } from "@mantine/core";
+import { Button, Text } from "@mantine/core";
 import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons";
 import { BubbleMenu } from "@tiptap/react";
 export const BaseEditor: FC<{ editor: any; height: string }> = ({
@@ -33,10 +33,11 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 					flexDirection: "row",
 					justifyContent: "center",
 					alignItems: "center",
+					borderColor: "#e9ecef",
 				}}
 			>
 				{editor && (
-					<BubbleMenu editor={editor} className="bg-baseLight">
+					<BubbleMenu editor={editor} className="border-2 ">
 						<RichTextEditor.ControlsGroup>
 							<RichTextEditor.Bold />
 							<RichTextEditor.Italic />
@@ -45,20 +46,20 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 					</BubbleMenu>
 				)}
 				<RichTextEditor.ControlsGroup>
-					<p className="text-zinc-400">
-						{editor.storage.characterCount.words()} words{" "}
-					</p>
+					<Text color="dimmed" className=" text-sm font-semibold">
+						{editor.storage.characterCount.words()} words
+					</Text>
 				</RichTextEditor.ControlsGroup>
 				<RichTextEditor.ControlsGroup>
 					<button
 						onClick={() => editor?.chain().focus().undo().run()}
 						disabled={!editor?.can().undo()}
-						className="border border-zinc-700  rounded p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-zinc-700 hover:bg-opacity-40 "
+						className="border border-gray-200  rounded p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-gray-200 hover:bg-opacity-40 "
 					>
 						<IconArrowBackUp size={14} />
 					</button>
 					<button
-						className="border border-zinc-700  rounded p-[0.3rem] rounded-l-none cursor-pointer hover:bg-zinc-700 hover:bg-opacity-40 "
+						className="border border-gray-200  rounded p-[0.3rem] rounded-l-none cursor-pointer hover:bg-gray-200 hover:bg-opacity-40 "
 						onClick={() => editor?.chain().focus().redo().run()}
 						disabled={!editor?.can().redo()}
 					>
@@ -87,13 +88,13 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 					<RichTextEditor.Hr />
 					<RichTextEditor.BulletList />
 					<RichTextEditor.OrderedList />
-					<RichTextEditor.Subscript />
+					{/* <RichTextEditor.Subscript /> */}
 					<RichTextEditor.Superscript />
 				</RichTextEditor.ControlsGroup>
 
 				<RichTextEditor.ControlsGroup>
-					<RichTextEditor.Link />
-					<RichTextEditor.Unlink />
+					{/* <RichTextEditor.Link />
+					<RichTextEditor.Unlink /> */}
 					<RichTextEditor.ColorPicker
 						colors={[
 							"#25262b",
@@ -128,12 +129,12 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 			</RichTextEditor.Toolbar>
 
 			<RichTextEditor.Content
-				className="hover:bg-baseColour bg-transparent transition-all duration-300 ease-in-out"
+				className="transition-all duration-300 ease-in-out text-blueText"
 				style={{
 					overflowY: "auto",
 					height: height,
 					border: "none",
-					backgroundColor: "transparent",
+					backgroundColor: "white",
 					minWidth: "400px",
 				}}
 			/>

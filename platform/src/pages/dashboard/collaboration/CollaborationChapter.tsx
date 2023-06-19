@@ -56,6 +56,9 @@ import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 import CharacterCount from "@tiptap/extension-character-count";
 import { extensions } from "../../../components/Editor/utils/editorExtensions";
+import { ChapterBranchMenu } from "../../../components/Chapters/branch/ChapterBranchMenu";
+import { ChapterVersionMenu } from "../../../components/Chapters/version/ChapterVersionMenu";
+import { ChapterHistoryMenu } from "../../../components/Chapters/history/ChapterHistoryMenu";
 
 export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 	const [mergeOpened, setMergeOpened] = useState(false);
@@ -293,15 +296,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 				openAdvancedMerge={() => setAdvancedMergeModalOpen(true)}
 			/>
 			<EditorWrapper
-				backToProject={() =>
-					navigate(`/dashboard/collaboration/${collaborationId}`)
-				}
-				createVersion={() =>
-					createVersion.mutate(
-						versionCreator(chapter, currentUser.uid, versions, text)
-					)
-				}
-				openBranchModal={() => setOpened(true)}
+				backToProject={() => navigate(`/collaboration/${collaborationId}`)}
 				save={
 					branch
 						? updateBranchMutation.mutate
@@ -318,27 +313,30 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 						content={branchId ? branch?.content : chapter?.content.content}
 					/>
 				)}
-				<div className="w-[350px] flex flex-col gap-5 border-l border-baseBorder px-5">
-					<ChapterBranches
+				<div className="border-l flex flex-col gap-3 pl-3">
+					<ChapterBranchMenu
 						openMergeModal={() => setMergeOpened(true)}
 						chapterBranches={branches}
 						currentBranch={branch || chapter?.content}
 						mainContent={chapter?.content}
 						setSearchParams={setSearchParams}
 						checkoutMain={() =>
-							navigate(
-								`/dashboard/collaboration/${collaborationId}/chapter/${chapterId}`
-							)
+							navigate(`/collaboration/${collaborationId}/chapter/${chapterId}`)
 						}
 						openDeleteBranch={setOpenDeleteBranch}
+						openBranchModal={() => setOpened(true)}
 					/>
-					<ChapterVersions
-						openMergeModal={() => setMergeOpened(true)}
+					<ChapterVersionMenu
+						createVersion={() =>
+							createVersion.mutate(
+								versionCreator(chapter, currentUser.uid, versions, text)
+							)
+						}
 						chapterVersions={versions}
 						setOpen={setVersionModalOpen}
 						setVersion={setVersion}
 					/>
-					<ChapterHistory history={chapter?.history} />
+					<ChapterHistoryMenu history={chapter?.history} />
 				</div>
 			</EditorWrapper>
 		</>

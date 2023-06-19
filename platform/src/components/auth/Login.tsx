@@ -24,6 +24,7 @@ export default function Login() {
 				emailRef.current.value,
 				passwordRef.current.value
 			);
+			// navigate("/");
 			useToast("success", "Signed in successfully 😎");
 		} catch (error: unknown) {
 			useToast(
@@ -37,7 +38,7 @@ export default function Login() {
 		try {
 			await signInWithGoogle().then((loggedIn: boolean) => {
 				toast.success("Signed in successfully");
-				navigate("/dashboard/posts");
+				navigate("/");
 			});
 		} catch (error) {
 			console.log(error);

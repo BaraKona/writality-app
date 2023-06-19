@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Elsie+Swash+Caps&family=Fredericka+the+Great&family=Raleway:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&display=swap");
 :root {
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
@@ -18,7 +19,11 @@ body {
 	/* font-family: 'Fredericka the Great', cursive; */
 	/* font-family: 'Raleway', sans-serif; */
 	/* font-family: 'Elsie Swash Caps', cursive; */
-	font-family: "Cormorant Garamond", serif !important;
+	// font-family: "Cormorant Garamond", serif !important;
+	// font-family: "Arvo", serif !important;
+	// font-family: "Montserrat", sans-serif !important;
+	// font-family: "helvetica neue", helvetica, arial, sans-serif !important;
+	font-family: "Noto Sans JP", sans-serif !important;
 	font-size: 16px;
 	line-height: 24px;
 	font-weight: 400;
@@ -95,13 +100,13 @@ select:active {
 	margin: 0 auto;
 }
 *::-webkit-scrollbar {
-	width: 7px; /* width of the entire scrollbar */
+	width: 5px; /* width of the entire scrollbar */
 }
 *::-webkit-scrollbar-track {
-	background: #1b1c24; /* color of the tracking area */
+	background: #f2f2f2; /* color of the tracking area */
 }
 *::-webkit-scrollbar-thumb {
-	background-color: #36363b; /* color of the scroll thumb */
+	background-color: #525252; /* color of the scroll thumb */
 	border-radius: 20px; /* roundness of the scroll thumb */
-	border: 3px solid #36363b; /* creates padding around scroll thumb */
+	border: 3px solid #525252; /* creates padding around scroll thumb */
 }

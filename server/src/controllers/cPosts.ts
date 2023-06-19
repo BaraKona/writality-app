@@ -4,7 +4,6 @@ export const getPosts = async (req: any, res: any) => {
 	try {
 		const posts = await Posts.find({
 			limit: 25,
-			sort: { dateCreated: -1 },
 		});
 		res.status(200).json(posts);
 	} catch (error) {

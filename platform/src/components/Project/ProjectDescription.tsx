@@ -13,14 +13,14 @@ export const ProjectDescription: FC<{
 	}, [project]);
 
 	return (
-		<div className="flex flex-col flex-grow px-3 mx-auto w-80 border-r bg-baseMid border-baseBorder hover:bg-baseColour">
-			<div className="border-b border-baseBorder">
-				<h3 className="text-center font-semibold shadow-lg">
-					Project Description{" "}
+		<div className="flex flex-col flex-grow px-3 mx-auto w-80 bg-white">
+			<div className="">
+				<h3 className="text-center text-blueText font-medium text-sm">
+					Project Description
 				</h3>
 			</div>
 
-			<BaseEditor editor={editor} height="650px" />
+			<BaseEditor editor={editor} height="calc(100vh - 185px)" />
 			{user === project.owner && (
 				<>
 					{project.description !== editor.getHTML() && (

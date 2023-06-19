@@ -6,18 +6,19 @@ export const CommunityListItem: FC<{
 	onClick?: () => void;
 }> = ({ name, onClick, children }) => {
 	const { pathname } = useLocation();
+	const path = pathname?.split("/")[1];
 
 	return (
-		<li onClick={onClick} className="cursor-default">
+		<li onClick={onClick} className="cursor-default list-none">
 			<a
-				className={`ml-3 flex text-md font-normal rounded  ${
-					pathname.includes(name.toLowerCase())
-						? "text-purple-300 bg-baseColour border border-baseBorderDark"
-						: "text-stone-300"
-				} hover:bg-baseColour`}
+				className={`p-1.5 flex mb-1 text-sm font-medium rounded-md  ${
+					path.includes(name.toLowerCase())
+						? "text-lack bg-white font-medium"
+						: "text-blueText"
+				} hover:bg-white`}
 			>
 				{children}
-				<span className={`ml-3 `}>{name}</span>
+				<span className={`ml-2 `}>{name}</span>
 			</a>
 		</li>
 	);

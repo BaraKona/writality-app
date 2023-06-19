@@ -6,9 +6,11 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { MantineProvider } from "@mantine/core";
 import { router } from "./router";
+import { TabContextWrapper } from "./contexts/TabContext";
 import { UserLoader } from "./UserLoader";
 import "./App.scss";
 import { Toaster } from "react-hot-toast";
+import { AuthenticatedApp } from "./AuthenticatedApp";
 import { Analytics } from "@vercel/analytics/react";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -17,16 +19,16 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 			<MantineProvider
 				theme={{
 					colorScheme: "dark",
-					fontFamily: "Cormorant Garamond, serif",
+					// fontFamily: "Noto Sans JP, sans-serif",
 				}}
 			>
 				<AuthContextWrapper>
+					<AuthenticatedApp />
 					{/* <UserLoader> */}
-					<RouterProvider router={router} />
 					<Analytics />
 					{/* </UserLoader> */}
 				</AuthContextWrapper>
-				<ReactQueryDevtools initialIsOpen={false} position="bottom-left" />
+				<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
 				<Toaster position="top-center" />
 			</MantineProvider>
 		</QueryClientProvider>
