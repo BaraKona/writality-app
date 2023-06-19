@@ -213,7 +213,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 								name="Posts"
 								onClick={() => openPages("posts")}
 							>
-								{/* <FcRules size={23} /> */}
+								<IconTemplate size={23} />
 							</CommunityListItem>
 							<CommunityListItem
 								name="Stories"
@@ -222,7 +222,6 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 								<IconBooks size={23} />
 							</CommunityListItem>
 						</CategoryListItem>
-						<hr className="my-5 border-baseBorder" />
 						<CategoryListItem
 							mt="mt-8 mb-3"
 							name="Your Projects"
@@ -243,7 +242,6 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 								})}
 							</ScrollArea.Autosize>
 						</CategoryListItem>
-						<hr className="my-5 border-baseBorder" />
 						<CategoryListItem
 							mt="mt-8 mb-3"
 							name="Collaborations"
