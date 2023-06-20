@@ -304,6 +304,7 @@ export const CollaborationChapter: FC<{ socket: any }> = ({ socket }) => {
 				}
 				content={branch || chapter?.content}
 				title={chapter?.title}
+				updateChapterTitle={() => {}}
 			>
 				{editor && (
 					<ChapterEditorController
