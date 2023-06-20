@@ -1,20 +1,18 @@
 import { FC, ReactNode } from "react";
 import { CreateChapterButton } from "../buttons";
 import { Divider } from "@mantine/core";
-import { IconFilePlus, IconFiles } from "@tabler/icons";
+import { IconBook, IconFilePlus, IconFiles } from "@tabler/icons";
 
 export const ChapterWrapper: FC<{
 	children: ReactNode;
-	chapterCount: number;
+	title: string;
 	createNewChapter: () => void;
-}> = ({ children, chapterCount, createNewChapter }) => {
+}> = ({ children, createNewChapter, title }) => {
 	return (
 		<div className="flex flex-col bg-white px-7 h-[calc(100vh-48px)] gap-2 rounded-t-md">
 			<div className=" flex font-medium gap-2 bg-white text-blueText pt-6 items-center">
-				<IconFiles size={20} />
-				<h3 className=" flex text-sm gap-2">
-					Chapters <span className=" ml-2">{chapterCount}</span>
-				</h3>
+				<IconBook size={20} />
+				<h3 className=" flex text-sm gap-2">{title}</h3>
 				<div className="ml-auto">
 					<CreateChapterButton
 						createNewChapter={createNewChapter}

@@ -129,8 +129,8 @@ export function Project() {
 				<NoChapters createNewChapter={createNewChapter} />
 			) : (
 				<ChapterWrapper
+					title={currentProject?.title}
 					createNewChapter={createNewChapter}
-					chapterCount={chapters?.length}
 				>
 					<Tabs
 						className="w-full border-none important:border-none"
@@ -160,7 +160,7 @@ export function Project() {
 
 						<Tabs.Panel value="home">
 							<div className="flex flex-wrap">
-								<ChapterRenderer>
+								<ChapterRenderer chapterCount={chapters?.length}>
 									{chapters?.map((chapter: IChapter, index: number) => (
 										<Chapter
 											openChapter={() =>

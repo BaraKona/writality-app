@@ -247,7 +247,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 			) : (
 				<ChapterWrapper
 					createNewChapter={createNewChapter}
-					chapterCount={chapters?.length}
+					title={collaboration?.title}
 				>
 					<Tabs
 						className="w-full"
@@ -272,7 +272,7 @@ export const Collaboration: FC<{ socket: any }> = ({ socket }) => {
 						<Tabs.Panel value="home">
 							<div className="flex flex-wrap">
 								<div className=" w-full md:flex ">
-									<ChapterRenderer>
+									<ChapterRenderer chapterCount={chapters?.length}>
 										{chapters?.map((chapter: IChapter, index: number) => (
 											<Chapter
 												openChapter={() => openChapter(chapter.uid)}
