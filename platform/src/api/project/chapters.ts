@@ -134,3 +134,22 @@ export const mergeReplaceMain = async (
 		useToast("error", "something went wrong 😖");
 	}
 };
+
+export const updateChapterTitle = async (
+	userId: string,
+	projectId: string,
+	chapterId: string,
+	title: string
+) => {
+	try {
+		const { data } = await chapterApi.put(
+			`/title/${userId}/${projectId}/${chapterId}`,
+			{ title }
+		);
+		useToast("success", "Chapter title updated successfully 😃");
+		return data;
+	} catch (err: any) {
+		console.log(err);
+		useToast("error", "something went wrong 😖");
+	}
+};

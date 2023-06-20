@@ -1,55 +1,55 @@
-import { FC, ReactNode } from "react";
-import { CgClose, CgChevronUpR, CgChevronDownR } from "react-icons/cg";
-import { VscSourceControl, VscVersions } from "react-icons/vsc";
-import { AiFillSave } from "react-icons/ai";
+import { FC, ReactNode, useState } from "react";
+import { CgClose } from "react-icons/cg";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
-import {
-	IconDeviceFloppy,
-	IconFileText,
-	IconGitBranch,
-	IconVersions,
-} from "@tabler/icons";
-import { Divider, Text, Tooltip } from "@mantine/core";
+import { IconDeviceFloppy, IconFileText } from "@tabler/icons";
+import { Divider, Input, Text, TextInput, Tooltip } from "@mantine/core";
 
 export const EditorWrapper: FC<{
 	children: ReactNode;
 	backToProject: () => void;
 	content: IChapterVersion;
 	save: () => void;
+	updateChapterTitle: (title: string) => void;
 	title: string;
-}> = ({ children, backToProject, content, save, title }) => {
+}> = ({
+	children,
+	backToProject,
+	content,
+	save,
+	title,
+	updateChapterTitle,
+}) => {
+	const [text, setText] = useState("");
 	return (
 		<div className="w-[calc(100vw-12rem)] flex flex-col bg-white rounded-t-md gap-2 pt-4 px-7 ">
-			<div className=" flex   ">
+			<div className="flex">
 				<button onClick={backToProject}>
 					<CgClose size={18} className="text-blueText hover:text-black" />
 				</button>
-				{/* <button className="p-2 rounded bg-baseLight ml-2 mr-1">
-					<CgChevronUpR size={20} className="text-blueText hover:text-black" />
-				</button>
-				<button className="p-2 rounded bg-baseLight ">
-					<CgChevronDownR
-						size={20}
-						className="text-blueText hover:text-black"
-					/>
-				</button> */}
 				<div className="align-middle mx-2 my-auto text-sm text-blueText flex gap-2">
 					<IconFileText size={20} />
-					<div>
-						<abbr
-							className="text-blue-300 mr-1"
-							title={`You are on ${
-								content?.type ? content?.type.toUpperCase() : ""
-							}`}
-						>
+					<div className={`flex `}>
+						<div className="text-blue-300 mr-1">
 							[
 							{content?.type
 								? content.type.charAt(0).toUpperCase() + content.type.slice(1)
 								: ""}
 							{content?.name ? ` - ${content.name}` : ""}]
-						</abbr>
-						{title}
+						</div>
+						<input
+							type="text"
+							onChange={(e) => updateChapterTitle(e.target.value)}
+							// make input width dynamic based on text length
+							value={title}
+							placeholder={title}
+							style={{
+								width: text.length > 0 ? `${text.length}ch` : "6rem",
+							}}
+							className={
+								"text-blueText font-medium text-sm p-0 bg-transparent border-none focus:ring-0"
+							}
+						/>
 					</div>
 				</div>
 				<Text
@@ -60,22 +60,7 @@ export const EditorWrapper: FC<{
 						? "Last updated: " + useTimeFromNow(content.dateUpdated.date + "")
 						: "No updates yet"}
 				</Text>
-				{/* <button className="p-2 ml-2 rounded-sm" onClick={openBranchModal}>
-					<abbr title="Create Branch">
-						<IconGitBranch
-							size={20}
-							className="text-blueText hover:text-black"
-						/>
-					</abbr>
-				</button>
-				<button className="p-2 rounded-sm" onClick={createVersion}>
-					<abbr title="Create Version">
-						<IconVersions
-							size={20}
-							className="text-blueText hover:text-black"
-						/>
-					</abbr>
-				</button> */}
+
 				<div className="border-l border-gray-200 group" onClick={save}>
 					<Tooltip label="Save" position="left" withArrow>
 						<div className="ml-3 p-2 border rounded-md ">

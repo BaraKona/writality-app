@@ -17,6 +17,7 @@ import {
 	updateChapterContent,
 	mergePositionMain,
 	mergeReplaceMain,
+	updateChapterTitle,
 } from "../../../api/project/chapters";
 import {
 	createVersion,
@@ -61,6 +62,7 @@ import CharacterCount from "@tiptap/extension-character-count";
 import { ChapterBranchMenu } from "../../../components/Chapters/branch/ChapterBranchMenu";
 import { ChapterVersionMenu } from "../../../components/Chapters/version/ChapterVersionMenu";
 import { ChapterHistoryMenu } from "../../../components/Chapters/history/ChapterHistoryMenu";
+import { ChapterSettingsMenu } from "../../../components/Chapters/settings/ChapterSettingsMenu";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -210,6 +212,22 @@ export const Chapter = () => {
 			},
 		}
 	);
+
+	const updateChapterTitleMutation = useMutation(
+		(title: string) =>
+			updateChapterTitle(
+				currentUser.uid,
+				project as string,
+				chapter as string,
+				title || chapterContent?.title || ""
+			),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(["chapter", chapter as string]);
+			},
+		}
+	);
+
 	const editor = useEditor({
 		extensions,
 	});
@@ -293,6 +311,7 @@ export const Chapter = () => {
 				}
 				content={currentBranch ? currentBranch : chapterContent?.content}
 				title={chapterContent?.title}
+				updateChapterTitle={updateChapterTitleMutation.mutate}
 			>
 				{editor && (
 					<ChapterEditorController
@@ -335,6 +354,7 @@ export const Chapter = () => {
 						}
 					/>
 					<ChapterHistoryMenu history={chapterContent?.history} />
+					<ChapterSettingsMenu />
 				</div>
 			</EditorWrapper>
 		</>

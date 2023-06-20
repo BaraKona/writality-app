@@ -53,6 +53,11 @@ a {
 		background-color: #f2f2f2 !important;
 	}
 }
+textarea:focus,
+input:focus,
+input:active {
+	outline: none;
+}
 .ql-container.ql-snow {
 	border: none !important;
 }

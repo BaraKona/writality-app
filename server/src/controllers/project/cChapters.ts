@@ -176,3 +176,32 @@ export const mergeReplaceMain = async (req: any, res: any) => {
 		res.status(404).json({ message: error.message });
 	}
 };
+
+export const updateChapterTitle = async (req: any, res: any) => {
+	const { userId, chapterId, projectId } = req.params;
+	const { title } = req.body;
+	try {
+		const chapter = await Chapter.findOne({
+			uid: chapterId,
+			projectId,
+			owner: userId,
+		});
+		chapter.title = title;
+		// Add to changed title to chapter history
+		chapter.history.push({
+			date: new Date(),
+			user: userId,
+			action: "title changed",
+		});
+
+		chapter.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+		await chapter.save();
+		res.status(200).json(chapter);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
