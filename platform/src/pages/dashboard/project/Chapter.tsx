@@ -7,11 +7,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { Loading } from "../../../components/Loading";
 import { CreateBranchModal } from "../../../components/Modals/CreateBranchModal";
-import {
-	ChapterBranches,
-	ChapterVersions,
-	ChapterHistory,
-} from "../../../components/Chapters";
+
 import {
 	getSingleChapter,
 	updateChapterContent,
@@ -47,18 +43,8 @@ import {
 	useAppendHistory,
 } from "../../../hooks";
 
-import { RichTextEditor, Link } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../../../components/Editor/utils/editorExtensions";
-import Highlight from "@tiptap/extension-highlight";
-import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
-import TextAlign from "@tiptap/extension-text-align";
-import Superscript from "@tiptap/extension-superscript";
-import SubScript from "@tiptap/extension-subscript";
-import TextStyle from "@tiptap/extension-text-style";
-import Color from "@tiptap/extension-color";
-import CharacterCount from "@tiptap/extension-character-count";
 import { ChapterBranchMenu } from "../../../components/Chapters/branch/ChapterBranchMenu";
 import { ChapterVersionMenu } from "../../../components/Chapters/version/ChapterVersionMenu";
 import { ChapterHistoryMenu } from "../../../components/Chapters/history/ChapterHistoryMenu";

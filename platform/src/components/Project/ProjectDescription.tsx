@@ -20,7 +20,7 @@ export const ProjectDescription: FC<{
 				</h3>
 			</div>
 
-			<BaseEditor editor={editor} height="calc(100vh - 185px)" />
+			<BaseEditor editor={editor} height="calc(100vh - 192px)" />
 			{user === project.owner && (
 				<>
 					{project.description !== editor.getHTML() && (

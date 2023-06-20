@@ -6,11 +6,12 @@ export const CreateButton: FC<{
 	createNewChapter: () => void;
 	text: string;
 	icon: JSX.Element;
-}> = ({ createNewChapter, text, icon }) => {
+	iconColour?: string;
+}> = ({ createNewChapter, text, icon, iconColour }) => {
 	return (
 		<button
 			onClick={createNewChapter}
-			className="text-blueText font-medium text-sm px-2 flex cursor-pointer items-center gap-1 group"
+			className="text-blueText font-medium text-sm flex cursor-pointer items-center gap-1 group hover:text-black hover:bg-gray-100 rounded-md py-1 px-3"
 		>
 			<span className="group-hover:text-black">{icon}</span>
 			{text}

@@ -20,7 +20,6 @@ export const EditorWrapper: FC<{
 	title,
 	updateChapterTitle,
 }) => {
-	const [text, setText] = useState("");
 	return (
 		<div className="w-[calc(100vw-12rem)] flex flex-col bg-white rounded-t-md gap-2 pt-4 px-7 ">
 			<div className="flex">
@@ -39,13 +38,16 @@ export const EditorWrapper: FC<{
 						</div>
 						<input
 							type="text"
-							onChange={(e) => updateChapterTitle(e.target.value)}
-							// make input width dynamic based on text length
-							value={title}
+							onBlur={(e) =>
+								title !== e.target.value
+									? updateChapterTitle(e.target.value)
+									: null
+							}
 							placeholder={title}
 							style={{
-								width: text.length > 0 ? `${text.length}ch` : "6rem",
+								width: title.length > 0 ? `${title.length}ch` : "10rem",
 							}}
+							defaultValue={title}
 							className={
 								"text-blueText font-medium text-sm p-0 bg-transparent border-none focus:ring-0"
 							}

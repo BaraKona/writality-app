@@ -19,9 +19,9 @@ export const PostHeader: FC<{
 }> = ({ children, title, openModal }) => {
 	return (
 		<div className=" w-full overflow-y-auto bg-white rounded-t-md text-blueText ">
-			<div className="px-7  pt-6">
+			<div className="px-7 pb-3 pt-6">
 				<div className="relative flex w-full items-center">
-					<h2 className="mr-auto text-sm font-medium flex gap-2 pb-3">
+					<h2 className="mr-auto text-sm font-medium flex gap-2 ">
 						<IconCards size={20} /> Browse posts
 					</h2>
 					<div className=" ml-auto flex cursor-pointer">

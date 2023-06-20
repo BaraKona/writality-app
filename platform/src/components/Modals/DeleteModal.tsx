@@ -7,6 +7,8 @@ import {
 } from "@mantine/core";
 import React, { FC } from "react";
 import { IconTrash } from "@tabler/icons";
+import { CreateChapterButton } from "../buttons";
+import { CancelButton } from "../buttons/CancelButton";
 export const DeleteModal: FC<{
 	opened: boolean;
 	setOpened: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,21 +22,22 @@ export const DeleteModal: FC<{
 				size="lg"
 				opened={opened}
 				overlayProps={{
-					color:
-						theme.colorScheme === "dark"
-							? theme.colors.dark[9]
-							: theme.colors.gray[2],
 					opacity: 0.55,
 					blur: 3,
 				}}
+				className="text-blueText text-sm"
 				styles={{
 					content: {
-						background: theme.colorScheme === "dark" ? "#191a23" : "#fff",
-						border: "1px solid #363130",
+						background: "white",
+						border: "1px solid gray",
+						color: "#394251",
 					},
 					header: {
-						background: theme.colorScheme === "dark" ? "#191a23" : "#fff",
-						borderBottom: "1px solid #363130",
+						background: "white",
+						borderBottom: "none",
+					},
+					title: {
+						color: "#394251",
 					},
 				}}
 				scrollAreaComponent={Modal.NativeScrollArea}
@@ -56,18 +59,14 @@ export const DeleteModal: FC<{
 							</>
 						))}
 				</p>
-				<div className="mt-5">
-					<Button
-						variant="light"
-						color="red"
-						leftIcon={<IconTrash size={14} />}
-						onClick={deleteBranch}
-					>
-						Delete
-					</Button>
-					<Button color="gray" onClick={() => setOpened(false)}>
-						Cancel
-					</Button>
+				<div className="mt-5 flex gap-2">
+					<CreateChapterButton
+						text="Delete"
+						iconColour="red-500"
+						icon={<IconTrash size={14} />}
+						createNewChapter={deleteBranch}
+					/>
+					<CancelButton onClick={() => setOpened(false)} />
 				</div>
 			</Modal>
 		</>
