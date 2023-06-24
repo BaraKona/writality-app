@@ -7,10 +7,6 @@ import { Chapter, Project } from "./pages/dashboard/project";
 import { PostsPage } from "./pages/dashboard/PostsPage";
 import { DashboardPage } from "./pages/dashboard/DashboardPage";
 import { Stories } from "./pages/dashboard/Stories";
-import {
-	Collaboration,
-	CollaborationChapter,
-} from "./pages/dashboard/collaboration";
 import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
 
@@ -43,16 +39,6 @@ const dashboardRoutes: RouteObject[] = [
 	{
 		path: "/project/:project/chapter/:chapter",
 		element: <Chapter />,
-		errorElement: <Error />,
-	},
-	{
-		path: "/collaboration/:collaborationId",
-		element: <Collaboration socket={socket} />,
-		errorElement: <Error />,
-	},
-	{
-		path: "/collaboration/:collaborationId/chapter/:chapterId",
-		element: <CollaborationChapter socket={socket} />,
 		errorElement: <Error />,
 	},
 ];
