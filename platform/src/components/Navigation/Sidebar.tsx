@@ -109,71 +109,46 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 			queryClient.invalidateQueries(["projects", currentUser.uid]);
 			useToast("success", "Project created successfully! 🎉");
 		},
+		onError: (error: Error) => {
+			useToast("error", error?.message);
+		},
 	});
 
-	const createAProject = () => {
-		const project: IProject = {
-			type: "main",
-			uid: uuidv4(),
-			owner: currentUser.uid,
-			title: "New Project",
-			description:
-				"<p>A brief description of the story. You can also add a link to the story or general information about the story and/or updates...</p>",
-			dateCreated: {
-				user: currentUser.uid,
-				date: new Date(),
-			},
-		};
+	// const createACollaboration = () => {
+	// 	const project: IProject = {
+	// 		uid: uuidv4(),
+	// 		owner: currentUser.uid,
+	// 		title: "New Collaboration",
+	// 		description:
+	// 			"A brief description of the story. You can also add a link to the story or general information about the story and/or updates",
+	// 		dateCreated: {
+	// 			user: currentUser.uid,
+	// 			date: new Date(),
+	// 		},
+	// 		type: "collaboration",
+	// 	};
 
-		const numberOfProjects = projects?.filter(
-			(project: IProject) => project.owner === currentUser.uid
-		);
-
-		if (numberOfProjects && numberOfProjects.length >= 3) {
-			useToast(
-				"error",
-				"You can only have 3 projects. Try not to spread yourself too thin. ⚡"
-			);
-			return;
-		}
-		addProject.mutate(project);
-	};
-
-	const createACollaboration = () => {
-		const project: IProject = {
-			uid: uuidv4(),
-			owner: currentUser.uid,
-			title: "New Collaboration",
-			description:
-				"A brief description of the story. You can also add a link to the story or general information about the story and/or updates",
-			dateCreated: {
-				user: currentUser.uid,
-				date: new Date(),
-			},
-			type: "collaboration",
-		};
-
-		const numberOfProjects = collaboration?.filter(
-			(project: IProject) => project.owner == currentUser.uid
-		);
-		if (numberOfProjects.length >= 3) {
-			useToast(
-				"error",
-				"You can only have 3 collaborations. Try not to spread yourself too thin. ⚡"
-			);
-			return;
-		} else {
-			addCollaboration.mutate(project);
-		}
-	};
-	type tabs = {
-		userId: string;
-		tabs: {
-			id: string;
-			title: string;
-			path: string;
-		}[];
-	};
+	// 	const numberOfProjects = collaboration?.filter(
+	// 		(project: IProject) => project.owner == currentUser.uid
+	// 	);
+	// 	if (numberOfProjects.length >= 3) {
+	// 		useToast(
+	// 			"error",
+	// 			"You can only have 3 collaborations. Try not to spread yourself too thin. ⚡"
+	// 		);
+	// 		return;
+	// 	} else {
+	// 		addCollaboration.mutate(project);
+	// 	}
+	// };
+	// type tabs = {
+	// 	userId: string;
+	// 	tabs: {
+	// 		id: string;
+	// 		title: string;
+	// 		path: string;
+	// 	}[];
+	// };
 
 	const openProject = (route: string) => {
 		navigate(route);
@@ -226,10 +201,10 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 							mt="mt-8 mb-3"
 							name="Your Projects"
 							button={true}
-							onClick={createAProject}
+							onClick={() => addProject.mutate(currentUser.uid)}
 							loading={projectsLoading}
 						>
-							<ScrollArea.Autosize mah={178} offsetScrollbars scrollbarSize={6}>
+							<ScrollArea.Autosize mah={350} offsetScrollbars scrollbarSize={6}>
 								{projects?.map((project: IProject, index: number) => {
 									return (
 										<ProjectListItem
@@ -237,12 +212,13 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 											onClick={() => openProject(`project/${project.uid}`)}
 											name={project.title || "Untitled Project"}
 											projectId={project.uid}
+											type={project.type}
 										/>
 									);
 								})}
 							</ScrollArea.Autosize>
 						</CategoryListItem>
-						<CategoryListItem
+						{/* <CategoryListItem
 							mt="mt-8 mb-3"
 							name="Collaborations"
 							button={true}
@@ -265,7 +241,7 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 									}
 								)}
 							</ScrollArea.Autosize>
-						</CategoryListItem>
+						</CategoryListItem> */}
 						<div className="mt-auto mb-4">
 							<CommunityListItem
 								name="Settings"

@@ -13,9 +13,9 @@ export const CommunityListItem: FC<{
 			<a
 				className={`p-1.5 flex mb-1 text-sm font-medium rounded-md  ${
 					path.includes(name.toLowerCase())
-						? "text-lack bg-white font-medium"
+						? "text-black bg-white font-medium"
 						: "text-blueText"
-				} hover:bg-white`}
+				} hover:bg-white `}
 			>
 				{children}
 				<span className={`ml-2 `}>{name}</span>

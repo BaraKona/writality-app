@@ -13,9 +13,16 @@ const createProject = (project: any) => {
 				user: project.owner,
 				date: new Date().toLocaleString("en-GB"),
 			},
-			type: "solitary",
+			type: "standard",
+			collaborators: [
+				{
+					uid: project.owner,
+					dateAdded: new Date().toLocaleString("en-GB"),
+					role: "owner",
+					active: true,
+				},
+			],
 		};
-		console.log(data);
 		axios.post(import.meta.env.VITE_API_URL + "/projects", data);
 	};
 	return createProject();

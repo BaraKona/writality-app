@@ -26,7 +26,6 @@ export const getProjectChapters = async (userId: string, projectId: string) => {
 		const { data } = await chapterApi.get(`${userId}/${projectId}`);
 		return data;
 	} catch (err: any) {
-		console.log(err);
 		useToast("error", "You have no chapters yet 😅");
 		return [];
 	}

@@ -22,11 +22,10 @@ export const MainFrame: FC<{
 	const { setTabs, tabs } = useTabContext();
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { project, collaborationId, chapter } = useParams();
-	const pathname =
-		project || collaborationId
-			? location.pathname.split("/")[1] + "/" + (project || collaborationId)
-			: location.pathname.split("/")[1];
+	const { project, chapter } = useParams();
+	const pathname = project
+		? location.pathname.split("/")[1] + "/" + project
+		: location.pathname.split("/")[1];
 
 	const tab = tabs.find((tab) => tab.id === pathname);
 
@@ -64,8 +63,6 @@ export const MainFrame: FC<{
 		]);
 	}
 
-	if (pathname === "project" || pathname === "collaboration") {
-	}
 	const tabIcons = [
 		{
 			title: "Dashboard",
@@ -111,7 +108,7 @@ export const MainFrame: FC<{
 	return (
 		<div className="w-[calc(100vw-12rem)]">
 			<div className="mt-3 flex overflow-x-auto w-[calc(100vw-200px)]">
-				{tabs.map((tab, index) => (
+				{tabs.map((tab) => (
 					<div
 						key={tab.id}
 						className={` ${

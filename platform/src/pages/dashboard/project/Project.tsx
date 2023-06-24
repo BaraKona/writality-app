@@ -30,6 +30,10 @@ import { Tabs } from "@mantine/core";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../../../components/Editor/utils/editorExtensions";
 import { useTabContext } from "../../../contexts/TabContext";
+import { ProjectSettings } from "../../../components/Project/ProjectSettings";
+import { CreateChapterButton } from "../../../components/buttons";
+import { IconTrash } from "@tabler/icons";
+import { IProject } from "../../../interfaces/IProject";
 
 export function Project() {
 	const queryClient = useQueryClient();
@@ -74,15 +78,6 @@ export function Project() {
 			},
 		}
 	);
-	const updateTitle = useMutation(
-		(title: string) =>
-			updateProjectTitle(currentUser.uid, project as string, title),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(["project", project]);
-			},
-		}
-	);
 	const updateDescription = useMutation(
 		(description: string) =>
 			updateProjectDescription(currentUser.uid, project as string, description),
@@ -100,6 +95,21 @@ export function Project() {
 		addChapter.mutate(chapterCreator(currentUser.uid, project as string));
 	};
 
+	const updateProjectTitleMutation = useMutation(
+		(title: string) =>
+			updateProjectTitle(
+				currentUser.uid,
+				project as string,
+				title || currentProject?.title
+			),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(["project", project as string]);
+				queryClient.invalidateQueries(["projects", currentUser.uid]);
+			},
+		}
+	);
+
 	const openChapter = (projectId: string, chapterId: string) => {
 		navigate(`/project/${projectId}/chapter/${chapterId}`);
 	};
@@ -108,8 +118,8 @@ export function Project() {
 		extensions,
 	});
 
-	if (isLoading || !editor) {
-		return <Loading isLoading={true}> </Loading>;
+	if (isLoading || !editor || !currentProject) {
+		return <Loading isLoading={true} />;
 	}
 	return (
 		<>
@@ -129,8 +139,10 @@ export function Project() {
 				<NoChapters createNewChapter={createNewChapter} />
 			) : (
 				<ChapterWrapper
-					title={currentProject?.title}
+					title={currentProject.title}
+					type={currentProject.type}
 					createNewChapter={createNewChapter}
+					updateProjectTitle={updateProjectTitleMutation.mutate}
 				>
 					<Tabs
 						className="w-full border-none important:border-none"
@@ -156,6 +168,9 @@ export function Project() {
 							<Tabs.Tab value="publish" disabled>
 								Publish
 							</Tabs.Tab>
+							{currentProject?.type === "collaboration" && (
+								<Tabs.Tab value="chat">Chat</Tabs.Tab>
+							)}
 						</Tabs.List>
 
 						<Tabs.Panel value="home">
@@ -189,7 +204,14 @@ export function Project() {
 							<CharacterWrapper> - Protagonist </CharacterWrapper>
 						</Tabs.Panel>
 
-						<Tabs.Panel value="settings">Settings tab content</Tabs.Panel>
+						<Tabs.Panel value="settings">
+							Delete Project
+							<CreateChapterButton
+								createNewChapter={() => setOpenDeleteProject(true)}
+								text="Delete Project"
+								icon={<IconTrash size={20} />}
+							/>
+						</Tabs.Panel>
 					</Tabs>
 				</ChapterWrapper>
 			)}

@@ -1,24 +1,26 @@
-import { IconBook, IconBook2 } from "@tabler/icons";
+import { IconBook, IconBook2, IconUsers } from "@tabler/icons";
 import React, { FC } from "react";
-import { AiFillFolder, AiFillFolderOpen } from "react-icons/ai";
+import { HiOutlineUserGroup, HiUserGroup } from "react-icons/hi";
 import { useParams } from "react-router-dom";
+import { IconRenderer } from "../IconRenderer";
 
 export const ProjectListItem: FC<{
 	name: string;
 	projectId?: string;
 	onClick?: () => void;
-}> = ({ name, onClick, projectId }) => {
-	const { project, collaborationId } = useParams();
+	type: "standard" | "collaboration";
+}> = ({ name, onClick, projectId, type }) => {
+	const { project } = useParams();
 
 	return (
 		<>
-			{projectId === project || projectId === collaborationId ? (
+			{projectId === project ? (
 				<li
 					onClick={onClick}
-					className="p-1.5 flex mb-1 text-sm font-medium bg-white hover:bg-white cursor-default rounded-md "
+					className="p-1.5 flex mb-1 text-xs font-medium bg-white hover:bg-white cursor-default rounded-md "
 				>
-					<a className=" flex text-black">
-						<IconBook size={23} />
+					<a className=" flex text-black items-center">
+						<IconRenderer type={type} open={true} />
 						<span className="ml-2 whitespace-nowrap w-28 text-ellipsis overflow-hidden">
 							{name}
 						</span>
@@ -27,10 +29,10 @@ export const ProjectListItem: FC<{
 			) : (
 				<li
 					onClick={onClick}
-					className="p-1.5 flex mb-1 text-sm font-medium rounded-md hover:bg-white cursor-default "
+					className="p-1.5 flex mb-1 text-xs font-medium rounded-md hover:bg-white cursor-default "
 				>
-					<a className=" flex text-blueText">
-						<IconBook2 size={23} />
+					<a className=" flex text-blueText items-center">
+						<IconRenderer type={type} open={false} />
 						<span className="ml-2 whitespace-nowrap w-28 text-ellipsis overflow-hidden">
 							{name}
 						</span>

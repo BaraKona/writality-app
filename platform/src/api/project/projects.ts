@@ -20,8 +20,8 @@ export const getUserProjects = async (userId: string) => {
 	}
 };
 
-export const createProject = async (project: IProject) => {
-	const { data } = await projectApi.post("/", project);
+export const createProject = async (userId: string) => {
+	const { data } = await projectApi.post("/", { userId });
 	return data;
 };
 

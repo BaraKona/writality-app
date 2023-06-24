@@ -47,21 +47,20 @@ export const AdvancedMergeModal: FC<{
 				opened={opened}
 				closeOnClickOutside={false}
 				overlayProps={{
-					color:
-						theme.colorScheme === "dark"
-							? theme.colors.dark[9]
-							: theme.colors.gray[2],
 					opacity: 0.55,
 					blur: 3,
 				}}
 				styles={{
 					content: {
-						background: theme.colorScheme === "dark" ? "#191a23" : "#fff",
-						border: "1px solid #363130",
+						background: "#fff",
+						border: "1px solid #394251",
 					},
 					header: {
-						background: theme.colorScheme === "dark" ? "#191a23" : "#fff",
-						borderBottom: "1px solid #363130",
+						background: "#fff",
+						borderBottom: "1px solid #394251",
+					},
+					title: {
+						color: "#394251",
 					},
 				}}
 				scrollAreaComponent={Modal.NativeScrollArea}

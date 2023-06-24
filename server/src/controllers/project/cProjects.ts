@@ -3,17 +3,35 @@ import Project from "../../models/projectSchema";
 import Chapter from "../../models/chapterSchema";
 import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
+import { v4 as uuidv4 } from "uuid";
 
 export const createProject = async (req: any, res: any) => {
-	const { type, uid, owner, title, description, dateCreated } = req.body;
+	const { userId } = req.body;
+	console.log(req.body);
 	const newProject = new Project({
-		type,
-		uid,
-		owner,
-		title,
-		description,
-		dateCreated,
+		type: "standard",
+		uid: uuidv4(),
+		owner: userId,
+		title: "New Project",
+		description: "New Project Description",
+		dateCreated: {
+			user: userId,
+			date: new Date(),
+		},
+		dateUpdated: {
+			user: userId,
+			date: new Date(),
+		},
+		collaborators: [
+			{
+				uid: userId,
+				dateAdded: new Date(),
+				role: "owner",
+				active: true,
+			},
+		],
 	});
+
 	try {
 		await newProject.save();
 		res.status(201).json(newProject);
@@ -25,7 +43,17 @@ export const createProject = async (req: any, res: any) => {
 export const getUserProjects = async (req: any, res: any) => {
 	const { userId } = req.params;
 	try {
-		const projects = await Project.find({ owner: userId });
+		// get projects where user is owner or collaborator and active
+		const projects = await Project.find({
+			$or: [
+				{ owner: userId },
+				{
+					collaborators: {
+						$elemMatch: { uid: userId, active: true },
+					},
+				},
+			],
+		});
 		res.status(200).json(projects);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
@@ -55,9 +83,11 @@ export const deleteProject = async (req: any, res: any) => {
 	const { userId, projectId } = req.params;
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
-		await Version.deleteMany({ projectId });
-		await Branch.deleteMany({ projectId });
-		await Chapter.deleteMany({ projectId });
+		Promise.all([
+			Version.deleteMany({ projectId }),
+			Branch.deleteMany({ projectId }),
+			Chapter.deleteMany({ projectId }),
+		]);
 		await project.remove();
 		res.status(200).json({ message: "Project deleted successfully." });
 	} catch (error) {
@@ -84,9 +114,14 @@ export const updateProjectTitle = async (req: any, res: any) => {
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
 		project.title = title;
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
 		await project.save();
 		res.status(200).json(project);
 	} catch (error) {
+		console.log(error);
 		res.status(404).json({ message: error.message });
 	}
 };
