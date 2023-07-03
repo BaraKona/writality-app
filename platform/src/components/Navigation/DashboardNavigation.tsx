@@ -40,11 +40,11 @@ export default function DashboardNavigation() {
 							<img
 								src={cyclops8}
 								alt="writality"
-								width={30}
-								height={30}
+								width={25}
+								height={25}
 								className="inline-block"
 							/>
-							<h1 className="font-semibold px-2 text-base">Writality</h1>
+							<div className="font-semibold px-2 text-sm">Writality</div>
 						</div>
 					</Link>
 				</div>
