@@ -12,17 +12,17 @@ export function Reset() {
 					Please enter your registered email and we’ll send you a recovery link.
 				</p>
 				<form>
-					<label className="text-sm text-stone-500">
+					<label className="text-sm text-blueText">
 						Email Address <span className="text-red-700"> * </span>
 					</label>
 					<input
 						required
 						type="email"
-						className="w-full mb-4 form-input bg-transparent text-stone-300 border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
+						className="w-full mb-4 form-input bg-transparent text-blueText border-b-stone-400 border-t-0 border-x-0 px-0 focus:ring-0"
 					/>
 					<button
 						type="submit"
-						className="w-full mt-14 mb-4 py-4 hover:bg-stone-500 rounded-full text-stone-500 hover:text-baseColour border-2  border-stone-500"
+						className="w-full mt-14 mb-4 py-4 hover:bg-stone-500 rounded-full text-blueText hover:text-baseColour border-2  border-stone-500"
 					>
 						Reset Password
 					</button>

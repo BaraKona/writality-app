@@ -107,13 +107,15 @@ export const MainFrame: FC<{
 	};
 	return (
 		<div className="">
-			<div className="mt-3 flex overflow-x-auto w-[calc(100vw-12rem)]">
+			<div className="mt-2 pb-1 flex gap-1 overflow-x-auto w-[calc(100vw-12rem)]">
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}
 						className={` ${
-							tab.id === pathname && "bg-white rounded-t-2xl"
-						}  flex items-center justify-between px-2 py-2 w-44 rounded-t-2xl `}
+							tab.id === pathname
+								? "bg-white border-none hover:bg-white"
+								: " cursor-pointer hover:bg-[rgba(255,255,255,0.5)] "
+						} flex items-center justify-between px-2 py-2 w-44 rounded-md transition-all duration-500 ease-in-out`}
 						onClick={() => navigate(tab.path)}
 					>
 						<div
@@ -131,15 +133,19 @@ export const MainFrame: FC<{
 								{tabName ? tabName : tab.title}
 							</span>
 							<div className="flex gap-0.5 ml-auto">
-								<IconPin
-									className="cursor-pointer hover:text-black"
-									size={13}
-								/>
-								<IconX
-									className="cursor-pointer"
-									onClick={(e) => closeTab(e, tab)}
-									size={13}
-								/>
+								{tab.id === pathname && (
+									<>
+										<IconPin
+											className="cursor-pointer hover:text-black"
+											size={13}
+										/>
+										<IconX
+											className="cursor-pointer"
+											onClick={(e) => closeTab(e, tab)}
+											size={13}
+										/>
+									</>
+								)}
 							</div>
 						</div>
 					</div>

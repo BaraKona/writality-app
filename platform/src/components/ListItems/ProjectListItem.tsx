@@ -17,7 +17,7 @@ export const ProjectListItem: FC<{
 			{projectId === project ? (
 				<li
 					onClick={onClick}
-					className="p-1.5 flex mb-1 text-xs font-medium bg-white hover:bg-white cursor-default rounded-md "
+					className="p-1.5 transition-all ease-in-out duration-500 flex mb-1 text-xs font-medium bg-white hover:bg-white cursor-default rounded-md "
 				>
 					<a className=" flex text-black items-center">
 						<IconRenderer type={type} open={true} />
@@ -29,7 +29,7 @@ export const ProjectListItem: FC<{
 			) : (
 				<li
 					onClick={onClick}
-					className="p-1.5 flex mb-1 text-xs font-medium rounded-md hover:bg-white cursor-default "
+					className="p-1.5 transition-all ease-in-out duration-500 flex mb-1 text-xs font-medium rounded-md hover:bg-white cursor-default "
 				>
 					<a className=" flex text-blueText items-center">
 						<IconRenderer type={type} open={false} />

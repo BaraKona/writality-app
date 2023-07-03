@@ -39,7 +39,7 @@ export function Register() {
 	};
 
 	return (
-		<div className="md:pt-20 pb-10 text-left md:border-r border-baseBorder flex-grow ">
+		<div className="md:pt-20 pb-10 text-left md:border-r border-gray-200 flex-grow ">
 			<div className="px-10 mx-auto max-w-[600px]">
 				<h2 className="text-2xl font-bold text-stone-200">
 					Create an account 👋
@@ -48,59 +48,50 @@ export function Register() {
 					Welcome! Let&#39;s get you set up with an account
 				</p>
 				<form onSubmit={handleAccountCreation}>
-					<label className="text-sm text-stone-500">
-						Name <span className="text-red-700"> * </span>
-					</label>
 					<TextInput
 						ref={nameRef}
 						type="text"
 						required
-						className="w-full mb-4 form-input bg-transparent text-stone-300  px-0 focus:ring-0 border-0"
+						label="Name"
+						className="w-full mb-4 form-input bg-transparent text-blueText  px-0 focus:ring-0 border-0"
 					/>
-
-					<label className="text-sm text-stone-500">
-						Email Address <span className="text-red-700"> * </span>
-					</label>
 					<TextInput
 						ref={emailRef}
 						required
+						label="Email Address"
 						type="email"
-						className="w-full mb-4 form-input bg-transparent text-stone-300 border-0 px-0 focus:ring-0"
+						className="w-full mb-4 form-input bg-transparent text-blueText border-0 px-0 focus:ring-0"
 					/>
-					<label className="text-sm text-stone-500">
-						Password <span className="text-red-700"> * </span>
-					</label>
 					<PasswordInput
 						variant="unstyled"
 						ref={passwordRef}
 						required
-						className="w-full mb-4 text-stone-300 form-input bg-transparent border-0 px-0 focus:ring-0"
+						label="Password"
+						className="w-full mb-4 text-blueText form-input bg-transparent border-0 px-0 focus:ring-0"
 					/>
-					<label className="text-sm text-stone-500">
-						Password Confirmation <span className="text-red-700"> * </span>
-					</label>
 					<PasswordInput
 						variant="unstyled"
 						ref={passwordConfirmRef}
 						required
-						className="w-full text-stone-300 form-input bg-transparent border-0 px-0 focus:ring-0"
+						label="Confirm Password"
+						className="w-full text-blueText form-input bg-transparent border-0 px-0 focus:ring-0"
 					/>
 					<button
 						type="submit"
-						className="w-full mt-14 mb-7 py-4 hover:bg-stone-500 rounded-full text-stone-500 hover:text-baseColour border-2  border-stone-500"
+						className="w-full mt-14 mb-7 py-4 hover:bg-stone-500 rounded-full text-blueText hover:text-baseColour border-2  border-stone-500"
 					>
 						Register
 					</button>
 				</form>
 				<div className="flex justify-center">
 					<hr className="w-full my-10 border-stone-400" />
-					<p className="absolute mt-7 bg-baseColour px-4 text-stone-300 align-middle text-sm">
+					<p className="absolute mt-7 bg-baseColour px-4 text-blueText align-middle text-sm">
 						Or
 					</p>
 				</div>
 				<button
 					type="submit"
-					className="flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-500 rounded-full text-stone-500 bg-slate-800 hover:text-baseColour"
+					className="flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-500 rounded-full text-blueText bg-slate-800 hover:text-baseColour"
 				>
 					<img src={google} alt="google" />
 					Register with Google
@@ -108,7 +99,7 @@ export function Register() {
 				<button
 					disabled={loading}
 					type="submit"
-					className=" flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-300 rounded-full text-stone-500 bg-slate-800 hover:text-baseColour"
+					className=" flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-300 rounded-full text-blueText bg-slate-800 hover:text-baseColour"
 				>
 					<img src={apple} alt="apple" />
 					Register with Apple
