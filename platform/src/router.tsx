@@ -1,5 +1,4 @@
 import { createBrowserRouter, redirect, RouteObject } from "react-router-dom";
-import { Home } from "./pages/Home";
 import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
 import { io } from "socket.io-client";
 import { Sidebar } from "./components/Navigation";

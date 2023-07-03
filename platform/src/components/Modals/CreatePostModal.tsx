@@ -105,7 +105,7 @@ export const CreatePostModal: FC<{
 				title="Woah! Are you ready to Collaborate? 😃"
 			>
 				<div className="px-5 mt-2">
-					<h3 className="border-t-stone-800 text-lg ">
+					<h3 className="border-t-stone-800 text-md ">
 						<span className="text-purple-200 font-bold">
 							What are you looking for ?
 						</span>{" "}

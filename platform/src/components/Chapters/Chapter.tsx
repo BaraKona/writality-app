@@ -11,9 +11,9 @@ export const Chapter: FC<{
 	disabled: boolean;
 }> = ({ chapter, openChapter, openChapterModal, disabled }) => {
 	return (
-		<div className="flex gap-3 border-b cursor-default py-1 px-8 text-center">
+		<div className="flex gap-3 border-b cursor-default py-1 px-8">
 			<div
-				className=" text-blueText flex place-items-center gap-3 cursor-pointer text-center hover:text-blue-400 group"
+				className=" text-blueText flex place-items-center gap-3 cursor-pointer hover:text-blue-400 group"
 				onClick={openChapter}
 			>
 				<IconFileText size={18} className="group-hover:text-black" />
@@ -23,7 +23,7 @@ export const Chapter: FC<{
           height={20}
           alt={chapter?.chapterNumber?.toString()}
         /> */}
-				<p className="text-blueText text-sm font-medium">{chapter.title}</p>
+				<p className="text-blueText text-xs font-medium">{chapter.title}</p>
 			</div>
 			<div className="ml-auto flex gap-2">
 				<Text color="dimmed" size="xs">

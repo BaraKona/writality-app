@@ -10,7 +10,7 @@ export const ChapterRenderer: FC<{
 		<div className="flex-grow w-80 min-w-[20rem] mx-auto  border-r bg-white">
 			<div className="flex gap-2 ml-2 font-medium">
 				<IconFiles size={20} />
-				<h3 className=" flex text-sm gap-1">
+				<h3 className=" flex text-xs gap-1">
 					Chapters <span className=" ml-2">{chapterCount}</span>
 				</h3>
 			</div>

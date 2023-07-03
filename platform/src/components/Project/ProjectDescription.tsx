@@ -15,7 +15,7 @@ export const ProjectDescription: FC<{
 	return (
 		<div className="flex flex-col flex-grow px-3 mx-auto w-80 bg-white">
 			<div className="">
-				<h3 className="text-center text-blueText font-medium text-sm">
+				<h3 className="text-center text-blueText font-medium text-xs">
 					Project Description
 				</h3>
 			</div>

@@ -58,7 +58,7 @@ export const VersionModal: FC<{
 			>
 				<div className="flex flex-wrap mx-auto text-blueText">
 					<div className="px-5 border-r border-baseBorder grow shrink w-1/2 mx-auto">
-						<h2 className="text-blue-400 font-bold text-lg my-2">
+						<h2 className="text-blue-400 font-bold text-md my-2">
 							{currentContent?.name || "Main"}
 						</h2>
 						<TypographyStylesProvider>
@@ -69,7 +69,7 @@ export const VersionModal: FC<{
 						</TypographyStylesProvider>
 					</div>
 					<div className="px-5 border-l border-baseBorder grow shrink w-1/2 mx-auto">
-						<h2 className="text-blue-400 font-bold text-lg my-2">
+						<h2 className="text-blue-400 font-bold text-md my-2">
 							{version?.name}
 						</h2>
 						<TypographyStylesProvider>

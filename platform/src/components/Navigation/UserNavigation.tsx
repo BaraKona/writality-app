@@ -7,7 +7,7 @@ export default function UserNavigation() {
 	const { signOutCurrentUser } = useAuthContext();
 	const navigate = useNavigate();
 	const style =
-		"font-medium px-2 py-2 mx-1 text-sm text-blueText hover:bg-white rounded-md hover:text-black";
+		"font-medium px-2 py-2 mx-1 text-xs text-blueText hover:bg-white rounded-md hover:text-black";
 	const handleSignOut = async () => {
 		await signOutCurrentUser();
 	};

@@ -21,7 +21,7 @@ export const ProjectListItem: FC<{
 				>
 					<a className=" flex text-black items-center">
 						<IconRenderer type={type} open={true} />
-						<span className="ml-2 whitespace-nowrap w-28 text-ellipsis overflow-hidden">
+						<span className="ml-2 whitespace-nowrap w-32 text-ellipsis overflow-hidden">
 							{name}
 						</span>
 					</a>
@@ -33,7 +33,7 @@ export const ProjectListItem: FC<{
 				>
 					<a className=" flex text-blueText items-center">
 						<IconRenderer type={type} open={false} />
-						<span className="ml-2 whitespace-nowrap w-28 text-ellipsis overflow-hidden">
+						<span className="ml-2 whitespace-nowrap w-32 text-ellipsis overflow-hidden">
 							{name}
 						</span>
 					</a>

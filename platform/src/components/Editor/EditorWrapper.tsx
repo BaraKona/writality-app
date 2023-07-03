@@ -26,7 +26,7 @@ export const EditorWrapper: FC<{
 				<button onClick={backToProject}>
 					<CgClose size={18} className="text-blueText hover:text-black" />
 				</button>
-				<div className="align-middle mx-2 my-auto text-sm text-blueText flex gap-2">
+				<div className="align-middle mx-2 my-auto text-xs text-blueText flex gap-2">
 					<IconFileText size={20} />
 					<div className={`flex `}>
 						<div className="text-blue-300 mr-1">
@@ -49,13 +49,13 @@ export const EditorWrapper: FC<{
 							}}
 							defaultValue={title}
 							className={
-								"text-blueText font-medium text-sm p-0 bg-transparent border-none focus:ring-0"
+								"text-blueText font-medium text-xs p-0 bg-transparent border-none focus:ring-0"
 							}
 						/>
 					</div>
 				</div>
 				<Text
-					className="text-center my-auto font-medium text-sm  ml-auto mr-3"
+					className="text-center my-auto font-medium text-xs  ml-auto mr-3"
 					color="dimmed"
 				>
 					{content?.dateUpdated?.date

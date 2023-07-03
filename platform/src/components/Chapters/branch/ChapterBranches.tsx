@@ -9,7 +9,7 @@ import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 
 import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { Divider, ScrollArea, Text } from "@mantine/core";
-import { IconGitBranch,  IconPlus } from "@tabler/icons";
+import { IconGitBranch, IconPlus } from "@tabler/icons";
 export const ChapterBranches: FC<{
 	openMergeModal: () => void;
 	setSearchParams: (params: any) => void;
@@ -34,7 +34,7 @@ export const ChapterBranches: FC<{
 	}
 	return (
 		<div className="min-w-auto w-56">
-			<div className="flex font-medium my-2 px-2 text-blueText text-sm">
+			<div className="flex font-medium my-2 px-2 text-blueText text-xs">
 				Branches
 				<IconPlus
 					size={18}
@@ -46,7 +46,7 @@ export const ChapterBranches: FC<{
 			{chapterBranches?.length > 0 ? (
 				<div className="border border-baseLight text-blueText">
 					<div className="flex justify-between gap-2 border-b border-gray-200 items-center">
-						<div className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-sm font-medium">
+						<div className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-xs font-medium">
 							<div
 								className={`hover:text-black ${
 									currentBranch?.uid === mainContent?.uid
@@ -95,7 +95,7 @@ export const ChapterBranches: FC<{
 									) : (
 										""
 									)}
-									<p className="text-blueText font-medium text-sm">
+									<p className="text-blueText font-medium text-xs">
 										{branch.name ? branch.name : "Branch"}:
 									</p>
 								</div>

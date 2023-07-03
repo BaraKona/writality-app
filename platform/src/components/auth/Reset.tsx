@@ -8,11 +8,11 @@ export function Reset() {
 				<h2 className="text-2xl font-bold text-stone-200">
 					Forgot password ? 😞
 				</h2>
-				<p className="text-md text-stone-400 mb-4">
+				<p className="text-sm text-stone-400 mb-4">
 					Please enter your registered email and we’ll send you a recovery link.
 				</p>
 				<form>
-					<label className="text-md text-stone-500">
+					<label className="text-sm text-stone-500">
 						Email Address <span className="text-red-700"> * </span>
 					</label>
 					<input
@@ -27,7 +27,7 @@ export function Reset() {
 						Reset Password
 					</button>
 					<Link to="/auth/login">
-						<a className="text-stone-400 text-md font-semibold underline hover:underline-offset-2 ease-in-out duration-300 text-center align-middle cursor-pointer">
+						<a className="text-stone-400 text-sm font-semibold underline hover:underline-offset-2 ease-in-out duration-300 text-center align-middle cursor-pointer">
 							&#8592; Back to Login
 						</a>
 					</Link>

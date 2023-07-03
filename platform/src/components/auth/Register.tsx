@@ -44,11 +44,11 @@ export function Register() {
 				<h2 className="text-2xl font-bold text-stone-200">
 					Create an account 👋
 				</h2>
-				<p className="text-md text-stone-400 mb-4">
+				<p className="text-sm text-stone-400 mb-4">
 					Welcome! Let&#39;s get you set up with an account
 				</p>
 				<form onSubmit={handleAccountCreation}>
-					<label className="text-md text-stone-500">
+					<label className="text-sm text-stone-500">
 						Name <span className="text-red-700"> * </span>
 					</label>
 					<TextInput
@@ -58,7 +58,7 @@ export function Register() {
 						className="w-full mb-4 form-input bg-transparent text-stone-300  px-0 focus:ring-0 border-0"
 					/>
 
-					<label className="text-md text-stone-500">
+					<label className="text-sm text-stone-500">
 						Email Address <span className="text-red-700"> * </span>
 					</label>
 					<TextInput
@@ -67,7 +67,7 @@ export function Register() {
 						type="email"
 						className="w-full mb-4 form-input bg-transparent text-stone-300 border-0 px-0 focus:ring-0"
 					/>
-					<label className="text-md text-stone-500">
+					<label className="text-sm text-stone-500">
 						Password <span className="text-red-700"> * </span>
 					</label>
 					<PasswordInput
@@ -76,7 +76,7 @@ export function Register() {
 						required
 						className="w-full mb-4 text-stone-300 form-input bg-transparent border-0 px-0 focus:ring-0"
 					/>
-					<label className="text-md text-stone-500">
+					<label className="text-sm text-stone-500">
 						Password Confirmation <span className="text-red-700"> * </span>
 					</label>
 					<PasswordInput
@@ -94,7 +94,7 @@ export function Register() {
 				</form>
 				<div className="flex justify-center">
 					<hr className="w-full my-10 border-stone-400" />
-					<p className="absolute mt-7 bg-baseColour px-4 text-stone-300 align-middle text-md">
+					<p className="absolute mt-7 bg-baseColour px-4 text-stone-300 align-middle text-sm">
 						Or
 					</p>
 				</div>

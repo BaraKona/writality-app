@@ -11,7 +11,7 @@ export const NoChapters: FC<{
 					<img src={circle4} alt="circle4" width={200} height={200} />
 				</div>
 				<div>
-					<h3 className="text-xl font-semibold mb-4 "> Chapters </h3>
+					<h3 className="text-lg font-semibold mb-4 "> Chapters </h3>
 					<>
 						<p className="w-72">
 							You have no chapters currently. Chapters make up your project and

@@ -28,7 +28,7 @@ export default function Navbar() {
 								height={35}
 								className="inline-block"
 							/>
-							<p className="font-bold px-2 py-2 text-lg text-black">
+							<p className="font-bold px-2 py-2 text-md text-black">
 								Writality
 							</p>
 						</div>

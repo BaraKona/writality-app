@@ -2,11 +2,7 @@ import { FC } from "react";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { Divider, ScrollArea, Text } from "@mantine/core";
-import {
-	IconPlus,
-	IconRectangleVertical,
-	IconVersions,
-} from "@tabler/icons";
+import { IconPlus, IconRectangleVertical, IconVersions } from "@tabler/icons";
 
 export const ChapterVersions: FC<{
 	createVersion: () => void;
@@ -20,7 +16,7 @@ export const ChapterVersions: FC<{
 
 	return (
 		<div className="min-w-auto w-56">
-			<div className="flex font-medium my-2 px-2 text-blueText text-sm">
+			<div className="flex font-medium my-2 px-2 text-blueText text-xs">
 				Versions
 				<IconPlus
 					size={18}
@@ -38,7 +34,7 @@ export const ChapterVersions: FC<{
 								className="px-2 py-1 flex justify-between gap-2 items-center border-b border-gray-200 group"
 							>
 								<div className="">
-									<div className="flex gap-1 transition-all ease-in-out duration-200 items-center text-sm cursor-default">
+									<div className="flex gap-1 transition-all ease-in-out duration-200 items-center text-xs cursor-default">
 										<div
 											onClick={() => {
 												setOpen(true), setVersion(version);

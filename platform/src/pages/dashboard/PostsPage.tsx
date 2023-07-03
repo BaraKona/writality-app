@@ -96,7 +96,7 @@ export const PostsPage: FC = () => {
 					<div className=" p-4 text-blueText ">
 						<div className="bg-[#f2f2f2] rounded-md px-4 pt-4 pb-10 flex gap-4 items-center relative">
 							<div className="w-72">
-								<p className="text-lg font-semibold leading-tight mb-1">
+								<p className="text-md font-semibold leading-tight mb-1">
 									{" "}
 									Posts are a great way to interact with people
 								</p>

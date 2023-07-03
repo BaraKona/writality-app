@@ -29,7 +29,7 @@ export const ChapterHistory: FC<{ history: IChapter["history"] }> = ({
 	return (
 		<div className="min-w-auto w-56">
 			<div>
-				<div className="flex font-medium my-2 px-2 text-blueText text-sm">
+				<div className="flex font-medium my-2 px-2 text-blueText text-xs">
 					History <VscInfo size={14} className="cursor-pointer my-auto" />
 				</div>
 				<Divider className="border-gray-200" />
@@ -54,7 +54,7 @@ export const ChapterHistory: FC<{ history: IChapter["history"] }> = ({
 									historyAction[item.action] || <IconMessageDots size={12} />
 								}
 								title={`Chapter ${item.action}`}
-								className="text-blueText text-sm font-medium pt-1"
+								className="text-blueText text-xs font-medium pt-1"
 							>
 								<Text color="dimmed" size="xs">
 									Chapter was {item.action} by{" "}

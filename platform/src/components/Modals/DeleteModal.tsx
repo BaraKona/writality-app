@@ -25,7 +25,7 @@ export const DeleteModal: FC<{
 					opacity: 0.55,
 					blur: 3,
 				}}
-				className="text-blueText text-sm"
+				className="text-blueText text-xs"
 				styles={{
 					content: {
 						background: "white",

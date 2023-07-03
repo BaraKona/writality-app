@@ -46,7 +46,7 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 					</BubbleMenu>
 				)}
 				<RichTextEditor.ControlsGroup>
-					<Text color="dimmed" className=" text-sm font-semibold">
+					<Text color="dimmed" className=" text-xs font-semibold">
 						{editor.storage.characterCount.words()} words
 					</Text>
 				</RichTextEditor.ControlsGroup>

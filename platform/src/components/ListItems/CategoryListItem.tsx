@@ -15,14 +15,14 @@ export const CategoryListItem: FC<{
 		<ul>
 			<li>
 				<h2
-					className={`flex justify-between items-center ml-1 ${mt} font-[600] text-sm rounded-lg`}
+					className={`flex justify-between items-center ml-1 ${mt} font-[600] text-xs rounded-lg`}
 				>
 					{name}
 					<p
 						onClick={onClick}
 						className="text-blueText font-bold cursor-pointer hover:font-semibold hover:text-black"
 					>
-						{button ? <IconSquareRoundedPlus size={20} /> : ""}
+						{button ? <IconSquareRoundedPlus size={18} /> : ""}
 					</p>
 				</h2>
 			</li>

@@ -54,7 +54,7 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 							radius="lg"
 						/>
 						<div className="flex flex-col">
-							<Text className="text-sm font-semibold">
+							<Text className="text-xs font-semibold">
 								{post?.owner || "User Name"}
 							</Text>
 							<Text className="text-xs font-normal" color="dimmed">
@@ -62,7 +62,7 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 							</Text>
 						</div>
 					</div>
-					<Text className="text-xl font-semibold mb-2" lineClamp={1}>
+					<Text className="text-lg font-semibold mb-2" lineClamp={1}>
 						{post?.postTitle || "Post Title"}
 					</Text>
 					<div className="flex flex-col">
@@ -84,7 +84,7 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 						{post.genres?.length > 0 && (
 							<div className="flex flex-wrap gap-2 my-4 cursor-default">
 								{post.genres.map((genre) => (
-									<Text className="text-sm font-semibold" color="dimmed">
+									<Text className="text-xs font-semibold" color="dimmed">
 										#{genre}
 									</Text>
 								))}

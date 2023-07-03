@@ -106,8 +106,8 @@ export const MainFrame: FC<{
 		}
 	};
 	return (
-		<div className="w-[calc(100vw-12rem)]">
-			<div className="mt-3 flex overflow-x-auto w-[calc(100vw-200px)]">
+		<div className="">
+			<div className="mt-3 flex overflow-x-auto w-[calc(100vw-12rem)]">
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}
@@ -127,7 +127,7 @@ export const MainFrame: FC<{
 								) : (
 									<IconBook2 size={20} />
 								))}
-							<span className="ml-1 text-sm font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
+							<span className="ml-1 text-xs font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
 								{tabName ? tabName : tab.title}
 							</span>
 							<div className="flex gap-0.5 ml-auto">

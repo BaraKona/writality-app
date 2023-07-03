@@ -6,7 +6,7 @@ export const ChapterSettings: FC<{}> = ({}) => {
 	return (
 		<div className="min-w-auto w-56">
 			<div>
-				<div className="flex font-medium my-2 px-2 text-blueText text-sm">
+				<div className="flex font-medium my-2 px-2 text-blueText text-xs">
 					Settings
 					<IconPlus
 						size={18}
@@ -24,7 +24,7 @@ export const ChapterSettings: FC<{}> = ({}) => {
 						variant="unstyled"
 						label="Chapter Name"
 						placeholder="Chapter Name"
-						className=" border-none p-0 text-sm"
+						className=" border-none p-0 text-xs"
 					/>
 				</ScrollArea.Autosize>
 			</div>
