@@ -88,3 +88,20 @@ export const updateProjectTitle = async (
 		useToast("error", "something went wrong 😖");
 	}
 };
+
+export const updateProjectType = async (
+	userId: string,
+	projectId: string,
+	type: string
+) => {
+	try {
+		const { data } = await projectApi.patch(`${userId}/${projectId}/type`, {
+			type,
+		});
+		useToast("success", "Project type updated successfully 😃");
+		return data;
+	} catch (err: any) {
+		const { data } = err.response;
+		useToast("error", "something went wrong 😖");
+	}
+};

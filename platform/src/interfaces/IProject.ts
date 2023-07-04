@@ -1,4 +1,4 @@
-const enum projectType {
+export const enum ProjectType {
 	standard = "standard",
 	collaboration = "collaboration",
 }
@@ -9,7 +9,7 @@ const enum collaboratorRole {
 	viewer = "viewer",
 }
 export type IProject = {
-	type: projectType;
+	type: ProjectType;
 	uid: string;
 	owner: string;
 	title: string;

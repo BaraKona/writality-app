@@ -132,12 +132,6 @@ export function Project() {
 	return (
 		<>
 			<DeleteModal
-				opened={openDeleteProject}
-				setOpened={setOpenDeleteProject}
-				deleteBranch={deleteProject.mutate}
-				type="project"
-			/>
-			<DeleteModal
 				opened={openModal}
 				setOpened={setOpenModal}
 				deleteBranch={deleteChapter.mutate}
@@ -258,12 +252,7 @@ export function Project() {
 						</Tabs.Panel>
 
 						<Tabs.Panel value="settings">
-							Delete Project
-							<CreateChapterButton
-								createNewChapter={() => setOpenDeleteProject(true)}
-								text="Delete Project"
-								icon={<IconTrash size={20} />}
-							/>
+							<ProjectSettings project={currentProject} />
 						</Tabs.Panel>
 						<Tabs.Panel value="chat">CHAT!!!!</Tabs.Panel>
 					</Tabs>

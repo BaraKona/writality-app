@@ -125,3 +125,21 @@ export const updateProjectTitle = async (req: any, res: any) => {
 		res.status(404).json({ message: error.message });
 	}
 };
+
+export const updateProjectType = async (req: any, res: any) => {
+	const { userId, projectId } = req.params;
+	const { type } = req.body;
+	try {
+		const project = await Project.findOne({ owner: userId, uid: projectId });
+		project.type = type;
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+		await project.save();
+		res.status(200).json(project);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
