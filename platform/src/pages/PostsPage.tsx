@@ -1,17 +1,17 @@
 import { Divider } from "@mantine/core";
-import { useToast } from "../../hooks";
-import { CreatePostModal } from "../../components/Modals";
+import { useToast } from "../hooks";
+import { CreatePostModal } from "../components/Modals";
 import { FC, useState } from "react";
-import { getPosts, createPost } from "../../api/posts";
+import { getPosts, createPost } from "../api/posts";
 import { useQueryClient, useQuery, useMutation } from "react-query";
-import { IPost } from "../../interfaces/IPost";
-import { useAuthContext } from "../../contexts/AuthContext";
-import { useCreatePost } from "../../hooks/useCreatePost";
-import { PostCard } from "../../components/Posts/PostCard";
-import { PostHeader } from "../../components/Posts/PostHeader";
+import { IPost } from "../interfaces/IPost";
+import { useAuthContext } from "../contexts/AuthContext";
+import { useCreatePost } from "../hooks/useCreatePost";
+import { PostCard } from "../components/Posts/PostCard";
+import { PostHeader } from "../components/Posts/PostHeader";
 import { Text } from "@mantine/core";
-import { CategoryListItem } from "../../components/ListItems";
-import { circle1 } from "../../assets/icons";
+import { CategoryListItem } from "../components/ListItems";
+import { circle1 } from "../assets/icons";
 import { Image } from "@mantine/core";
 
 export const PostsPage: FC = () => {

@@ -1,39 +1,47 @@
-import { ProjectDescription } from "../../../components/Project";
+import { ProjectDescription } from "../../components/Project";
 import { v4 as uuidv4 } from "uuid";
+import {
+	IconGlobe,
+	IconHome,
+	IconMessage,
+	IconNews,
+	IconSettings,
+} from "@tabler/icons";
 import {
 	NoChapters,
 	Chapter,
 	ChapterWrapper,
 	ChapterRenderer,
-} from "../../../components/Chapters";
-import { useAuthContext } from "../../../contexts/AuthContext";
-import { IChapter } from "../../../interfaces/IChapter";
-import { CharacterWrapper } from "../../../components/Characters/CharacterWrapper";
-import { Loading } from "../../../components/Loading";
+} from "../../components/Chapters";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { IChapter } from "../../interfaces/IChapter";
+import { CharacterWrapper } from "../../components/Characters/CharacterWrapper";
+import { Loading } from "../../components/Loading";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import {
 	getProjectChapters,
 	createChapter,
 	deleteSingleChapter,
-} from "../../../api/project/chapters";
-import { DeleteModal } from "../../../components/Modals";
+} from "../../api/project/chapters";
+import { DeleteModal } from "../../components/Modals";
 import {
 	getSingleProject,
 	deleteSingleProject,
 	updateProjectDescription,
 	updateProjectTitle,
-} from "../../../api/project/projects";
+} from "../../api/project/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { chapterCreator } from "../../../hooks";
-import { Tabs } from "@mantine/core";
+import { chapterCreator } from "../../hooks";
+import { Tabs, Tooltip } from "@mantine/core";
 import { useEditor } from "@tiptap/react";
-import { extensions } from "../../../components/Editor/utils/editorExtensions";
-import { useTabContext } from "../../../contexts/TabContext";
-import { ProjectSettings } from "../../../components/Project/ProjectSettings";
-import { CreateChapterButton } from "../../../components/buttons";
+import { extensions } from "../../components/Editor/utils/editorExtensions";
+import { useTabContext } from "../../contexts/TabContext";
+import { ProjectSettings } from "../../components/Project/ProjectSettings";
+import { CreateChapterButton } from "../../components/buttons";
 import { IconTrash } from "@tabler/icons";
-import { IProject } from "../../../interfaces/IProject";
+import { IProject } from "../../interfaces/IProject";
+import { CollaborationChat } from "../../components/Project/Collaboration";
 
 export function Project() {
 	const queryClient = useQueryClient();
@@ -145,32 +153,77 @@ export function Project() {
 					updateProjectTitle={updateProjectTitleMutation.mutate}
 				>
 					<Tabs
-						className="w-full border-none important:border-none"
+						className="w-full border-none important:border-none h-[calc(100vh-7.4rem)]"
 						defaultValue="home"
-						color="gray"
 						radius={"md"}
 						orientation="vertical"
-						variant="pills"
 						styles={{
+							root: {
+								color: "#394251",
+							},
+							tabsList: {
+								borderRight: "1px solid #e3e3e3",
+								borderTopRightRadius: "0px",
+								borderBottomRightRadius: "0px",
+								paddingRight: "8px",
+							},
+							// remove default styles for active tab
+
 							tab: {
 								backgroundColor: "#f2f2f2",
+								color: "#394251",
+								border: "1px solid #e3e3e3",
+								marginBottom: "2px",
 								borderTopLeftRadius: "0px",
 								borderBottomLeftRadius: "0px",
+								fontSize: "0.8rem",
+								borderRadius: "0.375rem",
+								padding: "8px",
+								transition: "all 0.2s ease-in-out",
+								"&:hover": {
+									color: "#000",
+									backgroundColor: "transparent",
+									borderColor: "#e3e3e3",
+								},
+								"&[data-active]": {
+									color: "#000",
+									backgroundColor: "transparent",
+									borderColor: "#e3e3e3",
+								},
+								"&[data-active]:hover": {
+									borderColor: "#e3e3e3",
+								},
 							},
 						}}
 					>
 						<Tabs.List>
-							<Tabs.Tab value="home">Home</Tabs.Tab>
-							<Tabs.Tab value="world-info" disabled>
-								World
-							</Tabs.Tab>
-							<Tabs.Tab value="settings">Settings</Tabs.Tab>
-							<Tabs.Tab value="publish" disabled>
-								Publish
-							</Tabs.Tab>
+							<Tooltip label="Home" position="right" withArrow>
+								<Tabs.Tab value="home">
+									<IconHome size={20} />
+								</Tabs.Tab>
+							</Tooltip>
+							<Tooltip label="World" position="right" withArrow>
+								<Tabs.Tab value="world-info" disabled>
+									<IconGlobe size={20} />
+								</Tabs.Tab>
+							</Tooltip>
+							<Tooltip label="Publish" position="right" withArrow>
+								<Tabs.Tab value="publish" disabled>
+									<IconNews size={20} />
+								</Tabs.Tab>
+							</Tooltip>
 							{currentProject?.type === "collaboration" && (
-								<Tabs.Tab value="chat">Chat</Tabs.Tab>
+								<Tooltip label="Chat" position="right" withArrow>
+									<Tabs.Tab value="chat">
+										<IconMessage size={20} />
+									</Tabs.Tab>
+								</Tooltip>
 							)}
+							<Tooltip label="Settings" position="right" withArrow>
+								<Tabs.Tab value="settings" mt="auto">
+									<IconSettings size={20} />
+								</Tabs.Tab>
+							</Tooltip>
 						</Tabs.List>
 
 						<Tabs.Panel value="home">
@@ -212,6 +265,7 @@ export function Project() {
 								icon={<IconTrash size={20} />}
 							/>
 						</Tabs.Panel>
+						<Tabs.Panel value="chat">CHAT!!!!</Tabs.Panel>
 					</Tabs>
 				</ChapterWrapper>
 			)}

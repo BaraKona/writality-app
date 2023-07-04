@@ -10,7 +10,7 @@ import {
 	Title,
 	Divider,
 } from "@mantine/core";
-import { Project } from "../../pages/dashboard/project";
+import { Project } from "../../pages/project";
 import { useTimeFromNow } from "../../utils/convertDate";
 
 export const PostCard: FC<{ post: IPost }> = ({ post }) => {

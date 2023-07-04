@@ -2,10 +2,10 @@ import { createBrowserRouter, redirect, RouteObject } from "react-router-dom";
 import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
 import { io } from "socket.io-client";
 import { Sidebar } from "./components/Navigation";
-import { Chapter, Project } from "./pages/dashboard/project";
-import { PostsPage } from "./pages/dashboard/PostsPage";
-import { DashboardPage } from "./pages/dashboard/DashboardPage";
-import { Stories } from "./pages/dashboard/Stories";
+import { Chapter, Project } from "./pages/project";
+import { PostsPage } from "./pages/PostsPage";
+import { DashboardPage } from "./pages/DashboardPage";
+import { Stories } from "./pages/Stories";
 import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
 

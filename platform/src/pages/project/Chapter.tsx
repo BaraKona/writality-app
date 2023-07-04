@@ -2,11 +2,11 @@ import { useState } from "react";
 import {
 	EditorWrapper,
 	ChapterEditorController,
-} from "../../../components/Editor";
+} from "../../components/Editor";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { useAuthContext } from "../../../contexts/AuthContext";
-import { Loading } from "../../../components/Loading";
-import { CreateBranchModal } from "../../../components/Modals/CreateBranchModal";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { Loading } from "../../components/Loading";
+import { CreateBranchModal } from "../../components/Modals/CreateBranchModal";
 
 import {
 	getSingleChapter,
@@ -14,12 +14,12 @@ import {
 	mergePositionMain,
 	mergeReplaceMain,
 	updateChapterTitle,
-} from "../../../api/project/chapters";
+} from "../../api/project/chapters";
 import {
 	createVersion,
 	getAllChapterVersions,
 	deleteSingleChapterVersion,
-} from "../../../api/project/versions";
+} from "../../api/project/versions";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -28,27 +28,27 @@ import {
 	getSingleBranch,
 	updateBranch,
 	deleteBranch,
-} from "../../../api/project/branches";
+} from "../../api/project/branches";
 import {
 	MergeBranchModal,
 	UpdateContentModal,
 	DeleteModal,
 	VersionModal,
 	AdvancedMergeModal,
-} from "../../../components/Modals";
+} from "../../components/Modals";
 import {
 	branchCreator,
 	useUpdateChapter,
 	versionCreator,
 	useAppendHistory,
-} from "../../../hooks";
+} from "../../hooks";
 
 import { useEditor } from "@tiptap/react";
-import { extensions } from "../../../components/Editor/utils/editorExtensions";
-import { ChapterBranchMenu } from "../../../components/Chapters/branch/ChapterBranchMenu";
-import { ChapterVersionMenu } from "../../../components/Chapters/version/ChapterVersionMenu";
-import { ChapterHistoryMenu } from "../../../components/Chapters/history/ChapterHistoryMenu";
-import { ChapterSettingsMenu } from "../../../components/Chapters/settings/ChapterSettingsMenu";
+import { extensions } from "../../components/Editor/utils/editorExtensions";
+import { ChapterBranchMenu } from "../../components/Chapters/branch/ChapterBranchMenu";
+import { ChapterVersionMenu } from "../../components/Chapters/version/ChapterVersionMenu";
+import { ChapterHistoryMenu } from "../../components/Chapters/history/ChapterHistoryMenu";
+import { ChapterSettingsMenu } from "../../components/Chapters/settings/ChapterSettingsMenu";
 
 export const Chapter = () => {
 	const navigate = useNavigate();

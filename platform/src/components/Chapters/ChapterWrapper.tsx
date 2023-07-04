@@ -28,7 +28,7 @@ export const ChapterWrapper: FC<{
 					}}
 					defaultValue={title}
 					className={
-						"text-blueText font-medium text-xs p-0 bg-transparent border-none focus:ring-0"
+						"text-blueText font-medium text-xs p-0 bg-transparent border-none focus:ring-0 items-center "
 					}
 				/>
 				<div className="ml-auto">

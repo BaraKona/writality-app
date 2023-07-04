@@ -20,20 +20,11 @@ export const ProjectDescription: FC<{
 				</h3>
 			</div>
 
-			<BaseEditor editor={editor} height="calc(100vh - 192px)" />
-			{user === project.owner && (
-				<>
-					{project.description !== editor.getHTML() && (
-						<Button
-							className="mt-auto"
-							variant="default"
-							onClick={() => updateDescription(editor.getHTML())}
-						>
-							Save
-						</Button>
-					)}
-				</>
-			)}
+			<BaseEditor
+				editor={editor}
+				height="calc(100vh - 192px)"
+				saveContent={() => updateDescription(editor.getHTML())}
+			/>
 		</div>
 	);
 };

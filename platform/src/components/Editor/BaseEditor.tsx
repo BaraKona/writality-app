@@ -3,10 +3,11 @@ import { FC } from "react";
 import { Button, Text } from "@mantine/core";
 import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons";
 import { BubbleMenu } from "@tiptap/react";
-export const BaseEditor: FC<{ editor: any; height: string }> = ({
-	editor,
-	height,
-}) => {
+export const BaseEditor: FC<{
+	editor: any;
+	height: string;
+	saveContent?: () => void;
+}> = ({ editor, height, saveContent }) => {
 	return (
 		<RichTextEditor
 			editor={editor}
@@ -137,6 +138,7 @@ export const BaseEditor: FC<{ editor: any; height: string }> = ({
 					backgroundColor: "white",
 					minWidth: "400px",
 				}}
+				onBlur={saveContent}
 			/>
 		</RichTextEditor>
 	);
