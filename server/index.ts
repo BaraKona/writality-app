@@ -4,7 +4,6 @@ import cors from "cors";
 import mongoose from "mongoose";
 import http from "http";
 import { Server } from "socket.io";
-
 import users from "./src/routes/users";
 import chats from "./src/routes/chat/chat";
 import posts from "./src/routes/posts";
@@ -14,14 +13,11 @@ import chapters from "./src/routes/project/chapters";
 import versions from "./src/routes/project/versions";
 import branches from "./src/routes/project/branches";
 
-import collaborations from "./src/routes/collaboration/collabProject";
-import collabChapters from "./src/routes/collaboration/collabChapters";
-import collabVersions from "./src/routes/collaboration/collabVersions";
-import collabBranches from "./src/routes/collaboration/collabBranches";
+const cookieParser = require("cookie-parser");
 
 const app = express() as express.Application;
 const server = http.createServer(app);
-
+mongoose.set("strictQuery", true);
 // TODO: add cors options
 const io = new Server(server, {
 	cors: {
@@ -35,9 +31,10 @@ dotenv.config();
 app.use(express.json({ limit: "30mb" }));
 // support parsing of application/x-www-form-urlencoded post data
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
+app.use(cookieParser());
 
 // configure cors
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // Routes for the API
 app.use("/users", users);
@@ -48,11 +45,6 @@ app.use("/projects", projects);
 app.use("/chapters", chapters);
 app.use("/versions", versions);
 app.use("/branches", branches);
-
-app.use("/collaborations", collaborations);
-app.use("/collaboration-chapters", collabChapters);
-app.use("/collaboration-versions", collabVersions);
-app.use("/collaboration-branches", collabBranches);
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {

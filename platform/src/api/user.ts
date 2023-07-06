@@ -3,34 +3,42 @@ import { IUser } from "../interfaces/IUser";
 import { useToast } from "../hooks/useToast";
 const userApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/users",
+	withCredentials: true,
 });
 const registerApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/users/signup",
+	withCredentials: true,
 });
 
-export const registerUser = async (user: IUser) => {
-	await registerApi
+export const registerUser = async (user: {
+	name: string;
+	email: string;
+	password: string;
+}) => {
+	const registeredUser = await registerApi
 		.post("/", user)
-		.then((res) => {
+		.then(async (res) => {
 			useToast("success", "Registration Successful");
-			return res.data;
+			const { data } = res;
+			loginUser({ email: data.email, password: user.password });
 		})
 		.catch((err) => {
 			useToast("error", err.message);
+			return err;
 		});
+	return registeredUser;
 };
 
 export const loginUser = async (user: { email: string; password: string }) => {
-	return await userApi
-		.post("/", user)
-		.then((res) => {
-			useToast("success", "Login Successful");
-			return res;
-		})
-		.catch((err) => {
-			const { data } = err.response;
-			useToast("error", data.message);
-		});
+	try {
+		const { data } = await userApi.post("/signin", user);
+		useToast("success", "Login Successful");
+		return data;
+	} catch (err: any) {
+		const { data } = err.response;
+		useToast("error", data.message);
+		return err;
+	}
 };
 
 export const getUser = async (id: string) => {
