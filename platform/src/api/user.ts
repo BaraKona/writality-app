@@ -3,9 +3,11 @@ import { IUser } from "../interfaces/IUser";
 import { useToast } from "../hooks/useToast";
 const userApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/users",
+	withCredentials: true,
 });
 const registerApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/users/signup",
+	withCredentials: true,
 });
 
 export const registerUser = async (user: {
