@@ -98,6 +98,7 @@ export const signOut = async (req: any, res: any) => {
 	try {
 		res.cookie("access_token", "", {
 			httpOnly: true,
+			domain: process.env.URL,
 			secure: process.env.COOKIES_SECURE,
 			expires: new Date(0),
 		});
