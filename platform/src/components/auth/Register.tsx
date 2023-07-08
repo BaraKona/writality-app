@@ -4,12 +4,16 @@ import { apple, google } from "../../assets/icons";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput, TextInput } from "@mantine/core";
+import { loginUser, registerUser } from "../../api/user";
+import { useSignUp } from "../../hooks/user/useSignup";
+import { sign } from "crypto";
 export function Register() {
 	const emailRef = useRef<HTMLDivElement>(null) as any;
 	const nameRef = useRef<HTMLDivElement>(null) as any;
 	const passwordRef = useRef<HTMLDivElement>(null) as any;
 	const passwordConfirmRef = useRef<HTMLDivElement>(null) as any;
 
+	const { mutate: signup } = useSignUp();
 	const navigate = useNavigate();
 
 	const { createAUserWithEmailAndPassword, currentUser } = useAuthContext();
@@ -22,14 +26,10 @@ export function Register() {
 		}
 
 		try {
-			setLoading(true);
-			await createAUserWithEmailAndPassword(
-				emailRef.current.value,
-				passwordRef.current.value,
-				nameRef.current.value
-			).then(() => {
-				if (!currentUser) navigate("/auth/login");
-				else navigate("/");
+			signup({
+				email: emailRef.current.value,
+				password: passwordRef.current.value,
+				name: nameRef.current.value,
 			});
 		} catch (error: unknown) {
 			console.log(error);

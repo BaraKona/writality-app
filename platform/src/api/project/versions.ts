@@ -4,6 +4,7 @@ import { useToast } from "../../hooks/useToast";
 
 const api = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/versions",
+	withCredentials: true,
 });
 
 export const getAllChapterVersions = async (chapterId: string) => {

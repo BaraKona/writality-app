@@ -6,24 +6,29 @@ import {
 	useEffect,
 } from "react";
 import { auth, googleAuthProvider, db } from "../api/firebase";
-import { registerUser, getAllUsers } from "../api/user";
+import { registerUser, getAllUsers, loginUser } from "../api/user";
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	GoogleAuthProvider,
 } from "firebase/auth";
+import { useToast } from "../hooks";
 
 type AuthContextType = {
-	createAUserWithEmailAndPassword: (
-		email: string,
-		password: string,
-		name: string
-	) => Promise<void>;
+	createAUserWithEmailAndPassword: ({
+		name,
+		email,
+		password,
+	}: {
+		name: string;
+		email: string;
+		password: string;
+	}) => Promise<void>;
 	signInAUserWithEmailAndPassword: (
 		email: string,
 		password: string
-	) => Promise<any>;
+	) => Promise<void>;
 	currentUser: any;
 	signOutCurrentUser: () => Promise<void>;
 	signInWithGoogle: () => Promise<any>;
@@ -49,26 +54,29 @@ export function useAuthContext() {
 export function AuthContextWrapper({ children }: { children: ReactNode }) {
 	const [currentUser, setCurrentUser] = useState("hh");
 	const [users, setUsers] = useState([]);
-	function createAUserWithEmailAndPassword(
-		email: string,
-		password: string,
-		name: string
-	) {
-		return createUserWithEmailAndPassword(auth, email, password)
-			.then(async () => {
-				setCurrentUser(
-					//@ts-ignore
-					await registerUser({ uid: auth.currentUser.uid, name, email })
-				);
-				// reload page and redirect to dashboard
-				window.location.href = "/posts";
+	async function createAUserWithEmailAndPassword({
+		name,
+		email,
+		password,
+	}: {
+		name: string;
+		email: string;
+		password: string;
+	}) {
+		await registerUser({ name, email, password })
+			.then((user) => {
+				setCurrentUser(user);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	}
-	function signInAUserWithEmailAndPassword(email: string, password: string) {
-		return signInWithEmailAndPassword(auth, email, password);
+	async function signInAUserWithEmailAndPassword(
+		email: string,
+		password: string
+	) {
+		const user = await loginUser({ email, password });
+		setCurrentUser(user);
 	}
 	function signOutCurrentUser() {
 		return auth.signOut().then(() => {

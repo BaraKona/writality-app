@@ -4,6 +4,7 @@ import { useToast } from "../hooks";
 
 const postApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/posts",
+	withCredentials: true,
 });
 
 export const createPost = async (post: IPost) => {

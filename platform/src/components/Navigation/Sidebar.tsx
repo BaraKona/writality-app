@@ -32,26 +32,20 @@ import {
 	IconTemplate,
 	IconLayoutDashboard,
 } from "@tabler/icons";
-import { UserLoader } from "../../UserLoader";
 import { cyclops8 } from "../../assets/icons";
 import { useTabContext } from "../../contexts/TabContext";
 import { MainFrame } from "../Project";
 import { useLocation } from "react-router-dom";
-
+import { useSignout } from "../../hooks/user/useSignout";
 export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 	const navigate = useNavigate();
 	const { currentUser, signOutCurrentUser } = useAuthContext();
 	const { setTabs, tabs } = useTabContext();
 	const queryClient = useQueryClient();
 	const location = useLocation();
-
+	const { mutate: signOut } = useSignout();
 	const path = location.pathname.split("/")[1];
 
-	const handleSignOut = async () => {
-		await signOutCurrentUser().then(() => {
-			navigate("/auth/login");
-		});
-	};
 	const {
 		isLoading: projectsLoading,
 		error,
@@ -83,86 +77,78 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 	};
 
 	return (
-		<UserLoader>
-			<div className="flex h-screen">
-				<aside
-					className="flex overflow-y-auto h-full w-60"
-					aria-label="Sidebar"
-				>
-					<div className="flex flex-col py-2 px-3 w-full">
-						<Link to="/">
-							<div className="ml-2 my-2 flex">
-								<img
-									src={cyclops8}
-									alt="writality"
-									width={25}
-									height={25}
-									className="inline-block"
-								/>
-								<div className="font-semibold px-2 text-sm">Writality</div>
-							</div>
-						</Link>
-						<CategoryListItem name="" mt="mt-2">
-							<CommunityListItem
-								name="Dashboard"
-								onClick={() => openPages("dashboard")}
-							>
-								<IconLayoutDashboard size={20} />
-							</CommunityListItem>
-							<CommunityListItem
-								name="Posts"
-								onClick={() => openPages("posts")}
-							>
-								<IconTemplate size={20} />
-							</CommunityListItem>
-							<CommunityListItem
-								name="Stories"
-								onClick={() => openPages("stories")}
-							>
-								<IconBooks size={20} />
-							</CommunityListItem>
-						</CategoryListItem>
-						<CategoryListItem
-							mt="mt-8 mb-3"
-							name="Your Projects"
-							button={true}
-							onClick={() => addProject.mutate(currentUser.uid)}
-							loading={projectsLoading}
-						>
-							{/* <ScrollArea.Autosize mah={350} offsetScrollbars scrollbarSize={6}> */}
-							{projects?.map((project: IProject, index: number) => {
-								return (
-									<ProjectListItem
-										key={index}
-										onClick={() => openProject(`project/${project.uid}`)}
-										name={project.title || "Untitled Project"}
-										projectId={project.uid}
-										type={project.type}
-									/>
-								);
-							})}
-							{/* </ScrollArea.Autosize> */}
-						</CategoryListItem>
-						<div className="mt-auto mb-4">
-							<CommunityListItem
-								name="Settings"
-								onClick={() => navigate("/settings")}
-							>
-								<IconSettings size={23} />
-							</CommunityListItem>
-							<CommunityListItem name="Help" onClick={() => navigate("/help")}>
-								<IconHelp size={23} />
-							</CommunityListItem>
-							<CommunityListItem name="Logout" onClick={handleSignOut}>
-								<IconLogout size={23} />
-							</CommunityListItem>
+		<div className="flex h-screen">
+			<aside className="flex overflow-y-auto h-full w-60" aria-label="Sidebar">
+				<div className="flex flex-col py-2 px-3 w-full">
+					<Link to="/">
+						<div className="ml-2 my-2 flex">
+							<img
+								src={cyclops8}
+								alt="writality"
+								width={25}
+								height={25}
+								className="inline-block"
+							/>
+							<div className="font-semibold px-2 text-sm">Writality</div>
 						</div>
+					</Link>
+					<CategoryListItem name="" mt="mt-2">
+						<CommunityListItem
+							name="Dashboard"
+							onClick={() => openPages("dashboard")}
+						>
+							<IconLayoutDashboard size={20} />
+						</CommunityListItem>
+						<CommunityListItem name="Posts" onClick={() => openPages("posts")}>
+							<IconTemplate size={20} />
+						</CommunityListItem>
+						<CommunityListItem
+							name="Stories"
+							onClick={() => openPages("stories")}
+						>
+							<IconBooks size={20} />
+						</CommunityListItem>
+					</CategoryListItem>
+					<CategoryListItem
+						mt="mt-8 mb-3"
+						name="Your Projects"
+						button={true}
+						onClick={() => addProject.mutate(currentUser.uid)}
+						loading={projectsLoading}
+					>
+						{/* <ScrollArea.Autosize mah={350} offsetScrollbars scrollbarSize={6}> */}
+						{projects?.map((project: IProject, index: number) => {
+							return (
+								<ProjectListItem
+									key={index}
+									onClick={() => openProject(`project/${project.uid}`)}
+									name={project.title || "Untitled Project"}
+									projectId={project.uid}
+									type={project.type}
+								/>
+							);
+						})}
+						{/* </ScrollArea.Autosize> */}
+					</CategoryListItem>
+					<div className="mt-auto mb-4">
+						<CommunityListItem
+							name="Settings"
+							onClick={() => navigate("/settings")}
+						>
+							<IconSettings size={23} />
+						</CommunityListItem>
+						<CommunityListItem name="Help" onClick={() => navigate("/help")}>
+							<IconHelp size={23} />
+						</CommunityListItem>
+						<CommunityListItem name="Logout" onClick={signOut}>
+							<IconLogout size={23} />
+						</CommunityListItem>
 					</div>
-				</aside>
-				<MainFrame>
-					<Outlet />
-				</MainFrame>
-			</div>
-		</UserLoader>
+				</div>
+			</aside>
+			<MainFrame>
+				<Outlet />
+			</MainFrame>
+		</div>
 	);
 };

@@ -4,19 +4,21 @@ import { useToast } from "../../hooks/useToast";
 
 const projectApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/projects",
+	withCredentials: true,
 });
 const userProjectApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/projects/user",
+	withCredentials: true,
 });
 
 export const getUserProjects = async (userId: string) => {
 	console.log("userId", userId);
 	try {
-		const { data } = await projectApi.get(`${userId}`);
+		const { data } = await userProjectApi.get("/");
 		return data;
 	} catch (err: any) {
 		const { data } = err.response;
-		useToast("error", data.message);
+		console.log(data);
 	}
 };
 
