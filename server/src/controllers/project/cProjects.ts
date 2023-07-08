@@ -41,7 +41,8 @@ export const createProject = async (req: any, res: any) => {
 };
 
 export const getUserProjects = async (req: any, res: any) => {
-	const { userId } = req.params;
+	const userId = req.user.uid;
+	console.log(userId);
 	try {
 		// get projects where user is owner or collaborator and active
 		const projects = await Project.find({

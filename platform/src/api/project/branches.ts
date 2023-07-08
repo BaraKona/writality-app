@@ -4,6 +4,7 @@ import { useToast } from "../../hooks/useToast";
 
 const branchApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/branches",
+	withCredentials: true,
 });
 
 export const getAllBranches = async (chapterId: string) => {

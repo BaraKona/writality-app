@@ -6,42 +6,28 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useToast } from "../../hooks/useToast";
+import { useLogin } from "../../hooks/user/useLogin";
+
 export default function Login() {
 	const emailRef = useRef<HTMLDivElement>(null) as any;
 	const passwordRef = useRef<HTMLDivElement>(null) as any;
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
-	const { signInAUserWithEmailAndPassword, signInWithGoogle } =
-		useAuthContext();
+	const { mutate: login } = useLogin();
 
 	const handleSignInAUser = async (e: React.FormEvent) => {
 		e.preventDefault();
+		const email = emailRef.current.value;
+		const password = passwordRef.current.value;
 
-		try {
-			setLoading(true);
-			await signInAUserWithEmailAndPassword(
-				emailRef.current.value,
-				passwordRef.current.value
-			);
-		} catch (error: unknown) {
-			useToast(
-				"error",
-				"Failed to sign in 😔. Try your credentials again or reset your password"
-			);
+		if (!email || !password) {
+			return toast.error("Please fill in all fields");
 		}
-		setLoading(false);
+
+		await login({ email, password });
 	};
-	const signInWithGoogleProvider = async () => {
-		try {
-			await signInWithGoogle().then((loggedIn: boolean) => {
-				toast.success("Signed in successfully");
-				navigate("/");
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+
 	return (
 		<div className="md:pt-20 pb-10 text-left md:border-r border-gray-200 flex-grow ">
 			<div className="px-10 mx-auto max-w-[600px]">
@@ -90,7 +76,6 @@ export default function Login() {
 				<button
 					type="submit"
 					className="flex align-middle justify-center gap-2 w-full mt-3 py-4 hover:bg-stone-500 rounded-full text-blueText bg-slate-800 hover:text-baseColour"
-					onClick={signInWithGoogleProvider}
 				>
 					<img src={google} alt="google" />
 					Continue with Google

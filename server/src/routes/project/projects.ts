@@ -1,4 +1,5 @@
 import express from "express";
+import { protect } from "../../middleware/jwtAuth";
 import {
 	createProject,
 	getAllProjects,
@@ -12,12 +13,16 @@ import {
 
 const router = express.Router();
 
-router.post("/", createProject);
-router.get("/", getAllProjects);
-router.get("/:userId/:projectId", getProject);
-router.get("/:userId", getUserProjects);
-router.patch("/:userId/:projectId/description", updateProjectDescription);
-router.patch("/:userId/:projectId/title", updateProjectTitle);
-router.delete("/:userId/:projectId", deleteProject);
-router.patch("/:userId/:projectId/type", updateProjectType);
+router.post("/", protect, createProject);
+router.get("/all", protect, getAllProjects);
+router.get("/:userId/:projectId", protect, getProject);
+router.get("/user", protect, getUserProjects);
+router.patch(
+	"/:userId/:projectId/description",
+	protect,
+	updateProjectDescription
+);
+router.patch("/:userId/:projectId/title", protect, updateProjectTitle);
+router.delete("/:userId/:projectId", protect, deleteProject);
+router.patch("/:userId/:projectId/type", protect, updateProjectType);
 export default router;

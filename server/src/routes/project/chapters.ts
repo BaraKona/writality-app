@@ -1,5 +1,5 @@
 import express from "express";
-
+import { protect } from "../../middleware/jwtAuth";
 import {
 	createChapter,
 	getProjectChapters,
@@ -13,16 +13,25 @@ import {
 
 const router = express.Router();
 
-router.post("/", createChapter);
-router.put("/:userId/:projectId/:chapterId/", updateChapterContent);
-router.get("/:userId/:projectId/:chapterId/", getSingleChapter);
-router.get("/:userId/:projectId", getProjectChapters);
-router.delete("/:userId/:projectId/:chapterId/", deleteSingleChapter);
-router.patch("/merge/replace/:userId/:projectId/:chapterId/", mergeReplaceMain);
+router.post("/", protect, createChapter);
+router.put("/:userId/:projectId/:chapterId/", protect, updateChapterContent);
+router.get("/:userId/:projectId/:chapterId/", protect, getSingleChapter);
+router.get("/:userId/:projectId", protect, getProjectChapters);
+router.delete("/:userId/:projectId/:chapterId/", protect, deleteSingleChapter);
+router.patch(
+	"/merge/replace/:userId/:projectId/:chapterId/",
+	protect,
+	mergeReplaceMain
+);
 router.patch(
 	"/merge/position/:userId/:projectId/:chapterId/",
+	protect,
 	mergePositionMain
 );
-router.put("/title/:userId/:projectId/:chapterId/", updateChapterTitle);
+router.put(
+	"/title/:userId/:projectId/:chapterId/",
+	protect,
+	updateChapterTitle
+);
 
 export default router;

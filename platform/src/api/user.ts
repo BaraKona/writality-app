@@ -32,31 +32,40 @@ export const registerUser = async (user: {
 export const loginUser = async (user: { email: string; password: string }) => {
 	try {
 		const { data } = await userApi.post("/signin", user);
-		useToast("success", "Login Successful");
 		return data;
 	} catch (err: any) {
-		const { data } = err.response;
-		useToast("error", data.message);
 		return err;
 	}
 };
 
-export const getUser = async (id: string) => {
+export const getUser = async () => {
 	try {
-		const { data } = await userApi.get(`/${id}`);
+		const { data } = await userApi.get(`/`);
+		console.log("fired");
+		console.log(data);
 		return data;
 	} catch (err: any) {
 		const { data } = err.response;
-		useToast("error", data.message);
 	}
 };
 
 export const getAllUsers = async () => {
 	try {
-		const { data } = await userApi.get("/");
+		const { data } = await userApi.get("/all");
 		return data;
 	} catch (err: any) {
 		const { data } = err.response;
 		useToast("error", data.message);
+	}
+};
+
+export const signOutUser = async () => {
+	try {
+		const { data } = await userApi.post("/logout");
+		useToast("success", "Signed out successfully");
+		return data;
+	} catch (err: any) {
+		useToast("error", "Something went wrong, we could not sign you out 😔");
+		console.log(err.message);
 	}
 };

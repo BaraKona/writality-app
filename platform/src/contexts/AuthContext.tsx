@@ -75,7 +75,8 @@ export function AuthContextWrapper({ children }: { children: ReactNode }) {
 		email: string,
 		password: string
 	) {
-		await loginUser({ email, password });
+		const user = await loginUser({ email, password });
+		setCurrentUser(user);
 	}
 	function signOutCurrentUser() {
 		return auth.signOut().then(() => {
