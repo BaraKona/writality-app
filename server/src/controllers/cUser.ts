@@ -98,7 +98,7 @@ export const signOut = async (req: any, res: any) => {
 	try {
 		res.cookie("access_token", "", {
 			httpOnly: true,
-			secure: false,
+			secure: process.env.COOKIES_SECURE,
 			expires: new Date(0),
 		});
 		res.status(200).json({ message: "User logged out" });

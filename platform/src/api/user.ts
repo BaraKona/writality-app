@@ -15,17 +15,10 @@ export const registerUser = async (user: {
 	email: string;
 	password: string;
 }) => {
-	const registeredUser = await registerApi
-		.post("/", user)
-		.then(async (res) => {
-			useToast("success", "Registration Successful");
-			const { data } = res;
-			loginUser({ email: data.email, password: user.password });
-		})
-		.catch((err) => {
-			useToast("error", err.message);
-			return err;
-		});
+	const registeredUser = await registerApi.post("/", user).catch((err) => {
+		useToast("error", err.message);
+		return err;
+	});
 	return registeredUser;
 };
 

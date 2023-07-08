@@ -52,7 +52,12 @@ export const router = createBrowserRouter([
 
 export const publicRouter = createBrowserRouter([
 	{ path: "/", loader: () => redirect("/auth/login") },
-	// { path: "*", loader: () => redirect("/auth/login") },
+	// if errorElement route does not exist, it will redirect to /
+	{
+		path: "*",
+		element: <FourOFour />,
+	},
+
 	{
 		path: "/auth/login",
 		element: <LoginPage />,

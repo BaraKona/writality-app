@@ -1,9 +1,14 @@
 import { useMutation } from "react-query";
 import { registerUser } from "../../api/user";
 export const useSignUp = () => {
-	return useMutation(["signUp"], (data: any) => registerUser(data), {
-		onSuccess: (data) => {
-			console.log(data);
-		},
-	});
+	return useMutation(
+		["signUp"],
+		(data: { name: string; email: string; password: string }) =>
+			registerUser(data),
+		{
+			onSuccess: (data) => {
+				window.location.pathname = "/dashboard";
+			},
+		}
+	);
 };

@@ -7,7 +7,7 @@ export const useLogin = () => {
 	return useMutation(["signUp"], (data: any) => loginUser(data), {
 		onSuccess: (data) => {
 			useToast("success", "Login Successful");
-			setCurrentUser(data);
+			window.location.pathname = "/dashboard";
 		},
 
 		onError: ({ message }) => {
