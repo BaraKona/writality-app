@@ -97,6 +97,7 @@ export const signOut = async (req: any, res: any) => {
 	// logout user and make cookie invalid
 	try {
 		res.cookie("access_token", "", {
+			path: "/",
 			httpOnly: true,
 			domain: process.env.DOMAIN,
 			secure: process.env.COOKIES_SECURE,

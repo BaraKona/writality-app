@@ -6,6 +6,7 @@ const generateToken = (res: any, userId: string) => {
 	});
 
 	res.cookie("access_token", token, {
+		path: "/",
 		domain: process.env.DOMAIN,
 		httpOnly: true,
 		secure: process.env.COOKIES_SECURE,
