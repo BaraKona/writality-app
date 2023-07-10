@@ -73,7 +73,7 @@ export function Project() {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["projects", currentUser.uid]);
-				navigate("/dashboard");
+				navigate("/");
 			},
 		}
 	);
@@ -143,7 +143,6 @@ export function Project() {
 				<ChapterWrapper
 					title={currentProject.title}
 					type={currentProject.type}
-					createNewChapter={createNewChapter}
 					updateProjectTitle={updateProjectTitleMutation.mutate}
 				>
 					<Tabs
@@ -222,7 +221,10 @@ export function Project() {
 
 						<Tabs.Panel value="home">
 							<div className="flex flex-wrap">
-								<ChapterRenderer chapterCount={chapters?.length}>
+								<ChapterRenderer
+									chapterCount={chapters?.length}
+									createNewChapter={createNewChapter}
+								>
 									{chapters?.map((chapter: IChapter, index: number) => (
 										<Chapter
 											openChapter={() =>

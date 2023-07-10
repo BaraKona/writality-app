@@ -34,7 +34,12 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
 
 // configure cors
-app.use(cors({ origin: process.env.URL, credentials: true }));
+app.use(
+	cors({
+		origin: [process.env.URL],
+		credentials: true,
+	})
+);
 
 // Routes for the API
 app.use("/users", users);

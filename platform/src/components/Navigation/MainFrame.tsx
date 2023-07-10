@@ -4,6 +4,7 @@ import {
 	IconBook2,
 	IconBooks,
 	IconHelp,
+	IconHome,
 	IconLayoutDashboard,
 	IconPin,
 	IconSettings,
@@ -50,6 +51,7 @@ export const MainFrame: FC<{
 	// check if tab already exists
 	const tabExists = tabs.some((tab) => tab.id === pathname);
 	// if tab does not exist, add it to the tabs array
+
 	if (!tabExists) {
 		setTabs([
 			...tabs,
@@ -65,8 +67,8 @@ export const MainFrame: FC<{
 
 	const tabIcons = [
 		{
-			title: "Dashboard",
-			icon: <IconLayoutDashboard size={20} />,
+			title: "Library",
+			icon: <IconHome stroke={2.2} size={20} />
 		},
 		{
 			title: "Stories",
@@ -91,7 +93,7 @@ export const MainFrame: FC<{
 		tab: { path: string; title: string; id: string }
 	) => {
 		e.stopPropagation();
-		if (tabs.length === 1) navigate("/dashboard");
+		if (tabs.length === 1) navigate("/library");
 		setTabs(tabs.filter((t) => t.id !== tab.id));
 		if (tab.id === pathname) {
 			const index = tabs.findIndex((t) => t.id === tab.id);

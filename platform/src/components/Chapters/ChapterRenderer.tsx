@@ -1,18 +1,27 @@
 import { FC, ReactNode, useEffect, useState } from "react";
 import { Divider, ScrollArea } from "@mantine/core";
-import { IconFiles } from "@tabler/icons";
+import { IconFilePlus, IconFiles } from "@tabler/icons";
+import { CreateChapterButton } from "../buttons";
 
 export const ChapterRenderer: FC<{
 	children: ReactNode;
 	chapterCount: number;
-}> = ({ children, chapterCount }) => {
+	createNewChapter: () => void;
+}> = ({ children, chapterCount, createNewChapter }) => {
 	return (
 		<div className="flex-grow w-80 min-w-[20rem] mx-auto  border-r bg-white">
-			<div className="flex gap-2 ml-2 font-medium">
+			<div className="flex gap-2 ml-2 font-medium items-center">
 				<IconFiles size={20} />
 				<h3 className=" flex text-xs gap-1">
 					Chapters <span className=" ml-2">{chapterCount}</span>
 				</h3>
+				<div className="ml-auto mr-1">
+					<CreateChapterButton
+						createNewChapter={createNewChapter}
+						text="New Chapter"
+						icon={<IconFilePlus size={20} />}
+					/>
+				</div>
 			</div>
 			<Divider className=" border-gray-200 mt-2" />
 			<ScrollArea

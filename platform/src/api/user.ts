@@ -34,12 +34,8 @@ export const loginUser = async (user: { email: string; password: string }) => {
 export const getUser = async () => {
 	try {
 		const { data } = await userApi.get(`/`);
-		console.log("fired");
-		console.log(data);
 		return data;
-	} catch (err: any) {
-		const { data } = err.response;
-	}
+	} catch (err: any) {}
 };
 
 export const getAllUsers = async () => {

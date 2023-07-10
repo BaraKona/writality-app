@@ -3,9 +3,8 @@ import User from "../models/user/userSchema";
 
 export const protect = async (req: any, res: any, next: any) => {
 	const token = req.cookies.access_token;
-	console.log(token);
 	if (!token) {
-		return res.sendStatus(403);
+		return res.status(401).json({ message: "Not authorized, no token" });
 	}
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
@@ -14,7 +13,7 @@ export const protect = async (req: any, res: any, next: any) => {
 		req.user = await User.findOne({ uid: decoded.userId }).select("-password");
 
 		next();
-	} catch {
-		return res.sendStatus(403);
+	} catch (error) {
+		return res.status(401).json({ message: "Not authorized, token failed" });
 	}
 };

@@ -89,7 +89,7 @@ export const signIn = async (req: any, res: any) => {
 			createdAt: user.createdAt,
 		});
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		res.status(500).json({ message: "Email or password is incorrect" });
 	}
 };
 

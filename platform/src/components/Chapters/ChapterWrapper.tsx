@@ -8,10 +8,9 @@ import { IconRenderer } from "../IconRenderer";
 export const ChapterWrapper: FC<{
 	children: ReactNode;
 	title: string;
-	createNewChapter: () => void;
 	updateProjectTitle: (title: string) => void;
 	type: "standard" | "collaboration";
-}> = ({ children, createNewChapter, title, updateProjectTitle, type }) => {
+}> = ({ children, title, updateProjectTitle, type }) => {
 	return (
 		<div className="flex flex-col bg-white px-7 h-[calc(100vh-48px)] gap-2 rounded-t-md">
 			<div className=" flex font-medium gap-2 bg-white text-blueText pt-6 items-center">
@@ -31,13 +30,6 @@ export const ChapterWrapper: FC<{
 						"text-blueText font-medium text-xs p-0 bg-transparent border-none focus:ring-0 items-center "
 					}
 				/>
-				<div className="ml-auto">
-					<CreateChapterButton
-						createNewChapter={createNewChapter}
-						text="New Chapter"
-						icon={<IconFilePlus size={20} />}
-					/>
-				</div>
 			</div>
 			<Divider className=" border-gray-200" />
 			<div className="flex">{children}</div>

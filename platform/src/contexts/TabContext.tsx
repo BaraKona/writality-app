@@ -4,14 +4,13 @@ import { createContext, useContext, useState, ReactNode } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import { useAuthContext } from "./AuthContext";
 import { ITabs } from "../interfaces/ITabs";
-import { IUser } from "../interfaces/IUser";
 type TabContextType = {
 	tabs: ITabs;
 	setTabs: any;
 };
 
 const tabContextDefaultValues: TabContextType = {
-	tabs: [{ path: "/dashboard/", title: "Dashboard", id: "dashboard" }],
+	tabs: [{ path: "/library/", title: "Library", id: "library" }],
 	setTabs: () => {},
 };
 

@@ -13,10 +13,9 @@ import { AuthTitle } from "./AuthTitle";
 export default function Login() {
 	const emailRef = useRef<HTMLDivElement>(null) as any;
 	const passwordRef = useRef<HTMLDivElement>(null) as any;
-	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
-	const { mutate: login } = useLogin();
+	const { mutate: login, isLoading } = useLogin();
 
 	const handleSignInAUser = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -62,7 +61,7 @@ export default function Login() {
 						</a>
 					</Link>
 				</div>
-				<BlueButton>{loading ? "Loading..." : "Login"}</BlueButton>
+				<BlueButton>{isLoading ? "Loading..." : "Login"}</BlueButton>
 			</form>
 			<Divider my="md" label="or" labelPosition="center" />
 

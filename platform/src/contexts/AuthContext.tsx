@@ -1,48 +1,24 @@
-import {
+import React, {
 	createContext,
 	useContext,
 	useState,
 	ReactNode,
 	useEffect,
 } from "react";
-import { auth, googleAuthProvider, db } from "../api/firebase";
-import { registerUser, getAllUsers, loginUser } from "../api/user";
-import {
-	createUserWithEmailAndPassword,
-	signInWithEmailAndPassword,
-	signInWithPopup,
-	GoogleAuthProvider,
-} from "firebase/auth";
-import { useToast } from "../hooks";
+
+import { getUser } from "../api/user";
 
 type AuthContextType = {
-	createAUserWithEmailAndPassword: ({
-		name,
-		email,
-		password,
-	}: {
-		name: string;
-		email: string;
-		password: string;
-	}) => Promise<void>;
-	signInAUserWithEmailAndPassword: (
-		email: string,
-		password: string
-	) => Promise<void>;
 	currentUser: any;
-	signOutCurrentUser: () => Promise<void>;
-	signInWithGoogle: () => Promise<any>;
-	users: any;
-	setCurrentUser: any;
+	setCurrentUser: React.Dispatch<React.SetStateAction<any>>;
+	isLoading: boolean;
+	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const authContextDefaultValues: AuthContextType = {
-	createAUserWithEmailAndPassword: () => Promise.resolve(),
-	signInAUserWithEmailAndPassword: () => Promise.resolve(),
 	currentUser: null,
-	signOutCurrentUser: () => Promise.resolve(),
-	signInWithGoogle: () => Promise.resolve(),
-	users: [],
 	setCurrentUser: () => {},
+	isLoading: false,
+	setIsLoading: () => {},
 };
 
 const AuthContext = createContext<AuthContextType>(authContextDefaultValues);
@@ -52,78 +28,23 @@ export function useAuthContext() {
 }
 
 export function AuthContextWrapper({ children }: { children: ReactNode }) {
-	const [currentUser, setCurrentUser] = useState("hh");
-	const [users, setUsers] = useState([]);
-	async function createAUserWithEmailAndPassword({
-		name,
-		email,
-		password,
-	}: {
-		name: string;
-		email: string;
-		password: string;
-	}) {
-		await registerUser({ name, email, password })
-			.then((user) => {
-				setCurrentUser(user);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
-	async function signInAUserWithEmailAndPassword(
-		email: string,
-		password: string
-	) {
-		const user = await loginUser({ email, password });
-		setCurrentUser(user);
-	}
-	function signOutCurrentUser() {
-		return auth.signOut().then(() => {
-			// Sign-out successful.
-			window.location.href = "/";
-		});
-	}
+	const [currentUser, setCurrentUser] = useState(null);
 
-	async function signInWithGoogle() {
-		await signInWithPopup(auth, googleAuthProvider)
-			.then((result) => {
-				// This gives you a Google Access Token. You can use it to access the Google API.
-				const credential = GoogleAuthProvider.credentialFromResult(result);
-				const token = credential?.accessToken;
-				// The signed-in user info.
-				const user = result.user;
-				// ...
-				return true;
-			})
-			.catch((error) => {
-				// Handle Errors here.
-				const errorCode = error.code;
-				const errorMessage = error.message;
-				// The email of the user's account used.
-				const email = error.customData.email;
-				// The AuthCredential type that was used.
-				const credential = GoogleAuthProvider.credentialFromError(error);
-				// ...
-				return false;
-			});
-	}
-	// useEffect(() => {
-	// 	const gettingUsers = async () => {
-	// 		const users = await getAllUsers();
-	// 		setUsers(users);
-	// 	};
-	// 	gettingUsers();
-	// }, []);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		const getCurrentUser = async () => {
+			const user = await getUser();
+			setCurrentUser(user);
+			setIsLoading(false);
+		};
+		getCurrentUser();
+	}, []);
 	const sharedState = {
-		createAUserWithEmailAndPassword,
-		signInAUserWithEmailAndPassword,
 		currentUser,
-		signOutCurrentUser,
-		signInWithGoogle,
-		users,
+		isLoading,
+		setIsLoading,
 		setCurrentUser,
-		setUsers,
 	};
 
 	return (

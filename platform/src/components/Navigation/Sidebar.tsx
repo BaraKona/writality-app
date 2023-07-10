@@ -18,33 +18,28 @@ import {
 import { useToast } from "../../hooks/useToast";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { createProject, getUserProjects } from "../../api/project/projects";
-import { ScrollArea } from "@mantine/core";
-import {
-	createCollabProject,
-	getUserCollabProjects,
-} from "../../api/collaboration/collabProjects";
 import {
 	IconBooks,
 	IconLogout,
-	IconSearch,
 	IconHelp,
 	IconSettings,
 	IconTemplate,
 	IconLayoutDashboard,
+	IconHome,
+	IconHomeEdit,
 } from "@tabler/icons";
 import { cyclops8 } from "../../assets/icons";
-import { useTabContext } from "../../contexts/TabContext";
 import { MainFrame } from "../Project";
 import { useLocation } from "react-router-dom";
 import { useSignout } from "../../hooks/user/useSignout";
-export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
+import { IoLibraryOutline } from "react-icons/io5";
+import { HiLibrary } from "react-icons/hi";
+export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
-	const { currentUser, signOutCurrentUser } = useAuthContext();
-	const { setTabs, tabs } = useTabContext();
+	const { currentUser } = useAuthContext();
 	const queryClient = useQueryClient();
 	const location = useLocation();
 	const { mutate: signOut } = useSignout();
-	const path = location.pathname.split("/")[1];
 
 	const {
 		isLoading: projectsLoading,
@@ -94,10 +89,10 @@ export const Sidebar: FC<{ children?: ReactNode }> = ({ children }) => {
 					</Link>
 					<CategoryListItem name="" mt="mt-2">
 						<CommunityListItem
-							name="Dashboard"
-							onClick={() => openPages("dashboard")}
+							name="Library"
+							onClick={() => openPages("library")}
 						>
-							<IconLayoutDashboard size={20} />
+							<IconHome stroke={2.2} size={20} />
 						</CommunityListItem>
 						<CommunityListItem name="Posts" onClick={() => openPages("posts")}>
 							<IconTemplate size={20} />
