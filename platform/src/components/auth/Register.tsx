@@ -7,7 +7,7 @@ import { Divider, PasswordInput, TextInput } from "@mantine/core";
 import { loginUser, registerUser } from "../../api/user";
 import { useSignUp } from "../../hooks/user/useSignup";
 import { sign } from "crypto";
-import { AuthHeader } from "./AuthHeader";
+import { AuthTitle } from "./AuthTitle";
 import { inputStyles } from "./inputStyles";
 import { BlueButton } from "../buttons/BlueButton";
 
@@ -43,7 +43,7 @@ export function Register() {
 	};
 
 	return (
-		<AuthHeader
+		<AuthTitle
 			title="Create an account 👋"
 			subtitle="
 			Welcome! Let&#39;s get you set up with an account"
@@ -102,6 +102,6 @@ export function Register() {
 					</span>
 				</p>
 			</Link>
-		</AuthHeader>
+		</AuthTitle>
 	);
 }

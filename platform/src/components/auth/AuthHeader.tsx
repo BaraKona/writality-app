@@ -1,17 +1,18 @@
-import { FC, ReactNode } from "react";
+import { cyclops8 } from "../../assets/icons";
 
-export const AuthHeader: FC<{
-	title: string;
-	subtitle: string;
-	children: ReactNode;
-}> = ({ title, subtitle, children }) => {
+export const AuthHeader = () => {
 	return (
-		<div className="max-w-sm mx-auto">
-			<div className="text-center">
-				<h2 className="text-xl font-bold text-blueText">{title}</h2>
-				<p className="text-sm text-gray-400 mb-4">{subtitle}</p>
+		<nav className="max-w-2xl border-solid mb-auto mr-auto">
+			<div className="flex items-center mt-4 gap-2">
+				<img
+					src={cyclops8}
+					alt="writality"
+					width={35}
+					height={35}
+					className="inline-block"
+				/>
+				<p className="font-bold text-md text-blueText">Writality</p>
 			</div>
-			{children}
-		</div>
+		</nav>
 	);
 };

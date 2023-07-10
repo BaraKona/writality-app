@@ -4,11 +4,16 @@ import { Reset } from "../../components/auth";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Container } from "@mantine/core";
+import { AuthHeader } from "../../components/auth/AuthHeader";
+import { AuthFooter } from "../../components/auth/AuthFooter";
+import { AuthWrapper } from "../../components/auth/AuthWrapper";
 
 export function ResetPage() {
 	return (
-		<div className="h-screen flex flex-col max-w-5xl mx-auto gap-1 items-center justify-center">
+		<AuthWrapper>
+			<AuthHeader />
 			<Reset />
-		</div>
+			<AuthFooter />
+		</AuthWrapper>
 	);
 }

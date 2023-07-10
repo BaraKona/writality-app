@@ -9,7 +9,7 @@ import { useToast } from "../../hooks/useToast";
 import { useLogin } from "../../hooks/user/useLogin";
 import { inputStyles } from "./inputStyles";
 import { BlueButton } from "../buttons/BlueButton";
-import { AuthHeader } from "./AuthHeader";
+import { AuthTitle } from "./AuthTitle";
 export default function Login() {
 	const emailRef = useRef<HTMLDivElement>(null) as any;
 	const passwordRef = useRef<HTMLDivElement>(null) as any;
@@ -31,7 +31,7 @@ export default function Login() {
 	};
 
 	return (
-		<AuthHeader
+		<AuthTitle
 			title="Hey, Welcome Back! ✌️"
 			subtitle="Fill in your credentials to log in"
 		>
@@ -74,6 +74,6 @@ export default function Login() {
 					</span>
 				</p>
 			</Link>
-		</AuthHeader>
+		</AuthTitle>
 	);
 }

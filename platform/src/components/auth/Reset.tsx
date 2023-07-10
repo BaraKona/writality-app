@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import { AuthHeader } from "./AuthHeader";
+import { AuthTitle } from "./AuthTitle";
 import { Divider, TextInput } from "@mantine/core";
 import { inputStyles } from "./inputStyles";
 import { BlueButton } from "../buttons/BlueButton";
 export function Reset() {
 	return (
-		<AuthHeader
+		<AuthTitle
 			title="Forgot your password? 😞"
 			subtitle="No worries, we got you! Enter your email below and we'll send you a link to reset your password."
 		>
@@ -31,6 +31,6 @@ export function Reset() {
 					</span>
 				</p>
 			</Link>
-		</AuthHeader>
+		</AuthTitle>
 	);
 }

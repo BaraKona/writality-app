@@ -4,12 +4,17 @@ import Login from "../../components/auth/Login";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Container, Image } from "@mantine/core";
+import { AuthFooter } from "../../components/auth/AuthFooter";
+import { AuthHeader } from "../../components/auth/AuthHeader";
+import { AuthWrapper } from "../../components/auth/AuthWrapper";
 export function LoginPage() {
 	const { currentUser } = useAuthContext();
 	const navigate = useNavigate();
 	return (
-		<div className="h-screen flex flex-col max-w-5xl mx-auto gap-1 items-center justify-center">
+		<AuthWrapper>
+			<AuthHeader />
 			<Login />
-		</div>
+			<AuthFooter />
+		</AuthWrapper>
 	);
 }
