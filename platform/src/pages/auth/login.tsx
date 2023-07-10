@@ -7,24 +7,9 @@ import { Container, Image } from "@mantine/core";
 export function LoginPage() {
 	const { currentUser } = useAuthContext();
 	const navigate = useNavigate();
-
-	if (currentUser) {
-		navigate("/posts");
-	}
 	return (
-		<Container size="lg">
-			<MainNavigation />
-			<div className=" flex px-4 mx-auto flex-wrap-reverse ">
-				<Login />
-				<div className="flex flex-grow sm justify-center">
-					<Image
-						src={loginIllustration}
-						alt="login"
-						className="animate-pulse max-w-sm m-8 border-transparent  transition-all duration-500 ease-in-out"
-					/>
-					{/* <img src={loginIllustration} alt="login" width={500}></img> */}
-				</div>
-			</div>
-		</Container>
+		<div className="h-screen flex flex-col max-w-5xl mx-auto gap-1 items-center justify-center">
+			<Login />
+		</div>
 	);
 }

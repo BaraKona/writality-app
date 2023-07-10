@@ -5,7 +5,7 @@ import { TablerIcon } from "@tabler/icons";
 export const CreateButton: FC<{
 	createNewChapter: () => void;
 	text: string;
-	icon: JSX.Element;
+	icon?: JSX.Element;
 	iconColour?: string;
 }> = ({ createNewChapter, text, icon, iconColour }) => {
 	return (

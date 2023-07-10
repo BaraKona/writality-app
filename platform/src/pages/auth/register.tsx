@@ -7,25 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { Container, Image } from "@mantine/core";
 
 export function RegisterPage() {
-	const { currentUser } = useAuthContext();
-	const navigate = useNavigate();
-
-	if (currentUser) {
-		navigate("/");
-	}
 	return (
-		<Container size="lg">
-			<MainNavigation />
-			<div className="container flex px-4 mx-auto flex-wrap-reverse">
-				<Register />
-				<div className="flex flex-grow flex-shrink sm justify-center">
-					<Image
-						src={welcomeIllustration}
-						alt="login"
-						className="animate-pulse max-w-sm m-8 border-transparent  transition-all duration-500 ease-in-out "
-					/>
-				</div>
-			</div>
-		</Container>
+		<div className="h-screen flex flex-col max-w-5xl mx-auto gap-1 items-center justify-center">
+			<Register />
+		</div>
 	);
 }
