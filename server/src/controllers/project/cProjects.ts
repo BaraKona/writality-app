@@ -4,9 +4,11 @@ import Chapter from "../../models/chapterSchema";
 import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
 import { v4 as uuidv4 } from "uuid";
+import User from "../../models/user/userSchema";
 
 export const createProject = async (req: any, res: any) => {
-	const { userId } = req.body;
+	const userId = req.user.uid;
+
 	console.log(req.body);
 	const newProject = new Project({
 		type: "standard",
@@ -139,6 +141,30 @@ export const updateProjectType = async (req: any, res: any) => {
 		};
 		await project.save();
 		res.status(200).json(project);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const getUserFavourites = async (req: any, res: any) => {
+	const userId = req.user.uid;
+
+	try {
+		const user = await User.findOne({ uid: userId });
+		const projectIds = user.favouriteProjects;
+		const projects = await Project.find({
+			$or: [
+				{ owner: userId },
+				{
+					collaborators: {
+						$elemMatch: { uid: userId, active: true },
+					},
+				},
+			],
+			uid: { $in: projectIds },
+		});
+		res.status(200).json(projects);
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

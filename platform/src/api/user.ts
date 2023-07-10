@@ -58,3 +58,12 @@ export const signOutUser = async () => {
 		console.log(err.message);
 	}
 };
+
+export const addFavouriteProject = async (projectId: string) => {
+	try {
+		const { data } = await userApi.post("/favourites", { projectId });
+		return data;
+	} catch (err: any) {
+		const { data } = err.response;
+	}
+};

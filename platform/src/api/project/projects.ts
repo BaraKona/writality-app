@@ -11,8 +11,7 @@ const userProjectApi = axios.create({
 	withCredentials: true,
 });
 
-export const getUserProjects = async (userId: string) => {
-	console.log("userId", userId);
+export const getUserProjects = async () => {
 	try {
 		const { data } = await userProjectApi.get("/");
 		return data;
@@ -22,8 +21,8 @@ export const getUserProjects = async (userId: string) => {
 	}
 };
 
-export const createProject = async (userId: string) => {
-	const { data } = await projectApi.post("/", { userId });
+export const createProject = async () => {
+	const { data } = await projectApi.post("/");
 	return data;
 };
 
@@ -101,6 +100,16 @@ export const updateProjectType = async (
 			type,
 		});
 		useToast("success", "Project type updated successfully 😃");
+		return data;
+	} catch (err: any) {
+		const { data } = err.response;
+		useToast("error", "something went wrong 😖");
+	}
+};
+
+export const getUserFavourites = async () => {
+	try {
+		const { data } = await projectApi.get("/favourites");
 		return data;
 	} catch (err: any) {
 		const { data } = err.response;

@@ -8,6 +8,7 @@ interface IUser {
 	uid: string;
 	createdAt: Date;
 	role?: string;
+	favouriteProjects?: string[];
 }
 const userSchema = new Schema<IUser>({
 	name: {
@@ -38,6 +39,9 @@ const userSchema = new Schema<IUser>({
 		type: String,
 		enum: ["user", "admin"],
 		default: "user",
+	},
+	favouriteProjects: {
+		type: [String],
 	},
 });
 

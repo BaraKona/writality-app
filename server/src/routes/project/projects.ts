@@ -9,6 +9,7 @@ import {
 	updateProjectDescription,
 	updateProjectTitle,
 	updateProjectType,
+	getUserFavourites,
 } from "../../controllers/project/cProjects";
 
 const router = express.Router();
@@ -25,4 +26,5 @@ router.patch(
 router.patch("/:userId/:projectId/title", protect, updateProjectTitle);
 router.delete("/:userId/:projectId", protect, deleteProject);
 router.patch("/:userId/:projectId/type", protect, updateProjectType);
+router.get("/favourites", protect, getUserFavourites);
 export default router;

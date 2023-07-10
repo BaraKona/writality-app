@@ -1,12 +1,7 @@
 import { Link } from "react-router-dom";
-import React, { useRef, useState } from "react";
-import { apple, google } from "../../assets/icons";
-import { useAuthContext } from "../../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import React, { useRef } from "react";
 import { Divider, PasswordInput, TextInput } from "@mantine/core";
-import { loginUser, registerUser } from "../../api/user";
 import { useSignUp } from "../../hooks/user/useSignup";
-import { sign } from "crypto";
 import { AuthTitle } from "./AuthTitle";
 import { inputStyles } from "./inputStyles";
 import { BlueButton } from "../buttons/BlueButton";
@@ -18,7 +13,6 @@ export function Register() {
 	const passwordConfirmRef = useRef<HTMLDivElement>(null) as any;
 
 	const { mutate: signup, isLoading } = useSignUp();
-	const navigate = useNavigate();
 
 	const handleAccountCreation = async (e: React.FormEvent) => {
 		e.preventDefault();

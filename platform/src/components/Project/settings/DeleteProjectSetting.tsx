@@ -18,7 +18,7 @@ export const DeleteProjectSetting = () => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["projects", currentUser.uid]);
-				navigate("/dashboard");
+				navigate("/");
 			},
 		}
 	);

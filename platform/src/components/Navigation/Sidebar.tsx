@@ -1,5 +1,4 @@
-import React, { FC, ReactNode, useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { FC } from "react";
 import {
 	ProjectListItem,
 	CategoryListItem,
@@ -7,14 +6,7 @@ import {
 } from "../ListItems";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { IProject } from "../../interfaces/IProject";
-import {
-	Link,
-	Outlet,
-	useNavigate,
-	useParams,
-	useResolvedPath,
-	useMatch,
-} from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useToast } from "../../hooks/useToast";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { createProject, getUserProjects } from "../../api/project/projects";
@@ -24,45 +16,23 @@ import {
 	IconHelp,
 	IconSettings,
 	IconTemplate,
-	IconLayoutDashboard,
 	IconHome,
-	IconHomeEdit,
 } from "@tabler/icons";
 import { cyclops8 } from "../../assets/icons";
 import { MainFrame } from "../Project";
-import { useLocation } from "react-router-dom";
 import { useSignout } from "../../hooks/user/useSignout";
-import { IoLibraryOutline } from "react-icons/io5";
-import { HiLibrary } from "react-icons/hi";
+import { useUserProjects } from "../../hooks/projects/useUserProjects";
+import { useFavouriteProjects } from "../../hooks/projects/useFavouriteProjects";
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { currentUser } = useAuthContext();
 	const queryClient = useQueryClient();
-	const location = useLocation();
 	const { mutate: signOut } = useSignout();
 
-	const {
-		isLoading: projectsLoading,
-		error,
-		data: projects,
-	} = useQuery(
-		["projects", currentUser?.uid],
-		() => getUserProjects(currentUser.uid),
-		{
-			staleTime: Infinity,
-			enabled: !!currentUser,
-		}
-	);
-
-	const addProject = useMutation(createProject, {
-		onSuccess: () => {
-			queryClient.invalidateQueries(["projects", currentUser.uid]);
-			useToast("success", "Project created successfully! 🎉");
-		},
-		onError: (error: Error) => {
-			useToast("error", error?.message);
-		},
-	});
+	// const { data: projects, isLoading: isProjectLoading } = useUserProjects();
+	console.log(currentUser);
+	const { data: projects, isLoading: isProjectLoading } =
+		useFavouriteProjects();
 
 	const openProject = (route: string) => {
 		navigate(route);
@@ -106,12 +76,11 @@ export const Sidebar: FC<{}> = () => {
 					</CategoryListItem>
 					<CategoryListItem
 						mt="mt-8 mb-3"
-						name="Your Projects"
-						button={true}
-						onClick={() => addProject.mutate(currentUser.uid)}
-						loading={projectsLoading}
+						name="Favourites"
+						// button={true}
+						// onClick={() => addProject.mutate(currentUser.uid)}
+						loading={isProjectLoading}
 					>
-						{/* <ScrollArea.Autosize mah={350} offsetScrollbars scrollbarSize={6}> */}
 						{projects?.map((project: IProject, index: number) => {
 							return (
 								<ProjectListItem
@@ -123,7 +92,6 @@ export const Sidebar: FC<{}> = () => {
 								/>
 							);
 						})}
-						{/* </ScrollArea.Autosize> */}
 					</CategoryListItem>
 					<div className="mt-auto mb-4">
 						<CommunityListItem

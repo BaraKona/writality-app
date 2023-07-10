@@ -112,8 +112,8 @@ export function Project() {
 			),
 		{
 			onSuccess: () => {
-				queryClient.invalidateQueries(["project", project as string]);
-				queryClient.invalidateQueries(["projects", currentUser.uid]);
+				queryClient.invalidateQueries(["projects"]);
+				queryClient.invalidateQueries(["favourites"]);
 			},
 		}
 	);

@@ -1,4 +1,5 @@
 import User from "../models/user/userSchema";
+import Project from "../models/projectSchema";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 const bcrypt = require("bcrypt");
@@ -42,14 +43,9 @@ export const createUser = async (req: any, res: any) => {
 };
 
 export const getUser = async (req: any, res: any) => {
+	const userId = req.user.uid;
 	try {
-		const user = {
-			uid: req.user.uid,
-			name: req.user.name,
-			email: req.user.email,
-			createdAt: req.user.createdAt,
-		};
-
+		const user = await User.findOne({ uid: userId }).select("-password");
 		res.status(200).json(user);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
@@ -94,7 +90,6 @@ export const signIn = async (req: any, res: any) => {
 };
 
 export const signOut = async (req: any, res: any) => {
-	// logout user and make cookie invalid
 	try {
 		res.cookie("access_token", "", {
 			path: "/",
@@ -109,5 +104,42 @@ export const signOut = async (req: any, res: any) => {
 		throw new Error(
 			"Something went wrong, we could not log you out. Please try again later"
 		);
+	}
+};
+
+export const addFavouriteProject = async (req: any, res: any) => {
+	const { projectId } = req.body;
+	const userId = req.user.uid;
+	try {
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { uid: userId, active: true },
+					},
+					uid: projectId,
+				},
+			],
+		});
+		if (!project) {
+			res.status(404).json({ message: "Project not found." });
+		} else {
+			const user = await User.findOne({ uid: userId });
+			if (!user) {
+				res.status(404).json({ message: "User not found." });
+			} else {
+				if (user.favouriteProjects.includes(projectId)) {
+					res.status(200).json({ message: "Project already favourited." });
+				} else {
+					user.favouriteProjects.push(projectId);
+
+					await user.save();
+					res.status(200).json({ message: "Project favourited successfully." });
+				}
+			}
+		}
+	} catch (error) {
+		res.status(404).json({ message: error.message });
 	}
 };
