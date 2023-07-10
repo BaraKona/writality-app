@@ -20,9 +20,6 @@ export function Register() {
 	const { mutate: signup } = useSignUp();
 	const navigate = useNavigate();
 
-	const { createAUserWithEmailAndPassword, currentUser } = useAuthContext();
-	const [loading, setLoading] = useState(false);
-
 	const handleAccountCreation = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (passwordRef.current.value !== passwordConfirmRef.current.value) {
