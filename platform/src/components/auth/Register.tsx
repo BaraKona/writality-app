@@ -17,7 +17,7 @@ export function Register() {
 	const passwordRef = useRef<HTMLDivElement>(null) as any;
 	const passwordConfirmRef = useRef<HTMLDivElement>(null) as any;
 
-	const { mutate: signup } = useSignUp();
+	const { mutate: signup, isLoading } = useSignUp();
 	const navigate = useNavigate();
 
 	const handleAccountCreation = async (e: React.FormEvent) => {
@@ -36,7 +36,6 @@ export function Register() {
 			console.log(error);
 			if (error instanceof Error) alert(error.message);
 		}
-		setLoading(false);
 	};
 
 	return (
@@ -87,7 +86,9 @@ export function Register() {
 						...inputStyles,
 					}}
 				/>
-				<BlueButton>Register</BlueButton>
+				<BlueButton>
+					{isLoading ? "Creating account..." : "Create account"}
+				</BlueButton>
 			</form>
 			<Divider my="md" label="or" labelPosition="center" />
 
