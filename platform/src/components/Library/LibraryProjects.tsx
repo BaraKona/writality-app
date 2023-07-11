@@ -57,7 +57,7 @@ export const LibraryProjects: FC<{
 							>
 								<div
 									className="flex flex-row items-start gap-2"
-									onClick={() => navigate(`/project/${project.uid}`)}
+									onClick={() => navigate(`/project/${project.uid}/home`)}
 								>
 									{project.type === ProjectType.standard ? (
 										<IconBook2 size={20} />

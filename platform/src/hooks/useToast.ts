@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 
 export const useToast = (type: string, message: string) => {
 	const style = {
-		borderRadius: "10px",
+		borderRadius: "5px",
 		background: "#fff",
 		color: "#394251",
 		fontSize: "0.75rem",

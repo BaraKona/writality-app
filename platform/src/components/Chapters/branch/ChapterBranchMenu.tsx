@@ -29,7 +29,7 @@ export const ChapterBranchMenu: FC<{
 				<Tooltip label="Branches" position="left" withArrow>
 					<div className="border border-lightBorder p-2 rounded-normal group">
 						<IconGitBranch
-							size={20}
+							size={18}
 							className="text-blueText group-hover:text-black "
 						/>
 					</div>

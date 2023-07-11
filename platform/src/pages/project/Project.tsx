@@ -33,7 +33,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { chapterCreator } from "../../hooks";
-import { Tabs, Tooltip } from "@mantine/core";
+import { Divider, Tabs, Tooltip } from "@mantine/core";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../../components/Editor/utils/editorExtensions";
 import { useTabContext } from "../../contexts/TabContext";
@@ -46,11 +46,10 @@ import { CollaborationChat } from "../../components/Project/Collaboration";
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
-	const { project } = useParams();
+	const { project, projectTab } = useParams();
 	const [openModal, setOpenModal] = useState(false);
 	const [openDeleteProject, setOpenDeleteProject] = useState(false);
 	const [chapterId, setChapterId] = useState("");
-	const { tabs, setTabs } = useTabContext();
 	const navigate = useNavigate();
 
 	const { data: currentProject } = useQuery(
@@ -68,15 +67,6 @@ export function Project() {
 			queryClient.invalidateQueries("chapters");
 		},
 	});
-	const deleteProject = useMutation(
-		() => deleteSingleProject(currentUser.uid, project as string),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(["projects", currentUser.uid]);
-				navigate("/");
-			},
-		}
-	);
 	const deleteChapter = useMutation(
 		() => deleteSingleChapter(currentUser.uid, project as string, chapterId),
 		{
@@ -137,129 +127,134 @@ export function Project() {
 				deleteBranch={deleteChapter.mutate}
 				type="chapter"
 			/>
-			{chapters?.length == 0 ? (
-				<NoChapters createNewChapter={createNewChapter} />
-			) : (
-				<ChapterWrapper
-					title={currentProject.title}
-					type={currentProject.type}
-					updateProjectTitle={updateProjectTitleMutation.mutate}
+			<ChapterWrapper
+				title={currentProject.title}
+				type={currentProject.type}
+				updateProjectTitle={updateProjectTitleMutation.mutate}
+			>
+				<Tabs
+					className="w-full border-none important:border-none h-[calc(100vh-7.4rem)]"
+					value={projectTab}
+					onTabChange={(tab) => navigate(`/project/${project}/${tab}`)}
+					defaultValue="home"
+					radius={"md"}
+					orientation="vertical"
+					styles={{
+						root: {
+							color: "#394251",
+						},
+						tabsList: {
+							borderRight: "1px solid #e3e3e3",
+							borderTopRightRadius: "0px",
+							borderBottomRightRadius: "0px",
+							paddingRight: "8px",
+						},
+						// remove default styles for active tab
+
+						tab: {
+							backgroundColor: "#f2f2f2",
+							color: "#394251",
+							border: "1px solid #e3e3e3",
+							marginBottom: "2px",
+							borderTopLeftRadius: "0px",
+							borderBottomLeftRadius: "0px",
+							fontSize: "0.8rem",
+							borderRadius: "0.375rem",
+							padding: "8px",
+							transition: "all 0.2s ease-in-out",
+							"&:hover": {
+								color: "#000",
+								backgroundColor: "transparent",
+								borderColor: "#e3e3e3",
+							},
+							"&[data-active]": {
+								color: "#000",
+								backgroundColor: "transparent",
+								borderColor: "#e3e3e3",
+							},
+							"&[data-active]:hover": {
+								borderColor: "#e3e3e3",
+							},
+						},
+					}}
 				>
-					<Tabs
-						className="w-full border-none important:border-none h-[calc(100vh-7.4rem)]"
-						defaultValue="home"
-						radius={"md"}
-						orientation="vertical"
-						styles={{
-							root: {
-								color: "#394251",
-							},
-							tabsList: {
-								borderRight: "1px solid #e3e3e3",
-								borderTopRightRadius: "0px",
-								borderBottomRightRadius: "0px",
-								paddingRight: "8px",
-							},
-							// remove default styles for active tab
+					<Tabs.List>
+						<Tooltip label="Home" position="right" withArrow>
+							<Tabs.Tab value="home">
+								<IconHome size={18} />
+							</Tabs.Tab>
+						</Tooltip>
+						<Tooltip label="World" position="right" withArrow>
+							<Tabs.Tab value="world-info" disabled>
+								<IconGlobe size={18} />
+							</Tabs.Tab>
+						</Tooltip>
+						<Tooltip label="Publish" position="right" withArrow>
+							<Tabs.Tab value="publish" disabled>
+								<IconNews size={18} />
+							</Tabs.Tab>
+						</Tooltip>
+						{currentProject?.type === "collaboration" && (
+							<Tooltip label="Chat" position="right" withArrow>
+								<Tabs.Tab value="chat">
+									<IconMessage size={18} />
+								</Tabs.Tab>
+							</Tooltip>
+						)}
+						<Divider my="sm" />
+						<Tooltip label="Settings" position="right" withArrow>
+							<Tabs.Tab value="settings">
+								<IconSettings size={18} />
+							</Tabs.Tab>
+						</Tooltip>
+					</Tabs.List>
 
-							tab: {
-								backgroundColor: "#f2f2f2",
-								color: "#394251",
-								border: "1px solid #e3e3e3",
-								marginBottom: "2px",
-								borderTopLeftRadius: "0px",
-								borderBottomLeftRadius: "0px",
-								fontSize: "0.8rem",
-								borderRadius: "0.375rem",
-								padding: "8px",
-								transition: "all 0.2s ease-in-out",
-								"&:hover": {
-									color: "#000",
-									backgroundColor: "transparent",
-									borderColor: "#e3e3e3",
-								},
-								"&[data-active]": {
-									color: "#000",
-									backgroundColor: "transparent",
-									borderColor: "#e3e3e3",
-								},
-								"&[data-active]:hover": {
-									borderColor: "#e3e3e3",
-								},
-							},
-						}}
-					>
-						<Tabs.List>
-							<Tooltip label="Home" position="right" withArrow>
-								<Tabs.Tab value="home">
-									<IconHome size={20} />
-								</Tabs.Tab>
-							</Tooltip>
-							<Tooltip label="World" position="right" withArrow>
-								<Tabs.Tab value="world-info" disabled>
-									<IconGlobe size={20} />
-								</Tabs.Tab>
-							</Tooltip>
-							<Tooltip label="Publish" position="right" withArrow>
-								<Tabs.Tab value="publish" disabled>
-									<IconNews size={20} />
-								</Tabs.Tab>
-							</Tooltip>
-							{currentProject?.type === "collaboration" && (
-								<Tooltip label="Chat" position="right" withArrow>
-									<Tabs.Tab value="chat">
-										<IconMessage size={20} />
-									</Tabs.Tab>
-								</Tooltip>
-							)}
-							<Tooltip label="Settings" position="right" withArrow>
-								<Tabs.Tab value="settings" mt="auto">
-									<IconSettings size={20} />
-								</Tabs.Tab>
-							</Tooltip>
-						</Tabs.List>
-
-						<Tabs.Panel value="home">
-							<div className="flex flex-wrap">
-								<ChapterRenderer
-									chapterCount={chapters?.length}
-									createNewChapter={createNewChapter}
-								>
-									{chapters?.map((chapter: IChapter, index: number) => (
-										<Chapter
-											openChapter={() =>
-												openChapter(chapter.projectId, chapter.uid)
-											}
-											key={index}
-											chapter={chapter}
-											openChapterModal={() => openChapterModal(chapter.uid)}
-											disabled={false}
-										/>
-									))}
-								</ChapterRenderer>
-								{editor && currentProject && (
-									<ProjectDescription
-										project={currentProject}
-										user={currentUser.uid}
-										editor={editor}
-										updateDescription={updateDescription.mutate}
-									/>
+					<Tabs.Panel value="home">
+						<div className="flex flex-wrap">
+							<ChapterRenderer
+								chapterCount={chapters?.length}
+								createNewChapter={createNewChapter}
+							>
+								{chapters?.length == 0 ? (
+									<NoChapters createNewChapter={createNewChapter} />
+								) : (
+									<>
+										{chapters?.map((chapter: IChapter, index: number) => (
+											<Chapter
+												openChapter={() =>
+													openChapter(chapter.projectId, chapter.uid)
+												}
+												key={index}
+												chapter={chapter}
+												openChapterModal={() => openChapterModal(chapter.uid)}
+												disabled={false}
+											/>
+										))}{" "}
+									</>
 								)}
-								{/* <CharacterWrapper> - Protagonist </CharacterWrapper> */}
-							</div>
-						</Tabs.Panel>
+							</ChapterRenderer>
+							{editor && currentProject && (
+								<ProjectDescription
+									project={currentProject}
+									user={currentUser.uid}
+									editor={editor}
+									updateDescription={updateDescription.mutate}
+								/>
+							)}
+							{/* <CharacterWrapper> - Protagonist </CharacterWrapper> */}
+						</div>
+					</Tabs.Panel>
 
-						<Tabs.Panel value="world-info">
-							<CharacterWrapper> - Protagonist </CharacterWrapper>
-						</Tabs.Panel>
+					<Tabs.Panel value="world-info">
+						<CharacterWrapper> - Protagonist </CharacterWrapper>
+					</Tabs.Panel>
 
-						<Tabs.Panel value="settings">
-							<ProjectSettings project={currentProject} />
-						</Tabs.Panel>
-						<Tabs.Panel value="chat">CHAT!!!!</Tabs.Panel>
-					</Tabs>
-				</ChapterWrapper>
-			)}
+					<Tabs.Panel value="settings">
+						<ProjectSettings project={currentProject} />
+					</Tabs.Panel>
+					<Tabs.Panel value="chat">CHAT!!!!</Tabs.Panel>
+				</Tabs>
+			</ChapterWrapper>
 		</>
 	);
 }

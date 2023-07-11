@@ -289,7 +289,7 @@ export const Chapter = () => {
 				editor={editor}
 			/>
 			<EditorWrapper
-				backToProject={() => navigate(`/project/${project}`)}
+				backToProject={() => navigate(`/project/${project}/home`)}
 				save={
 					branch
 						? updateBranchMutation.mutate
@@ -340,7 +340,7 @@ export const Chapter = () => {
 						}
 					/>
 					<ChapterHistoryMenu history={chapterContent?.history} />
-					<ChapterSettingsMenu />
+					{/* <ChapterSettingsMenu /> */}
 				</div>
 			</EditorWrapper>
 		</>

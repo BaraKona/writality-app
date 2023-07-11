@@ -10,7 +10,7 @@ export const ChapterSettingsMenu: FC<{}> = () => {
 				<Tooltip label="Settings" position="left" withArrow>
 					<div className="border border-lightBorder p-2 rounded-normal group">
 						<IconSettings
-							size={20}
+							size={18}
 							className="text-blueText group-hover:text-black "
 						/>
 					</div>

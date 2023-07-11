@@ -132,7 +132,7 @@ export const BaseEditor: FC<{
 			</RichTextEditor.Toolbar>
 
 			<RichTextEditor.Content
-				className="transition-all duration-300 ease-in-out text-blueText"
+				className="transition-all duration-300 ease-in-out text-blueText text-sm"
 				style={{
 					overflowY: "auto",
 					height: height,

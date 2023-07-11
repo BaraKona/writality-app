@@ -88,7 +88,7 @@ export const Sidebar: FC<{}> = () => {
 							return (
 								<ProjectListItem
 									key={index}
-									onClick={() => openProject(`project/${project.uid}`)}
+									onClick={() => openProject(`project/${project.uid}/home`)}
 									name={project.title || "Untitled Project"}
 									projectId={project.uid}
 									type={project.type}
