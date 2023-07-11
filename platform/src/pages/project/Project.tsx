@@ -195,11 +195,14 @@ export function Project() {
 							</Tabs.Tab>
 						</Tooltip>
 						{currentProject?.type === "collaboration" && (
-							<Tooltip label="Chat" position="right" withArrow>
-								<Tabs.Tab value="chat">
-									<IconMessage size={18} />
-								</Tabs.Tab>
-							</Tooltip>
+							<>
+								<Divider my="sm" />
+								<Tooltip label="Chat" position="right" withArrow>
+									<Tabs.Tab value="chat">
+										<IconMessage size={18} />
+									</Tabs.Tab>
+								</Tooltip>
+							</>
 						)}
 						<Divider my="sm" />
 						<Tooltip label="Settings" position="right" withArrow>
