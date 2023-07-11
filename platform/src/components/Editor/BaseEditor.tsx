@@ -140,7 +140,6 @@ export const BaseEditor: FC<{
 					backgroundColor: "white",
 					minWidth: "400px",
 				}}
-				onBlur={saveContent}
 			/>
 		</RichTextEditor>
 	);

@@ -13,7 +13,13 @@ export const ProjectDescription: FC<{
 	}, [project]);
 
 	return (
-		<div className="flex flex-col flex-grow px-3 mx-auto w-80 bg-white">
+		<div
+			className="flex flex-col flex-grow px-3 mx-auto w-80 bg-white"
+			onMouseLeave={() => {
+				editor.getHTML() !== project?.description &&
+					updateDescription(editor.getHTML());
+			}}
+		>
 			<div className="">
 				<h3 className="text-center text-blueText font-medium text-xs">
 					Project Description
@@ -23,7 +29,7 @@ export const ProjectDescription: FC<{
 			<BaseEditor
 				editor={editor}
 				height="calc(100vh - 192px)"
-				saveContent={() => updateDescription(editor.getHTML())}
+				saveContent={() => {}}
 			/>
 		</div>
 	);
