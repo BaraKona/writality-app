@@ -13,12 +13,16 @@ module.exports = {
 				baseBorderDark: "#fff",
 				baseLighter: "#ffff",
 				baseBorder: "#fff",
+				lightBorder: "rgb(229, 231, 235)",
 				blueText: "#394251",
 			},
 			grid: {
 				"3xl": "1600px",
 				"4xl": "2000px",
 				"5xl": "2400px",
+			},
+			borderRadius: {
+				normal: "0.25rem",
 			},
 		},
 	},

@@ -67,3 +67,14 @@ export const addFavouriteProject = async (projectId: string) => {
 		const { data } = err.response;
 	}
 };
+
+export const removeFavouriteProject = async (projectId: string) => {
+	try {
+		const { data } = await userApi.delete("/favourites", {
+			data: { projectId },
+		});
+		return data;
+	} catch (err: any) {
+		const { data } = err.response;
+	}
+};

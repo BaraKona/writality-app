@@ -63,9 +63,9 @@ export const EditorWrapper: FC<{
 						: "No updates yet"}
 				</Text>
 
-				<div className="border-l border-gray-200 group" onClick={save}>
+				<div className="border-l border-lightBorder group" onClick={save}>
 					<Tooltip label="Save" position="left" withArrow>
-						<div className="ml-3 p-2 border rounded-md ">
+						<div className="ml-3 p-2 border rounded-normal ">
 							<IconDeviceFloppy
 								size={20}
 								className="text-blueText group-hover:text-black"
@@ -74,7 +74,7 @@ export const EditorWrapper: FC<{
 					</Tooltip>
 				</div>
 			</div>
-			<Divider className="border-gray-200" />
+			<Divider className="border-lightBorder" />
 			<div className="h-[calc(100vh-120px)] overflow-y-hidden bg-white">
 				<div className="text-editor flex justify-between align-middle">
 					{children}

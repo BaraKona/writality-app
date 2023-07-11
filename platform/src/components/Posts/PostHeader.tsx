@@ -32,7 +32,7 @@ export const PostHeader: FC<{
 						/>
 					</div>
 				</div>
-				<Divider className="mt-2 border-gray-200" />
+				<Divider className="mt-2 border-lightBorder" />
 			</div>
 		</div>
 	);

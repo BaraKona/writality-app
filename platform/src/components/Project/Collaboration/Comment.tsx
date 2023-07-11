@@ -19,7 +19,7 @@ export const Comment: FC<{
 						</div>
 						<div className="w-8 h-8 rounded-full bg-purple-400"></div>
 					</div>
-					<div className="flex flex-col space-y-2 py-2 px-4 border border-violet-300 rounded-md max-w-[400px]">
+					<div className="flex flex-col space-y-2 py-2 px-4 border border-violet-300 rounded-normal max-w-[400px]">
 						<p className="text-sm text-violet-300">{comment.content}</p>
 					</div>
 				</div>
@@ -34,7 +34,7 @@ export const Comment: FC<{
 							</p>
 						</div>
 					</div>
-					<div className="flex flex-col space-y-2 py-2 px-4 border border-blue-300 rounded-md max-w-fit">
+					<div className="flex flex-col space-y-2 py-2 px-4 border border-blue-300 rounded-normal max-w-fit">
 						<p className="text-sm text-blue-300">{comment.content}</p>
 					</div>
 				</div>

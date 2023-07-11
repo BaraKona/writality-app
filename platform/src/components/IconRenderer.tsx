@@ -18,14 +18,14 @@ export function IconRenderer({
 		<>
 			{type === "collaboration" ? (
 				open ? (
-					<IconAtom size={23} />
+					<IconAtom size={18} />
 				) : (
-					<IconAtom2 size={23} />
+					<IconAtom2 size={18} />
 				)
 			) : open ? (
-				<IconBook size={23} />
+				<IconBook size={18} />
 			) : (
-				<IconBook2 size={23} />
+				<IconBook2 size={18} />
 			)}
 		</>
 	);

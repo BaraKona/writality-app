@@ -103,7 +103,7 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 					/>
 				</div>
 			</div>
-			<Divider className="border-gray-200 max-w-3xl" />
+			<Divider className="border-lightBorder max-w-3xl" />
 		</>
 	);
 };

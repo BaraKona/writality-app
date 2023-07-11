@@ -13,7 +13,7 @@ export const ChapterSettings: FC<{}> = ({}) => {
 						className="ml-auto hover:text-black cursor-pointer"
 					/>
 				</div>
-				<Divider className="border-gray-200" />
+				<Divider className="border-lightBorder" />
 				<ScrollArea.Autosize
 					mah={400}
 					offsetScrollbars

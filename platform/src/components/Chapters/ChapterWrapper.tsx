@@ -31,7 +31,7 @@ export const ChapterWrapper: FC<{
 					}
 				/>
 			</div>
-			<Divider className=" border-gray-200" />
+			<Divider className=" border-lightBorder" />
 			<div className="flex">{children}</div>
 		</div>
 	);

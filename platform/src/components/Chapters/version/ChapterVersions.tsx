@@ -24,14 +24,14 @@ export const ChapterVersions: FC<{
 					className="ml-auto hover:text-black cursor-pointer"
 				/>
 			</div>
-			<Divider className="border-gray-200" />
+			<Divider className="border-lightBorder" />
 			{chapterVersions.length > 0 ? (
 				<div>
 					<ScrollArea.Autosize offsetScrollbars scrollbarSize={6} mah={400}>
 						{chapterVersions.map((version: any, index) => (
 							<div
 								key={index}
-								className="px-2 py-1 flex justify-between gap-2 items-center border-b border-gray-200 group"
+								className="px-2 py-1 flex justify-between gap-2 items-center border-b border-lightBorder group"
 							>
 								<div className="">
 									<div className="flex gap-1 transition-all ease-in-out duration-200 items-center text-xs cursor-default">

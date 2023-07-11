@@ -143,3 +143,42 @@ export const addFavouriteProject = async (req: any, res: any) => {
 		res.status(404).json({ message: error.message });
 	}
 };
+
+export const removeFavouriteProject = async (req: any, res: any) => {
+	const { projectId } = req.body;
+	const userId = req.user.uid;
+	try {
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { uid: userId, active: true },
+					},
+					uid: projectId,
+				},
+			],
+		});
+		if (!project) {
+			res.status(404).json({ message: "Project not found." });
+		} else {
+			const user = await User.findOne({ uid: userId });
+			if (!user) {
+				res.status(404).json({ message: "User not found." });
+			} else {
+				if (!user.favouriteProjects.includes(projectId)) {
+					res.status(200).json({ message: "Project not favourited." });
+				} else {
+					user.favouriteProjects = user.favouriteProjects.filter(
+						(project: string) => project !== projectId
+					);
+
+					await user.save();
+					res.status(200).json({ message: "Project removed successfully." });
+				}
+			}
+		}
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};

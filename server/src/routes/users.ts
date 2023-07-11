@@ -6,6 +6,7 @@ import {
 	signIn,
 	signOut,
 	addFavouriteProject,
+	removeFavouriteProject,
 } from "../controllers/cUser";
 import { protect } from "../middleware/jwtAuth";
 
@@ -18,4 +19,5 @@ router.get("/all", protect, getAllUsers);
 router.post("/signin", signIn);
 router.post("/logout", signOut);
 router.post("/favourites", protect, addFavouriteProject);
+router.delete("/favourites", protect, removeFavouriteProject);
 export default router;

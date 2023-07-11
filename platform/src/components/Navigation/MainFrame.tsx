@@ -68,23 +68,23 @@ export const MainFrame: FC<{
 	const tabIcons = [
 		{
 			title: "Library",
-			icon: <IconHome stroke={2.2} size={20} />
+			icon: <IconHome stroke={2.2} size={18} />,
 		},
 		{
 			title: "Stories",
-			icon: <IconBooks size={20} />,
+			icon: <IconBooks size={18} />,
 		},
 		{
 			title: "Posts",
-			icon: <IconTemplate size={20} />,
+			icon: <IconTemplate size={18} />,
 		},
 		{
 			title: "Settings",
-			icon: <IconSettings size={20} />,
+			icon: <IconSettings size={18} />,
 		},
 		{
 			title: "Help",
-			icon: <IconHelp size={20} />,
+			icon: <IconHelp size={18} />,
 		},
 	];
 
@@ -109,7 +109,7 @@ export const MainFrame: FC<{
 	};
 	return (
 		<div className="">
-			<div className="mt-2 pb-1 flex gap-1 overflow-x-auto w-[calc(100vw-12rem)]">
+			<div className="mt-1.5 pb-1 flex gap-1 overflow-x-auto w-[calc(100vw-11rem)]">
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}
@@ -117,7 +117,7 @@ export const MainFrame: FC<{
 							tab.id === pathname
 								? "bg-white border-none hover:bg-white"
 								: " cursor-pointer hover:bg-[rgba(255,255,255,0.5)] "
-						} flex items-center justify-between px-2 py-2 w-44 rounded-md transition-all duration-500 ease-in-out`}
+						} flex items-center justify-between px-2 py-1.5 w-44 rounded-normal transition-all duration-500 ease-in-out`}
 						onClick={() => navigate(tab.path)}
 					>
 						<div
@@ -131,7 +131,7 @@ export const MainFrame: FC<{
 								) : (
 									<IconBook2 size={20} />
 								))}
-							<span className="ml-1 text-xs font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
+							<span className="ml-0.5 text-xs font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
 								{tabName ? tabName : tab.title}
 							</span>
 							<div className="flex gap-0.5 ml-auto">

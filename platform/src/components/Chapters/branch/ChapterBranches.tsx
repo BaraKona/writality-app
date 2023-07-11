@@ -42,10 +42,10 @@ export const ChapterBranches: FC<{
 					className="ml-auto hover:text-black cursor-pointer"
 				/>
 			</div>
-			<Divider className="border-gray-200" />
+			<Divider className="border-lightBorder" />
 			{chapterBranches?.length > 0 ? (
 				<div className="border border-baseLight text-blueText">
-					<div className="flex justify-between gap-2 border-b border-gray-200 items-center">
+					<div className="flex justify-between gap-2 border-b border-lightBorder items-center">
 						<div className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-xs font-medium">
 							<div
 								className={`hover:text-black ${
@@ -64,7 +64,7 @@ export const ChapterBranches: FC<{
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}
-								className="flex justify-between gap-2 border-b border-gray-200 py-1 px-2"
+								className="flex justify-between gap-2 border-b border-lightBorder py-1 px-2"
 							>
 								<div className="flex gap-1 transition-all ease-in-out duration-200">
 									<button

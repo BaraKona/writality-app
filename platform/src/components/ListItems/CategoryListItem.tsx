@@ -1,8 +1,6 @@
 import React, { FC, ReactNode } from "react";
-import { AiFillPlusSquare } from "react-icons/ai";
-import { Loading } from "../Loading";
 import { Loader } from "@mantine/core";
-import { IconPlus, IconSquareRoundedPlus } from "@tabler/icons";
+import { IconSquareRoundedPlus } from "@tabler/icons";
 export const CategoryListItem: FC<{
 	children?: ReactNode;
 	mt: string;
@@ -15,7 +13,7 @@ export const CategoryListItem: FC<{
 		<ul>
 			<li>
 				<h2
-					className={`flex justify-between items-center ml-1 ${mt} font-[600] text-xs rounded-lg`}
+					className={`flex justify-between items-center ml-0.5 ${mt} font-normal text-xs rounded-normal`}
 				>
 					{name}
 					<p

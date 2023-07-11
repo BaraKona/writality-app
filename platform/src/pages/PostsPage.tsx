@@ -83,7 +83,7 @@ export const PostsPage: FC = () => {
 						setProjectTitle={setProjectTitle}
 						setCollaboration={setCollaboration}
 					/>
-					<div className="bg-white px-4 pt-4 overflow-y-auto flex flex-col rounded-tl-md h-[calc(100vh-121px)] border-r border-r-gray-200">
+					<div className="bg-white px-4 pt-4 overflow-y-auto flex flex-col rounded-tl-md h-[calc(100vh-121px)] border-r border-r-lightBorder">
 						<div className="grid grid-cols-1 gap-4">
 							{posts?.map((post: IPost) => (
 								<PostCard post={post!} />
@@ -92,9 +92,9 @@ export const PostsPage: FC = () => {
 					</div>
 				</div>
 				<section>
-					<Divider className="border-gray-200" orientation="vertical" />
+					<Divider className="border-lightBorder" orientation="vertical" />
 					<div className=" p-4 text-blueText ">
-						<div className="bg-[#f2f2f2] rounded-md px-4 pt-4 pb-10 flex gap-4 items-center relative">
+						<div className="bg-[#f2f2f2] rounded-normal px-4 pt-4 pb-10 flex gap-4 items-center relative">
 							<div className="w-72">
 								<p className="text-md font-semibold leading-tight mb-1">
 									{" "}

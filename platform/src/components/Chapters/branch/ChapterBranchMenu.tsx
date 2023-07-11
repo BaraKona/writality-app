@@ -27,7 +27,7 @@ export const ChapterBranchMenu: FC<{
 		<Menu position="left-start" offset={5}>
 			<Menu.Target>
 				<Tooltip label="Branches" position="left" withArrow>
-					<div className="border border-gray-200 p-2 rounded-md group">
+					<div className="border border-lightBorder p-2 rounded-normal group">
 						<IconGitBranch
 							size={20}
 							className="text-blueText group-hover:text-black "

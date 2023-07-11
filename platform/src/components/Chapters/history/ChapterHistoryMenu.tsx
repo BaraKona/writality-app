@@ -10,7 +10,7 @@ export const ChapterHistoryMenu: FC<{
 		<Menu position="left-start" offset={5}>
 			<Menu.Target>
 				<Tooltip label="History" position="left" withArrow>
-					<div className="border border-gray-200 p-2 rounded-md group">
+					<div className="border border-lightBorder p-2 rounded-normal group">
 						<IconFileTime
 							size={20}
 							className="text-blueText group-hover:text-black "

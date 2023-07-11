@@ -11,7 +11,7 @@ export const CommunityListItem: FC<{
 	return (
 		<li onClick={onClick} className="cursor-default list-none">
 			<a
-				className={`p-1.5 flex mb-1 text-xs font-medium rounded-md items-center transition-all ease-in-out duration-500 ${
+				className={`p-1.5 flex mb-0.5 text-xs font-medium rounded-normal items-center transition-all ease-in-out duration-500 ${
 					path.includes(name.toLowerCase())
 						? "text-black bg-white font-medium"
 						: "text-blueText"

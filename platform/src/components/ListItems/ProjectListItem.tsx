@@ -1,44 +1,43 @@
-import { IconBook, IconBook2, IconUsers } from "@tabler/icons";
-import React, { FC } from "react";
-import { HiOutlineUserGroup, HiUserGroup } from "react-icons/hi";
+import { IconX } from "@tabler/icons";
+import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { IconRenderer } from "../IconRenderer";
 
 export const ProjectListItem: FC<{
 	name: string;
-	projectId?: string;
+	projectId: string;
 	onClick?: () => void;
+	removeFavourite?: () => void;
 	type: "standard" | "collaboration";
-}> = ({ name, onClick, projectId, type }) => {
+}> = ({ name, onClick, projectId, type, removeFavourite }) => {
 	const { project } = useParams();
 
 	return (
 		<>
-			{projectId === project ? (
-				<li
-					onClick={onClick}
-					className="p-1.5 transition-all ease-in-out duration-500 flex mb-1 text-xs font-medium bg-white hover:bg-white cursor-default rounded-md "
-				>
-					<a className=" flex text-black items-center">
-						<IconRenderer type={type} open={true} />
-						<span className="ml-2 whitespace-nowrap w-32 text-ellipsis overflow-hidden">
-							{name}
-						</span>
-					</a>
-				</li>
-			) : (
-				<li
-					onClick={onClick}
-					className="p-1.5 transition-all ease-in-out duration-500 flex mb-1 text-xs font-medium rounded-md hover:bg-white cursor-default "
-				>
-					<a className=" flex text-blueText items-center">
-						<IconRenderer type={type} open={false} />
-						<span className="ml-2 whitespace-nowrap w-32 text-ellipsis overflow-hidden">
-							{name}
-						</span>
-					</a>
-				</li>
-			)}
+			<li
+				onClick={onClick}
+				className={`p-1.5 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group rounded-normal hover:bg-white cursor-default ${
+					projectId === project
+						? "bg-white text-black"
+						: "bg-transparent text-blueText"
+				}`}
+			>
+				<div className="gap-1 flex  items-center">
+					<IconRenderer type={type} open={projectId === project} />
+					<span className=" whitespace-nowrap w-[7rem] text-ellipsis overflow-hidden">
+						{name}
+					</span>
+
+					<IconX
+						onClick={(e) => {
+							e.stopPropagation(), removeFavourite ? removeFavourite() : null;
+						}}
+						size={10}
+						stroke={3}
+						className="group-hover:block hidden cursor-pointer hover:black ml-auto"
+					/>
+				</div>
+			</li>
 		</>
 	);
 };

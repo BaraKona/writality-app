@@ -29,12 +29,14 @@ export const BaseEditor: FC<{
 				sticky
 				stickyOffset={10}
 				style={{
-					margin: "0 auto",
+					margin: "0",
+					padding: "0.5rem",
 					display: "flex",
 					flexDirection: "row",
 					justifyContent: "center",
 					alignItems: "center",
 					borderColor: "#e9ecef",
+					gap: "0.3rem",
 				}}
 			>
 				{editor && (
@@ -46,8 +48,8 @@ export const BaseEditor: FC<{
 						</RichTextEditor.ControlsGroup>
 					</BubbleMenu>
 				)}
-				<RichTextEditor.ControlsGroup>
-					<Text color="dimmed" className=" text-xs font-semibold">
+				<RichTextEditor.ControlsGroup className="border border-lightBorder  rounded p-[0.3rem] cursor-pointer  hover:bg-lightBorder hover:bg-opacity-40 ">
+					<Text color="dimmed" className=" text-xs font-medium">
 						{editor.storage.characterCount.words()} words
 					</Text>
 				</RichTextEditor.ControlsGroup>
@@ -55,12 +57,12 @@ export const BaseEditor: FC<{
 					<button
 						onClick={() => editor?.chain().focus().undo().run()}
 						disabled={!editor?.can().undo()}
-						className="border border-gray-200  rounded p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-gray-200 hover:bg-opacity-40 "
+						className="border border-lightBorder  rounded p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-lightBorder hover:bg-opacity-40 "
 					>
 						<IconArrowBackUp size={14} />
 					</button>
 					<button
-						className="border border-gray-200  rounded p-[0.3rem] rounded-l-none cursor-pointer hover:bg-gray-200 hover:bg-opacity-40 "
+						className="border border-lightBorder  rounded p-[0.3rem] rounded-l-none cursor-pointer hover:bg-lightBorder hover:bg-opacity-40 "
 						onClick={() => editor?.chain().focus().redo().run()}
 						disabled={!editor?.can().redo()}
 					>

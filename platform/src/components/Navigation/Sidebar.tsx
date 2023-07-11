@@ -23,6 +23,7 @@ import { MainFrame } from "../Project";
 import { useSignout } from "../../hooks/user/useSignout";
 import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useFavouriteProjects } from "../../hooks/projects/useFavouriteProjects";
+import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { currentUser } = useAuthContext();
@@ -34,6 +35,8 @@ export const Sidebar: FC<{}> = () => {
 	const { data: projects, isLoading: isProjectLoading } =
 		useFavouriteProjects();
 
+	const { mutate: removeFavouriteProject } = useRemoveFavourite();
+
 	const openProject = (route: string) => {
 		navigate(route);
 	};
@@ -43,15 +46,15 @@ export const Sidebar: FC<{}> = () => {
 
 	return (
 		<div className="flex h-screen">
-			<aside className="flex overflow-y-auto h-full w-60" aria-label="Sidebar">
-				<div className="flex flex-col py-2 px-3 w-full">
+			<aside className="flex overflow-y-auto h-full w-64" aria-label="Sidebar">
+				<div className="flex flex-col py-2 px-2 w-full">
 					<Link to="/">
-						<div className="ml-2 my-2 flex">
+						<div className="ml-2 mt-1 mb-2 flex">
 							<img
 								src={cyclops8}
 								alt="writality"
-								width={25}
-								height={25}
+								width={23}
+								height={23}
 								className="inline-block"
 							/>
 							<div className="font-semibold px-2 text-sm">Writality</div>
@@ -62,20 +65,20 @@ export const Sidebar: FC<{}> = () => {
 							name="Library"
 							onClick={() => openPages("library")}
 						>
-							<IconHome stroke={2.2} size={20} />
+							<IconHome stroke={2.2} size={18} />
 						</CommunityListItem>
 						<CommunityListItem name="Posts" onClick={() => openPages("posts")}>
-							<IconTemplate size={20} />
+							<IconTemplate size={18} />
 						</CommunityListItem>
 						<CommunityListItem
 							name="Stories"
 							onClick={() => openPages("stories")}
 						>
-							<IconBooks size={20} />
+							<IconBooks size={18} />
 						</CommunityListItem>
 					</CategoryListItem>
 					<CategoryListItem
-						mt="mt-8 mb-3"
+						mt="mt-8 mb-1"
 						name="Favourites"
 						// button={true}
 						// onClick={() => addProject.mutate(currentUser.uid)}
@@ -89,6 +92,7 @@ export const Sidebar: FC<{}> = () => {
 									name={project.title || "Untitled Project"}
 									projectId={project.uid}
 									type={project.type}
+									removeFavourite={() => removeFavouriteProject(project.uid)}
 								/>
 							);
 						})}
@@ -98,13 +102,13 @@ export const Sidebar: FC<{}> = () => {
 							name="Settings"
 							onClick={() => navigate("/settings")}
 						>
-							<IconSettings size={23} />
+							<IconSettings size={18} />
 						</CommunityListItem>
 						<CommunityListItem name="Help" onClick={() => navigate("/help")}>
-							<IconHelp size={23} />
+							<IconHelp size={18} />
 						</CommunityListItem>
 						<CommunityListItem name="Logout" onClick={signOut}>
-							<IconLogout size={23} />
+							<IconLogout size={18} />
 						</CommunityListItem>
 					</div>
 				</div>
