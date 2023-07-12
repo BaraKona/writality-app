@@ -3,8 +3,10 @@ import { CgClose } from "react-icons/cg";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { IconDeviceFloppy, IconFileText } from "@tabler/icons";
-import { Divider, Input, Text, TextInput, Tooltip } from "@mantine/core";
-
+import { Divider, Flex, Input, Text, TextInput, Tooltip } from "@mantine/core";
+import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
+import { useSingleProject } from "../../hooks/projects/useSingleProject";
+import { IconBook2 } from "@tabler/icons";
 export const EditorWrapper: FC<{
 	children: ReactNode;
 	backToProject: () => void;
@@ -20,10 +22,28 @@ export const EditorWrapper: FC<{
 	title,
 	updateChapterTitle,
 }) => {
+	const { data: project, isLoading } = useSingleProject(content?.projectId);
+
+	const breadcrumbs = [
+		{
+			label: project?.title,
+			path: "/project/" + project?.uid + "/home",
+			icon: <IconBook2 size={18} />,
+			isLoading: isLoading,
+		},
+		{
+			label: "[" + content?.type + "] " + title,
+			path: "/projects",
+			icon: <IconFileText size={18} />,
+			isLoading: isLoading,
+		},
+	];
+
 	return (
-		<div className="w-[calc(100vw-12rem)] flex flex-col bg-white rounded-t-md gap-2 pt-4 px-7 ">
-			<div className="flex">
-				<button onClick={backToProject}>
+		<div className="flex flex-col bg-white px-7 h-[calc(100vh-48px)] gap-2 rounded-t-md">
+			<div className=" flex font-medium gap-2 bg-white text-blueText pt-6 items-center">
+				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
+				{/* <button onClick={backToProject}>
 					<CgClose size={18} className="text-blueText hover:text-black" />
 				</button>
 				<div className="align-middle mx-2 my-auto text-xs text-blueText flex gap-2">
@@ -53,7 +73,7 @@ export const EditorWrapper: FC<{
 							}
 						/>
 					</div>
-				</div>
+				</div> */}
 				<Text
 					className="text-center my-auto font-medium text-xs  ml-auto mr-3"
 					color="dimmed"

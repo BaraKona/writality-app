@@ -73,7 +73,8 @@ export const getAllProjects = async (req: any, res: any) => {
 };
 
 export const getProject = async (req: any, res: any) => {
-	const { userId, projectId } = req.params;
+	const { projectId } = req.params;
+	const userId = req.user.uid;
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
 		res.status(200).json(project);

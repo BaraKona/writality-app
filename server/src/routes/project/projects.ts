@@ -16,7 +16,7 @@ const router = express.Router();
 
 router.post("/", protect, createProject);
 router.get("/all", protect, getAllProjects);
-router.get("/:userId/:projectId", protect, getProject);
+router.get("/user/:projectId", protect, getProject);
 router.get("/user", protect, getUserProjects);
 router.patch(
 	"/:userId/:projectId/description",

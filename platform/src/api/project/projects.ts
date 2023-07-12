@@ -32,8 +32,8 @@ export const getAllProjects = async () => {
 	return data;
 };
 
-export const getSingleProject = async (userId: string, projectId: string) => {
-	const { data } = await projectApi.get(`${userId}/${projectId}`);
+export const getSingleProject = async (projectId: string) => {
+	const { data } = await projectApi.get(`/user/${projectId}`);
 	return data;
 };
 

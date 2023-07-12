@@ -42,7 +42,7 @@ import { CreateChapterButton } from "../../components/buttons";
 import { IconTrash } from "@tabler/icons";
 import { IProject } from "../../interfaces/IProject";
 import { CollaborationChat } from "../../components/Project/Collaboration";
-
+import { useSingleProject } from "../../hooks/projects/useSingleProject";
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
@@ -52,11 +52,10 @@ export function Project() {
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
 
-	const { data: currentProject } = useQuery(
-		["project", project],
-		() => getSingleProject(currentUser.uid, project as string),
-		{ enabled: !!project && !!currentUser.uid }
+	const { data: currentProject, isLoading: projectLoading } = useSingleProject(
+		project as string
 	);
+
 	const { data: chapters, isLoading } = useQuery(
 		["chapters", project],
 		() => getProjectChapters(currentUser.uid, project as string),
@@ -128,8 +127,7 @@ export function Project() {
 				type="chapter"
 			/>
 			<ChapterWrapper
-				title={currentProject.title}
-				type={currentProject.type}
+				project={currentProject}
 				updateProjectTitle={updateProjectTitleMutation.mutate}
 			>
 				<Tabs
