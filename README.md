@@ -15,11 +15,15 @@ Welcome to the Collaborative Writing Platform, a platform for writers to come to
 
 Examples of Platform: 
 - View of the chapter:
-![View chapter](Writality_2.png)
-- View of the collaboration
-![A collaborative project view](Writality_1.png)
+![image](https://github.com/BaraKona/writality-app/assets/62246274/3a90d05c-2318-4d88-b297-8f2365b98a79)
+
+
+- View of the library
+![image](https://github.com/BaraKona/writality-app/assets/62246274/f41d9b2c-8f8a-4e69-bee8-98ab58af5205)
+
 - View Merge
-![Merging - Resolving Conflicts](Writality_Merge.png)
+<img width="1632" alt="image" src="https://github.com/BaraKona/writality-app/assets/62246274/005adc62-cf8d-4253-ad50-2b8e21e0132e">
+
 
 ## Getting started
 
