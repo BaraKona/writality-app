@@ -31,8 +31,6 @@ export const commentOnChat = async (
 			`/${projectId}/chat/${chatId}/comment`,
 			{ comment }
 		);
-		useToast("success", " Comment added! 😎");
-		console.log(data);
 		return data;
 	} catch (err: any) {
 		console.log(err);
