@@ -1,6 +1,8 @@
 import { FC, ReactNode } from "react";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import { useAuthContext } from "../../../contexts/AuthContext";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 export const Comment: FC<{
 	previousComment: {
 		uid: string;
@@ -27,7 +29,10 @@ export const Comment: FC<{
 			)}
 			<div className="flex flex-col space-y-2 ml-4">
 				<p className="text-xs font-medium text-blueText text-blue">
-					{comment.content}
+					<ReactMarkdown
+						remarkPlugins={[remarkGfm]}
+						children={comment.content}
+					/>
 				</p>
 			</div>
 		</div>

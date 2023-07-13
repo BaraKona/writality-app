@@ -41,9 +41,11 @@
 		"react-dom": "^18.2.0",
 		"react-hot-toast": "^2.4.0",
 		"react-icons": "^4.6.0",
+		"react-markdown": "^8.0.7",
 		"react-query": "^3.39.2",
 		"react-quill": "^2.0.0",
 		"react-router-dom": "^6.6.1",
+		"remark-gfm": "^3.0.1",
 		"sass": "^1.55.0",
 		"socket.io-client": "^4.5.4",
 		"uuid": "^9.0.0"
