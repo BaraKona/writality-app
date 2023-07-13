@@ -92,21 +92,6 @@ export function Project() {
 		addChapter.mutate(chapterCreator(currentUser.uid, project as string));
 	};
 
-	const updateProjectTitleMutation = useMutation(
-		(title: string) =>
-			updateProjectTitle(
-				currentUser.uid,
-				project as string,
-				title || currentProject?.title
-			),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(["projects"]);
-				queryClient.invalidateQueries(["favourites"]);
-			},
-		}
-	);
-
 	const openChapter = (projectId: string, chapterId: string) => {
 		navigate(`/project/${projectId}/chapter/${chapterId}`);
 	};
@@ -126,10 +111,7 @@ export function Project() {
 				deleteBranch={deleteChapter.mutate}
 				type="chapter"
 			/>
-			<ChapterWrapper
-				project={currentProject}
-				updateProjectTitle={updateProjectTitleMutation.mutate}
-			>
+			<ChapterWrapper project={currentProject}>
 				<Tabs
 					className="w-full border-none important:border-none h-[calc(100vh-7.4rem)]"
 					value={projectTab}

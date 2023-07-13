@@ -73,13 +73,9 @@ export const updateProjectDescription = async (
 	}
 };
 
-export const updateProjectTitle = async (
-	userId: string,
-	projectId: string,
-	title: string
-) => {
+export const updateProjectTitle = async (projectId: string, title: string) => {
 	try {
-		const { data } = await projectApi.patch(`${userId}/${projectId}/title`, {
+		const { data } = await projectApi.patch(`user/${projectId}/title`, {
 			title,
 		});
 		useToast("success", "Project title updated successfully 😃");

@@ -5,6 +5,7 @@ import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
 import { v4 as uuidv4 } from "uuid";
 import User from "../../models/user/userSchema";
+import { Request, Response } from "express";
 
 export const createProject = async (req: any, res: any) => {
 	const userId = req.user.uid;
@@ -105,6 +106,10 @@ export const updateProjectDescription = async (req: any, res: any) => {
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
 		project.description = description;
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
 		await project.save();
 		res.status(200).json(project);
 	} catch (error) {
@@ -113,7 +118,8 @@ export const updateProjectDescription = async (req: any, res: any) => {
 };
 
 export const updateProjectTitle = async (req: any, res: any) => {
-	const { userId, projectId } = req.params;
+	const { projectId } = req.params;
+	const userId = req.user.uid;
 	const { title } = req.body;
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });

@@ -5,12 +5,19 @@ import { FC, useState } from "react";
 import { IProject, ProjectType } from "../../interfaces/IProject";
 import { useProjectType } from "../../hooks/projects/useProjectType";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useProjectTitleChange } from "../../hooks/projects/useProjectTitleChange";
+import { ProjectNameSettings } from "./settings/ProjectNameSettings";
+
 export const ProjectSettings: FC<{ project: IProject }> = ({ project }) => {
 	const [isEdited, setIsEdited] = useState(false);
 	const [projectType, setProjectType] = useState<ProjectType>(project.type);
-
+	const [projectTitle, setProjectTitle] = useState(project.title);
 	const { currentUser } = useAuthContext();
 	const { mutate } = useProjectType(currentUser.uid, project.uid, projectType);
+	const { mutate: changeProjectTitle } = useProjectTitleChange(
+		project.uid,
+		projectTitle
+	);
 
 	return (
 		<div className="px-4 py-2">
@@ -27,6 +34,12 @@ export const ProjectSettings: FC<{ project: IProject }> = ({ project }) => {
 			</div>
 			<hr className="my-4" />
 			<div className="flex flex-wrap flex-col ">
+				<ProjectNameSettings
+					project={project}
+					isLoading={false}
+					updateProjectName={changeProjectTitle}
+					setProjectTitle={setProjectTitle}
+				/>
 				<ChangeProjectTypeSetting
 					setIsEdited={setIsEdited}
 					currentProjectType={project.type}

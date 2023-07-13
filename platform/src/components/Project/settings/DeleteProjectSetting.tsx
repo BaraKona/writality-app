@@ -6,6 +6,7 @@ import { useState } from "react";
 import { DeleteModal } from "../../Modals";
 import { CreateChapterButton } from "../../buttons";
 import { IconTrash } from "@tabler/icons";
+import { Divider } from "@mantine/core";
 
 export const DeleteProjectSetting = () => {
 	const [openDeleteProject, setOpenDeleteProject] = useState(false);
@@ -45,7 +46,7 @@ export const DeleteProjectSetting = () => {
 					/>
 				</div>
 			</div>
-			<hr className="my-4" />
+			<Divider className="border-gray-200 my-4" />
 		</div>
 	);
 };

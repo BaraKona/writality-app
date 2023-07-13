@@ -11,9 +11,8 @@ import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 
 export const ChapterWrapper: FC<{
 	children: ReactNode;
-	updateProjectTitle: (title: string) => void;
 	project: IProject;
-}> = ({ children, updateProjectTitle, project }) => {
+}> = ({ children, project }) => {
 	const breadcrumbs = [
 		{
 			label: project?.title,

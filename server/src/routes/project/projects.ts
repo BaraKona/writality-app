@@ -23,7 +23,7 @@ router.patch(
 	protect,
 	updateProjectDescription
 );
-router.patch("/:userId/:projectId/title", protect, updateProjectTitle);
+router.patch("/user/:projectId/title", protect, updateProjectTitle);
 router.delete("/:userId/:projectId", protect, deleteProject);
 router.patch("/:userId/:projectId/type", protect, updateProjectType);
 router.get("/favourites", protect, getUserFavourites);

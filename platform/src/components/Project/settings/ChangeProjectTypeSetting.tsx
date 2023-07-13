@@ -1,4 +1,4 @@
-import { Select } from "@mantine/core";
+import { Divider, Select } from "@mantine/core";
 import { ProjectType } from "../../../interfaces/IProject";
 import { Dispatch, FC, SetStateAction, useState } from "react";
 export const ChangeProjectTypeSetting: FC<{
@@ -58,7 +58,7 @@ export const ChangeProjectTypeSetting: FC<{
 						: "Collaboration projects are for teams. You can invite collaborators to your project, and they will be able to edit the project."}
 				</p>
 			</div>
-			<hr className="my-4" />
+			<Divider className="border-gray-200 my-4" />
 		</div>
 	);
 };
