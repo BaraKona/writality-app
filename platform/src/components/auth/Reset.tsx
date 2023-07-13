@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { AuthTitle } from "./AuthTitle";
 import { Divider, TextInput } from "@mantine/core";
-import { inputStyles } from "./inputStyles";
+import { inputStyles } from "../../styles/inputStyles";
 import { BlueButton } from "../buttons/BlueButton";
 export function Reset() {
 	return (

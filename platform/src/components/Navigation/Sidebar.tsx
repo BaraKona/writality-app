@@ -30,8 +30,6 @@ export const Sidebar: FC<{}> = () => {
 	const queryClient = useQueryClient();
 	const { mutate: signOut } = useSignout();
 
-	// const { data: projects, isLoading: isProjectLoading } = useUserProjects();
-	console.log(currentUser);
 	const { data: projects, isLoading: isProjectLoading } =
 		useFavouriteProjects();
 

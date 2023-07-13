@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useToast } from "../../hooks/useToast";
 import { useLogin } from "../../hooks/user/useLogin";
-import { inputStyles } from "./inputStyles";
+import { inputStyles } from "../../styles/inputStyles";
 import { BlueButton } from "../buttons/BlueButton";
 import { AuthTitle } from "./AuthTitle";
 export default function Login() {

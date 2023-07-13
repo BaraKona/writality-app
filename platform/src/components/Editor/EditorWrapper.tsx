@@ -40,7 +40,7 @@ export const EditorWrapper: FC<{
 	];
 
 	return (
-		<div className="flex flex-col bg-white px-7 h-[calc(100vh-48px)] gap-2 rounded-t-md">
+		<div className="flex flex-col bg-white px-7 h-[calc(100vh-48px)] gap-2 rounded-normal">
 			<div className=" flex font-medium gap-2 bg-white text-blueText pt-6 items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				{/* <button onClick={backToProject}>

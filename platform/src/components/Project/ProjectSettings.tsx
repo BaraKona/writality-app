@@ -33,7 +33,7 @@ export const ProjectSettings: FC<{ project: IProject }> = ({ project }) => {
 				<SaveButton isDisabled={!isEdited} onClick={mutate} />
 			</div>
 			<hr className="my-4" />
-			<div className="flex flex-wrap flex-col ">
+			<div className="flex flex-wrap flex-col gap-2 ">
 				<ProjectNameSettings
 					project={project}
 					isLoading={false}

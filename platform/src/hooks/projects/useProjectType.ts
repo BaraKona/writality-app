@@ -17,6 +17,7 @@ export const useProjectType = (
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["projects"]);
+				queryClient.invalidateQueries(["project", projectId]);
 				queryClient.invalidateQueries(["favourites"]);
 			},
 		}

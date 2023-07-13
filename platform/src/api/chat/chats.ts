@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const chatApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/chats",
+	withCredentials: true,
 });
 
 export const getProjectChat = async (projectId: string) => {
@@ -18,15 +19,20 @@ export const getProjectChat = async (projectId: string) => {
 
 export const commentOnChat = async (
 	projectId: string,
-	comment: { user: string; content: string; date: Date; uid: string }
+	chatId: string,
+	comment: string
 ) => {
-	if (!comment.content) {
+	if (!comment) {
 		useToast("error", "Please enter a comment 😞");
 		return null;
 	}
 	try {
-		const { data } = await chatApi.post(`/${projectId}`, comment);
+		const { data } = await chatApi.patch(
+			`/${projectId}/chat/${chatId}/comment`,
+			{ comment }
+		);
 		useToast("success", " Comment added! 😎");
+		console.log(data);
 		return data;
 	} catch (err: any) {
 		console.log(err);

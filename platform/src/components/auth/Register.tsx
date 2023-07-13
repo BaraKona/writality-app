@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { Divider, PasswordInput, TextInput } from "@mantine/core";
 import { useSignUp } from "../../hooks/user/useSignup";
 import { AuthTitle } from "./AuthTitle";
-import { inputStyles } from "./inputStyles";
+import { inputStyles } from "../../styles/inputStyles";
 import { BlueButton } from "../buttons/BlueButton";
 
 export function Register() {

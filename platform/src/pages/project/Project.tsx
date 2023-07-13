@@ -41,8 +41,9 @@ import { ProjectSettings } from "../../components/Project/ProjectSettings";
 import { CreateChapterButton } from "../../components/buttons";
 import { IconTrash } from "@tabler/icons";
 import { IProject } from "../../interfaces/IProject";
-import { CollaborationChat } from "../../components/Project/Collaboration";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
+import { ChatWrapper } from "../../components/Project/chatrooms/ChatWrapper";
+import { tabStyles } from "../../styles/tabStyles";
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
@@ -113,50 +114,14 @@ export function Project() {
 			/>
 			<ChapterWrapper project={currentProject}>
 				<Tabs
-					className="w-full border-none important:border-none h-[calc(100vh-7.4rem)]"
+					className="w-full border-none important:border-none h-[calc(100vh-7.0rem)]"
 					value={projectTab}
 					onTabChange={(tab) => navigate(`/project/${project}/${tab}`)}
 					defaultValue="home"
 					radius={"md"}
 					orientation="vertical"
-					styles={{
-						root: {
-							color: "#394251",
-						},
-						tabsList: {
-							borderRight: "1px solid #e3e3e3",
-							borderTopRightRadius: "0px",
-							borderBottomRightRadius: "0px",
-							paddingRight: "8px",
-						},
-						// remove default styles for active tab
-
-						tab: {
-							backgroundColor: "#f2f2f2",
-							color: "#394251",
-							border: "1px solid #e3e3e3",
-							marginBottom: "2px",
-							borderTopLeftRadius: "0px",
-							borderBottomLeftRadius: "0px",
-							fontSize: "0.8rem",
-							borderRadius: "0.375rem",
-							padding: "8px",
-							transition: "all 0.2s ease-in-out",
-							"&:hover": {
-								color: "#000",
-								backgroundColor: "transparent",
-								borderColor: "#e3e3e3",
-							},
-							"&[data-active]": {
-								color: "#000",
-								backgroundColor: "transparent",
-								borderColor: "#e3e3e3",
-							},
-							"&[data-active]:hover": {
-								borderColor: "#e3e3e3",
-							},
-						},
-					}}
+					styles={tabStyles}
+					keepMounted={false}
 				>
 					<Tabs.List>
 						<Tooltip label="Home" position="right" withArrow>
@@ -235,7 +200,9 @@ export function Project() {
 					<Tabs.Panel value="settings">
 						<ProjectSettings project={currentProject} />
 					</Tabs.Panel>
-					<Tabs.Panel value="chat">CHAT!!!!</Tabs.Panel>
+					<Tabs.Panel value="chat">
+						<ChatWrapper />
+					</Tabs.Panel>
 				</Tabs>
 			</ChapterWrapper>
 		</>

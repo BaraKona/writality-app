@@ -3,6 +3,7 @@ import Project from "../../models/projectSchema";
 import Chapter from "../../models/chapterSchema";
 import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
+import Chat from "../../models/chat/chapterSchema";
 import { v4 as uuidv4 } from "uuid";
 import User from "../../models/user/userSchema";
 import { Request, Response } from "express";
@@ -33,6 +34,7 @@ export const createProject = async (req: any, res: any) => {
 				active: true,
 			},
 		],
+		chat: [],
 	});
 
 	try {
@@ -142,6 +144,27 @@ export const updateProjectType = async (req: any, res: any) => {
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
 		project.type = type;
+
+		if (!project.hasChat) {
+			const newChat = new Chat({
+				projectId,
+				uid: uuidv4(),
+				name: "General",
+				comments: [],
+				dateCreated: {
+					user: userId,
+					date: new Date(),
+				},
+				dateUpdated: {
+					user: userId,
+					date: new Date(),
+				},
+			});
+
+			await newChat.save();
+			project.hasChat = true;
+		}
+
 		project.dateUpdated = {
 			user: userId,
 			date: new Date(),

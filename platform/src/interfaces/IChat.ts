@@ -1,11 +1,12 @@
 export type IChat = {
-  uid: string;
-  projectId: string;
-  owner: string;
-  comments: {
-    uid: string;
-    user: string;
-    date: Date;
-    content: string;
-  }[];
+	uid: string;
+	projectId: string;
+	owner: string;
+	name: string;
+	comments: {
+		uid: string;
+		user: string;
+		date: Date;
+		content: string;
+	}[];
 };

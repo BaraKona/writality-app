@@ -18,7 +18,7 @@ export const PostHeader: FC<{
 	openModal: () => void;
 }> = ({ children, title, openModal }) => {
 	return (
-		<div className=" overflow-y-auto bg-white rounded-t-md text-blueText ">
+		<div className=" overflow-y-auto bg-white rounded-normal text-blueText ">
 			<div className="px-7 pb-3 pt-6">
 				<div className="relative flex w-full items-center">
 					<h2 className="mr-auto text-xs font-medium flex gap-2 ">

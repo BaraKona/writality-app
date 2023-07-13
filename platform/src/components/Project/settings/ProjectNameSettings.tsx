@@ -1,5 +1,5 @@
 import { Divider, TextInput } from "@mantine/core";
-import { inputStyles } from "../../auth/inputStyles";
+import { inputStyles } from "../../../styles/inputStyles";
 import { IProject } from "../../../interfaces/IProject";
 import { Dispatch, SetStateAction } from "react";
 

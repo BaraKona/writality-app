@@ -30,6 +30,11 @@ interface IProject {
 		role: collaboratorRole;
 		active: boolean;
 	}[];
+	chatRooms: {
+		uid: string;
+		dateCreated: Date;
+	}[];
+	hasChat: boolean;
 }
 const projectSchema = new Schema<IProject>({
 	type: { type: String, required: true, enum: ["standard", "collaboration"] },
@@ -60,6 +65,7 @@ const projectSchema = new Schema<IProject>({
 		],
 		required: true,
 	},
+	hasChat: { default: false, type: Boolean, required: true },
 });
 
 const Project = model<IProject>("Project", projectSchema);
