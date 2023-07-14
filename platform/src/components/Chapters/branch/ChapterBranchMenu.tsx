@@ -4,6 +4,7 @@ import { Button, Menu, Tooltip } from "@mantine/core";
 import { IconGitBranch } from "@tabler/icons";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { IChapterContent } from "../../../interfaces/IChapterContent";
+import { tooltipStyles } from "../../../styles/tooltipStyles";
 export const ChapterBranchMenu: FC<{
 	openMergeModal: () => void;
 	chapterBranches: IChapterVersion[];
@@ -26,7 +27,12 @@ export const ChapterBranchMenu: FC<{
 	return (
 		<Menu position="left-start" offset={5}>
 			<Menu.Target>
-				<Tooltip label="Branches" position="left" withArrow>
+				<Tooltip
+					label="Branches"
+					position="left"
+					withArrow
+					styles={tooltipStyles}
+				>
 					<div className="border border-lightBorder p-2 rounded-normal group">
 						<IconGitBranch
 							size={18}

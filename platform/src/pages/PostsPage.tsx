@@ -69,7 +69,7 @@ export const PostsPage: FC = () => {
 	return (
 		<>
 			<PostHeader title="Posts" openModal={() => setCreateProjectModal(true)} />
-			<div className="flex flex-row bg-white">
+			<div className="flex flex-row bg-white rounded-normal">
 				<div>
 					<CreatePostModal
 						opened={createProjectModal}
@@ -83,7 +83,7 @@ export const PostsPage: FC = () => {
 						setProjectTitle={setProjectTitle}
 						setCollaboration={setCollaboration}
 					/>
-					<div className="bg-white px-4 pt-4 overflow-y-auto flex flex-col rounded-tl-md h-[calc(100vh-121px)] border-r border-r-lightBorder">
+					<div className="bg-white px-4 pt-4 overflow-y-auto flex flex-col h-[calc(100vh-121px)] border-r border-r-lightBorder">
 						<div className="grid grid-cols-1 gap-4">
 							{posts?.map((post: IPost) => (
 								<PostCard post={post!} />
@@ -112,8 +112,6 @@ export const PostsPage: FC = () => {
 								Post
 							</button>
 						</div>
-						<CategoryListItem mt="mt-4" name="My reading list" />
-						<CategoryListItem mt="mt-40" name="People who might interest you" />
 					</div>
 				</section>
 			</div>

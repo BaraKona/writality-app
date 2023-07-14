@@ -4,6 +4,8 @@ import { Button, Menu, Tooltip } from "@mantine/core";
 import { IconVersions } from "@tabler/icons";
 import { IChapter } from "../../../interfaces/IChapter";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
+import { tooltipStyles } from "../../../styles/tooltipStyles";
+
 export const ChapterVersionMenu: FC<{
 	chapterVersions: IChapterVersion[];
 	setOpen: React.Dispatch<SetStateAction<boolean>>;
@@ -13,7 +15,7 @@ export const ChapterVersionMenu: FC<{
 	return (
 		<Menu position="left-start" offset={5}>
 			<Menu.Target>
-				<Tooltip label="Versions" position="left" withArrow>
+				<Tooltip label="Versions" position="left" withArrow styles={tooltipStyles}>
 					<div className="border border-lightBorder p-2 rounded-normal group">
 						<IconVersions
 							size={20}

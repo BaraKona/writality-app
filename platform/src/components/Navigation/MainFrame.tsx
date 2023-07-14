@@ -109,7 +109,7 @@ export const MainFrame: FC<{
 	};
 	return (
 		<div className="">
-			<div className="mt-1.5 pb-1 flex gap-1 overflow-x-auto w-[calc(100vw-11rem)]">
+			<div className="mt-1.5 pb-1 flex gap-1 overflow-x-auto w-[calc(100vw-14rem)]">
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}

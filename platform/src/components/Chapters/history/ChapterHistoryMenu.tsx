@@ -3,13 +3,19 @@ import { ChapterHistory } from "./ChapterHistory";
 import { Tooltip, Menu } from "@mantine/core";
 import { IconFileTime } from "@tabler/icons";
 import { IChapter } from "../../../interfaces/IChapter";
+import { tooltipStyles } from "../../../styles/tooltipStyles";
 export const ChapterHistoryMenu: FC<{
 	history: IChapter["history"];
 }> = ({ history }) => {
 	return (
 		<Menu position="left-start" offset={5}>
 			<Menu.Target>
-				<Tooltip label="History" position="left" withArrow>
+				<Tooltip
+					label="History"
+					position="left"
+					withArrow
+					styles={tooltipStyles}
+				>
 					<div className="border border-lightBorder p-2 rounded-normal group">
 						<IconFileTime
 							size={18}

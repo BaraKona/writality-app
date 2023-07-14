@@ -28,12 +28,12 @@ export const Comment: FC<{
 				</div>
 			)}
 			<div className="flex flex-col space-y-2 ml-4">
-				<p className="text-xs font-medium text-blueText text-blue">
+				<div className="text-xs font-medium text-blueText text-blue">
 					<ReactMarkdown
 						remarkPlugins={[remarkGfm]}
 						children={comment.content}
 					/>
-				</p>
+				</div>
 			</div>
 		</div>
 	);

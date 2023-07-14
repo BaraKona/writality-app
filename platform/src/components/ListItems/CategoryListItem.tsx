@@ -3,23 +3,17 @@ import { Loader } from "@mantine/core";
 import { IconSquareRoundedPlus } from "@tabler/icons";
 export const CategoryListItem: FC<{
 	children?: ReactNode;
-	mt: string;
 	loading?: boolean;
-	onClick?: () => void;
-	name: string;
 	button?: boolean;
-}> = ({ children, mt, onClick, name, button, loading }) => {
+	className?: string;
+}> = ({ children, button, loading, className }) => {
 	return (
-		<ul>
+		<ul className={`p-1.5 ${className}`}>
 			<li>
 				<h2
-					className={`flex justify-between items-center ml-0.5 ${mt} font-normal text-xs rounded-normal`}
+					className={`flex justify-between items-center ml-0.5 font-normal text-xs rounded-normal`}
 				>
-					{name}
-					<p
-						onClick={onClick}
-						className="text-blueText font-bold cursor-pointer hover:font-semibold hover:text-black"
-					>
+					<p className="text-blueText font-bold cursor-pointer hover:font-semibold hover:text-black">
 						{button ? <IconSquareRoundedPlus size={18} /> : ""}
 					</p>
 				</h2>

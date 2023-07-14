@@ -16,7 +16,7 @@ export const ProjectListItem: FC<{
 		<>
 			<li
 				onClick={onClick}
-				className={`p-1.5 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group rounded-normal hover:bg-white cursor-default ${
+				className={`px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group rounded-normal hover:bg-white cursor-default ${
 					projectId === project
 						? "bg-white text-black"
 						: "bg-transparent text-blueText"
@@ -27,14 +27,13 @@ export const ProjectListItem: FC<{
 					<span className=" whitespace-nowrap w-[7rem] text-ellipsis overflow-hidden">
 						{name}
 					</span>
-
 					<IconX
 						onClick={(e) => {
 							e.stopPropagation(), removeFavourite ? removeFavourite() : null;
 						}}
 						size={10}
 						stroke={3}
-						className="group-hover:block hidden cursor-pointer hover:black ml-auto"
+						className="group-hover:visible cursor-pointer invisible hover:black ml-auto text-gray-400"
 					/>
 				</div>
 			</li>

@@ -18,7 +18,7 @@ export const LibraryPage = () => {
 	}
 
 	return (
-		<div className="h-[calc(100vh-3rem)] place-items-center rounded-normal bg-white px-3 py-2 w-[calc(100vw-12rem)]">
+		<div className="h-[calc(100vh-3rem)] place-items-center rounded-normal bg-white px-3 py-2 ">
 			<div className="text-md font-bold">
 				👋 Hey {currentUser.name} ! Welcome to your Library
 			</div>

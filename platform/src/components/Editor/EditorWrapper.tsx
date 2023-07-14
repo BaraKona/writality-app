@@ -7,6 +7,7 @@ import { Divider, Flex, Input, Text, TextInput, Tooltip } from "@mantine/core";
 import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { IconBook2 } from "@tabler/icons";
+import { tooltipStyles } from "../../styles/tooltipStyles";
 export const EditorWrapper: FC<{
 	children: ReactNode;
 	backToProject: () => void;
@@ -40,7 +41,7 @@ export const EditorWrapper: FC<{
 	];
 
 	return (
-		<div className="flex flex-col bg-white px-7 h-[calc(100vh-48px)] gap-2 rounded-normal">
+		<div className="flex flex-col bg-white px-7 h-[calc(100vh-42px)] gap-2 rounded-normal">
 			<div className=" flex font-medium gap-2 bg-white text-blueText pt-6 items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				{/* <button onClick={backToProject}>
@@ -84,7 +85,12 @@ export const EditorWrapper: FC<{
 				</Text>
 
 				<div className="border-l border-lightBorder group" onClick={save}>
-					<Tooltip label="Save" position="left" withArrow>
+					<Tooltip
+						label="Save"
+						position="left"
+						withArrow
+						styles={tooltipStyles}
+					>
 						<div className="ml-3 p-2 border rounded-normal ">
 							<IconDeviceFloppy
 								size={20}

@@ -7,7 +7,7 @@ export const Loading: FC<{
 	return (
 		<>
 			{isLoading ? (
-				<div className="flex justify-center items-center h-[calc(100vh-48px)] bg-white rounded-normal">
+				<div className="flex justify-center items-center h-[calc(100vh-42px)] bg-white rounded-normal">
 					<Loader variant="bars" color="gray" />
 				</div>
 			) : (

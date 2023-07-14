@@ -44,6 +44,7 @@ import { IProject } from "../../interfaces/IProject";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChatWrapper } from "../../components/Project/chatrooms/ChatWrapper";
 import { tabStyles } from "../../styles/tabStyles";
+import { tooltipStyles } from "../../styles/tooltipStyles";
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
@@ -124,17 +125,32 @@ export function Project() {
 					keepMounted={false}
 				>
 					<Tabs.List>
-						<Tooltip label="Home" position="right" withArrow>
+						<Tooltip
+							label="Home"
+							position="right"
+							withArrow
+							styles={tooltipStyles}
+						>
 							<Tabs.Tab value="home">
 								<IconHome size={18} />
 							</Tabs.Tab>
 						</Tooltip>
-						<Tooltip label="World" position="right" withArrow>
+						<Tooltip
+							label="World"
+							position="right"
+							withArrow
+							styles={tooltipStyles}
+						>
 							<Tabs.Tab value="world-info" disabled>
 								<IconGlobe size={18} />
 							</Tabs.Tab>
 						</Tooltip>
-						<Tooltip label="Publish" position="right" withArrow>
+						<Tooltip
+							label="Publish"
+							position="right"
+							withArrow
+							styles={tooltipStyles}
+						>
 							<Tabs.Tab value="publish" disabled>
 								<IconNews size={18} />
 							</Tabs.Tab>
@@ -142,7 +158,12 @@ export function Project() {
 						{currentProject?.type === "collaboration" && (
 							<>
 								<Divider my="sm" />
-								<Tooltip label="Chat" position="right" withArrow>
+								<Tooltip
+									label="Chat"
+									position="right"
+									withArrow
+									styles={tooltipStyles}
+								>
 									<Tabs.Tab value="chat">
 										<IconMessage size={18} />
 									</Tabs.Tab>
@@ -150,7 +171,12 @@ export function Project() {
 							</>
 						)}
 						<Divider my="sm" />
-						<Tooltip label="Settings" position="right" withArrow>
+						<Tooltip
+							label="Settings"
+							position="right"
+							withArrow
+							styles={tooltipStyles}
+						>
 							<Tabs.Tab value="settings">
 								<IconSettings size={18} />
 							</Tabs.Tab>
