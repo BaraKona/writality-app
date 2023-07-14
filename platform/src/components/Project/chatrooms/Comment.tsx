@@ -11,11 +11,10 @@ export const Comment: FC<{
 		user: string;
 	} | null;
 	comment: { uid: string; content: string; date: Date; user: string };
-	key: any;
-}> = ({ comment, key, previousComment }) => {
+}> = ({ comment, previousComment }) => {
 	const { currentUser } = useAuthContext();
 	return (
-		<div className="flex flex-col space-y-2" key={key}>
+		<div className="flex flex-col space-y-2">
 			{previousComment?.user !== comment.user && (
 				<div className="flex items-center space-x-2">
 					<div className="w-7 h-7 rounded-normal bg-blueText"></div>

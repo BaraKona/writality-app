@@ -5,6 +5,7 @@ import { IChat } from "../../../interfaces/IChat";
 import { Comment } from "./Comment";
 import { ScrollArea } from "@mantine/core";
 import { inputStyles } from "../../../styles/inputStyles";
+import { BlueButton } from "../../buttons/BlueButton";
 export const Chat: FC<{
 	setComment: React.Dispatch<React.SetStateAction<string>>;
 	comment: string;
@@ -21,7 +22,6 @@ export const Chat: FC<{
 					{comments?.map((comment, index) => (
 						// check if previous comment is from same user
 						<Comment
-							key={comment.uid}
 							comment={comment}
 							previousComment={comments[index - 1] || null}
 						/>
@@ -37,15 +37,14 @@ export const Chat: FC<{
 					onChange={(e) => setComment(e.target.value)}
 					value={comment}
 					styles={inputStyles}
+					rightSection={
+						<IconSend
+							size={18}
+							className="text-blueText hover:text-black"
+							onClick={sendComment}
+						/>
+					}
 				/>
-				<Button
-					variant="default"
-					className="text-purple-400 hover:bg-purple-200  hover:text-purple-800"
-					leftIcon={<IconSend size={14} />}
-					onClick={sendComment}
-				>
-					Send
-				</Button>
 			</div>
 		</div>
 	);
