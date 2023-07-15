@@ -1,7 +1,7 @@
 import { Tooltip } from "@mantine/core";
 import { tooltipStyles } from "../../../styles/tooltipStyles";
 import { FC } from "react";
-import { IconVersions } from "@tabler/icons";
+import { IconFileStack, IconVersions } from "@tabler/icons";
 
 export const ChapterVersionButton: FC<{ setActive: () => void }> = ({
 	setActive,
@@ -12,7 +12,7 @@ export const ChapterVersionButton: FC<{ setActive: () => void }> = ({
 				className="border border-lightBorder p-2 rounded-normal group"
 				onClick={setActive}
 			>
-				<IconVersions
+				<IconFileStack
 					size={20}
 					className="text-blueText group-hover:text-black "
 				/>

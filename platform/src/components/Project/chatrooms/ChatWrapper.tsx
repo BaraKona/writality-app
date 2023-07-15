@@ -7,7 +7,8 @@ import { Chat } from "../Collaboration";
 import { Tabs } from "@mantine/core";
 import { tabStyles } from "../../../styles/tabStyles";
 import { useComment } from "../../../hooks/chatRooms/useComment";
-import { ProjectWrapperHeights } from "../../../styles/ProjectWrapperHeights";
+import { Icon123, IconCircleDotFilled } from "@tabler/icons-react";
+
 export const ChatWrapper: FC<{}> = ({}) => {
 	const { project } = useParams<{ project: string }>();
 	const [comment, setComment] = useState<string>("");
@@ -33,11 +34,16 @@ export const ChatWrapper: FC<{}> = ({}) => {
 				keepMounted={false}
 				styles={{
 					...tabStyles,
+					tabsList: {
+						...tabStyles.tabsList,
+						flexBasis: 200,
+					},
 					tab: {
 						...tabStyles.tab,
+						padding: "0.375rem 0.25rem",
 						border: "none",
 						"&[data-active]": {
-							backgroundColor: "#e2e2e2",
+							backgroundColor: "#eee",
 						},
 					},
 				}}
@@ -49,7 +55,10 @@ export const ChatWrapper: FC<{}> = ({}) => {
 				<Tabs.List>
 					{chatRooms?.map((chatRoom: IChat) => (
 						<Tabs.Tab key={chatRoom.uid} value={chatRoom.uid}>
-							<ChatItem name={chatRoom.name} />
+							<ChatItem
+								name={chatRoom.name}
+								active={chatRoom.uid === searchParams.get("chat")}
+							/>
 						</Tabs.Tab>
 					))}
 				</Tabs.List>
@@ -76,10 +85,14 @@ export const ChatWrapper: FC<{}> = ({}) => {
 	);
 };
 
-const ChatItem: FC<{ name: string }> = ({ name }) => {
+const ChatItem: FC<{ name: string; active: boolean }> = ({ name, active }) => {
 	return (
 		<div className="flex gap-1 items-center">
-			<IconCircleDot size={14} />
+			{active ? (
+				<IconCircleDotFilled size={14} className="text-green-600" />
+			) : (
+				<IconCircleDot size={14} />
+			)}
 			<div className="text-xs font-medium">{name}</div>
 		</div>
 	);

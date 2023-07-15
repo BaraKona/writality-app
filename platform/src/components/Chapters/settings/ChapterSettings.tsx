@@ -1,33 +1,32 @@
 import { Divider, ScrollArea, TextInput } from "@mantine/core";
-import { IconPlus } from "@tabler/icons";
+import { IconPlus, IconX } from "@tabler/icons";
 import React, { FC } from "react";
+import { ButtonWrapper } from "../../buttons/ButtonWrapper";
+import { inputStyles } from "../../../styles/inputStyles";
 
-export const ChapterSettings: FC<{}> = ({}) => {
+export const ChapterSettings: FC<{ close: () => void }> = ({ close }) => {
 	return (
-		<div className="min-w-auto w-56">
-			<div>
-				<div className="flex font-medium my-2 px-2 text-blueText text-xs">
-					Settings
-					<IconPlus
-						size={18}
-						className="ml-auto hover:text-black cursor-pointer"
-					/>
-				</div>
-				<Divider className="border-lightBorder" />
-				<ScrollArea.Autosize
-					mah={400}
-					offsetScrollbars
-					scrollbarSize={6}
-					className="px-2"
-				>
-					<TextInput
-						variant="unstyled"
-						label="Chapter Name"
-						placeholder="Chapter Name"
-						className=" border-none p-0 text-xs"
-					/>
-				</ScrollArea.Autosize>
+		<div className="min-w-auto w-72">
+			<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
+				Settings
+				<ButtonWrapper className="ml-auto" onClick={close}>
+					<IconX size={14} className="text-gray-400 group-hover:text-black" />
+				</ButtonWrapper>
 			</div>
+			<Divider className="border-lightBorder" />
+			<ScrollArea.Autosize
+				mah={400}
+				offsetScrollbars
+				scrollbarSize={6}
+				className="px-2"
+			>
+				<TextInput
+					label="Chapter Name"
+					placeholder="Chapter Name"
+					className="m-1"
+					styles={inputStyles}
+				/>
+			</ScrollArea.Autosize>
 		</div>
 	);
 };

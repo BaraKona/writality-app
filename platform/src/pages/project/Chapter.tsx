@@ -52,6 +52,7 @@ import { ChapterVersionButton } from "../../components/Chapters/version/ChapterV
 import { ChapterHistoryButton } from "../../components/Chapters/history/ChapterHistoryButton";
 import { ChapterBranchButton } from "../../components/Chapters/branch/ChapterBranchButton";
 import { useUpdateChapterContent } from "../../hooks/chapter/useUpdateChapterContent";
+import { ChapterSettingsButton } from "../../components/Chapters/settings/ChapterSettingsButton";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -316,6 +317,9 @@ export const Chapter = () => {
 						<ChapterHistoryButton
 							setActive={() => ChapterSidebarHandler("history")}
 						/>
+						<ChapterSettingsButton
+							setActive={() => ChapterSidebarHandler("settings")}
+						/>
 					</ChapterSidebar>
 					<div>
 						<ChapterBranchMenu
@@ -346,6 +350,8 @@ export const Chapter = () => {
 							history={chapterContent?.history}
 							close={() => deleteSidebarParam()}
 						/>
+						<ChapterSettingsMenu close={() => deleteSidebarParam()} />
+
 					</div>
 				</div>
 			</EditorWrapper>
