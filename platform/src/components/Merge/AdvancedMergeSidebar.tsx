@@ -30,7 +30,7 @@ export const AdvancedMergeSidebar: FC<{
 				center
 				icon={
 					<ThemeIcon color="cyan" size={24} radius="sm">
-						<IconInfoSquare size={16} />
+						<IconInfoSquare size={18} />
 					</ThemeIcon>
 				}
 			>
@@ -47,7 +47,7 @@ export const AdvancedMergeSidebar: FC<{
 				<List.Item
 					icon={
 						<ThemeIcon color="red" size={24} radius="sm">
-							<IconInfoSquare size={16} />
+							<IconInfoSquare size={18} />
 						</ThemeIcon>
 					}
 				>
@@ -65,7 +65,7 @@ export const AdvancedMergeSidebar: FC<{
 				center
 				icon={
 					<ThemeIcon color="cyan" size={24} radius="sm">
-						<IconInfoSquare size={16} />
+						<IconInfoSquare size={18} />
 					</ThemeIcon>
 				}
 			>
@@ -146,7 +146,7 @@ export const AdvancedMergeSidebar: FC<{
 				className="text-blueText"
 				icon={
 					<ThemeIcon color="red" size={24} radius="sm">
-						<IconInfoSquare size={16} />
+						<IconInfoSquare size={18} />
 					</ThemeIcon>
 				}
 			>

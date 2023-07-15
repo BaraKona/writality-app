@@ -7,12 +7,16 @@ import {
 	IconMessageDots,
 	IconFilePlus,
 	IconGitMerge,
+	IconRefresh,
+	IconX,
 } from "@tabler/icons";
 import { IChapter } from "../../../interfaces/IChapter";
+import { ButtonWrapper } from "../../buttons/ButtonWrapper";
 
-export const ChapterHistory: FC<{ history: IChapter["history"] }> = ({
-	history,
-}) => {
+export const ChapterHistory: FC<{
+	history: IChapter["history"];
+	close: () => void;
+}> = ({ history, close }) => {
 	if (!history) {
 		return null;
 	}
@@ -21,23 +25,28 @@ export const ChapterHistory: FC<{ history: IChapter["history"] }> = ({
 	const historyAction = {
 		created: <IconFilePlus size={12} />,
 		merged: <IconGitMerge size={12} />,
-		updated: <IconGitCommit size={12} />,
+		updated: <IconRefresh size={12} />,
 	};
-	const dateSortedHistory = history.sort((a, b) => {
-		return new Date(b.date).getTime() - new Date(a.date).getTime();
-	});
+
 	return (
-		<div className="min-w-auto w-56">
+		<div className="min-w-auto w-72">
 			<div>
-				<div className="flex font-medium my-2 px-2 text-blueText text-xs">
-					History <VscInfo size={14} className="cursor-pointer my-auto" />
+				<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
+					History
+					<ButtonWrapper className="ml-auto" onClick={close}>
+						<IconX size={14} className="text-gray-400 group-hover:text-black" />
+					</ButtonWrapper>
 				</div>
 				<Divider className="border-lightBorder" />
 				<ScrollArea.Autosize
-					mah={400}
 					offsetScrollbars
 					scrollbarSize={6}
 					className="px-2"
+					styles={{
+						viewport: {
+							maxHeight: "calc(100vh - 156px)",
+						},
+					}}
 				>
 					<Timeline
 						active={0}
@@ -45,8 +54,13 @@ export const ChapterHistory: FC<{ history: IChapter["history"] }> = ({
 						lineWidth={2}
 						className="py-2"
 						radius="md"
+						styles={{
+							itemBullet: {
+								backgroundColor: "transparent",
+							},
+						}}
 					>
-						{dateSortedHistory?.map((item, index) => (
+						{history?.map((item, index) => (
 							<Timeline.Item
 								key={index}
 								bullet={

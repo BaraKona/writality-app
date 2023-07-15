@@ -5,54 +5,40 @@ import { IconGitBranch } from "@tabler/icons";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { tooltipStyles } from "../../../styles/tooltipStyles";
+import { useSearchParams } from "react-router-dom";
 export const ChapterBranchMenu: FC<{
 	openMergeModal: () => void;
 	chapterBranches: IChapterVersion[];
 	currentBranch: IChapterContent;
 	mainContent: IChapterContent;
-	setSearchParams: () => void;
 	checkoutMain: () => void;
 	openDeleteBranch: React.Dispatch<SetStateAction<boolean>>;
 	openBranchModal: () => void;
+	close: () => void;
 }> = ({
 	openMergeModal,
 	chapterBranches,
 	currentBranch,
 	mainContent,
-	setSearchParams,
 	checkoutMain,
 	openDeleteBranch,
 	openBranchModal,
+	close,
 }) => {
+	const [searchParams] = useSearchParams();
+	const active = searchParams.get("sidebar") === "branches";
 	return (
-		<Menu position="left-start" offset={5}>
-			<Menu.Target>
-				<Tooltip
-					label="Branches"
-					position="left"
-					withArrow
-					styles={tooltipStyles}
-				>
-					<div className="border border-lightBorder p-2 rounded-normal group">
-						<IconGitBranch
-							size={18}
-							className="text-blueText group-hover:text-black "
-						/>
-					</div>
-				</Tooltip>
-			</Menu.Target>
-			<Menu.Dropdown className="bg-white border-none shadow-md">
-				<ChapterBranches
-					openMergeModal={openMergeModal}
-					chapterBranches={chapterBranches}
-					currentBranch={currentBranch}
-					mainContent={mainContent}
-					setSearchParams={setSearchParams}
-					checkoutMain={checkoutMain}
-					openDeleteBranch={openDeleteBranch}
-					openBranchModal={openBranchModal}
-				/>
-			</Menu.Dropdown>
-		</Menu>
+		<div className={`${active ? "" : "hidden"}`}>
+			<ChapterBranches
+				openMergeModal={openMergeModal}
+				chapterBranches={chapterBranches}
+				currentBranch={currentBranch}
+				mainContent={mainContent}
+				checkoutMain={checkoutMain}
+				openDeleteBranch={openDeleteBranch}
+				openBranchModal={openBranchModal}
+				close={close}
+			/>
+		</div>
 	);
 };

@@ -102,9 +102,6 @@ export function Project() {
 		extensions,
 	});
 
-	// if (isLoading || !editor || !currentProject) {
-	// 	return <Loading isLoading={true} />;
-	// }
 	return (
 		<>
 			<DeleteModal

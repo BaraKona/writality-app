@@ -2,32 +2,60 @@ import { FC } from "react";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { Divider, ScrollArea, Text } from "@mantine/core";
-import { IconPlus, IconRectangleVertical, IconVersions } from "@tabler/icons";
+import {
+	IconPlus,
+	IconRectangleVertical,
+	IconVersions,
+	IconX,
+} from "@tabler/icons";
+import { useCreateChapterVersion } from "../../../hooks/chapter/useCreateChapterVersion";
+import { useParams } from "react-router-dom";
+import { ButtonWrapper } from "../../buttons/ButtonWrapper";
+import { useSearchParams } from "react-router-dom";
 
 export const ChapterVersions: FC<{
-	createVersion: () => void;
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setVersion: React.Dispatch<React.SetStateAction<any>>;
 	chapterVersions: IChapterVersion[];
-}> = ({ chapterVersions, setOpen, setVersion, createVersion }) => {
+	text: string;
+	close: () => void;
+}> = ({ chapterVersions, setOpen, setVersion, text, close }) => {
 	if (!chapterVersions) {
 		return null;
 	}
+	const { project, chapter } = useParams();
+	const [searchParams] = useSearchParams();
+	const { mutate } = useCreateChapterVersion(
+		chapter as string,
+		project as string
+	);
 
 	return (
-		<div className="min-w-auto w-56">
-			<div className="flex font-medium my-2 px-2 text-blueText text-xs">
+		<div className="min-w-auto w-72">
+			<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
 				Versions
-				<IconPlus
-					size={18}
-					onClick={createVersion}
-					className="ml-auto hover:text-black cursor-pointer"
-				/>
+				<ButtonWrapper onClick={() => mutate(text)} className="ml-auto">
+					<IconPlus
+						size={14}
+						className="text-gray-400 group-hover:text-black"
+					/>
+				</ButtonWrapper>
+				<ButtonWrapper onClick={close}>
+					<IconX size={14} className="text-gray-400 group-hover:text-black" />
+				</ButtonWrapper>
 			</div>
 			<Divider className="border-lightBorder" />
 			{chapterVersions.length > 0 ? (
 				<div>
-					<ScrollArea.Autosize offsetScrollbars scrollbarSize={6} mah={400}>
+					<ScrollArea.Autosize
+						offsetScrollbars
+						scrollbarSize={6}
+						styles={{
+							viewport: {
+								maxHeight: "calc(100vh - 156px)",
+							},
+						}}
+					>
 						{chapterVersions.map((version: any, index) => (
 							<div
 								key={index}

@@ -9,38 +9,45 @@ import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 
 import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { Divider, ScrollArea, Text } from "@mantine/core";
-import { IconGitBranch, IconPlus } from "@tabler/icons";
+import { IconGitBranch, IconPlus, IconX } from "@tabler/icons";
+import { useSearchParams } from "react-router-dom";
+import { ButtonWrapper } from "../../buttons/ButtonWrapper";
 export const ChapterBranches: FC<{
 	openMergeModal: () => void;
-	setSearchParams: (params: any) => void;
 	chapterBranches: IChapterVersion[];
 	mainContent: IChapterContent;
 	currentBranch: IChapterContent;
 	checkoutMain: any;
 	openDeleteBranch: React.Dispatch<SetStateAction<boolean>>;
 	openBranchModal: () => void;
+	close: () => void;
 }> = ({
 	openMergeModal,
 	chapterBranches,
-	setSearchParams,
 	mainContent,
 	currentBranch,
 	checkoutMain,
 	openDeleteBranch,
 	openBranchModal,
+	close,
 }) => {
+	const [searchParams, setSearchParams] = useSearchParams();
 	if (!chapterBranches) {
 		return null;
 	}
 	return (
-		<div className="min-w-auto w-56">
-			<div className="flex font-medium my-2 px-2 text-blueText text-xs">
+		<div className="min-w-auto w-72">
+			<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
 				Branches
-				<IconPlus
-					size={18}
-					onClick={openBranchModal}
-					className="ml-auto hover:text-black cursor-pointer"
-				/>
+				<ButtonWrapper onClick={openBranchModal} className="ml-auto">
+					<IconPlus
+						size={14}
+						className="text-gray-400 group-hover:text-black"
+					/>
+				</ButtonWrapper>
+				<ButtonWrapper onClick={close}>
+					<IconX size={14} className="text-gray-400 group-hover:text-black" />
+				</ButtonWrapper>
 			</div>
 			<Divider className="border-lightBorder" />
 			{chapterBranches?.length > 0 ? (
@@ -60,7 +67,15 @@ export const ChapterBranches: FC<{
 							main
 						</div>
 					</div>
-					<ScrollArea.Autosize mah={400} offsetScrollbars scrollbarSize={6}>
+					<ScrollArea.Autosize
+						styles={{
+							viewport: {
+								maxHeight: "calc(100vh - 156px)",
+							},
+						}}
+						offsetScrollbars
+						scrollbarSize={6}
+					>
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}
@@ -73,7 +88,12 @@ export const ChapterBranches: FC<{
 												? "text-black"
 												: "text-gray-400"
 										}`}
-										onClick={() => setSearchParams({ branch: branch.uid })}
+										onClick={() =>
+											setSearchParams((prev) => {
+												prev.set("branch", branch.uid);
+												return prev;
+											})
+										}
 									>
 										<VscGitPullRequestCreate size={18} />
 									</button>

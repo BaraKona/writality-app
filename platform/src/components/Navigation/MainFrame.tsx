@@ -182,11 +182,11 @@ export const MainFrame: FC<{
 								{tab.active && (
 									<>
 										<IconPin
-											className="cursor-pointer hover:text-black"
+											className="cursor-pointer text-gray-400 hover:text-black"
 											size={13}
 										/>
 										<IconX
-											className="cursor-pointer"
+											className="cursor-pointer text-gray-400 hover:text-black"
 											onClick={(e) => closeTab(e, tab)}
 											size={13}
 										/>
@@ -200,7 +200,7 @@ export const MainFrame: FC<{
 					className="rounded-normal hover:bg-gray-300 flex items-center p-1.5 cursor-pointer"
 					onClick={addTab}
 				>
-					<IconPlus size={16} className="text-gray-400 " />
+					<IconPlus size={18} className="text-gray-400 " />
 				</div>
 			</div>
 			{children}

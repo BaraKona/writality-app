@@ -49,6 +49,13 @@ import { ChapterBranchMenu } from "../../components/Chapters/branch/ChapterBranc
 import { ChapterVersionMenu } from "../../components/Chapters/version/ChapterVersionMenu";
 import { ChapterHistoryMenu } from "../../components/Chapters/history/ChapterHistoryMenu";
 import { ChapterSettingsMenu } from "../../components/Chapters/settings/ChapterSettingsMenu";
+import { Tooltip } from "@mantine/core";
+import { tooltipStyles } from "../../styles/tooltipStyles";
+import { IconGitBranch } from "@tabler/icons";
+import { ChapterSidebar } from "../../components/Chapters/ChapterSidebar";
+import { ChapterVersionButton } from "../../components/Chapters/version/ChapterVersionButton";
+import { ChapterHistoryButton } from "../../components/Chapters/history/ChapterHistoryButton";
+import { ChapterBranchButton } from "../../components/Chapters/branch/ChapterBranchButton";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -68,7 +75,7 @@ export const Chapter = () => {
 
 	const queryClient = useQueryClient();
 	const branch = searchParams.get("branch");
-
+	const [openedSidebar, setOpenedSidebar] = useState<string>("");
 	const { data: chapterContent } = useQuery(
 		["chapter", chapter],
 		() =>
@@ -76,7 +83,7 @@ export const Chapter = () => {
 		{ enabled: !!chapter && !!project && !!currentUser.uid }
 	);
 	const { data: chapterVersions } = useQuery(
-		["chapterVersions", chapter as string],
+		["versions", chapter as string],
 		() => getAllChapterVersions(chapter as string),
 		{ enabled: !!chapterContent }
 	);
@@ -97,11 +104,6 @@ export const Chapter = () => {
 			setOpened(false);
 		},
 	});
-	const createChapterVersion = useMutation(createVersion, {
-		onSuccess: () => {
-			queryClient.invalidateQueries(["chapterVersions", chapter as string]);
-		},
-	});
 	const deleteBranchMutation = useMutation(
 		() => deleteBranch(chapter as string, branch as string),
 		{
@@ -116,7 +118,7 @@ export const Chapter = () => {
 		() => deleteSingleChapterVersion(chapter as string, version.uid),
 		{
 			onSuccess: () => {
-				queryClient.invalidateQueries(["chapterVersions", chapter as string]);
+				queryClient.invalidateQueries(["versions", chapter as string]);
 				setVersionModalOpen(false);
 			},
 		}
@@ -169,7 +171,7 @@ export const Chapter = () => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["chapter", chapter as string]);
-				queryClient.invalidateQueries(["chapterVersions", chapter as string]);
+				queryClient.invalidateQueries(["versions", chapter as string]);
 				searchParams.delete("branch");
 				setSearchParams(searchParams);
 				setMergeOpened(false);
@@ -190,7 +192,7 @@ export const Chapter = () => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["chapter", chapter as string]);
-				queryClient.invalidateQueries(["chapterVersions", chapter as string]);
+				queryClient.invalidateQueries(["versions", chapter as string]);
 				setMergeOpened(false);
 				setAdvancedMergeOpened(false);
 				searchParams.delete("branch");
@@ -213,6 +215,17 @@ export const Chapter = () => {
 			},
 		}
 	);
+	const ChapterSidebarHandler = (name: string) => {
+		setSearchParams((prev) => {
+			prev.set("sidebar", name);
+			return prev;
+		});
+	};
+
+	const deleteSidebarParam = () => {
+		searchParams.delete("sidebar");
+		setSearchParams(searchParams);
+	};
 
 	const editor = useEditor({
 		extensions,
@@ -243,7 +256,6 @@ export const Chapter = () => {
 					mergeBranch={replaceMain.mutate}
 				/>
 			)}
-
 			<DeleteModal
 				setOpened={setOpenDeleteBranch}
 				opened={openDeleteBranch}
@@ -309,38 +321,46 @@ export const Chapter = () => {
 						}
 					/>
 				)}
-				<div className="border-l flex flex-col gap-3 pl-3">
-					<ChapterBranchMenu
-						openMergeModal={() => setMergeOpened(true)}
-						chapterBranches={chapterBranches}
-						currentBranch={
-							currentBranch ? currentBranch : chapterContent?.content
-						}
-						mainContent={chapterContent?.content}
-						setSearchParams={setSearchParams}
-						checkoutMain={() =>
-							navigate(`/project/${project}/chapter/${chapter}`)
-						}
-						openDeleteBranch={setOpenDeleteBranch}
-						openBranchModal={() => setOpened(true)}
-					/>
-					<ChapterVersionMenu
-						chapterVersions={chapterVersions}
-						setOpen={setVersionModalOpen}
-						setVersion={setVersion}
-						createVersion={() =>
-							createChapterVersion.mutate(
-								versionCreator(
-									chapterContent,
-									currentUser.uid,
-									chapterVersions,
-									text
-								)
-							)
-						}
-					/>
-					<ChapterHistoryMenu history={chapterContent?.history} />
-					{/* <ChapterSettingsMenu /> */}
+				<div className="border-l flex flex-row ">
+					<ChapterSidebar active={Boolean(searchParams.get("sidebar"))}>
+						<ChapterBranchButton
+							setActive={() => ChapterSidebarHandler("branches")}
+						/>
+						<ChapterVersionButton
+							setActive={() => ChapterSidebarHandler("versions")}
+						/>
+						<ChapterHistoryButton
+							setActive={() => ChapterSidebarHandler("history")}
+						/>
+					</ChapterSidebar>
+					<div>
+						<ChapterBranchMenu
+							openMergeModal={() => setMergeOpened(true)}
+							chapterBranches={chapterBranches}
+							currentBranch={
+								currentBranch ? currentBranch : chapterContent?.content
+							}
+							mainContent={chapterContent?.content}
+							checkoutMain={() =>
+								navigate(`/project/${project}/chapter/${chapter}`)
+							}
+							openDeleteBranch={setOpenDeleteBranch}
+							openBranchModal={() => setOpened(true)}
+							close={() => deleteSidebarParam()}
+						/>
+
+						<ChapterVersionMenu
+							chapterVersions={chapterVersions}
+							setOpen={setVersionModalOpen}
+							setVersion={setVersion}
+							text={text}
+							close={() => deleteSidebarParam()}
+						/>
+						<ChapterHistoryMenu
+							history={chapterContent?.history}
+							close={() => deleteSidebarParam()}
+						/>
+					</div>
 				</div>
 			</EditorWrapper>
 		</>

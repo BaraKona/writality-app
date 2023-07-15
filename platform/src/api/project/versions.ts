@@ -20,13 +20,15 @@ export const getSingleChapterVersion = async (
 	return data;
 };
 
-export const createVersion = async (version: IChapterVersion) => {
+export const createVersion = async (
+	chapterId: string,
+	projectId: string,
+	content: string
+) => {
 	try {
-		const { data } = await api.post("/", version);
-		useToast("success", "Version created successfully 😃");
+		const { data } = await api.post("/", { chapterId, projectId, content });
 		return data;
 	} catch (err: any) {
-		useToast("error", "something went wrong, version not created 😖");
 		console.log(err);
 	}
 };

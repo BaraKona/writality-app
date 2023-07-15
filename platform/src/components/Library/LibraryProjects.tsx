@@ -78,14 +78,14 @@ export const LibraryProjects: FC<{
 									{currentUser.favouriteProjects.includes(project.uid) ? (
 										<div className="ml-auto cursor-pointer flex transition-all ease-in-out duration-300">
 											<IconHeartMinus
-												size={16}
+												size={18}
 												onClick={(e) => {
 													e.stopPropagation(), removeFavourite(project.uid);
 												}}
 												className="group-hover:block hidden pointer-events-auto"
 											/>
 											<TbHeartFilled
-												size={16}
+												size={18}
 												onClick={(e) => {
 													e.stopPropagation(), addFavourite(project.uid);
 												}}
@@ -95,7 +95,7 @@ export const LibraryProjects: FC<{
 									) : (
 										<div className="ml-auto cursor-pointer hover:text-black invisible group-hover:visible transition-all ease-in-out duration-300">
 											<IconHeartPlus
-												size={16}
+												size={18}
 												onClick={(e) => {
 													e.stopPropagation(), addFavourite(project.uid);
 												}}
