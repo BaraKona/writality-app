@@ -65,19 +65,19 @@ export const Sidebar: FC<{}> = () => {
 							<CategoryListItem>
 								<CommunityListItem
 									name="Library"
-									onClick={() => openPages("library")}
+									onClick={() => openPages("/library")}
 								>
 									<IconHome stroke={2.2} size={18} />
 								</CommunityListItem>
 								<CommunityListItem
 									name="Posts"
-									onClick={() => openPages("posts")}
+									onClick={() => openPages("/posts")}
 								>
 									<IconTemplate size={18} />
 								</CommunityListItem>
 								<CommunityListItem
 									name="Stories"
-									onClick={() => openPages("stories")}
+									onClick={() => openPages("/stories")}
 								>
 									<IconBooks size={18} />
 								</CommunityListItem>

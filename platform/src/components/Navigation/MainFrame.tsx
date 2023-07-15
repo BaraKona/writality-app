@@ -10,59 +10,68 @@ import {
 	IconSettings,
 	IconTemplate,
 	IconX,
+	IconPlus,
 } from "@tabler/icons";
 import { useTabContext } from "../../contexts/TabContext";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import path from "path";
 
 export const MainFrame: FC<{
 	children: ReactNode;
-	tabName?: string;
-}> = ({ children, tabName }) => {
+}> = ({ children }) => {
 	const { setTabs, tabs } = useTabContext();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { project, chapter } = useParams();
-	const pathname = project
-		? location.pathname.split("/")[1] + "/" + project
-		: location.pathname.split("/")[1];
+	const pathname = location.pathname;
 
-	const tab = tabs.find((tab) => tab.id === pathname);
+	if (pathname.includes("project") && project === undefined) {
+		return <div></div>;
+	}
+
+	const tab = tabs.find((tab) => tab.active);
 
 	// Add chapter to tab path if chapter exists
-	if (chapter) {
-		if (tab) {
-			if (!tab.path.includes(chapter)) {
-				tab.path = tab.path + "/chapter/" + chapter;
-			}
-		}
-	}
+	// if (chapter) {
+	// 	if (tab) {
+	// 		if (!tab.path.includes(chapter)) {
+	// 			tab.path = tab.path + "/chapter/" + chapter;
+	// 		}
+	// 	}
+	// }
 
 	// Remove chapter from tab path if chapter does not exist
-	if (!chapter) {
-		if (tab) {
-			if (tab.path.includes("chapter")) {
-				tab.path = tab.path.split("/chapter/")[0];
-			}
-		}
-	}
+	// if (!chapter) {
+	// 	if (tab) {
+	// 		if (tab.path.includes("chapter")) {
+	// 			tab.path = tab.path.split("/chapter/")[0];
+	// 		}
+	// 	}
+	// }
 
-	// check if tab already exists
-	const tabExists = tabs.some((tab) => tab.id === pathname);
-	// if tab does not exist, add it to the tabs array
-
-	if (!tabExists) {
+	if (!tab) {
 		setTabs([
-			...tabs,
 			{
-				path: location.pathname,
-				title:
-					location.pathname.split("/")[1][0].toUpperCase() +
-					location.pathname.split("/")[1].slice(1),
-				id: pathname,
+				path: "/library",
+				title: "Library",
+				id: uuidv4(),
+				active: true,
 			},
 		]);
+	} else {
+		if (tab.path !== pathname) {
+			// find index of tab
+			const index = tabs.findIndex((tab) => tab.active);
+			// replace the tab with the index with the new path
+			tabs[index].path = pathname;
+			tabs[index].title =
+				pathname.split("/")[1].charAt(0).toUpperCase() +
+				pathname.split("/")[1].slice(1);
+			tabs[index].active = true;
+		}
 	}
 
 	const tabIcons = [
@@ -90,23 +99,62 @@ export const MainFrame: FC<{
 
 	const closeTab = (
 		e: React.MouseEvent<SVGElement>,
-		tab: { path: string; title: string; id: string }
+		tab: { path: string; title: string; id: string; active: boolean }
 	) => {
 		e.stopPropagation();
-		if (tabs.length === 1) navigate("/library");
-		setTabs(tabs.filter((t) => t.id !== tab.id));
-		if (tab.id === pathname) {
-			const index = tabs.findIndex((t) => t.id === tab.id);
+		const index = tabs.findIndex((t) => t.active);
+		const prevTab = tabs[index - 1];
+		const nextTab = tabs[index + 1];
 
-			const prevTab = tabs[index - 1];
-			const nextTab = tabs[index + 1];
-			if (prevTab) {
-				navigate(prevTab.path);
-			} else {
-				navigate(nextTab.path);
-			}
+		setTabs(tabs.filter((t) => t.id !== tab.id));
+		if (tabs.length === 0) navigate("/library");
+		if (prevTab) {
+			prevTab.active = true;
+			navigate(prevTab.path);
+		}
+		if (nextTab) {
+			nextTab.active = true;
+			navigate(nextTab.path);
+		}
+
+		if (!prevTab && !nextTab) {
+			navigate("/library");
 		}
 	};
+
+	const addTab = () => {
+		const index = tabs.findIndex((tab) => tab.active === true);
+
+		if (index !== -1) {
+			tabs[index].active = false;
+			setTabs([
+				...tabs,
+				{
+					path: "/library",
+					title: "Library",
+					id: uuidv4(),
+					active: true,
+				},
+			]);
+		}
+	};
+
+	const changeTab = (tab: {
+		path: string;
+		title: string;
+		id: string;
+		active: boolean;
+	}) => {
+		const activeTab = tabs.find((t) => t.active);
+		if (activeTab?.id === tab.id) return;
+		const index = tabs.findIndex((t) => t.id === tab.id);
+		tabs.forEach((t) => (t.active = false));
+		tabs[index].active = true;
+		setTabs(tabs);
+		console.log(tab.path);
+		navigate(tab.path);
+	};
+
 	return (
 		<div className="">
 			<div className="mt-1.5 pb-1 flex gap-1 overflow-x-auto w-[calc(100vw-14rem)]">
@@ -114,28 +162,24 @@ export const MainFrame: FC<{
 					<div
 						key={tab.id}
 						className={` ${
-							tab.id === pathname
+							tab.active
 								? "bg-white border-none hover:bg-white"
 								: " cursor-pointer hover:bg-[rgba(255,255,255,0.5)] "
 						} flex items-center justify-between px-2 py-1.5 w-44 rounded-normal transition-all duration-500 ease-in-out`}
-						onClick={() => navigate(tab.path)}
+						onClick={() => changeTab(tab)}
 					>
 						<div
 							className={`flex w-full items-center flex-row cursor-default ${
-								tab.id === pathname ? "text-black" : "text-blueText"
+								tab.active ? "text-black" : "text-blueText"
 							}`}
 						>
 							{tabIcons.find((t) => t.title === tab.title)?.icon ||
-								(tab.id === pathname ? (
-									<IconBook size={20} />
-								) : (
-									<IconBook2 size={20} />
-								))}
+								(tab.active ? <IconBook size={20} /> : <IconBook2 size={20} />)}
 							<span className="ml-0.5 text-xs font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
-								{tabName ? tabName : tab.title}
+								{tab.title}
 							</span>
 							<div className="flex gap-0.5 ml-auto">
-								{tab.id === pathname && (
+								{tab.active && (
 									<>
 										<IconPin
 											className="cursor-pointer hover:text-black"
@@ -152,6 +196,12 @@ export const MainFrame: FC<{
 						</div>
 					</div>
 				))}
+				<div
+					className="rounded-normal hover:bg-gray-300 flex items-center p-1.5 cursor-pointer"
+					onClick={addTab}
+				>
+					<IconPlus size={16} className="text-gray-400 " />
+				</div>
 			</div>
 			{children}
 		</div>
