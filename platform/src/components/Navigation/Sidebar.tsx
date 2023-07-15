@@ -24,11 +24,9 @@ import { useSignout } from "../../hooks/user/useSignout";
 import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useFavouriteProjects } from "../../hooks/projects/useFavouriteProjects";
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
-import { Divider } from "@mantine/core";
+import { Divider, Skeleton } from "@mantine/core";
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
-	const { currentUser } = useAuthContext();
-	const queryClient = useQueryClient();
 	const { mutate: signOut } = useSignout();
 
 	const { data: projects, isLoading: isProjectLoading } =
@@ -103,23 +101,33 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 						</div>
-						<CategoryListItem
-							// button={true}
-							// onClick={() => addProject.mutate(currentUser.uid)}
-							loading={isProjectLoading}
-						>
-							{projects?.map((project: IProject, index: number) => {
-								return (
-									<ProjectListItem
-										key={index}
-										onClick={() => openProject(`project/${project.uid}/home`)}
-										name={project.title || "Untitled Project"}
-										projectId={project.uid}
-										type={project.type}
-										removeFavourite={() => removeFavouriteProject(project.uid)}
-									/>
-								);
-							})}
+						<CategoryListItem>
+							{isProjectLoading ? (
+								<>
+									<Skeleton height={27} width={160} radius="md" mb={3} />
+									<Skeleton height={27} width={160} radius="md" mb={3} />
+									<Skeleton height={27} width={160} radius="md" mb={3} />
+								</>
+							) : (
+								<>
+									{projects?.map((project: IProject, index: number) => {
+										return (
+											<ProjectListItem
+												key={index}
+												onClick={() =>
+													openProject(`project/${project.uid}/home`)
+												}
+												name={project.title || "Untitled Project"}
+												projectId={project.uid}
+												type={project.type}
+												removeFavourite={() =>
+													removeFavouriteProject(project.uid)
+												}
+											/>
+										);
+									})}
+								</>
+							)}
 						</CategoryListItem>
 					</div>
 				</div>

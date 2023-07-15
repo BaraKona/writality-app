@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { IProject } from "../../interfaces/IProject";
 import { BaseEditor } from "../Editor";
-import { Button } from "@mantine/core";
+import { Button, Skeleton } from "@mantine/core";
 export const ProjectDescription: FC<{
 	project: IProject;
 	editor: any;
@@ -26,11 +26,19 @@ export const ProjectDescription: FC<{
 				</h3>
 			</div>
 
-			<BaseEditor
-				editor={editor}
-				height="calc(100vh - 192px)"
-				saveContent={() => {}}
-			/>
+			{!editor ? (
+				<Skeleton
+					className="flex flex-col flex-grow mx-auto my-5 w-full "
+					height={200}
+					radius="lg"
+				/>
+			) : (
+				<BaseEditor
+					editor={editor}
+					height="calc(100vh - 192px)"
+					saveContent={() => {}}
+				/>
+			)}
 		</div>
 	);
 };

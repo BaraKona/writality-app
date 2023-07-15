@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { Divider, Flex } from "@mantine/core";
+import { Divider, Flex, Skeleton } from "@mantine/core";
 import { IconAtom, IconBook } from "@tabler/icons";
 
 import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
@@ -11,17 +11,36 @@ import { ProjectWrapperHeights } from "../../styles/ProjectWrapperHeights";
 export const ChapterWrapper: FC<{
 	children: ReactNode;
 	project: IProject;
-}> = ({ children, project }) => {
+	isLoading: boolean;
+}> = ({ children, project, isLoading }) => {
+	if (isLoading) {
+		return (
+			<div
+				className={`flex flex-col pt-5 bg-white px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
+			>
+				<div className="flex justify-between">
+					<Skeleton height={20} mt={6} width={100} />
+					<Skeleton height={20} mt={6} width={200} />
+				</div>
+				<Divider className=" border-lightBorder" />
+				<div className="flex">{children}</div>
+			</div>
+		);
+	}
+
 	const breadcrumbs = [
 		{
 			label: project?.title,
 			path: "/projects",
-			icon:
+			icon: project ? (
 				project.type === "standard" ? (
 					<IconBook size={18} />
 				) : (
 					<IconAtom size={18} />
-				),
+				)
+			) : (
+				<Skeleton height={18} width={18} />
+			),
 		},
 	];
 

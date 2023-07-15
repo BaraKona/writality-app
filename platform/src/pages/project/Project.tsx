@@ -33,7 +33,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { chapterCreator } from "../../hooks";
-import { Divider, Tabs, Tooltip } from "@mantine/core";
+import { Divider, Skeleton, Tabs, Tooltip } from "@mantine/core";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../../components/Editor/utils/editorExtensions";
 import { useTabContext } from "../../contexts/TabContext";
@@ -102,9 +102,9 @@ export function Project() {
 		extensions,
 	});
 
-	if (isLoading || !editor || !currentProject) {
-		return <Loading isLoading={true} />;
-	}
+	// if (isLoading || !editor || !currentProject) {
+	// 	return <Loading isLoading={true} />;
+	// }
 	return (
 		<>
 			<DeleteModal
@@ -113,7 +113,10 @@ export function Project() {
 				deleteBranch={deleteChapter.mutate}
 				type="chapter"
 			/>
-			<ChapterWrapper project={currentProject}>
+			<ChapterWrapper
+				project={currentProject}
+				isLoading={Boolean(!currentProject)}
+			>
 				<Tabs
 					className="w-full border-none important:border-none h-[calc(100vh-7.0rem)]"
 					value={projectTab}
@@ -188,33 +191,50 @@ export function Project() {
 							<ChapterRenderer
 								chapterCount={chapters?.length}
 								createNewChapter={createNewChapter}
+								isLoading={isLoading}
 							>
-								{chapters?.length == 0 ? (
-									<NoChapters createNewChapter={createNewChapter} />
+								{isLoading ? (
+									<>
+										<Skeleton h={20} w="100%" m={3} />
+										<Skeleton h={20} w="100%" m={3} />
+										<Skeleton h={20} w="100%" m={3} />
+										<Skeleton h={20} w="100%" m={3} />
+										<Skeleton h={20} w="100%" m={3} />
+										<Skeleton h={20} w="100%" m={3} />
+										<Skeleton h={20} w="100%" m={3} />
+									</>
 								) : (
 									<>
-										{chapters?.map((chapter: IChapter, index: number) => (
-											<Chapter
-												openChapter={() =>
-													openChapter(chapter.projectId, chapter.uid)
-												}
-												key={index}
-												chapter={chapter}
-												openChapterModal={() => openChapterModal(chapter.uid)}
-												disabled={false}
-											/>
-										))}{" "}
+										{chapters?.length == 0 ? (
+											<NoChapters createNewChapter={createNewChapter} />
+										) : (
+											<>
+												{chapters?.map((chapter: IChapter, index: number) => (
+													<Chapter
+														openChapter={() =>
+															openChapter(chapter.projectId, chapter.uid)
+														}
+														key={index}
+														chapter={chapter}
+														openChapterModal={() =>
+															openChapterModal(chapter.uid)
+														}
+														disabled={false}
+													/>
+												))}{" "}
+											</>
+										)}
 									</>
 								)}
 							</ChapterRenderer>
-							{editor && currentProject && (
-								<ProjectDescription
-									project={currentProject}
-									user={currentUser.uid}
-									editor={editor}
-									updateDescription={updateDescription.mutate}
-								/>
-							)}
+
+							<ProjectDescription
+								project={currentProject}
+								user={currentUser.uid}
+								editor={editor}
+								updateDescription={updateDescription.mutate}
+							/>
+
 							{/* <CharacterWrapper> - Protagonist </CharacterWrapper> */}
 						</div>
 					</Tabs.Panel>
@@ -224,7 +244,11 @@ export function Project() {
 					</Tabs.Panel>
 
 					<Tabs.Panel value="settings">
-						<ProjectSettings project={currentProject} />
+						{currentProject ? (
+							<ProjectSettings project={currentProject} />
+						) : (
+							<Loading isLoading={true} />
+						)}
 					</Tabs.Panel>
 					<Tabs.Panel value="chat">
 						<ChatWrapper />
