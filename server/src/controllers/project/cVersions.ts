@@ -27,9 +27,11 @@ export const createVersion = async (req: any, res: any) => {
 export const getAllChapterVersions = async (req: any, res: any) => {
 	const { chapterId } = req.params;
 	try {
-		const versions = await Version.find({
-			chapterId,
+		// find and sort by date created
+		const versions = await Version.find({ chapterId }).sort({
+			"dateCreated.date": -1,
 		});
+		// sort
 		res.status(200).json(versions);
 	} catch (error) {
 		res.status(404).json({ message: error.message });

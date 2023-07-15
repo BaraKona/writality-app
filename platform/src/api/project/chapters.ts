@@ -37,28 +37,19 @@ export const getSingleChapter = async (
 	projectId: string,
 	chapterId: string
 ) => {
-	const { data } = await chapterApi.get(`/${userId}/${projectId}/${chapterId}`);
+	const { data } = await chapterApi.get(`/single/${projectId}/${chapterId}`);
 	return data;
 };
 
 export const updateChapterContent = async (
-	userId: string,
 	projectId: string,
 	chapterId: string,
-	chapter: IChapter
+	content: string
 ) => {
-	console.log(chapter);
-	try {
-		const { data } = await chapterApi.put(
-			`${userId}/${projectId}/${chapterId}`,
-			chapter
-		);
-		useToast("success", "Chapter updated successfully 😃");
-		return data;
-	} catch (err: any) {
-		console.log(err);
-		useToast("error", "something went wrong 😖");
-	}
+	const { data } = await chapterApi.patch(`content/${projectId}/${chapterId}`, {
+		content,
+	});
+	return data;
 };
 
 export const deleteSingleChapter = async (

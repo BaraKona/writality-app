@@ -8,21 +8,13 @@ import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { IconBook2 } from "@tabler/icons";
 import { tooltipStyles } from "../../styles/tooltipStyles";
+
 export const EditorWrapper: FC<{
 	children: ReactNode;
-	backToProject: () => void;
 	content: IChapterVersion;
 	save: () => void;
-	updateChapterTitle: (title: string) => void;
 	title: string;
-}> = ({
-	children,
-	backToProject,
-	content,
-	save,
-	title,
-	updateChapterTitle,
-}) => {
+}> = ({ children, content, save, title }) => {
 	const { data: project, isLoading } = useSingleProject(content?.projectId);
 
 	const breadcrumbs = [

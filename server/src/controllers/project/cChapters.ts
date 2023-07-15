@@ -54,7 +54,8 @@ export const getProjectChapters = async (req: any, res: any) => {
 };
 
 export const getSingleChapter = async (req: any, res: any) => {
-	const { userId, chapterId, projectId } = req.params;
+	const { chapterId, projectId } = req.params;
+	const userId = req.user.uid;
 	try {
 		const chapter = await Chapter.findOne({
 			owner: userId,
@@ -72,19 +73,62 @@ export const getSingleChapter = async (req: any, res: any) => {
 };
 
 export const updateChapterContent = async (req: any, res: any) => {
-	const { userId, chapterId, projectId } = req.params;
-	const { content, history } = req.body;
+	const { chapterId, projectId } = req.params;
+	const { content } = req.body;
+	const userId = req.user.uid;
 	try {
 		const chapter = await Chapter.findOne({
 			owner: userId,
 			projectId: projectId,
 			uid: chapterId,
 		});
-		chapter.content = content;
-		chapter.history = history;
+
+		Promise.all([
+			Version.create({
+				owner: userId,
+				projectId: projectId,
+				chapterId: chapterId,
+				content: chapter.content.content,
+				uid: uuidv4(),
+				dateCreated: {
+					user: userId,
+					date: new Date(),
+				},
+				type: "main",
+				name: chapter.title,
+			}),
+
+			(chapter.content = {
+				...chapter.content,
+				content: content,
+				uid: uuidv4(),
+				dateUpdated: {
+					user: userId,
+					date: new Date(),
+				},
+				type: "main",
+				dateCreated: {
+					user: chapter.content.dateCreated.user,
+					date: chapter.content.dateCreated.date,
+				},
+			}),
+		]);
+
+		chapter.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+		chapter.history.push({
+			date: new Date(),
+			user: userId,
+			action: "updated",
+		});
+
 		await chapter.save();
+
 		res.status(200).json(chapter);
 	} catch (error) {
+		console.log(error);
 		res.status(404).json({ message: error.message });
 	}
 };

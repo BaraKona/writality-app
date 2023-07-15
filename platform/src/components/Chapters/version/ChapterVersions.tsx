@@ -3,6 +3,7 @@ import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { Divider, ScrollArea, Text } from "@mantine/core";
 import {
+	IconHourglassLow,
 	IconPlus,
 	IconRectangleVertical,
 	IconVersions,
@@ -67,9 +68,9 @@ export const ChapterVersions: FC<{
 											onClick={() => {
 												setOpen(true), setVersion(version);
 											}}
-											className="group-hover:text-black text-blueText"
+											className="group-hover:text-black text-gray-400 cursor-pointer"
 										>
-											<IconRectangleVertical size={18} />
+											<IconHourglassLow size={18} />
 										</div>
 										<p className="text-blueText font-medium">
 											{version.name ? version.name : "Version"}:

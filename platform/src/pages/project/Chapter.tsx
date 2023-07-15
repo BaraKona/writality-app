@@ -36,12 +36,7 @@ import {
 	VersionModal,
 	AdvancedMergeModal,
 } from "../../components/Modals";
-import {
-	branchCreator,
-	useUpdateChapter,
-	versionCreator,
-	useAppendHistory,
-} from "../../hooks";
+import { branchCreator, versionCreator, useAppendHistory } from "../../hooks";
 
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../../components/Editor/utils/editorExtensions";
@@ -56,6 +51,7 @@ import { ChapterSidebar } from "../../components/Chapters/ChapterSidebar";
 import { ChapterVersionButton } from "../../components/Chapters/version/ChapterVersionButton";
 import { ChapterHistoryButton } from "../../components/Chapters/history/ChapterHistoryButton";
 import { ChapterBranchButton } from "../../components/Chapters/branch/ChapterBranchButton";
+import { useUpdateChapterContent } from "../../hooks/chapter/useUpdateChapterContent";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -75,7 +71,6 @@ export const Chapter = () => {
 
 	const queryClient = useQueryClient();
 	const branch = searchParams.get("branch");
-	const [openedSidebar, setOpenedSidebar] = useState<string>("");
 	const { data: chapterContent } = useQuery(
 		["chapter", chapter],
 		() =>
@@ -124,20 +119,25 @@ export const Chapter = () => {
 		}
 	);
 
-	const updateChapterContentMutation = useMutation(
-		() =>
-			updateChapterContent(
-				currentUser.uid,
-				project as string,
-				chapter as string,
-				useUpdateChapter(chapterContent, text, currentUser.uid)
-			),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(["chapter", chapter as string]);
-			},
-		}
+	// const updateChapterContentMutation = useMutation(
+	// 	() =>
+	// 		updateChapterContent(
+	// 			currentUser.uid,
+	// 			project as string,
+	// 			chapter as string,
+	// 			useUpdateChapter(chapterContent, text, currentUser.uid)
+	// 		),
+	// 	{
+	// 		onSuccess: () => {
+	// 			queryClient.invalidateQueries(["chapter", chapter as string]);
+	// 		},
+	// 	}
+	// );
+	const { mutate: updateChapterContentMutation } = useUpdateChapterContent(
+		project as string,
+		chapter as string
 	);
+
 	const updateBranchMutation = useMutation(
 		() =>
 			updateBranch(chapter as string, branch as string, {
@@ -201,20 +201,6 @@ export const Chapter = () => {
 		}
 	);
 
-	const updateChapterTitleMutation = useMutation(
-		(title: string) =>
-			updateChapterTitle(
-				currentUser.uid,
-				project as string,
-				chapter as string,
-				title || chapterContent?.title || ""
-			),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(["chapter", chapter as string]);
-			},
-		}
-	);
 	const ChapterSidebarHandler = (name: string) => {
 		setSearchParams((prev) => {
 			prev.set("sidebar", name);
@@ -301,15 +287,13 @@ export const Chapter = () => {
 				editor={editor}
 			/>
 			<EditorWrapper
-				backToProject={() => navigate(`/project/${project}/home`)}
 				save={
 					branch
 						? updateBranchMutation.mutate
-						: updateChapterContentMutation.mutate
+						: () => updateChapterContentMutation(editor.getHTML())
 				}
 				content={currentBranch ? currentBranch : chapterContent?.content}
 				title={chapterContent?.title}
-				updateChapterTitle={updateChapterTitleMutation.mutate}
 			>
 				{editor && (
 					<ChapterEditorController
@@ -338,7 +322,9 @@ export const Chapter = () => {
 							openMergeModal={() => setMergeOpened(true)}
 							chapterBranches={chapterBranches}
 							currentBranch={
-								currentBranch ? currentBranch : chapterContent?.content
+								currentBranch
+									? currentBranch
+									: editor?.getHTML() || chapterContent
 							}
 							mainContent={chapterContent?.content}
 							checkoutMain={() =>
@@ -353,7 +339,7 @@ export const Chapter = () => {
 							chapterVersions={chapterVersions}
 							setOpen={setVersionModalOpen}
 							setVersion={setVersion}
-							text={text}
+							text={editor.getHTML()}
 							close={() => deleteSidebarParam()}
 						/>
 						<ChapterHistoryMenu

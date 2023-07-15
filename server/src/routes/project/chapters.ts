@@ -14,8 +14,8 @@ import {
 const router = express.Router();
 
 router.post("/", protect, createChapter);
-router.put("/:userId/:projectId/:chapterId/", protect, updateChapterContent);
-router.get("/:userId/:projectId/:chapterId/", protect, getSingleChapter);
+router.patch("/content/:projectId/:chapterId/", protect, updateChapterContent);
+router.get("/single/:projectId/:chapterId/", protect, getSingleChapter);
 router.get("/:userId/:projectId", protect, getProjectChapters);
 router.delete("/:userId/:projectId/:chapterId/", protect, deleteSingleChapter);
 router.patch(
