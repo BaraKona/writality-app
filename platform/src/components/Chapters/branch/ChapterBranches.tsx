@@ -79,7 +79,7 @@ export const ChapterBranches: FC<{
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}
-								className="flex flex-col gap-2 border-b border-lightBorder py-1 px-2"
+								className="flex flex-col gap-2 border-b border-lightBorder py-1 pl-2"
 							>
 								<div className="flex justify-between">
 									<div className="flex gap-1">
@@ -106,26 +106,34 @@ export const ChapterBranches: FC<{
 										{useTimeFromNow(branch.dateUpdated.date)}
 									</Text>
 								</div>
-								<div className="flex flex-row gap-1 transition-all ease-in-out duration-200">
-									{branch.uid === currentBranch?.uid ? (
-										<div className="mt-1 flex">
+								{branch.uid === currentBranch?.uid ? (
+									<div className="flex flex-row gap-1 transition-all ease-in-out duration-200">
+										<div className="flex  flex-col border-l border-gray-200 ml-1 gap-1">
 											<button
 												onClick={openMergeModal}
-												className="flex gap-1 hover:text-green-300"
+												className="flex gap-1 text-blueText text-xs font-medium items-center hover:text-black px-2 border-gray-200 group"
 											>
-												<VscGitMerge size={14} />
+												<VscGitMerge
+													size={14}
+													className="group-hover:text-blue-500 text-gray-400 "
+												/>{" "}
+												Merge into main
 											</button>
 											<button
 												onClick={() => openDeleteBranch(true)}
-												className="flex text-red-400"
+												className="flex gap-1 text-blueText text-xs font-medium items-center px-2 group"
 											>
-												<VscGitPullRequestClosed size={14} />
+												<VscGitPullRequestClosed
+													size={14}
+													className="group-hover:text-red-500 text-gray-400"
+												/>
+												Delete branch
 											</button>
 										</div>
-									) : (
-										""
-									)}
-								</div>
+									</div>
+								) : (
+									""
+								)}
 							</div>
 						))}
 					</ScrollArea.Autosize>

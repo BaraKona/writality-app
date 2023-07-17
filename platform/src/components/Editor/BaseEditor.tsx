@@ -177,7 +177,7 @@ export const BaseEditor: FC<{
 					height,
 					border: "none",
 					backgroundColor: "white",
-					minWidth: minWidth ? minWidth : "400px",
+					width: minWidth ? minWidth : "400px",
 				}}
 			>
 				{/* <h1>hi</h1>	 */}

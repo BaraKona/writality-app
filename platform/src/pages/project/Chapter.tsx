@@ -202,6 +202,10 @@ export const Chapter = () => {
 		setSearchParams(searchParams);
 	};
 
+	const navigateToMain = () => {
+		searchParams.delete("branch");
+		setSearchParams(searchParams);
+	};
 	const editor = useEditor({
 		extensions,
 	});
@@ -320,9 +324,7 @@ export const Chapter = () => {
 									: editor?.getHTML() || chapterContent
 							}
 							mainContent={chapterContent?.content}
-							checkoutMain={() =>
-								navigate(`/project/${project}/chapter/${chapter}`)
-							}
+							checkoutMain={() => navigateToMain()}
 							openDeleteBranch={setOpenDeleteBranch}
 							openBranchModal={() => setOpened(true)}
 							close={() => deleteSidebarParam()}
