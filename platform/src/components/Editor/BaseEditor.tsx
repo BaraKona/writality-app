@@ -1,13 +1,26 @@
 import { RichTextEditor } from "@mantine/tiptap";
 import { FC } from "react";
-import { Button, Text } from "@mantine/core";
+import { Button, Text, TextInput } from "@mantine/core";
 import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons";
 import { BubbleMenu } from "@tiptap/react";
+import { inputStyles } from "../../styles/inputStyles";
 export const BaseEditor: FC<{
 	editor: any;
 	height: string;
 	saveContent?: () => void;
-}> = ({ editor, height, saveContent }) => {
+	minWidth?: string;
+	chapterTitle?: string;
+	setTitle?: React.Dispatch<React.SetStateAction<string>>;
+	isTitle?: boolean;
+}> = ({
+	editor,
+	height,
+	saveContent,
+	minWidth,
+	chapterTitle,
+	setTitle,
+	isTitle,
+}) => {
 	return (
 		<RichTextEditor
 			editor={editor}
@@ -130,17 +143,45 @@ export const BaseEditor: FC<{
 					<RichTextEditor.AlignRight />
 				</RichTextEditor.ControlsGroup>
 			</RichTextEditor.Toolbar>
+			{isTitle && (
+				<TextInput
+					placeholder="Title"
+					defaultValue={chapterTitle}
+					onChange={(e) => (setTitle ? setTitle(e.target.value) : null)}
+					styles={{
+						...inputStyles,
+						input: {
+							...inputStyles.input,
+							fontSize: "2rem !important",
+							fontWeight: 400,
+							padding: "0.5rem 0.5rem",
+							border: "none",
+							backgroundColor: "transparent",
+							color: "#25262b",
+							textAlign: "center",
+							margin: "1rem auto",
+							textDecoration: "underline",
+							"&:focus": {
+								outline: "none",
+								border: "none",
+							},
+						},
+					}}
+				/>
+			)}
 
 			<RichTextEditor.Content
 				className="transition-all duration-300 ease-in-out text-blueText text-sm"
 				style={{
 					overflowY: "auto",
-					height: height,
+					height,
 					border: "none",
 					backgroundColor: "white",
-					minWidth: "400px",
+					minWidth: minWidth ? minWidth : "400px",
 				}}
-			/>
+			>
+				{/* <h1>hi</h1>	 */}
+			</RichTextEditor.Content>
 		</RichTextEditor>
 	);
 };

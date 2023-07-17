@@ -9,17 +9,9 @@ const chapterApi = axios.create({
 	withCredentials: true,
 });
 
-export const createChapter = async (chapter: IChapter) => {
-	try {
-		console.log(chapter);
-		const { data } = await chapterApi.post("/", chapter);
-		useToast("success", "Chapter created successfully 😃");
-		return data;
-	} catch (err: any) {
-		const { data } = err.response;
-		console.log(data);
-		useToast("error", "something went wrong 😖");
-	}
+export const createChapter = async (projectId: string) => {
+	const { data } = await chapterApi.post("/", { projectId });
+	return data;
 };
 
 export const getProjectChapters = async (userId: string, projectId: string) => {
@@ -44,10 +36,12 @@ export const getSingleChapter = async (
 export const updateChapterContent = async (
 	projectId: string,
 	chapterId: string,
-	content: string
+	content: string,
+	title: string
 ) => {
 	const { data } = await chapterApi.patch(`content/${projectId}/${chapterId}`, {
 		content,
+		title,
 	});
 	return data;
 };

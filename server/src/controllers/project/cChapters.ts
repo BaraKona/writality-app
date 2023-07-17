@@ -4,30 +4,59 @@ import Version from "../../models/versionSchema";
 import { v4 as uuidv4 } from "uuid";
 
 export const createChapter = async (req: any, res: any) => {
-	const {
-		title,
-		projectId,
-		uid,
-		dateCreated,
-		owner,
-		dateUpdated,
-		content,
-		history,
-	} = req.body;
+	const userId = req.user.uid;
+	const { projectId } = req.body;
+	const id = uuidv4();
 	const newChapter = new Chapter({
-		owner,
-		title,
 		projectId,
-		uid,
-		dateCreated,
-		dateUpdated,
-		content,
-		history,
+		owner: userId,
+		uid: id,
+		name: "Untitled Chapter",
+		title: "Untitled Chapter",
+		dateCreated: {
+			user: userId,
+			date: new Date(),
+		},
+		dateUpdated: {
+			user: userId,
+			date: new Date(),
+		},
+		history: [
+			{
+				date: new Date(),
+				user: userId,
+				action: "create",
+			},
+		],
+		content: {
+			uid: uuidv4(),
+			type: "main",
+			content: "",
+			title: "",
+			dateCreated: {
+				user: userId,
+				date: new Date(),
+			},
+			dateUpdated: {
+				user: userId,
+				date: new Date(),
+			},
+			chapterId: id,
+			projectId,
+			history: [
+				{
+					date: new Date(),
+					user: userId,
+					action: "create",
+				},
+			],
+		},
 	});
 	try {
 		await newChapter.save();
 		res.status(201).json(newChapter);
 	} catch (error) {
+		console.log(error);
 		res.status(409).json({ message: error.message });
 	}
 };
@@ -74,7 +103,7 @@ export const getSingleChapter = async (req: any, res: any) => {
 
 export const updateChapterContent = async (req: any, res: any) => {
 	const { chapterId, projectId } = req.params;
-	const { content } = req.body;
+	const { content, title } = req.body;
 	const userId = req.user.uid;
 	try {
 		const chapter = await Chapter.findOne({
@@ -97,9 +126,9 @@ export const updateChapterContent = async (req: any, res: any) => {
 				type: "main",
 				name: chapter.title,
 			}),
-
 			(chapter.content = {
 				...chapter.content,
+				title: title,
 				content: content,
 				uid: uuidv4(),
 				dateUpdated: {

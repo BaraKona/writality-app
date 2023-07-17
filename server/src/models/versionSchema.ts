@@ -24,7 +24,6 @@ const versionSchema = new Schema<IVersion>({
 	},
 	content: {
 		type: String,
-		required: true,
 	},
 	uid: {
 		type: String,

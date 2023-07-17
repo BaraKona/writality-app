@@ -68,6 +68,7 @@ export const Chapter = () => {
 	const [position, setPosition] = useState<string | null>(null);
 	const [version, setVersion] = useState({} as any);
 	const [advancedMergeOpened, setAdvancedMergeOpened] = useState(false);
+	const [title, setTitle] = useState("");
 	const { chapter, project } = useParams();
 
 	const queryClient = useQueryClient();
@@ -120,23 +121,10 @@ export const Chapter = () => {
 		}
 	);
 
-	// const updateChapterContentMutation = useMutation(
-	// 	() =>
-	// 		updateChapterContent(
-	// 			currentUser.uid,
-	// 			project as string,
-	// 			chapter as string,
-	// 			useUpdateChapter(chapterContent, text, currentUser.uid)
-	// 		),
-	// 	{
-	// 		onSuccess: () => {
-	// 			queryClient.invalidateQueries(["chapter", chapter as string]);
-	// 		},
-	// 	}
-	// );
 	const { mutate: updateChapterContentMutation } = useUpdateChapterContent(
 		project as string,
-		chapter as string
+		chapter as string,
+		title
 	);
 
 	const updateBranchMutation = useMutation(
@@ -294,16 +282,17 @@ export const Chapter = () => {
 						: () => updateChapterContentMutation(editor.getHTML())
 				}
 				content={currentBranch ? currentBranch : chapterContent?.content}
-				title={chapterContent?.title}
 			>
 				{editor && (
 					<ChapterEditorController
+						chapterContent={chapterContent}
 						setText={setText}
 						editor={editor}
 						setOpen={setUpdateContentModalOpen}
 						content={
 							branch ? currentBranch.content : chapterContent?.content.content
 						}
+						setTitle={setTitle}
 					/>
 				)}
 				<div className="border-l flex flex-row ">
@@ -351,7 +340,6 @@ export const Chapter = () => {
 							close={() => deleteSidebarParam()}
 						/>
 						<ChapterSettingsMenu close={() => deleteSidebarParam()} />
-
 					</div>
 				</div>
 			</EditorWrapper>

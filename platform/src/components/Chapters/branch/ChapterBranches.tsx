@@ -62,7 +62,7 @@ export const ChapterBranches: FC<{
 								}`}
 								onClick={checkoutMain}
 							>
-								<VscGitPullRequestCreate size={18} />
+								<VscGitPullRequestCreate size={14} />
 							</div>
 							main
 						</div>
@@ -79,49 +79,53 @@ export const ChapterBranches: FC<{
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}
-								className="flex justify-between gap-2 border-b border-lightBorder py-1 px-2"
+								className="flex flex-col gap-2 border-b border-lightBorder py-1 px-2"
 							>
-								<div className="flex gap-1 transition-all ease-in-out duration-200">
-									<button
-										className={`hover:text-black ${
-											branch.uid === currentBranch?.uid
-												? "text-black"
-												: "text-gray-400"
-										}`}
-										onClick={() =>
-											setSearchParams((prev) => {
-												prev.set("branch", branch.uid);
-												return prev;
-											})
-										}
-									>
-										<VscGitPullRequestCreate size={18} />
-									</button>
+								<div className="flex justify-between">
+									<div className="flex gap-1">
+										<button
+											className={`hover:text-black ${
+												branch.uid === currentBranch?.uid
+													? "text-black"
+													: "text-gray-400"
+											}`}
+											onClick={() =>
+												setSearchParams((prev) => {
+													prev.set("branch", branch.uid);
+													return prev;
+												})
+											}
+										>
+											<VscGitPullRequestCreate size={14} />
+										</button>
+										<p className="text-blueText font-medium text-xs">
+											{branch.name ? branch.name : "Branch"}:
+										</p>
+									</div>
+									<Text size="xs" color="dimmed">
+										{useTimeFromNow(branch.dateUpdated.date)}
+									</Text>
+								</div>
+								<div className="flex flex-row gap-1 transition-all ease-in-out duration-200">
 									{branch.uid === currentBranch?.uid ? (
 										<div className="mt-1 flex">
 											<button
 												onClick={openMergeModal}
 												className="flex gap-1 hover:text-green-300"
 											>
-												<VscGitMerge size={18} />
+												<VscGitMerge size={14} />
 											</button>
 											<button
 												onClick={() => openDeleteBranch(true)}
 												className="flex text-red-400"
 											>
-												<VscGitPullRequestClosed size={18} />
+												<VscGitPullRequestClosed size={14} />
 											</button>
 										</div>
 									) : (
 										""
 									)}
-									<p className="text-blueText font-medium text-xs">
-										{branch.name ? branch.name : "Branch"}:
-									</p>
 								</div>
-								<Text size="xs" color="dimmed">
-									{useTimeFromNow(branch.dateUpdated.date)}
-								</Text>
 							</div>
 						))}
 					</ScrollArea.Autosize>

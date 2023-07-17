@@ -4,11 +4,13 @@ import { useToast } from "../useToast";
 
 export const useUpdateChapterContent = (
 	projectId: string,
-	chapterId: string
+	chapterId: string,
+	title: string
 ) => {
 	const queryClient = useQueryClient();
 	return useMutation(
-		(content: string) => updateChapterContent(projectId, chapterId, content),
+		(content: string) =>
+			updateChapterContent(projectId, chapterId, content, title),
 		{
 			onSuccess: (data) => {
 				useToast("success", "Chapter updated successfully 😃");

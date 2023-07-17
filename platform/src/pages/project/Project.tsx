@@ -1,5 +1,4 @@
 import { ProjectDescription } from "../../components/Project";
-import { v4 as uuidv4 } from "uuid";
 import {
 	IconGlobe,
 	IconHome,
@@ -24,27 +23,19 @@ import {
 	deleteSingleChapter,
 } from "../../api/project/chapters";
 import { DeleteModal } from "../../components/Modals";
-import {
-	getSingleProject,
-	deleteSingleProject,
-	updateProjectDescription,
-	updateProjectTitle,
-} from "../../api/project/projects";
+import { updateProjectDescription } from "../../api/project/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { chapterCreator } from "../../hooks";
 import { Divider, Skeleton, Tabs, Tooltip } from "@mantine/core";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../../components/Editor/utils/editorExtensions";
-import { useTabContext } from "../../contexts/TabContext";
 import { ProjectSettings } from "../../components/Project/ProjectSettings";
-import { CreateChapterButton } from "../../components/buttons";
-import { IconTrash } from "@tabler/icons";
-import { IProject } from "../../interfaces/IProject";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChatWrapper } from "../../components/Project/chatrooms/ChatWrapper";
 import { tabStyles } from "../../styles/tabStyles";
 import { tooltipStyles } from "../../styles/tooltipStyles";
+import { useCreateChapter } from "../../hooks/chapter/useCreateChapter";
+
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
@@ -90,9 +81,8 @@ export function Project() {
 		setChapterId(chapterId);
 		setOpenModal(true);
 	};
-	const createNewChapter = () => {
-		addChapter.mutate(chapterCreator(currentUser.uid, project as string));
-	};
+
+	const { mutate: createNewChapter } = useCreateChapter(project as string);
 
 	const openChapter = (projectId: string, chapterId: string) => {
 		navigate(`/project/${projectId}/chapter/${chapterId}`);
