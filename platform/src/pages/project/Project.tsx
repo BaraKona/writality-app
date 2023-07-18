@@ -35,6 +35,7 @@ import { ChatWrapper } from "../../components/Project/chatrooms/ChatWrapper";
 import { tabStyles } from "../../styles/tabStyles";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { useCreateChapter } from "../../hooks/chapter/useCreateChapter";
+import { FourOFour } from "../404";
 
 export function Project() {
 	const queryClient = useQueryClient();
@@ -92,6 +93,9 @@ export function Project() {
 		extensions,
 	});
 
+	if (currentProject === null) {
+		return <FourOFour />;
+	}
 	return (
 		<>
 			<DeleteModal

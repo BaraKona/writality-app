@@ -47,7 +47,7 @@ export const EditorWrapper: FC<{
 			isLoading: isLoading,
 		},
 		{
-			label: "[" + content?.type + "] " + content.title,
+			label: "[" + content?.type + "] " + (content.title || "Untitled Chapter"),
 			path: "/projects",
 			icon: <IconFileText size={18} />,
 			isLoading: isLoading,

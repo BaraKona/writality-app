@@ -124,7 +124,7 @@ export const Chapter = () => {
 	const { mutate: updateChapterContentMutation } = useUpdateChapterContent(
 		project as string,
 		chapter as string,
-		title
+		title || chapterContent?.content.title
 	);
 
 	const updateBranchMutation = useMutation(

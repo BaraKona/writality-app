@@ -7,7 +7,7 @@ export const useSignUp = () => {
 			registerUser(data),
 		{
 			onSuccess: (data) => {
-				window.location.pathname = "/dashboard";
+				window.location.pathname = "/library";
 			},
 		}
 	);

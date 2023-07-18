@@ -17,6 +17,7 @@ import {
 	IconSettings,
 	IconTemplate,
 	IconHome,
+	IconUsers,
 } from "@tabler/icons";
 import { cyclops8 } from "../../assets/icons";
 import { MainFrame } from "../Project";
@@ -25,6 +26,7 @@ import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useFavouriteProjects } from "../../hooks/projects/useFavouriteProjects";
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
 import { Divider, Skeleton } from "@mantine/core";
+import { IconUsersGroup } from "@tabler/icons-react";
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { mutate: signOut } = useSignout();
@@ -67,6 +69,9 @@ export const Sidebar: FC<{}> = () => {
 								>
 									<IconHome stroke={2.2} size={18} />
 								</CommunityListItem>
+								<CategoryListItem>
+									<Divider className="border-gray-200" />
+								</CategoryListItem>
 								<CommunityListItem
 									name="Posts"
 									onClick={() => openPages("/posts")}
@@ -78,6 +83,17 @@ export const Sidebar: FC<{}> = () => {
 									onClick={() => openPages("/stories")}
 								>
 									<IconBooks size={18} />
+								</CommunityListItem>
+							</CategoryListItem>
+							<CategoryListItem>
+								<Divider className="border-gray-200" />
+							</CategoryListItem>
+							<CategoryListItem>
+								<CommunityListItem
+									name="Users"
+									onClick={() => openPages("/users")}
+								>
+									<IconUsersGroup size={18} />
 								</CommunityListItem>
 							</CategoryListItem>
 							<CategoryListItem className="mb-auto">
@@ -127,6 +143,11 @@ export const Sidebar: FC<{}> = () => {
 										);
 									})}
 								</>
+							)}
+							{!isProjectLoading && projects?.length === 0 && (
+								<div className="text-blueText text-xs font-medium">
+									You have no favourites
+								</div>
 							)}
 						</CategoryListItem>
 					</div>
