@@ -12,7 +12,7 @@ export const ChapterRenderer: FC<{
 	return (
 		<div className="flex-grow w-80 min-w-[20rem] mx-auto  border-r bg-white">
 			<div className="flex gap-2 ml-2 font-medium items-center">
-				<IconFiles size={20} />
+				<IconFiles size={18} />
 				{isLoading ? (
 					<Skeleton width={100} height={20} />
 				) : (
@@ -25,7 +25,7 @@ export const ChapterRenderer: FC<{
 					<CreateChapterButton
 						createNewChapter={createNewChapter}
 						text="New Chapter"
-						icon={<IconFilePlus size={20} />}
+						icon={<IconFilePlus size={18} />}
 					/>
 				</div>
 			</div>

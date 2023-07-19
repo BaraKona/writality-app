@@ -106,7 +106,7 @@ export const MainFrame: FC<{
 		const prevTab = tabs[index - 1];
 		const nextTab = tabs[index + 1];
 
-		setTabs(tabs.filter((t) => t.id !== tab.id));
+		const filteredTabs = tabs.filter((t) => t.active === false);
 		if (tabs.length === 0) navigate("/library");
 		if (prevTab) {
 			prevTab.active = true;
@@ -120,6 +120,7 @@ export const MainFrame: FC<{
 		if (!prevTab && !nextTab) {
 			navigate("/library");
 		}
+		setTabs(filteredTabs);
 	};
 
 	const addTab = () => {
@@ -156,8 +157,8 @@ export const MainFrame: FC<{
 	};
 
 	return (
-		<div className="">
-			<div className="mt-1.5 pb-1 flex gap-1 overflow-x-auto w-[calc(100vw-14rem)]">
+		<div>
+			<div className="mt-1.5 pb-1 flex gap-1 w-[calc(100vw-14rem)] content-start">
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}
@@ -165,7 +166,7 @@ export const MainFrame: FC<{
 							tab.active
 								? "bg-white border-none hover:bg-white"
 								: " cursor-pointer hover:bg-[rgba(255,255,255,0.5)] "
-						} flex items-center justify-between px-2 py-1.5 w-44 rounded-normal transition-all duration-500 ease-in-out`}
+						} flex items-center justify-between px-2 py-1.5 w-44 rounded-normal transition-all duration-500 ease-in-out min-w-0`}
 						onClick={() => changeTab(tab)}
 					>
 						<div
