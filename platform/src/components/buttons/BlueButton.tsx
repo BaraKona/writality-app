@@ -10,7 +10,7 @@ export const BlueButton: FC<{
 			onClick={onClick}
 			className="text-[#f2f2f2] font-medium text-sm flex cursor-pointer w-full  hover:bg-gray-600 rounded-normal py-2 bg-blueText active:bg-gray-700 "
 		>
-			<span className="mx-auto">{children}</span>
+			<span className="mx-auto flex items-center gap-2">{children}</span>
 		</button>
 	);
 };

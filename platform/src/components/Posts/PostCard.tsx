@@ -9,9 +9,14 @@ import {
 	ScrollArea,
 	Title,
 	Divider,
+	Paper,
+	Card,
 } from "@mantine/core";
 import { Project } from "../../pages/project";
 import { useTimeFromNow } from "../../utils/convertDate";
+import { BlueButton } from "../buttons/BlueButton";
+import { IconEye } from "@tabler/icons";
+import { useNavigate } from "react-router-dom";
 
 export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 	const postCardPicture = () => {
@@ -38,72 +43,132 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 		}
 	};
 
+	const collaborationTypeColour = () => {
+		switch (post?.collaborationType) {
+			case "Accountability":
+				return "blue";
+			case "Collaboration":
+				return "cyan";
+			case "Critique":
+				return "red";
+			case "Feedback":
+				return "yellow";
+			case "Other":
+				return "gray";
+			default:
+				return "blue";
+		}
+	};
+
+	const postTypeColour = () => {
+		switch (post?.postType) {
+			case "Short Story":
+				return "indigo";
+			case "Novel":
+				return "violet";
+			case "Poem":
+				return "teal";
+			case "Script":
+				return "orange";
+			case "Manga / Comic":
+				return "lime";
+			case "Fan-Fiction":
+				return "green";
+			case "Web-Novel":
+				return "pink";
+			case "Other":
+				return "gray";
+			default:
+				return "blue";
+		}
+	};
+
+	const navigate = useNavigate();
+
 	return (
-		<>
-			<div className="flex flex-grow px-3 bg-white max-w-3xl gap-10 text-blueText items-center group">
-				<div>
-					<div className="flex items-center gap-2 mb-3">
-						<Image
-							src={
-								post?.owner ||
-								"https://images.unsplash.com/photo-1490709501740-c7ac36b7d587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80,"
-							}
-							alt="Profile picture"
-							width={40}
-							height={40}
-							radius="lg"
-						/>
-						<div className="flex flex-col">
-							<Text className="text-xs font-semibold">
-								{post?.owner || "User Name"}
-							</Text>
-							<Text className="text-xs font-normal" color="dimmed">
-								{useTimeFromNow(post?.dateCreated)}
-							</Text>
-						</div>
-					</div>
-					<Text className="text-lg font-semibold mb-2" lineClamp={1}>
-						{post?.postTitle || "Post Title"}
-					</Text>
-					<div className="flex flex-col">
-						<Text
-							color="dimmed"
-							lineClamp={3}
-							className="text-[0.85rem] font-normal leading-tight"
-						>
-							{post.description}
-						</Text>
-						<div className="flex gap-2 my-4 cursor-default">
-							<Badge color="gray" variant="outline">
-								{post?.collaborationType}
-							</Badge>
-							<Badge color="cyan" variant="outline">
-								{post?.postType}
-							</Badge>
-						</div>
-						{post.genres?.length > 0 && (
-							<div className="flex flex-wrap gap-2 my-4 cursor-default">
-								{post.genres.map((genre) => (
-									<Text className="text-xs font-semibold" color="dimmed">
-										#{genre}
-									</Text>
-								))}
-							</div>
-						)}
-					</div>
-				</div>
-				<div className="ml-auto px-2">
+		<div className="basis-72 group">
+			<Card shadow="sm" padding="md" radius="sm" withBorder>
+				<Card.Section>
 					<Image
 						src={postCardPicture()}
-						alt="Post card picture"
-						width={192}
-						height={130}
-						radius="md"
+						height={160}
+						alt={post.postTitle}
 						className="group-hover:grayscale-0 grayscale transition-all ease-in-out duration-300"
 					/>
-				</div>
+				</Card.Section>
+				<Group
+					position="apart"
+					mt="xs"
+					mb="xs"
+					className="flex flex-row gap-1 items-start"
+				>
+					<UserRenderer post={post} />
+					<div className="flex gap-1">
+						<Badge
+							color={collaborationTypeColour()}
+							variant="light"
+							radius="sm"
+							size="sm"
+						>
+							{post?.collaborationType}
+						</Badge>
+						<Badge
+							color={postTypeColour()}
+							variant="light"
+							size="sm"
+							radius="sm"
+						>
+							{post?.postType}
+						</Badge>
+					</div>
+				</Group>
+				<Group mt="md" mb="xs">
+					<Text weight={500} size="sm" className="text-blueText">
+						{post.postTitle || "Untitled post"}
+					</Text>
+				</Group>
+
+				<Text size="xs" color="dimmed" className="line-clamp-3">
+					{post.description}
+				</Text>
+				{post.genres?.length > 0 && (
+					<div className="flex flex-wrap gap-2 my-4 cursor-default">
+						{post.genres.map((genre) => (
+							<Text
+								className="text-xs font-semibold leading-none"
+								color="dimmed"
+							>
+								#{genre}
+							</Text>
+						))}
+					</div>
+				)}
+				<BlueButton onClick={() => navigate(`/posts/${post.uid}`)}>
+					<IconEye size={18} /> Explore post
+				</BlueButton>
+			</Card>
+		</div>
+	);
+};
+
+const UserRenderer = ({ post }: { post: IPost }) => {
+	return (
+		<div className="flex items-center gap-2 mb-3">
+			<Image
+				src="https://images.unsplash.com/photo-1490709501740-c7ac36b7d587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+				alt="Profile picture"
+				width={30}
+				height={30}
+				radius="lg"
+			/>
+			<div className="flex flex-col text-blueText">
+				<Text className="text-xs font-semibold">
+					{post?.owner.slice(0, 10) || "User"}
+				</Text>
+				<Text className="text-xs font-normal" color="dimmed">
+					{useTimeFromNow(post?.dateCreated)}
+				</Text>
 			</div>
-			<Divider className="border-lightBorder max-w-3xl" />
-		</>
+		</div>
 	);
 };

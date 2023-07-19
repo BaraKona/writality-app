@@ -7,13 +7,20 @@ const postApi = axios.create({
 	withCredentials: true,
 });
 
-export const createPost = async (post: IPost) => {
+export const createPost = async (post: {
+	title: string;
+	description: string;
+	genres: string[];
+	postType: string;
+	collaborationType: string;
+	collaboration: string;
+	projectTitle: string;
+	postTitle: string;
+}) => {
 	try {
 		const res = await postApi.post("/", post);
-		useToast("success", "Post created 😁");
 		return res.data;
 	} catch (error) {
-		useToast("error", "Something went wrong, we could not create your post 😔");
 		return error;
 	}
 };
@@ -26,4 +33,9 @@ export const getPosts = async () => {
 		useToast("error", "Something went wrong, we could not get your posts 😔");
 		return error;
 	}
+};
+
+export const getPost = async (postId: string) => {
+	const res = await postApi.get(`/${postId}`);
+	return res.data;
 };

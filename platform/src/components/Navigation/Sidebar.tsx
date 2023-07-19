@@ -25,7 +25,7 @@ import { useSignout } from "../../hooks/user/useSignout";
 import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useFavouriteProjects } from "../../hooks/projects/useFavouriteProjects";
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
-import { Divider, Skeleton } from "@mantine/core";
+import { Divider, Skeleton, Transition } from "@mantine/core";
 import { IconUsersGroup } from "@tabler/icons-react";
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();

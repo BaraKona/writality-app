@@ -18,8 +18,8 @@ export const PostHeader: FC<{
 	openModal: () => void;
 }> = ({ children, title, openModal }) => {
 	return (
-		<div className=" overflow-y-auto bg-white rounded-normal text-blueText ">
-			<div className="px-7 pb-3 pt-6">
+		<div className="bg-white rounded-normal text-blueText ">
+			<div className="px-3 py-2">
 				<div className="relative flex w-full items-center">
 					<h2 className="mr-auto text-xs font-medium flex gap-2 ">
 						<IconCards size={20} /> Browse posts

@@ -1,5 +1,5 @@
 import Posts from "../models/postSchema";
-
+import { v4 as uuidv4 } from "uuid";
 export const getPosts = async (req: any, res: any) => {
 	try {
 		const posts = await Posts.find({
@@ -12,38 +12,48 @@ export const getPosts = async (req: any, res: any) => {
 };
 
 export const createPost = async (req: any, res: any) => {
+	const userId = req.user.uid;
 	const {
-		owner,
 		postTitle,
 		projectTitle,
 		description,
 		genres,
 		postType,
-		likes,
-		dateCreated,
-		comments,
 		collaborationType,
 		collaboration,
 	} = req.body;
 	const newPost = new Posts({
-		owner,
+		owner: userId,
 		postTitle,
 		projectTitle,
 		description,
 		genres,
 		postType,
-		likes,
-		dateCreated,
-		comments,
+		likes: [],
+		dateCreated: new Date(),
+		comments: [],
 		collaborationType,
 		collaboration,
+		dateUpdated: new Date(),
+		uid: uuidv4(),
 	});
 	try {
 		await newPost.save();
 		res.status(201).json(newPost);
 	} catch (error) {
+		console.log(error);
 		res.status(409).json({
 			message: "Something went wrong, we could not get create your post",
 		});
+	}
+};
+
+export const useSinglePost = async (req: any, res: any) => {
+	const { postId } = req.params;
+	try {
+		const post = await Posts.findOne({ uid: postId });
+		res.status(200).json(post);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
 	}
 };

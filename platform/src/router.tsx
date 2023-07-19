@@ -3,11 +3,12 @@ import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
 import { io } from "socket.io-client";
 import { Sidebar } from "./components/Navigation";
 import { Chapter, Project } from "./pages/project";
-import { PostsPage } from "./pages/PostsPage";
+import { PostsPage } from "./pages/post/PostsPage";
 import { LibraryPage } from "./pages/LibraryPage";
 import { Stories } from "./pages/Stories";
 import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
+import { SinglePost } from "./pages/post/SinglePost";
 
 const socket = io(import.meta.env.VITE_API_URL);
 
@@ -28,6 +29,11 @@ const dashboardRoutes: RouteObject[] = [
 	{
 		path: "/posts",
 		element: <PostsPage />,
+		errorElement: <Error />,
+	},
+	{
+		path: "/posts/:postId",
+		element: <SinglePost />,
 		errorElement: <Error />,
 	},
 	{
