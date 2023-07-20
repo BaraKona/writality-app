@@ -18,11 +18,11 @@ const cookieParser = require("cookie-parser");
 const app = express() as express.Application;
 const server = http.createServer(app);
 mongoose.set("strictQuery", true);
-// TODO: add cors options
 const io = new Server(server, {
 	cors: {
 		origin: process.env.URL,
 		credentials: true,
+		methods: ["GET", "POST"],
 	},
 });
 
