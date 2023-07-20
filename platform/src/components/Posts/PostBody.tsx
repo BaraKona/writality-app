@@ -10,7 +10,7 @@ export const PostBody: FC<{ post: IPost; isLoading: boolean }> = ({
 }) => {
 	return (
 		<div className="bg-gray-100/70 p-4 overflow-y-auto h-[calc(100vh-6.2rem)] rounded-normal flex-grow basis-[40rem]">
-			<Paper shadow="xs" p="md" className=" text-blueText max-w-3xl">
+			<Paper shadow="xs" p="md" className=" text-blueText max-w-3xl mx-auto">
 				<Image
 					alt={post?.postTitle}
 					height={400}
