@@ -54,7 +54,7 @@ export const Chapter = () => {
 	const [text, setText] = useState("");
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [opened, setOpened] = useState(false);
-	const [branchName, setBranchName] = useState("");
+	const [branchName, setBranchName] = useState("chapter-v1");
 	const [mergeOpened, setMergeOpened] = useState(false);
 	const [versionModalOpen, setVersionModalOpen] = useState(false);
 	const [UpdateContentModalOpen, setUpdateContentModalOpen] = useState(false);

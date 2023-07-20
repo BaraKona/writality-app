@@ -11,6 +11,8 @@ import { IconTrash, IconReplace } from "@tabler/icons";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { CancelButton } from "../buttons/CancelButton";
 import { CreateChapterButton } from "../buttons";
+import { inputStyles } from "../../styles/inputStyles";
+import { modalStyles } from "../../styles/modalStyles";
 export const VersionModal: FC<{
 	opened: boolean;
 	setOpened: React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,39 +44,31 @@ export const VersionModal: FC<{
 					opacity: 0.55,
 					blur: 3,
 				}}
-				styles={{
-					content: {
-						background: "#fff",
-						border: "1px solid #394251",
-					},
-					header: {
-						background: "#fff",
-						borderBottom: "1px solid #394251",
-					},
-				}}
+				styles={modalStyles}
 				scrollAreaComponent={Modal.NativeScrollArea}
 				onClose={() => setOpened(false)}
+				className="text-blueText text-sm"
 				title="Version"
 			>
 				<div className="flex flex-wrap mx-auto text-blueText">
 					<div className="px-5 border-r border-baseBorder grow shrink w-1/2 mx-auto">
-						<h2 className="text-blue-400 font-bold text-md my-2">
+						<h2 className="text-gray-700 font-medium underline text-md my-2">
 							{currentContent?.name || "Main"}
 						</h2>
 						<TypographyStylesProvider>
 							<div
-								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-blueText"
+								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-blueText text-xs px-3"
 								dangerouslySetInnerHTML={{ __html: currentContent?.content }}
 							/>
 						</TypographyStylesProvider>
 					</div>
 					<div className="px-5 border-l border-baseBorder grow shrink w-1/2 mx-auto">
-						<h2 className="text-blue-400 font-bold text-md my-2">
+						<h2 className="text-gray-700 font-medium underline text-md my-2">
 							{version?.name}
 						</h2>
 						<TypographyStylesProvider>
 							<div
-								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-blueText"
+								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-blueText text-xs px-3"
 								dangerouslySetInnerHTML={{ __html: version?.content }}
 							/>
 						</TypographyStylesProvider>

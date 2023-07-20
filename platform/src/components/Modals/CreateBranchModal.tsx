@@ -1,12 +1,10 @@
-import {
-	Button,
-	Input,
-	Modal,
-	TextInput,
-	useMantineTheme,
-} from "@mantine/core";
+import { Modal, TextInput } from "@mantine/core";
 import React, { FC } from "react";
-import { IconDatabase } from "@tabler/icons";
+import { IconGitBranch } from "@tabler/icons";
+import { modalStyles } from "../../styles/modalStyles";
+import { inputStyles } from "../../styles/inputStyles";
+import { BlueButton } from "../buttons/BlueButton";
+
 export const CreateBranchModal: FC<{
 	opened: boolean;
 	setOpened: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,66 +12,49 @@ export const CreateBranchModal: FC<{
 	branchName: string;
 	setBranchName: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ opened, setOpened, createBranch, branchName, setBranchName }) => {
-	const theme = useMantineTheme();
 	return (
-		<>
-			<Modal
-				size="lg"
-				opened={opened}
-				overlayProps={{
-					color:
-						theme.colorScheme === "dark"
-							? theme.colors.dark[9]
-							: theme.colors.gray[2],
-					opacity: 0.55,
-					blur: 3,
-				}}
-				styles={{
-					content: {
-						background: theme.colorScheme === "dark" ? "#191a23" : "#fff",
-						border: "1px solid #363130",
-					},
-					header: {
-						background: theme.colorScheme === "dark" ? "#191a23" : "#fff",
-						borderBottom: "1px solid #363130",
-					},
-				}}
-				scrollAreaComponent={Modal.NativeScrollArea}
-				onClose={() => setOpened(false)}
-				title="You are about to create a new branch 🤝"
-			>
-				<p className="border-t-stone-800">
-					Branching means you diverge from the main line of chapter and continue
-					to do work without messing with that main line. This would be
-					particularly useful if you're working with other people and are
-					writing chapters that need review before being added to the main
-					story. <br /> <br />
-					Alternatively, if you are feeling particularly experimental, you may
-					want to create a branch and try out a chapter idea without changing
-					what is already there. If you decide you like this new version better,
-					you can replace it!
-				</p>
-				<div className="mt-5">
-					<TextInput
-						className="mb-3"
-						error={branchName ? undefined : "Branch name is required"}
-						placeholder="Branch name"
-						value={branchName}
-						onChange={(event) => setBranchName(event.currentTarget.value)}
-					/>
-					<Button
-						variant="light"
-						color="orange"
-						leftIcon={<IconDatabase size={14} />}
-						onClick={createBranch}
-					>
-						Create new branch
-					</Button>
-					<Button color="gray" onClick={() => setOpened(false)}>
-						Cancel
-					</Button>
-				</div>
-			</Modal>
-		</>
+		<Modal
+			size="lg"
+			opened={opened}
+			overlayProps={{
+				opacity: 0.55,
+				blur: 3,
+			}}
+			className="text-blueText text-xs"
+			styles={modalStyles}
+			scrollAreaComponent={Modal.NativeScrollArea}
+			onClose={() => setOpened(false)}
+			title="You are about to create a new branch 🤝"
+		>
+			<p className="text-xs">
+				Branching means you diverge from the main line of chapter and continue
+				to do work without messing with that main line. This would be
+				particularly useful if you're working with other people and are writing
+				chapters that need review before being added to the main story. <br />{" "}
+				<br />
+				Alternatively, if you are feeling particularly experimental, you may
+				want to create a branch and try out a chapter idea without changing what
+				is already there. If you decide you like this new version better, you
+				can replace it!
+			</p>
+			<div className="mt-5">
+				<TextInput
+					className="mb-3"
+					error={
+						(branchName.length > 18 && "Branch name is too long") ||
+						(branchName.length < 3 && "Branch name is too short")
+					}
+					placeholder="Branch name"
+					onChange={(e) => setBranchName(e.currentTarget.value)}
+					styles={inputStyles}
+					value={branchName}
+					required
+				/>
+				<BlueButton onClick={createBranch}>
+					<IconGitBranch size={18} className="mr-2" />
+					Create new branch
+				</BlueButton>
+			</div>
+		</Modal>
 	);
 };
