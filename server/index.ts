@@ -21,7 +21,7 @@ mongoose.set("strictQuery", true);
 // TODO: add cors options
 const io = new Server(server, {
 	cors: {
-		origin: [process.env.URL],
+		origin: process.env.URL,
 		credentials: true,
 	},
 });
