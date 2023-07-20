@@ -7,16 +7,12 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { Loading } from "../../components/Loading";
 import { CreateBranchModal } from "../../components/Modals/CreateBranchModal";
-
 import {
 	getSingleChapter,
-	updateChapterContent,
 	mergePositionMain,
 	mergeReplaceMain,
-	updateChapterTitle,
 } from "../../api/project/chapters";
 import {
-	createVersion,
 	getAllChapterVersions,
 	deleteSingleChapterVersion,
 } from "../../api/project/versions";
@@ -36,7 +32,7 @@ import {
 	VersionModal,
 	AdvancedMergeModal,
 } from "../../components/Modals";
-import { branchCreator, versionCreator, useAppendHistory } from "../../hooks";
+import { branchCreator, useAppendHistory } from "../../hooks";
 
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../../components/Editor/utils/editorExtensions";
@@ -44,15 +40,13 @@ import { ChapterBranchMenu } from "../../components/Chapters/branch/ChapterBranc
 import { ChapterVersionMenu } from "../../components/Chapters/version/ChapterVersionMenu";
 import { ChapterHistoryMenu } from "../../components/Chapters/history/ChapterHistoryMenu";
 import { ChapterSettingsMenu } from "../../components/Chapters/settings/ChapterSettingsMenu";
-import { Tooltip } from "@mantine/core";
-import { tooltipStyles } from "../../styles/tooltipStyles";
-import { IconGitBranch } from "@tabler/icons";
 import { ChapterSidebar } from "../../components/Chapters/ChapterSidebar";
 import { ChapterVersionButton } from "../../components/Chapters/version/ChapterVersionButton";
 import { ChapterHistoryButton } from "../../components/Chapters/history/ChapterHistoryButton";
 import { ChapterBranchButton } from "../../components/Chapters/branch/ChapterBranchButton";
 import { useUpdateChapterContent } from "../../hooks/chapter/useUpdateChapterContent";
 import { ChapterSettingsButton } from "../../components/Chapters/settings/ChapterSettingsButton";
+import { useLocalStorage } from "@mantine/hooks";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -70,6 +64,11 @@ export const Chapter = () => {
 	const [advancedMergeOpened, setAdvancedMergeOpened] = useState(false);
 	const [title, setTitle] = useState("");
 	const { chapter, project } = useParams();
+
+	const [sidebar, setSidebar] = useLocalStorage({
+		key: "chapter-sidebar",
+		defaultValue: "",
+	});
 
 	const queryClient = useQueryClient();
 	const branch = searchParams.get("branch");
@@ -190,16 +189,8 @@ export const Chapter = () => {
 		}
 	);
 
-	const ChapterSidebarHandler = (name: string) => {
-		setSearchParams((prev) => {
-			prev.set("sidebar", name);
-			return prev;
-		});
-	};
-
-	const deleteSidebarParam = () => {
-		searchParams.delete("sidebar");
-		setSearchParams(searchParams);
+	const closeSidebar = () => {
+		setSidebar("");
 	};
 
 	const navigateToMain = () => {
@@ -300,19 +291,11 @@ export const Chapter = () => {
 					/>
 				)}
 				<div className="border-l flex flex-row ">
-					<ChapterSidebar active={Boolean(searchParams.get("sidebar"))}>
-						<ChapterBranchButton
-							setActive={() => ChapterSidebarHandler("branches")}
-						/>
-						<ChapterVersionButton
-							setActive={() => ChapterSidebarHandler("versions")}
-						/>
-						<ChapterHistoryButton
-							setActive={() => ChapterSidebarHandler("history")}
-						/>
-						<ChapterSettingsButton
-							setActive={() => ChapterSidebarHandler("settings")}
-						/>
+					<ChapterSidebar active={Boolean(sidebar)}>
+						<ChapterBranchButton setActive={() => setSidebar("branches")} />
+						<ChapterVersionButton setActive={() => setSidebar("versions")} />
+						<ChapterHistoryButton setActive={() => setSidebar("history")} />
+						<ChapterSettingsButton setActive={() => setSidebar("settings")} />
 					</ChapterSidebar>
 					<div>
 						<ChapterBranchMenu
@@ -327,7 +310,8 @@ export const Chapter = () => {
 							checkoutMain={() => navigateToMain()}
 							openDeleteBranch={setOpenDeleteBranch}
 							openBranchModal={() => setOpened(true)}
-							close={() => deleteSidebarParam()}
+							close={() => closeSidebar()}
+							active={sidebar === "branches"}
 						/>
 
 						<ChapterVersionMenu
@@ -335,13 +319,18 @@ export const Chapter = () => {
 							setOpen={setVersionModalOpen}
 							setVersion={setVersion}
 							text={editor.getHTML()}
-							close={() => deleteSidebarParam()}
+							close={() => closeSidebar()}
+							active={sidebar === "versions"}
 						/>
 						<ChapterHistoryMenu
 							history={chapterContent?.history}
-							close={() => deleteSidebarParam()}
+							close={() => closeSidebar()}
+							active={sidebar === "history"}
 						/>
-						<ChapterSettingsMenu close={() => deleteSidebarParam()} />
+						<ChapterSettingsMenu
+							close={() => closeSidebar()}
+							active={sidebar === "settings"}
+						/>
 					</div>
 				</div>
 			</EditorWrapper>

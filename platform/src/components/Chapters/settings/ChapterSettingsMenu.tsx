@@ -6,9 +6,10 @@ import { ChapterSettings } from "./ChapterSettings";
 import { tooltipStyles } from "../../../styles/tooltipStyles";
 import { useSearchParams } from "react-router-dom";
 
-export const ChapterSettingsMenu: FC<{ close: () => void }> = ({ close }) => {
-	const [searchParams] = useSearchParams();
-	const active = searchParams.get("sidebar") === "settings";
+export const ChapterSettingsMenu: FC<{
+	close: () => void;
+	active: boolean;
+}> = ({ close, active }) => {
 	return (
 		<div className={`${active ? "" : "hidden"}`}>
 			<ChapterSettings close={close} />

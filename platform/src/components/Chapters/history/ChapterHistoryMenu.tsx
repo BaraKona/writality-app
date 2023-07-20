@@ -8,9 +8,8 @@ import { useSearchParams } from "react-router-dom";
 export const ChapterHistoryMenu: FC<{
 	history: IChapter["history"];
 	close: () => void;
-}> = ({ history, close }) => {
-	const [searchParams] = useSearchParams();
-	const active = searchParams.get("sidebar") === "history";
+	active: boolean;
+}> = ({ history, close, active }) => {
 	return (
 		<div className={`${active ? "" : "hidden"}`}>
 			<ChapterHistory history={history} close={close} />

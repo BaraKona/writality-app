@@ -13,9 +13,8 @@ export const ChapterVersionMenu: FC<{
 	setVersion: (version: IChapterVersion) => void;
 	text: string;
 	close: () => void;
-}> = ({ chapterVersions, setOpen, setVersion, text, close }) => {
-	const [searchParams] = useSearchParams();
-	const active = searchParams.get("sidebar") === "versions";
+	active: boolean;
+}> = ({ chapterVersions, setOpen, setVersion, text, close, active }) => {
 	return (
 		<div
 			className={`${

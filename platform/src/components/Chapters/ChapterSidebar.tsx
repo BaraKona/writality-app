@@ -1,5 +1,3 @@
-import { Tooltip } from "@mantine/core";
-import { tooltipStyles } from "../../styles/tooltipStyles";
 import { FC } from "react";
 import { ProjectWrapperHeights } from "../../styles/ProjectWrapperHeights";
 

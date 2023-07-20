@@ -15,6 +15,7 @@ export const ChapterBranchMenu: FC<{
 	openDeleteBranch: React.Dispatch<SetStateAction<boolean>>;
 	openBranchModal: () => void;
 	close: () => void;
+	active: boolean;
 }> = ({
 	openMergeModal,
 	chapterBranches,
@@ -24,9 +25,8 @@ export const ChapterBranchMenu: FC<{
 	openDeleteBranch,
 	openBranchModal,
 	close,
+	active,
 }) => {
-	const [searchParams] = useSearchParams();
-	const active = searchParams.get("sidebar") === "branches";
 	return (
 		<div className={`${active ? "" : "hidden"}`}>
 			<ChapterBranches
