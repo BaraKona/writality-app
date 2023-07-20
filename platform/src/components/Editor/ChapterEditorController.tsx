@@ -26,7 +26,7 @@ export const ChapterEditorController: FC<{
 	return (
 		<BaseEditor
 			editor={editor}
-			height="800px"
+			height="calc(100vh - 166px)"
 			minWidth="calc(100vw - 900px)"
 			chapterTitle={chapterContent.content.title}
 			setTitle={setTitle}

@@ -1,6 +1,6 @@
 import { RichTextEditor } from "@mantine/tiptap";
 import { FC } from "react";
-import { Button, Text, TextInput } from "@mantine/core";
+import { Button, ScrollArea, Text, TextInput } from "@mantine/core";
 import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons";
 import { BubbleMenu } from "@tiptap/react";
 import { inputStyles } from "../../styles/inputStyles";
@@ -35,6 +35,11 @@ export const BaseEditor: FC<{
 				toolbar: {
 					top: 0,
 					backgroundColor: "transparent",
+				},
+				content: {
+					maxWidth: "850px",
+					minWidth: "400px",
+					padding: "0 1rem",
 				},
 			}}
 		>
@@ -143,45 +148,45 @@ export const BaseEditor: FC<{
 					<RichTextEditor.AlignRight />
 				</RichTextEditor.ControlsGroup>
 			</RichTextEditor.Toolbar>
-			{isTitle && (
-				<TextInput
-					placeholder="Title"
-					defaultValue={chapterTitle}
-					onChange={(e) => (setTitle ? setTitle(e.target.value) : null)}
-					styles={{
-						...inputStyles,
-						input: {
-							...inputStyles.input,
-							fontSize: "2rem !important",
-							fontWeight: 400,
-							padding: "0.5rem 0.5rem",
-							border: "none",
-							backgroundColor: "transparent",
-							color: "#25262b",
-							textAlign: "center",
-							margin: "1rem auto",
-							textDecoration: "underline",
-							"&:focus": {
-								outline: "none",
+			<ScrollArea type="hover" h={height}>
+				{isTitle && (
+					<TextInput
+						placeholder="Title"
+						defaultValue={chapterTitle}
+						onChange={(e) => (setTitle ? setTitle(e.target.value) : null)}
+						styles={{
+							...inputStyles,
+							input: {
+								...inputStyles.input,
+								fontSize: "2rem !important",
+								fontWeight: 400,
+								padding: "0.5rem 0.5rem",
 								border: "none",
+								backgroundColor: "transparent",
+								color: "#25262b",
+								textAlign: "center",
+								margin: "1rem auto",
+								textDecoration: "underline",
+								"&:focus": {
+									outline: "none",
+									border: "none",
+								},
 							},
-						},
-					}}
-				/>
-			)}
+						}}
+					/>
+				)}
 
-			<RichTextEditor.Content
-				className="transition-all duration-300 ease-in-out text-blueText text-sm"
-				style={{
-					overflowY: "auto",
-					height,
-					border: "none",
-					backgroundColor: "white",
-					width: minWidth ? minWidth : "400px",
-				}}
-			>
-				{/* <h1>hi</h1>	 */}
-			</RichTextEditor.Content>
+				<RichTextEditor.Content
+					className="transition-all duration-300 ease-in-out text-blueText text-sm"
+					style={{
+						overflowY: "auto",
+						border: "none",
+						backgroundColor: "white",
+					}}
+				>
+					{/* <h1>hi</h1>	 */}
+				</RichTextEditor.Content>
+			</ScrollArea>
 		</RichTextEditor>
 	);
 };
