@@ -13,11 +13,11 @@ export const Chapter: FC<{
 	return (
 		<div className="flex gap-3 border-b cursor-default py-1 px-2">
 			<div
-				className=" text-blueText flex place-items-center gap-3 cursor-pointer hover:text-blue-400 group"
+				className=" text-blueText flex place-items-center gap-3 cursor-pointer  group"
 				onClick={openChapter}
 			>
 				<IconFileText size={18} className="group-hover:text-black" />
-				<p className="text-blueText text-xs font-medium">
+				<p className="text-gray-400 text-xs font-medium group-hover:text-blueText">
 					{chapter.content.title || "Untitled Chapter"}
 				</p>
 			</div>

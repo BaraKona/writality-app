@@ -17,20 +17,22 @@ export const tabStyles = {
 		borderBottomLeftRadius: "0px",
 		fontSize: "0.8rem",
 		borderRadius: "0.375rem",
-		padding: "8px",
+		padding: "4px",
 		transition: "all 0.2s ease-in-out",
+		alignItems: "center",
+		justifyContent: "center",
 		"&:hover": {
 			color: "#000",
 			backgroundColor: "transparent",
-			borderColor: "#e3e3e3",
+			borderColor: "#e2e2e2",
 		},
 		"&[data-active]": {
-			color: "#000",
-			backgroundColor: "transparent",
-			borderColor: "#e3e3e3",
+			color: "#394251",
+			backgroundColor: "#e2e2e2",
+			borderColor: "#e2e2e2",
 		},
 		"&[data-active]:hover": {
-			borderColor: "#e3e3e3",
+			borderColor: "#e2e2e2",
 		},
 	},
 };

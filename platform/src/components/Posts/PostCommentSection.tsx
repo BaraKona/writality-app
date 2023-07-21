@@ -1,8 +1,11 @@
 import { FC, useState } from "react";
 import { IPost } from "../../interfaces/IPost";
-import { Avatar, Divider } from "@mantine/core";
+import { Avatar, Divider, Textarea } from "@mantine/core";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { Text } from "@mantine/core";
+import { Form } from "react-router-dom";
+import { inputStyles } from "../../styles/inputStyles";
+import { IconSend } from "@tabler/icons";
 export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 	post,
 	isLoading,
@@ -29,33 +32,35 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 			<Divider className="my-2 border-gray-200" />
 			<div>
 				<Text
-					className={`text-blueText/80 text-[0.85rem] transition-all ease-in-out duration-300 leading-1 ${
+					className={`text-blueText/80 text-[0.85rem] transition-all ease-in-out duration-300 leading-1 max-h-96 overflow-y-auto ${
 						!open ? "line-clamp-6" : ""
 					}`}
 				>
 					{post?.collaboration}
 				</Text>
-				{!open && (
-					<div className="flex justify-end">
-						<Text
-							className="text-blueText/80 text-[0.85rem] leading-1 cursor-pointer"
-							onClick={() => setOpen(true)}
-						>
-							Show more
-						</Text>
-					</div>
-				)}
 
-				{open && (
-					<div className="flex justify-end">
-						<Text
-							className="text-blueText/80 text-[0.85rem] leading-1 cursor-pointer"
-							onClick={() => setOpen(false)}
-						>
-							Show less
-						</Text>
-					</div>
-				)}
+				<div className="flex justify-end">
+					<Text
+						className="text-blueText/80 text-[0.85rem] leading-1 cursor-pointer underline text-xs font-semibold"
+						onClick={() => setOpen((open) => !open)}
+					>
+						{open ? "Show less" : "Show more"}
+					</Text>
+				</div>
+			</div>
+			<Divider className="my-2 border-gray-200" />
+			<div className="gap-2 place-items-center mt-3">
+				<Textarea
+					placeholder="Your comment"
+					className="flex-grow "
+					variant="default"
+					size="sm"
+					styles={inputStyles}
+					onSubmit={() => console.log("submit")}
+					rightSection={
+						<IconSend size={18} className="text-blueText hover:text-black" />
+					}
+				/>
 			</div>
 		</div>
 	);

@@ -9,7 +9,7 @@ export const ChapterBranchButton: FC<{ setActive: () => void }> = ({
 	return (
 		<Tooltip label="Branches" position="left" withArrow styles={tooltipStyles}>
 			<div
-				className="border border-lightBorder p-2 rounded-normal group"
+				className="border items-center flex border-lightBorder p-1 justify-center rounded-normal group"
 				onClick={setActive}
 			>
 				<IconGitBranch

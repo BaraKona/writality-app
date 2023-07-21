@@ -47,7 +47,11 @@ export const EditorWrapper: FC<{
 			isLoading: isLoading,
 		},
 		{
-			label: "[" + content?.type + "] " + (content.title || content.name || "Untitled Chapter"),
+			label:
+				"[" +
+				content?.type +
+				"] " +
+				(content.title || content.name || "Untitled Chapter"),
 			path: "/projects",
 			icon: <IconFileText size={18} />,
 			isLoading: isLoading,
@@ -55,8 +59,8 @@ export const EditorWrapper: FC<{
 	];
 
 	return (
-		<div className="flex flex-col bg-white px-7 h-[calc(100vh-42px)] gap-2 rounded-normal">
-			<div className=" flex font-medium gap-2 bg-white text-blueText pt-6 items-center">
+		<div className="flex flex-col bg-white px-3 py-3 h-[calc(100vh-42px)] gap-2 rounded-normal">
+			<div className=" flex font-medium gap-2 bg-white text-blueText items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text
 					className="text-center my-auto font-medium text-xs  ml-auto mr-3"
@@ -74,9 +78,9 @@ export const EditorWrapper: FC<{
 						withArrow
 						styles={tooltipStyles}
 					>
-						<div className="ml-3 p-2 border rounded-normal ">
+						<div className="ml-3 p-1 border rounded-normal cursor-pointer">
 							<IconDeviceFloppy
-								size={20}
+								size={18}
 								className="text-blueText group-hover:text-black"
 							/>
 						</div>

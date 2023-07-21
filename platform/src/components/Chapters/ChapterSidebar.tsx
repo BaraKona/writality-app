@@ -9,7 +9,7 @@ export const ChapterSidebar: FC<{
 		<div
 			className={`flex flex-col pl-2 ${
 				active && "border-r border-gray-200 pr-2"
-			} gap-0.5 ${ProjectWrapperHeights}`}
+			} gap-1 ${ProjectWrapperHeights}`}
 		>
 			{children}
 		</div>

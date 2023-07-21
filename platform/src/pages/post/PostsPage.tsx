@@ -65,7 +65,7 @@ export const PostsPage: FC = () => {
 		createAPost.mutate();
 	};
 	return (
-		<div className=" w-[calc(100vw-14rem)] place-items-center rounded-normal bg-white px-3 py-2">
+		<div className="w-[calc(100vw-14rem)] place-items-center rounded-normal bg-white px-3 py-3">
 			<PostHeader title="Posts" openModal={() => setCreateProjectModal(true)} />
 			<div className="flex flex-row bg-white rounded-normal px-3 py-2 h-[calc(100vh-7rem)] overflow-y-auto">
 				<div>

@@ -46,9 +46,9 @@ export const ChapterWrapper: FC<{
 
 	return (
 		<div
-			className={`flex flex-col bg-white px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
+			className={`flex flex-col bg-white px-3 py-3 gap-2 rounded-normal ${ProjectWrapperHeights}`}
 		>
-			<div className=" flex font-medium gap-2 bg-white text-blueText pt-6 items-center">
+			<div className=" flex font-medium gap-2 bg-white text-blueText items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text
 					className="text-center my-auto font-medium text-xs  ml-auto mr-3"

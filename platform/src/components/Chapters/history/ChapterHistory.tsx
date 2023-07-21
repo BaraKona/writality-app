@@ -12,6 +12,7 @@ import {
 } from "@tabler/icons";
 import { IChapter } from "../../../interfaces/IChapter";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
+import { inputStyles } from "../../../styles/inputStyles";
 
 export const ChapterHistory: FC<{
 	history: IChapter["history"];
@@ -54,14 +55,10 @@ export const ChapterHistory: FC<{
 						lineWidth={2}
 						className="py-2"
 						radius="md"
-						styles={{
-							itemBullet: {
-								backgroundColor: "transparent",
-							},
-						}}
 					>
 						{history?.map((item, index) => (
 							<Timeline.Item
+								lineActive={index === 0}
 								key={index}
 								bullet={
 									// @ts-ignore

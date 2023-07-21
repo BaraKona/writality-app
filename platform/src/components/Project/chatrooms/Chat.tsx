@@ -31,12 +31,19 @@ export const Chat: FC<{
 			<div className="flex gap-2 place-items-center mt-3">
 				<Textarea
 					placeholder="Your comment"
-					className="flex-grow"
+					className="flex-grow "
 					variant="default"
 					size="sm"
 					onChange={(e) => setComment(e.target.value)}
 					value={comment}
-					styles={inputStyles}
+					styles={{
+						...inputStyles,
+						input: {
+							...inputStyles.input,
+							backgroundColor: "#eee !important",
+							borderColor: "#eee !important",
+						},
+					}}
 					rightSection={
 						<IconSend
 							size={18}
