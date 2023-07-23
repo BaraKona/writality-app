@@ -42,9 +42,8 @@ export const MainFrame: FC<{
 			},
 		]);
 	} else {
-		if (tab.path !== pathname) {
+		if (tab.path !== pathname + location.search) {
 			const index = tabs.findIndex((tab) => tab.active);
-
 			tabs[index].path = pathname + location.search;
 			tabs[index].title =
 				pathname.split("/")[1].charAt(0).toUpperCase() +
