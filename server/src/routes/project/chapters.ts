@@ -19,7 +19,7 @@ router.get("/single/:projectId/:chapterId/", protect, getSingleChapter);
 router.get("/:userId/:projectId", protect, getProjectChapters);
 router.delete("/:userId/:projectId/:chapterId/", protect, deleteSingleChapter);
 router.patch(
-	"/merge/replace/:userId/:projectId/:chapterId/",
+	"/merge/replace/:projectId/:chapterId/",
 	protect,
 	mergeReplaceMain
 );

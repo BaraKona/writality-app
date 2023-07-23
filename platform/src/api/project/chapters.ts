@@ -93,31 +93,15 @@ export const mergePositionMain = async (
 };
 
 export const mergeReplaceMain = async (
-	userId: string,
 	projectId: string,
 	chapterId: string,
-	content: IChapterVersion,
-	history: {
-		date: Date;
-		user: string;
-		action: string;
-	}[],
-	dateUpdated: {
-		user: string;
-		date: Date;
-	}
+	content: IChapterVersion
 ) => {
-	try {
-		const { data } = await chapterApi.patch(
-			`/merge/replace/${userId}/${projectId}/${chapterId}`,
-			{ content, history, dateUpdated }
-		);
-		useToast("success", "Chapter merged successfully 😃");
-		return data;
-	} catch (err: any) {
-		console.log(err);
-		useToast("error", "something went wrong 😖");
-	}
+	const { data } = await chapterApi.patch(
+		`/merge/replace/${projectId}/${chapterId}`,
+		{ content }
+	);
+	return data;
 };
 
 export const updateChapterTitle = async (

@@ -33,7 +33,7 @@ import {
 	AdvancedMergeModal,
 } from "../../components/Modals";
 import { branchCreator, useAppendHistory } from "../../hooks";
-
+import { useMergeReplace } from "../../hooks/chapter/useMergeReplace";
 import { useEditor } from "@tiptap/react";
 import { extensions } from "../../components/Editor/utils/editorExtensions";
 import { ChapterBranchMenu } from "../../components/Chapters/branch/ChapterBranchMenu";
@@ -47,6 +47,7 @@ import { ChapterBranchButton } from "../../components/Chapters/branch/ChapterBra
 import { useUpdateChapterContent } from "../../hooks/chapter/useUpdateChapterContent";
 import { ChapterSettingsButton } from "../../components/Chapters/settings/ChapterSettingsButton";
 import { useLocalStorage } from "@mantine/hooks";
+import { MergeEditor } from "../../components/Editor/MergeEditor";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -72,6 +73,8 @@ export const Chapter = () => {
 
 	const queryClient = useQueryClient();
 	const branch = searchParams.get("branch");
+	const merge = searchParams.get("merge");
+
 	const { data: chapterContent } = useQuery(
 		["chapter", chapter],
 		() =>
@@ -118,6 +121,10 @@ export const Chapter = () => {
 				setVersionModalOpen(false);
 			},
 		}
+	);
+	const { mutate: replaceMain } = useMergeReplace(
+		project as string,
+		chapter as string
 	);
 
 	const { mutate: updateChapterContentMutation } = useUpdateChapterContent(
@@ -166,28 +173,6 @@ export const Chapter = () => {
 			},
 		}
 	);
-	const replaceMain = useMutation(
-		(content: string) =>
-			mergeReplaceMain(
-				currentUser.uid,
-				project as string,
-				chapter as string,
-				{ ...currentBranch, content: content },
-
-				useAppendHistory(currentUser.uid, chapterContent, currentBranch.name),
-				{ user: currentUser.uid, date: new Date() }
-			),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(["chapter", chapter as string]);
-				queryClient.invalidateQueries(["versions", chapter as string]);
-				setMergeOpened(false);
-				setAdvancedMergeOpened(false);
-				searchParams.delete("branch");
-				setSearchParams(searchParams);
-			},
-		}
-	);
 
 	const closeSidebar = () => {
 		setSidebar("");
@@ -195,6 +180,12 @@ export const Chapter = () => {
 
 	const navigateToMain = () => {
 		searchParams.delete("branch");
+		searchParams.delete("merge");
+		setSearchParams(searchParams);
+	};
+
+	const openMerge = (type: string) => {
+		searchParams.set("merge", type);
 		setSearchParams(searchParams);
 	};
 	const editor = useEditor({
@@ -210,7 +201,12 @@ export const Chapter = () => {
 				setBranchName={setBranchName}
 				createBranch={() =>
 					createBranchMutation.mutate(
-						branchCreator(chapterContent, branchName, currentUser.uid, text)
+						branchCreator(
+							chapterContent,
+							branchName,
+							currentUser.uid,
+							editor.getHTML()
+						)
 					)
 				}
 				setOpened={setOpened}
@@ -223,7 +219,7 @@ export const Chapter = () => {
 					main={chapterContent?.content}
 					setText={setText}
 					currentContent={currentBranch}
-					mergeBranch={replaceMain.mutate}
+					mergeBranch={() => replaceMain(currentBranch.content)}
 				/>
 			)}
 			<DeleteModal
@@ -251,8 +247,8 @@ export const Chapter = () => {
 			/>
 			<MergeBranchModal
 				setMergeOpened={setMergeOpened}
-				mergeOpened={mergeOpened}
-				replaceMain={replaceMain.mutate}
+				mergeOpened={false}
+				replaceMain={() => replaceMain(currentBranch.content)}
 				mergeBranch={mergePosition.mutate}
 				currentBranch={currentBranch}
 				setPosition={setPosition}
@@ -278,16 +274,22 @@ export const Chapter = () => {
 				}
 				content={currentBranch ? currentBranch : chapterContent?.content}
 			>
-				{editor && (
+				{editor && !merge && (
 					<ChapterEditorController
 						chapterContent={chapterContent}
-						setText={setText}
 						editor={editor}
-						setOpen={setUpdateContentModalOpen}
 						content={
 							branch ? currentBranch.content : chapterContent?.content.content
 						}
 						setTitle={setTitle}
+					/>
+				)}
+				{merge && (
+					<MergeEditor
+						branch={currentBranch}
+						main={chapterContent?.content}
+						editor={editor}
+						mergeReplace={() => replaceMain(currentBranch)}
 					/>
 				)}
 				<div className="border-l flex flex-row ">
@@ -299,7 +301,7 @@ export const Chapter = () => {
 					</ChapterSidebar>
 					<div>
 						<ChapterBranchMenu
-							openMergeModal={() => setMergeOpened(true)}
+							openMergeModal={openMerge}
 							chapterBranches={chapterBranches}
 							currentBranch={
 								currentBranch

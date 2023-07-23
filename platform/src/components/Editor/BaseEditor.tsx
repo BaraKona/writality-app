@@ -1,26 +1,34 @@
 import { RichTextEditor } from "@mantine/tiptap";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Button, ScrollArea, Text, TextInput } from "@mantine/core";
 import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons";
 import { BubbleMenu } from "@tiptap/react";
 import { inputStyles } from "../../styles/inputStyles";
 export const BaseEditor: FC<{
 	editor: any;
-	height: string;
-	saveContent?: () => void;
-	minWidth?: string;
+	height?: string;
 	chapterTitle?: string;
 	setTitle?: React.Dispatch<React.SetStateAction<string>>;
 	isTitle?: boolean;
+	content: string;
+	noCounter?: boolean;
+	noBack?: boolean;
+	noBar2?: boolean;
 }> = ({
 	editor,
 	height,
-	saveContent,
-	minWidth,
 	chapterTitle,
 	setTitle,
 	isTitle,
+	content,
+	noCounter,
+	noBack,
+	noBar2,
 }) => {
+	useEffect(() => {
+		editor.commands.setContent(content);
+	}, [content]);
+
 	return (
 		<RichTextEditor
 			editor={editor}
@@ -29,12 +37,14 @@ export const BaseEditor: FC<{
 				border: "none",
 				maxWidth: "850px",
 				minWidth: "400px",
-				paddingRight: "20px",
+				height: "100%",
+				width: "100%",
+				// backgroundColor: "#fff",
+				// paddingRight: "20px",
 			}}
 			styles={{
 				toolbar: {
 					top: 0,
-					backgroundColor: "transparent",
 				},
 				content: {
 					maxWidth: "850px",
@@ -66,27 +76,32 @@ export const BaseEditor: FC<{
 						</RichTextEditor.ControlsGroup>
 					</BubbleMenu>
 				)}
-				<RichTextEditor.ControlsGroup className="border border-lightBorder  rounded p-[0.3rem] cursor-pointer  hover:bg-lightBorder hover:bg-opacity-40 ">
-					<Text color="dimmed" className=" text-xs font-medium">
-						{editor.storage.characterCount.words()} words
-					</Text>
-				</RichTextEditor.ControlsGroup>
-				<RichTextEditor.ControlsGroup>
-					<button
-						onClick={() => editor?.chain().focus().undo().run()}
-						disabled={!editor?.can().undo()}
-						className="border border-lightBorder  rounded p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-lightBorder hover:bg-opacity-40 "
-					>
-						<IconArrowBackUp size={14} />
-					</button>
-					<button
-						className="border border-lightBorder  rounded p-[0.3rem] rounded-l-none cursor-pointer hover:bg-lightBorder hover:bg-opacity-40 "
-						onClick={() => editor?.chain().focus().redo().run()}
-						disabled={!editor?.can().redo()}
-					>
-						<IconArrowForwardUp size={14} />
-					</button>
-				</RichTextEditor.ControlsGroup>
+				{!noCounter && (
+					<RichTextEditor.ControlsGroup className="border border-lightBorder  rounded p-[0.3rem] cursor-pointer  hover:bg-lightBorder hover:bg-opacity-40 ">
+						<Text color="dimmed" className=" text-xs font-medium">
+							{editor.storage.characterCount.words()} words
+						</Text>
+					</RichTextEditor.ControlsGroup>
+				)}
+				{!noBack && (
+					<RichTextEditor.ControlsGroup>
+						<button
+							onClick={() => editor?.chain().focus().undo().run()}
+							disabled={!editor?.can().undo()}
+							className="border border-lightBorder  rounded p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-lightBorder hover:bg-opacity-40 "
+						>
+							<IconArrowBackUp size={14} />
+						</button>
+						<button
+							className="border border-lightBorder  rounded p-[0.3rem] rounded-l-none cursor-pointer hover:bg-lightBorder hover:bg-opacity-40 "
+							onClick={() => editor?.chain().focus().redo().run()}
+							disabled={!editor?.can().redo()}
+						>
+							<IconArrowForwardUp size={14} />
+						</button>
+					</RichTextEditor.ControlsGroup>
+				)}
+
 				<RichTextEditor.ControlsGroup>
 					<RichTextEditor.Bold />
 					<RichTextEditor.Italic />
@@ -103,16 +118,16 @@ export const BaseEditor: FC<{
         <RichTextEditor.H3 />
         <RichTextEditor.H4 />
       </RichTextEditor.ControlsGroup> */}
-
-				<RichTextEditor.ControlsGroup>
-					<RichTextEditor.Blockquote />
-					<RichTextEditor.Hr />
-					<RichTextEditor.BulletList />
-					<RichTextEditor.OrderedList />
-					{/* <RichTextEditor.Subscript /> */}
-					<RichTextEditor.Superscript />
-				</RichTextEditor.ControlsGroup>
-
+				{!noBar2 && (
+					<RichTextEditor.ControlsGroup>
+						<RichTextEditor.Blockquote />
+						<RichTextEditor.Hr />
+						<RichTextEditor.BulletList />
+						<RichTextEditor.OrderedList />
+						{/* <RichTextEditor.Subscript /> */}
+						<RichTextEditor.Superscript />
+					</RichTextEditor.ControlsGroup>
+				)}
 				<RichTextEditor.ControlsGroup>
 					{/* <RichTextEditor.Link />
 					<RichTextEditor.Unlink /> */}
@@ -161,6 +176,7 @@ export const BaseEditor: FC<{
 								fontSize: "2rem !important",
 								fontWeight: 400,
 								padding: "0.5rem 0.5rem",
+								height: "auto",
 								border: "none",
 								backgroundColor: "transparent",
 								color: "#25262b",
@@ -179,13 +195,10 @@ export const BaseEditor: FC<{
 				<RichTextEditor.Content
 					className="transition-all duration-300 ease-in-out text-blueText text-sm"
 					style={{
-						overflowY: "auto",
 						border: "none",
 						backgroundColor: "white",
 					}}
-				>
-					{/* <h1>hi</h1>	 */}
-				</RichTextEditor.Content>
+				/>
 			</ScrollArea>
 		</RichTextEditor>
 	);

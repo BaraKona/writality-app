@@ -1,5 +1,4 @@
 import { FC, ReactNode, useState } from "react";
-import { CgClose } from "react-icons/cg";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { IconDeviceFloppy, IconFileText } from "@tabler/icons";
@@ -14,16 +13,19 @@ import {
 } from "@mantine/core";
 import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
-import { IconBook2 } from "@tabler/icons";
+import { IconBook2, IconGitMerge } from "@tabler/icons";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { ProjectWrapperHeights } from "../../styles/ProjectWrapperHeights";
-
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 export const EditorWrapper: FC<{
 	children: ReactNode;
 	content: IChapterVersion;
 	save: () => void;
 }> = ({ children, content, save }) => {
 	const { data: project, isLoading } = useSingleProject(content?.projectId);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const location = useLocation();
+	const merge = searchParams.get("merge");
 
 	if (isLoading) {
 		return (
@@ -52,11 +54,29 @@ export const EditorWrapper: FC<{
 				content?.type +
 				"] " +
 				(content.title || content.name || "Untitled Chapter"),
-			path: "/projects",
+			path: location.pathname + "?branch=" + content?.uid,
 			icon: <IconFileText size={18} />,
 			isLoading: isLoading,
 		},
 	];
+
+	if (merge === "replace") {
+		breadcrumbs.push({
+			label: "Replace main with " + content.name,
+			path: location.pathname + "?merge=" + merge,
+			icon: <IconGitMerge size={18} />,
+			isLoading: isLoading,
+		});
+	}
+
+	if (merge === "into") {
+		breadcrumbs.push({
+			label: "Merge " + content.name + " into main",
+			path: location.pathname + "?merge=" + merge,
+			icon: <IconGitMerge size={18} />,
+			isLoading: isLoading,
+		});
+	}
 
 	return (
 		<div className="flex flex-col bg-white px-3 py-3 h-[calc(100vh-42px)] gap-2 rounded-normal">

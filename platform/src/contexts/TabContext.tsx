@@ -1,6 +1,6 @@
 //context for tabs using mantine localstorage hook
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, ReactNode } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import { useAuthContext } from "./AuthContext";
 import { ITabs } from "../interfaces/ITabs";

@@ -13,7 +13,7 @@ import { IconGitBranch, IconPlus, IconX } from "@tabler/icons";
 import { useSearchParams } from "react-router-dom";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
 export const ChapterBranches: FC<{
-	openMergeModal: () => void;
+	openMergeModal: (type: string) => void;
 	chapterBranches: IChapterVersion[];
 	mainContent: IChapterContent;
 	currentBranch: IChapterContent;
@@ -32,9 +32,9 @@ export const ChapterBranches: FC<{
 	close,
 }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
-	if (!chapterBranches) {
-		return null;
-	}
+	// if (!chapterBranches) {
+	// 	return null;
+	// }
 	return (
 		<div className="min-w-auto w-72">
 			<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
@@ -110,14 +110,24 @@ export const ChapterBranches: FC<{
 									<div className="flex flex-row gap-1 transition-all ease-in-out duration-200">
 										<div className="flex  flex-col border-l border-gray-200 ml-1 gap-1">
 											<button
-												onClick={openMergeModal}
+												onClick={() => openMergeModal("replace")}
 												className="flex gap-1 text-blueText text-xs font-medium items-center hover:text-black px-2 border-gray-200 group"
 											>
 												<VscGitMerge
 													size={14}
 													className="group-hover:text-blue-500 text-gray-400 "
 												/>{" "}
-												Merge into main
+												Merge branch replace main
+											</button>
+											<button
+												onClick={() => openMergeModal("into")}
+												className="flex gap-1 text-blueText text-xs font-medium items-center px-2 group"
+											>
+												<VscGitMerge
+													size={14}
+													className="group-hover:text-red-500 text-gray-400"
+												/>
+												Merge branch into main
 											</button>
 											<button
 												onClick={() => openDeleteBranch(true)}

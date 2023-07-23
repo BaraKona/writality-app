@@ -1,11 +1,10 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect } from "react";
 import {
 	IconBook,
 	IconBook2,
 	IconBooks,
 	IconHelp,
 	IconHome,
-	IconLayoutDashboard,
 	IconPin,
 	IconSettings,
 	IconTemplate,
@@ -17,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import path from "path";
 
 export const MainFrame: FC<{
 	children: ReactNode;
@@ -34,24 +32,6 @@ export const MainFrame: FC<{
 
 	const tab = tabs.find((tab) => tab.active);
 
-	// Add chapter to tab path if chapter exists
-	// if (chapter) {
-	// 	if (tab) {
-	// 		if (!tab.path.includes(chapter)) {
-	// 			tab.path = tab.path + "/chapter/" + chapter;
-	// 		}
-	// 	}
-	// }
-
-	// Remove chapter from tab path if chapter does not exist
-	// if (!chapter) {
-	// 	if (tab) {
-	// 		if (tab.path.includes("chapter")) {
-	// 			tab.path = tab.path.split("/chapter/")[0];
-	// 		}
-	// 	}
-	// }
-
 	if (!tab) {
 		setTabs([
 			{
@@ -63,10 +43,9 @@ export const MainFrame: FC<{
 		]);
 	} else {
 		if (tab.path !== pathname) {
-			// find index of tab
 			const index = tabs.findIndex((tab) => tab.active);
-			// replace the tab with the index with the new path
-			tabs[index].path = pathname;
+
+			tabs[index].path = pathname + location.search;
 			tabs[index].title =
 				pathname.split("/")[1].charAt(0).toUpperCase() +
 				pathname.split("/")[1].slice(1);
@@ -152,7 +131,6 @@ export const MainFrame: FC<{
 		tabs.forEach((t) => (t.active = false));
 		tabs[index].active = true;
 		setTabs(tabs);
-		console.log(tab.path);
 		navigate(tab.path);
 	};
 

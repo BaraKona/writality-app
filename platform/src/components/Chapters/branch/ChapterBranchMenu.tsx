@@ -7,7 +7,7 @@ import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { tooltipStyles } from "../../../styles/tooltipStyles";
 import { useSearchParams } from "react-router-dom";
 export const ChapterBranchMenu: FC<{
-	openMergeModal: () => void;
+	openMergeModal: (type: string) => void;
 	chapterBranches: IChapterVersion[];
 	currentBranch: IChapterContent;
 	mainContent: IChapterContent;
