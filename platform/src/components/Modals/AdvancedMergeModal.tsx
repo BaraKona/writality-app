@@ -5,18 +5,8 @@ import { IconGitMerge } from "@tabler/icons";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { advancedMerge } from "../../utils/advancedMerge";
 
-import Highlight from "@tiptap/extension-highlight";
-import StarterKit from "@tiptap/starter-kit";
-import { Color } from "@tiptap/extension-color";
-import Underline from "@tiptap/extension-underline";
-import TextAlign from "@tiptap/extension-text-align";
-import Superscript from "@tiptap/extension-superscript";
-import TextStyle from "@tiptap/extension-text-style";
-import SubScript from "@tiptap/extension-subscript";
-import Link from "@tiptap/extension-link";
 import { BaseEditor } from "../Editor";
 import { useEditor } from "@tiptap/react";
-import CharacterCount from "@tiptap/extension-character-count";
 import { extensions } from "../Editor/utils/editorExtensions";
 
 export const AdvancedMergeModal: FC<{
@@ -69,7 +59,11 @@ export const AdvancedMergeModal: FC<{
 			>
 				<div className="flex flex-wrap max-w-[1600px] gap-3">
 					<div className=" border-r border-baseBorder grow shrink max-w-2xl overflow-y-auto ">
-						<BaseEditor editor={editor} height="650px" />
+						<BaseEditor
+							editor={editor}
+							height="650px"
+							content={currentContent.content}
+						/>
 					</div>
 					<AdvancedMergeSidebar
 						currentContent={currentContent}

@@ -7,11 +7,7 @@ export const ProjectDescription: FC<{
 	editor: any;
 	updateDescription: (description: string) => void;
 	user: string;
-}> = ({ project, editor, updateDescription, user }) => {
-	useEffect(() => {
-		if (editor) editor.commands.setContent(project?.description);
-	}, [project]);
-
+}> = ({ project, editor, updateDescription }) => {
 	return (
 		<div
 			className="flex flex-col flex-grow px-3 mx-auto w-80 bg-white"
@@ -36,7 +32,7 @@ export const ProjectDescription: FC<{
 				<BaseEditor
 					editor={editor}
 					height="calc(100vh - 192px)"
-					saveContent={() => {}}
+					content={project?.description}
 				/>
 			)}
 		</div>
