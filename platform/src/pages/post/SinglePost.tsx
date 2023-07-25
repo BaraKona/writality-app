@@ -19,7 +19,7 @@ export const SinglePost = () => {
 			isLoading: isLoading,
 			icon:
 				location.pathname.split("/")[1] === "posts" ? (
-					<IconArticle size={18} />
+					<IconTemplate size={18} />
 				) : (
 					<IconHome size={18} />
 				),

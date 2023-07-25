@@ -4,6 +4,7 @@ import { PostCard } from "../Posts/PostCard";
 import { Skeleton } from "@mantine/core";
 import { IconPlus } from "@tabler/icons";
 import { useNavigate } from "react-router-dom";
+import { Carousel } from "@mantine/carousel";
 export const LibraryPosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 	posts,
 	isLoading,
@@ -44,11 +45,23 @@ export const LibraryPosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 	}
 	return (
 		<div>
-			<div className="text-xs font-medium mb-2">Your Posts</div>
-			<div className="flex flex-wrap gap-2">
-				{posts?.map((post: IPost) => (
-					<PostCard post={post!} openPost={openPost} />
-				))}
+			<div className="text-xs font-medium mb-2 ">Your Posts</div>
+			<div className="flex gap-2">
+				<Carousel
+					withIndicators
+					w={`calc(100vw - 16rem)`}
+					slideGap="md"
+					slideSize="18rem"
+					withControls
+					align="start"
+					dragFree
+				>
+					{posts?.map((post: IPost) => (
+						<Carousel.Slide>
+							<PostCard post={post!} openPost={openPost} />
+						</Carousel.Slide>
+					))}
+				</Carousel>
 			</div>
 		</div>
 	);

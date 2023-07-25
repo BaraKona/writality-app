@@ -131,11 +131,11 @@ export const PostCard: FC<{
 					</Text>
 				</Group>
 
-				<Text size="xs" color="dimmed" className="line-clamp-3">
+				<Text size="xs" color="dimmed" className="line-clamp-3 h-14">
 					{post.description}
 				</Text>
 				{post.genres?.length > 0 && (
-					<div className="flex flex-wrap gap-2 my-4 cursor-default">
+					<div className="flex flex-wrap gap-2 my-4 cursor-default h-8 line-clamp-3">
 						{post.genres.map((genre) => (
 							<Text
 								className="text-xs font-semibold leading-none"
