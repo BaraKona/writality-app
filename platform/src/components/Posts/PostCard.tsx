@@ -18,7 +18,10 @@ import { BlueButton } from "../buttons/BlueButton";
 import { IconEye } from "@tabler/icons";
 import { useNavigate } from "react-router-dom";
 
-export const PostCard: FC<{ post: IPost }> = ({ post }) => {
+export const PostCard: FC<{
+	post: IPost;
+	openPost: (postId: string) => void;
+}> = ({ post, openPost }) => {
 	const postCardPicture = () => {
 		const pictures = [
 			"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80",
@@ -143,7 +146,7 @@ export const PostCard: FC<{ post: IPost }> = ({ post }) => {
 						))}
 					</div>
 				)}
-				<BlueButton onClick={() => navigate(`/posts/${post.uid}`)}>
+				<BlueButton onClick={() => openPost(post.uid)}>
 					<IconEye size={18} /> Explore post
 				</BlueButton>
 			</Card>

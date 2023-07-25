@@ -297,7 +297,7 @@ export const Chapter = () => {
 						<ChapterBranchButton setActive={() => setSidebar("branches")} />
 						<ChapterVersionButton setActive={() => setSidebar("versions")} />
 						<ChapterHistoryButton setActive={() => setSidebar("history")} />
-						<ChapterSettingsButton setActive={() => setSidebar("settings")} />
+						{/* <ChapterSettingsButton setActive={() => setSidebar("settings")} /> */}
 					</ChapterSidebar>
 					<div>
 						<ChapterBranchMenu
@@ -329,10 +329,10 @@ export const Chapter = () => {
 							close={() => closeSidebar()}
 							active={sidebar === "history"}
 						/>
-						<ChapterSettingsMenu
+						{/* <ChapterSettingsMenu
 							close={() => closeSidebar()}
 							active={sidebar === "settings"}
-						/>
+						/> */}
 					</div>
 				</div>
 			</EditorWrapper>

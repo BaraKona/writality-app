@@ -13,10 +13,10 @@ import { Text } from "@mantine/core";
 import { CategoryListItem } from "../../components/ListItems";
 import { circle1 } from "../../assets/icons";
 import { Image } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 export const PostsPage: FC = () => {
 	const [createProjectModal, setCreateProjectModal] = useState(false);
-	const { currentUser } = useAuthContext();
 	const queryClient = useQueryClient();
 
 	const [title, setTitle] = useState("");
@@ -28,6 +28,7 @@ export const PostsPage: FC = () => {
 	const [projectTitle, setProjectTitle] = useState<string>("");
 
 	const { data: posts } = useQuery("posts", getPosts);
+	const navigate = useNavigate();
 
 	const createAPost = useMutation(
 		() =>
@@ -64,6 +65,11 @@ export const PostsPage: FC = () => {
 		}
 		createAPost.mutate();
 	};
+
+	const openPost = (postId: string) => {
+		navigate(`/posts/${postId}`);
+	};
+
 	return (
 		<div className="w-[calc(100vw-14rem)] place-items-center rounded-normal bg-white px-3 py-3">
 			<PostHeader title="Posts" openModal={() => setCreateProjectModal(true)} />
@@ -83,7 +89,7 @@ export const PostsPage: FC = () => {
 					/>
 					<div className="flex flex-wrap gap-2">
 						{posts?.map((post: IPost) => (
-							<PostCard post={post!} />
+							<PostCard post={post!} openPost={openPost} />
 						))}
 					</div>
 				</div>

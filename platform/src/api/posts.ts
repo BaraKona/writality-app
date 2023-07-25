@@ -39,3 +39,8 @@ export const getPost = async (postId: string) => {
 	const res = await postApi.get(`/${postId}`);
 	return res.data;
 };
+
+export const getUserPosts = async () => {
+	const res = await postApi.get("/user");
+	return res.data;
+};

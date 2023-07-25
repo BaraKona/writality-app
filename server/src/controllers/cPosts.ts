@@ -57,3 +57,13 @@ export const useSinglePost = async (req: any, res: any) => {
 		res.status(404).json({ message: error.message });
 	}
 };
+
+export const getUserPosts = async (req: any, res: any) => {
+	const userId = req.user.uid;
+	try {
+		const posts = await Posts.find({ owner: userId });
+		res.status(200).json(posts);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};

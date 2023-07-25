@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC } from "react";
 import { IProject, ProjectType } from "../../interfaces/IProject";
 import {
 	IconBook2,
@@ -9,7 +9,7 @@ import {
 } from "@tabler/icons";
 import { TbHeartFilled } from "react-icons/tb";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { TypographyStylesProvider } from "@mantine/core";
+import { TypographyStylesProvider, Skeleton } from "@mantine/core";
 import { Carousel, Embla } from "@mantine/carousel";
 import { useNavigate } from "react-router-dom";
 
@@ -18,10 +18,29 @@ export const LibraryProjects: FC<{
 	addFavourite: (projectId: string) => void;
 	createProject: () => void;
 	removeFavourite: (projectId: string) => void;
-}> = ({ projects, createProject, addFavourite, removeFavourite }) => {
+	isLoading: boolean;
+}> = ({
+	projects,
+	createProject,
+	addFavourite,
+	removeFavourite,
+	isLoading,
+}) => {
 	const { currentUser } = useAuthContext();
 	const navigate = useNavigate();
-	const [scrollProgress, setScrollProgress] = useState(0);
+
+	if (isLoading) {
+		return (
+			<div>
+				<div className="text-xs font-medium mb-2">Your Posts</div>
+				<div className="flex gap-2">
+					{[...Array(5)].map((_, i) => (
+						<Skeleton key={i} height={150} width={250} />
+					))}
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div>

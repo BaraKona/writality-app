@@ -1,7 +1,7 @@
 import { Breadcrumbs } from "../../components/Breadcrumbs/Breadcrumbs";
-import { IconArticle, IconTemplate } from "@tabler/icons";
+import { IconArticle, IconTemplate, IconHome } from "@tabler/icons";
 import { useSinglePost } from "../../hooks/posts/useSinglePost";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Divider } from "@mantine/core";
 import { PostBody } from "../../components/Posts/PostBody";
 import { PostCommentSection } from "../../components/Posts/PostCommentSection";
@@ -9,13 +9,20 @@ import { PostCommentSection } from "../../components/Posts/PostCommentSection";
 export const SinglePost = () => {
 	const { postId } = useParams<{ postId: string }>();
 	const { data: post, isLoading } = useSinglePost(postId as string);
-
+	const location = useLocation();
 	const breadcrumbs = [
 		{
-			label: "Posts",
-			path: "/posts",
-			icon: <IconTemplate size={18} />,
+			label:
+				location.pathname.split("/")[1].charAt(0).toUpperCase() +
+				location.pathname.split("/")[1].slice(1),
+			path: `/${location.pathname.split("/")[1]}`,
 			isLoading: isLoading,
+			icon:
+				location.pathname.split("/")[1] === "posts" ? (
+					<IconArticle size={18} />
+				) : (
+					<IconHome size={18} />
+				),
 		},
 		{
 			label: post?.postTitle,
