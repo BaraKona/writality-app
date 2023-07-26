@@ -1,3 +1,4 @@
 {
-	"DockerRun.DisableDockerrc": true
+	"DockerRun.DisableDockerrc": true,
+	"cSpell.words": ["Colour"]
 }

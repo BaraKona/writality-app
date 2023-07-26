@@ -20,4 +20,11 @@ export type IPost = {
 		likes: number;
 		dateCreated: Date;
 	}[];
+	theme: {
+		background: string;
+		postTitle: string;
+		projectTitle: string;
+		text: string;
+		time: string;
+	};
 };

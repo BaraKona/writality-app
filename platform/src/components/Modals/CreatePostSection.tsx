@@ -9,6 +9,7 @@ import {
 	Textarea,
 	Flex,
 	Divider,
+	ColorInput,
 } from "@mantine/core";
 import React, { FC } from "react";
 import { IconDatabase } from "@tabler/icons";
@@ -20,8 +21,6 @@ export const CreatePostSection: FC<{
 	setPost: React.Dispatch<React.SetStateAction<IPost>>;
 	post: IPost;
 }> = ({ createPost, setPost, post }) => {
-	const theme = useMantineTheme();
-
 	const genreChips = [
 		{ value: "Fantasy", title: "Fantasy" },
 		{ value: "Sci-Fi", title: "Sci-Fi" },
@@ -76,15 +75,6 @@ export const CreatePostSection: FC<{
 				<form onSubmit={(e) => createPost(e)}>
 					<div className="flex flex-wrap h-[calc(100vh-14rem)] overflow-y-auto">
 						<TextInput
-							label="Post Title"
-							placeholder="Post Title"
-							required
-							className="w-full"
-							variant="default"
-							styles={inputStyles}
-							onChange={(e) => setPost({ ...post, postTitle: e.target.value })}
-						/>
-						<TextInput
 							label="Project Title"
 							placeholder="Project Title"
 							className="w-full"
@@ -93,6 +83,15 @@ export const CreatePostSection: FC<{
 							onChange={(e) =>
 								setPost({ ...post, projectTitle: e.target.value })
 							}
+						/>
+						<TextInput
+							label="Post Title"
+							placeholder="Post Title"
+							required
+							className="w-full"
+							variant="default"
+							styles={inputStyles}
+							onChange={(e) => setPost({ ...post, postTitle: e.target.value })}
 						/>
 
 						<Textarea
@@ -199,6 +198,69 @@ export const CreatePostSection: FC<{
 									))}
 								</Flex>
 							</Chip.Group>
+						</div>
+						<Divider className="my-4 border-gray-200 w-full" />
+						<div className="flex gap-2 flex-wrap">
+							<div className="flex gap-2">
+								<ColorInput
+									label="Time Colour"
+									styles={inputStyles}
+									format="hexa"
+									onChange={(value) =>
+										setPost({
+											...post,
+											theme: { ...post.theme, time: value },
+										})
+									}
+								/>
+								<ColorInput
+									label="Project title Colour"
+									styles={inputStyles}
+									format="hexa"
+									onChange={(value) =>
+										setPost({
+											...post,
+											theme: { ...post.theme, projectTitle: value },
+										})
+									}
+								/>
+							</div>
+							<div className="flex gap-2">
+								<ColorInput
+									label="Post title Colour"
+									styles={inputStyles}
+									format="hexa"
+									onChange={(value) =>
+										setPost({
+											...post,
+											theme: { ...post.theme, postTitle: value },
+										})
+									}
+								/>
+								<ColorInput
+									label="Text Colour"
+									styles={inputStyles}
+									format="hexa"
+									onChange={(value) =>
+										setPost({
+											...post,
+											theme: { ...post.theme, text: value },
+										})
+									}
+								/>
+							</div>
+							<ColorInput
+								className="w-full"
+								label="Background Color"
+								styles={inputStyles}
+								format="hexa"
+								onChange={(value) =>
+									setPost({
+										...post,
+										theme: { ...post.theme, background: value },
+									})
+								}
+							/>
 						</div>
 					</div>
 					<div className="mt-5">

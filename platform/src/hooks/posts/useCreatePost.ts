@@ -16,6 +16,7 @@ export const useCreatePost = () => {
 				postType: post.postType,
 				collaborationType: post.collaborationType,
 				collaboration: post.collaboration,
+				theme: post.theme,
 			}),
 		{
 			onSuccess: () => {

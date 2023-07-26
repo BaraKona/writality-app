@@ -1,6 +1,3 @@
-import { Divider } from "@mantine/core";
-import { useToast } from "../../hooks";
-import { CreatePostModal } from "../../components/Modals";
 import { FC, useState } from "react";
 import { getPosts, createPost } from "../../api/posts";
 import { useQueryClient, useQuery, useMutation } from "react-query";

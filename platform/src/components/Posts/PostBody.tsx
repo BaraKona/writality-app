@@ -11,9 +11,20 @@ export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
 	post,
 	isLoading,
 }) => {
+	const gray = "#e5e7eb";
+	const gray2 = "#ced4da";
+	const blue = "#394251";
+
 	return (
 		<div className="bg-gray-100/70 p-4 overflow-y-auto h-[calc(100vh-6.2rem)] rounded-normal flex-grow basis-[40rem]">
-			<Paper shadow="xs" p="md" className=" text-blueText max-w-3xl mx-auto">
+			<Paper
+				shadow="xs"
+				p="md"
+				className=" text-blueText max-w-3xl mx-auto"
+				style={{
+					background: post?.theme?.background || "white",
+				}}
+			>
 				<Image
 					alt={post?.postTitle}
 					height={400}
@@ -24,8 +35,14 @@ export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
 					}
 					className="hover:scale-100 transition-all duration-200 ease-in-out"
 				/>
-				<div className="flex justify-between mt-2">
-					<Text className="text-blueText text-sm rounded-normal px-4 py-0.5 bg-gray-200">
+				<div className="flex justify-between mt-2 ">
+					<Text
+						className=" text-sm rounded-normal px-4 py-0.5"
+						style={{
+							background: post?.theme?.time || gray,
+							color: post?.theme?.text || blue,
+						}}
+					>
 						{useTimeFromNow(post?.dateCreated)}
 					</Text>
 					<div className="flex gap-1">
@@ -48,8 +65,22 @@ export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
 					</div>
 				</div>
 				<Space h="md" />
-				<h1 className="font-bold">{post?.projectTitle}</h1>
-				<h2 className="font-semibold text-gray-400">{post?.postTitle}</h2>
+				<h1
+					className="font-bold"
+					style={{
+						color: post?.theme?.projectTitle || blue,
+					}}
+				>
+					{post?.projectTitle}
+				</h1>
+				<h2
+					className="font-semibold "
+					style={{
+						color: post?.theme?.postTitle || gray2,
+					}}
+				>
+					{post?.postTitle}
+				</h2>
 				{post?.genres?.length > 0 && (
 					<div className="flex flex-wrap gap-2 my-4 cursor-default">
 						{post.genres.map((genre) => (
@@ -63,9 +94,20 @@ export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
 					</div>
 				)}
 				<Space h="md" />
-				<Text className="text-blueText/80">{post?.description}</Text>
+				<Text
+					style={{
+						color: post?.theme?.text || blue,
+					}}
+				>
+					{post?.description}
+				</Text>
 				<Space h="md" />
-				<Divider className="my-2 border-gray-200" />
+				<Divider
+					className="my-2"
+					style={{
+						borderColor: post?.theme?.text || gray,
+					}}
+				/>
 			</Paper>
 		</div>
 	);

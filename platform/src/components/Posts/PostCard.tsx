@@ -50,10 +50,21 @@ export const PostCard: FC<{
 	};
 
 	const navigate = useNavigate();
+	const gray = "#e5e7eb";
+	const gray2 = "#ced4da";
+	const blue = "#394251";
 
 	return (
-		<div className="basis-72 group">
-			<Card shadow="sm" padding="md" radius="sm" withBorder>
+		<div className="basis-72 max-w-[18rem] group">
+			<Card
+				shadow="sm"
+				padding="md"
+				radius="sm"
+				withBorder
+				style={{
+					background: post?.theme?.background || "white",
+				}}
+			>
 				<Card.Section>
 					<Image
 						src={postCardPicture()}
@@ -88,14 +99,37 @@ export const PostCard: FC<{
 						</Badge>
 					</div>
 				</Group>
-				<Group mt="md" mb="xs">
-					<Text weight={500} size="sm" className="text-blueText">
-						{post.postTitle || "Untitled post"}
-					</Text>
-				</Group>
 
-				<Text size="xs" color="dimmed" className="line-clamp-3 h-14">
-					{post.description}
+				<Text
+					weight={600}
+					size="md"
+					className="text-blueText"
+					style={{
+						color: post?.theme?.projectTitle || blue,
+					}}
+				>
+					{post.projectTitle || "Untitled post"}
+				</Text>
+				<Text
+					weight={500}
+					size="xs"
+					className="text-blueText"
+					style={{
+						color: post?.theme?.postTitle || gray2,
+					}}
+				>
+					{post.postTitle || "Untitled post"}
+				</Text>
+
+				<Text
+					size="xs"
+					color="dimmed"
+					className="line-clamp-3 h-14"
+					style={{
+						color: post?.theme?.text || blue,
+					}}
+				>
+					{post.collaboration}
 				</Text>
 				{post.genres?.length > 0 && (
 					<div className="flex flex-wrap gap-2 my-4 cursor-default h-8 line-clamp-3">

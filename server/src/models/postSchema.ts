@@ -22,6 +22,13 @@ interface IPost {
 	collaboration: string;
 	collaborationType: string;
 	uid: string;
+	theme?: {
+		background: string;
+		postTitle: string;
+		projectTitle: string;
+		text: string;
+		time: string;
+	};
 }
 
 const postSchema = new Schema<IPost>({
@@ -106,6 +113,28 @@ const postSchema = new Schema<IPost>({
 	collaborationType: {
 		type: String,
 		required: true,
+	},
+	theme: {
+		background: {
+			type: String,
+			required: false,
+		},
+		postTitle: {
+			type: String,
+			required: false,
+		},
+		projectTitle: {
+			type: String,
+			required: false,
+		},
+		text: {
+			type: String,
+			required: false,
+		},
+		time: {
+			type: String,
+			required: false,
+		},
 	},
 });
 

@@ -15,6 +15,13 @@ export const createPost = async (post: {
 	postType: string;
 	collaborationType: string;
 	collaboration: string;
+	theme: {
+		background: string;
+		postTitle: string;
+		projectTitle: string;
+		text: string;
+		time: string;
+	};
 }) => {
 	try {
 		const res = await postApi.post("/", post);

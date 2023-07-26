@@ -21,6 +21,7 @@ export const createPost = async (req: any, res: any) => {
 		postType,
 		collaborationType,
 		collaboration,
+		theme,
 	} = req.body;
 	const newPost = new Posts({
 		owner: userId,
@@ -36,6 +37,7 @@ export const createPost = async (req: any, res: any) => {
 		collaboration,
 		dateUpdated: new Date(),
 		uid: uuidv4(),
+		theme,
 	});
 	try {
 		await newPost.save();
