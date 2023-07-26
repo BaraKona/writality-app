@@ -2,9 +2,10 @@ import { useToast } from "../useToast";
 import { IPost } from "../../interfaces/IPost";
 import { createPost } from "../../api/posts";
 import { useMutation, useQueryClient } from "react-query";
-
+import { useNavigate } from "react-router-dom";
 export const useCreatePost = () => {
 	const queryClient = useQueryClient();
+	const navigate = useNavigate();
 	const mutation = useMutation(
 		(post: IPost) =>
 			createPost({
@@ -20,6 +21,7 @@ export const useCreatePost = () => {
 			onSuccess: () => {
 				queryClient.invalidateQueries("posts");
 				useToast("success", "Post created successfully");
+				navigate("/posts");
 			},
 			onError: () => {
 				useToast(
