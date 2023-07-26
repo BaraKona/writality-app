@@ -32,7 +32,10 @@ export const LibraryPosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 			<div>
 				<div className="text-xs font-medium mb-2">Your Posts</div>
 				<div className="flex flex-col w-52 border border-lightBorder rounded-normal px-4 py-2 hover:shadow-sm cursor-pointer mr-4 h-56">
-					<div className="flex flex-col items-center gap-2">
+					<div
+						className="flex flex-col items-center gap-2"
+						onClick={() => navigate("/posts/create")}
+					>
 						<IconPlus size={24} />
 						<div className="flex flex-col text-center">
 							<div className="text-xs">You have no posts yet.</div>

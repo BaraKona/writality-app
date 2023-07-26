@@ -17,7 +17,10 @@ import { useTimeFromNow } from "../../utils/convertDate";
 import { BlueButton } from "../buttons/BlueButton";
 import { IconEye } from "@tabler/icons";
 import { useNavigate } from "react-router-dom";
-
+import {
+	collaborationTypeColour,
+	postTypeColour,
+} from "../../utils/typeColours";
 export const PostCard: FC<{
 	post: IPost;
 	openPost: (postId: string) => void;
@@ -46,46 +49,6 @@ export const PostCard: FC<{
 		}
 	};
 
-	const collaborationTypeColour = () => {
-		switch (post?.collaborationType) {
-			case "Accountability":
-				return "blue";
-			case "Collaboration":
-				return "cyan";
-			case "Critique":
-				return "red";
-			case "Feedback":
-				return "yellow";
-			case "Other":
-				return "gray";
-			default:
-				return "blue";
-		}
-	};
-
-	const postTypeColour = () => {
-		switch (post?.postType) {
-			case "Short Story":
-				return "indigo";
-			case "Novel":
-				return "violet";
-			case "Poem":
-				return "teal";
-			case "Script":
-				return "orange";
-			case "Manga / Comic":
-				return "lime";
-			case "Fan-Fiction":
-				return "green";
-			case "Web-Novel":
-				return "pink";
-			case "Other":
-				return "gray";
-			default:
-				return "blue";
-		}
-	};
-
 	const navigate = useNavigate();
 
 	return (
@@ -108,7 +71,7 @@ export const PostCard: FC<{
 					<UserRenderer post={post} />
 					<div className="flex gap-1">
 						<Badge
-							color={collaborationTypeColour()}
+							color={collaborationTypeColour(post?.collaborationType)}
 							variant="light"
 							radius="sm"
 							size="sm"
@@ -116,7 +79,7 @@ export const PostCard: FC<{
 							{post?.collaborationType}
 						</Badge>
 						<Badge
-							color={postTypeColour()}
+							color={postTypeColour(post?.postType)}
 							variant="light"
 							size="sm"
 							radius="sm"

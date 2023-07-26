@@ -18,6 +18,7 @@ import {
 	IconTemplate,
 	IconHome,
 	IconUsers,
+	IconHeartPlus,
 } from "@tabler/icons";
 import { cyclops8 } from "../../assets/icons";
 import { MainFrame } from "../Project";
@@ -45,7 +46,10 @@ export const Sidebar: FC<{}> = () => {
 
 	return (
 		<div className="flex h-screen">
-			<aside className="flex overflow-y-auto h-full w-64" aria-label="Sidebar">
+			<aside
+				className="flex overflow-y-auto h-full basis-60"
+				aria-label="Sidebar"
+			>
 				<div className="flex flex-col py-2 px-2 w-full">
 					<Link to="/">
 						<div className="ml-2 mt-1 mb-2 flex">
@@ -145,8 +149,10 @@ export const Sidebar: FC<{}> = () => {
 								</>
 							)}
 							{!isProjectLoading && projects?.length === 0 && (
-								<div className="text-blueText text-xs font-medium">
-									You have no favourites
+								<div className="text-blueText text-center text-xs font-normal">
+									You have no favourites. Click on the heart icon to add a
+									favourite.
+									<IconHeartPlus size={16} className="mx-auto" />
 								</div>
 							)}
 						</CategoryListItem>

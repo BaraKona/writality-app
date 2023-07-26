@@ -9,7 +9,7 @@ import { Stories } from "./pages/Stories";
 import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
 import { SinglePost } from "./pages/post/SinglePost";
-
+import { PostCreationPage } from "./pages/post/PostCreationPage";
 const socket = io(import.meta.env.VITE_API_URL, {
 	withCredentials: true,
 	transports: ["websocket", "polling", "flashsocket"],
@@ -32,6 +32,11 @@ const dashboardRoutes: RouteObject[] = [
 	{
 		path: "/posts",
 		element: <PostsPage />,
+		errorElement: <Error />,
+	},
+	{
+		path: "/posts/create",
+		element: <PostCreationPage />,
 		errorElement: <Error />,
 	},
 	{

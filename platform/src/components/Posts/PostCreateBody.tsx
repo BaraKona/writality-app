@@ -1,13 +1,10 @@
 import { FC } from "react";
 import { IPost } from "../../interfaces/IPost";
-import { Paper, Text, Skeleton, Space, Divider, Badge } from "@mantine/core";
+import { Paper, Text, Skeleton, Space, Divider } from "@mantine/core";
 import { Image } from "@mantine/core";
 import { useTimeFromNow } from "../../utils/convertDate";
-import {
-	collaborationTypeColour,
-	postTypeColour,
-} from "../../utils/typeColours";
-export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
+
+export const PostCreateBody: FC<{ post: IPost; isLoading: boolean }> = ({
 	post,
 	isLoading,
 }) => {
@@ -24,32 +21,9 @@ export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
 					}
 					className="hover:scale-100 transition-all duration-200 ease-in-out"
 				/>
-				<div className="flex justify-between mt-2">
-					<Text className="text-blueText text-sm rounded-normal px-4 py-0.5 bg-gray-200">
-						{useTimeFromNow(post?.dateCreated)}
-					</Text>
-					<div className="flex gap-1">
-						<Badge
-							color={collaborationTypeColour(post.collaborationType)}
-							variant="light"
-							radius="sm"
-							size="md"
-						>
-							{post?.collaborationType}
-						</Badge>
-						<Badge
-							color={postTypeColour(post.postType)}
-							variant="light"
-							size="md"
-							radius="sm"
-						>
-							{post?.postType}
-						</Badge>
-					</div>
-				</div>
+				<Text className="text-right">{useTimeFromNow(post?.dateCreated)}</Text>
 				<Space h="md" />
-				<h1 className="font-bold">{post?.projectTitle}</h1>
-				<h2 className="font-semibold text-gray-400">{post?.postTitle}</h2>
+				<h1 className="font-bold">{post?.postTitle}</h1>
 				{post?.genres?.length > 0 && (
 					<div className="flex flex-wrap gap-2 my-4 cursor-default">
 						{post.genres.map((genre) => (
@@ -65,6 +39,7 @@ export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
 				<Space h="md" />
 				<Text className="text-blueText/80">{post?.description}</Text>
 				<Space h="md" />
+				{/* <Text className="text-blueText/80">{post?.collaboration}</Text> */}
 				<Divider className="my-2 border-gray-200" />
 			</Paper>
 		</div>

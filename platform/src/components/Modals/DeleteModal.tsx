@@ -17,7 +17,6 @@ export const DeleteModal: FC<{
 	deleteBranch: () => void;
 	type: string;
 }> = ({ opened, setOpened, deleteBranch, type }) => {
-	const theme = useMantineTheme();
 	return (
 		<>
 			<Modal

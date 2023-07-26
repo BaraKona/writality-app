@@ -30,63 +30,17 @@ export const PostsPage: FC = () => {
 	const { data: posts } = useQuery("posts", getPosts);
 	const navigate = useNavigate();
 
-	const createAPost = useMutation(
-		() =>
-			createPost({
-				title,
-				description,
-				genres,
-				postType,
-				collaborationType,
-				collaboration,
-				projectTitle,
-				postTitle: title,
-			}),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries("posts");
-				setCreateProjectModal(false);
-			},
-		}
-	);
-	const postCreate = (e: any) => {
-		e.preventDefault();
-		if (genres.length === 0) {
-			useToast("error", "Please select at least one genre");
-			return;
-		}
-		if (postType === "") {
-			useToast("error", "Please select a post type");
-			return;
-		}
-		if (collaborationType === "") {
-			useToast("error", "Please select a collaboration type");
-			return;
-		}
-		createAPost.mutate();
-	};
-
 	const openPost = (postId: string) => {
 		navigate(`/posts/${postId}`);
 	};
-
+	const openPostCreation = () => {
+		navigate(`/posts/create`);
+	};
 	return (
-		<div className="w-[calc(100vw-14rem)] place-items-center rounded-normal bg-white px-3 py-3">
-			<PostHeader title="Posts" openModal={() => setCreateProjectModal(true)} />
+		<div className="place-items-center rounded-normal bg-white px-3 py-3">
+			<PostHeader title="Posts" openModal={openPostCreation} />
 			<div className="flex flex-row bg-white rounded-normal px-3 py-2 h-[calc(100vh-7rem)] overflow-y-auto">
 				<div>
-					<CreatePostModal
-						opened={createProjectModal}
-						setOpened={setCreateProjectModal}
-						createPost={postCreate}
-						setTitle={setTitle}
-						setDescription={setDescription}
-						setGenres={setGenres}
-						setPostType={setPostType}
-						setCollaborationType={setCollaborationType}
-						setProjectTitle={setProjectTitle}
-						setCollaboration={setCollaboration}
-					/>
 					<div className="flex flex-wrap gap-2">
 						{posts?.map((post: IPost) => (
 							<PostCard post={post!} openPost={openPost} />

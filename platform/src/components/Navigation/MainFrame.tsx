@@ -134,8 +134,8 @@ export const MainFrame: FC<{
 	};
 
 	return (
-		<div>
-			<div className="mt-1.5 pb-1 flex gap-1 w-[calc(100vw-14rem)] content-start">
+		<div className="w-[calc(100vw-12rem)]">
+			<div className="mt-1.5 pb-1 flex gap-1 content-start ">
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}
@@ -152,7 +152,7 @@ export const MainFrame: FC<{
 							}`}
 						>
 							{tabIcons.find((t) => t.title === tab.title)?.icon ||
-								(tab.active ? <IconBook size={20} /> : <IconBook2 size={20} />)}
+								(tab.active ? <IconBook size={20} /> : <IconBook2 size={18} />)}
 							<span className="ml-0.5 text-xs font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
 								{tab.title}
 							</span>

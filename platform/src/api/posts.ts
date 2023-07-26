@@ -8,14 +8,13 @@ const postApi = axios.create({
 });
 
 export const createPost = async (post: {
-	title: string;
+	postTitle: string;
+	projectTitle: string;
 	description: string;
 	genres: string[];
 	postType: string;
 	collaborationType: string;
 	collaboration: string;
-	projectTitle: string;
-	postTitle: string;
 }) => {
 	try {
 		const res = await postApi.post("/", post);

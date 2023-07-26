@@ -5,5 +5,5 @@ export { InviteUserDrawer } from "./InviteUserDrawer";
 export { UpdateContentModal } from "./UpdateContentModal";
 export { DeleteModal } from "./DeleteModal";
 export { VersionModal } from "./VersionModal";
-export { CreatePostModal } from "./CreatePostModal";
+export { CreatePostSection as CreatePostModal } from "./CreatePostSection";
 export { AdvancedMergeModal } from "./AdvancedMergeModal";
