@@ -13,7 +13,7 @@ export const ChapterSettings: FC<{ close: () => void }> = ({ close }) => {
 					<IconX size={14} className="text-gray-400 group-hover:text-black" />
 				</ButtonWrapper>
 			</div>
-			<Divider className="border-lightBorder" />
+			<Divider className="border-border" />
 			<ScrollArea.Autosize
 				mah={400}
 				offsetScrollbars

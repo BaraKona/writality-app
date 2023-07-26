@@ -151,7 +151,7 @@ export function Project() {
 						</Tooltip>
 						{currentProject?.type === "collaboration" && (
 							<>
-								<Divider my="sm" />
+								<Divider my="sm" className="border-border" />
 								<Tooltip
 									label="Chat"
 									position="right"
@@ -164,7 +164,7 @@ export function Project() {
 								</Tooltip>
 							</>
 						)}
-						<Divider my="sm" />
+						<Divider my="sm" className="border-border" />
 						<Tooltip
 							label="Settings"
 							position="right"
@@ -218,7 +218,7 @@ export function Project() {
 									</>
 								)}
 							</ChapterRenderer>
-
+							<Divider className="border-border" orientation="vertical" />
 							<ProjectDescription
 								project={currentProject}
 								user={currentUser.uid}

@@ -8,7 +8,7 @@ export const ChapterSidebar: FC<{
 	return (
 		<div
 			className={`flex flex-col pl-2 ${
-				active && "border-r border-gray-200 pr-2"
+				active && "border-r border-border pr-2"
 			} gap-1 ${ProjectWrapperHeights}`}
 		>
 			{children}

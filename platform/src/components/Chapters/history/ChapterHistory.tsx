@@ -38,7 +38,7 @@ export const ChapterHistory: FC<{
 						<IconX size={14} className="text-gray-400 group-hover:text-black" />
 					</ButtonWrapper>
 				</div>
-				<Divider className="border-lightBorder" />
+				<Divider className="border-border" />
 				<ScrollArea.Autosize
 					offsetScrollbars
 					scrollbarSize={6}

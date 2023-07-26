@@ -141,9 +141,9 @@ export const MainFrame: FC<{
 						key={tab.id}
 						className={` ${
 							tab.active
-								? "bg-white border-none hover:bg-white"
-								: " cursor-pointer hover:bg-[rgba(255,255,255,0.5)] "
-						} flex items-center justify-between px-2 py-1.5 w-44 rounded-normal transition-all duration-500 ease-in-out min-w-0`}
+								? "bg-base border border-border hover:bg-base shadow"
+								: "cursor-pointer border border-primary hover:bg-base"
+						} flex items-center justify-between px-2 py-1.5 w-44 bg-secondary border border-border hover:bg-secondary  rounded-normal transition-all duration-500 ease-in-out min-w-0`}
 						onClick={() => changeTab(tab)}
 					>
 						<div
@@ -152,7 +152,7 @@ export const MainFrame: FC<{
 							}`}
 						>
 							{tabIcons.find((t) => t.title === tab.title)?.icon ||
-								(tab.active ? <IconBook size={20} /> : <IconBook2 size={18} />)}
+								(tab.active ? <IconBook size={18} /> : <IconBook2 size={18} />)}
 							<span className="ml-0.5 text-xs font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
 								{tab.title}
 							</span>

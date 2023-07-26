@@ -10,7 +10,7 @@ export const ProjectDescription: FC<{
 }> = ({ project, editor, updateDescription }) => {
 	return (
 		<div
-			className="flex flex-col flex-grow px-3 mx-auto w-80 bg-white"
+			className="flex flex-col flex-grow px-3 mx-auto w-80 bg-secondary"
 			onMouseLeave={() => {
 				editor.getHTML() !== project?.description &&
 					updateDescription(editor.getHTML());

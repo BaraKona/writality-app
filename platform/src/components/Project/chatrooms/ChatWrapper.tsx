@@ -25,7 +25,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 	}
 
 	return (
-		<div className="flex border-r border-gray-200 px-2">
+		<div className="flex border-r border-border px-2">
 			<Tabs
 				className={`w-full border-none important:border-none `}
 				defaultValue={primaryRoom.uid}

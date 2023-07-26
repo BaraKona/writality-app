@@ -18,7 +18,7 @@ export const PostHeader: FC<{
 	];
 
 	return (
-		<div className="bg-white rounded-normal text-blueText">
+		<div className="bg-secondary rounded-normal text-blueText">
 			<div className="relative flex w-full items-center">
 				<Breadcrumbs items={breadcrumbs} />
 				<div className=" ml-auto flex cursor-pointer">
@@ -29,7 +29,7 @@ export const PostHeader: FC<{
 					/>
 				</div>
 			</div>
-			<Divider className="my-2 border-lightBorder" />
+			<Divider className="my-2 border-border" />
 		</div>
 	);
 };

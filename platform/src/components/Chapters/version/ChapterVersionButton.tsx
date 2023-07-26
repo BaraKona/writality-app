@@ -9,7 +9,7 @@ export const ChapterVersionButton: FC<{ setActive: () => void }> = ({
 	return (
 		<Tooltip label="Versions" position="left" withArrow styles={tooltipStyles}>
 			<div
-				className="border items-center flex border-lightBorder p-1 justify-center rounded-normal group"
+				className="border items-center flex border-border p-1 justify-center rounded-normal group"
 				onClick={setActive}
 			>
 				<IconFileStack

@@ -34,13 +34,12 @@ export const BaseEditor: FC<{
 			editor={editor}
 			style={{
 				margin: "0 auto",
-				border: "none",
-				maxWidth: "850px",
+				border: "1px solid #ebebeb",
+				// maxWidth: "850px",
 				minWidth: "400px",
 				height: "100%",
 				width: "100%",
-				// backgroundColor: "#fff",
-				// paddingRight: "20px",
+				backgroundColor: "#fff",
 			}}
 			styles={{
 				toolbar: {
@@ -50,6 +49,7 @@ export const BaseEditor: FC<{
 					maxWidth: "850px",
 					minWidth: "400px",
 					padding: "0 1rem",
+					margin: "0 auto",
 				},
 			}}
 		>
@@ -77,7 +77,7 @@ export const BaseEditor: FC<{
 					</BubbleMenu>
 				)}
 				{!noCounter && (
-					<RichTextEditor.ControlsGroup className="border border-lightBorder  rounded p-[0.3rem] cursor-pointer  hover:bg-lightBorder hover:bg-opacity-40 ">
+					<RichTextEditor.ControlsGroup className="border border-border  rounded p-[0.3rem] cursor-pointer  hover:bg-lightBorder hover:bg-opacity-40 ">
 						<Text color="dimmed" className=" text-xs font-medium">
 							{editor.storage.characterCount.words()} words
 						</Text>
@@ -88,12 +88,12 @@ export const BaseEditor: FC<{
 						<button
 							onClick={() => editor?.chain().focus().undo().run()}
 							disabled={!editor?.can().undo()}
-							className="border border-lightBorder  rounded p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-lightBorder hover:bg-opacity-40 "
+							className="border border-border  rounded p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-lightBorder hover:bg-opacity-40 "
 						>
 							<IconArrowBackUp size={14} />
 						</button>
 						<button
-							className="border border-lightBorder  rounded p-[0.3rem] rounded-l-none cursor-pointer hover:bg-lightBorder hover:bg-opacity-40 "
+							className="border border-border  rounded p-[0.3rem] rounded-l-none cursor-pointer hover:bg-lightBorder hover:bg-opacity-40 "
 							onClick={() => editor?.chain().focus().redo().run()}
 							disabled={!editor?.can().redo()}
 						>

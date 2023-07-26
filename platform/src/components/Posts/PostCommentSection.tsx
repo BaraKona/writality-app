@@ -29,7 +29,7 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 					</Text>
 				</div>
 			</div>
-			<Divider className="my-2 border-gray-200" />
+			<Divider className="my-2 border-border" />
 			<div>
 				<Text
 					className={`text-blueText/80 text-[0.85rem] transition-all ease-in-out duration-300 leading-1 max-h-96 overflow-y-auto ${
@@ -48,7 +48,7 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 					</Text>
 				</div>
 			</div>
-			<Divider className="my-2 border-gray-200" />
+			<Divider className="my-2 border-border" />
 			<div className="gap-2 place-items-center mt-3">
 				<Textarea
 					placeholder="Your comment"

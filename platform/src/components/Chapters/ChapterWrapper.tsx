@@ -16,13 +16,13 @@ export const ChapterWrapper: FC<{
 	if (isLoading) {
 		return (
 			<div
-				className={`flex flex-col pt-5 bg-white px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
+				className={`flex flex-col pt-5 bg-secondary px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
 			>
 				<div className="flex justify-between">
 					<Skeleton height={20} mt={6} width={100} />
 					<Skeleton height={20} mt={6} width={200} />
 				</div>
-				<Divider className=" border-lightBorder" />
+				<Divider className=" border-border" />
 				<div className="flex">{children}</div>
 			</div>
 		);
@@ -46,9 +46,9 @@ export const ChapterWrapper: FC<{
 
 	return (
 		<div
-			className={`flex flex-col bg-white px-3 py-3 gap-2 rounded-normal ${ProjectWrapperHeights}`}
+			className={`flex flex-col bg-secondary border border-border px-3 py-3 gap-2 rounded-normal ${ProjectWrapperHeights}`}
 		>
-			<div className=" flex font-medium gap-2 bg-white text-blueText items-center">
+			<div className=" flex font-medium gap-2 bg-secondary text-blueText items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text
 					className="text-center my-auto font-medium text-xs  ml-auto mr-3"
@@ -59,7 +59,7 @@ export const ChapterWrapper: FC<{
 						: "No updates yet"}
 				</Text>
 			</div>
-			<Divider className=" border-lightBorder" />
+			<Divider className=" border-border" />
 			<div className="flex">{children}</div>
 		</div>
 	);

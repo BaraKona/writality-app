@@ -58,7 +58,7 @@ export const ChangeProjectTypeSetting: FC<{
 						: "Collaboration projects are for teams. You can invite collaborators to your project, and they will be able to edit the project."}
 				</p>
 			</div>
-			<Divider className="border-gray-200 my-4" />
+			<Divider className="border-border my-4" />
 		</div>
 	);
 };

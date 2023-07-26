@@ -292,7 +292,7 @@ export const Chapter = () => {
 						mergeReplace={() => replaceMain(currentBranch)}
 					/>
 				)}
-				<div className="border-l flex flex-row ">
+				<div className="border-l border-border ml-3 flex flex-row ">
 					<ChapterSidebar active={Boolean(sidebar)}>
 						<ChapterBranchButton setActive={() => setSidebar("branches")} />
 						<ChapterVersionButton setActive={() => setSidebar("versions")} />

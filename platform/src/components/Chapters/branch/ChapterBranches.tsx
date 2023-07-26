@@ -49,10 +49,10 @@ export const ChapterBranches: FC<{
 					<IconX size={14} className="text-gray-400 group-hover:text-black" />
 				</ButtonWrapper>
 			</div>
-			<Divider className="border-lightBorder" />
+			<Divider className="border-border" />
 			{chapterBranches?.length > 0 ? (
-				<div className="border border-baseLight text-blueText">
-					<div className="flex justify-between gap-2 border-b border-lightBorder items-center">
+				<div className="border border-border text-blueText">
+					<div className="flex justify-between gap-2 border-b border-border items-center">
 						<div className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-xs font-medium">
 							<div
 								className={`hover:text-black ${
@@ -79,7 +79,7 @@ export const ChapterBranches: FC<{
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}
-								className="flex flex-col gap-2 border-b border-lightBorder py-1 pl-2"
+								className="flex flex-col gap-2 border-b border-border py-1 pl-2"
 							>
 								<div className="flex justify-between">
 									<div className="flex gap-1">
@@ -108,10 +108,10 @@ export const ChapterBranches: FC<{
 								</div>
 								{branch.uid === currentBranch?.uid ? (
 									<div className="flex flex-row gap-1 transition-all ease-in-out duration-200">
-										<div className="flex  flex-col border-l border-gray-200 ml-1 gap-1">
+										<div className="flex  flex-col border-l border-border ml-1 gap-1">
 											<button
 												onClick={() => openMergeModal("replace")}
-												className="flex gap-1 text-blueText text-xs font-medium items-center hover:text-black px-2 border-gray-200 group"
+												className="flex gap-1 text-blueText text-xs font-medium items-center hover:text-black px-2 border-border group"
 											>
 												<VscGitMerge
 													size={14}

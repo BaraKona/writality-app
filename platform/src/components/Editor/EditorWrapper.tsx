@@ -30,13 +30,13 @@ export const EditorWrapper: FC<{
 	if (isLoading) {
 		return (
 			<div
-				className={`flex flex-col pt-5 bg-white px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
+				className={`flex flex-col pt-5 bg-secondary px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
 			>
 				<div className="flex justify-between">
 					<Skeleton height={20} mt={6} width={100} />
 					<Skeleton height={20} mt={6} width={200} />
 				</div>
-				<Divider className=" border-lightBorder" />
+				<Divider className=" border-border" />
 				<div className="flex">{children}</div>
 			</div>
 		);
@@ -79,8 +79,8 @@ export const EditorWrapper: FC<{
 	}
 
 	return (
-		<div className="flex flex-col bg-white px-3 py-3 h-[calc(100vh-42px)] gap-2 rounded-normal">
-			<div className=" flex font-medium gap-2 bg-white text-blueText items-center">
+		<div className="flex flex-col bg-secondary px-3 py-3 h-[calc(100vh-44px)] gap-2 rounded-normal">
+			<div className=" flex font-medium gap-2 bg-secondary text-blueText items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text
 					className="text-center my-auto font-medium text-xs  ml-auto mr-3"
@@ -91,7 +91,7 @@ export const EditorWrapper: FC<{
 						: "No updates yet"}
 				</Text>
 
-				<div className="border-l border-lightBorder group" onClick={save}>
+				<div className="border-l border-border group" onClick={save}>
 					<Tooltip
 						label="Save"
 						position="left"
@@ -107,8 +107,8 @@ export const EditorWrapper: FC<{
 					</Tooltip>
 				</div>
 			</div>
-			<Divider className="border-lightBorder" />
-			<div className="h-[calc(100vh-120px)] overflow-y-hidden bg-white">
+			<Divider className="border-border" />
+			<div className=" overflow-y-hidden bg-secondary">
 				<div className="text-editor flex justify-between align-middle">
 					{children}
 				</div>
