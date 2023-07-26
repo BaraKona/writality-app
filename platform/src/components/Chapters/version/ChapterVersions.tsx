@@ -45,7 +45,7 @@ export const ChapterVersions: FC<{
 					<IconX size={14} className="text-gray-400 group-hover:text-black" />
 				</ButtonWrapper>
 			</div>
-			<Divider className="border-lightBorder" />
+			<Divider className="border-border" />
 			{chapterVersions.length > 0 ? (
 				<div>
 					<ScrollArea.Autosize
@@ -60,7 +60,7 @@ export const ChapterVersions: FC<{
 						{chapterVersions.map((version: any, index) => (
 							<div
 								key={index}
-								className="px-2 py-1 flex justify-between gap-2 items-center border-b border-lightBorder group"
+								className="px-2 py-1 flex justify-between gap-2 items-center border-b border-border group"
 							>
 								<div className="">
 									<div className="flex gap-1 transition-all ease-in-out duration-200 items-center text-xs cursor-default">

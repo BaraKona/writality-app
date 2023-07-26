@@ -48,7 +48,7 @@ export const LibraryProjects: FC<{
 			<div className="flex flex-wrap">
 				<div
 					onClick={createProject}
-					className="flex flex-col w-64 border border-lightBorder rounded-normal px-4 py-2 hover:shadow-sm cursor-pointer basis-40 mr-4 h-40"
+					className="flex flex-col w-64 border border-border rounded-normal px-4 py-2 hover:shadow-sm cursor-pointer basis-40 mr-4 h-40"
 				>
 					<div className="flex flex-col items-center gap-2">
 						<IconPlus size={24} />
@@ -67,12 +67,12 @@ export const LibraryProjects: FC<{
 						withControls
 						align="start"
 						dragFree
-						className="border-l border-lightBorder"
+						className="border-l border-border"
 					>
 						{projects.map((project) => (
 							<Carousel.Slide
 								key={project.uid}
-								className="flex border border-lightBorder rounded-normal pl-4 pr-2 py-2 group h-40 mx-2"
+								className="flex border border-border rounded-normal pl-4 pr-2 py-2 group h-40 mx-2"
 							>
 								<div
 									className="flex flex-row items-start gap-2"

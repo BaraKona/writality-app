@@ -14,7 +14,12 @@ module.exports = {
 				baseLighter: "#ffff",
 				baseBorder: "#fff",
 				lightBorder: "rgb(229, 231, 235)",
+				border: "#ebebebeb",
 				blueText: "#394251",
+				primary: "#f5f5f5f5",
+				secondary: "#fafafafa",
+				tertiary: "#f2f2f2f2",
+				gray: "#ebebeb",
 			},
 			grid: {
 				"3xl": "1600px",

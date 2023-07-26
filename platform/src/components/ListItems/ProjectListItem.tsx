@@ -16,9 +16,9 @@ export const ProjectListItem: FC<{
 		<>
 			<li
 				onClick={onClick}
-				className={`px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group rounded-normal hover:bg-white cursor-default ${
+				className={`px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group rounded-normal hover:bg-gray cursor-default ${
 					projectId === project
-						? "bg-white text-black"
+						? "bg-gray text-black"
 						: "bg-transparent text-blueText"
 				}`}
 			>

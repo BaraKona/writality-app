@@ -22,7 +22,7 @@ export const AdvancedMergeSidebar: FC<{
 				<span className="text-blue-400 font-bold ">[branch]</span>{" "}
 				<u>{currentContent?.name}</u> into <u>Main</u>.
 			</Text>
-			<Divider className="mb-5 mt-2" />
+			<Divider className="mb-5 mt-2 border-border" />
 			<List
 				spacing="xs"
 				size="sm"
@@ -57,7 +57,7 @@ export const AdvancedMergeSidebar: FC<{
 				</List.Item>
 			</List>
 
-			<Divider className="my-5" />
+			<Divider className="my-5 border-border" />
 			<List
 				spacing="xs"
 				size="sm"
@@ -88,7 +88,7 @@ export const AdvancedMergeSidebar: FC<{
 					Once done, remove any styling that is still persistent before Merging
 				</List.Item>
 			</List>
-			<Divider className="my-5" />
+			<Divider className="my-5 border-border" />
 			<Text size="sm" className="mb-2">
 				Resolve conflicts by clicking the buttons below or by editing the text
 				directly
@@ -138,7 +138,7 @@ export const AdvancedMergeSidebar: FC<{
 			</List>
 
 			{/** NB */}
-			<Divider className="my-5" />
+			<Divider className="my-5 border-border" />
 			<List
 				spacing="xs"
 				size="sm"

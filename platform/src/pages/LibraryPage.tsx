@@ -27,11 +27,11 @@ export const LibraryPage = () => {
 	];
 
 	return (
-		<div className="w-[calc(100vw-14rem)] place-items-center rounded-normal bg-white px-3 py-3 h-[calc(100vh-2.7rem)]">
+		<div className="w-[calc(100vw-14rem)] place-items-center rounded-normal bg-secondary px-3 py-3 h-[calc(100vh-2.7rem)]">
 			<div className="text-sm font-bold">
 				<Breadcrumbs items={breadcrumbs} />
 			</div>
-			<Divider className="my-2 border-lightBorder" />
+			<Divider className="my-2 border-border" />
 			<LibraryProjects
 				projects={projects}
 				createProject={mutate}
@@ -39,9 +39,9 @@ export const LibraryPage = () => {
 				removeFavourite={removeFavourite}
 				isLoading={isLoading}
 			/>
-			<Divider className="my-2 border-lightBorder" />
+			<Divider className="my-2 border-border" />
 			<LibraryPosts posts={posts} isLoading={postLoading} />
-			<Divider className="my-2 border-lightBorder" />
+			<Divider className="my-2 border-border" />
 		</div>
 	);
 };

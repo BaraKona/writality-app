@@ -141,7 +141,7 @@ export const MainFrame: FC<{
 						key={tab.id}
 						className={` ${
 							tab.active
-								? "bg-white border-none hover:bg-white"
+								? "bg-secondary border border-border hover:bg-secondary"
 								: " cursor-pointer hover:bg-[rgba(255,255,255,0.5)] "
 						} flex items-center justify-between px-2 py-1.5 w-44 rounded-normal transition-all duration-500 ease-in-out min-w-0`}
 						onClick={() => changeTab(tab)}

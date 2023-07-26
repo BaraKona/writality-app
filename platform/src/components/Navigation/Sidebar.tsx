@@ -62,10 +62,10 @@ export const Sidebar: FC<{}> = () => {
 							/>
 							<div className="font-semibold px-2 text-sm">Writality</div>
 						</div>
-						<Divider className="border-gray-200" />
+						<Divider className="border-border" />
 					</Link>
 					<div className="flex h-full">
-						<div className="border-r border-gray-200 flex-col flex">
+						<div className="border-r border-border flex-col flex">
 							<CategoryListItem>
 								<CommunityListItem
 									name="Library"
@@ -74,7 +74,7 @@ export const Sidebar: FC<{}> = () => {
 									<IconHome stroke={2.2} size={18} />
 								</CommunityListItem>
 								<CategoryListItem>
-									<Divider className="border-gray-200" />
+									<Divider className="border-border" />
 								</CategoryListItem>
 								<CommunityListItem
 									name="Posts"
@@ -90,7 +90,7 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 							<CategoryListItem>
-								<Divider className="border-gray-200" />
+								<Divider className="border-border" />
 							</CategoryListItem>
 							<CategoryListItem>
 								<CommunityListItem
@@ -101,7 +101,7 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 							<CategoryListItem className="mb-auto">
-								<Divider className="border-gray-200" />
+								<Divider className="border-border" />
 							</CategoryListItem>
 							<CategoryListItem>
 								<CommunityListItem
