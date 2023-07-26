@@ -20,6 +20,7 @@ export const PostCreationPage: FC<{}> = () => {
 		likes: [],
 		dateCreated: new Date(),
 		dateUpdated: new Date(),
+		color: "",
 	});
 	const { mutate } = useCreatePost();
 

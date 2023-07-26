@@ -16,11 +16,12 @@ export const useCreatePost = () => {
 				postType: post.postType,
 				collaborationType: post.collaborationType,
 				collaboration: post.collaboration,
+				color: post.color,
 			}),
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries("posts");
-				useToast("success", "Post created successfully");
+				useToast("success", "New post created!");
 				navigate("/posts");
 			},
 			onError: () => {

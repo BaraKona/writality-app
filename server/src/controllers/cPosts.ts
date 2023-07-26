@@ -21,6 +21,7 @@ export const createPost = async (req: any, res: any) => {
 		postType,
 		collaborationType,
 		collaboration,
+		color,
 	} = req.body;
 	const newPost = new Posts({
 		owner: userId,
@@ -34,6 +35,7 @@ export const createPost = async (req: any, res: any) => {
 		comments: [],
 		collaborationType,
 		collaboration,
+		color,
 		dateUpdated: new Date(),
 		uid: uuidv4(),
 	});

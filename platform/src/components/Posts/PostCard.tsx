@@ -53,7 +53,15 @@ export const PostCard: FC<{
 
 	return (
 		<div className="basis-72 group">
-			<Card shadow="sm" padding="md" radius="sm" withBorder>
+			<Card
+				shadow="sm"
+				padding="md"
+				radius="sm"
+				withBorder
+				style={{
+					backgroundColor: post?.color ? post?.color : "white",
+				}}
+			>
 				<Card.Section>
 					<Image
 						src={postCardPicture()}

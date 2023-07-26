@@ -11,6 +11,7 @@ export type IPost = {
 	likes: {
 		user: string;
 	}[];
+	color: string;
 	dateCreated: Date;
 	dateUpdated: Date;
 	comments?: {

@@ -9,6 +9,8 @@ import {
 	Textarea,
 	Flex,
 	Divider,
+	ColorPicker,
+	Stack,
 } from "@mantine/core";
 import React, { FC } from "react";
 import { IconDatabase } from "@tabler/icons";
@@ -200,6 +202,14 @@ export const CreatePostSection: FC<{
 								</Flex>
 							</Chip.Group>
 						</div>
+						<Stack align="center">
+							<ColorPicker
+								format="hex"
+								value={post.color}
+								onChange={(value) => setPost({ ...post, color: value })}
+							/>
+							<Text>{post.color}</Text>
+						</Stack>
 					</div>
 					<div className="mt-5">
 						<BlueButton>Create Post</BlueButton>

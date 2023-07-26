@@ -22,6 +22,7 @@ interface IPost {
 	collaboration: string;
 	collaborationType: string;
 	uid: string;
+	color?: string;
 }
 
 const postSchema = new Schema<IPost>({
@@ -106,6 +107,10 @@ const postSchema = new Schema<IPost>({
 	collaborationType: {
 		type: String,
 		required: true,
+	},
+	color: {
+		type: String,
+		required: false,
 	},
 });
 

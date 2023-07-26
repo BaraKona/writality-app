@@ -42,8 +42,8 @@ export const PostsPage: FC = () => {
 			<div className="flex flex-row bg-white rounded-normal px-3 py-2 h-[calc(100vh-7rem)] overflow-y-auto">
 				<div>
 					<div className="flex flex-wrap gap-2">
-						{posts?.map((post: IPost) => (
-							<PostCard post={post!} openPost={openPost} />
+						{posts?.map((post: IPost, index: number) => (
+							<PostCard post={post!} openPost={openPost} key={index} />
 						))}
 					</div>
 				</div>
