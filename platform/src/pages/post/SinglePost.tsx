@@ -2,7 +2,7 @@ import { Breadcrumbs } from "../../components/Breadcrumbs/Breadcrumbs";
 import { IconArticle, IconTemplate, IconHome } from "@tabler/icons";
 import { useSinglePost } from "../../hooks/posts/useSinglePost";
 import { useLocation, useParams } from "react-router-dom";
-import { Divider } from "@mantine/core";
+import { Divider, Skeleton } from "@mantine/core";
 import { PostBody } from "../../components/Posts/PostBody";
 import { PostCommentSection } from "../../components/Posts/PostCommentSection";
 
@@ -10,6 +10,36 @@ export const SinglePost = () => {
 	const { postId } = useParams<{ postId: string }>();
 	const { data: post, isLoading } = useSinglePost(postId as string);
 	const location = useLocation();
+
+	if (isLoading) {
+		return (
+			<div className="h-[calc(100vh-2.7rem)] place-items-center rounded-normal bg-white px-3 py-3">
+				<Breadcrumbs
+					items={[
+						{
+							label: "Posts",
+							path: "/posts",
+							icon: <IconTemplate size={18} />,
+							isLoading: false,
+						},
+						{
+							label: "Create",
+							path: "/posts/create",
+							icon: <IconArticle size={18} />,
+							isLoading: false,
+						},
+					]}
+				/>
+				<Divider className="my-2 border-gray-200" />
+				<div className="flex gap-3">
+					<Skeleton className="w-2/3" height={800} />
+					<Divider className=" border-gray-200" orientation="vertical" />
+					<Skeleton className="w-1/3" height={800} />
+				</div>
+			</div>
+		);
+	}
+
 	const breadcrumbs = [
 		{
 			label:
