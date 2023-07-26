@@ -23,16 +23,20 @@ export const tabStyles = {
 		justifyContent: "center",
 		"&:hover": {
 			color: "#000",
-			backgroundColor: "transparent",
-			borderColor: "#e2e2e2",
+			backgroundColor: "white",
+			borderColor: "#ebebeb",
+			boxShadow:
+				"0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
 		},
 		"&[data-active]": {
 			color: "#394251",
-			backgroundColor: "#e2e2e2",
-			borderColor: "#e2e2e2",
+			backgroundColor: "white",
+			boxShadow:
+				"0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+			borderColor: "#ebebeb",
 		},
 		"&[data-active]:hover": {
-			borderColor: "#e2e2e2",
+			borderColor: "#ebebeb",
 		},
 	},
 };

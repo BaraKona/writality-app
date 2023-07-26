@@ -10,7 +10,7 @@ export const ChapterRenderer: FC<{
 	createNewChapter: () => void;
 }> = ({ children, chapterCount, createNewChapter, isLoading }) => {
 	return (
-		<div className="flex-grow w-80 min-w-[20rem] mx-auto  border-r bg-secondary border-border">
+		<div className="flex-grow w-80 min-w-[20rem] mx-auto  bg-secondary border-border">
 			<div className="flex gap-2 ml-2 font-medium items-center">
 				<IconFiles size={18} />
 				{isLoading ? (

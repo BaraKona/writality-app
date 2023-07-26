@@ -14,6 +14,7 @@ module.exports = {
 				baseLighter: "#ffff",
 				baseBorder: "#fff",
 				lightBorder: "rgb(229, 231, 235)",
+				base: "#fff",
 				border: "#ebebebeb",
 				blueText: "#394251",
 				primary: "#f5f5f5f5",

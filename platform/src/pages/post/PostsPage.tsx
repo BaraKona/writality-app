@@ -34,7 +34,7 @@ export const PostsPage: FC = () => {
 		navigate(`/posts/create`);
 	};
 	return (
-		<div className="place-items-center rounded-normal bg-secondary px-3 py-3">
+		<div className="place-items-center rounded-normal bg-secondary border border-border px-3 py-3">
 			<PostHeader title="Posts" openModal={openPostCreation} />
 			<div className="flex flex-row bg-secondary rounded-normal px-3 py-2 h-[calc(100vh-7rem)] overflow-y-auto">
 				<div>

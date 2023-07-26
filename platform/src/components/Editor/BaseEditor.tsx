@@ -34,13 +34,12 @@ export const BaseEditor: FC<{
 			editor={editor}
 			style={{
 				margin: "0 auto",
-				border: "none",
-				maxWidth: "850px",
+				border: "1px solid #ebebeb",
+				// maxWidth: "850px",
 				minWidth: "400px",
 				height: "100%",
 				width: "100%",
-				// backgroundColor: "#fff",
-				// paddingRight: "20px",
+				backgroundColor: "#fff",
 			}}
 			styles={{
 				toolbar: {
@@ -50,6 +49,7 @@ export const BaseEditor: FC<{
 					maxWidth: "850px",
 					minWidth: "400px",
 					padding: "0 1rem",
+					margin: "0 auto",
 				},
 			}}
 		>

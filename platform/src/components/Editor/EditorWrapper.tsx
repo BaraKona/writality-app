@@ -79,7 +79,7 @@ export const EditorWrapper: FC<{
 	}
 
 	return (
-		<div className="flex flex-col bg-secondary px-3 py-3 h-[calc(100vh-42px)] gap-2 rounded-normal">
+		<div className="flex flex-col bg-secondary px-3 py-3 h-[calc(100vh-44px)] gap-2 rounded-normal">
 			<div className=" flex font-medium gap-2 bg-secondary text-blueText items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text
@@ -108,7 +108,7 @@ export const EditorWrapper: FC<{
 				</div>
 			</div>
 			<Divider className="border-border" />
-			<div className="h-[calc(100vh-120px)] overflow-y-hidden bg-secondary">
+			<div className=" overflow-y-hidden bg-secondary">
 				<div className="text-editor flex justify-between align-middle">
 					{children}
 				</div>

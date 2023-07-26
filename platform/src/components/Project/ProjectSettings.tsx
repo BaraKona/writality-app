@@ -7,7 +7,7 @@ import { useProjectType } from "../../hooks/projects/useProjectType";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useProjectTitleChange } from "../../hooks/projects/useProjectTitleChange";
 import { ProjectNameSettings } from "./settings/ProjectNameSettings";
-import { Skeleton } from "@mantine/core";
+import { Divider, Skeleton } from "@mantine/core";
 
 export const ProjectSettings: FC<{ project: IProject }> = ({ project }) => {
 	const [isEdited, setIsEdited] = useState(false);
@@ -33,7 +33,7 @@ export const ProjectSettings: FC<{ project: IProject }> = ({ project }) => {
 				</div>
 				<SaveButton isDisabled={!isEdited} onClick={mutate} />
 			</div>
-			<hr className="my-4" />
+			<Divider className="my-4 border-border" />
 			<div className="flex flex-wrap flex-col gap-2 ">
 				{!project ? (
 					<Skeleton height={20} width={100} />

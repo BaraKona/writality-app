@@ -218,7 +218,7 @@ export function Project() {
 									</>
 								)}
 							</ChapterRenderer>
-
+							<Divider className="border-border" orientation="vertical" />
 							<ProjectDescription
 								project={currentProject}
 								user={currentUser.uid}
