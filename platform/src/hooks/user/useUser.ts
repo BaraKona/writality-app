@@ -9,6 +9,8 @@ export const useUser = () => {
 		onSuccess: (data) => {
 			setCurrentUser(data);
 		},
-		onError: ({ message }) => {},
+		onError: ({ message }) => {
+			useToast("error", message);
+		},
 	});
 };

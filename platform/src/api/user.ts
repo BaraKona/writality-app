@@ -23,19 +23,13 @@ export const registerUser = async (user: {
 };
 
 export const loginUser = async (user: { email: string; password: string }) => {
-	try {
-		const { data } = await userApi.post("/signin", user);
-		return data;
-	} catch (err: any) {
-		return err;
-	}
+	const { data } = await userApi.post("/signin", user);
+	return data;
 };
 
 export const getUser = async () => {
-	try {
-		const { data } = await userApi.get(`/`);
-		return data;
-	} catch (err: any) {}
+	const { data } = await userApi.get(`/`);
+	return data;
 };
 
 export const getAllUsers = async () => {
