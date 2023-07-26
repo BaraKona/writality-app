@@ -2790,9 +2790,9 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-hast-util-secondaryspace@^2.0.0:
+hast-util-whitespace@^2.0.0:
   version "2.0.1"
-  resolved "https://registry.yarnpkg.com/hast-util-secondaryspace/-/hast-util-secondaryspace-2.0.1.tgz#0ec64e257e6fc216c7d14c8a1b74d27d650b4557"
+  resolved "https://registry.yarnpkg.com/hast-util-whitespace/-/hast-util-whitespace-2.0.1.tgz#0ec64e257e6fc216c7d14c8a1b74d27d650b4557"
   integrity sha512-nAxA0v8+vXSBDt3AnRUNjyRIQ0rD+ntpbAp4LnPkumc5M9yUbSMa4XDU9Q6etY4f1Wp4bNgvc1yjiZtsTTrSng==
 
 hoist-non-react-statics@^3.3.1:
@@ -3331,7 +3331,7 @@ micromark-core-commonmark@^1.0.0, micromark-core-commonmark@^1.0.1:
     micromark-factory-label "^1.0.0"
     micromark-factory-space "^1.0.0"
     micromark-factory-title "^1.0.0"
-    micromark-factory-secondaryspace "^1.0.0"
+    micromark-factory-whitespace "^1.0.0"
     micromark-util-character "^1.0.0"
     micromark-util-chunked "^1.0.0"
     micromark-util-classify-character "^1.0.0"
@@ -3459,9 +3459,9 @@ micromark-factory-title@^1.0.0:
     micromark-util-symbol "^1.0.0"
     micromark-util-types "^1.0.0"
 
-micromark-factory-secondaryspace@^1.0.0:
+micromark-factory-whitespace@^1.0.0:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/micromark-factory-secondaryspace/-/micromark-factory-secondaryspace-1.1.0.tgz#798fb7489f4c8abafa7ca77eed6b5745853c9705"
+  resolved "https://registry.yarnpkg.com/micromark-factory-whitespace/-/micromark-factory-whitespace-1.1.0.tgz#798fb7489f4c8abafa7ca77eed6b5745853c9705"
   integrity sha512-v2WlmiymVSp5oMg+1Q0N1Lxmt6pMhIHD457whWM7/GUlEks1hI9xj5w3zbc4uuMKXGisksZk8DzP2UyGbGqNsQ==
   dependencies:
     micromark-factory-space "^1.0.0"
@@ -4225,7 +4225,7 @@ react-markdown@^8.0.7:
     "@types/prop-types" "^15.0.0"
     "@types/unist" "^2.0.0"
     comma-separated-tokens "^2.0.0"
-    hast-util-secondaryspace "^2.0.0"
+    hast-util-whitespace "^2.0.0"
     prop-types "^15.0.0"
     property-information "^6.0.0"
     react-is "^18.0.0"
