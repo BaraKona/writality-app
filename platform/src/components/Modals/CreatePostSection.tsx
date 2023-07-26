@@ -181,7 +181,7 @@ export const CreatePostSection: FC<{
 							<Chip.Group
 								// @ts-ignore
 								onChange={(value) =>
-									setPost({ ...post, collaborationType: value })
+									setPost({ ...post, collaborationType: value as string })
 								}
 							>
 								<Flex gap={5} wrap="wrap">
