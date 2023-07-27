@@ -7,6 +7,7 @@ import {
 	signOut,
 	addFavouriteProject,
 	removeFavouriteProject,
+	updateUserData,
 } from "../controllers/cUser";
 import { protect } from "../middleware/jwtAuth";
 
@@ -16,6 +17,7 @@ router.post("/signup", createUser);
 // router.post("/", loginUser);
 router.get("/", protect, getUser);
 router.get("/all", protect, getAllUsers);
+router.patch("/", protect, updateUserData);
 router.post("/signin", signIn);
 router.post("/logout", signOut);
 router.post("/favourites", protect, addFavouriteProject);

@@ -9,6 +9,12 @@ interface IUser {
 	createdAt: Date;
 	role?: string;
 	favouriteProjects?: string[];
+	favouriteTabs?: string[];
+	aboutMe?: string;
+	profilePicture?: string;
+	interests?: string[];
+	roles?: string[];
+	country?: string;
 }
 const userSchema = new Schema<IUser>({
 	name: {
@@ -42,6 +48,24 @@ const userSchema = new Schema<IUser>({
 	},
 	favouriteProjects: {
 		type: [String],
+	},
+	favouriteTabs: {
+		type: [String],
+	},
+	aboutMe: {
+		type: String,
+	},
+	profilePicture: {
+		type: String,
+	},
+	interests: {
+		type: [String],
+	},
+	roles: {
+		type: [String],
+	},
+	country: {
+		type: String,
 	},
 });
 

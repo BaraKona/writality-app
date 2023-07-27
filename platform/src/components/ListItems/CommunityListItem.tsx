@@ -15,11 +15,11 @@ export const CommunityListItem: FC<{
 		<Tooltip label={name} position="right" withArrow styles={tooltipStyles}>
 			<li onClick={onClick} className="cursor-default list-none">
 				<div
-					className={`px-1.5 py-1 flex mb-0.5 text-xs font-medium rounded-normal items-center transition-all ease-in-out duration-500 ${
+					className={`p-1.5 flex mb-0.5 text-xs font-medium rounded-normal items-center transition-all ease-in-out duration-500 ${
 						path.includes(name.toLowerCase())
-							? "text-black bg-base shadow font-medium"
+							? "text-black bg-base shadow font-medium border border-base"
 							: "text-blueText"
-					} hover:bg-base `}
+					} hover:bg-base border border-border `}
 				>
 					{children}
 				</div>

@@ -10,6 +10,7 @@ import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
 import { SinglePost } from "./pages/post/SinglePost";
 import { PostCreationPage } from "./pages/post/PostCreationPage";
+import { SettingsPage } from "./pages/Settings/SettingsPage";
 const socket = io(import.meta.env.VITE_API_URL, {
 	withCredentials: true,
 	transports: ["websocket", "polling", "flashsocket"],
@@ -32,6 +33,15 @@ const dashboardRoutes: RouteObject[] = [
 	{
 		path: "/posts",
 		element: <PostsPage />,
+		errorElement: <Error />,
+	},
+	{
+		path: "/settings",
+		loader: () => redirect("/settings/general"),
+	},
+	{
+		path: "/settings/:settingsTab",
+		element: <SettingsPage />,
 		errorElement: <Error />,
 	},
 	{
