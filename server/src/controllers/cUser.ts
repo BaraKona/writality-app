@@ -61,6 +61,29 @@ export const getAllUsers = async (req: any, res: any) => {
 	}
 };
 
+export const updateUserData = async (req: any, res: any) => {
+	const userId = req.user.uid;
+	const { name, aboutMe, interests, country, roles } = req.body;
+
+	// update values that are supplied in the request body
+	const updatedUser = {
+		name,
+		aboutMe,
+		interests,
+		country,
+		roles,
+	};
+
+	try {
+		const user = await User.findOneAndUpdate({ uid: userId }, updatedUser, {
+			new: true,
+		});
+		res.status(200).json(user);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
 export const signIn = async (req: any, res: any) => {
 	const { email, password } = req.body;
 	try {

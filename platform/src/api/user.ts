@@ -72,3 +72,8 @@ export const removeFavouriteProject = async (projectId: string) => {
 		const { data } = err.response;
 	}
 };
+
+export const updateUserData = async (user: IUser) => {
+	const { data } = await userApi.patch("/", user);
+	return data;
+};
