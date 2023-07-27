@@ -9,3 +9,7 @@ export const useTimeFromNow = (date: string) => {
 export const useDefaultDate = (date: string) => {
 	return dayjs(date).format("MMM DD, YYYY");
 };
+
+export const useDefaultDateTime = (date: string) => {
+	return dayjs(date).format("MMM DD, YYYY hh:mm A");
+};

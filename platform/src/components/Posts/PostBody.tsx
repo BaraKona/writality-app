@@ -2,11 +2,11 @@ import { FC } from "react";
 import { IPost } from "../../interfaces/IPost";
 import { Paper, Text, Skeleton, Space, Divider, Badge } from "@mantine/core";
 import { Image } from "@mantine/core";
-import { useTimeFromNow } from "../../utils/convertDate";
 import {
 	collaborationTypeColour,
 	postTypeColour,
 } from "../../utils/typeColours";
+import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
 export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
 	post,
 	isLoading,
@@ -43,7 +43,7 @@ export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
 							color: post?.theme?.text || blue,
 						}}
 					>
-						{useTimeFromNow(post?.dateCreated)}
+						{useDefaultDateTime(post?.dateCreated.toString())}
 					</Text>
 					<div className="flex gap-1">
 						<Badge

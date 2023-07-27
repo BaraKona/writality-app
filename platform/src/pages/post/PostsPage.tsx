@@ -36,13 +36,11 @@ export const PostsPage: FC = () => {
 	return (
 		<div className="place-items-center rounded-normal bg-secondary border border-border px-3 py-3">
 			<PostHeader title="Posts" openModal={openPostCreation} />
-			<div className="flex flex-row bg-secondary rounded-normal px-3 py-2 h-[calc(100vh-7rem)] overflow-y-auto">
-				<div>
-					<div className="flex flex-wrap gap-2">
-						{posts?.map((post: IPost) => (
-							<PostCard post={post!} openPost={openPost} />
-						))}
-					</div>
+			<div className="bg-secondary rounded-normal  py-2 h-[calc(100vh-6.4rem)]">
+				<div className="mx-auto bg-base px-2 border border-border rounded-normal h-[calc(100vh-6.9rem)] overflow-y-auto py-3 flex flex-col gap-2">
+					{posts?.map((post: IPost) => (
+						<PostCard post={post!} openPost={openPost} />
+					))}
 				</div>
 			</div>
 		</div>

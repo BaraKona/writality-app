@@ -13,7 +13,7 @@ import {
 	Card,
 } from "@mantine/core";
 import { Project } from "../../pages/project";
-import { useTimeFromNow } from "../../utils/convertDate";
+import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
 import { BlueButton } from "../buttons/BlueButton";
 import { IconEye } from "@tabler/icons";
 import { useNavigate } from "react-router-dom";
@@ -55,24 +55,24 @@ export const PostCard: FC<{
 	const blue = "#394251";
 
 	return (
-		<div className="basis-72 max-w-[18rem] group">
+		<div className="basis-[34rem] max-w-[34rem] group">
 			<Card
-				shadow="sm"
 				padding="md"
-				radius="sm"
 				withBorder
 				style={{
 					background: post?.theme?.background || "white",
+					borderColor: "#ebebeb",
+					borderRadius: "0.25rem",
 				}}
 			>
-				<Card.Section>
+				{/* <Card.Section>
 					<Image
 						src={postCardPicture()}
 						height={160}
 						alt={post.postTitle}
 						className="group-hover:grayscale-0 grayscale transition-all ease-in-out duration-300"
 					/>
-				</Card.Section>
+				</Card.Section> */}
 				<Group
 					position="apart"
 					mt="xs"
@@ -166,7 +166,7 @@ const UserRenderer = ({ post }: { post: IPost }) => {
 					{post?.owner.slice(0, 10) || "User"}
 				</Text>
 				<Text className="text-xs font-normal" color="dimmed">
-					{useTimeFromNow(post?.dateCreated)}
+					{useDefaultDateTime(post?.dateCreated.toString())}
 				</Text>
 			</div>
 		</div>

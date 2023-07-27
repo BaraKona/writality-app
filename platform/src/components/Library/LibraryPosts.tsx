@@ -54,7 +54,7 @@ export const LibraryPosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 					withIndicators
 					w={`calc(100vw - 16rem)`}
 					slideGap="md"
-					slideSize="18rem"
+					slideSize="34rem"
 					withControls
 					align="start"
 					dragFree
