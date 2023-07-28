@@ -79,7 +79,7 @@ export const EditorWrapper: FC<{
 	}
 
 	return (
-		<div className="flex flex-col bg-secondary px-3 py-3 h-[calc(100vh-44px)] gap-2 rounded-normal">
+		<div className="flex flex-col bg-secondary px-3 py-3 h-[calc(100vh-42px)] gap-2 rounded-normal border-border border">
 			<div className=" flex font-medium gap-2 bg-secondary text-blueText items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text
@@ -98,7 +98,7 @@ export const EditorWrapper: FC<{
 						withArrow
 						styles={tooltipStyles}
 					>
-						<div className="ml-3 p-1 border rounded-normal cursor-pointer">
+						<div className="ml-3 p-1.5 border-border border rounded-normal cursor-pointer hover:bg-base hover:shadow transition-all ease-in-out duration-300">
 							<IconDeviceFloppy
 								size={18}
 								className="text-blueText group-hover:text-black"

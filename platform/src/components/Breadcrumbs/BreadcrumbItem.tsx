@@ -28,7 +28,7 @@ export const BreadcrumbItem: React.FC<{
 				<Skeleton height={18} width={50} className="my-1 mx-1.5" />
 			) : (
 				<span
-					className={`text-blueText hover:bg-gray-100 gap-2 hover:text-black text-xs flex font-medium py-1 px-1.5 rounded-normal transition-background duration-100 items-center`}
+					className={`text-blueTextLight hover:bg-gray-100 gap-2 hover:text-blueText text-xs flex font-medium py-1 px-1.5 rounded-normal transition-background duration-100 items-center`}
 				>
 					{item.icon}
 					{item.label}

@@ -1,0 +1,11 @@
+import { FC, ReactNode } from "react";
+
+export const ChapterSidebarWrapper: FC<{
+	children: ReactNode;
+}> = ({ children }) => {
+	return (
+		<div className="min-w-auto w-72 border border-border rounded-normal bg-base h-[calc(100vh-118px)]">
+			{children}
+		</div>
+	);
+};

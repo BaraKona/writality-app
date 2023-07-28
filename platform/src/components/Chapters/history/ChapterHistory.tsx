@@ -13,6 +13,7 @@ import {
 import { IChapter } from "../../../interfaces/IChapter";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
 import { inputStyles } from "../../../styles/inputStyles";
+import { ChapterSidebarWrapper } from "../ChapterSidebarWrapper";
 
 export const ChapterHistory: FC<{
 	history: IChapter["history"];
@@ -30,7 +31,7 @@ export const ChapterHistory: FC<{
 	};
 
 	return (
-		<div className="min-w-auto w-72">
+		<ChapterSidebarWrapper>
 			<div>
 				<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
 					History
@@ -40,7 +41,6 @@ export const ChapterHistory: FC<{
 				</div>
 				<Divider className="border-border" />
 				<ScrollArea.Autosize
-					offsetScrollbars
 					scrollbarSize={6}
 					className="px-2"
 					styles={{
@@ -81,6 +81,6 @@ export const ChapterHistory: FC<{
 					</Timeline>
 				</ScrollArea.Autosize>
 			</div>
-		</div>
+		</ChapterSidebarWrapper>
 	);
 };

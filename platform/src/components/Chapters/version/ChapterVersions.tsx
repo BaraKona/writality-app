@@ -13,6 +13,7 @@ import { useCreateChapterVersion } from "../../../hooks/chapter/useCreateChapter
 import { useParams } from "react-router-dom";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
 import { useSearchParams } from "react-router-dom";
+import { ChapterSidebarWrapper } from "../ChapterSidebarWrapper";
 
 export const ChapterVersions: FC<{
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,7 +33,7 @@ export const ChapterVersions: FC<{
 	);
 
 	return (
-		<div className="min-w-auto w-72">
+		<ChapterSidebarWrapper>
 			<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
 				Versions
 				<ButtonWrapper onClick={() => mutate(text)} className="ml-auto">
@@ -49,7 +50,6 @@ export const ChapterVersions: FC<{
 			{chapterVersions.length > 0 ? (
 				<div>
 					<ScrollArea.Autosize
-						offsetScrollbars
 						scrollbarSize={6}
 						styles={{
 							viewport: {
@@ -92,6 +92,6 @@ export const ChapterVersions: FC<{
 					You do not have any versions saved for this chapter
 				</div>
 			)}
-		</div>
+		</ChapterSidebarWrapper>
 	);
 };

@@ -17,7 +17,8 @@ module.exports = {
 				base: "#fff",
 				border: "#ebebeb",
 				blueText: "#394251",
-				blueTextLight: "#a2abb5",
+				blueTextLight: "#868e96",
+
 				primary: "#f5f5f5f5",
 				secondary: "#fafafafa",
 				tertiary: "#f2f2f2f2",

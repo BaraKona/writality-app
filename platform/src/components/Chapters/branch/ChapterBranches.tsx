@@ -12,6 +12,7 @@ import { Divider, ScrollArea, Text } from "@mantine/core";
 import { IconGitBranch, IconPlus, IconX } from "@tabler/icons";
 import { useSearchParams } from "react-router-dom";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
+import { ChapterSidebarWrapper } from "../ChapterSidebarWrapper";
 export const ChapterBranches: FC<{
 	openMergeModal: (type: string) => void;
 	chapterBranches: IChapterVersion[];
@@ -36,7 +37,7 @@ export const ChapterBranches: FC<{
 	// 	return null;
 	// }
 	return (
-		<div className="min-w-auto w-72">
+		<ChapterSidebarWrapper>
 			<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
 				Branches
 				<ButtonWrapper onClick={openBranchModal} className="ml-auto">
@@ -51,7 +52,7 @@ export const ChapterBranches: FC<{
 			</div>
 			<Divider className="border-border" />
 			{chapterBranches?.length > 0 ? (
-				<div className="border border-border text-blueText">
+				<div className="text-blueText">
 					<div className="flex justify-between gap-2 border-b border-border items-center">
 						<div className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-xs font-medium">
 							<div
@@ -73,13 +74,12 @@ export const ChapterBranches: FC<{
 								maxHeight: "calc(100vh - 156px)",
 							},
 						}}
-						offsetScrollbars
 						scrollbarSize={6}
 					>
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}
-								className="flex flex-col gap-2 border-b border-border py-1 pl-2"
+								className="flex flex-col gap-2 border-b border-border py-1 px-2"
 							>
 								<div className="flex justify-between">
 									<div className="flex gap-1">
@@ -108,7 +108,7 @@ export const ChapterBranches: FC<{
 								</div>
 								{branch.uid === currentBranch?.uid ? (
 									<div className="flex flex-row gap-1 transition-all ease-in-out duration-200">
-										<div className="flex  flex-col border-l border-border ml-1 gap-1">
+										<div className="flex  flex-col border-l border-border gap-1">
 											<button
 												onClick={() => openMergeModal("replace")}
 												className="flex gap-1 text-blueText text-xs font-medium items-center hover:text-black px-2 border-border group"
@@ -156,6 +156,6 @@ export const ChapterBranches: FC<{
 					You do not have any branches for this chapter
 				</div>
 			)}
-		</div>
+		</ChapterSidebarWrapper>
 	);
 };
