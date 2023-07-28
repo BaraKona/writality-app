@@ -5,8 +5,14 @@ import { SettingsHeader } from "../../components/settings/SettingsHeader";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { tabStyles } from "../../styles/tabStyles";
 import { useNavigate, useParams } from "react-router-dom";
-import { IconHome, IconSettings, IconUser } from "@tabler/icons";
+import {
+	IconHome,
+	IconSettings,
+	IconUser,
+	IconVocabulary,
+} from "@tabler/icons";
 import { ProfileSettings } from "./ProfileSettings";
+import { LanguageSettings } from "./LanguageSettings";
 export const SettingsPage: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { settingsTab } = useParams();
@@ -36,7 +42,18 @@ export const SettingsPage: FC<{}> = () => {
 						</Tabs.Tab>
 					</Tooltip>
 
-					<Divider my="sm" className="border-border" />
+					<Tooltip
+						label="Language"
+						position="right"
+						withArrow
+						styles={tooltipStyles}
+					>
+						<Tabs.Tab value="language">
+							<IconVocabulary size={18} />
+						</Tabs.Tab>
+					</Tooltip>
+
+					{/* <Divider my="sm" className="border-border" />
 					<Tooltip
 						label="Settings"
 						position="right"
@@ -46,10 +63,13 @@ export const SettingsPage: FC<{}> = () => {
 						<Tabs.Tab value="settings">
 							<IconSettings size={18} />
 						</Tabs.Tab>
-					</Tooltip>
+					</Tooltip> */}
 				</Tabs.List>
 				<Tabs.Panel value="general">
 					<ProfileSettings />
+				</Tabs.Panel>
+				<Tabs.Panel value="language">
+					<LanguageSettings />
 				</Tabs.Panel>
 			</Tabs>
 		</div>

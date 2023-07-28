@@ -15,6 +15,8 @@ interface IUser {
 	interests?: string[];
 	roles?: string[];
 	country?: string;
+	languages?: string[];
+	primaryLanguage?: string;
 }
 const userSchema = new Schema<IUser>({
 	name: {
@@ -65,6 +67,12 @@ const userSchema = new Schema<IUser>({
 		type: [String],
 	},
 	country: {
+		type: String,
+	},
+	languages: {
+		type: [String],
+	},
+	primaryLanguage: {
 		type: String,
 	},
 });

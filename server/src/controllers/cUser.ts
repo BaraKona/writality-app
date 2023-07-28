@@ -63,7 +63,15 @@ export const getAllUsers = async (req: any, res: any) => {
 
 export const updateUserData = async (req: any, res: any) => {
 	const userId = req.user.uid;
-	const { name, aboutMe, interests, country, roles } = req.body;
+	const {
+		name,
+		aboutMe,
+		interests,
+		country,
+		roles,
+		languages,
+		primaryLanguage,
+	} = req.body;
 
 	// update values that are supplied in the request body
 	const updatedUser = {
@@ -72,6 +80,8 @@ export const updateUserData = async (req: any, res: any) => {
 		interests,
 		country,
 		roles,
+		languages,
+		primaryLanguage,
 	};
 
 	try {

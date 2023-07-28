@@ -4,6 +4,8 @@ import {
 	Select,
 	TextInput,
 	Textarea,
+	Text,
+	Flex,
 } from "@mantine/core";
 import { useUser } from "../../hooks/user/useUser";
 import { inputStyles } from "../../styles/inputStyles";
@@ -15,7 +17,8 @@ import { BlueButton } from "../../components/buttons/BlueButton";
 import { useUpdateUserData } from "../../hooks/user/useUpdateUserData";
 import { useState } from "react";
 import { IUser } from "../../interfaces/IUser";
-import { has } from "cheerio/lib/api/traversing";
+import { languages } from "../../utils/languagesList";
+
 export const ProfileSettings = () => {
 	const { data: user } = useUser();
 	const { mutate: updateUserData } = useUpdateUserData();
@@ -36,16 +39,24 @@ export const ProfileSettings = () => {
 
 	return (
 		<div className="h-[calc(100vh-6.4rem)] place-items-center rounded-normal border border-border bg-base px-3 py-2 overflow-y-auto">
-			<div className="max-w-lg mx-auto mt-16">
-				<div className="text-lg font-medium text-blueText"> Profile </div>
-				<div className="text-sm text-"> Manage your Writality profile </div>
-				<Divider className="my-2 mb-8 border-border" />
-				<SmallText>Member since: </SmallText>
-				<SmallText light>{useDefaultDate(user.createdAt)}</SmallText>
-				<div className="my-5">
-					<SmallText>Email</SmallText>
+			<div className="max-w-lg mx-auto mt-10">
+				<Text size={20} className=" font-medium text-blueText">
+					Profile
+				</Text>
+				<Text size={12} color="dimmed">
+					Manage your Profile
+				</Text>
+				<Divider className="my-2 border-border" />
+
+				<div>
+					<SmallText>Member since: </SmallText>
+					<SmallText light>{useDefaultDate(user.createdAt)}</SmallText>
+				</div>
+				<div className="my-2">
+					<SmallText>Email:</SmallText>
 					<SmallText light>{user?.email}</SmallText>
 				</div>
+
 				<TextInput
 					label="Username"
 					placeholder="Username"
@@ -104,6 +115,13 @@ export const ProfileSettings = () => {
 					nothingFound="Nothing found"
 					limit={5}
 				/>
+
+				<Divider className="my-4 border-border" />
+				<Text size={20} className=" font-medium text-blueText">
+					Location
+				</Text>
+				<div className="text-sm text-"> Manage your location </div>
+				<Divider className="my-2 border-border" />
 				<Select
 					label="Country"
 					placeholder="Your country"

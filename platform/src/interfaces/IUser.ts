@@ -13,4 +13,6 @@ export type IUser = {
 	interests?: string[];
 	roles?: string[];
 	country?: string;
+	languages?: string[];
+	primaryLanguage?: string;
 };
