@@ -71,7 +71,7 @@ export const CreatePostSection: FC<{
 					for a specific type of contribution, make sure to include it in your
 					post.
 				</div>
-				<Divider className="my-2 border-border" />
+				<Divider my="xs" color="grey.0" />
 				<form onSubmit={(e) => createPost(e)}>
 					<div className="flex flex-wrap h-[calc(100vh-14rem)] overflow-y-auto">
 						<TextInput
@@ -199,7 +199,7 @@ export const CreatePostSection: FC<{
 								</Flex>
 							</Chip.Group>
 						</div>
-						<Divider className="my-4 border-border w-full" />
+						<Divider my="xs" color="grey.0" />
 						<div className="flex gap-2 flex-wrap">
 							<div className="flex gap-2">
 								<ColorInput

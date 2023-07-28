@@ -84,7 +84,7 @@ export function Register() {
 					{isLoading ? "Creating account..." : "Create account"}
 				</BlueButton>
 			</form>
-			<Divider my="md" label="or" labelPosition="center" />
+			<Divider my="md" label="or" labelPosition="center" color="grey.0" />
 
 			<Link to="/auth/login">
 				<p className="text-center text-xs text-blueText font-medium ">

@@ -46,7 +46,7 @@ export const ChapterVersions: FC<{
 					<IconX size={14} className="text-gray-400 group-hover:text-black" />
 				</ButtonWrapper>
 			</div>
-			<Divider className="border-border" />
+			<Divider color="grey.0" />
 			{chapterVersions.length > 0 ? (
 				<div>
 					<ScrollArea.Autosize

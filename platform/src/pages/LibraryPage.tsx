@@ -31,7 +31,7 @@ export const LibraryPage = () => {
 			<div className="text-sm font-bold">
 				<Breadcrumbs items={breadcrumbs} />
 			</div>
-			<Divider className="my-2 border-border" />
+			<Divider my="xs" color="grey.0" />
 			<LibraryProjects
 				projects={projects}
 				createProject={mutate}
@@ -39,9 +39,9 @@ export const LibraryPage = () => {
 				removeFavourite={removeFavourite}
 				isLoading={isLoading}
 			/>
-			<Divider className="my-2 border-border" />
+			<Divider my="xs" color="grey.0" />
 			<LibraryPosts posts={posts} isLoading={postLoading} />
-			<Divider className="my-2 border-border" />
+			<Divider my="xs" color="grey.0" />
 		</div>
 	);
 };

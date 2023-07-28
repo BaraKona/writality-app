@@ -53,7 +53,7 @@ export const SettingsPage: FC<{}> = () => {
 						</Tabs.Tab>
 					</Tooltip>
 
-					{/* <Divider my="sm" className="border-border" />
+					{/* <Divider my="xs" className="border-border" />
 					<Tooltip
 						label="Settings"
 						position="right"

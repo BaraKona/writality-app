@@ -50,7 +50,7 @@ export const ChapterBranches: FC<{
 					<IconX size={14} className="text-gray-400 group-hover:text-black" />
 				</ButtonWrapper>
 			</div>
-			<Divider className="border-border" />
+			<Divider color="grey.0" />
 			{chapterBranches?.length > 0 ? (
 				<div className="text-blueText">
 					<div className="flex justify-between gap-2 border-b border-border items-center">

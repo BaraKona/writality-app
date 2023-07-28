@@ -29,7 +29,7 @@ export const ChapterRenderer: FC<{
 					/>
 				</div>
 			</div>
-			<Divider className=" border-border mt-2" />
+			<Divider color="grey.0" />
 			<ScrollArea
 				className=""
 				offsetScrollbars

@@ -36,7 +36,7 @@ export const EditorWrapper: FC<{
 					<Skeleton height={20} mt={6} width={100} />
 					<Skeleton height={20} mt={6} width={200} />
 				</div>
-				<Divider className=" border-border" />
+				<Divider color="grey.0" />
 				<div className="flex">{children}</div>
 			</div>
 		);
@@ -82,10 +82,7 @@ export const EditorWrapper: FC<{
 		<div className="flex flex-col bg-secondary px-3 py-3 h-[calc(100vh-42px)] gap-2 rounded-normal border-border border">
 			<div className=" flex font-medium gap-2 bg-secondary text-blueText items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
-				<Text
-					className="text-center my-auto font-medium text-xs  ml-auto mr-3"
-					color="dimmed"
-				>
+				<Text size="xs" color="dimmed" ml="auto" mr={3}>
 					{content?.dateUpdated?.date
 						? "Last updated: " + useTimeFromNow(content.dateUpdated.date + "")
 						: "No updates yet"}
@@ -107,7 +104,7 @@ export const EditorWrapper: FC<{
 					</Tooltip>
 				</div>
 			</div>
-			<Divider className="border-border" />
+			<Divider color="grey.0" />
 			<div className=" overflow-y-hidden bg-secondary">
 				<div className="text-editor flex justify-between align-middle">
 					{children}

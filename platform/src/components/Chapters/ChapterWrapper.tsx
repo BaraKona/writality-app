@@ -22,7 +22,7 @@ export const ChapterWrapper: FC<{
 					<Skeleton height={20} mt={6} width={100} />
 					<Skeleton height={20} mt={6} width={200} />
 				</div>
-				<Divider className=" border-border" />
+				<Divider color="grey.0" />
 				<div className="flex">{children}</div>
 			</div>
 		);
@@ -50,16 +50,13 @@ export const ChapterWrapper: FC<{
 		>
 			<div className=" flex font-medium gap-2 bg-secondary text-blueText items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
-				<Text
-					className="text-center my-auto font-medium text-xs  ml-auto mr-3"
-					color="dimmed"
-				>
+				<Text size="xs" color="dimmed" ml="auto" mr={3}>
 					{project?.dateUpdated?.date
 						? "Last updated: " + useTimeFromNow(project.dateUpdated.date + "")
 						: "No updates yet"}
 				</Text>
 			</div>
-			<Divider className=" border-border" />
+			<Divider color="grey.0" />
 			<div className="flex">{children}</div>
 		</div>
 	);

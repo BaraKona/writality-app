@@ -78,7 +78,7 @@ export const BaseEditor: FC<{
 				)}
 				{!noCounter && (
 					<RichTextEditor.ControlsGroup className="border border-border  rounded p-[0.3rem] cursor-pointer  hover:bg-lightBorder hover:bg-opacity-40 ">
-						<Text color="dimmed" className=" text-xs font-medium">
+						<Text color="dimmed" size="xs" weight={500}>
 							{editor.storage.characterCount.words()} words
 						</Text>
 					</RichTextEditor.ControlsGroup>
@@ -193,10 +193,11 @@ export const BaseEditor: FC<{
 				)}
 
 				<RichTextEditor.Content
-					className="transition-all duration-300 ease-in-out text-blueText text-sm"
+					className="transition-all duration-300 ease-in-out text-blueText "
 					style={{
 						border: "none",
 						backgroundColor: "white",
+						fontSize: "0.85rem",
 					}}
 				/>
 			</ScrollArea>

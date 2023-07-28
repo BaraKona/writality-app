@@ -97,7 +97,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 					/>
 					<div className=" basis-72 p-4 border-border border rounded-t-normal">
 						<SmallText>Chat participants</SmallText>
-						<Divider className="my-2 border-border" />
+						<Divider my="xs" color="grey.0" />
 					</div>
 				</Tabs.Panel>
 			</Tabs>
@@ -119,7 +119,7 @@ const ChatItem: FC<{
 				<IconCircleDot size={14} />
 			)} */}
 			<div className="text-xs font-medium">{name}</div>
-			<Divider className="my-2 border-border" />
+			<Divider my="xs" color="grey.0" />
 			<SmallText light>
 				{latestComment?.length > 20
 					? latestComment.slice(0, 20) + "..."

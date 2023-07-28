@@ -13,7 +13,7 @@ export const SettingsHeader = () => {
 				<Breadcrumbs items={breadcrumbs} />
 				<div className=" ml-auto flex cursor-pointer"></div>
 			</div>
-			<Divider className="my-2 border-border" />
+			<Divider my="xs" color="grey.0" />
 		</div>
 	);
 };

@@ -71,6 +71,7 @@ export const updateUserData = async (req: any, res: any) => {
 		roles,
 		languages,
 		primaryLanguage,
+		isPublic,
 	} = req.body;
 
 	// update values that are supplied in the request body
@@ -82,6 +83,7 @@ export const updateUserData = async (req: any, res: any) => {
 		roles,
 		languages,
 		primaryLanguage,
+		isPublic,
 	};
 
 	try {

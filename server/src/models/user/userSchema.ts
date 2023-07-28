@@ -17,6 +17,7 @@ interface IUser {
 	country?: string;
 	languages?: string[];
 	primaryLanguage?: string;
+	isPublic: boolean;
 }
 const userSchema = new Schema<IUser>({
 	name: {
@@ -74,6 +75,11 @@ const userSchema = new Schema<IUser>({
 	},
 	primaryLanguage: {
 		type: String,
+	},
+	isPublic: {
+		type: Boolean,
+		default: true,
+		required: true,
 	},
 });
 

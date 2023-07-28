@@ -85,14 +85,14 @@ export const PostCard: FC<{
 							color={collaborationTypeColour(post?.collaborationType)}
 							variant="light"
 							radius="sm"
-							size="sm"
+							size="md"
 						>
 							{post?.collaborationType}
 						</Badge>
 						<Badge
 							color={postTypeColour(post?.postType)}
 							variant="light"
-							size="sm"
+							size="md"
 							radius="sm"
 						>
 							{post?.postType}
@@ -134,10 +134,7 @@ export const PostCard: FC<{
 				{post.genres?.length > 0 && (
 					<div className="flex flex-wrap gap-2 my-4 cursor-default h-8 line-clamp-3">
 						{post.genres.map((genre) => (
-							<Text
-								className="text-xs font-semibold leading-none"
-								color="dimmed"
-							>
+							<Text key={genre} size="xs" color="dimmed" weight={600}>
 								#{genre}
 							</Text>
 						))}
@@ -165,7 +162,7 @@ const UserRenderer = ({ post }: { post: IPost }) => {
 				<Text className="text-xs font-semibold">
 					{post?.owner.slice(0, 10) || "User"}
 				</Text>
-				<Text className="text-xs font-normal" color="dimmed">
+				<Text size="xs" color="dimmed">
 					{useDefaultDateTime(post?.dateCreated.toString())}
 				</Text>
 			</div>

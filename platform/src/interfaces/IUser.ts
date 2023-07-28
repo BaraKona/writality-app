@@ -15,4 +15,5 @@ export type IUser = {
 	country?: string;
 	languages?: string[];
 	primaryLanguage?: string;
+	isPublic: boolean;
 };
