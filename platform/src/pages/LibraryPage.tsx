@@ -27,7 +27,7 @@ export const LibraryPage = () => {
 	];
 
 	return (
-		<div className="w-[calc(100vw-14rem)] place-items-center rounded-normal bg-secondary border-border border px-3 py-3 h-[calc(100vh-2.7rem)]">
+		<div className=" place-items-center rounded-normal bg-secondary border-border border px-3 py-3 h-[calc(100vh-2.7rem)]">
 			<div className="text-sm font-bold">
 				<Breadcrumbs items={breadcrumbs} />
 			</div>

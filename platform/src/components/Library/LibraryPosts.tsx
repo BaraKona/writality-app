@@ -52,7 +52,7 @@ export const LibraryPosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 			<div className="flex gap-2">
 				<Carousel
 					withIndicators
-					w={`calc(100vw - 16rem)`}
+					w={`calc(100vw - 16.5rem)`}
 					slideGap="md"
 					slideSize="34rem"
 					withControls

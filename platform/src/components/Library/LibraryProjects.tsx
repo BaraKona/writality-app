@@ -61,7 +61,7 @@ export const LibraryProjects: FC<{
 					<Carousel
 						withIndicators
 						height="10rem"
-						w={`calc(100vw - 27rem)`}
+						w={`calc(100vw - 27.3rem)`}
 						slideGap="md"
 						slideSize="16rem"
 						withControls
