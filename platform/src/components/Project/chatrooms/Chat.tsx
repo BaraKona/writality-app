@@ -13,12 +13,12 @@ export const Chat: FC<{
 	sendComment: () => void;
 }> = ({ setComment, comment, comments, sendComment }) => {
 	return (
-		<div className="flex-grow px-3  mx-auto ">
+		<div className="flex-grow mx-auto bg-secondary">
 			<div
 				// make items start from bottom
-				className="flex flex-col-reverse gap-2 h-[calc(100vh-190px)]"
+				className="flex flex-col-reverse gap-2 h-[calc(100vh-193px)] overflow-y-auto"
 			>
-				<div className="flex flex-grow flex-col justify-end gap-2">
+				<div className="flex flex-grow flex-col justify-end gap-2 px-2 ">
 					{comments?.map((comment, index) => (
 						// check if previous comment is from same user
 						<Comment
@@ -28,7 +28,7 @@ export const Chat: FC<{
 					))}
 				</div>
 			</div>
-			<div className="flex gap-2 place-items-center mt-3">
+			<div className="flex gap-2 place-items-center mt-3 bg-base border-t border-border p-2">
 				<Textarea
 					placeholder="Your comment"
 					className="flex-grow "
@@ -40,8 +40,9 @@ export const Chat: FC<{
 						...inputStyles,
 						input: {
 							...inputStyles.input,
-							backgroundColor: "#eee !important",
-							borderColor: "#eee !important",
+							backgroundColor: "#fff !important",
+							border: "none !important",
+							// borderColor: "#ebebeb !important",
 						},
 					}}
 					rightSection={

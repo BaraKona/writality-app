@@ -10,7 +10,8 @@ export const useUser = () => {
 			setCurrentUser(data);
 		},
 		onError: ({ message }) => {
-			useToast("error", message);
+			useToast("error", "Could not log you in. Please try again");
 		},
+		retry: false,
 	});
 };

@@ -4,10 +4,11 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { IChat } from "../../../interfaces/IChat";
 import { IconCircleDot, IconMessageDots } from "@tabler/icons";
 import { Chat } from "../Collaboration";
-import { Tabs } from "@mantine/core";
+import { Divider, Tabs } from "@mantine/core";
 import { tabStyles } from "../../../styles/tabStyles";
 import { useComment } from "../../../hooks/chatRooms/useComment";
 import { Icon123, IconCircleDotFilled } from "@tabler/icons-react";
+import { SmallText } from "../../texts/SmallText";
 
 export const ChatWrapper: FC<{}> = ({}) => {
 	const { project } = useParams<{ project: string }>();
@@ -24,10 +25,15 @@ export const ChatWrapper: FC<{}> = ({}) => {
 		setSearchParams(`?chat=${primaryRoom.uid}`);
 	}
 
+	const chatRoomComments = chatRooms?.find(
+		(chatRoom: IChat) => chatRoom.uid === searchParams.get("chat")
+	)?.comments;
+
+	console.log(chatRoomComments);
 	return (
-		<div className="flex border-r border-border px-2">
+		<div className="flex">
 			<Tabs
-				className={`w-full border-none important:border-none `}
+				className={`w-full border-none important:border-none bg-base border border-border`}
 				defaultValue={primaryRoom.uid}
 				radius={"md"}
 				orientation="vertical"
@@ -37,13 +43,21 @@ export const ChatWrapper: FC<{}> = ({}) => {
 					tabsList: {
 						...tabStyles.tabsList,
 						flexBasis: 200,
+						backgroundColor: "#fff",
+						border: "1px solid #ebebeb",
+						borderTopRightRadius: "0.25rem",
+						borderTopLeftRadius: "0.25rem",
+						padding: "0.25rem 0.25rem",
 					},
 					tab: {
 						...tabStyles.tab,
-						padding: "0.375rem 0.25rem",
-						border: "none",
+						border: "1px solid #ebebeb",
+						padding: "0.50rem 0.25rem",
+						margin: "0.25rem 0.25rem",
+						display: "block",
 						"&[data-active]": {
-							backgroundColor: "#eee",
+							border: "1px solid #ebebeb",
+							// backgroundColor: "#eee",
 						},
 					},
 				}}
@@ -58,17 +72,19 @@ export const ChatWrapper: FC<{}> = ({}) => {
 							<ChatItem
 								name={chatRoom.name}
 								active={chatRoom.uid === searchParams.get("chat")}
+								latestComment={
+									chatRoom.comments[chatRoom.comments.length - 1]?.content
+								}
 							/>
 						</Tabs.Tab>
 					))}
 				</Tabs.List>
-				<Tabs.Panel value={searchParams.get("chat") || primaryRoom.uid}>
+				<Tabs.Panel
+					value={searchParams.get("chat") || primaryRoom.uid}
+					className="flex"
+				>
 					<Chat
-						comments={
-							chatRooms?.find(
-								(chatRoom: IChat) => chatRoom.uid === searchParams.get("chat")
-							)?.comments
-						}
+						comments={chatRoomComments}
 						comment={comment}
 						setComment={setComment}
 						sendComment={() => {
@@ -79,21 +95,36 @@ export const ChatWrapper: FC<{}> = ({}) => {
 								setComment("");
 						}}
 					/>
+					<div className=" basis-72 p-4 border-border border rounded-t-normal">
+						<SmallText>Chat participants</SmallText>
+						<Divider className="my-2 border-border" />
+					</div>
 				</Tabs.Panel>
 			</Tabs>
 		</div>
 	);
 };
 
-const ChatItem: FC<{ name: string; active: boolean }> = ({ name, active }) => {
+const ChatItem: FC<{
+	name: string;
+	active: boolean;
+	latestComment: string;
+}> = ({ name, active, latestComment }) => {
+	// console.log(latestComment);
 	return (
-		<div className="flex gap-1 items-center">
-			{active ? (
+		<div className="items-center">
+			{/* {active ? (
 				<IconCircleDotFilled size={14} className="text-green-600" />
 			) : (
 				<IconCircleDot size={14} />
-			)}
+			)} */}
 			<div className="text-xs font-medium">{name}</div>
+			<Divider className="my-2 border-border" />
+			<SmallText light>
+				{latestComment?.length > 20
+					? latestComment.slice(0, 20) + "..."
+					: latestComment}
+			</SmallText>
 		</div>
 	);
 };
