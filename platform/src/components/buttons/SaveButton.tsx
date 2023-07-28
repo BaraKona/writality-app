@@ -7,11 +7,11 @@ export const SaveButton: FC<{
 }> = ({ onClick, isDisabled }) => {
 	return (
 		<Button
-			size="sm"
+			size="xs"
 			disabled={isDisabled}
-			variant="default"
+			variant="filled"
 			onClick={onClick}
-			className="text-blueText font-medium flex cursor-pointer items-center gap-1 group hover:text-black hover:bg-gray-100 rounded-normal px-2 text-xs"
+			color="grey-blue"
 		>
 			Save
 		</Button>

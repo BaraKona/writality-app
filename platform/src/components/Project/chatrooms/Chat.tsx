@@ -16,7 +16,7 @@ export const Chat: FC<{
 		<div className="flex-grow mx-auto bg-secondary">
 			<div
 				// make items start from bottom
-				className="flex flex-col-reverse gap-2 h-[calc(100vh-200px)] overflow-y-auto bg-black"
+				className="flex flex-col-reverse gap-2 h-[calc(100vh-200px)] overflow-y-auto "
 			>
 				<div className="flex flex-grow flex-col justify-end gap-2 px-2 ">
 					{comments?.map((comment, index) => (

@@ -33,7 +33,7 @@ export const ProjectSettings: FC<{ project: IProject }> = ({ project }) => {
 				</div>
 				<SaveButton isDisabled={!isEdited} onClick={mutate} />
 			</div>
-			<Divider className="my-4 border-border" />
+			<Divider my="xs" color="grey.0" />
 			<div className="flex flex-wrap flex-col gap-2 ">
 				{!project ? (
 					<Skeleton height={20} width={100} />

@@ -46,7 +46,8 @@ export const DeleteProjectSetting = () => {
 					/>
 				</div>
 			</div>
-			<Divider className="border-border my-4" />
+			<Divider my="xs" color="grey.0" />
+
 		</div>
 	);
 };
