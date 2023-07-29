@@ -1,7 +1,7 @@
 import { FC, ReactNode, useState } from "react";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
-import { IconDeviceFloppy, IconFileText } from "@tabler/icons";
+import { IconAtom2, IconDeviceFloppy, IconFileText } from "@tabler/icons";
 import {
 	Divider,
 	Flex,
@@ -45,7 +45,12 @@ export const EditorWrapper: FC<{
 		{
 			label: project?.title,
 			path: "/project/" + project?.uid + "/home",
-			icon: <IconBook2 size={18} />,
+			icon:
+				project?.type === "standard" ? (
+					<IconBook2 size={18} />
+				) : (
+					<IconAtom2 size={18} />
+				),
 			isLoading: isLoading,
 		},
 		{

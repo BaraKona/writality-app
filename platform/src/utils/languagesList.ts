@@ -78,7 +78,6 @@ export const languages = [
 	{ label: "Latin", value: "Latina" },
 	{ label: "Kosovar Albanian", value: "Shqip" },
 	{ label: "Tswana", value: "Setswana" },
-	{ label: "Swahili", value: "Kiswahili" },
 	{ label: "Balochi", value: "بلوچی" },
 	{ label: "Sinhalese", value: "සිංහල" },
 	{ label: "Tajik", value: "тоҷикӣ" },
@@ -127,9 +126,9 @@ export const languages = [
 	{ label: "Kirundi", value: "Ikirundi" },
 	{ label: "SiSwati", value: "SiSwati" },
 	{ label: "Bemba", value: "Ichibemba" },
-	{ label: "Wolof", value: "Wolof" },
 	{ label: "Mandinka", value: "Mandinka" },
 	{ label: "Sarekole", value: "Sarekole" },
 	{ label: "Jola-Fonyi", value: "Jola-Fonyi" },
 	{ label: "Jola", value: "Jola" },
+	{ label: "Cantonese", value: "廣東話" },
 ];

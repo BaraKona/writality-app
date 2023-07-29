@@ -8,6 +8,7 @@ import {
 	Flex,
 	SegmentedControl,
 	Switch,
+	Space,
 } from "@mantine/core";
 import { useUser } from "../../hooks/user/useUser";
 import { inputStyles } from "../../styles/inputStyles";
@@ -58,7 +59,7 @@ export const ProfileSettings = () => {
 						className=""
 						onLabel={<IconEye size="1rem" stroke={2.5} />}
 						offLabel={<IconEyeClosed size="1rem" stroke={2.5} />}
-						checked={userState.isPublic}
+						checked={userState.isPublic || false}
 						color="grey-blue"
 						onChange={(event) =>
 							setUserState({
@@ -152,7 +153,7 @@ export const ProfileSettings = () => {
 					nothingFound="Nothing found"
 					limit={5}
 				/>
-
+				<Space my="md" />
 				<Text size={20} className=" font-medium text-blueText">
 					Location
 				</Text>

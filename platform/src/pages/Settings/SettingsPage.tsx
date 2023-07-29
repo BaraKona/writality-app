@@ -32,12 +32,12 @@ export const SettingsPage: FC<{}> = () => {
 			>
 				<Tabs.List>
 					<Tooltip
-						label="General"
+						label="Profile"
 						position="right"
 						withArrow
 						styles={tooltipStyles}
 					>
-						<Tabs.Tab value="general">
+						<Tabs.Tab value="profile">
 							<IconUser size={18} />
 						</Tabs.Tab>
 					</Tooltip>
@@ -65,7 +65,7 @@ export const SettingsPage: FC<{}> = () => {
 						</Tabs.Tab>
 					</Tooltip> */}
 				</Tabs.List>
-				<Tabs.Panel value="general">
+				<Tabs.Panel value="profile">
 					<ProfileSettings />
 				</Tabs.Panel>
 				<Tabs.Panel value="language">
