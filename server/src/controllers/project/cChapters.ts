@@ -114,7 +114,7 @@ export const updateChapterContent = async (req: any, res: any) => {
 
 		Promise.all([
 			Version.create({
-				title: chapter.content.title,
+				title: chapter.title,
 				owner: userId,
 				projectId: projectId,
 				chapterId: chapterId,
