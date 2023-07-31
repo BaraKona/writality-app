@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 
 interface IBranch {
 	type: string;
+	title: string;
 	content: string;
 	uid: string;
 	name: string;
@@ -18,6 +19,10 @@ interface IBranch {
 }
 
 const branchSchema = new Schema<IBranch>({
+	title: {
+		type: String,
+		required: true,
+	},
 	type: {
 		type: String,
 		required: true,

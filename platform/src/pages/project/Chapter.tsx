@@ -48,6 +48,9 @@ import { useUpdateChapterContent } from "../../hooks/chapter/useUpdateChapterCon
 import { ChapterSettingsButton } from "../../components/Chapters/settings/ChapterSettingsButton";
 import { useLocalStorage } from "@mantine/hooks";
 import { MergeEditor } from "../../components/Editor/MergeEditor";
+import { BlockEditor } from "../../components/Editor/BlockEditor";
+import { useCreateChapterBranch } from "../../hooks/chapter/useCreateChapterBranch";
+import { MergeBlockEditor } from "../../components/Editor/MergeBlockEditor";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -65,6 +68,7 @@ export const Chapter = () => {
 	const [advancedMergeOpened, setAdvancedMergeOpened] = useState(false);
 	const [title, setTitle] = useState("");
 	const { chapter, project } = useParams();
+	const [editorContent, setEditorContent] = useState("");
 
 	const [sidebar, setSidebar] = useLocalStorage({
 		key: "chapter-sidebar",
@@ -75,7 +79,7 @@ export const Chapter = () => {
 	const branch = searchParams.get("branch");
 	const merge = searchParams.get("merge");
 
-	const { data: chapterContent } = useQuery(
+	const { data: chapterContent, isLoading } = useQuery(
 		["chapter", chapter],
 		() =>
 			getSingleChapter(currentUser.uid, project as string, chapter as string),
@@ -97,12 +101,7 @@ export const Chapter = () => {
 		{ enabled: !!chapterContent && !!branch }
 	);
 
-	const createBranchMutation = useMutation(createBranch, {
-		onSuccess: () => {
-			queryClient.invalidateQueries(["chapterBranches", chapter as string]);
-			setOpened(false);
-		},
-	});
+	const { mutate: createBranchMutation } = useCreateChapterBranch();
 	const deleteBranchMutation = useMutation(
 		() => deleteBranch(chapter as string, branch as string),
 		{
@@ -137,7 +136,7 @@ export const Chapter = () => {
 		() =>
 			updateBranch(chapter as string, branch as string, {
 				...currentBranch,
-				content: text,
+				content: editorContent,
 				dateUpdated: {
 					user: currentUser.uid,
 					date: new Date(),
@@ -200,14 +199,13 @@ export const Chapter = () => {
 				branchName={branchName}
 				setBranchName={setBranchName}
 				createBranch={() =>
-					createBranchMutation.mutate(
-						branchCreator(
-							chapterContent,
-							branchName,
-							currentUser.uid,
-							editor.getHTML()
-						)
-					)
+					createBranchMutation({
+						chapterId: chapter as string,
+						name: branchName,
+						title: title || chapterContent?.content.title,
+						projectId: project as string,
+						content: editorContent,
+					})
 				}
 				setOpened={setOpened}
 				opened={opened}
@@ -270,26 +268,36 @@ export const Chapter = () => {
 				save={
 					branch
 						? updateBranchMutation.mutate
-						: () => updateChapterContentMutation(editor.getHTML())
+						: () => updateChapterContentMutation(editorContent)
 				}
 				content={currentBranch ? currentBranch : chapterContent?.content}
 			>
 				{editor && !merge && (
-					<ChapterEditorController
-						chapterContent={chapterContent}
-						editor={editor}
-						content={
-							branch ? currentBranch.content : chapterContent?.content.content
-						}
+					// <ChapterEditorController
+					// 	chapterContent={chapterContent}
+					// 	editor={editor}
+					// 	content={
+					// 		branch ? currentBranch.content : chapterContent?.content.content
+					// 	}
+					// 	setTitle={setTitle}
+					// />
+					<BlockEditor
+						setEditorContent={setEditorContent}
+						content={branch ? currentBranch : chapterContent.content}
+						isLoading={isLoading}
 						setTitle={setTitle}
 					/>
 				)}
-				{merge && (
-					<MergeEditor
+				{merge && currentBranch && (
+					// <MergeEditor
+					// 	branch={currentBranch}
+					// 	main={chapterContent?.content}
+					// 	editor={editor}
+					// 	mergeReplace={() => replaceMain(currentBranch)}
+					// />
+					<MergeBlockEditor
 						branch={currentBranch}
-						main={chapterContent?.content}
-						editor={editor}
-						mergeReplace={() => replaceMain(currentBranch)}
+						main={chapterContent.content}
 					/>
 				)}
 				<div className="flex flex-row ">

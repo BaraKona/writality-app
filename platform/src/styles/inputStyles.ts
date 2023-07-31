@@ -7,6 +7,12 @@ export const inputStyles = {
 		fontSize: "0.75rem !important",
 		marginBottom: "0.5rem",
 		backgroundColor: "transparent",
+		"&:focus": {
+			outline: "none",
+			border: "none",
+			backgroundColor: "black",
+			"--tw-ring-color": "transparent",
+		},
 		input: {
 			border: "none",
 			fontSize: "0.75rem",

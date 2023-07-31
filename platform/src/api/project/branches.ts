@@ -17,14 +17,15 @@ export const getSingleBranch = async (chapterId: string, branchId: string) => {
 	return data;
 };
 
-export const createBranch = async (branch: IChapterVersion) => {
-	try {
-		const { data } = await branchApi.post("/", branch);
-		useToast("success", "Branch created successfully 😃");
-		return data;
-	} catch (err: any) {
-		console.log(err);
-	}
+export const createBranch = async (branch: {
+	title: string;
+	content: string;
+	projectId: string;
+	chapterId: string;
+	name: string;
+}) => {
+	const { data } = await branchApi.post("/", branch);
+	return data;
 };
 
 export const updateBranch = async (

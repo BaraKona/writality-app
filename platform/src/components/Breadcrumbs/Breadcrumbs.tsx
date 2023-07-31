@@ -13,12 +13,7 @@ export const Breadcrumbs: React.FC<{
 	items: BreadcrumbItemProp[];
 }> = ({ items }) => {
 	return (
-		<MantineBreadcrumbs
-			separator={<IconChevronRight size={14} />}
-			classNames={{
-				separator: "mx-0",
-			}}
-		>
+		<MantineBreadcrumbs separator={<IconChevronRight size={14} />}>
 			{items.map((item, index) => (
 				<BreadcrumbItem
 					isLast={index === items.length - 1}

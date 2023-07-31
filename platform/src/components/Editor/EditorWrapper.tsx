@@ -1,7 +1,12 @@
 import { FC, ReactNode, useState } from "react";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
-import { IconAtom2, IconDeviceFloppy, IconFileText } from "@tabler/icons";
+import {
+	IconAtom2,
+	IconDeviceFloppy,
+	IconFileText,
+	IconGitBranch,
+} from "@tabler/icons";
 import {
 	Divider,
 	Flex,
@@ -26,6 +31,7 @@ export const EditorWrapper: FC<{
 	const [searchParams, setSearchParams] = useSearchParams();
 	const location = useLocation();
 	const merge = searchParams.get("merge");
+	const branch = searchParams.get("branch");
 
 	if (isLoading) {
 		return (
@@ -54,16 +60,21 @@ export const EditorWrapper: FC<{
 			isLoading: isLoading,
 		},
 		{
-			label:
-				"[" +
-				content?.type +
-				"] " +
-				(content.title || content.name || "Untitled Chapter"),
-			path: location.pathname + "?branch=" + content?.uid,
+			label: "[main] " + content.title || "[main] Untitled Chapter",
+			path: location.pathname,
 			icon: <IconFileText size={18} />,
 			isLoading: isLoading,
 		},
 	];
+
+	if (branch) {
+		breadcrumbs.push({
+			label: "[" + content?.type + "] " + (content.name || "Untitled Chapter"),
+			path: location.pathname + "?branch=" + branch,
+			icon: <IconGitBranch size={18} />,
+			isLoading: isLoading,
+		});
+	}
 
 	if (merge === "replace") {
 		breadcrumbs.push({

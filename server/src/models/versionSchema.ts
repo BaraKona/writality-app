@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 
 interface IVersion {
+	title: string;
 	type: string;
 	content: string;
 	uid: string;
@@ -14,6 +15,10 @@ interface IVersion {
 }
 
 const versionSchema = new Schema<IVersion>({
+	title: {
+		type: String,
+		required: true,
+	},
 	type: {
 		type: String,
 		required: true,

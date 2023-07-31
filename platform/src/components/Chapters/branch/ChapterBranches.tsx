@@ -108,7 +108,7 @@ export const ChapterBranches: FC<{
 								</div>
 								{branch.uid === currentBranch?.uid ? (
 									<div className="flex flex-row gap-1 transition-all ease-in-out duration-200">
-										<div className="flex  flex-col border-l border-border gap-1">
+										<div className="flex ml-1.5 flex-col border-l border-border gap-1">
 											<button
 												onClick={() => openMergeModal("replace")}
 												className="flex gap-1 text-blueText text-xs font-medium items-center hover:text-black px-2 border-border group"

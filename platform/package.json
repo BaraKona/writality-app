@@ -9,6 +9,8 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@blocknote/core": "^0.8.2",
+		"@blocknote/react": "^0.8.2",
 		"@emotion/react": "^11.10.6",
 		"@emotion/server": "^11.10.0",
 		"@mantine/carousel": "^6.0.16",
@@ -29,10 +31,12 @@
 		"@tiptap/pm": "^2.0.3",
 		"@tiptap/react": "^2.0.3",
 		"@tiptap/starter-kit": "^2.0.3",
+		"@types/diff": "^5.0.3",
 		"@vercel/analytics": "^1.0.1",
 		"axios": "^1.2.1",
 		"cheerio": "^1.0.0-rc.12",
 		"dayjs": "^1.11.7",
+		"diff": "^5.1.0",
 		"dotenv": "^16.0.3",
 		"embla-carousel-react": "^8.0.0-rc10",
 		"firebase": "^9.15.0",
