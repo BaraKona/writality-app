@@ -33,7 +33,7 @@ export const BlockEditor: FC<{
 	editor.isEditable = isEditable ? isEditable : false;
 
 	if (!isLoading && t == 0) {
-		editor.replaceBlocks(editor.topLevelBlocks, JSON.parse(content.content));
+		editor.replaceBlocks(editor?.topLevelBlocks, JSON.parse(content?.content));
 		console.log("replaced");
 		setT(t + 1);
 	}
