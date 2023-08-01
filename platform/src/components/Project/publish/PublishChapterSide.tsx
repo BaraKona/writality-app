@@ -37,7 +37,7 @@ export const PublishChapterSide: FC<{
 		);
 	editor.isEditable = false;
 	return (
-		<div className="flex flex-col flex-grow px-3 mx-auto w-80 bg-base border border-border rounded-normal">
+		<div className="flex flex-col flex-grow  mx-auto w-80 bg-base border border-border rounded-normal">
 			<div className="max-w-4xl mx-auto py-10 h-[calc(100vh-7.5rem)] overflow-y-auto">
 				<Textarea
 					placeholder="Title"
