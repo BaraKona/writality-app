@@ -66,6 +66,11 @@ const dashboardRoutes: RouteObject[] = [
 		errorElement: <Error />,
 	},
 	{
+		path: "/project/:project/:projectTab/chapter/:chapter/",
+		element: <Project />,
+		errorElement: <Error />,
+	},
+	{
 		path: "/project/:project/:projectTab",
 		element: <Project />,
 		errorElement: <Error />,

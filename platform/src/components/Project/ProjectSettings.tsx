@@ -21,7 +21,7 @@ export const ProjectSettings: FC<{ project: IProject }> = ({ project }) => {
 	);
 
 	return (
-		<div className="px-4 py-2">
+		<div className="px-4 py-2 bg-base border border-border rounded-normal">
 			<div className="flex">
 				<div className="mr-auto">
 					<div className="text-md font-semibold text-blueText">

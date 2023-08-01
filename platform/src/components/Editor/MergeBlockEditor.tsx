@@ -13,23 +13,23 @@ import { IconGitMerge } from "@tabler/icons";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 const emptyContent = JSON.stringify([
 	{
-			id: "77388834-76ac-4d3c-9477-c6b92a71e260",
-			type: "paragraph",
-			props: {
-				textColor: "default",
-				backgroundColor: "default",
-				textAlignment: "left",
+		id: "77388834-76ac-4d3c-9477-c6b92a71e260",
+		type: "paragraph",
+		props: {
+			textColor: "default",
+			backgroundColor: "default",
+			textAlignment: "left",
+		},
+		content: [
+			{
+				type: "text",
+				text: "",
+				styles: {},
 			},
-			content: [
-				{
-					type: "text",
-					text: "",
-					styles: {},
-				},
-			],
-			children: [],
-		}
-])
+		],
+		children: [],
+	},
+]);
 
 export const MergeBlockEditor: FC<{
 	branch: IChapterVersion;
@@ -42,47 +42,50 @@ export const MergeBlockEditor: FC<{
 	if (merge === "replace") {
 		const editor: BlockNoteEditor | null = useBlockNote({
 			initialContent: JSON.parse(branch?.content),
-		});
-		editor?.topLevelBlocks.forEach((block) => {
-			editor.updateBlock(block?.id, {
-				props: {
-					...block.props,
-					textColor: "blue",
-				},
-			});
+			onEditorReady(editor) {
+				editor?.topLevelBlocks.forEach((block) => {
+					editor.updateBlock(block?.id, {
+						props: {
+							...block.props,
+							textColor: "blue",
+						},
+					});
+				});
+			},
 		});
 		return (
 			<div className="h-[calc(100vh-7.3rem)] border bg-base border-border rounded-normal w-full">
 				<div className="max-w-4xl mx-auto py-10 h-[calc(100vh-7.5rem)] overflow-y-auto">
 					<Textarea
-					placeholder="Title"
-					defaultValue={branch.title}
-					minRows={1}
-					maxRows={4}
-					styles={{
-						...inputStyles,
-						input: {
-							...inputStyles.input,
-							fontSize: "3rem !important",
-							fontWeight: 800,
-							padding: "0 3rem",
-							height: "auto",
-							border: "none",
-							backgroundColor: "transparent",
-							color: "#25262b",
-							margin: "1rem auto",
-						},
-					}}
-				/>
+						placeholder="Title"
+						defaultValue={branch.title}
+						minRows={1}
+						maxRows={4}
+						styles={{
+							...inputStyles,
+							input: {
+								...inputStyles.input,
+								fontSize: "3rem !important",
+								fontWeight: 800,
+								padding: "0 3rem",
+								height: "auto",
+								border: "none",
+								backgroundColor: "transparent",
+								color: "#25262b",
+								margin: "1rem auto",
+							},
+						}}
+					/>
 					<BlockNoteView editor={editor} />
 				</div>
-			</div >
-
-
+			</div>
 		);
 	}
 	const initialContent: string | null = JSON.stringify(
-		highlightDifferences(JSON.parse(main?.content || emptyContent), JSON.parse(branch?.content))
+		highlightDifferences(
+			JSON.parse(main?.content || emptyContent),
+			JSON.parse(branch?.content)
+		)
 	);
 
 	const editor: BlockNoteEditor | null = useBlockNote({

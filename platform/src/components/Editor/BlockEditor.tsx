@@ -1,7 +1,7 @@
 import { BlockNoteEditor } from "@blocknote/core";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/core/style.css";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { IChapterContent } from "../../interfaces/IChapterContent";
 import { Skeleton, TextInput, Textarea } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
@@ -9,33 +9,34 @@ import { inputStyles } from "../../styles/inputStyles";
 export const BlockEditor: FC<{
 	setEditorContent: React.Dispatch<React.SetStateAction<string>>;
 	content: IChapterContent;
+	editor: BlockNoteEditor | null;
 	isLoading: boolean;
 	setTitle: React.Dispatch<React.SetStateAction<string>>;
 	isEditable?: boolean;
-}> = ({ setEditorContent, content, isLoading, setTitle, isEditable }) => {
-	if (isLoading)
+}> = ({
+	setEditorContent,
+	content,
+	isLoading,
+	setTitle,
+	isEditable,
+	editor,
+}) => {
+	const [t, setT] = useState(0);
+
+	if (isLoading || !editor || !content)
 		return (
 			<div className="h-[calc(100vh-7.5rem)] w-full border bg-base border-border rounded-normal">
 				<Skeleton height="calc(100vh-7.5rem)" />
 			</div>
 		);
 
-	const initialContent: string | null = content
-		? content.content
-		: localStorage.getItem("editorContent");
+	editor.isEditable = isEditable ? isEditable : false;
 
-	const editor: BlockNoteEditor | null = useBlockNote({
-		initialContent: initialContent ? JSON.parse(initialContent) : undefined,
-		onEditorContentChange: (editor) => {
-			setEditorContent(JSON.stringify(editor.topLevelBlocks));
-		},
-		onEditorReady() {
-			setEditorContent(initialContent ? initialContent : "");
-		},
-		editable: isEditable,
-
-	});
-
+	if (!isLoading && t == 0) {
+		editor.replaceBlocks(editor.topLevelBlocks, JSON.parse(content.content));
+		console.log("replaced");
+		setT(t + 1);
+	}
 
 	return (
 		<div className="h-[calc(100vh-7.3rem)] w-full border bg-base border-border rounded-normal">

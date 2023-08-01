@@ -4,6 +4,7 @@ import { TabContextWrapper } from "./contexts/TabContext";
 import { publicRouter, router } from "./router";
 import { MainLoader } from "./components/MainLoader";
 import { useUser } from "./hooks/user/useUser";
+import { EditorContextWrapper } from "./contexts/EditorContext";
 
 export function AuthenticatedApp({}) {
 	const { data: currentUser, isLoading } = useUser();
@@ -18,7 +19,9 @@ export function AuthenticatedApp({}) {
 
 	return (
 		<TabContextWrapper>
-			<RouterProvider router={router} />
+			<EditorContextWrapper>
+				<RouterProvider router={router} />
+			</EditorContextWrapper>
 		</TabContextWrapper>
 	);
 }

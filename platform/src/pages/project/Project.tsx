@@ -36,16 +36,18 @@ import { tabStyles } from "../../styles/tabStyles";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { useCreateChapter } from "../../hooks/chapter/useCreateChapter";
 import { FourOFour } from "../404";
-
+import { PublishChapterSide } from "../../components/Project/publish/PublishChapterSide";
+import { Block, BlockNoteEditor } from "@blocknote/core";
+import { useBlockNote } from "@blocknote/react";
+import { useEditorContext } from "../../contexts/EditorContext";
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
-	const { project, projectTab } = useParams();
+	const { project, projectTab, chapter } = useParams();
 	const [openModal, setOpenModal] = useState(false);
-	const [openDeleteProject, setOpenDeleteProject] = useState(false);
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
-
+	// const { editor, content, setContent } = useEditorContext();
 	const { data: currentProject, isLoading: projectLoading } = useSingleProject(
 		project as string
 	);
@@ -89,10 +91,21 @@ export function Project() {
 		navigate(`/project/${projectId}/chapter/${chapterId}`);
 	};
 
-	const editor = useEditor({
+	const openPublishChapter = (
+		projectId: string,
+		chapterId: string,
+		chapter: IChapter
+	) => {
+		editor?.replaceBlocks(
+			editor.topLevelBlocks,
+			JSON.parse(chapter.content?.content || "[]")
+		);
+		navigate(`/project/${projectId}/publish/chapter/${chapterId}/`);
+	};
+	const editor = useBlockNote({});
+	const tipTapEditor = useEditor({
 		extensions,
 	});
-
 	if (currentProject === null) {
 		return <FourOFour />;
 	}
@@ -145,7 +158,7 @@ export function Project() {
 							withArrow
 							styles={tooltipStyles}
 						>
-							<Tabs.Tab value="publish" disabled>
+							<Tabs.Tab value="publish">
 								<IconNews size={18} />
 							</Tabs.Tab>
 						</Tooltip>
@@ -186,13 +199,9 @@ export function Project() {
 							>
 								{isLoading ? (
 									<>
-										<Skeleton h={20} w="100%" m={3} />
-										<Skeleton h={20} w="100%" m={3} />
-										<Skeleton h={20} w="100%" m={3} />
-										<Skeleton h={20} w="100%" m={3} />
-										<Skeleton h={20} w="100%" m={3} />
-										<Skeleton h={20} w="100%" m={3} />
-										<Skeleton h={20} w="100%" m={3} />
+										{[...Array(10)].map((_, i) => (
+											<Skeleton h={20} w="100%" m={3} />
+										))}
 									</>
 								) : (
 									<>
@@ -212,24 +221,70 @@ export function Project() {
 														}
 														disabled={false}
 													/>
-												))}{" "}
+												))}
 											</>
 										)}
 									</>
 								)}
 							</ChapterRenderer>
-							<Divider color="grey.0" orientation="vertical" />
+							{/* <Divider color="grey.0" orientation="vertical" /> */}
 							<ProjectDescription
 								project={currentProject}
 								user={currentUser.uid}
-								editor={editor}
+								editor={tipTapEditor}
 								updateDescription={updateDescription.mutate}
 							/>
 
 							{/* <CharacterWrapper> - Protagonist </CharacterWrapper> */}
 						</div>
 					</Tabs.Panel>
-
+					<Tabs.Panel value="publish">
+						<div className="flex flex-wrap gap-2">
+							<PublishChapterSide
+								chapter={chapters?.find((c: IChapter) => c.uid === chapter)}
+								editor={editor}
+							/>
+							<ChapterRenderer
+								chapterCount={chapters?.length}
+								createNewChapter={createNewChapter}
+								isLoading={isLoading}
+							>
+								{isLoading ? (
+									<>
+										{[...Array(10)].map((_, i) => (
+											<Skeleton h={20} w="100%" m={3} />
+										))}
+									</>
+								) : (
+									<>
+										{chapters?.length == 0 ? (
+											<NoChapters createNewChapter={createNewChapter} />
+										) : (
+											<>
+												{chapters?.map((chapter: IChapter, index: number) => (
+													<Chapter
+														openChapter={() =>
+															openPublishChapter(
+																chapter.projectId,
+																chapter.uid,
+																chapter
+															)
+														}
+														key={index}
+														chapter={chapter}
+														openChapterModal={() =>
+															openChapterModal(chapter.uid)
+														}
+														disabled={false}
+													/>
+												))}{" "}
+											</>
+										)}
+									</>
+								)}
+							</ChapterRenderer>
+						</div>
+					</Tabs.Panel>
 					<Tabs.Panel value="world-info">
 						<CharacterWrapper> - Protagonist </CharacterWrapper>
 					</Tabs.Panel>

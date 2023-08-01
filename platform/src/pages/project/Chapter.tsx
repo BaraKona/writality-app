@@ -54,6 +54,7 @@ import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChapterMergeButton } from "../../components/Chapters/merge/ChapterMergeButton";
 import { MergeBranchModal } from "../../components/Chapters/merge/MergeChapterMondal";
 import { Divider } from "@mantine/core";
+import { useBlockNote } from "@blocknote/react";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -66,9 +67,7 @@ export const Chapter = () => {
 	const [versionModalOpen, setVersionModalOpen] = useState(false);
 	const [UpdateContentModalOpen, setUpdateContentModalOpen] = useState(false);
 	const [openDeleteBranch, setOpenDeleteBranch] = useState(false);
-	const [position, setPosition] = useState<string | null>(null);
 	const [version, setVersion] = useState({} as any);
-	const [advancedMergeOpened, setAdvancedMergeOpened] = useState(false);
 	const [title, setTitle] = useState("");
 	const { chapter, project } = useParams();
 	const [editorContent, setEditorContent] = useState("");
@@ -155,30 +154,6 @@ export const Chapter = () => {
 			},
 		}
 	);
-	const mergePosition = useMutation(
-		() =>
-			mergePositionMain(
-				currentUser.uid,
-				project as string,
-				chapter as string,
-				position || "",
-				currentBranch,
-				useAppendHistory(currentUser.uid, chapterContent, currentBranch.name),
-				{
-					user: currentUser.uid,
-					date: Date.now(),
-				}
-			),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(["chapter", chapter as string]);
-				queryClient.invalidateQueries(["versions", chapter as string]);
-				searchParams.delete("branch");
-				setSearchParams(searchParams);
-				setMergeOpened(false);
-			},
-		}
-	);
 
 	const closeSidebar = () => {
 		setSidebar("");
@@ -187,6 +162,10 @@ export const Chapter = () => {
 	const navigateToMain = () => {
 		searchParams.delete("branch");
 		searchParams.delete("merge");
+		blockEditor?.replaceBlocks(
+			blockEditor.topLevelBlocks,
+			JSON.parse(chapterContent?.content.content || "[]")
+		);
 		setSearchParams(searchParams);
 	};
 
@@ -194,6 +173,9 @@ export const Chapter = () => {
 		searchParams.set("merge", type);
 		setSearchParams(searchParams);
 	};
+
+	const blockEditor = useBlockNote({});
+
 	const editor = useEditor({
 		extensions,
 	});
@@ -217,16 +199,6 @@ export const Chapter = () => {
 				setOpened={setOpened}
 				opened={opened}
 			/>
-			{/* {branch && currentBranch && (
-				<AdvancedMergeModal
-					setOpened={setAdvancedMergeOpened}
-					opened={advancedMergeOpened}
-					main={chapterContent?.content}
-					setText={setText}
-					currentContent={currentBranch}
-					mergeBranch={() => replaceMain(currentBranch.content)}
-				/>
-			)} */}
 			<DeleteModal
 				setOpened={setOpenDeleteBranch}
 				opened={openDeleteBranch}
@@ -250,7 +222,16 @@ export const Chapter = () => {
 					setUpdateContentModalOpen(false);
 				}}
 			/>
-			<MergeBranchModal opened={mergeOpened} setMergeOpened={setMergeOpened} currentBranch={currentBranch} mergeBranch={merge === "replace" ? () => replaceMain(currentBranch) : () => console.log('ff')}/>
+			<MergeBranchModal
+				opened={mergeOpened}
+				setMergeOpened={setMergeOpened}
+				currentBranch={currentBranch}
+				mergeBranch={
+					merge === "replace"
+						? () => replaceMain(currentBranch)
+						: () => console.log("ff")
+				}
+			/>
 			<VersionModal
 				setOpened={setVersionModalOpen}
 				opened={versionModalOpen}
@@ -272,6 +253,7 @@ export const Chapter = () => {
 					<BlockEditor
 						setEditorContent={setEditorContent}
 						content={branch ? currentBranch : chapterContent.content}
+						editor={blockEditor}
 						isLoading={isLoading}
 						setTitle={setTitle}
 						isEditable={Boolean(branch) || currentProject?.type === "standard"}
@@ -299,13 +281,10 @@ export const Chapter = () => {
 						/>
 						{merge === "replace" && (
 							<>
-							<Divider my={2} color="grey.0" />
-							<ChapterMergeButton
-								setOpen={() => setMergeOpened(true)}
-							/>
+								<Divider my={2} color="grey.0" />
+								<ChapterMergeButton setOpen={() => setMergeOpened(true)} />
 							</>
 						)}
-
 					</ChapterSidebar>
 					<div>
 						<ChapterBranchMenu
