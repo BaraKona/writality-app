@@ -33,6 +33,7 @@ export const ChapterBranches: FC<{
 	close,
 }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
+	const merge = searchParams.get("merge");
 	// if (!chapterBranches) {
 	// 	return null;
 	// }
@@ -43,25 +44,25 @@ export const ChapterBranches: FC<{
 				<ButtonWrapper onClick={openBranchModal} className="ml-auto">
 					<IconPlus
 						size={14}
-						className="text-gray-400 group-hover:text-black"
+						className="text-blueTextLight group-hover:text-black"
 					/>
 				</ButtonWrapper>
 				<ButtonWrapper onClick={close}>
-					<IconX size={14} className="text-gray-400 group-hover:text-black" />
+					<IconX size={14} className="text-blueTextLight group-hover:text-black" />
 				</ButtonWrapper>
 			</div>
 			<Divider color="grey.0" />
 			{chapterBranches?.length > 0 ? (
 				<div className="text-blueText">
 					<div className="flex justify-between gap-2 border-b border-border items-center">
-						<div className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-xs font-medium">
+						<div className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-xs font-medium" onClick={checkoutMain}>
 							<div
 								className={`hover:text-black ${
 									currentBranch?.uid === mainContent?.uid
 										? "text-blueText"
-										: "text-gray-400"
+										: "text-blueTextLight"
 								}`}
-								onClick={checkoutMain}
+
 							>
 								<VscGitPullRequestCreate size={14} />
 							</div>
@@ -87,7 +88,7 @@ export const ChapterBranches: FC<{
 											className={`hover:text-black ${
 												branch.uid === currentBranch?.uid
 													? "text-black"
-													: "text-gray-400"
+													: "text-blueTextLight"
 											}`}
 											onClick={() =>
 												setSearchParams((prev) => {
@@ -108,34 +109,31 @@ export const ChapterBranches: FC<{
 								</div>
 								{branch.uid === currentBranch?.uid ? (
 									<div className="flex flex-row gap-1 transition-all ease-in-out duration-200">
-										<div className="flex ml-1.5 flex-col border-l border-border gap-1">
+										<div className="flex ml-1.5 flex-col border-l border-border gap-1 px-1">
 											<button
 												onClick={() => openMergeModal("replace")}
-												className="flex gap-1 text-blueText text-xs font-medium items-center hover:text-black px-2 border-border group"
+												className={`flex gap-1 text-blueText text-xs font-medium items-center rounded-normal hover:text-black px-2 border-border group ${merge === 'replace' ? 'bg-tertiary' : ''}`}
 											>
 												<VscGitMerge
 													size={14}
-													className="group-hover:text-blue-500 text-gray-400 "
 												/>{" "}
 												Merge branch replace main
 											</button>
 											<button
 												onClick={() => openMergeModal("into")}
-												className="flex gap-1 text-blueText text-xs font-medium items-center px-2 group"
+												className={`flex gap-1 text-blueText text-xs font-medium items-center px-2 hover:bg-tertiary rounded-normal ${merge === 'into' ? 'bg-tertiary' : ''}`}
 											>
 												<VscGitMerge
 													size={14}
-													className="group-hover:text-red-500 text-gray-400"
 												/>
 												Merge branch into main
 											</button>
 											<button
 												onClick={() => openDeleteBranch(true)}
-												className="flex gap-1 text-blueText text-xs font-medium items-center px-2 group"
+												className="flex gap-1 text-blueText text-xs font-medium items-center px-2 hover:bg-tertiary rounded-normal"
 											>
 												<VscGitPullRequestClosed
 													size={14}
-													className="group-hover:text-red-500 text-gray-400"
 												/>
 												Delete branch
 											</button>

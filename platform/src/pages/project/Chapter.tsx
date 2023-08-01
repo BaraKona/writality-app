@@ -26,7 +26,6 @@ import {
 	deleteBranch,
 } from "../../api/project/branches";
 import {
-	MergeBranchModal,
 	UpdateContentModal,
 	DeleteModal,
 	VersionModal,
@@ -51,6 +50,9 @@ import { MergeEditor } from "../../components/Editor/MergeEditor";
 import { BlockEditor } from "../../components/Editor/BlockEditor";
 import { useCreateChapterBranch } from "../../hooks/chapter/useCreateChapterBranch";
 import { MergeBlockEditor } from "../../components/Editor/MergeBlockEditor";
+import { useSingleProject } from "../../hooks/projects/useSingleProject";
+import { ChapterMergeButton } from "../../components/Chapters/merge/ChapterMergeButton";
+import { MergeBranchModal } from "../../components/Chapters/merge/MergeChapterMondal";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -78,6 +80,10 @@ export const Chapter = () => {
 	const queryClient = useQueryClient();
 	const branch = searchParams.get("branch");
 	const merge = searchParams.get("merge");
+
+	const { data: currentProject, isLoading: projectLoading } = useSingleProject(
+		project as string
+	);
 
 	const { data: chapterContent, isLoading } = useQuery(
 		["chapter", chapter],
@@ -210,7 +216,7 @@ export const Chapter = () => {
 				setOpened={setOpened}
 				opened={opened}
 			/>
-			{branch && currentBranch && (
+			{/* {branch && currentBranch && (
 				<AdvancedMergeModal
 					setOpened={setAdvancedMergeOpened}
 					opened={advancedMergeOpened}
@@ -219,7 +225,7 @@ export const Chapter = () => {
 					currentContent={currentBranch}
 					mergeBranch={() => replaceMain(currentBranch.content)}
 				/>
-			)}
+			)} */}
 			<DeleteModal
 				setOpened={setOpenDeleteBranch}
 				opened={openDeleteBranch}
@@ -243,18 +249,7 @@ export const Chapter = () => {
 					setUpdateContentModalOpen(false);
 				}}
 			/>
-			<MergeBranchModal
-				setMergeOpened={setMergeOpened}
-				mergeOpened={false}
-				replaceMain={() => replaceMain(currentBranch.content)}
-				mergeBranch={mergePosition.mutate}
-				currentBranch={currentBranch}
-				setPosition={setPosition}
-				position={position || ""}
-				openAdvancedMerge={() => {
-					setAdvancedMergeOpened(true), setMergeOpened(false);
-				}}
-			/>
+			<MergeBranchModal opened={mergeOpened} setMergeOpened={setMergeOpened} currentBranch={currentBranch} mergeBranch={merge === "replace" ? () => replaceMain(currentBranch) : () => console.log('ff')}/>
 			<VersionModal
 				setOpened={setVersionModalOpen}
 				opened={versionModalOpen}
@@ -273,28 +268,15 @@ export const Chapter = () => {
 				content={currentBranch ? currentBranch : chapterContent?.content}
 			>
 				{editor && !merge && (
-					// <ChapterEditorController
-					// 	chapterContent={chapterContent}
-					// 	editor={editor}
-					// 	content={
-					// 		branch ? currentBranch.content : chapterContent?.content.content
-					// 	}
-					// 	setTitle={setTitle}
-					// />
 					<BlockEditor
 						setEditorContent={setEditorContent}
 						content={branch ? currentBranch : chapterContent.content}
 						isLoading={isLoading}
 						setTitle={setTitle}
+						isEditable={Boolean(branch) || currentProject?.type === "standard"}
 					/>
 				)}
 				{merge && currentBranch && (
-					// <MergeEditor
-					// 	branch={currentBranch}
-					// 	main={chapterContent?.content}
-					// 	editor={editor}
-					// 	mergeReplace={() => replaceMain(currentBranch)}
-					// />
 					<MergeBlockEditor
 						branch={currentBranch}
 						main={chapterContent.content}
@@ -314,7 +296,12 @@ export const Chapter = () => {
 							setActive={() => setSidebar("history")}
 							active={sidebar === "history"}
 						/>
-						{/* <ChapterSettingsButton setActive={() => setSidebar("settings")} /> */}
+						{merge === "replace" && (
+							<ChapterMergeButton
+								setOpen={() => setMergeOpened(true)}
+							/>
+						)}
+
 					</ChapterSidebar>
 					<div>
 						<ChapterBranchMenu
@@ -346,10 +333,6 @@ export const Chapter = () => {
 							close={() => closeSidebar()}
 							active={sidebar === "history"}
 						/>
-						{/* <ChapterSettingsMenu
-							close={() => closeSidebar()}
-							active={sidebar === "settings"}
-						/> */}
 					</div>
 				</div>
 			</EditorWrapper>

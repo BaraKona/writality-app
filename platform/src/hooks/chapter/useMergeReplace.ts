@@ -8,8 +8,8 @@ export const useMergeReplace = (project: string, chapter: string) => {
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 	return useMutation(
-		async (content: IChapterVersion) => {
-			const { data } = await mergeReplaceMain(project, chapter, content);
+		async (branch: IChapterVersion) => {
+			const { data } = await mergeReplaceMain(project, chapter, branch);
 			return data;
 		},
 		{
@@ -19,6 +19,9 @@ export const useMergeReplace = (project: string, chapter: string) => {
 				queryClient.invalidateQueries(["versions", chapter]);
 				navigate(`/project/${project}/chapter/${chapter}`);
 			},
+			onError: () => {
+				useToast("error", "Something went wrong... chapter not updated 😞");
+			}
 		}
 	);
 };

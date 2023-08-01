@@ -223,7 +223,8 @@ export const mergePositionMain = async (req: any, res: any) => {
 export const mergeReplaceMain = async (req: any, res: any) => {
 	const { chapterId, projectId } = req.params;
 	const userId = req.user.uid;
-	const { content } = req.body;
+	const { content, title } = req.body;
+
 	try {
 		const chapter = await Chapter.findOne({
 			uid: chapterId,
@@ -239,8 +240,10 @@ export const mergeReplaceMain = async (req: any, res: any) => {
 			},
 			type: "Main",
 			name: "previous main",
+			title,
 		});
-		chapter.content.content = content.content;
+		chapter.content.content = content;
+		chapter.content.title = title;
 		chapter.history.push({
 			date: new Date(),
 			user: userId,

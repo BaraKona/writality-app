@@ -11,7 +11,8 @@ export const BlockEditor: FC<{
 	content: IChapterContent;
 	isLoading: boolean;
 	setTitle: React.Dispatch<React.SetStateAction<string>>;
-}> = ({ setEditorContent, content, isLoading, setTitle }) => {
+	isEditable?: boolean;
+}> = ({ setEditorContent, content, isLoading, setTitle, isEditable }) => {
 	if (isLoading)
 		return (
 			<div className="h-[calc(100vh-7.5rem)] w-full border bg-base border-border rounded-normal">
@@ -31,6 +32,7 @@ export const BlockEditor: FC<{
 		onEditorReady() {
 			setEditorContent(initialContent ? initialContent : "");
 		},
+		editable: isEditable
 	});
 
 	return (
@@ -40,6 +42,7 @@ export const BlockEditor: FC<{
 					placeholder="Title"
 					defaultValue={content.title}
 					onChange={(e) => (setTitle ? setTitle(e.target.value) : null)}
+					readOnly={!isEditable}
 					minRows={1}
 					maxRows={4}
 					styles={{

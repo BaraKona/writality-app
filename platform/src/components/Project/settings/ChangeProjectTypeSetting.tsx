@@ -1,6 +1,7 @@
-import { Divider, Select } from "@mantine/core";
+import { Divider, Select, Text } from "@mantine/core";
 import { ProjectType } from "../../../interfaces/IProject";
 import { Dispatch, FC, SetStateAction, useState } from "react";
+import { IconExclamationCircle } from "@tabler/icons";
 export const ChangeProjectTypeSetting: FC<{
 	setIsEdited: Dispatch<SetStateAction<boolean>>;
 	currentProjectType: ProjectType;
@@ -18,7 +19,7 @@ export const ChangeProjectTypeSetting: FC<{
 			<p className="text-xs font-light mb-2">
 				Change the type of project you are working on.
 			</p>
-			<div className="flex items-center gap-2">
+			<div className="items-center gap-2">
 				<Select
 					placeholder="Collaboration"
 					defaultValue={currentProjectType}
@@ -52,11 +53,20 @@ export const ChangeProjectTypeSetting: FC<{
 						},
 					}}
 				/>
-				<p className="text-[0.7rem] font-light mb-2 max-w-[17.5rem] leading-normal align-middle">
+				<Text className="font-light mt-2 leading-normal" size="xs" color="dimmed">
 					{projectType === ProjectType.standard
 						? "Standard projects are for individual use. You can invite collaborators to your project, but you will be the only one who can edit the project."
-						: "Collaboration projects are for teams. You can invite collaborators to your project, and they will be able to edit the project."}
-				</p>
+						: "Collaboration projects are for teams. You can invite collaborators to your project, and they will be able to edit the project. You cannot edit the main chapters of the project and will only be able to edit them through merging branches."}
+				</Text>
+				<Text className="font-light mt-2 text-red-200" size="xs" color="dimmed">
+					{projectType !== ProjectType.standard && (
+						<div className="flex gap-1 items-center">
+						<IconExclamationCircle size={16} color="red" className="basis-16" />
+							Collaborative projects do not allow you to edit the main directly. You can only edit the main through merging branches.
+						</div>
+
+					)}
+				</Text>
 			</div>
 			<Divider my="xs" color="grey.0" />
 

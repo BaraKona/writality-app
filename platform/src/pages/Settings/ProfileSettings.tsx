@@ -60,7 +60,7 @@ export const ProfileSettings = () => {
 						onLabel={<IconEye size="1rem" stroke={2.5} />}
 						offLabel={<IconEyeClosed size="1rem" stroke={2.5} />}
 						checked={userState.isPublic || false}
-						color="grey-blue"
+						color="greyBlue"
 						onChange={(event) =>
 							setUserState({
 								...userState,

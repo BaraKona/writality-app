@@ -22,11 +22,11 @@ export const BlueButton: FC<{
 			disabled={disabled}
 			type="submit"
 			onClick={onClick}
-			className="w-full"
+			className="w-full flex gap-2"
 			size="xs"
 			w="100%"
 			variant="filled"
-			color="grey-blue"
+			color="greyBlue"
 		>
 			{children}
 		</Button>

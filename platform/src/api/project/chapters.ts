@@ -95,11 +95,11 @@ export const mergePositionMain = async (
 export const mergeReplaceMain = async (
 	projectId: string,
 	chapterId: string,
-	content: IChapterVersion
+	branch: IChapterVersion
 ) => {
 	const { data } = await chapterApi.patch(
 		`/merge/replace/${projectId}/${chapterId}`,
-		{ content }
+		branch
 	);
 	return data;
 };

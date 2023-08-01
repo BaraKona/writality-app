@@ -11,7 +11,7 @@ export const SaveButton: FC<{
 			disabled={isDisabled}
 			variant="filled"
 			onClick={onClick}
-			color="grey-blue"
+			color="greyBlue"
 		>
 			Save
 		</Button>

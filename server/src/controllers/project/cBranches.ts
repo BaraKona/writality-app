@@ -6,7 +6,7 @@ export const createBranch = async (req: any, res: any) => {
 	const newBranch = new Branch({
 		type: "branch",
 		content,
-		title,
+		title: title || "Untitled Chapter",
 		uid: uuidv4(),
 		dateCreated: {
 			user: userId,

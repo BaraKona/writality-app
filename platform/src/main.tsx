@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 				theme={{
 					// colorScheme: "dark",
 					colors: {
-						"grey-blue": [
+						greyBlue: [
 							"#f0f2f4",
 							"#d2d7df",
 							"#b4bcca",
