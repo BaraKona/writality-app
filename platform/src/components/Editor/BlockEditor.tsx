@@ -32,8 +32,10 @@ export const BlockEditor: FC<{
 		onEditorReady() {
 			setEditorContent(initialContent ? initialContent : "");
 		},
-		editable: isEditable
+		editable: isEditable,
+
 	});
+
 
 	return (
 		<div className="h-[calc(100vh-7.3rem)] w-full border bg-base border-border rounded-normal">

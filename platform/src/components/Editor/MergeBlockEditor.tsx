@@ -43,6 +43,14 @@ export const MergeBlockEditor: FC<{
 		const editor: BlockNoteEditor | null = useBlockNote({
 			initialContent: JSON.parse(branch?.content),
 		});
+		editor?.topLevelBlocks.forEach((block) => {
+			editor.updateBlock(block?.id, {
+				props: {
+					...block.props,
+					textColor: "blue",
+				},
+			});
+		});
 		return (
 			<div className="h-[calc(100vh-7.3rem)] border bg-base border-border rounded-normal w-full">
 				<div className="max-w-4xl mx-auto py-10 h-[calc(100vh-7.5rem)] overflow-y-auto">
@@ -68,7 +76,6 @@ export const MergeBlockEditor: FC<{
 				/>
 					<BlockNoteView editor={editor} />
 				</div>
-
 			</div >
 
 
@@ -80,7 +87,6 @@ export const MergeBlockEditor: FC<{
 
 	const editor: BlockNoteEditor | null = useBlockNote({
 		initialContent: initialContent ? JSON.parse(initialContent) : undefined,
-
 		onEditorReady(editor) {
 			console.log("editor", editor);
 		},

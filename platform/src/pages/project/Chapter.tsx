@@ -53,6 +53,7 @@ import { MergeBlockEditor } from "../../components/Editor/MergeBlockEditor";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChapterMergeButton } from "../../components/Chapters/merge/ChapterMergeButton";
 import { MergeBranchModal } from "../../components/Chapters/merge/MergeChapterMondal";
+import { Divider } from "@mantine/core";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -297,9 +298,12 @@ export const Chapter = () => {
 							active={sidebar === "history"}
 						/>
 						{merge === "replace" && (
+							<>
+							<Divider my={2} color="grey.0" />
 							<ChapterMergeButton
 								setOpen={() => setMergeOpened(true)}
 							/>
+							</>
 						)}
 
 					</ChapterSidebar>
