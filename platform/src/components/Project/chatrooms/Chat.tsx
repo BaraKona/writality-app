@@ -1,5 +1,5 @@
 import { TextInput, Button, Input, Textarea } from "@mantine/core";
-import { IconSend } from "@tabler/icons";
+import { IconSend } from "@tabler/icons-react";
 import React, { FC } from "react";
 import { IChat } from "../../../interfaces/IChat";
 import { Comment } from "./Comment";

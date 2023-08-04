@@ -22,7 +22,7 @@ import { useState } from "react";
 import { IUser } from "../../interfaces/IUser";
 import { languages } from "../../utils/languagesList";
 import { IconEyeClosed } from "@tabler/icons-react";
-import { IconEye } from "@tabler/icons";
+import { IconEye } from "@tabler/icons-react";
 
 export const ProfileSettings = () => {
 	const { data: user } = useUser();

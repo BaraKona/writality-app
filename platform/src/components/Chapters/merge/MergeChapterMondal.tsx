@@ -1,26 +1,16 @@
-import {
-	Modal,
-	useMantineTheme,
-
-	Space,
-} from "@mantine/core";
-import React, { FC} from "react";
+import { Modal, useMantineTheme, Space } from "@mantine/core";
+import React, { FC } from "react";
 import { modalStyles } from "../../../styles/modalStyles";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { BlueButton } from "../../buttons/BlueButton";
-import { IconGitMerge } from "@tabler/icons";
+import { IconGitMerge } from "@tabler/icons-react";
 
 export const MergeBranchModal: FC<{
 	opened: boolean;
 	setMergeOpened: React.Dispatch<React.SetStateAction<boolean>>;
 	mergeBranch: () => void;
 	currentBranch: IChapterVersion;
-}> = ({
-	opened,
-	setMergeOpened,
-	currentBranch,
-  mergeBranch,
-}) => {
+}> = ({ opened, setMergeOpened, currentBranch, mergeBranch }) => {
 	return (
 		<>
 			<Modal
@@ -47,7 +37,10 @@ export const MergeBranchModal: FC<{
 					branch manager.
 				</p>
 				<Space h="md" />
-        <BlueButton onClick={mergeBranch}><IconGitMerge size={18} className="mr-2"/> Merge branch content into main</BlueButton>
+				<BlueButton onClick={mergeBranch}>
+					<IconGitMerge size={18} className="mr-2" /> Merge branch content into
+					main
+				</BlueButton>
 			</Modal>
 		</>
 	);

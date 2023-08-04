@@ -8,7 +8,7 @@ import {
 	IconRectangleVertical,
 	IconVersions,
 	IconX,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import { useCreateChapterVersion } from "../../../hooks/chapter/useCreateChapterVersion";
 import { useParams } from "react-router-dom";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";

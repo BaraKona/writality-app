@@ -1,7 +1,7 @@
 import { RichTextEditor } from "@mantine/tiptap";
 import { FC, useEffect } from "react";
 import { Button, ScrollArea, Text, TextInput } from "@mantine/core";
-import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons";
+import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons-react";
 import { BubbleMenu } from "@tiptap/react";
 import { inputStyles } from "../../styles/inputStyles";
 export const BaseEditor: FC<{

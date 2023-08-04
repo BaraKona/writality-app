@@ -6,7 +6,7 @@ import {
 	IconDeviceFloppy,
 	IconFileText,
 	IconGitBranch,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import {
 	Divider,
 	Flex,
@@ -18,7 +18,7 @@ import {
 } from "@mantine/core";
 import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
-import { IconBook2, IconGitMerge } from "@tabler/icons";
+import { IconBook2, IconGitMerge } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { ProjectWrapperHeights } from "../../styles/ProjectWrapperHeights";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";

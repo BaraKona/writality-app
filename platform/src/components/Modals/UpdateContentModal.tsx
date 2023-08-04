@@ -6,7 +6,7 @@ import {
 	useMantineTheme,
 } from "@mantine/core";
 import React, { FC } from "react";
-import { IconDatabase } from "@tabler/icons";
+import { IconDatabase } from "@tabler/icons-react";
 export const UpdateContentModal: FC<{
 	opened: boolean;
 	setOpened: React.Dispatch<React.SetStateAction<boolean>>;

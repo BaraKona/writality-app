@@ -6,7 +6,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { useAddFavourite } from "../hooks/user/useAddFavourite";
 import { useRemoveFavourite } from "../hooks/user/useRemoveFavouriteProject";
 import { Breadcrumbs } from "../components/Breadcrumbs/Breadcrumbs";
-import { IconHome } from "@tabler/icons";
+import { IconHome } from "@tabler/icons-react";
 import { LibraryPosts } from "../components/Library/LibraryPosts";
 import { useUserPosts } from "../hooks/posts/useUserPosts";
 

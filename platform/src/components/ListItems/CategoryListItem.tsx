@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import { Loader } from "@mantine/core";
-import { IconSquareRoundedPlus } from "@tabler/icons";
+import { IconSquareRoundedPlus } from "@tabler/icons-react";
 export const CategoryListItem: FC<{
 	children?: ReactNode;
 	loading?: boolean;

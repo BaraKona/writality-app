@@ -1,6 +1,6 @@
 import { Divider } from "@mantine/core";
 import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
-import { IconSettings } from "@tabler/icons";
+import { IconSettings } from "@tabler/icons-react";
 
 export const SettingsHeader = () => {
 	const breadcrumbs = [

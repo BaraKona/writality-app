@@ -9,7 +9,7 @@ import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { highlightDifferences } from "../../utils/textDiffMatch";
 import { useSearchParams } from "react-router-dom";
 import { BlueButton } from "../buttons/BlueButton";
-import { IconGitMerge } from "@tabler/icons";
+import { IconGitMerge } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 const emptyContent = JSON.stringify([
 	{

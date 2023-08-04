@@ -2,7 +2,7 @@ import { FC, ReactNode, useState } from "react";
 import { useChatRooms } from "../../../hooks/chatRooms/useChatRooms";
 import { useParams, useSearchParams } from "react-router-dom";
 import { IChat } from "../../../interfaces/IChat";
-import { IconCircleDot, IconMessageDots } from "@tabler/icons";
+import { IconCircleDot, IconMessageDots } from "@tabler/icons-react";
 import { Chat } from "../Collaboration";
 import { Divider, Tabs } from "@mantine/core";
 import { tabStyles } from "../../../styles/tabStyles";

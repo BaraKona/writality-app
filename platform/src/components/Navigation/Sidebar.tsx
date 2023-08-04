@@ -19,7 +19,7 @@ import {
 	IconHome,
 	IconUsers,
 	IconHeartPlus,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import { cyclops8 } from "../../assets/icons";
 import { MainFrame } from "../Project";
 import { useSignout } from "../../hooks/user/useSignout";

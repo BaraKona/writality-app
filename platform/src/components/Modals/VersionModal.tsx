@@ -7,7 +7,7 @@ import {
 	TypographyStylesProvider,
 } from "@mantine/core";
 import React, { FC } from "react";
-import { IconTrash, IconReplace } from "@tabler/icons";
+import { IconTrash, IconReplace } from "@tabler/icons-react";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { CancelButton } from "../buttons/CancelButton";
 import { CreateChapterButton } from "../buttons";

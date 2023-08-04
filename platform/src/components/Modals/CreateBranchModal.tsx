@@ -1,6 +1,6 @@
 import { Modal, TextInput } from "@mantine/core";
 import React, { FC } from "react";
-import { IconGitBranch } from "@tabler/icons";
+import { IconGitBranch } from "@tabler/icons-react";
 import { modalStyles } from "../../styles/modalStyles";
 import { inputStyles } from "../../styles/inputStyles";
 import { BlueButton } from "../buttons/BlueButton";

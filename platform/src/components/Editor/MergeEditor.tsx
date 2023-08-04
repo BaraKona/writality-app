@@ -7,7 +7,7 @@ import { useEditor } from "@tiptap/react";
 import { extensions } from "./utils/editorExtensions";
 import { ButtonWrapper } from "../buttons/ButtonWrapper";
 import { BlueButton } from "../buttons/BlueButton";
-import { IconGitMerge } from "@tabler/icons";
+import { IconGitMerge } from "@tabler/icons-react";
 export const MergeEditor: FC<{
 	branch: IChapterVersion;
 	main: IChapterContent;

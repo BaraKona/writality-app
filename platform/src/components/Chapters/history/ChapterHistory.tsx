@@ -9,7 +9,7 @@ import {
 	IconGitMerge,
 	IconRefresh,
 	IconX,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import { IChapter } from "../../../interfaces/IChapter";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
 import { inputStyles } from "../../../styles/inputStyles";

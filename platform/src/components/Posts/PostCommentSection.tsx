@@ -5,7 +5,7 @@ import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { Text } from "@mantine/core";
 import { Form } from "react-router-dom";
 import { inputStyles } from "../../styles/inputStyles";
-import { IconSend } from "@tabler/icons";
+import { IconSend } from "@tabler/icons-react";
 export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 	post,
 	isLoading,

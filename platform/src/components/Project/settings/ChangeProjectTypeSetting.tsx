@@ -1,7 +1,7 @@
 import { Divider, Select, Text } from "@mantine/core";
 import { ProjectType } from "../../../interfaces/IProject";
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import { IconExclamationCircle } from "@tabler/icons";
+import { IconExclamationCircle } from "@tabler/icons-react";
 export const ChangeProjectTypeSetting: FC<{
 	setIsEdited: Dispatch<SetStateAction<boolean>>;
 	currentProjectType: ProjectType;
@@ -53,7 +53,11 @@ export const ChangeProjectTypeSetting: FC<{
 						},
 					}}
 				/>
-				<Text className="font-light mt-2 leading-normal" size="xs" color="dimmed">
+				<Text
+					className="font-light mt-2 leading-normal"
+					size="xs"
+					color="dimmed"
+				>
 					{projectType === ProjectType.standard
 						? "Standard projects are for individual use. You can invite collaborators to your project, but you will be the only one who can edit the project."
 						: "Collaboration projects are for teams. You can invite collaborators to your project, and they will be able to edit the project. You cannot edit the main chapters of the project and will only be able to edit them through merging branches."}
@@ -61,15 +65,18 @@ export const ChangeProjectTypeSetting: FC<{
 				<Text className="font-light mt-2 text-red-200" size="xs" color="dimmed">
 					{projectType !== ProjectType.standard && (
 						<div className="flex gap-1 items-center">
-						<IconExclamationCircle size={16} color="red" className="basis-16" />
-							Collaborative projects do not allow you to edit the main directly. You can only edit the main through merging branches.
+							<IconExclamationCircle
+								size={16}
+								color="red"
+								className="basis-16"
+							/>
+							Collaborative projects do not allow you to edit the main directly.
+							You can only edit the main through merging branches.
 						</div>
-
 					)}
 				</Text>
 			</div>
 			<Divider my="xs" color="grey.0" />
-
 		</div>
 	);
 };

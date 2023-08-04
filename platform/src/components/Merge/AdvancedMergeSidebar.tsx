@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { Text, List, Divider, ThemeIcon, ActionIcon } from "@mantine/core";
-import { IconGitCompare, IconInfoSquare } from "@tabler/icons";
+import { IconGitCompare, IconInfoSquare } from "@tabler/icons-react";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { removeConflict } from "../../utils/removeConflict";
 import { removeMergeGreen } from "../../utils/removeMergeGreen";

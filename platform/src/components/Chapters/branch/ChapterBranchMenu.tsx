@@ -1,7 +1,7 @@
 import React, { FC, SetStateAction } from "react";
 import { ChapterBranches } from "./ChapterBranches";
 import { Button, Menu, Tooltip } from "@mantine/core";
-import { IconGitBranch } from "@tabler/icons";
+import { IconGitBranch } from "@tabler/icons-react";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { tooltipStyles } from "../../../styles/tooltipStyles";

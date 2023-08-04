@@ -5,7 +5,7 @@ import {
 	IconBook,
 	IconBook2,
 	IconUsers,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import { HiOutlineUserGroup, HiUserGroup } from "react-icons/hi";
 export function IconRenderer({
 	type,

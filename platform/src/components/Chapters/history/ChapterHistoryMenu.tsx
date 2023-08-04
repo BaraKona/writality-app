@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { ChapterHistory } from "./ChapterHistory";
 import { Tooltip, Menu } from "@mantine/core";
-import { IconFileTime } from "@tabler/icons";
+import { IconFileTime } from "@tabler/icons-react";
 import { IChapter } from "../../../interfaces/IChapter";
 import { tooltipStyles } from "../../../styles/tooltipStyles";
 import { useSearchParams } from "react-router-dom";

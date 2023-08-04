@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect, useState } from "react";
 import { Divider, ScrollArea, Skeleton } from "@mantine/core";
-import { IconFilePlus, IconFiles } from "@tabler/icons";
+import { IconFilePlus, IconFiles } from "@tabler/icons-react";
 import { CreateChapterButton } from "../buttons";
 
 export const ChapterRenderer: FC<{

@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import React, { FC, useState } from "react";
 import { VscGitMerge, VscGitCompare } from "react-icons/vsc";
-import { IconChevronDown, IconChevronRight } from "@tabler/icons";
+import { IconChevronDown, IconChevronRight } from "@tabler/icons-react";
 import { IChapterContent } from "../../interfaces/IChapterContent";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { modalStyles } from "../../styles/modalStyles";

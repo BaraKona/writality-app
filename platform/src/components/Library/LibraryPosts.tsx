@@ -2,7 +2,7 @@ import { FC } from "react";
 import { IPost } from "../../interfaces/IPost";
 import { PostCard } from "../Posts/PostCard";
 import { Skeleton } from "@mantine/core";
-import { IconPlus } from "@tabler/icons";
+import { IconPlus } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "@mantine/carousel";
 export const LibraryPosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({

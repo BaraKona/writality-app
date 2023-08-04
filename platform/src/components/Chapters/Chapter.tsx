@@ -3,7 +3,7 @@ import { IChapter } from "../../interfaces/IChapter";
 import { book8 } from "../../assets/icons";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { Button, Text } from "@mantine/core";
-import { IconFileText, IconTrash } from "@tabler/icons";
+import { IconFileText, IconTrash } from "@tabler/icons-react";
 export const Chapter: FC<{
 	chapter: IChapter;
 	openChapter: () => void;

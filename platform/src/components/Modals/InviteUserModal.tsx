@@ -1,5 +1,5 @@
 import { Button, Modal, Select, useMantineTheme } from "@mantine/core";
-import { IconBrandTelegram, IconSend } from "@tabler/icons";
+import { IconBrandTelegram, IconSend } from "@tabler/icons-react";
 import React, { FC, useState } from "react";
 import { UseMutationResult } from "react-query";
 // import { purpleButton } from "../../styles";

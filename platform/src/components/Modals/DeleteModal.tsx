@@ -6,7 +6,7 @@ import {
 	useMantineTheme,
 } from "@mantine/core";
 import React, { FC } from "react";
-import { IconTrash } from "@tabler/icons";
+import { IconTrash } from "@tabler/icons-react";
 import { CreateChapterButton } from "../buttons";
 import { CancelButton } from "../buttons/CancelButton";
 import { modalStyles } from "../../styles/modalStyles";

@@ -1,5 +1,5 @@
 import { Breadcrumbs as MantineBreadcrumbs } from "@mantine/core";
-import { IconChevronRight } from "@tabler/icons";
+import { IconChevronRight } from "@tabler/icons-react";
 import { BreadcrumbItem } from "./BreadcrumbItem";
 
 export type BreadcrumbItemProp = {

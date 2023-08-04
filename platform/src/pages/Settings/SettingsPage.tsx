@@ -10,7 +10,7 @@ import {
 	IconSettings,
 	IconUser,
 	IconVocabulary,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import { ProfileSettings } from "./ProfileSettings";
 import { LanguageSettings } from "./LanguageSettings";
 export const SettingsPage: FC<{}> = () => {

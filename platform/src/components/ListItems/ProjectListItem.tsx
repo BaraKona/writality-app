@@ -1,4 +1,4 @@
-import { IconX } from "@tabler/icons";
+import { IconX } from "@tabler/icons-react";
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { IconRenderer } from "../IconRenderer";

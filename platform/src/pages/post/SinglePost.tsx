@@ -1,5 +1,5 @@
 import { Breadcrumbs } from "../../components/Breadcrumbs/Breadcrumbs";
-import { IconArticle, IconTemplate, IconHome } from "@tabler/icons";
+import { IconArticle, IconTemplate, IconHome } from "@tabler/icons-react";
 import { useSinglePost } from "../../hooks/posts/useSinglePost";
 import { useLocation, useParams } from "react-router-dom";
 import { Divider, Skeleton } from "@mantine/core";

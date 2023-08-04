@@ -1,6 +1,6 @@
 import { Drawer, useMantineTheme } from "@mantine/core";
 import React, { FC, ReactNode } from "react";
-import { IconDatabase } from "@tabler/icons";
+import { IconDatabase } from "@tabler/icons-react";
 
 export const InviteUserDrawer: FC<{
 	opened: boolean;

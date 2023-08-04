@@ -12,7 +12,7 @@ import {
 	ColorInput,
 } from "@mantine/core";
 import React, { FC } from "react";
-import { IconDatabase } from "@tabler/icons";
+import { IconDatabase } from "@tabler/icons-react";
 import { inputStyles } from "../../styles/inputStyles";
 import { IPost } from "../../interfaces/IPost";
 import { BlueButton } from "../buttons/BlueButton";

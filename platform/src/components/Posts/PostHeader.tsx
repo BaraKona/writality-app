@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { IconCards, IconEdit, IconTemplate } from "@tabler/icons";
+import { IconCards, IconEdit, IconTemplate } from "@tabler/icons-react";
 import { Button, Divider } from "@mantine/core";
 import { CreateButton } from "../buttons/CreateChapterButton";
 import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";

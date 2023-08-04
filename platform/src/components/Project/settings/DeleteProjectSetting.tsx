@@ -5,7 +5,7 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import { useState } from "react";
 import { DeleteModal } from "../../Modals";
 import { CreateChapterButton } from "../../buttons";
-import { IconTrash } from "@tabler/icons";
+import { IconTrash } from "@tabler/icons-react";
 import { Divider } from "@mantine/core";
 
 export const DeleteProjectSetting = () => {
@@ -47,7 +47,6 @@ export const DeleteProjectSetting = () => {
 				</div>
 			</div>
 			<Divider my="xs" color="grey.0" />
-
 		</div>
 	);
 };

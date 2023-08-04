@@ -15,7 +15,7 @@ import {
 import { Project } from "../../pages/project";
 import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
 import { BlueButton } from "../buttons/BlueButton";
-import { IconEye } from "@tabler/icons";
+import { IconEye } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import {
 	collaborationTypeColour,

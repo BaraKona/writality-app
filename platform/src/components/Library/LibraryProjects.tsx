@@ -6,7 +6,7 @@ import {
 	IconPlus,
 	IconHeartPlus,
 	IconHeartMinus,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import { TbHeartFilled } from "react-icons/tb";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { TypographyStylesProvider, Skeleton } from "@mantine/core";

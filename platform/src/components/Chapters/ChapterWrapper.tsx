@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { Divider, Flex, Skeleton } from "@mantine/core";
-import { IconAtom, IconBook } from "@tabler/icons";
+import { IconAtom, IconBook } from "@tabler/icons-react";
 
 import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
 import { Text } from "@mantine/core";

@@ -5,7 +5,7 @@ import {
 	IconMessage,
 	IconNews,
 	IconSettings,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import {
 	NoChapters,
 	Chapter,

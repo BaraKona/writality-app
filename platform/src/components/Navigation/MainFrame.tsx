@@ -10,7 +10,7 @@ import {
 	IconTemplate,
 	IconX,
 	IconPlus,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import { useTabContext } from "../../contexts/TabContext";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";

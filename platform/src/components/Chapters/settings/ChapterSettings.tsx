@@ -1,5 +1,5 @@
 import { Divider, ScrollArea, TextInput } from "@mantine/core";
-import { IconPlus, IconX } from "@tabler/icons";
+import { IconPlus, IconX } from "@tabler/icons-react";
 import React, { FC } from "react";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
 import { inputStyles } from "../../../styles/inputStyles";

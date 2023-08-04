@@ -1,7 +1,7 @@
 import { Tooltip } from "@mantine/core";
 import { tooltipStyles } from "../../../styles/tooltipStyles";
 import { FC } from "react";
-import { IconFileTime, IconVersions } from "@tabler/icons";
+import { IconFileTime, IconVersions } from "@tabler/icons-react";
 
 export const ChapterHistoryButton: FC<{
 	setActive: () => void;

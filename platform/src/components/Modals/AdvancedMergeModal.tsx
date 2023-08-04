@@ -1,7 +1,7 @@
 import { Button, Modal, useMantineTheme } from "@mantine/core";
 import React, { FC, useEffect } from "react";
 import { AdvancedMergeSidebar } from "../Merge/AdvancedMergeSidebar";
-import { IconGitMerge } from "@tabler/icons";
+import { IconGitMerge } from "@tabler/icons-react";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { advancedMerge } from "../../utils/advancedMerge";
 
