@@ -16,7 +16,7 @@ export const BlockEditor: FC<{
 		{
 			initialContent: content?.content ? JSON.parse(content?.content) : null,
 		},
-		[content?.content]
+		[content]
 	);
 
 	if (isLoading || !editor || !content)
