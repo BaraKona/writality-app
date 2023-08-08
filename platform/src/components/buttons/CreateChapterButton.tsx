@@ -1,7 +1,4 @@
-import { IconFilePlus } from "@tabler/icons-react";
 import { FC } from "react";
-import { AiFillPlusSquare, AiFillFileAdd } from "react-icons/ai";
-import { TablerIcon } from "@tabler/icons-react";
 export const CreateButton: FC<{
 	createNewChapter: () => void;
 	text: string;
