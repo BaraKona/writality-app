@@ -28,6 +28,7 @@ import { useFavouriteProjects } from "../../hooks/projects/useFavouriteProjects"
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
 import { Divider, Skeleton, Transition } from "@mantine/core";
 import { IconUsersGroup } from "@tabler/icons-react";
+import { FavouriteProjectItems } from "../ListItems/FavouriteProjectItems";
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { mutate: signOut } = useSignout();
@@ -122,39 +123,12 @@ export const Sidebar: FC<{}> = () => {
 							</CategoryListItem>
 						</div>
 						<CategoryListItem>
-							{isProjectLoading ? (
-								<>
-									<Skeleton height={27} width={160} radius="md" mb={3} />
-									<Skeleton height={27} width={160} radius="md" mb={3} />
-									<Skeleton height={27} width={160} radius="md" mb={3} />
-								</>
-							) : (
-								<>
-									{projects?.map((project: IProject, index: number) => {
-										return (
-											<ProjectListItem
-												key={index}
-												onClick={() =>
-													openProject(`project/${project.uid}/home`)
-												}
-												name={project.title || "Untitled Project"}
-												projectId={project.uid}
-												type={project.type}
-												removeFavourite={() =>
-													removeFavouriteProject(project.uid)
-												}
-											/>
-										);
-									})}
-								</>
-							)}
-							{!isProjectLoading && projects?.length === 0 && (
-								<div className="text-blueText text-center text-xs font-normal">
-									You have no favourites. Click on the heart icon to add a
-									favourite.
-									<IconHeartPlus size={16} className="mx-auto" />
-								</div>
-							)}
+							<FavouriteProjectItems
+								projects={projects}
+								isLoading={isProjectLoading}
+								openProject={openProject}
+								removeFavouriteProject={removeFavouriteProject}
+							/>
 						</CategoryListItem>
 					</div>
 				</div>

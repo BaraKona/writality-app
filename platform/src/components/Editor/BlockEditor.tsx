@@ -7,21 +7,17 @@ import { Skeleton, TextInput, Textarea } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
 
 export const BlockEditor: FC<{
-	setEditorContent: React.Dispatch<React.SetStateAction<string>>;
 	content: IChapterContent;
-	editor: BlockNoteEditor | null;
 	isLoading: boolean;
 	setTitle: React.Dispatch<React.SetStateAction<string>>;
 	isEditable?: boolean;
-}> = ({
-	setEditorContent,
-	content,
-	isLoading,
-	setTitle,
-	isEditable,
-	editor,
-}) => {
-	const [t, setT] = useState(0);
+}> = ({ content, isLoading, setTitle, isEditable }) => {
+	const editor = useBlockNote(
+		{
+			initialContent: content?.content ? JSON.parse(content?.content) : null,
+		},
+		[content?.content]
+	);
 
 	if (isLoading || !editor || !content)
 		return (
@@ -31,12 +27,6 @@ export const BlockEditor: FC<{
 		);
 
 	editor.isEditable = isEditable ? isEditable : false;
-
-	if (!isLoading && t == 0) {
-		editor.replaceBlocks(editor?.topLevelBlocks, JSON.parse(content?.content));
-		console.log("replaced");
-		setT(t + 1);
-	}
 
 	return (
 		<div className="h-[calc(100vh-7.3rem)] w-full border bg-base border-border rounded-normal">

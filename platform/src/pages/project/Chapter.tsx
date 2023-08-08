@@ -162,10 +162,6 @@ export const Chapter = () => {
 	const navigateToMain = () => {
 		searchParams.delete("branch");
 		searchParams.delete("merge");
-		blockEditor?.replaceBlocks(
-			blockEditor.topLevelBlocks,
-			JSON.parse(chapterContent?.content.content || "[]")
-		);
 		setSearchParams(searchParams);
 	};
 
@@ -173,8 +169,6 @@ export const Chapter = () => {
 		searchParams.set("merge", type);
 		setSearchParams(searchParams);
 	};
-
-	const blockEditor = useBlockNote({});
 
 	const editor = useEditor({
 		extensions,
@@ -251,9 +245,7 @@ export const Chapter = () => {
 			>
 				{editor && !merge && (
 					<BlockEditor
-						setEditorContent={setEditorContent}
 						content={branch ? currentBranch : chapterContent.content}
-						editor={blockEditor}
 						isLoading={isLoading}
 						setTitle={setTitle}
 						isEditable={Boolean(branch) || currentProject?.type === "standard"}
