@@ -31,7 +31,7 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 								key={index}
 								type={tab.tabType as any}
 								url={tab.url}
-								name={tab.tabType}
+								name={tab.name || "Untitled"}
 								onClick={() => navigate(tab.url)}
 							/>
 						);

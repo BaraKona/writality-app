@@ -5,10 +5,11 @@ import { useToast } from "../useToast";
 export const useAddFavouriteTab = () => {
 	const queryClient = useQueryClient();
 	return useMutation(
-		({ type, url }: { type: string; url: string }) =>
+		({ type, url, name }: { type: string; url: string; name: string }) =>
 			addFavouriteTabs({
 				type,
 				url,
+				name,
 			}),
 		{
 			onSuccess: () => {
