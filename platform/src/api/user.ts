@@ -29,7 +29,7 @@ export const loginUser = async (user: { email: string; password: string }) => {
 
 export const getUser = async () => {
 	const { data } = await userApi.get(`/`);
-	return data as IUser;
+	return data;
 };
 
 export const getAllUsers = async () => {

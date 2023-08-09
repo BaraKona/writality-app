@@ -25,7 +25,7 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 						</div>
 					</div>
 					<Divider color="grey.0" my={4} />
-					{currentUser?.favouriteTabs?.map((tab, index: number) => {
+					{currentUser?.favouriteTabs?.map((tab: any, index: number) => {
 						return (
 							<TabListItem
 								key={index}

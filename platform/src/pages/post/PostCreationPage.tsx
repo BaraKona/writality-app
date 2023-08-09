@@ -54,7 +54,7 @@ export const PostCreationPage: FC<{}> = () => {
 			<Breadcrumbs items={breadcrumbs} />
 			<Divider my="xs" color="grey.0" />
 			<div className="flex gap-3">
-				<PostBody post={post} />
+				<PostBody post={post} addFavourite={() => {}} />
 				<Divider className=" border-border" orientation="vertical" />
 				<CreatePostSection
 					createPost={createPost}
