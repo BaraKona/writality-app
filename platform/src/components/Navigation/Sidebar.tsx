@@ -1,15 +1,7 @@
 import { FC } from "react";
-import {
-	ProjectListItem,
-	CategoryListItem,
-	CommunityListItem,
-} from "../ListItems";
+import { CategoryListItem, CommunityListItem } from "../ListItems";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { IProject } from "../../interfaces/IProject";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { useToast } from "../../hooks/useToast";
-import { useQuery, useMutation, useQueryClient } from "react-query";
-import { createProject, getUserProjects } from "../../api/project/projects";
 import {
 	IconBooks,
 	IconLogout,
@@ -17,23 +9,19 @@ import {
 	IconSettings,
 	IconTemplate,
 	IconHome,
-	IconUsers,
-	IconHeartPlus,
 } from "@tabler/icons-react";
 import { cyclops8 } from "../../assets/icons";
 import { MainFrame } from "../Project";
 import { useSignout } from "../../hooks/user/useSignout";
-import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useFavouriteProjects } from "../../hooks/projects/useFavouriteProjects";
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
-import { Divider, Skeleton, Transition } from "@mantine/core";
+import { Divider } from "@mantine/core";
 import { IconUsersGroup } from "@tabler/icons-react";
 import { FavouriteProjectItems } from "../ListItems/FavouriteProjectItems";
 import { FavouriteTabItems } from "../ListItems/FavouriteTabItem";
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { mutate: signOut } = useSignout();
-	const { currentUser } = useAuthContext();
 	const { data: projects, isLoading: isProjectLoading } =
 		useFavouriteProjects();
 
@@ -124,13 +112,13 @@ export const Sidebar: FC<{}> = () => {
 							</CategoryListItem>
 						</div>
 						<CategoryListItem>
+							<FavouriteTabItems />
 							<FavouriteProjectItems
 								projects={projects}
 								isLoading={isProjectLoading}
 								openProject={openProject}
 								removeFavouriteProject={removeFavouriteProject}
 							/>
-							<FavouriteTabItems />
 						</CategoryListItem>
 					</div>
 				</div>
