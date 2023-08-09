@@ -5,11 +5,12 @@ import { useLocation, useParams } from "react-router-dom";
 import { Divider, Skeleton } from "@mantine/core";
 import { PostBody } from "../../components/Posts/PostBody";
 import { PostCommentSection } from "../../components/Posts/PostCommentSection";
-
+import { useAddFavouriteTab } from "../../hooks/user/useAddFavouriteTab";
 export const SinglePost = () => {
 	const { postId } = useParams<{ postId: string }>();
 	const { data: post, isLoading } = useSinglePost(postId as string);
 	const location = useLocation();
+	const { mutate } = useAddFavouriteTab();
 
 	if (isLoading) {
 		return (
@@ -67,7 +68,16 @@ export const SinglePost = () => {
 			<Breadcrumbs items={breadcrumbs} />
 			<Divider my="xs" color="grey.0" />
 			<div className="flex gap-3">
-				<PostBody post={post} isLoading={isLoading} />
+				<PostBody
+					post={post}
+					isLoading={isLoading}
+					addFavourite={() =>
+						mutate({
+							type: "post",
+							url: location.pathname,
+						})
+					}
+				/>
 				<Divider my="xs" color="grey.0" orientation="vertical" />
 				<PostCommentSection post={post} isLoading={isLoading} />
 			</div>

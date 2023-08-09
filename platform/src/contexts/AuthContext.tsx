@@ -7,9 +7,10 @@ import React, {
 } from "react";
 
 import { getUser } from "../api/user";
+import { IUser } from "../interfaces/IUser";
 
 type AuthContextType = {
-	currentUser: any;
+	currentUser: IUser | null;
 	setCurrentUser: React.Dispatch<React.SetStateAction<any>>;
 	isLoading: boolean;
 	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,7 +29,7 @@ export function useAuthContext() {
 }
 
 export function AuthContextWrapper({ children }: { children: ReactNode }) {
-	const [currentUser, setCurrentUser] = useState(null);
+	const [currentUser, setCurrentUser] = useState<IUser | null>(null);
 
 	const [isLoading, setIsLoading] = useState(true);
 

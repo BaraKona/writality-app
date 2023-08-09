@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-interface IUser {
+export interface IUser {
 	name: string;
 	email: string;
 	password: string;
@@ -9,7 +9,10 @@ interface IUser {
 	createdAt: Date;
 	role?: string;
 	favouriteProjects?: string[];
-	favouriteTabs?: string[];
+	favouriteTabs?: {
+		tabType: string;
+		url: string;
+	}[];
 	aboutMe?: string;
 	profilePicture?: string;
 	interests?: string[];
@@ -53,7 +56,12 @@ const userSchema = new Schema<IUser>({
 		type: [String],
 	},
 	favouriteTabs: {
-		type: [String],
+		type: [
+			{
+				tabType: String,
+				url: String,
+			},
+		],
 	},
 	aboutMe: {
 		type: String,

@@ -29,7 +29,7 @@ export const loginUser = async (user: { email: string; password: string }) => {
 
 export const getUser = async () => {
 	const { data } = await userApi.get(`/`);
-	return data;
+	return data as IUser;
 };
 
 export const getAllUsers = async () => {
@@ -75,5 +75,16 @@ export const removeFavouriteProject = async (projectId: string) => {
 
 export const updateUserData = async (user: IUser) => {
 	const { data } = await userApi.patch("/", user);
+	return data;
+};
+
+export const addFavouriteTabs = async ({
+	type,
+	url,
+}: {
+	type: string;
+	url: string;
+}) => {
+	const { data } = await userApi.post("/favourites/tabs", { type, url });
 	return data;
 };

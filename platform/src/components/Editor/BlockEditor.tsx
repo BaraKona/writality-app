@@ -1,9 +1,8 @@
-import { BlockNoteEditor } from "@blocknote/core";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/core/style.css";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { IChapterContent } from "../../interfaces/IChapterContent";
-import { Skeleton, TextInput, Textarea } from "@mantine/core";
+import { Skeleton, Textarea } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
 
 export const BlockEditor: FC<{

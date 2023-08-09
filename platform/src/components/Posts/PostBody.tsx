@@ -7,10 +7,13 @@ import {
 	postTypeColour,
 } from "../../utils/typeColours";
 import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
-export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
-	post,
-	isLoading,
-}) => {
+import { IconHeartPlus } from "@tabler/icons-react";
+
+export const PostBody: FC<{
+	post: IPost;
+	isLoading?: boolean;
+	addFavourite: () => void;
+}> = ({ post, isLoading, addFavourite }) => {
 	const gray = "#e5e7eb";
 	const gray2 = "#ced4da";
 	const blue = "#394251";
@@ -25,6 +28,9 @@ export const PostBody: FC<{ post: IPost; isLoading?: boolean }> = ({
 					background: post?.theme?.background || "white",
 				}}
 			>
+				<div className="ml-auto cursor-pointer hover:text-black group-hover:visible transition-all ease-in-out duration-300">
+					<IconHeartPlus size={18} onClick={addFavourite} />
+				</div>
 				<Image
 					alt={post?.postTitle}
 					height={400}

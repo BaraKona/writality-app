@@ -29,10 +29,11 @@ import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
 import { Divider, Skeleton, Transition } from "@mantine/core";
 import { IconUsersGroup } from "@tabler/icons-react";
 import { FavouriteProjectItems } from "../ListItems/FavouriteProjectItems";
+import { FavouriteTabItems } from "../ListItems/FavouriteTabItem";
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { mutate: signOut } = useSignout();
-
+	const { currentUser } = useAuthContext();
 	const { data: projects, isLoading: isProjectLoading } =
 		useFavouriteProjects();
 
@@ -129,6 +130,7 @@ export const Sidebar: FC<{}> = () => {
 								openProject={openProject}
 								removeFavouriteProject={removeFavouriteProject}
 							/>
+							<FavouriteTabItems />
 						</CategoryListItem>
 					</div>
 				</div>

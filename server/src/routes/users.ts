@@ -8,6 +8,7 @@ import {
 	addFavouriteProject,
 	removeFavouriteProject,
 	updateUserData,
+	addFavouriteTabs,
 } from "../controllers/cUser";
 import { protect } from "../middleware/jwtAuth";
 
@@ -20,6 +21,7 @@ router.get("/all", protect, getAllUsers);
 router.patch("/", protect, updateUserData);
 router.post("/signin", signIn);
 router.post("/logout", signOut);
+router.post("/favourites/tabs", protect, addFavouriteTabs);
 router.post("/favourites", protect, addFavouriteProject);
 router.delete("/favourites", protect, removeFavouriteProject);
 export default router;

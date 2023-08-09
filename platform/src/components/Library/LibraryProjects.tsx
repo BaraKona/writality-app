@@ -94,7 +94,7 @@ export const LibraryProjects: FC<{
 											/>
 										</TypographyStylesProvider>
 									</div>
-									{currentUser.favouriteProjects.includes(project.uid) ? (
+									{currentUser?.favouriteProjects?.includes(project.uid) ? (
 										<div className="ml-auto cursor-pointer flex transition-all ease-in-out duration-300">
 											<IconHeartMinus
 												size={18}
