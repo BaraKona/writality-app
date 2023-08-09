@@ -224,7 +224,7 @@ export const removeFavouriteProject = async (req: any, res: any) => {
 };
 
 export const addFavouriteTabs = async (req: any, res: any) => {
-	const { url, type } = req.body;
+	const { url, type, name } = req.body;
 	const userId = req.user.uid;
 
 	try {
@@ -235,7 +235,7 @@ export const addFavouriteTabs = async (req: any, res: any) => {
 			if (user.favouriteTabs.find((tab: any) => tab.url === url)) {
 				res.status(200).json({ message: "Tab already favourited." });
 			} else {
-				user.favouriteTabs.push({ tabType: type, url });
+				user.favouriteTabs.push({ tabType: type, url, name });
 				await user.save();
 				res.status(200).json({ message: "Tab favourited successfully." });
 			}

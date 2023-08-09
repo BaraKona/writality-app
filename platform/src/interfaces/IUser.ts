@@ -10,6 +10,7 @@ export type IUser = {
 	favouriteTabs?: {
 		tabType: string;
 		url: string;
+		name: string;
 	}[];
 
 	aboutMe?: string;

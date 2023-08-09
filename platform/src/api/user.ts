@@ -81,10 +81,12 @@ export const updateUserData = async (user: IUser) => {
 export const addFavouriteTabs = async ({
 	type,
 	url,
+	name,
 }: {
 	type: string;
 	url: string;
+	name: string;
 }) => {
-	const { data } = await userApi.post("/favourites/tabs", { type, url });
+	const { data } = await userApi.post("/favourites/tabs", { type, url, name });
 	return data;
 };

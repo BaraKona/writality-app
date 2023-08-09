@@ -75,6 +75,7 @@ export const SinglePost = () => {
 						mutate({
 							type: "post",
 							url: location.pathname,
+							name: post?.postTitle,
 						})
 					}
 				/>

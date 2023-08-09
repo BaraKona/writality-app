@@ -12,6 +12,7 @@ export interface IUser {
 	favouriteTabs?: {
 		tabType: string;
 		url: string;
+		name: string;
 	}[];
 	aboutMe?: string;
 	profilePicture?: string;
@@ -60,6 +61,7 @@ const userSchema = new Schema<IUser>({
 			{
 				tabType: String,
 				url: String,
+				name: String,
 			},
 		],
 	},
