@@ -11,7 +11,7 @@ type TabContextType = {
 };
 
 const tabContextDefaultValues: TabContextType = {
-	tabs: [{ path: "/library/", title: "Library", id: uuidv4(), active: true }],
+	tabs: [{ path: "/profile/", title: "Profile", id: uuidv4(), active: true }],
 	setTabs: () => {},
 };
 

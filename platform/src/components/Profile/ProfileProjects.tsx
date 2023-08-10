@@ -13,7 +13,7 @@ import { TypographyStylesProvider, Skeleton } from "@mantine/core";
 import { Carousel, Embla } from "@mantine/carousel";
 import { useNavigate } from "react-router-dom";
 
-export const LibraryProjects: FC<{
+export const ProfileProjects: FC<{
 	projects: IProject[];
 	addFavourite: (projectId: string) => void;
 	createProject: () => void;

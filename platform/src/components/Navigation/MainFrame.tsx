@@ -86,7 +86,7 @@ export const MainFrame: FC<{
 		const nextTab = tabs[index + 1];
 
 		const filteredTabs = tabs.filter((t) => t.active === false);
-		if (tabs.length === 0) navigate("/library");
+		if (tabs.length === 0) navigate("/profile");
 		if (prevTab) {
 			prevTab.active = true;
 			navigate(prevTab.path);

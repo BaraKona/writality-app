@@ -59,7 +59,7 @@ export const getUserProjects = async (req: any, res: any) => {
 					},
 				},
 			],
-		}).sort({ "dateUpdated.date": -1 });
+		}).sort({ dateUpdated: 1 });
 		res.status(200).json(projects);
 	} catch (error) {
 		res.status(404).json({ message: error.message });

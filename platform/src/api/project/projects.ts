@@ -105,7 +105,7 @@ export const updateProjectType = async (
 
 export const getUserFavourites = async () => {
 	try {
-		const { data } = await projectApi.get("/favourites");
+		const { data } = await projectApi.get("/bookmarks");
 		return data;
 	} catch (err: any) {
 		const { data } = err.response;

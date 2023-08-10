@@ -26,5 +26,5 @@ router.patch(
 router.patch("/user/:projectId/title", protect, updateProjectTitle);
 router.delete("/:userId/:projectId", protect, deleteProject);
 router.patch("/:userId/:projectId/type", protect, updateProjectType);
-router.get("/favourites", protect, getUserFavourites);
+router.get("/bookmarks", protect, getUserFavourites);
 export default router;

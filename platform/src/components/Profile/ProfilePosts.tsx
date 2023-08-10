@@ -5,13 +5,13 @@ import { Skeleton } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "@mantine/carousel";
-export const LibraryPosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
+export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 	posts,
 	isLoading,
 }) => {
 	const navigate = useNavigate();
 	const openPost = (postId: string) => {
-		navigate(`/library/posts/${postId}`);
+		navigate(`/profile/posts/${postId}`);
 	};
 
 	if (isLoading) {

@@ -223,7 +223,7 @@ export const removeFavouriteProject = async (req: any, res: any) => {
 	}
 };
 
-export const addFavouriteTabs = async (req: any, res: any) => {
+export const addbookmarks = async (req: any, res: any) => {
 	const { url, type, name } = req.body;
 	const userId = req.user.uid;
 
@@ -232,10 +232,10 @@ export const addFavouriteTabs = async (req: any, res: any) => {
 		if (!user) {
 			res.status(404).json({ message: "User not found." });
 		} else {
-			if (user.favouriteTabs.find((tab: any) => tab.url === url)) {
+			if (user.bookmarks.find((tab: any) => tab.url === url)) {
 				res.status(200).json({ message: "Tab already favourited." });
 			} else {
-				user.favouriteTabs.push({ tabType: type, url, name });
+				user.bookmarks.push({ tabType: type, url, name });
 				await user.save();
 				res.status(200).json({ message: "Tab favourited successfully." });
 			}

@@ -21,11 +21,11 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 				<>
 					<div>
 						<div className="text-blueTextLight text-xs font-normal">
-							Favourite Tabs
+							Bookmarks
 						</div>
 					</div>
 					<Divider color="grey.0" my={4} />
-					{currentUser?.favouriteTabs?.map((tab: any, index: number) => {
+					{currentUser?.bookmarks?.map((tab: any, index: number) => {
 						return (
 							<TabListItem
 								key={index}
@@ -38,9 +38,9 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 					})}
 				</>
 			)}
-			{currentUser && currentUser?.favouriteTabs?.length === 0 && (
+			{currentUser && currentUser?.bookmarks?.length === 0 && (
 				<div className="text-blueTextLight text-center text-xs font-normal">
-					You have no favourites. Click on the heart icon to add a favourite.
+					You have no bookmarks. Click on the heart icon to add a favourite.
 					<IconHeartPlus size={16} className="mx-auto mt-2" />
 				</div>
 			)}

@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import { Sidebar } from "./components/Navigation";
 import { Chapter, Project } from "./pages/project";
 import { PostsPage } from "./pages/post/PostsPage";
-import { LibraryPage } from "./pages/LibraryPage";
+import { ProfilePage } from "./pages/ProfilePage";
 import { Stories } from "./pages/Stories";
 import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
@@ -25,7 +25,7 @@ const dashboardRoutes: RouteObject[] = [
 	{ path: "/", loader: () => redirect("/profile") },
 	{
 		path: "/profile",
-		element: <LibraryPage />,
+		element: <ProfilePage />,
 	},
 	{
 		path: "/stories",

@@ -7,7 +7,7 @@ export type IUser = {
 	createdAt: Date;
 	role?: string;
 	favouriteProjects?: string[];
-	favouriteTabs?: {
+	bookmarks?: {
 		tabType: string;
 		url: string;
 		name: string;

@@ -9,7 +9,7 @@ export interface IUser {
 	createdAt: Date;
 	role?: string;
 	favouriteProjects?: string[];
-	favouriteTabs?: {
+	bookmarks?: {
 		tabType: string;
 		url: string;
 		name: string;
@@ -56,7 +56,7 @@ const userSchema = new Schema<IUser>({
 	favouriteProjects: {
 		type: [String],
 	},
-	favouriteTabs: {
+	bookmarks: {
 		type: [
 			{
 				tabType: String,

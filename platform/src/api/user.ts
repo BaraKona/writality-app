@@ -55,7 +55,7 @@ export const signOutUser = async () => {
 
 export const addFavouriteProject = async (projectId: string) => {
 	try {
-		const { data } = await userApi.post("/favourites", { projectId });
+		const { data } = await userApi.post("/bookmarks", { projectId });
 		return data;
 	} catch (err: any) {
 		const { data } = err.response;
@@ -64,7 +64,7 @@ export const addFavouriteProject = async (projectId: string) => {
 
 export const removeFavouriteProject = async (projectId: string) => {
 	try {
-		const { data } = await userApi.delete("/favourites", {
+		const { data } = await userApi.delete("/bookmarks", {
 			data: { projectId },
 		});
 		return data;
@@ -78,7 +78,7 @@ export const updateUserData = async (user: IUser) => {
 	return data;
 };
 
-export const addFavouriteTabs = async ({
+export const addbookmarks = async ({
 	type,
 	url,
 	name,
@@ -87,6 +87,6 @@ export const addFavouriteTabs = async ({
 	url: string;
 	name: string;
 }) => {
-	const { data } = await userApi.post("/favourites/tabs", { type, url, name });
+	const { data } = await userApi.post("/bookmarks/tabs", { type, url, name });
 	return data;
 };

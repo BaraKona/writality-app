@@ -1,5 +1,5 @@
 import { Divider } from "@mantine/core";
-import { LibraryProjects } from "../components/Library/LibraryProjects";
+import { ProfileProjects } from "../components/Profile/ProfileProjects";
 import { useUserProjects } from "../hooks/projects/useUserProjects";
 import { useCreateProject } from "../hooks/projects/useCreateProject";
 import { useAuthContext } from "../contexts/AuthContext";
@@ -7,10 +7,10 @@ import { useAddFavourite } from "../hooks/user/useAddFavourite";
 import { useRemoveFavourite } from "../hooks/user/useRemoveFavouriteProject";
 import { Breadcrumbs } from "../components/Breadcrumbs/Breadcrumbs";
 import { IconHome } from "@tabler/icons-react";
-import { LibraryPosts } from "../components/Library/LibraryPosts";
+import { ProfilePosts } from "../components/Profile/ProfilePosts";
 import { useUserPosts } from "../hooks/posts/useUserPosts";
 
-export const LibraryPage = () => {
+export const ProfilePage = () => {
 	const { currentUser } = useAuthContext();
 	const { data: projects, isLoading } = useUserProjects();
 	const { data: posts, isLoading: postLoading } = useUserPosts();
@@ -20,7 +20,7 @@ export const LibraryPage = () => {
 
 	const breadcrumbs = [
 		{
-			label: `Hey ${currentUser.name} ! Welcome to your Library`,
+			label: `Hey ${currentUser.name} ! Welcome to your Profile`,
 			path: "/",
 			icon: <IconHome size={18} />,
 		},
@@ -32,7 +32,7 @@ export const LibraryPage = () => {
 				<Breadcrumbs items={breadcrumbs} />
 			</div>
 			<Divider my="xs" color="grey.0" />
-			<LibraryProjects
+			<ProfileProjects
 				projects={projects}
 				createProject={mutate}
 				addFavourite={mutateFavourite}
@@ -40,7 +40,7 @@ export const LibraryPage = () => {
 				isLoading={isLoading}
 			/>
 			<Divider my="xs" color="grey.0" />
-			<LibraryPosts posts={posts} isLoading={postLoading} />
+			<ProfilePosts posts={posts} isLoading={postLoading} />
 			<Divider my="xs" color="grey.0" />
 		</div>
 	);
