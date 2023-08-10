@@ -1,6 +1,6 @@
 import { IconBookmarkPlus } from "@tabler/icons-react";
 import { IProject } from "../../interfaces/IProject";
-import { Divider, Skeleton } from "@mantine/core";
+import { Divider, Skeleton, Text } from "@mantine/core";
 import { ProjectListItem } from "./ProjectListItem";
 import { FC } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -9,6 +9,15 @@ import { TabListItem } from "./TabListItem";
 export const FavouriteTabItems: FC<{}> = ({}) => {
 	const { currentUser } = useAuthContext();
 	const navigate = useNavigate();
+
+	const posts = currentUser?.bookmarks?.filter(
+		(tab: any) => tab.tabType === "post"
+	);
+
+	const projects = currentUser?.bookmarks?.filter(
+		(tab: any) => tab.tabType === "project"
+	);
+
 	return (
 		<>
 			{!currentUser ? (
@@ -20,12 +29,39 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 			) : (
 				<>
 					<div>
-						<div className="text-blueTextLight text-xs font-normal">
+						<div className="text-blueTextLight text-center text-xs font-normal">
 							Bookmarks
 						</div>
+						<Divider color="grey.0" my={4} />
 					</div>
-					<Divider color="grey.0" my={4} />
-					{currentUser?.bookmarks?.map((tab: any, index: number) => {
+					{projects?.length > 0 && (
+						<Divider
+							color="grey.0"
+							my={4}
+							label={<Text className="!text-blueTextLight">Projects</Text>}
+							labelPosition="center"
+						/>
+					)}
+					{projects?.map((tab: any, index: number) => {
+						return (
+							<TabListItem
+								key={index}
+								type={tab.tabType as any}
+								url={tab.url}
+								name={tab.name || "Untitled"}
+								onClick={() => navigate(tab.url)}
+							/>
+						);
+					})}
+					{posts?.length > 0 && (
+						<Divider
+							color="grey.0"
+							my={4}
+							label={<Text className="!text-blueTextLight">Posts</Text>}
+							labelPosition="center"
+						/>
+					)}
+					{posts?.map((tab: any, index: number) => {
 						return (
 							<TabListItem
 								key={index}

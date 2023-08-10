@@ -4,7 +4,10 @@ import { BlueButton } from "../buttons/BlueButton";
 
 export const NoChapters: FC<{
 	createNewChapter: () => void;
-}> = ({ createNewChapter }) => {
+	title?: string;
+	p1?: string;
+	p2?: string;
+}> = ({ createNewChapter, title, p1, p2 }) => {
 	return (
 		<div className="flex items-center h-[calc(100vh-13rem)]">
 			<div className=" flex items-center flex-col gap-5 m-auto flex-wrap">
@@ -12,14 +15,12 @@ export const NoChapters: FC<{
 					<img src={circle4} alt="circle4" width={200} height={200} />
 				</div>
 				<div>
-					<h3 className="text-md font-semibold mb-2 "> Chapters </h3>
+					<h3 className="text-md font-semibold mb-2 "> {title} </h3>
 					<>
 						<p className="w-72 text-gray-400 text-sm mb-3">
-							You have no chapters currently. Chapters make up your project and
-							can be collaborated on.
+							{p1}
 							<br /> <br />
-							Chapters are also versioned so you can always go back to previews
-							versions if you decide to scrap your current work.
+							{p2}
 						</p>
 						<div className="mr-auto w-32">
 							<BlueButton onClick={createNewChapter}>Create</BlueButton>

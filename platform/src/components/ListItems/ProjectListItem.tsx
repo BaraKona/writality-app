@@ -26,14 +26,14 @@ export const ProjectListItem: FC<{
 				<span className=" whitespace-nowrap w-[7rem] text-ellipsis overflow-hidden">
 					{name}
 				</span>
-				<IconX
-					onClick={(e) => {
-						e.stopPropagation(), removeFavourite ? removeFavourite() : null;
-					}}
-					size={10}
-					stroke={3}
-					className="group-hover:visible cursor-pointer invisible hover:black ml-auto text-gray-400"
-				/>
+				{/* <IconX
+						onClick={(e) => {
+							e.stopPropagation(), removeFavourite ? removeFavourite() : null;
+						}}
+						size={10}
+						stroke={3}
+						className="group-hover:visible cursor-pointer invisible hover:black ml-auto text-gray-400"
+					/> */}
 			</div>
 		</li>
 	);

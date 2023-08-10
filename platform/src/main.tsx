@@ -46,6 +46,18 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 							"#2e2e2e",
 							"#171717",
 						],
+						blueText: [
+							"#e6f0ff",
+							"#cce0ff",
+							"#b3d1ff",
+							"#b3d6ff",
+							"#868e99",
+							"#6e7582",
+							"#394251",
+							"#2a2f3a",
+							"#1b1f25",
+							"#0c0d0f",
+						],
 					},
 					// fontFamily: "Noto Sans JP, sans-serif",
 				}}

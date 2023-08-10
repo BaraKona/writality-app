@@ -38,7 +38,9 @@ export const TabListItem: FC<{
 					}}
 					size={10}
 					stroke={3}
-					className="group-hover:visible cursor-pointer invisible hover:black ml-auto text-gray-400"
+					className={`cursor-pointer hover:black ml-auto text-gray-400 ${
+						url === location ? "visible" : "invisible"
+					}`}
 				/>
 			</div>
 		</li>

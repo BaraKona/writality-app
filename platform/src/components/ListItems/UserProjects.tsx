@@ -34,13 +34,13 @@ export const UserProjects: FC<{
 	return (
 		<>
 			<div>
-				<div className="text-blueTextLight text-xs font-normal">
+				<div className="text-blueTextLight text-xs text-center font-normal">
 					Your projects
 				</div>
 			</div>
 			<Divider color="grey.0" my={4} />
 			{projects?.length > 0 && (
-				<section className="h-[calc(100vh-118px)] overflow-y-auto">
+				<section className="h-[calc(100vh-125px)] overflow-y-auto">
 					{projects?.map((project: IProject, index: number) => {
 						return (
 							<ProjectListItem

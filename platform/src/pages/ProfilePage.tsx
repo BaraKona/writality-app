@@ -6,7 +6,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { useAddFavourite } from "../hooks/user/useAddFavourite";
 import { useRemoveFavourite } from "../hooks/user/useRemoveFavouriteProject";
 import { Breadcrumbs } from "../components/Breadcrumbs/Breadcrumbs";
-import { IconHome } from "@tabler/icons-react";
+import { IconHome, IconUserCircle, IconUserCode } from "@tabler/icons-react";
 import { ProfilePosts } from "../components/Profile/ProfilePosts";
 import { useUserPosts } from "../hooks/posts/useUserPosts";
 import { useAddFavouriteTab } from "../hooks/user/useAddFavouriteTab";
@@ -23,26 +23,26 @@ export const ProfilePage = () => {
 		{
 			label: `Hey ${currentUser.name} ! Welcome to your Profile`,
 			path: "/",
-			icon: <IconHome size={18} />,
+			icon: <IconUserCircle size={18} />,
 		},
 	];
 
 	return (
 		<div className=" place-items-center rounded-normal bg-secondary border-border border px-3 py-3 h-[calc(100vh-2.7rem)]">
-			<div className="text-sm font-bold">
-				<Breadcrumbs items={breadcrumbs} />
+			<h1 className="text-md font-bold">Welcome {currentUser.name}</h1>
+			<p className="text-sm"></p>
+			<Divider my="xs" color="grey.0" />
+			<div className="grid grid-cols-2 gap-2">
+				<ProfileProjects
+					projects={projects}
+					createProject={mutate}
+					addFavourite={mutateFavourite}
+					removeFavourite={removeFavourite}
+					isLoading={isLoading}
+				/>
+
+				<ProfilePosts posts={posts} isLoading={postLoading} />
 			</div>
-			<Divider my="xs" color="grey.0" />
-			<ProfileProjects
-				projects={projects}
-				createProject={mutate}
-				addFavourite={mutateFavourite}
-				removeFavourite={removeFavourite}
-				isLoading={isLoading}
-			/>
-			<Divider my="xs" color="grey.0" />
-			<ProfilePosts posts={posts} isLoading={postLoading} />
-			<Divider my="xs" color="grey.0" />
 		</div>
 	);
 };

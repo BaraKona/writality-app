@@ -55,7 +55,7 @@ export const PostCard: FC<{
 	const blue = "#394251";
 
 	return (
-		<div className="basis-[34rem] max-w-[34rem] group">
+		<div className="basis-[34rem] max-w-full group">
 			<Card
 				padding="md"
 				withBorder

@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { IPost } from "../../interfaces/IPost";
 import { PostCard } from "../Posts/PostCard";
-import { Skeleton } from "@mantine/core";
+import { Divider, Skeleton } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "@mantine/carousel";
+import { NoChapters } from "../Chapters";
 export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 	posts,
 	isLoading,
@@ -29,42 +30,25 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 
 	if (posts.length === 0) {
 		return (
-			<div>
-				<div className="text-xs font-medium mb-2">Your Posts</div>
-				<div className="flex flex-col w-52 border border-border rounded-normal px-4 py-2 hover:shadow cursor-pointer mr-4 h-56">
-					<div
-						className="flex flex-col items-center gap-2"
-						onClick={() => navigate("/posts/create")}
-					>
-						<IconPlus size={24} />
-						<div className="flex flex-col text-center">
-							<div className="text-xs">You have no posts yet.</div>
-							<div className="text-xs">Click here to create a new post.</div>
-						</div>
-					</div>
-				</div>
+			<div className="h-[calc(100vh-9rem)] bg-primary rounded-normal">
+				<NoChapters
+					title="Posts"
+					p1="You have no posts currently. Posts are a great way to get collaborators"
+					p2="Create your first post to get started"
+					createNewChapter={() => navigate("/posts/create")}
+				/>
 			</div>
 		);
 	}
+
 	return (
-		<div>
-			<div className="text-xs font-medium mb-2 ">Your Posts</div>
-			<div className="flex gap-2">
-				<Carousel
-					withIndicators
-					w={`calc(100vw - 16.5rem)`}
-					slideGap="md"
-					slideSize="34rem"
-					withControls
-					align="start"
-					dragFree
-				>
-					{posts?.map((post: IPost) => (
-						<Carousel.Slide>
-							<PostCard post={post!} openPost={openPost} />
-						</Carousel.Slide>
-					))}
-				</Carousel>
+		<div className="rounded-normal bg-primary p-2">
+			{/* <div className="text-xs font-medium mb-2 ">Your Posts</div> */}
+			{/* <Divider mt={4} color="grey.0" /> */}
+			<div className="flex flex-col gap-2 h-[calc(100vh-9.8rem)] overflow-y-auto">
+				{posts.map((post) => (
+					<PostCard post={post!} openPost={openPost} />
+				))}
 			</div>
 		</div>
 	);
