@@ -7,7 +7,7 @@ import { inputStyles } from "../../../styles/inputStyles";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { IChapter } from "../../../interfaces/IChapter";
-import { circle4 } from "../../../assets/icons";
+import { circle1 } from "../../../assets/icons";
 
 export const PublishChapterSide: FC<{
 	chapter: IChapter;
@@ -19,7 +19,7 @@ export const PublishChapterSide: FC<{
 				<div className="flex items-center h-[calc(100vh-13rem)]">
 					<div className=" flex items-center flex-col gap-5 m-auto flex-wrap">
 						<div className="my-auto">
-							<img src={circle4} alt="circle4" width={200} height={200} />
+							<img src={circle1} alt="circle1" width={200} height={200} />
 						</div>
 						<div>
 							<h3 className="text-md font-semibold mb-2 ">

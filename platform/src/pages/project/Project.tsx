@@ -206,7 +206,14 @@ export function Project() {
 								) : (
 									<>
 										{chapters?.length == 0 ? (
-											<NoChapters createNewChapter={createNewChapter} />
+											<NoChapters
+												createNewChapter={createNewChapter}
+												title="Chapters"
+												p1="You have no chapters currently. Chapters make up your project and
+												can be collaborated on."
+												p2="Chapters are also versioned so you can always go back to previews
+												versions if you decide to scrap your current work."
+											/>
 										) : (
 											<>
 												{chapters?.map((chapter: IChapter, index: number) => (
@@ -258,7 +265,12 @@ export function Project() {
 								) : (
 									<>
 										{chapters?.length == 0 ? (
-											<NoChapters createNewChapter={createNewChapter} />
+											<NoChapters
+												createNewChapter={createNewChapter}
+												title="Chapters"
+												p1="You have no chapters currently. Chapters make up your project and can be collaborated on."
+												p2="Chapters are also versioned so you can always go back to previews versions if you decide to scrap your current work."
+											/>
 										) : (
 											<>
 												{chapters?.map((chapter: IChapter, index: number) => (
