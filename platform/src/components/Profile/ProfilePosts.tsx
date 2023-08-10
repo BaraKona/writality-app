@@ -6,6 +6,7 @@ import { IconPlus } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "@mantine/carousel";
 import { NoChapters } from "../Chapters";
+import { EmptyItem } from "../Chapters/EmptyItem";
 export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 	posts,
 	isLoading,
@@ -30,8 +31,8 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 
 	if (posts.length === 0) {
 		return (
-			<div className="h-[calc(100vh-9rem)] bg-primary rounded-normal">
-				<NoChapters
+			<div className="border-border border rounded-normal h-[calc(100vh-31rem)] content-center flex">
+				<EmptyItem
 					title="Posts"
 					p1="You have no posts currently. Posts are a great way to get collaborators"
 					p2="Create your first post to get started"
@@ -42,10 +43,10 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 	}
 
 	return (
-		<div className="rounded-normal bg-primary p-2">
+		<div className="bg-primary h-[calc(100vh-31rem)] overflow-y-auto">
 			{/* <div className="text-xs font-medium mb-2 ">Your Posts</div> */}
 			{/* <Divider mt={4} color="grey.0" /> */}
-			<div className="flex flex-col gap-2 h-[calc(100vh-9.8rem)] overflow-y-auto">
+			<div className="flex flex-col gap-2">
 				{posts.map((post) => (
 					<PostCard post={post!} openPost={openPost} />
 				))}

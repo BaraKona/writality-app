@@ -34,7 +34,7 @@ export const UserProjects: FC<{
 	return (
 		<>
 			<div>
-				<div className="text-blueTextLight text-xs text-center font-normal">
+				<div className="text-blueTextLight text-xs text-center font-normal ">
 					Your projects
 				</div>
 			</div>

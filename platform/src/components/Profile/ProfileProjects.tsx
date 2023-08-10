@@ -14,6 +14,7 @@ import { TypographyStylesProvider, Skeleton, Divider } from "@mantine/core";
 import { Carousel, Embla } from "@mantine/carousel";
 import { useLocation, useNavigate } from "react-router-dom";
 import { NoChapters } from "../Chapters";
+import { EmptyItem } from "../Chapters/EmptyItem";
 
 export const ProfileProjects: FC<{
 	projects: IProject[];
@@ -54,8 +55,8 @@ export const ProfileProjects: FC<{
 
 	if (projects.length === 0) {
 		return (
-			<div className="border-border border h-[calc(100vh-9rem)] rounded-normal">
-				<NoChapters
+			<div className="border-border border rounded-normal h-[calc(100vh-39rem)] flex content-center items-center">
+				<EmptyItem
 					title="Projects"
 					p1="You do not current have any projects. You may wish to work with other people or create your own project."
 					p2="Create your first project to get started"
@@ -66,13 +67,13 @@ export const ProfileProjects: FC<{
 	}
 
 	return (
-		<div className="rounded-normal border border-border bg-base p-2">
+		<div className="bg-primary">
 			<div className="text-xs font-medium">Your Projects</div>
 			<Divider color="grey.0" mt={4} />
-			<div className="h-[calc(100vh-11rem)] overflow-y-auto flex flex-col gap-2">
+			<div className="h-[calc(100vh-40rem)] overflow-y-auto flex flex-col gap-2">
 				{projects.map((project) => (
 					<div
-						className="flex gap-2 border border-border rounded md basis-52 p-2"
+						className="flex gap-2 rounded-normal basis-36 p-2 bg-base"
 						onClick={() => navigate(`/project/${project.uid}/home`)}
 					>
 						{project.type === ProjectType.standard ? (

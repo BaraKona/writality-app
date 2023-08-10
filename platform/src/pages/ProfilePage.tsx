@@ -10,6 +10,8 @@ import { IconHome, IconUserCircle, IconUserCode } from "@tabler/icons-react";
 import { ProfilePosts } from "../components/Profile/ProfilePosts";
 import { useUserPosts } from "../hooks/posts/useUserPosts";
 import { useAddFavouriteTab } from "../hooks/user/useAddFavouriteTab";
+import { useDefaultDate, useTimeFromNow } from "../hooks/useTimeFromNow";
+import { SmallText } from "../components/texts/SmallText";
 
 export const ProfilePage = () => {
 	const { currentUser } = useAuthContext();
@@ -33,15 +35,40 @@ export const ProfilePage = () => {
 			<p className="text-sm"></p>
 			<Divider my="xs" color="grey.0" />
 			<div className="grid grid-cols-2 gap-2">
-				<ProfileProjects
-					projects={projects}
-					createProject={mutate}
-					addFavourite={mutateFavourite}
-					removeFavourite={removeFavourite}
-					isLoading={isLoading}
-				/>
-
-				<ProfilePosts posts={posts} isLoading={postLoading} />
+				<section>
+					<div>
+						<SmallText>Member since: </SmallText>
+						<SmallText light className="px-2">
+							{useDefaultDate(currentUser.createdAt)}
+						</SmallText>
+					</div>
+					<div className="my-2">
+						<SmallText>Email:</SmallText>
+						<SmallText light className="px-2">
+							{currentUser?.email}
+						</SmallText>
+					</div>
+					<div className="my-2">
+						<SmallText>About me:</SmallText>
+						<SmallText
+							light
+							className=" h-44 overflow-y-auto rounded-normal border border-border p-2"
+						>
+							{currentUser?.aboutMe} || empty{" "}
+						</SmallText>
+					</div>
+				</section>
+				<div className="bg-primary p-2 rounded-normal">
+					<ProfileProjects
+						projects={projects}
+						createProject={mutate}
+						addFavourite={mutateFavourite}
+						removeFavourite={removeFavourite}
+						isLoading={isLoading}
+					/>
+					<Divider my={4} color="grey.0" />
+					<ProfilePosts posts={posts} isLoading={postLoading} />
+				</div>
 			</div>
 		</div>
 	);

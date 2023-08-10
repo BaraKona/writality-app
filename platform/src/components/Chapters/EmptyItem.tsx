@@ -2,15 +2,15 @@ import { FC } from "react";
 import { circle4 } from "../../assets/icons";
 import { BlueButton } from "../buttons/BlueButton";
 
-export const NoChapters: FC<{
+export const EmptyItem: FC<{
 	createNewChapter: () => void;
 	title?: string;
 	p1?: string;
 	p2?: string;
 }> = ({ createNewChapter, title, p1, p2 }) => {
 	return (
-		<div className="flex items-center h-[calc(100vh-13rem)] overflow-y-auto">
-			<div className=" flex items-center flex-col gap-5 m-auto flex-wrap">
+		<div className="flex place overflow-y-auto mx-auto">
+			<div className=" flex items-center flex-row gap-5 m-auto flex-wrap">
 				<div className="my-auto">
 					<img src={circle4} alt="circle4" width={200} height={200} />
 				</div>
