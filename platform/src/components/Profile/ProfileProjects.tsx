@@ -4,18 +4,27 @@ import {
 	IconBook2,
 	IconAtom,
 	IconPlus,
-	IconHeartPlus,
-	IconHeartMinus,
+	IconBookmarkPlus,
+	IconBookmarkMinus,
+	IconBookmarkFilled,
 } from "@tabler/icons-react";
 import { TbHeartFilled } from "react-icons/tb";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { TypographyStylesProvider, Skeleton } from "@mantine/core";
 import { Carousel, Embla } from "@mantine/carousel";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const ProfileProjects: FC<{
 	projects: IProject[];
-	addFavourite: (projectId: string) => void;
+	addFavourite: ({
+		type,
+		url,
+		name,
+	}: {
+		type: string;
+		url: string;
+		name: string;
+	}) => void;
 	createProject: () => void;
 	removeFavourite: (projectId: string) => void;
 	isLoading: boolean;
@@ -28,7 +37,7 @@ export const ProfileProjects: FC<{
 }) => {
 	const { currentUser } = useAuthContext();
 	const navigate = useNavigate();
-
+	const path = useLocation().pathname;
 	if (isLoading) {
 		return (
 			<div>
@@ -96,27 +105,37 @@ export const ProfileProjects: FC<{
 									</div>
 									{currentUser?.favouriteProjects?.includes(project.uid) ? (
 										<div className="ml-auto cursor-pointer flex transition-all ease-in-out duration-300">
-											<IconHeartMinus
+											<IconBookmarkMinus
 												size={18}
 												onClick={(e) => {
 													e.stopPropagation(), removeFavourite(project.uid);
 												}}
 												className="group-hover:block hidden pointer-events-auto"
 											/>
-											<TbHeartFilled
+											<IconBookmarkFilled
 												size={18}
 												onClick={(e) => {
-													e.stopPropagation(), addFavourite(project.uid);
+													e.stopPropagation(),
+														addFavourite({
+															type: "project",
+															url: "/project/" + project.uid + "/home",
+															name: project.title,
+														});
 												}}
 												className="group-hover:hidden block"
 											/>
 										</div>
 									) : (
 										<div className="ml-auto cursor-pointer hover:text-black invisible group-hover:visible transition-all ease-in-out duration-300">
-											<IconHeartPlus
+											<IconBookmarkPlus
 												size={18}
 												onClick={(e) => {
-													e.stopPropagation(), addFavourite(project.uid);
+													e.stopPropagation(),
+														addFavourite({
+															type: "project",
+															url: "/project/" + project.uid + "/home",
+															name: project.title,
+														});
 												}}
 											/>
 										</div>

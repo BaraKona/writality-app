@@ -7,7 +7,7 @@ import {
 	postTypeColour,
 } from "../../utils/typeColours";
 import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
-import { IconHeartPlus } from "@tabler/icons-react";
+import { IconBookmarkPlus } from "@tabler/icons-react";
 
 export const PostBody: FC<{
 	post: IPost;
@@ -28,9 +28,6 @@ export const PostBody: FC<{
 					background: post?.theme?.background || "white",
 				}}
 			>
-				<div className="ml-auto cursor-pointer hover:text-black group-hover:visible transition-all ease-in-out duration-300">
-					<IconHeartPlus size={18} onClick={addFavourite} />
-				</div>
 				<Image
 					alt={post?.postTitle}
 					height={400}
@@ -68,6 +65,9 @@ export const PostBody: FC<{
 						>
 							{post?.postType}
 						</Badge>
+						<div className="ml-auto cursor-pointer hover:text-black group-hover:visible transition-all ease-in-out duration-300">
+							<IconBookmarkPlus size={18} onClick={addFavourite} />
+						</div>
 					</div>
 				</div>
 				<Space h="md" />

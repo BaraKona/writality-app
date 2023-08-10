@@ -1,4 +1,4 @@
-import { IconHeartPlus } from "@tabler/icons-react";
+import { IconBookmarkPlus } from "@tabler/icons-react";
 import { IProject } from "../../interfaces/IProject";
 import { Divider, Skeleton } from "@mantine/core";
 import { ProjectListItem } from "./ProjectListItem";
@@ -40,8 +40,8 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 			)}
 			{currentUser && currentUser?.bookmarks?.length === 0 && (
 				<div className="text-blueTextLight text-center text-xs font-normal">
-					You have no bookmarks. Click on the heart icon to add a favourite.
-					<IconHeartPlus size={16} className="mx-auto mt-2" />
+					You have no favourites. Click on the heart icon to add a favourite.
+					<IconBookmarkPlus size={16} className="mx-auto mt-2" />
 				</div>
 			)}
 		</>

@@ -9,13 +9,14 @@ import { Breadcrumbs } from "../components/Breadcrumbs/Breadcrumbs";
 import { IconHome } from "@tabler/icons-react";
 import { ProfilePosts } from "../components/Profile/ProfilePosts";
 import { useUserPosts } from "../hooks/posts/useUserPosts";
+import { useAddFavouriteTab } from "../hooks/user/useAddFavouriteTab";
 
 export const ProfilePage = () => {
 	const { currentUser } = useAuthContext();
 	const { data: projects, isLoading } = useUserProjects();
 	const { data: posts, isLoading: postLoading } = useUserPosts();
 	const { mutate } = useCreateProject();
-	const { mutate: mutateFavourite } = useAddFavourite();
+	const { mutate: mutateFavourite } = useAddFavouriteTab();
 	const { mutate: removeFavourite } = useRemoveFavourite();
 
 	const breadcrumbs = [

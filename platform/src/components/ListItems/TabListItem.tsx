@@ -1,4 +1,4 @@
-import { IconX } from "@tabler/icons-react";
+import { IconBook2, IconNotes, IconX } from "@tabler/icons-react";
 import { FC } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { IconBooks, IconTemplate } from "@tabler/icons-react";
@@ -7,14 +7,15 @@ export const TabListItem: FC<{
 	url: string;
 	onClick?: () => void;
 	removeFavourite?: () => void;
-	type: "story" | "post" | "user";
+	type: "story" | "post" | "user" | "project";
 }> = ({ name, onClick, url, type, removeFavourite }) => {
 	const location = useLocation().pathname;
 
 	const icons = {
 		story: <IconBooks size={18} />,
-		post: <IconTemplate size={18} />,
+		post: <IconNotes size={18} />,
 		user: <IconTemplate size={18} />,
+		project: <IconBook2 size={18} />,
 	};
 
 	return (

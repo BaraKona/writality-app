@@ -13,6 +13,10 @@ import {
 	IconPinnedFilled,
 	IconBookmarks,
 	IconUserCircle,
+	IconPlus,
+	IconCubePlus,
+	IconSquarePlus,
+	IconCube,
 } from "@tabler/icons-react";
 import { cyclops8 } from "../../assets/icons";
 import { MainFrame } from "../Project";
@@ -34,7 +38,7 @@ export const Sidebar: FC<{}> = () => {
 	const { mutate: createProject } = useCreateProject();
 	const { data: projects, isLoading: isProjectLoading } = useUserProjects();
 	const bookmarks = "bookmarks";
-	const home = "home";
+	const home = "projects";
 
 	const [sidebarNav, setSidebarNav] = useLocalStorage({
 		key: "sidebarNav",
@@ -134,7 +138,7 @@ export const Sidebar: FC<{}> = () => {
 									value={home}
 									navigate={() => setSidebarNav(home)}
 								>
-									<IconHome size={18} />
+									<IconCube size={18} />
 								</SidebarTopNav>
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
@@ -143,9 +147,16 @@ export const Sidebar: FC<{}> = () => {
 								>
 									<IconBookmarks size={18} />
 								</SidebarTopNav>
+								<SidebarTopNav
+									sidebarNav={sidebarNav}
+									value="create project"
+									navigate={createProject}
+								>
+									<IconCubePlus size={18} />
+								</SidebarTopNav>
 							</section>
 							<Divider color="grey.0" my={4} />
-							{/* <FavouriteTabItems /> */}
+
 							{sidebarNav === home && (
 								<UserProjects
 									projects={projects}

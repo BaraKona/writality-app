@@ -11,8 +11,8 @@ export const useRemoveFavourite = () => {
 		(projectId: string) => removeFavouriteProject(projectId),
 		{
 			onSuccess: () => {
-				useToast("success", "Project removed from bookmarks 😃");
-				queryClient.invalidateQueries(["bookmarks"]);
+				useToast("success", "Project removed from favourites 😃");
+				queryClient.invalidateQueries(["favourites"]);
 				queryClient.invalidateQueries(["user"]);
 			},
 		}

@@ -12,8 +12,8 @@ export const useAddFavourite = () => {
 		(projectId: string) => addFavouriteProject(projectId),
 		{
 			onSuccess: () => {
-				useToast("success", "Project added to bookmarks 😃");
-				queryClient.invalidateQueries(["bookmarks"]);
+				useToast("success", "Project added to favourites 😃");
+				queryClient.invalidateQueries(["favourites"]);
 				queryClient.invalidateQueries(["user"]);
 			},
 		}

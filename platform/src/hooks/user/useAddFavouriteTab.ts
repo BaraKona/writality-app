@@ -18,7 +18,7 @@ export const useAddFavouriteTab = () => {
 			onError: (err: any) => {
 				useToast(
 					"error",
-					"Something went wrong, we could not add this tab to your bookmarks 😔"
+					"Something went wrong, we could not add this tab to your favourites 😔"
 				);
 			},
 		}
