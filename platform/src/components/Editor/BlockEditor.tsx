@@ -10,10 +10,17 @@ export const BlockEditor: FC<{
 	isLoading: boolean;
 	setTitle: React.Dispatch<React.SetStateAction<string>>;
 	isEditable?: boolean;
-}> = ({ content, isLoading, setTitle, isEditable }) => {
+	setContent: React.Dispatch<React.SetStateAction<string>>;
+}> = ({ content, isLoading, setTitle, isEditable, setContent }) => {
 	const editor = useBlockNote(
 		{
 			initialContent: content?.content ? JSON.parse(content?.content) : null,
+			onEditorReady: (editor) => {
+				setContent(JSON.stringify(editor.topLevelBlocks));
+			},
+			onEditorContentChange: (editor) => {
+				setContent(JSON.stringify(editor.topLevelBlocks));
+			},
 		},
 		[content]
 	);

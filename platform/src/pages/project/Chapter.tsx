@@ -249,6 +249,7 @@ export const Chapter = () => {
 						isLoading={isLoading}
 						setTitle={setTitle}
 						isEditable={Boolean(branch) || currentProject?.type === "standard"}
+						setContent={setEditorContent}
 					/>
 				)}
 				{merge && currentBranch && (
