@@ -20,7 +20,7 @@ module.exports = {
 				base: "#fff",
 				border: "#ebebeb",
 				blueText: "#394251",
-				blueTextLight: "#868e96",
+				blueTextLight: "#868e99",
 
 				primary: "#f5f5f5f5",
 				secondary: "#fafafafa",

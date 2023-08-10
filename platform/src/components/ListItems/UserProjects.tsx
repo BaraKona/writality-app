@@ -1,15 +1,22 @@
-import { IconHeartPlus } from "@tabler/icons-react";
+import { IconHeartPlus, IconSquarePlus } from "@tabler/icons-react";
 import { IProject } from "../../interfaces/IProject";
 import { Divider, Skeleton } from "@mantine/core";
 import { ProjectListItem } from "./ProjectListItem";
 import { FC } from "react";
 
-export const FavouriteProjectItems: FC<{
+export const UserProjects: FC<{
 	isLoading: boolean;
 	projects: IProject[];
 	openProject: (project: string) => void;
 	removeFavouriteProject: (project: string) => void;
-}> = ({ isLoading, projects, openProject, removeFavouriteProject }) => {
+	createProject: () => void;
+}> = ({
+	isLoading,
+	projects,
+	openProject,
+	removeFavouriteProject,
+	createProject,
+}) => {
 	return (
 		<>
 			{" "}
@@ -22,8 +29,8 @@ export const FavouriteProjectItems: FC<{
 			) : (
 				<>
 					<div>
-						<div className="text-blueText text-xs font-normal">
-							Favourite Projects
+						<div className="text-blueTextLight text-xs font-normal">
+							Your projects
 						</div>
 					</div>
 					<Divider color="grey.0" my={4} />
@@ -39,13 +46,24 @@ export const FavouriteProjectItems: FC<{
 							/>
 						);
 					})}
-					<Divider color="grey.0" my={4} />
+					{projects?.length !== 0 && (
+						<IconSquarePlus
+							size={16}
+							className="mx-auto cursor-pointer mt-2 text-blueTextLight"
+							onClick={createProject}
+						/>
+					)}
+					{/* <Divider color="grey.0" my={4} /> */}
 				</>
 			)}
 			{!isLoading && projects?.length === 0 && (
-				<div className="text-blueText text-center text-xs font-normal">
-					You have no favourites. Click on the heart icon to add a favourite.
-					<IconHeartPlus size={16} className="mx-auto" />
+				<div className="text-blueTextLight text-center text-xs font-normal">
+					You have no projects. Create your first project.
+					<IconSquarePlus
+						size={16}
+						className="mx-auto cursor-pointer mt-2 "
+						onClick={createProject}
+					/>
 				</div>
 			)}
 		</>

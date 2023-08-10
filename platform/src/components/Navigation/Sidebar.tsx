@@ -9,6 +9,10 @@ import {
 	IconSettings,
 	IconTemplate,
 	IconHome,
+	IconPinned,
+	IconPinnedFilled,
+	IconBookmarks,
+	IconUserCircle,
 } from "@tabler/icons-react";
 import { cyclops8 } from "../../assets/icons";
 import { MainFrame } from "../Project";
@@ -17,13 +21,25 @@ import { useFavouriteProjects } from "../../hooks/projects/useFavouriteProjects"
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
 import { Divider } from "@mantine/core";
 import { IconUsersGroup } from "@tabler/icons-react";
-import { FavouriteProjectItems } from "../ListItems/FavouriteProjectItems";
+import { UserProjects } from "../ListItems/UserProjects";
 import { FavouriteTabItems } from "../ListItems/FavouriteTabItem";
+import { SidebarTopNav } from "./components/SidebarTopNav";
+import { useCreateProject } from "../../hooks/projects/useCreateProject";
+import { useUserProjects } from "../../hooks/projects/useUserProjects";
+import { useLocalStorage } from "@mantine/hooks";
+
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { mutate: signOut } = useSignout();
-	const { data: projects, isLoading: isProjectLoading } =
-		useFavouriteProjects();
+	const { mutate: createProject } = useCreateProject();
+	const { data: projects, isLoading: isProjectLoading } = useUserProjects();
+	const bookmarks = "bookmarks";
+	const home = "home";
+
+	const [sidebarNav, setSidebarNav] = useLocalStorage({
+		key: "sidebarNav",
+		defaultValue: home,
+	});
 
 	const { mutate: removeFavouriteProject } = useRemoveFavourite();
 
@@ -58,10 +74,10 @@ export const Sidebar: FC<{}> = () => {
 						<div className="border-r border-[#ebebeb] flex-col flex">
 							<CategoryListItem>
 								<CommunityListItem
-									name="Library"
-									onClick={() => openPages("/library")}
+									name="Profile"
+									onClick={() => openPages("/profile")}
 								>
-									<IconHome stroke={2.2} size={18} />
+									<IconUserCircle size={18} />
 								</CommunityListItem>
 								<CategoryListItem>
 									<Divider color="grey.0" />
@@ -111,14 +127,35 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 						</div>
-						<CategoryListItem>
-							<FavouriteTabItems />
-							<FavouriteProjectItems
-								projects={projects}
-								isLoading={isProjectLoading}
-								openProject={openProject}
-								removeFavouriteProject={removeFavouriteProject}
-							/>
+						<CategoryListItem className="w-full">
+							<section className="flex flex-row justify-center gap-0.5">
+								<SidebarTopNav
+									sidebarNav={sidebarNav}
+									value={home}
+									navigate={() => setSidebarNav(home)}
+								>
+									<IconHome size={18} />
+								</SidebarTopNav>
+								<SidebarTopNav
+									sidebarNav={sidebarNav}
+									value={bookmarks}
+									navigate={() => setSidebarNav(bookmarks)}
+								>
+									<IconBookmarks size={18} />
+								</SidebarTopNav>
+							</section>
+							<Divider color="grey.0" my={4} />
+							{/* <FavouriteTabItems /> */}
+							{sidebarNav === home && (
+								<UserProjects
+									projects={projects}
+									isLoading={isProjectLoading}
+									openProject={openProject}
+									removeFavouriteProject={removeFavouriteProject}
+									createProject={createProject}
+								/>
+							)}
+							{sidebarNav === bookmarks && <FavouriteTabItems />}
 						</CategoryListItem>
 					</div>
 				</div>

@@ -20,7 +20,7 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 			) : (
 				<>
 					<div>
-						<div className="text-blueText text-xs font-normal">
+						<div className="text-blueTextLight text-xs font-normal">
 							Favourite Tabs
 						</div>
 					</div>
@@ -36,13 +36,12 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 							/>
 						);
 					})}
-					<Divider color="grey.0" my={4} />
 				</>
 			)}
 			{currentUser && currentUser?.favouriteTabs?.length === 0 && (
-				<div className="text-blueText text-center text-xs font-normal">
+				<div className="text-blueTextLight text-center text-xs font-normal">
 					You have no favourites. Click on the heart icon to add a favourite.
-					<IconHeartPlus size={16} className="mx-auto" />
+					<IconHeartPlus size={16} className="mx-auto mt-2" />
 				</div>
 			)}
 		</>

@@ -10,6 +10,7 @@ import {
 	IconTemplate,
 	IconX,
 	IconPlus,
+	IconUserCircle,
 } from "@tabler/icons-react";
 import { useTabContext } from "../../contexts/TabContext";
 import { useNavigate } from "react-router-dom";
@@ -35,8 +36,8 @@ export const MainFrame: FC<{
 	if (!tab) {
 		setTabs([
 			{
-				path: "/library",
-				title: "Library",
+				path: "/profile",
+				title: "Profile",
 				id: uuidv4(),
 				active: true,
 			},
@@ -54,8 +55,8 @@ export const MainFrame: FC<{
 
 	const tabIcons = [
 		{
-			title: "Library",
-			icon: <IconHome stroke={2.2} size={18} />,
+			title: "Profile",
+			icon: <IconUserCircle stroke={2.2} size={18} />,
 		},
 		{
 			title: "Stories",
@@ -96,7 +97,7 @@ export const MainFrame: FC<{
 		}
 
 		if (!prevTab && !nextTab) {
-			navigate("/library");
+			navigate("/profile");
 		}
 		setTabs(filteredTabs);
 	};
@@ -109,8 +110,8 @@ export const MainFrame: FC<{
 			setTabs([
 				...tabs,
 				{
-					path: "/library",
-					title: "Library",
+					path: "/profile",
+					title: "Profile",
 					id: uuidv4(),
 					active: true,
 				},

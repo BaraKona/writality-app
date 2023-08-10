@@ -22,9 +22,9 @@ const dashboardRoutes: RouteObject[] = [
 		path: "*",
 		element: <FourOFour />,
 	},
-	{ path: "/", loader: () => redirect("/library") },
+	{ path: "/", loader: () => redirect("/profile") },
 	{
-		path: "/library",
+		path: "/profile",
 		element: <LibraryPage />,
 	},
 	{
@@ -61,7 +61,7 @@ const dashboardRoutes: RouteObject[] = [
 		errorElement: <Error />,
 	},
 	{
-		path: "/library/posts/:postId",
+		path: "/profile/posts/:postId",
 		element: <SinglePost />,
 		errorElement: <Error />,
 	},
