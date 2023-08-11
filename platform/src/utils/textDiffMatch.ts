@@ -129,7 +129,7 @@ export function highlightDifferences(
 			const added = part.added;
 			const removed = part.removed;
 
-			const color = added ? "blue" : removed ? "red" : "default";
+			const color = added ? "purple" : removed ? "red" : "default";
 			const styles = { ...(removed ? { strike: true } : {}), textColor: color };
 			const textBlock: TextBlock = {
 				type: "text",
