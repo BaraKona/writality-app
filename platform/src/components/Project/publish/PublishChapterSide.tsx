@@ -41,7 +41,7 @@ export const PublishChapterSide: FC<{
 			<div className="max-w-4xl mx-auto py-10 h-[calc(100vh-7.5rem)] overflow-y-auto">
 				<Textarea
 					placeholder="Title"
-					defaultValue={chapter.title}
+					defaultValue={chapter.content.title}
 					readOnly={true}
 					minRows={1}
 					maxRows={4}
