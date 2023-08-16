@@ -54,8 +54,8 @@ export const PostsPage: FC = () => {
 				</button>
 			</Tooltip>
 			<BannerImage image={DefaultPostBanner} alt="Post banner" />
-			<div className="h-[calc(100vh-16rem)] overflow-y-auto">
-				<div className="max-w-screen-md mx-auto">
+			<div className="h-[calc(100vh-17rem)] overflow-y-auto">
+				<div className="max-w-screen-lg mx-auto">
 					<div className="bg-base rounded-normal">
 						<Title>Posts</Title>
 						<div className="mx-auto bg-base rounded-normal flex flex-wrap gap-2">

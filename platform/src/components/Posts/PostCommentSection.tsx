@@ -12,8 +12,8 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 }) => {
 	const [open, setOpen] = useState(false);
 	return (
-		<div className="max-w-xl basis-96 flex-grow">
-			<div className="flex gap-2">
+		<div className="w-96 flex-grow-0 mt-16 p-2 rounded-normal border-border border">
+			<div className="flex gap-2 mb-2">
 				<Avatar.Group spacing="sm">
 					<Avatar src="image.png" radius="xl" />
 					<Avatar src="image.png" radius="xl" />
@@ -29,10 +29,11 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 					</Text>
 				</div>
 			</div>
-			<Divider my="xs" color="grey.0" />
+			{/* <Divider my="xs" color="grey.0" /> */}
 			<div>
 				<Text
-					className={`text-coolGrey-7/80 text-[0.85rem] transition-all ease-in-out duration-300 leading-1 max-h-96 overflow-y-auto ${
+					size="sm"
+					className={`text-coolGrey-7/80 transition-all ease-in-out duration-300 leading-1  max-h-96 overflow-y-auto ${
 						!open ? "line-clamp-6" : ""
 					}`}
 				>
@@ -41,7 +42,8 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 
 				<div className="flex justify-end">
 					<Text
-						className="text-coolGrey-7/80 text-[0.85rem] leading-1 cursor-pointer underline text-xs font-semibold"
+						size="xs"
+						className="text-coolGrey-7/80 leading-1 cursor-pointer underline  font-semibold"
 						onClick={() => setOpen((open) => !open)}
 					>
 						{open ? "Show less" : "Show more"}

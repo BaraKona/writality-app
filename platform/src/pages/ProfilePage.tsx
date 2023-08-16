@@ -38,8 +38,8 @@ export const ProfilePage = () => {
 				image={DefaultProfileBanner}
 				alt="Banner by Jez Timms on Unsplash"
 			/>
-			<div className="h-[calc(100vh-16rem)] overflow-y-auto">
-				<div className="max-w-screen-md mx-auto">
+			<div className="h-[calc(100vh-17rem)] overflow-y-auto">
+				<div className="max-w-screen-lg mx-auto">
 					<Title>Welcome {currentUser.name}</Title>
 					<div className="p-2 rounded-normal flex flex-col gap-2">
 						<ProfileProjects

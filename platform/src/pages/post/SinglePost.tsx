@@ -14,7 +14,7 @@ export const SinglePost = () => {
 
 	if (isLoading) {
 		return (
-			<div className="h-[calc(100vh-2.7rem)] place-items-center rounded-normal bg-base px-3 py-3">
+			<div className="h-[calc(100vh-3rem)] place-items-center rounded-normal bg-base px-3 py-3">
 				<Breadcrumbs
 					items={[
 						{
@@ -64,7 +64,7 @@ export const SinglePost = () => {
 	];
 
 	return (
-		<div className="h-[calc(100vh-2.7rem)] place-items-center rounded-normal bg-base px-3 py-3">
+		<div className="h-[calc(100vh-4rem)] place-items-center rounded-normal bg-base px-3 py-3">
 			<Breadcrumbs items={breadcrumbs} />
 			<Divider my="xs" color="grey.0" />
 			<div className="flex gap-3">
@@ -80,7 +80,7 @@ export const SinglePost = () => {
 					}
 				/>
 				<Divider my="xs" color="grey.0" orientation="vertical" />
-				<PostCommentSection post={post} isLoading={isLoading} />
+				{/* <PostCommentSection post={post} isLoading={isLoading} /> */}
 			</div>
 		</div>
 	);
