@@ -20,7 +20,7 @@ export const CreateBranchModal: FC<{
 				opacity: 0.55,
 				blur: 3,
 			}}
-			className="text-blueText text-xs"
+			className="text-coolGrey-7 text-xs"
 			styles={modalStyles}
 			scrollAreaComponent={Modal.NativeScrollArea}
 			onClose={() => setOpened(false)}

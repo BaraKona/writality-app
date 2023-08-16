@@ -43,8 +43,8 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 	}
 
 	return (
-		<div className="bg-primary h-[calc(100vh-31rem)] overflow-y-auto">
-			{/* <div className="text-xs font-medium mb-2 ">Your Posts</div> */}
+		<div>
+			<div className="text-xs font-medium mt-2 ">Your Posts</div>
 			{/* <Divider mt={4} color="grey.0" /> */}
 			<div className="flex flex-col gap-2">
 				{posts.map((post) => (

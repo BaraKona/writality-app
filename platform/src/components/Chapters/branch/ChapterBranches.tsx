@@ -39,7 +39,7 @@ export const ChapterBranches: FC<{
 	// }
 	return (
 		<ChapterSidebarWrapper>
-			<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
+			<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center">
 				Branches
 				<ButtonWrapper onClick={openBranchModal} className="ml-auto">
 					<IconPlus
@@ -56,7 +56,7 @@ export const ChapterBranches: FC<{
 			</div>
 			<Divider color="grey.0" />
 			{chapterBranches?.length > 0 ? (
-				<div className="text-blueText">
+				<div className="text-coolGrey-7">
 					<div className="flex justify-between gap-2 border-b border-border items-center">
 						<div
 							className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-xs font-medium"
@@ -65,7 +65,7 @@ export const ChapterBranches: FC<{
 							<div
 								className={`hover:text-black ${
 									currentBranch?.uid === mainContent?.uid
-										? "text-blueText"
+										? "text-coolGrey-7"
 										: "text-blueTextLight"
 								}`}
 							>
@@ -104,7 +104,7 @@ export const ChapterBranches: FC<{
 										>
 											<VscGitPullRequestCreate size={14} />
 										</button>
-										<p className="text-blueText font-medium text-xs">
+										<p className="text-coolGrey-7 font-medium text-xs">
 											{branch.name ? branch.name : "Branch"}:
 										</p>
 									</div>
@@ -117,16 +117,16 @@ export const ChapterBranches: FC<{
 										<div className="flex ml-1.5 flex-col border-l border-border gap-1 px-1">
 											<button
 												onClick={() => openMergeModal("replace")}
-												className={`flex gap-1 text-blueText text-xs font-medium items-center rounded-normal hover:text-black px-2 border-border group ${
-													merge === "replace" ? "bg-tertiary" : ""
+												className={`flex gap-1 text-coolGrey-7 text-xs font-medium items-center rounded-normal hover:text-black px-2 border-border group ${
+													merge === "replace" ? "bg-primary" : ""
 												}`}
 											>
 												<VscGitMerge size={14} /> Merge branch replace main
 											</button>
 											<button
 												onClick={() => openMergeModal("into")}
-												className={`flex gap-1 text-blueText text-xs font-medium items-center px-2 hover:bg-tertiary rounded-normal ${
-													merge === "into" ? "bg-tertiary" : ""
+												className={`flex gap-1 text-coolGrey-7 text-xs font-medium items-center px-2 hover:bg-primary rounded-normal ${
+													merge === "into" ? "bg-primary" : ""
 												}`}
 											>
 												<VscGitMerge size={14} />
@@ -134,7 +134,7 @@ export const ChapterBranches: FC<{
 											</button>
 											<button
 												onClick={() => openDeleteBranch(true)}
-												className="flex gap-1 text-blueText text-xs font-medium items-center px-2 hover:bg-tertiary rounded-normal"
+												className="flex gap-1 text-coolGrey-7 text-xs font-medium items-center px-2 hover:bg-primary rounded-normal"
 											>
 												<VscGitPullRequestClosed size={14} />
 												Delete branch
@@ -150,7 +150,7 @@ export const ChapterBranches: FC<{
 				</div>
 			) : (
 				<div className=" flex gap-2  items-center text-xs p-2">
-					<div className="text-blueText">
+					<div className="text-coolGrey-7">
 						<IconGitBranch size={18} />
 					</div>
 					You do not have any branches for this chapter

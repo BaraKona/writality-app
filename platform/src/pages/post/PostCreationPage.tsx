@@ -50,7 +50,7 @@ export const PostCreationPage: FC<{}> = () => {
 	];
 
 	return (
-		<div className="h-[calc(100vh-2.7rem)] place-items-center rounded-normal bg-secondary px-3 py-3">
+		<div className="h-[calc(100vh-2.7rem)] place-items-center rounded-normal bg-base px-3 py-3">
 			<Breadcrumbs items={breadcrumbs} />
 			<Divider my="xs" color="grey.0" />
 			<div className="flex gap-3">

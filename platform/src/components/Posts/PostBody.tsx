@@ -23,7 +23,7 @@ export const PostBody: FC<{
 			<Paper
 				shadow="xs"
 				p="md"
-				className=" text-blueText max-w-3xl mx-auto"
+				className=" text-coolGrey-7 max-w-3xl mx-auto"
 				style={{
 					background: post?.theme?.background || "white",
 				}}

@@ -25,7 +25,7 @@ export const DeleteProjectSetting = () => {
 	);
 	return (
 		<div className="max-w-md">
-			<div className="text-sm font-medium text-blueText">Delete Project</div>
+			<div className="text-sm font-medium text-coolGrey-7">Delete Project</div>
 			<DeleteModal
 				opened={openDeleteProject}
 				setOpened={setOpenDeleteProject}

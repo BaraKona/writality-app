@@ -135,21 +135,21 @@ export const MainFrame: FC<{
 	};
 
 	return (
-		<div className="w-[calc(100vw-12rem)]">
+		<div className="w-[calc(100vw-16rem)] pr-2">
 			<div className="mt-1.5 pb-1 flex gap-1 content-start ">
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}
 						className={` ${
 							tab.active
-								? "bg-base border border-border hover:bg-base shadow"
+								? "bg-base border border-border hover:bg-base"
 								: "cursor-pointer border border-primary hover:bg-base"
-						} flex items-center justify-between px-2 py-1.5 w-44 bg-secondary border border-border hover:bg-secondary  rounded-normal transition-all duration-500 ease-in-out min-w-0`}
+						} flex items-center justify-between px-2 py-1.5 w-44 bg-base border border-border hover:bg-base  rounded-normal transition-all duration-500 ease-in-out min-w-0`}
 						onClick={() => changeTab(tab)}
 					>
 						<div
 							className={`flex w-full items-center flex-row cursor-default ${
-								tab.active ? "text-black" : "text-blueText"
+								tab.active ? "text-black" : "text-coolGrey-7"
 							}`}
 						>
 							{tabIcons.find((t) => t.title === tab.title)?.icon ||

@@ -17,7 +17,7 @@ export const ChapterBranchButton: FC<{
 			>
 				<IconGitBranch
 					size={18}
-					className="text-blueText group-hover:text-black "
+					className="text-coolGrey-7 group-hover:text-black "
 				/>
 			</div>
 		</Tooltip>

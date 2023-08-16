@@ -103,7 +103,7 @@ export const PostCard: FC<{
 				<Text
 					weight={600}
 					size="md"
-					className="text-blueText"
+					className="text-coolGrey-7"
 					style={{
 						color: post?.theme?.projectTitle || blue,
 					}}
@@ -113,7 +113,7 @@ export const PostCard: FC<{
 				<Text
 					weight={500}
 					size="xs"
-					className="text-blueText"
+					className="text-coolGrey-7"
 					style={{
 						color: post?.theme?.postTitle || gray2,
 					}}
@@ -158,7 +158,7 @@ const UserRenderer = ({ post }: { post: IPost }) => {
 				height={30}
 				radius="lg"
 			/>
-			<div className="flex flex-col text-blueText">
+			<div className="flex flex-col text-coolGrey-7">
 				<Text className="text-xs font-semibold">
 					{post?.owner.slice(0, 10) || "User"}
 				</Text>

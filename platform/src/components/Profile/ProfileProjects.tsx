@@ -67,13 +67,12 @@ export const ProfileProjects: FC<{
 	}
 
 	return (
-		<div className="bg-primary">
+		<div className="">
 			<div className="text-xs font-medium">Your Projects</div>
-			<Divider color="grey.0" mt={4} />
-			<div className="h-[calc(100vh-40rem)] overflow-y-auto flex flex-col gap-2">
+			<div className=" overflow-y-auto flex flex-row flex-wrap gap-3">
 				{projects.map((project) => (
 					<div
-						className="flex gap-2 rounded-normal basis-36 p-2 bg-base"
+						className="flex gap-2 rounded-normal basis-60 p-2 border border-border"
 						onClick={() => navigate(`/project/${project.uid}/home`)}
 					>
 						{project.type === ProjectType.standard ? (

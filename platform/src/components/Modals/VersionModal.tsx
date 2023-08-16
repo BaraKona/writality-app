@@ -47,17 +47,17 @@ export const VersionModal: FC<{
 				styles={modalStyles}
 				scrollAreaComponent={Modal.NativeScrollArea}
 				onClose={() => setOpened(false)}
-				className="text-blueText text-sm"
+				className="text-coolGrey-7 text-sm"
 				title="Version"
 			>
-				<div className="flex flex-wrap mx-auto text-blueText">
+				<div className="flex flex-wrap mx-auto text-coolGrey-7">
 					<div className="px-5 border-r border-border grow shrink w-1/2 mx-auto">
 						<h2 className="text-gray-700 font-medium underline text-md my-2">
 							{currentContent?.name || "Main"}
 						</h2>
 						<TypographyStylesProvider>
 							<div
-								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-blueText text-xs px-3"
+								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 text-xs px-3"
 								dangerouslySetInnerHTML={{ __html: currentContent?.content }}
 							/>
 						</TypographyStylesProvider>
@@ -68,7 +68,7 @@ export const VersionModal: FC<{
 						</h2>
 						<TypographyStylesProvider>
 							<div
-								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-blueText text-xs px-3"
+								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 text-xs px-3"
 								dangerouslySetInnerHTML={{ __html: version?.content }}
 							/>
 						</TypographyStylesProvider>

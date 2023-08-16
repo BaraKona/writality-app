@@ -46,7 +46,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 							"#2e2e2e",
 							"#171717",
 						],
-						blueText: [
+						coolGrey: [
 							"#e6f0ff",
 							"#cce0ff",
 							"#b3d1ff",

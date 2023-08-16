@@ -55,14 +55,11 @@ export const Sidebar: FC<{}> = () => {
 	};
 
 	return (
-		<div className="flex h-screen">
-			<aside
-				className="flex overflow-y-auto h-full basis-60"
-				aria-label="Sidebar"
-			>
+		<aside className="flex h-screen " aria-label="Sidebar">
+			<div className="flex overflow-y-auto h-full basis-72">
 				<div className="flex flex-col py-2 px-2 w-full">
 					<Link to="/">
-						<div className="ml-2 mt-1 mb-2 flex">
+						<div className="ml-2 mt-1 mb-1 flex">
 							<img
 								src={cyclops8}
 								alt="writality"
@@ -72,10 +69,10 @@ export const Sidebar: FC<{}> = () => {
 							/>
 							<div className="font-semibold px-2 text-sm">Writality</div>
 						</div>
-						<Divider color="grey.0" />
+						{/* <Divider color="grey.0" /> */}
 					</Link>
 					<div className="flex h-full">
-						<div className="border-r border-[#ebebeb] flex-col flex">
+						<div className="flex-col flex">
 							<CategoryListItem>
 								<CommunityListItem
 									name="Profile"
@@ -131,8 +128,8 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 						</div>
-						<CategoryListItem className="w-full">
-							<section className="flex flex-row justify-center gap-0.5">
+						<CategoryListItem className="w-full rounded border border-border mt-1.5 h-[calc(100vh-59px)]">
+							<section className="flex flex-row justify-center gap-1 mb-2">
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
 									value={home}
@@ -155,7 +152,7 @@ export const Sidebar: FC<{}> = () => {
 									<IconCubePlus size={18} />
 								</SidebarTopNav>
 							</section>
-							<Divider color="grey.0" my={4} />
+							{/* <Divider color="grey.0" my={4} /> */}
 
 							{sidebarNav === home && (
 								<UserProjects
@@ -170,10 +167,10 @@ export const Sidebar: FC<{}> = () => {
 						</CategoryListItem>
 					</div>
 				</div>
-			</aside>
+			</div>
 			<MainFrame>
 				<Outlet />
 			</MainFrame>
-		</div>
+		</aside>
 	);
 };

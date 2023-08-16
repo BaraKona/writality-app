@@ -54,7 +54,7 @@ export default function Login() {
 					}}
 				/>
 				<div className="flex justify-between my-5 text-xs">
-					<p className="text-blueText"> Forgot Password? </p>
+					<p className="text-coolGrey-7"> Forgot Password? </p>
 					<Link to="/auth/reset">
 						<a className="text-gray-400 font-semibold underline cursor-pointer hover:underline-offset-2 ease-in-out duration-300">
 							Reset password
@@ -66,7 +66,7 @@ export default function Login() {
 			<Divider my="md" label="or" labelPosition="center" color="grey.0" />
 
 			<Link to="/auth/register">
-				<p className="text-center font-medium text-xs text-blueText">
+				<p className="text-center font-medium text-xs text-coolGrey-7">
 					Don&#39;t have an account yet?
 					<span className="underline pl-5 cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-gray-400 font-semibold">
 						Create an account

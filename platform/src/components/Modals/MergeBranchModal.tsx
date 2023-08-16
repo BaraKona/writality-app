@@ -56,7 +56,7 @@ export const MergeBranchModal: FC<{
 					blur: 3,
 				}}
 				styles={modalStyles}
-				className="text-blueText text-sm"
+				className="text-coolGrey-7 text-sm"
 				scrollAreaComponent={Modal.NativeScrollArea}
 				onClose={() => setMergeOpened(false)}
 				title={`Merging ${currentBranch?.name} into main 🤝`}

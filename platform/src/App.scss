@@ -6,7 +6,7 @@
 :root {
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
-	background-color: #f5f5f5;
+	background-color: #ffff;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -51,7 +51,7 @@ a {
 	}
 	body {
 		color: #394251;
-		background-color: #f5f5f5 !important;
+		background-color: #ffff !important;
 	}
 }
 textarea:focus,
@@ -109,7 +109,7 @@ select:active {
 	width: 10px;
 }
 *::-webkit-scrollbar-track {
-	background: #f5f5f5f5; /* color of the tracking area */
+	background: #fffff5; /* color of the tracking area */
 }
 *::-webkit-scrollbar-thumb {
 	background-color: #525252; /* color of the scroll thumb */

@@ -11,7 +11,7 @@ export const AuthHeader = () => {
 					height={35}
 					className="inline-block"
 				/>
-				<p className="font-bold text-md text-blueText">Writality</p>
+				<p className="font-bold text-md text-coolGrey-7">Writality</p>
 			</div>
 		</nav>
 	);

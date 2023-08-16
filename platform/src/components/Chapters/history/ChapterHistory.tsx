@@ -33,7 +33,7 @@ export const ChapterHistory: FC<{
 	return (
 		<ChapterSidebarWrapper>
 			<div>
-				<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
+				<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center">
 					History
 					<ButtonWrapper className="ml-auto" onClick={close}>
 						<IconX size={14} className="text-gray-400 group-hover:text-black" />
@@ -65,7 +65,7 @@ export const ChapterHistory: FC<{
 									historyAction[item.action] || <IconMessageDots size={12} />
 								}
 								title={`Chapter ${item.action}`}
-								className="text-blueText text-xs font-medium pt-1"
+								className="text-coolGrey-7 text-xs font-medium pt-1"
 							>
 								<Text color="dimmed" size="xs">
 									Chapter was {item.action} by{" "}

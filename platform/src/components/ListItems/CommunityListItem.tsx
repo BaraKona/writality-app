@@ -17,9 +17,9 @@ export const CommunityListItem: FC<{
 				<div
 					className={`p-1.5 flex mb-0.5 text-xs font-medium rounded-normal items-center transition-all ease-in-out duration-500 ${
 						path.includes(name.toLowerCase())
-							? "text-black bg-base shadow font-medium border border-base"
-							: "text-blueText"
-					} hover:bg-base border border-border `}
+							? "bg-coolGrey-2 font-medium text-coolGrey-8"
+							: "text-coolGrey-5"
+					} hover:bg-slate-100-0  `}
 				>
 					{children}
 				</div>

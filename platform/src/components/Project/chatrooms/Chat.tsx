@@ -13,7 +13,7 @@ export const Chat: FC<{
 	sendComment: () => void;
 }> = ({ setComment, comment, comments, sendComment }) => {
 	return (
-		<div className="flex-grow mx-auto bg-secondary">
+		<div className="flex-grow mx-auto bg-base">
 			<div
 				// make items start from bottom
 				className="flex flex-col-reverse gap-2 h-[calc(100vh-200px)] overflow-y-auto "
@@ -48,7 +48,7 @@ export const Chat: FC<{
 					rightSection={
 						<IconSend
 							size={18}
-							className="text-blueText hover:text-black"
+							className="text-coolGrey-7 hover:text-black"
 							onClick={sendComment}
 						/>
 					}

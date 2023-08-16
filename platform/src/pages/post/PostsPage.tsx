@@ -34,9 +34,9 @@ export const PostsPage: FC = () => {
 		navigate(`/posts/create`);
 	};
 	return (
-		<div className="place-items-center rounded-normal bg-secondary border border-border px-3 py-3">
+		<div className="place-items-center rounded-normal bg-base border border-border px-3 py-3">
 			<PostHeader title="Posts" openModal={openPostCreation} />
-			<div className="bg-secondary rounded-normal  py-2 h-[calc(100vh-6.4rem)]">
+			<div className="bg-base rounded-normal  py-2 h-[calc(100vh-6.4rem)]">
 				<div className="mx-auto bg-base px-2 border border-border rounded-normal h-[calc(100vh-6.9rem)] overflow-y-auto py-3 flex flex-col gap-2">
 					{posts?.map((post: IPost) => (
 						<PostCard post={post!} openPost={openPost} />

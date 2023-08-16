@@ -20,7 +20,7 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 					<Avatar src="image.png" radius="xl" />
 					<Avatar radius="xl">+5</Avatar>
 				</Avatar.Group>
-				<div className="flex text-sm text-blueText flex-col ">
+				<div className="flex text-sm text-coolGrey-7 flex-col ">
 					<div className="font-semibold">
 						{post?.owner.slice(0, 10) || "User"}
 					</div>
@@ -32,7 +32,7 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 			<Divider my="xs" color="grey.0" />
 			<div>
 				<Text
-					className={`text-blueText/80 text-[0.85rem] transition-all ease-in-out duration-300 leading-1 max-h-96 overflow-y-auto ${
+					className={`text-coolGrey-7/80 text-[0.85rem] transition-all ease-in-out duration-300 leading-1 max-h-96 overflow-y-auto ${
 						!open ? "line-clamp-6" : ""
 					}`}
 				>
@@ -41,7 +41,7 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 
 				<div className="flex justify-end">
 					<Text
-						className="text-blueText/80 text-[0.85rem] leading-1 cursor-pointer underline text-xs font-semibold"
+						className="text-coolGrey-7/80 text-[0.85rem] leading-1 cursor-pointer underline text-xs font-semibold"
 						onClick={() => setOpen((open) => !open)}
 					>
 						{open ? "Show less" : "Show more"}
@@ -58,7 +58,7 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 					styles={inputStyles}
 					onSubmit={() => console.log("submit")}
 					rightSection={
-						<IconSend size={18} className="text-blueText hover:text-black" />
+						<IconSend size={18} className="text-coolGrey-7 hover:text-black" />
 					}
 				/>
 			</div>

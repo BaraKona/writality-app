@@ -8,8 +8,8 @@ export const SmallText: FC<{
 	return (
 		<div
 			className={`text-xs ${
-				light ? "text-blueTextLight" : "to-blueText"
-			} text-blueText font-medium ${className}`}
+				light ? "text-blueTextLight" : "to-coolGrey"
+			} text-coolGrey-7 font-medium ${className}`}
 		>
 			{children}
 		</div>

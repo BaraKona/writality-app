@@ -47,7 +47,7 @@ export const ProfileSettings = () => {
 			<div className="max-w-lg mx-auto mt-10">
 				<div className="flex justify-between items-end">
 					<div>
-						<Text size={20} className=" font-medium text-blueText">
+						<Text size={20} className=" font-medium text-coolGrey-7">
 							Profile
 						</Text>
 						<Text size={12} color="dimmed">
@@ -154,7 +154,7 @@ export const ProfileSettings = () => {
 					limit={5}
 				/>
 				<Space my="md" />
-				<Text size={20} className=" font-medium text-blueText">
+				<Text size={20} className=" font-medium text-coolGrey-7">
 					Location
 				</Text>
 				<div className="text-sm text-"> Manage your location </div>

@@ -7,7 +7,7 @@ import { inputStyles } from "../../../styles/inputStyles";
 export const ChapterSettings: FC<{ close: () => void }> = ({ close }) => {
 	return (
 		<div className="min-w-auto w-72">
-			<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
+			<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center">
 				Settings
 				<ButtonWrapper className="ml-auto" onClick={close}>
 					<IconX size={14} className="text-gray-400 group-hover:text-black" />

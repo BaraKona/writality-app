@@ -17,7 +17,7 @@ export const Comment: FC<{
 		<div className="flex flex-col space-y-2">
 			{previousComment?.user !== comment.user && (
 				<div className="flex items-center space-x-2">
-					<div className="w-7 h-7 rounded-normal bg-blueText"></div>
+					<div className="w-7 h-7 rounded-normal bg-coolGrey"></div>
 					<div className="flex flex-col">
 						<div className="font-medium text-sm">User</div>
 						<div className="text-xs text-gray-400">
@@ -27,7 +27,7 @@ export const Comment: FC<{
 				</div>
 			)}
 			<div className="flex flex-col space-y-2 ml-4">
-				<div className="text-xs font-medium text-blueText text-blue">
+				<div className="text-xs font-medium text-coolGrey-7 text-blue">
 					<ReactMarkdown
 						remarkPlugins={[remarkGfm]}
 						children={comment.content}

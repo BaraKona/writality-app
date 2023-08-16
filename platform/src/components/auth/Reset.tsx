@@ -25,7 +25,7 @@ export function Reset() {
 			</form>
 			<Divider my="md" label="or" labelPosition="center" color="grey.0" />
 			<Link to="/auth/login">
-				<p className="text-center text-xs text-blueText font-medium ">
+				<p className="text-center text-xs text-coolGrey-7 font-medium ">
 					<span className="underline cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-gray-400 font-semibold">
 						&#8592; Back to Login
 					</span>

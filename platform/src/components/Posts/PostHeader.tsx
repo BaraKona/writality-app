@@ -18,7 +18,7 @@ export const PostHeader: FC<{
 	];
 
 	return (
-		<div className="bg-secondary rounded-normal text-blueText">
+		<div className="bg-base rounded-normal text-coolGrey-7">
 			<div className="relative flex w-full items-center">
 				<Breadcrumbs items={breadcrumbs} />
 				<div className=" ml-auto flex cursor-pointer">

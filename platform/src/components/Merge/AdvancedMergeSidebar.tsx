@@ -16,8 +16,8 @@ export const AdvancedMergeSidebar: FC<{
 		<span style={{ color: "#00b894" }}>{children}</span>
 	);
 	return (
-		<div className="max-w-md pl-5 text-blueText">
-			<Text align="center" className="text-blueText">
+		<div className="max-w-md pl-5 text-coolGrey-7">
+			<Text align="center" className="text-coolGrey-7">
 				You are merging the{" "}
 				<span className="text-blue-400 font-bold ">[branch]</span>{" "}
 				<u>{currentContent?.name}</u> into <u>Main</u>.
@@ -26,7 +26,7 @@ export const AdvancedMergeSidebar: FC<{
 			<List
 				spacing="xs"
 				size="sm"
-				className="text-blueText"
+				className="text-coolGrey-7"
 				center
 				icon={
 					<ThemeIcon color="cyan" size={24} radius="sm">
@@ -61,7 +61,7 @@ export const AdvancedMergeSidebar: FC<{
 			<List
 				spacing="xs"
 				size="sm"
-				className="text-blueText"
+				className="text-coolGrey-7"
 				center
 				icon={
 					<ThemeIcon color="cyan" size={24} radius="sm">
@@ -93,7 +93,7 @@ export const AdvancedMergeSidebar: FC<{
 				Resolve conflicts by clicking the buttons below or by editing the text
 				directly
 			</Text>
-			<List spacing="xs" size="sm" center className="text-blueText">
+			<List spacing="xs" size="sm" center className="text-coolGrey-7">
 				<List.Item>
 					<div className="flex gap-1">
 						<ActionIcon
@@ -143,7 +143,7 @@ export const AdvancedMergeSidebar: FC<{
 				spacing="xs"
 				size="sm"
 				center
-				className="text-blueText"
+				className="text-coolGrey-7"
 				icon={
 					<ThemeIcon color="red" size={24} radius="sm">
 						<IconInfoSquare size={18} />

@@ -87,7 +87,7 @@ export function Register() {
 			<Divider my="md" label="or" labelPosition="center" color="grey.0" />
 
 			<Link to="/auth/login">
-				<p className="text-center text-xs text-blueText font-medium ">
+				<p className="text-center text-xs text-coolGrey-7 font-medium ">
 					Already have an account ?
 					<span className="underline pl-5 cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-gray-400 font-semibold">
 						Login

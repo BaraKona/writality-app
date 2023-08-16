@@ -12,8 +12,8 @@ export const SidebarTopNav: FC<{
 		<Tooltip label={value} position="top" withArrow styles={tooltipStyles}>
 			<div
 				onClick={navigate}
-				className={`p-1 rounded-normal border-border border ${
-					sidebarNav === value ? "shadow bg-base" : ""
+				className={`p-1 rounded-normal ${
+					sidebarNav === value ? "shadow bg-coolGrey-2" : ""
 				}`}
 			>
 				{children}

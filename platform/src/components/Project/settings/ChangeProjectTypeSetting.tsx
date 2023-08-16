@@ -15,7 +15,7 @@ export const ChangeProjectTypeSetting: FC<{
 
 	return (
 		<div className="max-w-md">
-			<div className="text-sm font-medium text-blueText">Project Type</div>
+			<div className="text-sm font-medium text-coolGrey-7">Project Type</div>
 			<p className="text-xs font-light mb-2">
 				Change the type of project you are working on.
 			</p>

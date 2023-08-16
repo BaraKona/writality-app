@@ -36,7 +36,7 @@ export const EditorWrapper: FC<{
 	if (isLoading) {
 		return (
 			<div
-				className={`flex flex-col pt-5 bg-secondary px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
+				className={`flex flex-col pt-5 bg-base px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
 			>
 				<div className="flex justify-between">
 					<Skeleton height={20} mt={6} width={100} />
@@ -95,8 +95,8 @@ export const EditorWrapper: FC<{
 	}
 
 	return (
-		<div className="flex flex-col bg-secondary px-3 py-3 h-[calc(100vh-42px)] gap-2 rounded-normal border-border border">
-			<div className=" flex font-medium gap-2 bg-secondary text-blueText items-center">
+		<div className="flex flex-col bg-base px-3 py-3 h-[calc(100vh-42px)] gap-2 rounded-normal border-border border">
+			<div className=" flex font-medium gap-2 bg-base text-coolGrey-7 items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text size="xs" color="dimmed" ml="auto" mr={3}>
 					{content?.dateUpdated?.date
@@ -114,14 +114,14 @@ export const EditorWrapper: FC<{
 						<div className="ml-3 p-1.5 border-border border rounded-normal cursor-pointer hover:bg-base hover:shadow transition-all ease-in-out duration-300">
 							<IconDeviceFloppy
 								size={18}
-								className="text-blueText group-hover:text-black"
+								className="text-coolGrey-7 group-hover:text-black"
 							/>
 						</div>
 					</Tooltip>
 				</div>
 			</div>
 			<Divider color="grey.0" />
-			<div className=" overflow-y-hidden bg-secondary">
+			<div className=" overflow-y-hidden bg-base">
 				<div className="text-editor flex justify-between align-middle">
 					{children}
 				</div>

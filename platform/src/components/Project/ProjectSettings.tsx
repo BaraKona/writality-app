@@ -24,10 +24,10 @@ export const ProjectSettings: FC<{ project: IProject }> = ({ project }) => {
 		<div className="px-4 py-2 bg-base border border-border rounded-normal h-[calc(100vh-7rem)]">
 			<div className="flex">
 				<div className="mr-auto">
-					<div className="text-md font-semibold text-blueText">
+					<div className="text-md font-semibold text-coolGrey-7">
 						Project Settings
 					</div>
-					<div className="text-blueText text-xs font-light ">
+					<div className="text-coolGrey-7 text-xs font-light ">
 						Setup your project settings here.
 					</div>
 				</div>

@@ -16,7 +16,7 @@ export const ChapterWrapper: FC<{
 	if (isLoading) {
 		return (
 			<div
-				className={`flex flex-col pt-5 bg-secondary px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
+				className={`flex flex-col pt-5 bg-base px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
 			>
 				<div className="flex justify-between">
 					<Skeleton height={20} mt={6} width={100} />
@@ -46,9 +46,9 @@ export const ChapterWrapper: FC<{
 
 	return (
 		<div
-			className={`flex flex-col bg-secondary border border-border px-3 py-3 gap-2 rounded-normal ${ProjectWrapperHeights}`}
+			className={`flex flex-col bg-base border border-border px-3 py-3 gap-2 rounded-normal ${ProjectWrapperHeights}`}
 		>
-			<div className=" flex font-medium gap-2 bg-secondary text-blueText items-center">
+			<div className=" flex font-medium gap-2 bg-base text-coolGrey-7 items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text size="xs" color="dimmed" ml="auto" mr={3}>
 					{project?.dateUpdated?.date

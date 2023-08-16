@@ -10,14 +10,14 @@ export const ProjectDescription: FC<{
 }> = ({ project, editor, updateDescription }) => {
 	return (
 		<div
-			className="flex flex-col flex-grow px-3 mx-auto w-80 bg-secondary"
+			className="flex flex-col flex-grow px-3 mx-auto w-80 bg-base"
 			onMouseLeave={() => {
 				editor.getHTML() !== project?.description &&
 					updateDescription(editor.getHTML());
 			}}
 		>
 			<div className="">
-				<h3 className="text-center text-blueText font-medium text-xs">
+				<h3 className="text-center text-coolGrey-7 font-medium text-xs">
 					Project Description
 				</h3>
 			</div>

@@ -34,7 +34,7 @@ export const ChapterVersions: FC<{
 
 	return (
 		<ChapterSidebarWrapper>
-			<div className="flex font-medium my-2 px-2 text-blueText gap-2 text-xs items-center">
+			<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center">
 				Versions
 				<ButtonWrapper onClick={() => mutate(text)} className="ml-auto">
 					<IconPlus
@@ -72,7 +72,7 @@ export const ChapterVersions: FC<{
 										>
 											<IconHourglassLow size={18} />
 										</div>
-										<p className="text-blueText font-medium">
+										<p className="text-coolGrey-7 font-medium">
 											{version.name ? version.name : "Version"}:
 										</p>
 									</div>
@@ -86,7 +86,7 @@ export const ChapterVersions: FC<{
 				</div>
 			) : (
 				<div className="flex gap-2 items-center text-xs p-2">
-					<div className="text-blueText">
+					<div className="text-coolGrey-7">
 						<IconVersions size={18} />
 					</div>
 					You do not have any versions saved for this chapter
