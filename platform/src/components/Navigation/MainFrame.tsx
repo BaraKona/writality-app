@@ -136,7 +136,7 @@ export const MainFrame: FC<{
 
 	return (
 		<div className="w-[calc(100vw-16rem)] pr-2">
-			<div className="mt-1.5 pb-1 flex gap-1 content-start ">
+			<div className="mt-1.5 pb-1.5 flex gap-1 content-start ">
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}
