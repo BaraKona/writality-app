@@ -16,7 +16,7 @@ module.exports = {
 				coolGrey: "#374151",
 				blueTextLight: "#868e99",
 				coolGrey: [
-					"#F9FAFB",
+					"#f6f7f9",
 					"#F3F4F6",
 					"#E5E7EB",
 					"#D1D5DB",

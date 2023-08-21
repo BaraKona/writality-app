@@ -7,6 +7,7 @@ import { IProject } from "../../interfaces/IProject";
 import { Divider, Skeleton } from "@mantine/core";
 import { ProjectListItem } from "./ProjectListItem";
 import { FC } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export const UserProjects: FC<{
 	isLoading: boolean;
@@ -21,6 +22,7 @@ export const UserProjects: FC<{
 	removeFavouriteProject,
 	createProject,
 }) => {
+	const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
 	if (isLoading) {
 		return (
 			<>
@@ -40,7 +42,10 @@ export const UserProjects: FC<{
 			</div>
 			<Divider color="grey.0" my={4} /> */}
 			{projects?.length > 0 && (
-				<section className="h-[calc(100vh-125px)] overflow-y-auto mt-2">
+				<section
+					className="h-[calc(100vh-125px)] overflow-y-auto mt-2"
+					ref={parent}
+				>
 					{projects?.map((project: IProject, index: number) => {
 						return (
 							<ProjectListItem

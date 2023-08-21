@@ -109,7 +109,7 @@ export const PostBody: FC<{
 						</Text>
 						<Space h="md" />
 					</div>
-					<PostCommentSection post={post} isLoading={Boolean(isLoading)} />
+					{/* <PostCommentSection post={post} isLoading={Boolean(isLoading)} /> */}
 				</div>
 			</Paper>
 		</div>

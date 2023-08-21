@@ -33,7 +33,7 @@ export const ChapterRenderer: FC<{
 			<ScrollArea
 				className=""
 				offsetScrollbars
-				h={"calc(100vh - 146px)"}
+				h={"calc(100vh - 160px)"}
 				scrollbarSize={6}
 			>
 				{children}

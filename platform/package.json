@@ -13,6 +13,7 @@
 		"@blocknote/react": "^0.8.3",
 		"@emotion/react": "^11.10.6",
 		"@emotion/server": "^11.10.0",
+		"@formkit/auto-animate": "^0.7.0",
 		"@mantine/carousel": "^6.0.16",
 		"@mantine/core": "^6.0.16",
 		"@mantine/hooks": "^6.0.16",

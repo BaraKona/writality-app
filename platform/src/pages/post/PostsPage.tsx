@@ -39,7 +39,7 @@ export const PostsPage: FC = () => {
 		navigate(`/posts/create`);
 	};
 	return (
-		<div className="place-items-center rounded-normal relative">
+		<div className="place-items-center rounded-normal relative h-[calc(100vh-3rem)] overflow-y-auto">
 			<Tooltip
 				label="Create a new post"
 				position="left"
@@ -47,14 +47,14 @@ export const PostsPage: FC = () => {
 				styles={tooltipStyles}
 			>
 				<button
-					className="bg-base p-2 hover:bg-gray-100 rounded-normal absolute right-2 top-2"
+					className="bg-base p-2 hover:bg-gray-100 rounded-normal fixed right-5 top-14 border border-border"
 					onClick={openPostCreation}
 				>
 					<IconEdit size={18} />
 				</button>
 			</Tooltip>
 			<BannerImage image={DefaultPostBanner} alt="Post banner" />
-			<div className="h-[calc(100vh-17rem)] overflow-y-auto">
+			<div className="">
 				<div className="max-w-screen-lg mx-auto">
 					<div className="bg-base rounded-normal">
 						<Title>Posts</Title>

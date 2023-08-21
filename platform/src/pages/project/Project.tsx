@@ -40,10 +40,14 @@ import { PublishChapterSide } from "../../components/Project/publish/PublishChap
 import { Block, BlockNoteEditor } from "@blocknote/core";
 import { useBlockNote } from "@blocknote/react";
 import { useEditorContext } from "../../contexts/EditorContext";
+import { BannerImage } from "../../components/BannerImage";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
 	const { project, projectTab, chapter } = useParams();
+	const [parent] = useAutoAnimate();
 	const [openModal, setOpenModal] = useState(false);
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
@@ -122,7 +126,7 @@ export function Project() {
 				isLoading={Boolean(!currentProject)}
 			>
 				<Tabs
-					className="w-full border-none important:border-none h-[calc(100vh-7.0rem)]"
+					className="w-full border-none important:border-none h-[calc(100vh-7.2rem)]"
 					value={projectTab}
 					onTabChange={(tab) => navigate(`/project/${project}/${tab}`)}
 					defaultValue="home"
@@ -197,42 +201,32 @@ export function Project() {
 								createNewChapter={createNewChapter}
 								isLoading={isLoading}
 							>
-								{isLoading ? (
-									<>
-										{[...Array(10)].map((_, i) => (
-											<Skeleton h={20} w="100%" m={3} />
-										))}
-									</>
-								) : (
-									<>
-										{chapters?.length == 0 ? (
-											<NoChapters
-												createNewChapter={createNewChapter}
-												title="Chapters"
-												p1="You have no chapters currently. Chapters make up your project and
+								<>
+									{chapters?.length == 0 ? (
+										<NoChapters
+											createNewChapter={createNewChapter}
+											title="Chapters"
+											p1="You have no chapters currently. Chapters make up your project and
 												can be collaborated on."
-												p2="Chapters are also versioned so you can always go back to previews
+											p2="Chapters are also versioned so you can always go back to previews
 												versions if you decide to scrap your current work."
-											/>
-										) : (
-											<>
-												{chapters?.map((chapter: IChapter, index: number) => (
-													<Chapter
-														openChapter={() =>
-															openChapter(chapter.projectId, chapter.uid)
-														}
-														key={index}
-														chapter={chapter}
-														openChapterModal={() =>
-															openChapterModal(chapter.uid)
-														}
-														disabled={false}
-													/>
-												))}
-											</>
-										)}
-									</>
-								)}
+										/>
+									) : (
+										<div ref={parent}>
+											{chapters?.map((chapter: IChapter, index: number) => (
+												<Chapter
+													openChapter={() =>
+														openChapter(chapter.projectId, chapter.uid)
+													}
+													key={index}
+													chapter={chapter}
+													openChapterModal={() => openChapterModal(chapter.uid)}
+													disabled={false}
+												/>
+											))}
+										</div>
+									)}
+								</>
 							</ChapterRenderer>
 							{/* <Divider color="grey.0" orientation="vertical" /> */}
 							<ProjectDescription
@@ -272,7 +266,7 @@ export function Project() {
 												p2="Chapters are also versioned so you can always go back to previews versions if you decide to scrap your current work."
 											/>
 										) : (
-											<>
+											<div ref={parent}>
 												{chapters?.map((chapter: IChapter, index: number) => (
 													<Chapter
 														openChapter={() =>
@@ -290,7 +284,7 @@ export function Project() {
 														disabled={false}
 													/>
 												))}{" "}
-											</>
+											</div>
 										)}
 									</>
 								)}

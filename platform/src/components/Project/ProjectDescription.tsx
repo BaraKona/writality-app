@@ -31,7 +31,7 @@ export const ProjectDescription: FC<{
 			) : (
 				<BaseEditor
 					editor={editor}
-					height="calc(100vh - 192px)"
+					height="calc(100vh - 200px)"
 					content={project?.description}
 				/>
 			)}

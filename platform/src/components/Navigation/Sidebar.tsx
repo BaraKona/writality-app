@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { CategoryListItem, CommunityListItem } from "../ListItems";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { Link, Outlet, useNavigate } from "react-router-dom";
@@ -31,12 +31,22 @@ import { SidebarTopNav } from "./components/SidebarTopNav";
 import { useCreateProject } from "../../hooks/projects/useCreateProject";
 import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useLocalStorage } from "@mantine/hooks";
+import { useLocation } from "react-router-dom";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { mutate: signOut } = useSignout();
 	const { mutate: createProject } = useCreateProject();
+
+	const [displayLocation, setDisplayLocation] = useState(location);
+	const [transitionStage, setTransitionStage] = useState("fadeIn");
+
+	console.log("location", location);
+	console.log("display", displayLocation);
+
 	const { data: projects, isLoading: isProjectLoading } = useUserProjects();
+	const [parent, enableAnimations] = useAutoAnimate();
 	const bookmarks = "bookmarks";
 	const home = "projects";
 
@@ -54,10 +64,14 @@ export const Sidebar: FC<{}> = () => {
 		navigate(route);
 	};
 
+	useEffect(() => {
+		if (location !== displayLocation) setTransitionStage("fadeOut");
+	}, [location, displayLocation]);
+
 	return (
 		<aside className="flex h-screen " aria-label="Sidebar">
 			<div className="flex overflow-y-auto h-full basis-72">
-				<div className="flex flex-col py-2 px-2 w-full">
+				<div className="flex flex-col py-2 w-full">
 					<Link to="/">
 						<div className="ml-2 mt-1 mb-1 flex">
 							<img
@@ -169,7 +183,17 @@ export const Sidebar: FC<{}> = () => {
 				</div>
 			</div>
 			<MainFrame>
-				<Outlet />
+				<div
+					className={`parent-container ${transitionStage}`}
+					onAnimationEnd={() => {
+						if (transitionStage === "fadeOut") {
+							setTransitionStage("fadeIn");
+							setDisplayLocation(location);
+						}
+					}}
+				>
+					<Outlet />
+				</div>
 			</MainFrame>
 		</aside>
 	);

@@ -135,8 +135,8 @@ export const MainFrame: FC<{
 	};
 
 	return (
-		<div className="w-[calc(100vw-16rem)] pr-2">
-			<div className="mt-1.5 pb-1.5 flex gap-1 content-start ">
+		<div className="w-[calc(100vw-16rem)]">
+			<div className="my-1.5 px-2 flex gap-1 content-start ">
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}
@@ -182,7 +182,9 @@ export const MainFrame: FC<{
 					<IconPlus size={18} className="text-gray-400 " />
 				</div>
 			</div>
-			{children}
+			<section className="h-[calc(100vh-3rem)] rounded-normal overflow-y-auto  px-2">
+				{children}
+			</section>
 		</div>
 	);
 };

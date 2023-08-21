@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 					// colorScheme: "dark",
 					colors: {
 						greyBlue: [
-							"#f0f2f4",
+							"#f6f7f9",
 							"#d2d7df",
 							"#b4bcca",
 							"#96a2b5",
@@ -47,7 +47,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 							"#171717",
 						],
 						coolGrey: [
-							"#e6f0ff",
+							"#f6f7f9",
 							"#cce0ff",
 							"#b3d1ff",
 							"#b3d6ff",

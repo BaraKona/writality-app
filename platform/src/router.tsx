@@ -12,6 +12,7 @@ import { SinglePost } from "./pages/post/SinglePost";
 import { PostCreationPage } from "./pages/post/PostCreationPage";
 import { SettingsPage } from "./pages/Settings/SettingsPage";
 import { UsersPage } from "./pages/Users/UsersPage";
+
 const socket = io(import.meta.env.VITE_API_URL, {
 	withCredentials: true,
 	transports: ["websocket", "polling", "flashsocket"],
