@@ -15,7 +15,8 @@ interface IProject {
 	uid: string;
 	owner: string;
 	title: string;
-	description: string;
+	description?: string;
+	board: string;
 	dateCreated: {
 		user: string;
 		date: Date;
@@ -35,13 +36,18 @@ interface IProject {
 		dateCreated: Date;
 	}[];
 	hasChat: boolean;
+	history?: {
+		date: Date;
+		user: string;
+		action: string;
+	}[];
 }
 const projectSchema = new Schema<IProject>({
 	type: { type: String, required: true, enum: ["standard", "collaboration"] },
 	uid: { type: String, required: true },
 	owner: { type: String, required: true },
 	title: { type: String, required: true },
-	description: { type: String, required: true },
+	description: { type: String, required: false },
 	dateCreated: {
 		user: { type: String, required: true },
 		date: { type: Date, required: true },
@@ -66,6 +72,17 @@ const projectSchema = new Schema<IProject>({
 		required: true,
 	},
 	hasChat: { default: false, type: Boolean, required: true },
+	history: {
+		type: [
+			{
+				date: { type: Date, required: true },
+				user: { type: String, required: true },
+				action: { type: String, required: true },
+			},
+		],
+		required: false,
+	},
+	board: { type: String, required: true },
 });
 
 const Project = model<IProject>("Project", projectSchema);

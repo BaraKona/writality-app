@@ -10,7 +10,7 @@ export const ChapterRenderer: FC<{
 	createNewChapter: () => void;
 }> = ({ children, chapterCount, createNewChapter, isLoading }) => {
 	return (
-		<div className="flex-grow w-80 min-w-[20rem] mx-auto  bg-base rounded-normal border border-border">
+		<div className="row-span-3 col-span-6 bg-base rounded-normal border border-border overflow-auto">
 			<div className="flex gap-2 ml-2 font-medium items-center">
 				<IconFiles size={18} />
 				{isLoading ? (
@@ -30,14 +30,9 @@ export const ChapterRenderer: FC<{
 				</div>
 			</div>
 			<Divider color="grey.0" />
-			<ScrollArea
-				className=""
-				offsetScrollbars
-				h={"calc(100vh - 160px)"}
-				scrollbarSize={6}
-			>
-				{children}
-			</ScrollArea>
+			{/* <ScrollArea className="" offsetScrollbars scrollbarSize={6}> */}
+			{children}
+			{/* </ScrollArea> */}
 		</div>
 	);
 };

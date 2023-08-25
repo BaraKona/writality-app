@@ -8,7 +8,8 @@ export const BannerImage: FC<{ image: string; alt: string }> = ({
 		<img
 			src={image}
 			alt={alt}
-			className="w-full h-56 rounded-normal object-cover bg-black"
+			className="w-full h-56 first-letter:rounded-normal object-cover rounded-normal"
+			loading="lazy"
 		/>
 	);
 };

@@ -52,6 +52,7 @@ export const UserProjects: FC<{
 								key={index}
 								onClick={() => openProject(`project/${project.uid}/home`)}
 								name={project.title || "Untitled Project"}
+								description={project.description}
 								projectId={project.uid}
 								type={project.type}
 								removeFavourite={() => removeFavouriteProject(project.uid)}
