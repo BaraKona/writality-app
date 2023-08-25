@@ -7,7 +7,7 @@ export function initGoogleAnalytics(googleAnalyticsId?: string) {
 	}
 	ReactGA.initialize(googleAnalyticsId, {
 		gaOptions: {
-			send_page_view: false,
+			// send_page_view: false,
 			page_title: "Test",
 			page_location: "Test",
 			page: "Test",
