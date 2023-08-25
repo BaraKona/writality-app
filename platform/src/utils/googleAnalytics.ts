@@ -8,9 +8,9 @@ export function initGoogleAnalytics(googleAnalyticsId?: string) {
 	ReactGA.initialize(googleAnalyticsId, {
 		gaOptions: {
 			// send_page_view: false,
-			page_title: "Test",
-			page_location: "Test",
-			page: "Test",
+			page_title: getParentPageTitle() || window.location.hostname,
+			page_location: getParentOrigin() || window.location.href,
+			page: getParentOrigin() || window.location.href,
 			allowLinker: true,
 		},
 	});
@@ -60,3 +60,25 @@ export const messageSentEvent = {
 	action: "Chat Widget - Message sent",
 	category: widgetCategory,
 };
+
+export function getParentOrigin() {
+	if (parent !== window) {
+		try {
+			return new URL(document.referrer).origin;
+		} catch (e) {
+			return "";
+		}
+	}
+	return "";
+}
+
+export function getParentPageTitle() {
+	if (parent !== window) {
+		try {
+			return document.referrer || window.parent.document.title;
+		} catch (e) {
+			return "";
+		}
+	}
+	return "";
+}
