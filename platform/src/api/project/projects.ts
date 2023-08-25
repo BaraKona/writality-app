@@ -60,7 +60,6 @@ export const updateProjectDescription = async (
 	description: string
 ) => {
 	try {
-		console.log(description);
 		const { data } = await projectApi.patch(
 			`${userId}/${projectId}/description`,
 			{ description }
@@ -71,6 +70,12 @@ export const updateProjectDescription = async (
 		const { data } = err.response;
 		useToast("error", "something went wrong 😖");
 	}
+};
+export const updateProjectBoard = async (projectId: string, board: string) => {
+	const { data } = await projectApi.patch(`user/${projectId}/board`, {
+		board,
+	});
+	return data;
 };
 
 export const updateProjectTitle = async (projectId: string, title: string) => {
