@@ -42,6 +42,10 @@ import { useBlockNote } from "@blocknote/react";
 import { useEditorContext } from "../../contexts/EditorContext";
 import { BannerImage } from "../../components/BannerImage";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { ProjectAnalytics } from "../../components/Project/ProjectAnalytics";
+import { ProjectBoard } from "../../components/Project/ProjectBoard";
+import { useProjectBoard } from "../../hooks/projects/useProjectBoard";
+import { ProjectHistory } from "../../components/Project/ProjectHistory";
 
 export function Project() {
 	const queryClient = useQueryClient();
@@ -55,6 +59,7 @@ export function Project() {
 	const { data: currentProject, isLoading: projectLoading } = useSingleProject(
 		project as string
 	);
+	const { mutate: updateProjectBoard } = useProjectBoard(project as string);
 
 	const { data: chapters, isLoading } = useQuery(
 		["chapters", project],
@@ -114,7 +119,7 @@ export function Project() {
 		return <FourOFour />;
 	}
 	return (
-		<>
+		<section className="relative">
 			<DeleteModal
 				opened={openModal}
 				setOpened={setOpenModal}
@@ -135,7 +140,7 @@ export function Project() {
 					styles={tabStyles}
 					keepMounted={false}
 				>
-					<Tabs.List>
+					<Tabs.List className="sticky">
 						<Tooltip
 							label="Home"
 							position="right"
@@ -195,48 +200,56 @@ export function Project() {
 					</Tabs.List>
 
 					<Tabs.Panel value="home">
-						<div className="flex flex-wrap">
-							<ChapterRenderer
-								chapterCount={chapters?.length}
-								createNewChapter={createNewChapter}
-								isLoading={isLoading}
-							>
-								<>
-									{chapters?.length == 0 ? (
-										<NoChapters
-											createNewChapter={createNewChapter}
-											title="Chapters"
-											p1="You have no chapters currently. Chapters make up your project and
-												can be collaborated on."
-											p2="Chapters are also versioned so you can always go back to previews
-												versions if you decide to scrap your current work."
-										/>
-									) : (
-										<div ref={parent}>
-											{chapters?.map((chapter: IChapter, index: number) => (
-												<Chapter
-													openChapter={() =>
-														openChapter(chapter.projectId, chapter.uid)
-													}
-													key={index}
-													chapter={chapter}
-													openChapterModal={() => openChapterModal(chapter.uid)}
-													disabled={false}
-												/>
-											))}
-										</div>
-									)}
-								</>
-							</ChapterRenderer>
+						<div className="flex flex-col gap-2 max-w-screen-xl mx-auto">
+							<div className="grid grid-cols-9 gap-6 gap-y-2 grid-rows-4 h-[80vh]">
+								<ProjectAnalytics />
+								<ProjectDescription
+									project={currentProject}
+									updateDescription={updateDescription.mutate}
+								/>
+								<ChapterRenderer
+									chapterCount={chapters?.length}
+									createNewChapter={createNewChapter}
+									isLoading={isLoading}
+								>
+									<>
+										{chapters?.length == 0 ? (
+											<NoChapters
+												createNewChapter={createNewChapter}
+												title="Chapters"
+												p1="You have no chapters currently. Chapters make up your project and
+										can be collaborated on."
+												p2="Chapters are also versioned so you can always go back to previews
+										versions if you decide to scrap your current work."
+											/>
+										) : (
+											<div ref={parent}>
+												{chapters?.map((chapter: IChapter, index: number) => (
+													<Chapter
+														openChapter={() =>
+															openChapter(chapter.projectId, chapter.uid)
+														}
+														key={index}
+														chapter={chapter}
+														openChapterModal={() =>
+															openChapterModal(chapter.uid)
+														}
+														disabled={false}
+													/>
+												))}
+											</div>
+										)}
+									</>
+								</ChapterRenderer>
+								<ProjectHistory project={currentProject} />
+							</div>
 							{/* <Divider color="grey.0" orientation="vertical" /> */}
-							<ProjectDescription
-								project={currentProject}
-								user={currentUser.uid}
-								editor={tipTapEditor}
-								updateDescription={updateDescription.mutate}
-							/>
 
 							{/* <CharacterWrapper> - Protagonist </CharacterWrapper> */}
+							<ProjectBoard
+								project={currentProject}
+								updateBoard={updateProjectBoard}
+							/>
 						</div>
 					</Tabs.Panel>
 					<Tabs.Panel value="publish">
@@ -307,6 +320,6 @@ export function Project() {
 					</Tabs.Panel>
 				</Tabs>
 			</ChapterWrapper>
-		</>
+		</section>
 	);
 }

@@ -112,6 +112,34 @@ export const updateProjectDescription = async (req: any, res: any) => {
 			user: userId,
 			date: new Date(),
 		};
+		project.history.push({
+			date: new Date(),
+			user: userId,
+			action: "updated description",
+		});
+		await project.save();
+		res.status(200).json(project);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const updateProjectBoard = async (req: any, res: any) => {
+	const { projectId } = req.params;
+	const { board } = req.body;
+	const userId = req.user.uid;
+	try {
+		const project = await Project.findOne({ owner: userId, uid: projectId });
+		project.board = board;
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+		project.history.push({
+			date: new Date(),
+			user: userId,
+			action: "updated board",
+		});
 		await project.save();
 		res.status(200).json(project);
 	} catch (error) {
@@ -130,6 +158,12 @@ export const updateProjectTitle = async (req: any, res: any) => {
 			user: userId,
 			date: new Date(),
 		};
+
+		project.history.push({
+			date: new Date(),
+			user: userId,
+			action: "updated title",
+		});
 		await project.save();
 		res.status(200).json(project);
 	} catch (error) {
@@ -169,6 +203,12 @@ export const updateProjectType = async (req: any, res: any) => {
 			user: userId,
 			date: new Date(),
 		};
+		project.history.push({
+			date: new Date(),
+			user: userId,
+			action: "updated type",
+		});
+
 		await project.save();
 		res.status(200).json(project);
 	} catch (error) {
