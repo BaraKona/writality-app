@@ -13,7 +13,9 @@ export type IProject = {
 	uid: string;
 	owner: string;
 	title: string;
-	description: string;
+	description?: string;
+	board: string;
+	banner: string;
 	dateCreated: {
 		user: string;
 		date: Date;
@@ -27,5 +29,15 @@ export type IProject = {
 		dateAdded: Date;
 		role: collaboratorRole;
 		active: boolean;
+	}[];
+	chatRooms: {
+		uid: string;
+		dateCreated: Date;
+	}[];
+	hasChat: boolean;
+	history?: {
+		date: Date;
+		user: string;
+		action: string;
 	}[];
 };
