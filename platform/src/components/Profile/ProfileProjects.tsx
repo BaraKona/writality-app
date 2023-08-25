@@ -82,14 +82,11 @@ export const ProfileProjects: FC<{
 						)}
 						<div className="flex flex-col">
 							<div className="text-sm font-bold">{project.title}</div>
-							<TypographyStylesProvider>
-								<div
-									dangerouslySetInnerHTML={{
-										__html: project.description,
-									}}
-									className="text-xs line-clamp-6 text-gray-500 w-full"
-								/>
-							</TypographyStylesProvider>
+							{/* <TypographyStylesProvider> */}
+							<div className="text-xs line-clamp-6 text-gray-500 w-full">
+								{project.description}
+							</div>
+							{/* </TypographyStylesProvider> */}
 						</div>
 					</div>
 				))}
