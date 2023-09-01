@@ -79,16 +79,10 @@ export const updateProjectBoard = async (projectId: string, board: string) => {
 };
 
 export const updateProjectTitle = async (projectId: string, title: string) => {
-	try {
-		const { data } = await projectApi.patch(`user/${projectId}/title`, {
-			title,
-		});
-		useToast("success", "Project title updated successfully 😃");
-		return data;
-	} catch (err: any) {
-		const { data } = err.response;
-		useToast("error", "something went wrong 😖");
-	}
+	const { data } = await projectApi.patch(`user/${projectId}/title`, {
+		title,
+	});
+	return data;
 };
 
 export const updateProjectType = async (

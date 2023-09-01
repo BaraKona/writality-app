@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import { updateProjectTitle } from "../../api/project/projects";
+import { useToast } from "../useToast";
 
 export const useProjectTitleChange = (projectId: string, title: string) => {
 	const queryClient = useQueryClient();
@@ -7,6 +8,11 @@ export const useProjectTitleChange = (projectId: string, title: string) => {
 		onSuccess: (data) => {
 			queryClient.setQueryData(["project", projectId], data);
 			queryClient.invalidateQueries(["favourites"]);
+			useToast("success", "Project title updated successfully 😃");
+		},
+		onError: (err: any) => {
+			const { data } = err.response;
+			useToast("error", "something went wrong 😖");
 		},
 	});
 };

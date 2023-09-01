@@ -82,7 +82,7 @@ const projectSchema = new Schema<IProject>({
 		],
 		required: false,
 	},
-	board: { type: String, required: true },
+	board: { type: String },
 });
 
 const Project = model<IProject>("Project", projectSchema);
