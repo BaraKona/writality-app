@@ -164,6 +164,7 @@ export const updateProjectTitle = async (req: any, res: any) => {
 			user: userId,
 			action: "updated title",
 		});
+
 		await project.save();
 		res.status(200).json(project);
 	} catch (error) {
