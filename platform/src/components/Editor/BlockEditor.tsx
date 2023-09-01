@@ -59,7 +59,7 @@ export const BlockEditor: FC<{
 						},
 					}}
 				/>
-				<BlockNoteView editor={editor} />
+				<BlockNoteView editor={editor} theme="light" />
 			</div>
 		</div>
 	);
