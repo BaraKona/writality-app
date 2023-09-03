@@ -86,6 +86,7 @@ export function Project() {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["project", project]);
+				queryClient.invalidateQueries("projects");
 			},
 		}
 	);

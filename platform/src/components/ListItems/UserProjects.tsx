@@ -49,7 +49,7 @@ export const UserProjects: FC<{
 					{projects?.map((project: IProject, index: number) => {
 						return (
 							<ProjectListItem
-								key={index}
+								key={project.uid}
 								onClick={() => openProject(`project/${project.uid}/home`)}
 								name={project.title || "Untitled Project"}
 								description={project.description}

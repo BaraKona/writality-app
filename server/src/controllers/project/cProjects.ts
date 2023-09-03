@@ -11,7 +11,6 @@ import { Request, Response } from "express";
 export const createProject = async (req: any, res: any) => {
 	const userId = req.user.uid;
 
-	console.log(req.body);
 	const newProject = new Project({
 		type: "standard",
 		uid: uuidv4(),
@@ -59,7 +58,7 @@ export const getUserProjects = async (req: any, res: any) => {
 					},
 				},
 			],
-		}).sort({ dateUpdated: 1 });
+		}).sort({ dateUpdated: -1 });
 		res.status(200).json(projects);
 	} catch (error) {
 		res.status(404).json({ message: error.message });

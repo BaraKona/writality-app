@@ -1,8 +1,10 @@
 import { IconX } from "@tabler/icons-react";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IconRenderer } from "../IconRenderer";
 import { TypographyStylesProvider } from "@mantine/core";
+import { BlockNoteView, useBlockNote } from "@blocknote/react";
+import { BlockNoteEditor } from "@blocknote/core";
 
 export const ProjectListItem: FC<{
 	name: string;
@@ -13,6 +15,13 @@ export const ProjectListItem: FC<{
 	type: "standard" | "collaboration";
 }> = ({ name, onClick, projectId, type, removeFavourite, description }) => {
 	const { project } = useParams();
+	const [markdown, setMarkdown] = useState<string>("");
+	const editor: BlockNoteEditor = useBlockNote({
+		initialContent: description ? JSON.parse(description) : null,
+		onEditorReady: async (editor) => {
+			setMarkdown(await editor.blocksToMarkdown(editor.topLevelBlocks));
+		},
+	});
 
 	return (
 		<li
@@ -38,7 +47,7 @@ export const ProjectListItem: FC<{
 						className="group-hover:visible cursor-pointer invisible hover:black ml-auto text-gray-400"
 					/> */}
 			</div>
-			<TypographyStylesProvider>
+			{/* <TypographyStylesProvider>
 				<div
 					className={`text-xs text-coolGrey-4 w-[13rem] line-clamp-3 ${
 						projectId === project
@@ -47,7 +56,17 @@ export const ProjectListItem: FC<{
 					}`}
 					dangerouslySetInnerHTML={{ __html: description as string }}
 				/>
-			</TypographyStylesProvider>
+			</TypographyStylesProvider> */}
+			<div
+				className={`text-xs text-coolGrey-4 w-[13rem] line-clamp-3 ${
+					projectId === project
+						? "bg-coolGrey-2 text-coolGrey-7"
+						: "bg-transparent text-coolGrey-4"
+				}`}
+			>
+				{/* <BlockNoteView editor={editor} theme={"light"} /> */}
+				{markdown}
+			</div>
 		</li>
 	);
 };

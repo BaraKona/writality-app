@@ -7,6 +7,7 @@ export const useProjectBoard = (projectId: string) => {
 	return useMutation((board: string) => updateProjectBoard(projectId, board), {
 		onSuccess: (data) => {
 			queryClient.invalidateQueries(["project", projectId]);
+			queryClient.invalidateQueries("projects");
 			useToast("success", "Project board updated successfully 😃");
 		},
 		onError: () => {
