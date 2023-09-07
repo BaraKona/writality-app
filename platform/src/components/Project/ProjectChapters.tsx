@@ -18,6 +18,7 @@ export const ProjectChapters: FC<{
 	openChapterModal: (chapterId: string) => void;
 	openFolder: (folderId: string) => void;
 	folderChapters: IChapter[];
+	openedFolder: string;
 }> = ({
 	project,
 	chapters,
@@ -25,6 +26,7 @@ export const ProjectChapters: FC<{
 	openChapterModal,
 	openFolder,
 	folderChapters,
+	openedFolder,
 }) => {
 	const [parent] = useAutoAnimate();
 	return (
@@ -37,6 +39,7 @@ export const ProjectChapters: FC<{
 						folderChapters={folderChapters}
 						key={index}
 						withNumber
+						openedFolder={openedFolder}
 						className="px-2.5 py-1.5 border border-border flex items-end justify-between rounded-normal "
 						icon={
 							<ButtonWrapper>

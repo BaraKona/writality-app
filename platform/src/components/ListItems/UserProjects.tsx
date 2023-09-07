@@ -13,6 +13,8 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { SmallText } from "../texts/SmallText";
 import { useParams } from "react-router-dom";
 import { FolderListItem } from "./FolderListItem";
+import { useOpenFolderChapters } from "../../hooks/projects/useOpenFolderChapters";
+import { useLocalStorage } from "@mantine/hooks";
 
 export const UserProjects: FC<{
 	isLoading: boolean;
@@ -32,6 +34,16 @@ export const UserProjects: FC<{
 }) => {
 	const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
 	const { project: currentProject } = useParams();
+	const [openFolder, setOpenFolder] = useLocalStorage({
+		key: "sidebarFolderOpen",
+		defaultValue: localStorage.getItem("sidebarFolderOpen") || "",
+	});
+
+	const { data: folderChapters } = useOpenFolderChapters(
+		currentProject as string,
+		openFolder
+	);
+
 	if (isLoading) {
 		return (
 			<>
@@ -75,7 +87,15 @@ export const UserProjects: FC<{
 									project.folders.length !== 0 && (
 										<div className="ml-4 pl-2 py-2 border-l border-border">
 											{project.folders?.map((folder) => {
-												return <FolderListItem folder={folder} />;
+												return (
+													<FolderListItem
+														folder={folder}
+														folderChapters={folderChapters}
+														small
+														openFolder={setOpenFolder}
+														openedFolder={openFolder}
+													/>
+												);
 											})}
 										</div>
 									)}

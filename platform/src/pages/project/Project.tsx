@@ -241,6 +241,7 @@ export function Project() {
 											>
 												<ProjectChapters
 													project={currentProject}
+													openedFolder={openedFolder}
 													chapters={chapters}
 													openChapter={openChapter}
 													openChapterModal={openChapterModal}

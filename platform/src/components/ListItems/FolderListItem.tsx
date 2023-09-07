@@ -1,11 +1,19 @@
 import { FC } from "react";
 import { SmallText } from "../texts/SmallText";
-import { IconFolderFilled, IconFolderOpen } from "@tabler/icons-react";
+import {
+	IconArrowRight,
+	IconFileDescription,
+	IconFileText,
+	IconFolderFilled,
+	IconFolderOpen,
+	IconNote,
+} from "@tabler/icons-react";
 import { IProject } from "../../interfaces/IProject";
 import { IChapter } from "../../interfaces/IChapter";
 import { Chapter } from "../Chapters";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useNavigate, useParams } from "react-router-dom";
+import { ButtonWrapper } from "../buttons/ButtonWrapper";
 
 export const FolderListItem: FC<{
 	folder: IProject["folders"][0];
@@ -14,8 +22,18 @@ export const FolderListItem: FC<{
 	withNumber?: boolean;
 	openFolder?: (folderId: string) => void;
 	folderChapters?: IChapter[];
-}> = ({ className, folder, icon, withNumber, openFolder, folderChapters }) => {
-	const openedFolder = JSON.parse(localStorage.getItem("openFolder") || "{}");
+	small?: boolean;
+	openedFolder?: string;
+}> = ({
+	className,
+	folder,
+	icon,
+	withNumber,
+	openFolder,
+	folderChapters,
+	small,
+	openedFolder,
+}) => {
 	const { project } = useParams();
 	const [parent] = useAutoAnimate();
 	const navigate = useNavigate();
@@ -43,17 +61,38 @@ export const FolderListItem: FC<{
 				</div>
 			</div>
 			{(openedFolder as string) == folder.uid && (
-				<div className="pl-1 pt-1 gap-0.5 flex flex-col border-l ml-5">
+				<div
+					className={` ${
+						small ? "ml-3" : "ml-5"
+					} pl-1 pt-1 gap-0.5 flex flex-col border-l `}
+				>
 					{folderChapters?.map((chapter: IChapter, index: number) => (
-						<Chapter
-							openChapter={() =>
-								navigate(`/project/${project}/chapter/${chapter.uid}`)
-							}
-							key={index}
-							chapter={chapter}
-							openChapterModal={() => null}
-							disabled={false}
-						/>
+						<>
+							{small ? (
+								<SmallText className="flex items-center justify-between py-0.5 px-2 cursor-default">
+									<span className="flex gap-1 items-center">
+										<IconFileText size={14} /> {chapter.title}{" "}
+									</span>
+									<ButtonWrapper
+										onClick={() =>
+											navigate(`/project/${project}/chapter/${chapter.uid}`)
+										}
+									>
+										<IconArrowRight size={14} />
+									</ButtonWrapper>
+								</SmallText>
+							) : (
+								<Chapter
+									openChapter={() =>
+										navigate(`/project/${project}/chapter/${chapter.uid}`)
+									}
+									key={index}
+									chapter={chapter}
+									openChapterModal={() => null}
+									disabled={false}
+								/>
+							)}
+						</>
 					))}
 				</div>
 			)}
