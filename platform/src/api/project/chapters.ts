@@ -14,14 +14,15 @@ export const createChapter = async (projectId: string) => {
 	return data;
 };
 
-export const getProjectChapters = async (userId: string, projectId: string) => {
-	try {
-		const { data } = await chapterApi.get(`${userId}/${projectId}`);
-		return data;
-	} catch (err: any) {
-		useToast("error", "You have no chapters yet 😅");
-		return [];
-	}
+export const getProjectChapters = async (
+	projectId: string,
+	chapterIds: string[]
+) => {
+	const { data } = await chapterApi.post(`/chapters/${projectId}`, {
+		chapterIds,
+	});
+
+	return data;
 };
 
 export const getSingleChapter = async (

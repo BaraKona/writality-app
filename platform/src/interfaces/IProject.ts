@@ -15,7 +15,6 @@ export type IProject = {
 	title: string;
 	description?: string;
 	board: string;
-	banner: string;
 	dateCreated: {
 		user: string;
 		date: Date;
@@ -24,6 +23,13 @@ export type IProject = {
 		user: string;
 		date: Date;
 	};
+	folders: {
+		uid: string;
+		name: string;
+		position?: number;
+		dateCreated: Date;
+		chapterIds?: string[];
+	}[];
 	collaborators: {
 		uid: string;
 		dateAdded: Date;

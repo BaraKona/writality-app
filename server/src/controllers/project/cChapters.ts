@@ -3,9 +3,7 @@ import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
 import { v4 as uuidv4 } from "uuid";
 
-export const createChapter = async (req: any, res: any) => {
-	const userId = req.user.uid;
-	const { projectId } = req.body;
+export const createChapter = async (userId: string, projectId: string) => {
 	const id = uuidv4();
 	const newChapter = new Chapter({
 		projectId,
@@ -54,10 +52,10 @@ export const createChapter = async (req: any, res: any) => {
 	});
 	try {
 		await newChapter.save();
-		res.status(201).json(newChapter);
+		return newChapter;
 	} catch (error) {
 		console.log(error);
-		res.status(409).json({ message: error.message });
+		return error;
 	}
 };
 export const getAllChapters = async (req: any, res: any) => {
@@ -163,8 +161,11 @@ export const updateChapterContent = async (req: any, res: any) => {
 	}
 };
 
-export const deleteSingleChapter = async (req: any, res: any) => {
-	const { userId, chapterId, projectId } = req.params;
+export const deleteSingleChapter = async (
+	userId: string,
+	projectId: string,
+	chapterId: string
+) => {
 	try {
 		const chapter = await Chapter.findOne({
 			owner: userId,
@@ -174,9 +175,10 @@ export const deleteSingleChapter = async (req: any, res: any) => {
 		await Version.deleteMany({ chapterId: chapterId });
 		await Branch.deleteMany({ chapterId: chapterId });
 		await chapter.remove();
-		res.status(200).json(chapter);
+		return chapter;
 	} catch (error) {
-		res.status(404).json({ message: error.message });
+		console.log(error);
+		return error;
 	}
 };
 
@@ -290,6 +292,24 @@ export const updateChapterTitle = async (req: any, res: any) => {
 		};
 		await chapter.save();
 		res.status(200).json(chapter);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const getUserChapters = async (req: any, res: any) => {
+	const userId = req.user.uid;
+	const { projectId } = req.params;
+	const { chapterIds } = req.body;
+	try {
+		const chapters = await Chapter.find({
+			owner: userId,
+			projectId,
+			uid: { $in: chapterIds },
+		});
+
+		res.status(200).json(chapters);
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

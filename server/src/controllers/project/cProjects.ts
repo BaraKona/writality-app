@@ -4,9 +4,10 @@ import Chapter from "../../models/chapterSchema";
 import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
 import Chat from "../../models/chat/chapterSchema";
+import { createChapter, deleteSingleChapter } from "./cChapters";
+
 import { v4 as uuidv4 } from "uuid";
 import User from "../../models/user/userSchema";
-import { Request, Response } from "express";
 
 export const createProject = async (req: any, res: any) => {
 	const userId = req.user.uid;
@@ -59,7 +60,17 @@ export const getUserProjects = async (req: any, res: any) => {
 				},
 			],
 		}).sort({ dateUpdated: -1 });
-		res.status(200).json(projects);
+
+		const standard = projects.filter((project) => project.type === "standard");
+		const collaboration = projects.filter(
+			(project) => project.type === "collaboration"
+		);
+
+		const sortedProjects = {
+			standard,
+			collaboration,
+		};
+		res.status(200).json(sortedProjects);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
@@ -236,6 +247,103 @@ export const getUserFavourites = async (req: any, res: any) => {
 		});
 
 		res.status(200).json(projects);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const createFolder = async (req: any, res: any) => {
+	const userId = req.user.uid;
+	const { projectId } = req.params;
+	const { name } = req.body;
+
+	try {
+		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const folder = {
+			uid: uuidv4(),
+			name,
+			dateCreated: new Date(),
+		};
+		project.folders.push(folder);
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+		project.history.push({
+			date: new Date(),
+			user: userId,
+			action: "created folder",
+		});
+		await project.save();
+		res.status(200).json(folder);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const createProjectChapter = async (req: any, res: any) => {
+	const userId = req.user.uid;
+	const { projectId } = req.params;
+
+	try {
+		const chapter = await createChapter(userId, projectId);
+		const project = await Project.findOne({ owner: userId, uid: projectId });
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+		project.history.push({
+			date: new Date(),
+			user: userId,
+			action: "created chapter",
+		});
+		project.chapters.push(chapter.uid);
+		await project.save();
+		res.status(200).json(chapter);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const getProjectChapters = async (req: any, res: any) => {
+	const userId = req.user.uid;
+	const { projectId } = req.params;
+
+	try {
+		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const chapters = await Chapter.find({
+			projectId,
+			uid: { $in: project.chapters },
+		});
+		res.status(200).json(chapters);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const deleteProjectChapter = async (req: any, res: any) => {
+	const userId = req.user.uid;
+	const { projectId, chapterId } = req.params;
+
+	try {
+		await deleteSingleChapter(userId, projectId, chapterId);
+		const project = await Project.findOne({ owner: userId, uid: projectId });
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+		project.history.push({
+			date: new Date(),
+			user: userId,
+			action: "deleted chapter",
+		});
+		project.chapters = project.chapters.filter((id) => id !== chapterId);
+		await project.save();
+		res.status(200).json({ message: "Chapter deleted successfully." });
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

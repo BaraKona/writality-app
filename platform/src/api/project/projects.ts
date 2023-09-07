@@ -42,7 +42,7 @@ export const deleteSingleProject = async (
 	projectId: string
 ) => {
 	try {
-		const { data } = await projectApi.delete(`${userId}/${projectId}`);
+		const { data } = await projectApi.delete(`/project/${userId}/${projectId}`);
 		useToast(
 			"success",
 			"Project deleted successfully along with all its components 😃"
@@ -110,4 +110,31 @@ export const getUserFavourites = async () => {
 		const { data } = err.response;
 		useToast("error", "something went wrong 😖");
 	}
+};
+
+export const createFolder = async (projectId: string, name: string) => {
+	const { data } = await projectApi.post(`/folder/${projectId}`, {
+		name,
+	});
+	return data;
+};
+
+export const createProjectChapter = async (projectId: string) => {
+	const { data } = await projectApi.post(`/chapter/${projectId}`);
+	return data;
+};
+
+export const deleteProjectChapter = async (
+	projectId: string,
+	chapterId: string
+) => {
+	const { data } = await projectApi.delete(
+		`/chapter/${projectId}/${chapterId}`
+	);
+	return data;
+};
+
+export const getProjectChapters = async (projectId: string) => {
+	const { data } = await projectApi.get(`/chapters/${projectId}`);
+	return data;
 };

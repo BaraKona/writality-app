@@ -1,19 +1,9 @@
 import { FC } from "react";
 import { IProject, ProjectType } from "../../interfaces/IProject";
-import {
-	IconBook2,
-	IconAtom,
-	IconPlus,
-	IconBookmarkPlus,
-	IconBookmarkMinus,
-	IconBookmarkFilled,
-} from "@tabler/icons-react";
-import { TbHeartFilled } from "react-icons/tb";
+import { IconBook2, IconAtom } from "@tabler/icons-react";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { TypographyStylesProvider, Skeleton, Divider } from "@mantine/core";
-import { Carousel, Embla } from "@mantine/carousel";
+import { Skeleton } from "@mantine/core";
 import { useLocation, useNavigate } from "react-router-dom";
-import { NoChapters } from "../Chapters";
 import { EmptyItem } from "../Chapters/EmptyItem";
 
 export const ProfileProjects: FC<{
@@ -40,6 +30,7 @@ export const ProfileProjects: FC<{
 	const { currentUser } = useAuthContext();
 	const navigate = useNavigate();
 	const path = useLocation().pathname;
+
 	if (isLoading) {
 		return (
 			<div>
@@ -70,7 +61,7 @@ export const ProfileProjects: FC<{
 		<div className="">
 			<div className="text-xs font-medium">Your Projects</div>
 			<div className=" overflow-y-auto flex flex-row flex-wrap gap-3">
-				{projects.map((project) => (
+				{projects.standard.map((project) => (
 					<div
 						className="flex gap-2 rounded-normal basis-60 p-2 border border-border"
 						onClick={() => navigate(`/project/${project.uid}/home`)}

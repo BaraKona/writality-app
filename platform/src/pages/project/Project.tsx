@@ -1,5 +1,6 @@
 import { ProjectDescription } from "../../components/Project";
 import {
+	IconDotsVertical,
 	IconGlobe,
 	IconHome,
 	IconMessage,
@@ -34,7 +35,7 @@ import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChatWrapper } from "../../components/Project/chatrooms/ChatWrapper";
 import { tabStyles } from "../../styles/tabStyles";
 import { tooltipStyles } from "../../styles/tooltipStyles";
-import { useCreateChapter } from "../../hooks/chapter/useCreateChapter";
+import { useCreateChapter } from "../../hooks/projects/useCreateChapter";
 import { FourOFour } from "../404";
 import { PublishChapterSide } from "../../components/Project/publish/PublishChapterSide";
 import { Block, BlockNoteEditor } from "@blocknote/core";
@@ -46,6 +47,11 @@ import { ProjectAnalytics } from "../../components/Project/ProjectAnalytics";
 import { ProjectBoard } from "../../components/Project/ProjectBoard";
 import { useProjectBoard } from "../../hooks/projects/useProjectBoard";
 import { ProjectHistory } from "../../components/Project/ProjectHistory";
+import { useCreateFolder } from "../../hooks/projects/useCreateFolder";
+import { FolderListItem } from "../../components/ListItems/FolderListItem";
+import { ButtonWrapper } from "../../components/buttons/ButtonWrapper";
+import { useProjectChapters } from "../../hooks/chapter/useProjectChapters";
+import { useDeleteChapter } from "../../hooks/projects/useDeleteChapter";
 
 export function Project() {
 	const queryClient = useQueryClient();
@@ -55,31 +61,20 @@ export function Project() {
 	const [openModal, setOpenModal] = useState(false);
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
-	// const { editor, content, setContent } = useEditorContext();
-	const { data: currentProject, isLoading: projectLoading } = useSingleProject(
-		project as string
-	);
+
+	const { data: currentProject } = useSingleProject(project as string);
 	const { mutate: updateProjectBoard } = useProjectBoard(project as string);
 
-	const { data: chapters, isLoading } = useQuery(
-		["chapters", project],
-		() => getProjectChapters(currentUser.uid, project as string),
-		{ enabled: !!currentProject }
-	);
-	const addChapter = useMutation(createChapter, {
-		onSuccess: () => {
-			queryClient.invalidateQueries("chapters");
-		},
+	const { data: chapters, isLoading } = useProjectChapters({
+		projectId: project as string,
 	});
-	const deleteChapter = useMutation(
-		() => deleteSingleChapter(currentUser.uid, project as string, chapterId),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries("chapters");
-				setOpenModal(false);
-			},
-		}
+
+	const { mutateAsync: deleteChapter } = useDeleteChapter(
+		project as string,
+		chapterId,
+		() => setOpenModal(false)
 	);
+
 	const updateDescription = useMutation(
 		(description: string) =>
 			updateProjectDescription(currentUser.uid, project as string, description),
@@ -96,6 +91,7 @@ export function Project() {
 	};
 
 	const { mutate: createNewChapter } = useCreateChapter(project as string);
+	const { mutate: createNewFolder } = useCreateFolder(project as string);
 
 	const openChapter = (projectId: string, chapterId: string) => {
 		navigate(`/project/${projectId}/chapter/${chapterId}`);
@@ -116,15 +112,17 @@ export function Project() {
 	const tipTapEditor = useEditor({
 		extensions,
 	});
+
 	if (currentProject === null) {
 		return <FourOFour />;
 	}
+
 	return (
 		<section className="relative">
 			<DeleteModal
 				opened={openModal}
 				setOpened={setOpenModal}
-				deleteBranch={deleteChapter.mutate}
+				deleteBranch={deleteChapter}
 				type="chapter"
 			/>
 			<ChapterWrapper
@@ -211,6 +209,7 @@ export function Project() {
 								<ChapterRenderer
 									chapterCount={chapters?.length}
 									createNewChapter={createNewChapter}
+									createNewFolder={createNewFolder}
 									isLoading={isLoading}
 								>
 									<>
@@ -225,19 +224,39 @@ export function Project() {
 											/>
 										) : (
 											<div ref={parent}>
-												{chapters?.map((chapter: IChapter, index: number) => (
-													<Chapter
-														openChapter={() =>
-															openChapter(chapter.projectId, chapter.uid)
-														}
-														key={index}
-														chapter={chapter}
-														openChapterModal={() =>
-															openChapterModal(chapter.uid)
-														}
-														disabled={false}
-													/>
-												))}
+												<>
+													{currentProject?.folders?.map(
+														(folder: any, index: number) => (
+															<FolderListItem
+																folder={folder}
+																key={index}
+																className="px-2.5 py-1.5 border-b border-border flex items-end justify-between"
+																icon={
+																	<ButtonWrapper>
+																		<IconDotsVertical
+																			size={14}
+																			className="cursor-pointer"
+																		/>
+																	</ButtonWrapper>
+																}
+															/>
+														)
+													)}
+
+													{chapters?.map((chapter: IChapter, index: number) => (
+														<Chapter
+															openChapter={() =>
+																openChapter(chapter.projectId, chapter.uid)
+															}
+															key={index}
+															chapter={chapter}
+															openChapterModal={() =>
+																openChapterModal(chapter.uid)
+															}
+															disabled={false}
+														/>
+													))}
+												</>
 											</div>
 										)}
 									</>
@@ -262,6 +281,7 @@ export function Project() {
 							<ChapterRenderer
 								chapterCount={chapters?.length}
 								createNewChapter={createNewChapter}
+								createNewFolder={createNewFolder}
 								isLoading={isLoading}
 							>
 								{isLoading ? (

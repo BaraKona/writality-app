@@ -25,6 +25,14 @@ interface IProject {
 		user: string;
 		date: Date;
 	};
+	folders: {
+		uid: string;
+		name: string;
+		position?: number;
+		dateCreated: Date;
+		chapterIds?: string[];
+	}[];
+	chapters?: string[];
 	collaborators: {
 		uid: string;
 		dateAdded: Date;
@@ -83,6 +91,19 @@ const projectSchema = new Schema<IProject>({
 		required: false,
 	},
 	board: { type: String },
+	folders: {
+		type: [
+			{
+				uid: { type: String, required: true },
+				name: { type: String, required: true },
+				position: { type: Number, required: false },
+				dateCreated: { type: Date, required: true },
+				chapterIds: { type: [String], required: false },
+			},
+		],
+		required: true,
+	},
+	chapters: { type: [String], required: false },
 });
 
 const Project = model<IProject>("Project", projectSchema);

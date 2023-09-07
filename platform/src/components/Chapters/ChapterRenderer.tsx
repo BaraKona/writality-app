@@ -1,14 +1,31 @@
 import { FC, ReactNode, useEffect, useState } from "react";
-import { Divider, ScrollArea, Skeleton } from "@mantine/core";
-import { IconFilePlus, IconFiles } from "@tabler/icons-react";
+import {
+	Button,
+	Divider,
+	Menu,
+	ScrollArea,
+	Skeleton,
+	TextInput,
+} from "@mantine/core";
+import { IconFilePlus, IconFiles, IconFolderPlus } from "@tabler/icons-react";
 import { CreateChapterButton } from "../buttons";
+import { inputStyles } from "../../styles/inputStyles";
 
 export const ChapterRenderer: FC<{
 	children: ReactNode;
 	chapterCount: number;
 	isLoading: boolean;
 	createNewChapter: () => void;
-}> = ({ children, chapterCount, createNewChapter, isLoading }) => {
+	createNewFolder: (name: string) => void;
+}> = ({
+	children,
+	chapterCount,
+	createNewChapter,
+	isLoading,
+	createNewFolder,
+}) => {
+	const [name, setName] = useState<string>("");
+
 	return (
 		<div className="row-span-3 col-span-6 bg-base rounded-normal border border-border overflow-auto">
 			<div className="flex gap-2 ml-2 font-medium items-center">
@@ -21,12 +38,45 @@ export const ChapterRenderer: FC<{
 					</h3>
 				)}
 
-				<div className="ml-auto mr-1">
+				<div className="ml-auto mr-1 flex gap-2">
 					<CreateChapterButton
 						createNewChapter={createNewChapter}
 						text="New Chapter"
 						icon={<IconFilePlus size={18} />}
 					/>
+					<Menu shadow="md" width={200}>
+						<Menu.Target>
+							<button>
+								<CreateChapterButton
+									createNewChapter={() => {}}
+									text="New Folder"
+									icon={<IconFolderPlus size={18} />}
+								/>
+							</button>
+						</Menu.Target>
+						<Menu.Dropdown>
+							<form
+								onSubmit={(e) => {
+									e.preventDefault(), createNewFolder(name);
+								}}
+							>
+								<Menu.Label className="flex justify-between items-center">
+									Folder Name
+									{/* <IconFolderPlus
+										size={18}
+										className="hover:text-black cursor-pointer"
+										type="submit"
+									/> */}
+								</Menu.Label>
+								<TextInput
+									styles={inputStyles}
+									className="px-2"
+									onChange={(e) => setName(e.target.value)}
+									error={name.length < 1}
+								/>
+							</form>
+						</Menu.Dropdown>
+					</Menu>
 				</div>
 			</div>
 			<Divider color="grey.0" />

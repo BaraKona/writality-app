@@ -42,9 +42,6 @@ export const Sidebar: FC<{}> = () => {
 	const [displayLocation, setDisplayLocation] = useState(location);
 	const [transitionStage, setTransitionStage] = useState("fadeIn");
 
-	console.log("location", location);
-	console.log("display", displayLocation);
-
 	const { data: projects, isLoading: isProjectLoading } = useUserProjects();
 	const [parent, enableAnimations] = useAutoAnimate();
 	const bookmarks = "bookmarks";

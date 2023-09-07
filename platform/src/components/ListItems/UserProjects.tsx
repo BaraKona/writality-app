@@ -1,17 +1,25 @@
 import {
 	IconBookmarkPlus,
 	IconCubePlus,
+	IconFolder,
+	IconFolderFilled,
 	IconSquarePlus,
 } from "@tabler/icons-react";
 import { IProject } from "../../interfaces/IProject";
-import { Divider, Skeleton } from "@mantine/core";
+import { Divider, Skeleton, Text } from "@mantine/core";
 import { ProjectListItem } from "./ProjectListItem";
 import { FC } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { SmallText } from "../texts/SmallText";
+import { useParams } from "react-router-dom";
+import { FolderListItem } from "./FolderListItem";
 
 export const UserProjects: FC<{
 	isLoading: boolean;
-	projects: IProject[];
+	projects: {
+		standard: IProject[];
+		collaboration: IProject[];
+	};
 	openProject: (project: string) => void;
 	removeFavouriteProject: (project: string) => void;
 	createProject: () => void;
@@ -23,6 +31,7 @@ export const UserProjects: FC<{
 	createProject,
 }) => {
 	const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
+	const { project: currentProject } = useParams();
 	if (isLoading) {
 		return (
 			<>
@@ -35,43 +44,92 @@ export const UserProjects: FC<{
 
 	return (
 		<>
-			{/* <div>
-				<div className="text-blueTextLight text-xs text-center font-normal ">
-					Your projects
-				</div>
-			</div>
-			<Divider color="grey.0" my={4} /> */}
-			{projects?.length > 0 && (
-				<section
-					className="h-[calc(100vh-125px)] overflow-y-auto mt-2"
-					ref={parent}
-				>
-					{projects?.map((project: IProject, index: number) => {
+			{projects?.standard.length > 0 && (
+				<section className="overflow-y-auto my-2" ref={parent}>
+					<Divider
+						color="grey.0"
+						my={4}
+						label={<Text className="!text-blueTextLight">Projects</Text>}
+						labelPosition="center"
+					/>
+					{projects.standard?.map((project: IProject, index: number) => {
 						return (
-							<ProjectListItem
-								key={project.uid}
-								onClick={() => openProject(`project/${project.uid}/home`)}
-								name={project.title || "Untitled Project"}
-								description={project.description}
-								projectId={project.uid}
-								type={project.type}
-								removeFavourite={() => removeFavouriteProject(project.uid)}
-							/>
+							<>
+								<ProjectListItem
+									key={project.uid}
+									onClick={() => openProject(`project/${project.uid}/home`)}
+									name={project.title || "Untitled Project"}
+									description={project.description}
+									projectId={project.uid}
+									type={project.type}
+									removeFavourite={() => removeFavouriteProject(project.uid)}
+								/>
+								{currentProject === project.uid &&
+									project.folders.length !== 0 && (
+										<div className="ml-4 pl-2 py-2 border-l border-border">
+											{project.folders?.map((folder) => {
+												return <FolderListItem folder={folder} />;
+											})}
+										</div>
+									)}
+							</>
 						);
 					})}
 				</section>
 			)}
 
-			{projects?.length === 0 && (
-				<div className="text-blueTextLight text-center text-xs font-normal ">
-					You have no projects. Create your first project.
-					<IconCubePlus
-						size={16}
-						className="mx-auto cursor-pointer mt-2 "
-						onClick={createProject}
+			{projects?.collaboration.length > 0 && (
+				<section className="overflow-y-auto my-2" ref={parent}>
+					<Divider
+						color="grey.0"
+						my={4}
+						label={<Text className="!text-blueTextLight">Collaborations</Text>}
+						labelPosition="center"
 					/>
-				</div>
+					{projects.collaboration?.map((project: IProject, index: number) => {
+						return (
+							<>
+								<ProjectListItem
+									key={project.uid}
+									onClick={() => openProject(`project/${project.uid}/home`)}
+									name={project.title || "Untitled Project"}
+									description={project.description}
+									projectId={project.uid}
+									type={project.type}
+									removeFavourite={() => removeFavouriteProject(project.uid)}
+								/>
+								{currentProject === project.uid &&
+									project.folders.length !== 0 && (
+										<div className="ml-4 pl-2 py-2 border-l border-border">
+											{project.folders?.map((folder) => {
+												return (
+													<div className=" px-1 py-0.5 hover:bg-coolGrey-1 rounded-normal">
+														<SmallText className="flex items-center gap-2">
+															<IconFolderFilled size={16} />
+															{folder.name}
+														</SmallText>
+													</div>
+												);
+											})}
+										</div>
+									)}
+							</>
+						);
+					})}
+				</section>
 			)}
+
+			{projects?.standard?.length === 0 &&
+				projects?.collaboration?.length === 0 && (
+					<div className="text-blueTextLight text-center text-xs font-normal ">
+						You have no projects. Create your first project.
+						<IconCubePlus
+							size={16}
+							className="mx-auto cursor-pointer mt-2 "
+							onClick={createProject}
+						/>
+					</div>
+				)}
 		</>
 	);
 };
