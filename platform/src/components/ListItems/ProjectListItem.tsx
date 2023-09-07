@@ -2,9 +2,6 @@ import { IconX } from "@tabler/icons-react";
 import { FC, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IconRenderer } from "../IconRenderer";
-import { TypographyStylesProvider } from "@mantine/core";
-import { BlockNoteView, useBlockNote } from "@blocknote/react";
-import { BlockNoteEditor } from "@blocknote/core";
 
 export const ProjectListItem: FC<{
 	name: string;
@@ -20,7 +17,7 @@ export const ProjectListItem: FC<{
 		<>
 			<li
 				onClick={onClick}
-				className={`px-1.5 py-1 transition-all ease-in-out duration-500 flex flex-col text-xs font-medium mb-1 group hover:bg-coolGrey-2 bg-white rounded-normal cursor-default  ${
+				className={`px-1.5 py-1 transition-all ease-in-out duration-500 flex flex-col text-xs font-medium group hover:bg-coolGrey-2 bg-white rounded-normal cursor-default  ${
 					projectId === project
 						? "bg-coolGrey-2 text-coolGrey-7 border border-coolGrey-2"
 						: "bg-transparent text-coolGrey-5 border border-border"

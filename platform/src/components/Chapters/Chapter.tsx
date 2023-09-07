@@ -12,7 +12,7 @@ export const Chapter: FC<{
 	disabled: boolean;
 }> = ({ chapter, openChapter, openChapterModal, disabled }) => {
 	return (
-		<div className="flex gap-3 border-b border-border cursor-default py-1 px-2.5 items-center">
+		<div className="flex gap-3 border rounded-normal border-border bg-white cursor-default py-1 px-2.5 items-center">
 			<div
 				className=" text-coolGrey-7 flex place-items-center gap-3 cursor-pointer  group"
 				onClick={openChapter}

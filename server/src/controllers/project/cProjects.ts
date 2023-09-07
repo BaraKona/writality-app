@@ -349,3 +349,43 @@ export const deleteProjectChapter = async (req: any, res: any) => {
 		res.status(404).json({ message: error.message });
 	}
 };
+
+export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
+	const userId = req.user.uid;
+	const { projectId, chapterId } = req.params;
+	const { folderId } = req.body;
+
+	try {
+		const project = await Project.findOne({ owner: userId, uid: projectId });
+
+		// remove from all folders
+		project.folders.forEach((folder) => {
+			folder.chapterIds = folder.chapterIds.filter((id) => id !== chapterId);
+		});
+
+		// add to new folder
+		project.folders.forEach((folder) => {
+			if (folder.uid === folderId) {
+				folder.chapterIds.push(chapterId);
+			}
+		});
+
+		// remove from chapters
+		project.chapters = project.chapters.filter((id) => id !== chapterId);
+
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+		project.history.push({
+			date: new Date(),
+			user: userId,
+			action: "moved chapter",
+		});
+		await project.save();
+		res.status(200).json({ message: "Chapter moved successfully." });
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};

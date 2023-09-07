@@ -48,16 +48,16 @@ import { ProjectBoard } from "../../components/Project/ProjectBoard";
 import { useProjectBoard } from "../../hooks/projects/useProjectBoard";
 import { ProjectHistory } from "../../components/Project/ProjectHistory";
 import { useCreateFolder } from "../../hooks/projects/useCreateFolder";
-import { FolderListItem } from "../../components/ListItems/FolderListItem";
-import { ButtonWrapper } from "../../components/buttons/ButtonWrapper";
 import { useProjectChapters } from "../../hooks/chapter/useProjectChapters";
 import { useDeleteChapter } from "../../hooks/projects/useDeleteChapter";
+import { ProjectChapters } from "../../components/Project/ProjectChapters";
+import { DragAndDropWrapper } from "../../components/DragAndDrop/DragAndDropWrapper";
+import { useMoveChapterToFolder } from "../../hooks/projects/useMoveChapterToFolder";
 
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
 	const { project, projectTab, chapter } = useParams();
-	const [parent] = useAutoAnimate();
 	const [openModal, setOpenModal] = useState(false);
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
@@ -92,7 +92,9 @@ export function Project() {
 
 	const { mutate: createNewChapter } = useCreateChapter(project as string);
 	const { mutate: createNewFolder } = useCreateFolder(project as string);
-
+	const { mutate: moveChapterIntoFolder } = useMoveChapterToFolder(
+		project as string
+	);
 	const openChapter = (projectId: string, chapterId: string) => {
 		navigate(`/project/${projectId}/chapter/${chapterId}`);
 	};
@@ -213,7 +215,8 @@ export function Project() {
 									isLoading={isLoading}
 								>
 									<>
-										{chapters?.length == 0 ? (
+										{currentProject?.folders.length === 0 &&
+										currentProject.chapters.length === 0 ? (
 											<NoChapters
 												createNewChapter={createNewChapter}
 												title="Chapters"
@@ -223,41 +226,17 @@ export function Project() {
 										versions if you decide to scrap your current work."
 											/>
 										) : (
-											<div ref={parent}>
-												<>
-													{currentProject?.folders?.map(
-														(folder: any, index: number) => (
-															<FolderListItem
-																folder={folder}
-																key={index}
-																className="px-2.5 py-1.5 border-b border-border flex items-end justify-between"
-																icon={
-																	<ButtonWrapper>
-																		<IconDotsVertical
-																			size={14}
-																			className="cursor-pointer"
-																		/>
-																	</ButtonWrapper>
-																}
-															/>
-														)
-													)}
-
-													{chapters?.map((chapter: IChapter, index: number) => (
-														<Chapter
-															openChapter={() =>
-																openChapter(chapter.projectId, chapter.uid)
-															}
-															key={index}
-															chapter={chapter}
-															openChapterModal={() =>
-																openChapterModal(chapter.uid)
-															}
-															disabled={false}
-														/>
-													))}
-												</>
-											</div>
+											<DragAndDropWrapper
+												items={chapters}
+												handleDrop={moveChapterIntoFolder}
+											>
+												<ProjectChapters
+													project={currentProject}
+													chapters={chapters}
+													openChapter={openChapter}
+													openChapterModal={openChapterModal}
+												/>
+											</DragAndDropWrapper>
 										)}
 									</>
 								</ChapterRenderer>
@@ -272,7 +251,7 @@ export function Project() {
 							/>
 						</div>
 					</Tabs.Panel>
-					<Tabs.Panel value="publish">
+					{/* <Tabs.Panel value="publish">
 						<div className="flex flex-wrap gap-2">
 							<PublishChapterSide
 								chapter={chapters?.find((c: IChapter) => c.uid === chapter)}
@@ -324,7 +303,7 @@ export function Project() {
 								)}
 							</ChapterRenderer>
 						</div>
-					</Tabs.Panel>
+					</Tabs.Panel> */}
 					<Tabs.Panel value="world-info">
 						<CharacterWrapper> - Protagonist </CharacterWrapper>
 					</Tabs.Panel>

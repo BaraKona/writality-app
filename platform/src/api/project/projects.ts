@@ -138,3 +138,15 @@ export const getProjectChapters = async (projectId: string) => {
 	const { data } = await projectApi.get(`/chapters/${projectId}`);
 	return data;
 };
+
+export const moveProjectChapterIntoFolder = async (
+	projectId: string,
+	chapterId: string,
+	folderId: string
+) => {
+	const { data } = await projectApi.patch(
+		`/chapter/move-to-folder/${projectId}/${chapterId}`,
+		{ folderId }
+	);
+	return data;
+};

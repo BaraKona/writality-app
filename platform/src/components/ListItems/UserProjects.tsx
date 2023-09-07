@@ -54,7 +54,14 @@ export const UserProjects: FC<{
 					/>
 					{projects.standard?.map((project: IProject, index: number) => {
 						return (
-							<>
+							<div
+								ref={parent}
+								className={`${
+									currentProject === project.uid && project.folders.length !== 0
+										? ""
+										: "mb-1"
+								}`}
+							>
 								<ProjectListItem
 									key={project.uid}
 									onClick={() => openProject(`project/${project.uid}/home`)}
@@ -72,14 +79,14 @@ export const UserProjects: FC<{
 											})}
 										</div>
 									)}
-							</>
+							</div>
 						);
 					})}
 				</section>
 			)}
 
 			{projects?.collaboration.length > 0 && (
-				<section className="overflow-y-auto my-2" ref={parent}>
+				<section className="overflow-y-auto my-2">
 					<Divider
 						color="grey.0"
 						my={4}
@@ -88,7 +95,14 @@ export const UserProjects: FC<{
 					/>
 					{projects.collaboration?.map((project: IProject, index: number) => {
 						return (
-							<>
+							<div
+								ref={parent}
+								className={`${
+									currentProject === project.uid && project.folders.length !== 0
+										? ""
+										: "mb-1"
+								}`}
+							>
 								<ProjectListItem
 									key={project.uid}
 									onClick={() => openProject(`project/${project.uid}/home`)}
@@ -113,7 +127,7 @@ export const UserProjects: FC<{
 											})}
 										</div>
 									)}
-							</>
+							</div>
 						);
 					})}
 				</section>

@@ -7,7 +7,8 @@ export const FolderListItem: FC<{
 	folder: IProject["folders"][0];
 	className?: string;
 	icon?: React.ReactNode;
-}> = ({ className, folder, icon }) => {
+	withNumber?: boolean;
+}> = ({ className, folder, icon, withNumber }) => {
 	return (
 		<div
 			className={`px-1 py-0.5 hover:bg-coolGrey-1 cursor-pointer ${className}`}
@@ -16,7 +17,14 @@ export const FolderListItem: FC<{
 				<IconFolderFilled size={16} />
 				{folder.name}
 			</SmallText>
-			{icon}
+			<div className="flex gap-2 items-center">
+				{withNumber && (
+					<SmallText className=" text-coolGrey-4">
+						{folder.chapterIds?.length}
+					</SmallText>
+				)}
+				{icon}
+			</div>
 		</div>
 	);
 };

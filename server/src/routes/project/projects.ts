@@ -15,6 +15,7 @@ import {
 	createProjectChapter,
 	deleteProjectChapter,
 	getProjectChapters,
+	moveProjectChapterIntoFolder,
 } from "../../controllers/project/cProjects";
 
 const router = express.Router();
@@ -34,6 +35,11 @@ router.delete("/project/:userId/:projectId", protect, deleteProject);
 router.delete("/chapter/:projectId/:chapterId", protect, deleteProjectChapter);
 router.patch("/:userId/:projectId/type", protect, updateProjectType);
 router.patch("/user/:projectId/board", protect, updateProjectBoard);
+router.patch(
+	"/chapter/move-to-folder/:projectId/:chapterId",
+	protect,
+	moveProjectChapterIntoFolder
+);
 router.get("/favourites", protect, getUserFavourites);
 router.post("/folder/:projectId", protect, createFolder);
 router.post("/chapter/:projectId", protect, createProjectChapter);
