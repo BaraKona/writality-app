@@ -7,7 +7,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { EmptyItem } from "../Chapters/EmptyItem";
 
 export const ProfileProjects: FC<{
-	projects: IProject[];
+	projects: {
+		standard: IProject[];
+		collaboration: IProject[];
+	};
 	addFavourite: ({
 		type,
 		url,
@@ -44,7 +47,7 @@ export const ProfileProjects: FC<{
 		);
 	}
 
-	if (projects.length === 0) {
+	if (projects.standard.length === 0) {
 		return (
 			<div className="border-border border rounded-normal h-[calc(100vh-39rem)] flex content-center items-center">
 				<EmptyItem
