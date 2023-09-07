@@ -53,7 +53,8 @@ import { useDeleteChapter } from "../../hooks/projects/useDeleteChapter";
 import { ProjectChapters } from "../../components/Project/ProjectChapters";
 import { DragAndDropWrapper } from "../../components/DragAndDrop/DragAndDropWrapper";
 import { useMoveChapterToFolder } from "../../hooks/projects/useMoveChapterToFolder";
-
+import { useOpenFolderChapters } from "../../hooks/projects/useOpenFolderChapters";
+import { useLocalStorage } from "@mantine/hooks";
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
@@ -61,10 +62,17 @@ export function Project() {
 	const [openModal, setOpenModal] = useState(false);
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
+	const [openedFolder, setOpenFolder] = useLocalStorage({
+		key: "openFolder",
+		defaultValue: localStorage.getItem("openFolder") || "",
+	});
 
 	const { data: currentProject } = useSingleProject(project as string);
 	const { mutate: updateProjectBoard } = useProjectBoard(project as string);
-
+	const { data: openedFolderChapters } = useOpenFolderChapters(
+		project as string,
+		openedFolder
+	);
 	const { data: chapters, isLoading } = useProjectChapters({
 		projectId: project as string,
 	});
@@ -111,9 +119,10 @@ export function Project() {
 		navigate(`/project/${projectId}/publish/chapter/${chapterId}/`);
 	};
 	const editor = useBlockNote({});
-	const tipTapEditor = useEditor({
-		extensions,
-	});
+
+	function openFolder(folderId: string) {
+		console.log("folder", folderId);
+	}
 
 	if (currentProject === null) {
 		return <FourOFour />;
@@ -235,6 +244,8 @@ export function Project() {
 													chapters={chapters}
 													openChapter={openChapter}
 													openChapterModal={openChapterModal}
+													openFolder={setOpenFolder}
+													folderChapters={openedFolderChapters}
 												/>
 											</DragAndDropWrapper>
 										)}

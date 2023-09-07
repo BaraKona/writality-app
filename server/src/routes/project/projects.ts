@@ -16,6 +16,7 @@ import {
 	deleteProjectChapter,
 	getProjectChapters,
 	moveProjectChapterIntoFolder,
+	getOpenFolderChapters,
 } from "../../controllers/project/cProjects";
 
 const router = express.Router();
@@ -25,6 +26,7 @@ router.get("/all", protect, getAllProjects);
 router.get("/user/:projectId", protect, getProject);
 router.get("/user", protect, getUserProjects);
 router.get("/chapters/:projectId", protect, getProjectChapters);
+router.get("/open-folder/:projectId/:folderId", protect, getOpenFolderChapters);
 router.patch(
 	"/:userId/:projectId/description",
 	protect,

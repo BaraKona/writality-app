@@ -150,3 +150,14 @@ export const moveProjectChapterIntoFolder = async (
 	);
 	return data;
 };
+
+export const getOpenFolderChapters = async (
+	projectId: string,
+	folderId: string
+) => {
+	console.log(projectId, folderId);
+	const { data } = await projectApi.get(
+		`/open-folder/${projectId}/${folderId}`
+	);
+	return data;
+};

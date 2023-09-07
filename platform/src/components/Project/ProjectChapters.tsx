@@ -16,14 +16,25 @@ export const ProjectChapters: FC<{
 	chapters: IChapter[];
 	openChapter: (projectId: string, chapterId: string) => void;
 	openChapterModal: (chapterId: string) => void;
-}> = ({ project, chapters, openChapter, openChapterModal }) => {
+	openFolder: (folderId: string) => void;
+	folderChapters: IChapter[];
+}> = ({
+	project,
+	chapters,
+	openChapter,
+	openChapterModal,
+	openFolder,
+	folderChapters,
+}) => {
 	const [parent] = useAutoAnimate();
 	return (
 		<div ref={parent} className="p-2 gap-1.5 flex flex-col">
 			{project?.folders?.map((folder: any, index: number) => (
 				<Droppable id={folder.uid} type="folder">
 					<FolderListItem
+						openFolder={openFolder}
 						folder={folder}
+						folderChapters={folderChapters}
 						key={index}
 						withNumber
 						className="px-2.5 py-1.5 border border-border flex items-end justify-between rounded-normal "

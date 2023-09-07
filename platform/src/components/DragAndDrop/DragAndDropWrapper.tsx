@@ -7,6 +7,7 @@ import {
 	useSensor,
 	useSensors,
 	DragOverlay,
+	rectIntersection,
 } from "@dnd-kit/core";
 import {
 	arrayMove,
@@ -42,7 +43,7 @@ export const DragAndDropWrapper: FC<{
 	return (
 		<DndContext
 			sensors={sensors}
-			collisionDetection={closestCenter}
+			collisionDetection={rectIntersection}
 			onDragEnd={handleDragEnd}
 		>
 			{/* <DragOverlay> */}
