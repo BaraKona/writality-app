@@ -71,7 +71,7 @@ export function Project() {
 	const { mutate: updateProjectBoard } = useProjectBoard(project as string);
 	const { data: openedFolderChapters } = useOpenFolderChapters(
 		project as string,
-		openedFolder
+		openedFolder as string
 	);
 	const { data: chapters, isLoading } = useProjectChapters({
 		projectId: project as string,

@@ -41,7 +41,7 @@ export const UserProjects: FC<{
 
 	const { data: folderChapters } = useOpenFolderChapters(
 		currentProject as string,
-		openFolder
+		openFolder as string
 	);
 
 	if (isLoading) {

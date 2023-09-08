@@ -98,7 +98,7 @@ const projectSchema = new Schema<IProject>({
 				name: { type: String, required: true },
 				position: { type: Number, required: false },
 				dateCreated: { type: Date, required: true },
-				chapterIds: { type: [String], required: false },
+				chapterIds: { type: [String], required: true, default: [] },
 			},
 		],
 		required: true,

@@ -71,7 +71,8 @@ export const FolderListItem: FC<{
 							{small ? (
 								<SmallText className="flex items-center justify-between py-0.5 px-2 cursor-default">
 									<span className="flex gap-1 items-center">
-										<IconFileText size={14} /> {chapter.title}{" "}
+										<IconFileText size={14} />{" "}
+										{chapter.content.title || "Untitled Chapter"}
 									</span>
 									<ButtonWrapper
 										onClick={() =>

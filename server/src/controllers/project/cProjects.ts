@@ -393,20 +393,19 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 export const getOpenFolderChapters = async (req: any, res: any) => {
 	const userId = req.user.uid;
 	const { projectId, folderId } = req.params;
-	console.log(projectId, folderId);
+
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
 		const folder = project.folders.find((folder) => folder.uid === folderId);
 
-		if (folder.chapterIds.length === 0) {
-			res.status(200).json([]);
+		if (!folder || !folder.chapterIds) {
+			return;
 		}
 		const chapters = await Chapter.find({
 			projectId,
-			uid: { $in: folder.chapterIds },
+			uid: { $in: folder?.chapterIds },
 		});
 		res.status(200).json(chapters);
-		console.log(chapters);
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });
