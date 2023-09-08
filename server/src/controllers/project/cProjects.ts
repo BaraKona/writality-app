@@ -17,7 +17,6 @@ export const createProject = async (req: any, res: any) => {
 		uid: uuidv4(),
 		owner: userId,
 		title: "New Project",
-		description: "New Project Description",
 		dateCreated: {
 			user: userId,
 			date: new Date(),
