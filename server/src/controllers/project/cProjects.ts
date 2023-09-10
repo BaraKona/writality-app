@@ -58,7 +58,7 @@ export const getUserProjects = async (req: any, res: any) => {
 					},
 				},
 			],
-		}).sort({ dateUpdated: -1 });
+		}).sort({ dateCreated: 1 });
 
 		const standard = projects.filter((project) => project.type === "standard");
 		const collaboration = projects.filter(

@@ -8,9 +8,6 @@ export const useOpenFolderChapters = (projectId: string, folderId: string) => {
 		() => getOpenFolderChapters(projectId, folderId),
 		{
 			enabled: Boolean(projectId && folderId),
-			onSuccess: (data) => {
-				queryClient.setQueryData(["open-folder", folderId], data);
-			},
 			onError: (error) => {
 				console.log(error);
 				useToast("error", "Error fetching chapters");

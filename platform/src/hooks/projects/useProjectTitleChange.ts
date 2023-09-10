@@ -6,8 +6,7 @@ export const useProjectTitleChange = (projectId: string, title: string) => {
 	const queryClient = useQueryClient();
 	return useMutation(() => updateProjectTitle(projectId, title), {
 		onSuccess: (data) => {
-			queryClient.setQueryData(["project", projectId], data);
-			queryClient.invalidateQueries(["favourites"]);
+			queryClient.invalidateQueries(["project", projectId]);
 			queryClient.invalidateQueries(["projects"]);
 			useToast("success", "Project title updated successfully 😃");
 		},

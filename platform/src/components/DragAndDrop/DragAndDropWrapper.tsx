@@ -47,13 +47,12 @@ export const DragAndDropWrapper: FC<{
 			onDragEnd={handleDragEnd}
 		>
 			{/* <DragOverlay> */}
-			{/* <SortableContext
+			<SortableContext
 				items={items.map((item) => item.uid)}
-				strategy={verticalListSortingStrategy}
-			> */}
-
-			{children}
-			{/* </SortableContext> */}
+				// strategy={verticalListSortingStrategy}
+			>
+				{children}
+			</SortableContext>
 			{/* </DragOverlay> */}
 		</DndContext>
 	);

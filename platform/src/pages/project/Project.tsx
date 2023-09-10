@@ -63,8 +63,8 @@ export function Project() {
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
 	const [openedFolder, setOpenFolder] = useLocalStorage({
-		key: "openFolder",
-		defaultValue: localStorage.getItem("openFolder") || "",
+		key: `openFolder-${project}`,
+		defaultValue: localStorage.getItem(`openFolder-${project}`) || "",
 	});
 
 	const { data: currentProject } = useSingleProject(project as string);
@@ -119,10 +119,6 @@ export function Project() {
 		navigate(`/project/${projectId}/publish/chapter/${chapterId}/`);
 	};
 	const editor = useBlockNote({});
-
-	function openFolder(folderId: string) {
-		console.log("folder", folderId);
-	}
 
 	if (currentProject === null) {
 		return <FourOFour />;

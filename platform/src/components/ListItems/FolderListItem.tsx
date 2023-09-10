@@ -41,7 +41,11 @@ export const FolderListItem: FC<{
 		<div className="flex flex-col" ref={parent}>
 			<div
 				className={`px-1 py-0.5 hover:bg-coolGrey-1 cursor-pointer ${className}`}
-				onClick={() => (openFolder ? openFolder(folder.uid) : null)}
+				onClick={() =>
+					openFolder
+						? openFolder(openedFolder === folder.uid ? "" : folder.uid)
+						: null
+				}
 			>
 				<SmallText className="flex items-center gap-2">
 					{openedFolder == folder.uid ? (

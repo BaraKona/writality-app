@@ -35,8 +35,9 @@ export const UserProjects: FC<{
 	const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
 	const { project: currentProject } = useParams();
 	const [openFolder, setOpenFolder] = useLocalStorage({
-		key: "sidebarFolderOpen",
-		defaultValue: localStorage.getItem("sidebarFolderOpen") || "",
+		key: `sidebarFolderOpen-${currentProject}`,
+		defaultValue:
+			localStorage.getItem(`sidebarFolderOpen-${currentProject}`) || "",
 	});
 
 	const { data: folderChapters } = useOpenFolderChapters(

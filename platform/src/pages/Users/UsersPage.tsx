@@ -8,6 +8,11 @@ import {
 
 export const UsersPage = () => {
 	const { data: users } = usePublicUsers();
+	let data: any = "Hello";
+	data = 1;
+
+	console.log(data);
+
 	initGoogleAnalytics("G-K1KQ4J8062");
 	return (
 		<div className="h-[calc(100vh-2.7rem)] place-items-center rounded-normal border border-border bg-base px-3 py-2">
