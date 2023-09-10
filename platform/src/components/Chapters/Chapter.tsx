@@ -18,12 +18,12 @@ export const Chapter: FC<{
 	openChapter: () => void;
 	openChapterModal: () => void;
 	disabled: boolean;
-	listenerId: string;
+	listenerId?: string;
 }> = ({ chapter, openChapter, openChapterModal, disabled, listenerId }) => {
 	const { Draggable } = useDraggableContext();
 
 	const { attributes, listeners, setNodeRef, style } = Draggable({
-		id: listenerId,
+		id: listenerId || "",
 	});
 
 	// const { listeners } = useDraggable({
@@ -61,12 +61,13 @@ export const Chapter: FC<{
 				<ButtonWrapper>
 					<IconDotsVertical size={14} />
 				</ButtonWrapper>
-
-				<IconGripVertical
-					size={14}
-					{...listeners}
-					className="text-coolGrey-4 cursor-pointer"
-				/>
+				{listenerId && (
+					<IconGripVertical
+						size={14}
+						{...listeners}
+						className="text-coolGrey-4 cursor-pointer"
+					/>
+				)}
 			</div>
 		</div>
 	);
