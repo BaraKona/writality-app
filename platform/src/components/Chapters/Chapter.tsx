@@ -26,10 +26,6 @@ export const Chapter: FC<{
 		id: listenerId || "",
 	});
 
-	// const { listeners } = useDraggable({
-	// 	id: listenerId,
-	// });
-
 	return (
 		<div
 			className="flex gap-3 border rounded-normal border-border bg-white cursor-default py-1 px-2.5 items-center"
@@ -62,11 +58,13 @@ export const Chapter: FC<{
 					<IconDotsVertical size={14} />
 				</ButtonWrapper>
 				{listenerId && (
-					<IconGripVertical
-						size={14}
-						{...listeners}
-						className="text-coolGrey-4 cursor-pointer"
-					/>
+					<ButtonWrapper>
+						<IconGripVertical
+							size={14}
+							{...listeners}
+							className="text-coolGrey-4 cursor-pointer"
+						/>
+					</ButtonWrapper>
 				)}
 			</div>
 		</div>
