@@ -8,10 +8,6 @@ import {
 
 export const UsersPage = () => {
 	const { data: users } = usePublicUsers();
-	let data: any = "Hello";
-	data = 1;
-
-	console.log(data);
 
 	initGoogleAnalytics("G-K1KQ4J8062");
 	return (

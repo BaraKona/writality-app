@@ -3,16 +3,40 @@ import React, { FC, ReactNode } from "react";
 import { book8 } from "../../assets/icons";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { Button, Menu, Text } from "@mantine/core";
-import { IconDotsVertical, IconFileText, IconTrash } from "@tabler/icons-react";
+import {
+	IconDotsVertical,
+	IconFileText,
+	IconGripVertical,
+	IconTrash,
+} from "@tabler/icons-react";
 import { ButtonWrapper } from "../buttons/ButtonWrapper";
+import { useDraggable } from "@dnd-kit/core";
+import { useDraggableContext } from "../DragAndDrop/DraggableProvider";
+
 export const Chapter: FC<{
 	chapter: IChapter;
 	openChapter: () => void;
 	openChapterModal: () => void;
 	disabled: boolean;
-}> = ({ chapter, openChapter, openChapterModal, disabled }) => {
+	listenerId: string;
+}> = ({ chapter, openChapter, openChapterModal, disabled, listenerId }) => {
+	const { Draggable } = useDraggableContext();
+
+	const { attributes, listeners, setNodeRef, style } = Draggable({
+		id: listenerId,
+	});
+
+	// const { listeners } = useDraggable({
+	// 	id: listenerId,
+	// });
+
 	return (
-		<div className="flex gap-3 border rounded-normal border-border bg-white cursor-default py-1 px-2.5 items-center">
+		<div
+			className="flex gap-3 border rounded-normal border-border bg-white cursor-default py-1 px-2.5 items-center"
+			{...attributes}
+			ref={setNodeRef}
+			style={style}
+		>
 			<div
 				className=" text-coolGrey-7 flex place-items-center gap-3 cursor-pointer  group"
 				onClick={openChapter}
@@ -37,6 +61,12 @@ export const Chapter: FC<{
 				<ButtonWrapper>
 					<IconDotsVertical size={14} />
 				</ButtonWrapper>
+
+				<IconGripVertical
+					size={14}
+					{...listeners}
+					className="text-coolGrey-4 cursor-pointer"
+				/>
 			</div>
 		</div>
 	);

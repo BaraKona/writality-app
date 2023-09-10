@@ -51,15 +51,16 @@ export const ProjectChapters: FC<{
 			))}
 
 			{chapters?.map((chapter: IChapter, index: number) => (
-				<Draggable id={chapter.uid}>
-					<Chapter
-						openChapter={() => openChapter(chapter.projectId, chapter.uid)}
-						key={index}
-						chapter={chapter}
-						openChapterModal={() => openChapterModal(chapter.uid)}
-						disabled={false}
-					/>
-				</Draggable>
+				// <Draggable id={chapter.uid}>
+				<Chapter
+					openChapter={() => openChapter(chapter.projectId, chapter.uid)}
+					key={index}
+					chapter={chapter}
+					openChapterModal={() => openChapterModal(chapter.uid)}
+					disabled={false}
+					listenerId={chapter.uid}
+				/>
+				// </Draggable>
 			))}
 		</div>
 	);

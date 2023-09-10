@@ -18,7 +18,10 @@ import {
 
 import { SortableItem } from "./SortableItems";
 import { IChapter } from "../../interfaces/IChapter";
-import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import {
+	restrictToWindowEdges,
+	restrictToVerticalAxis,
+} from "@dnd-kit/modifiers";
 
 export const DragAndDropWrapper: FC<{
 	children: React.ReactNode;
@@ -45,6 +48,7 @@ export const DragAndDropWrapper: FC<{
 			sensors={sensors}
 			collisionDetection={rectIntersection}
 			onDragEnd={handleDragEnd}
+			modifiers={[restrictToWindowEdges, restrictToVerticalAxis]}
 		>
 			{/* <DragOverlay> */}
 			<SortableContext

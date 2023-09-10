@@ -5,7 +5,7 @@ import { publicRouter, router } from "./router";
 import { MainLoader } from "./components/MainLoader";
 import { useUser } from "./hooks/user/useUser";
 import { EditorContextWrapper } from "./contexts/EditorContext";
-
+import { DraggableProvider } from "./components/DragAndDrop/DraggableProvider";
 export function AuthenticatedApp({}) {
 	const { data: currentUser, isLoading } = useUser();
 
@@ -20,7 +20,9 @@ export function AuthenticatedApp({}) {
 	return (
 		<TabContextWrapper>
 			<EditorContextWrapper>
-				<RouterProvider router={router} />
+				<DraggableProvider>
+					<RouterProvider router={router} />
+				</DraggableProvider>
 			</EditorContextWrapper>
 		</TabContextWrapper>
 	);

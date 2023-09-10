@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { useDraggable } from "@dnd-kit/core";
+import { IconGripVertical } from "@tabler/icons-react";
 
 export const Draggable: FC<{
 	children: React.ReactNode;
@@ -15,13 +16,7 @@ export const Draggable: FC<{
 		: undefined;
 
 	return (
-		<button
-			ref={setNodeRef}
-			style={style}
-			{...listeners}
-			{...attributes}
-			className="w-full"
-		>
+		<button ref={setNodeRef} style={style} {...attributes} className="w-full">
 			{children}
 		</button>
 	);
