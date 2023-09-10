@@ -245,6 +245,7 @@ export const Chapter = () => {
 			>
 				{editor && !merge && (
 					<BlockEditor
+						key={chapter as string}
 						content={branch ? currentBranch : chapterContent.content}
 						isLoading={isLoading}
 						setTitle={setTitle}

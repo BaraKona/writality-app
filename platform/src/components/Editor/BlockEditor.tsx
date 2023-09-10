@@ -40,7 +40,6 @@ export const BlockEditor: FC<{
 				<Textarea
 					placeholder="Title"
 					defaultValue={content.title}
-					value={content.title}
 					onChange={(e) => (setTitle ? setTitle(e.target.value) : null)}
 					readOnly={!isEditable}
 					minRows={1}
