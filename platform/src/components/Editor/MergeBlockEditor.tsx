@@ -133,7 +133,7 @@ export const MergeBlockEditor: FC<{
 						},
 					}}
 				/> */}
-				<BlockNoteView editor={editor} />
+				<BlockNoteView editor={editor} theme="light" />
 			</div>
 		</div>
 	);
