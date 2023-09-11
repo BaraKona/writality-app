@@ -3,6 +3,7 @@ import {
 	IconChevronDown,
 	IconChevronRight,
 	IconFileText,
+	IconFolder,
 	IconX,
 } from "@tabler/icons-react";
 import { FC, useState } from "react";
@@ -98,12 +99,12 @@ export const ProjectListItem: FC<{
 				</div>
 			</li>
 			{isLoading ? (
-				<Skeleton className="mt-1" height={20} width="100%" />
+				<Skeleton className="mt-1" height={18} width="100%" />
 			) : (
 				<>
 					<div ref={parent}>
 						{sidebarProjectOpen && projectFolders.length !== 0 && (
-							<div className="ml-4 pl-2 py-2 border-l border-border ">
+							<div className="ml-4 pl-2 pt-2  border-l border-border ">
 								{projectFolders?.map((folder) => {
 									return (
 										<FolderListItem
@@ -121,16 +122,16 @@ export const ProjectListItem: FC<{
 					</div>
 					<div ref={parent}>
 						{sidebarProjectOpen && chapters?.length !== 0 && (
-							<div className="ml-4 py-1 border-l border-border">
+							<div className="ml-4 pb-1 border-l border-border">
 								{chapters?.map((chapter: IChapter) => (
 									<SmallText
-										className="flex items-center justify-between py-0.5 px-0.5 ml-3 cursor-pointer rounded-normal hover:bg-coolGrey-1"
+										className="flex items-center justify-between pl-1 p-0.5 ml-2 cursor-pointer rounded-normal hover:bg-coolGrey-1"
 										onClick={() =>
 											navigate(`project/${projectId}/chapter/${chapter.uid}`)
 										}
 									>
-										<span className="flex gap-1 items-center">
-											<IconFileText size={16} />{" "}
+										<span className="flex gap-1.5 items-center">
+											<IconFileText size={16} />
 											{chapter.content.title || "Untitled Chapter"}
 										</span>
 									</SmallText>

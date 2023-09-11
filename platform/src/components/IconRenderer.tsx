@@ -7,6 +7,7 @@ import {
 	IconUsers,
 } from "@tabler/icons-react";
 import { HiOutlineUserGroup, HiUserGroup } from "react-icons/hi";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 export function IconRenderer({
 	type,
 	open,
@@ -14,8 +15,9 @@ export function IconRenderer({
 	type: "standard" | "collaboration";
 	open: boolean;
 }) {
+	const [parent] = useAutoAnimate();
 	return (
-		<>
+		<div ref={parent}>
 			{type === "collaboration" ? (
 				open ? (
 					<IconAtom size={18} />
@@ -27,6 +29,6 @@ export function IconRenderer({
 			) : (
 				<IconBook2 size={18} />
 			)}
-		</>
+		</div>
 	);
 }
