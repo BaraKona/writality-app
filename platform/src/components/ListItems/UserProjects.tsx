@@ -32,25 +32,21 @@ export const UserProjects: FC<{
 	removeFavouriteProject,
 	createProject,
 }) => {
-	const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
+	const [parent, enableAnimations] = useAutoAnimate();
 	const { project: currentProject } = useParams();
-	const [openFolder, setOpenFolder] = useLocalStorage({
-		key: `sidebarFolderOpen-${currentProject}`,
-		defaultValue:
-			localStorage.getItem(`sidebarFolderOpen-${currentProject}`) || "",
-	});
-
-	const { data: folderChapters } = useOpenFolderChapters(
-		currentProject as string,
-		openFolder as string
-	);
 
 	if (isLoading) {
 		return (
 			<>
-				<Skeleton height={27} width={160} radius="md" mb={3} />
-				<Skeleton height={27} width={160} radius="md" mb={3} />
-				<Skeleton height={27} width={160} radius="md" mb={3} />
+				<Skeleton height={10} width="100%" radius="sm" mb={10} mt={20} />
+				<Skeleton height={20} width="100%" radius="sm" mb={3} />
+				<Skeleton height={20} width="100%" radius="sm" mb={3} />
+				<Skeleton height={20} width="100%" radius="sm" mb={3} />
+				<Skeleton height={20} width="100%" radius="sm" mb={3} />
+				<Skeleton height={10} width="100%" radius="sm" mb={10} mt={15} />
+				<Skeleton height={20} width="100%" radius="sm" mb={3} />
+				<Skeleton height={20} width="100%" radius="sm" mb={3} />
+				<Skeleton height={20} width="100%" radius="sm" mb={3} />
 			</>
 		);
 	}
@@ -65,42 +61,17 @@ export const UserProjects: FC<{
 						label={<Text className="!text-blueTextLight">Projects</Text>}
 						labelPosition="center"
 					/>
+
 					{projects.standard?.map((project: IProject, index: number) => {
 						return (
-							<div
-								ref={parent}
-								className={`${
-									currentProject === project.uid && project.folders.length !== 0
-										? ""
-										: "mb-1"
-								}`}
-							>
-								<ProjectListItem
-									key={project.uid}
-									onClick={() => openProject(`project/${project.uid}/home`)}
-									name={project.title || "Untitled Project"}
-									description={project.description}
-									projectId={project.uid}
-									type={project.type}
-									removeFavourite={() => removeFavouriteProject(project.uid)}
-								/>
-								{currentProject === project.uid &&
-									project.folders.length !== 0 && (
-										<div className="ml-4 pl-2 py-2 border-l border-border">
-											{project.folders?.map((folder) => {
-												return (
-													<FolderListItem
-														folder={folder}
-														folderChapters={folderChapters}
-														small
-														openFolder={setOpenFolder}
-														openedFolder={openFolder}
-													/>
-												);
-											})}
-										</div>
-									)}
-							</div>
+							<ProjectListItem
+								key={project.uid}
+								onClick={() => openProject(`project/${project.uid}/home`)}
+								name={project.title || "Untitled Project"}
+								projectId={project.uid}
+								projectFolders={project.folders}
+								type={project.type}
+							/>
 						);
 					})}
 				</section>
@@ -128,26 +99,10 @@ export const UserProjects: FC<{
 									key={project.uid}
 									onClick={() => openProject(`project/${project.uid}/home`)}
 									name={project.title || "Untitled Project"}
-									description={project.description}
+									projectFolders={project.folders}
 									projectId={project.uid}
 									type={project.type}
-									removeFavourite={() => removeFavouriteProject(project.uid)}
 								/>
-								{currentProject === project.uid &&
-									project.folders.length !== 0 && (
-										<div className="ml-4 pl-2 py-2 border-l border-border">
-											{project.folders?.map((folder) => {
-												return (
-													<div className=" px-1 py-0.5 hover:bg-coolGrey-1 rounded-normal">
-														<SmallText className="flex items-center gap-2">
-															<IconFolderFilled size={16} />
-															{folder.name}
-														</SmallText>
-													</div>
-												);
-											})}
-										</div>
-									)}
 							</div>
 						);
 					})}

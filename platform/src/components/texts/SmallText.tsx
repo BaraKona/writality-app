@@ -3,10 +3,12 @@ import { FC, ReactNode } from "react";
 export const SmallText: FC<{
 	children: ReactNode;
 	light?: boolean;
+	onClick?: () => void;
 	className?: string;
-}> = ({ children, light, className }) => {
+}> = ({ children, light, className, onClick }) => {
 	return (
 		<div
+			onClick={onClick}
 			className={`text-xs ${
 				light ? "text-blueTextLight" : "to-coolGrey"
 			} text-coolGrey-7 font-medium ${className}`}

@@ -67,7 +67,7 @@ export const Sidebar: FC<{}> = () => {
 
 	return (
 		<aside className="flex h-screen" aria-label="Sidebar">
-			<div className="flex overflow-y-auto h-full basis-72 max-w-[18rem]">
+			<div className="flex overflow-y-auto h-full w-[20rem]">
 				<div className="flex flex-col py-2 w-full">
 					<Link to="/">
 						<div className="ml-2 mt-1 mb-1 flex">

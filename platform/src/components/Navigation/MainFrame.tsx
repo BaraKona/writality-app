@@ -135,7 +135,7 @@ export const MainFrame: FC<{
 	};
 
 	return (
-		<div className="w-[calc(100vw-18rem)]">
+		<div className="w-[calc(100vw-19rem)]">
 			<div className="my-1.5 px-2 flex gap-1 content-start ">
 				{tabs.map((tab) => (
 					<div
