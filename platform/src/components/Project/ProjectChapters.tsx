@@ -36,6 +36,7 @@ export const ProjectChapters: FC<{
 					<FolderListItem
 						openFolder={openFolder}
 						folder={folder}
+						projectId={project.uid}
 						folderChapters={folderChapters}
 						key={index}
 						withNumber

@@ -26,15 +26,13 @@ export const ProjectListItem: FC<{
 	projectId: string;
 	projectFolders: IProject["folders"];
 	onClick?: () => void;
-
 	type: "standard" | "collaboration";
 }> = ({ name, onClick, projectId, type, projectFolders }) => {
-	const [parent, enableAnimations] = useAutoAnimate();
-	const { project } = useParams();
+	const [parent] = useAutoAnimate();
 
 	const [sidebarProjectOpen, setSidebarProjectOpen] = useLocalStorage({
 		key: `sidebarProjectOpen-${projectId}`,
-		defaultValue: localStorage.getItem(`sidebarProjectOpen-${project}`) || "",
+		defaultValue: localStorage.getItem(`sidebarProjectOpen-${projectId}`) || "",
 	});
 	const [openFolder, setOpenFolder] = useLocalStorage({
 		key: `sidebarFolderOpen-${projectId}`,
@@ -111,6 +109,7 @@ export const ProjectListItem: FC<{
 											folder={folder}
 											folderChapters={folderChapters}
 											small
+											projectId={projectId}
 											className="rounded-normal"
 											openFolder={setOpenFolder}
 											openedFolder={openFolder}

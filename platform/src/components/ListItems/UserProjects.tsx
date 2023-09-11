@@ -10,11 +10,7 @@ import { Divider, Skeleton, Text } from "@mantine/core";
 import { ProjectListItem } from "./ProjectListItem";
 import { FC } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { SmallText } from "../texts/SmallText";
 import { useParams } from "react-router-dom";
-import { FolderListItem } from "./FolderListItem";
-import { useOpenFolderChapters } from "../../hooks/projects/useOpenFolderChapters";
-import { useLocalStorage } from "@mantine/hooks";
 
 export const UserProjects: FC<{
 	isLoading: boolean;

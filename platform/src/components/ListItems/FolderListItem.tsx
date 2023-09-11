@@ -23,6 +23,7 @@ export const FolderListItem: FC<{
 	openFolder?: (folderId: string) => void;
 	folderChapters?: IChapter[];
 	small?: boolean;
+	projectId: string;
 	openedFolder?: string;
 }> = ({
 	className,
@@ -32,9 +33,9 @@ export const FolderListItem: FC<{
 	openFolder,
 	folderChapters,
 	small,
+	projectId,
 	openedFolder,
 }) => {
-	const { project } = useParams();
 	const [parent] = useAutoAnimate();
 	const navigate = useNavigate();
 	return (
@@ -76,7 +77,7 @@ export const FolderListItem: FC<{
 								<SmallText
 									className="flex items-center justify-between py-0.5 px-0.5 ml-2 cursor-pointer rounded-normal hover:bg-coolGrey-1"
 									onClick={() =>
-										navigate(`project/${project}/chapter/${chapter.uid}`)
+										navigate(`project/${projectId}/chapter/${chapter.uid}`)
 									}
 								>
 									<span className="flex gap-1.5 items-center">
@@ -87,7 +88,7 @@ export const FolderListItem: FC<{
 							) : (
 								<Chapter
 									openChapter={() =>
-										navigate(`/project/${project}/chapter/${chapter.uid}`)
+										navigate(`/project/${projectId}/chapter/${chapter.uid}`)
 									}
 									key={index}
 									chapter={chapter}
