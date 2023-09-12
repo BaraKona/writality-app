@@ -29,6 +29,7 @@ export const ProjectListItem: FC<{
 	type: "standard" | "collaboration";
 }> = ({ name, onClick, projectId, type, projectFolders }) => {
 	const [parent] = useAutoAnimate();
+	const { project } = useParams();
 
 	const [sidebarProjectOpen, setSidebarProjectOpen] = useLocalStorage({
 		key: `sidebarProjectOpen-${projectId}`,
@@ -56,11 +57,9 @@ export const ProjectListItem: FC<{
 		>
 			<li
 				onClick={onClick}
-				className={`px-1.5 py-1 transition-all ease-in-out duration-500 flex flex-col text-xs font-medium group hover:bg-coolGrey-1 bg-white rounded-normal cursor-default ${
-					sidebarProjectOpen
-						? "bg-coolGrey-1 text-coolGrey-7 border border-coolGrey-2"
-						: "bg-transparent text-coolGrey-5 border border-border"
-				}`}
+				className={`px-1.5 py-1 transition-all ease-in-out duration-500 cursor-pointer flex flex-col text-xs font-medium group hover:bg-coolGrey-1 bg-white rounded-normal border border-border ${
+					sidebarProjectOpen ? " text-coolGrey-7" : " text-coolGrey-5"
+				} ${project === projectId ? "bg-gray-100" : ""}`}
 			>
 				<div className="gap-1 flex justify-between items-center">
 					<div className="flex gap-1 items-center">

@@ -28,8 +28,7 @@ export const UserProjects: FC<{
 	removeFavouriteProject,
 	createProject,
 }) => {
-	const [parent, enableAnimations] = useAutoAnimate();
-	const { project: currentProject } = useParams();
+	const [parent] = useAutoAnimate();
 
 	if (isLoading) {
 		return (
@@ -83,23 +82,14 @@ export const UserProjects: FC<{
 					/>
 					{projects.collaboration?.map((project: IProject, index: number) => {
 						return (
-							<div
-								ref={parent}
-								className={`${
-									currentProject === project.uid && project.folders.length !== 0
-										? ""
-										: "mb-1"
-								}`}
-							>
-								<ProjectListItem
-									key={project.uid}
-									onClick={() => openProject(`project/${project.uid}/home`)}
-									name={project.title || "Untitled Project"}
-									projectFolders={project.folders}
-									projectId={project.uid}
-									type={project.type}
-								/>
-							</div>
+							<ProjectListItem
+								key={project.uid}
+								onClick={() => openProject(`project/${project.uid}/home`)}
+								name={project.title || "Untitled Project"}
+								projectFolders={project.folders}
+								projectId={project.uid}
+								type={project.type}
+							/>
 						);
 					})}
 				</section>
