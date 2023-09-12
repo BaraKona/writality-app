@@ -1,9 +1,10 @@
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/core/style.css";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { IChapterContent } from "../../interfaces/IChapterContent";
 import { Skeleton, Textarea } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
+import { SmallText } from "../texts/SmallText";
 
 export const BlockEditor: FC<{
 	content: IChapterContent;
@@ -12,11 +13,29 @@ export const BlockEditor: FC<{
 	isEditable?: boolean;
 	setContent: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ content, isLoading, setTitle, isEditable, setContent }) => {
+	const [wordCount, setWordCount] = useState(0);
+
 	const editor = useBlockNote(
 		{
 			initialContent: content?.content ? JSON.parse(content?.content) : null,
 			onEditorReady: (editor) => {
 				setContent(JSON.stringify(editor.topLevelBlocks));
+				setWordCount(
+					editor.topLevelBlocks.reduce((acc, block) => {
+						if (block.type === "paragraph") {
+							return (
+								acc +
+								block.content.reduce((acc, content) => {
+									if (content.type === "text") {
+										return acc + content.text.split(" ").length;
+									}
+									return acc;
+								}, 0)
+							);
+						}
+						return acc;
+					}, 0)
+				);
 			},
 			onEditorContentChange: (editor) => {
 				setContent(JSON.stringify(editor.topLevelBlocks));
@@ -35,7 +54,7 @@ export const BlockEditor: FC<{
 	editor.isEditable = isEditable ? isEditable : false;
 
 	return (
-		<div className="h-[calc(100vh-7.3rem)] w-full border bg-base border-border rounded-normal">
+		<div className="h-[calc(100vh-7.3rem)] w-full border bg-base border-border rounded-normal relative">
 			<div className="max-w-4xl mx-auto py-10 h-[calc(100vh-7.5rem)] overflow-y-auto">
 				<Textarea
 					placeholder="Title"
@@ -60,6 +79,23 @@ export const BlockEditor: FC<{
 					}}
 				/>
 				<BlockNoteView editor={editor} theme="light" />
+				<SmallText className="absolute top-4 right-5 bg-white rounded-normal shadow-sm border border-border p-2 z-50">
+					{editor.topLevelBlocks.reduce((acc, block) => {
+						if (block.type === "paragraph") {
+							return (
+								acc +
+								block.content.reduce((acc, content) => {
+									if (content.type === "text") {
+										return acc + content.text.split(" ").length - 1;
+									}
+									return acc;
+								}, 0)
+							);
+						}
+						return acc;
+					}, 0)}{" "}
+					Words
+				</SmallText>
 			</div>
 		</div>
 	);
