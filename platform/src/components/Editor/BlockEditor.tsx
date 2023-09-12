@@ -5,6 +5,11 @@ import { IChapterContent } from "../../interfaces/IChapterContent";
 import { Skeleton, Textarea } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
 import { SmallText } from "../texts/SmallText";
+import {
+	BlockNoteEditor,
+	BlockSchema,
+	DefaultBlockSchema,
+} from "@blocknote/core";
 
 export const BlockEditor: FC<{
 	content: IChapterContent;
@@ -13,29 +18,11 @@ export const BlockEditor: FC<{
 	isEditable?: boolean;
 	setContent: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ content, isLoading, setTitle, isEditable, setContent }) => {
-	const [wordCount, setWordCount] = useState(0);
-
 	const editor = useBlockNote(
 		{
 			initialContent: content?.content ? JSON.parse(content?.content) : null,
 			onEditorReady: (editor) => {
 				setContent(JSON.stringify(editor.topLevelBlocks));
-				setWordCount(
-					editor.topLevelBlocks.reduce((acc, block) => {
-						if (block.type === "paragraph") {
-							return (
-								acc +
-								block.content.reduce((acc, content) => {
-									if (content.type === "text") {
-										return acc + content.text.split(" ").length;
-									}
-									return acc;
-								}, 0)
-							);
-						}
-						return acc;
-					}, 0)
-				);
 			},
 			onEditorContentChange: (editor) => {
 				setContent(JSON.stringify(editor.topLevelBlocks));
@@ -43,6 +30,39 @@ export const BlockEditor: FC<{
 		},
 		[content]
 	);
+
+	function countWordsFromTopLevelBlocks(
+		topLevelBlocks: BlockNoteEditor["topLevelBlocks"]
+	) {
+		let wordCount = 0;
+
+		function countWordsInText(text: string) {
+			const words = text.trim().split(/\s+/);
+			return words.length;
+		}
+
+		topLevelBlocks.forEach((block) => {
+			if (
+				block.type === "paragraph" ||
+				block.type === "heading" ||
+				block.type === "numberedListItem" ||
+				block.type === "bulletListItem"
+			) {
+				wordCount += block.content.reduce((acc, content) => {
+					if (content.type === "text") {
+						return acc + countWordsInText(content.text);
+					}
+					return acc;
+				}, 0);
+			}
+
+			if (block.children && block.children.length > 0) {
+				wordCount += countWordsFromTopLevelBlocks(block.children);
+			}
+		});
+
+		return wordCount;
+	}
 
 	if (isLoading || !editor || !content)
 		return (
@@ -80,21 +100,7 @@ export const BlockEditor: FC<{
 				/>
 				<BlockNoteView editor={editor} theme="light" />
 				<SmallText className="absolute top-4 right-5 bg-white rounded-normal shadow-sm border border-border p-2 z-50">
-					{editor.topLevelBlocks.reduce((acc, block) => {
-						if (block.type === "paragraph") {
-							return (
-								acc +
-								block.content.reduce((acc, content) => {
-									if (content.type === "text") {
-										return acc + content.text.split(" ").length - 1;
-									}
-									return acc;
-								}, 0)
-							);
-						}
-						return acc;
-					}, 0)}{" "}
-					Words
+					{countWordsFromTopLevelBlocks(editor.topLevelBlocks)} Words
 				</SmallText>
 			</div>
 		</div>
