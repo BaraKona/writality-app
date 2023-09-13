@@ -81,8 +81,8 @@ export const BlockEditor: FC<{
 					defaultValue={content.title}
 					onChange={(e) => (setTitle ? setTitle(e.target.value) : null)}
 					readOnly={!isEditable}
+					autosize
 					minRows={1}
-					maxRows={4}
 					styles={{
 						...inputStyles,
 						input: {
@@ -95,9 +95,11 @@ export const BlockEditor: FC<{
 							backgroundColor: "transparent",
 							color: "#25262b",
 							margin: "1rem auto",
+							overflow: "hidden",
 						},
 					}}
 				/>
+				{/* <div contentEditable>{content.title}</div> */}
 				<BlockNoteView editor={editor} theme="light" />
 				<SmallText className="absolute top-4 right-5 bg-white rounded-normal shadow-sm border border-border p-2 z-50">
 					{countWordsFromTopLevelBlocks(editor.topLevelBlocks)} Words
