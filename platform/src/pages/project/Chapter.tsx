@@ -118,15 +118,7 @@ export const Chapter = () => {
 			},
 		}
 	);
-	const deleteChapterVersionMutation = useMutation(
-		() => deleteSingleChapterVersion(chapter as string, version.uid),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(["versions", chapter as string]);
-				setVersionModalOpen(false);
-			},
-		}
-	);
+
 	const { mutate: replaceMain } = useMergeReplace(
 		project as string,
 		chapter as string
@@ -170,12 +162,6 @@ export const Chapter = () => {
 		setSearchParams(searchParams);
 	};
 
-	const editor = useEditor({
-		extensions,
-	});
-
-	if ((branch && !currentBranch) || !chapterContent || !editor)
-		return <Loading isLoading={true}> </Loading>;
 	return (
 		<>
 			<CreateBranchModal
@@ -226,15 +212,14 @@ export const Chapter = () => {
 						: () => console.log("ff")
 				}
 			/>
-			<VersionModal
+			{/* <VersionModal
 				setOpened={setVersionModalOpen}
 				opened={versionModalOpen}
 				deleteVersion={deleteChapterVersionMutation.mutate}
 				version={version}
 				currentContent={branch ? currentBranch : chapterContent?.content}
 				setText={setText}
-				editor={editor}
-			/>
+			/> */}
 			<EditorWrapper
 				save={
 					branch
@@ -243,10 +228,10 @@ export const Chapter = () => {
 				}
 				content={currentBranch ? currentBranch : chapterContent?.content}
 			>
-				{editor && !merge && (
+				{!merge && (
 					<BlockEditor
 						key={chapter as string}
-						content={branch ? currentBranch : chapterContent.content}
+						content={branch ? currentBranch : chapterContent?.content}
 						isLoading={isLoading}
 						setTitle={setTitle}
 						isEditable={Boolean(branch) || currentProject?.type === "standard"}
@@ -284,11 +269,7 @@ export const Chapter = () => {
 						<ChapterBranchMenu
 							openMergeModal={openMerge}
 							chapterBranches={chapterBranches}
-							currentBranch={
-								currentBranch
-									? currentBranch
-									: editor?.getHTML() || chapterContent
-							}
+							currentBranch={branch ? currentBranch : chapterContent}
 							mainContent={chapterContent?.content}
 							checkoutMain={() => navigateToMain()}
 							openDeleteBranch={setOpenDeleteBranch}
@@ -301,7 +282,6 @@ export const Chapter = () => {
 							chapterVersions={chapterVersions}
 							setOpen={setVersionModalOpen}
 							setVersion={setVersion}
-							text={editor.getHTML()}
 							close={() => closeSidebar()}
 							active={sidebar === "versions"}
 						/>

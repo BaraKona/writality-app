@@ -29,16 +29,18 @@ export const ProjectListItem: FC<{
 	type: "standard" | "collaboration";
 }> = ({ name, onClick, projectId, type, projectFolders }) => {
 	const [parent] = useAutoAnimate();
-	const { project } = useParams();
+	const { project, chapter: chapterId } = useParams();
 
 	const [sidebarProjectOpen, setSidebarProjectOpen] = useLocalStorage({
 		key: `sidebarProjectOpen-${projectId}`,
 		defaultValue: localStorage.getItem(`sidebarProjectOpen-${projectId}`) || "",
 	});
+
 	const [openFolder, setOpenFolder] = useLocalStorage({
 		key: `sidebarFolderOpen-${projectId}`,
 		defaultValue: localStorage.getItem(`sidebarFolderOpen-${projectId}`) || "",
 	});
+
 	const { data: folderChapters } = useOpenFolderChapters(
 		projectId,
 		openFolder as string
@@ -123,7 +125,9 @@ export const ProjectListItem: FC<{
 							<div className="ml-4 pb-1 border-l border-border">
 								{chapters?.map((chapter: IChapter) => (
 									<SmallText
-										className="flex items-center justify-between pl-1 p-0.5 ml-2 cursor-pointer rounded-normal hover:bg-coolGrey-1"
+										className={`flex items-center justify-between pl-1 p-0.5 ml-2 my-0.5 cursor-pointer rounded-normal hover:bg-coolGrey-1 transition-all ease-in-out duration-300 ${
+											chapterId === chapter.uid ? "bg-coolGrey-1" : ""
+										}`}
 										onClick={() =>
 											navigate(`project/${projectId}/chapter/${chapter.uid}`)
 										}

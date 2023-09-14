@@ -1,10 +1,4 @@
-import {
-	IconBookmarkPlus,
-	IconCubePlus,
-	IconFolder,
-	IconFolderFilled,
-	IconSquarePlus,
-} from "@tabler/icons-react";
+import { IconCubePlus } from "@tabler/icons-react";
 import { IProject } from "../../interfaces/IProject";
 import { Divider, Skeleton, Text } from "@mantine/core";
 import { ProjectListItem } from "./ProjectListItem";

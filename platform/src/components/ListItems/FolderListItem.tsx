@@ -38,6 +38,8 @@ export const FolderListItem: FC<{
 }) => {
 	const [parent] = useAutoAnimate();
 	const navigate = useNavigate();
+	const { chapter: chapterId } = useParams();
+
 	return (
 		<div className="flex flex-col" ref={parent}>
 			<div
@@ -75,13 +77,15 @@ export const FolderListItem: FC<{
 						<>
 							{small ? (
 								<SmallText
-									className="flex items-center justify-between py-0.5 px-0.5 ml-2 cursor-pointer rounded-normal hover:bg-coolGrey-1"
+									className={`flex items-center justify-between py-0.5 px-0.5 ml-2 cursor-pointer rounded-normal hover:bg-coolGrey-1 ${
+										chapterId === chapter.uid ? "bg-coolGrey-1" : ""
+									}`}
 									onClick={() =>
 										navigate(`project/${projectId}/chapter/${chapter.uid}`)
 									}
 								>
-									<span className="flex gap-1.5 items-center">
-										<IconFileText size={16} />{" "}
+									<span className="flex gap-1.5 items-start">
+										<IconFileText size={16} className="flex-shrink-0" />{" "}
 										{chapter.content.title || "Untitled Chapter"}
 									</span>
 								</SmallText>

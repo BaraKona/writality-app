@@ -11,10 +11,9 @@ export const ChapterVersionMenu: FC<{
 	chapterVersions: IChapterVersion[];
 	setOpen: React.Dispatch<SetStateAction<boolean>>;
 	setVersion: (version: IChapterVersion) => void;
-	text: string;
 	close: () => void;
 	active: boolean;
-}> = ({ chapterVersions, setOpen, setVersion, text, close, active }) => {
+}> = ({ chapterVersions, setOpen, setVersion, close, active }) => {
 	return (
 		<div
 			className={`${
@@ -25,7 +24,6 @@ export const ChapterVersionMenu: FC<{
 				chapterVersions={chapterVersions}
 				setOpen={setOpen}
 				setVersion={setVersion}
-				text={text}
 				close={close}
 			/>
 		</div>

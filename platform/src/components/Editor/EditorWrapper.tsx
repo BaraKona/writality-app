@@ -21,26 +21,25 @@ import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { IconBook2, IconGitMerge } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { ProjectWrapperHeights } from "../../styles/ProjectWrapperHeights";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
+
 export const EditorWrapper: FC<{
 	children: ReactNode;
 	content: IChapterVersion;
 	save: () => void;
 }> = ({ children, content, save }) => {
 	const { data: project, isLoading } = useSingleProject(content?.projectId);
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const location = useLocation();
 	const merge = searchParams.get("merge");
 	const branch = searchParams.get("branch");
 
-	if (isLoading) {
+	if (isLoading || !content) {
 		return (
-			<div
-				className={`flex flex-col pt-5 bg-base px-7  gap-2 rounded-normal ${ProjectWrapperHeights}`}
-			>
+			<div className="flex flex-col bg-base px-3 py-3.5 h-[calc(100vh-3.75rem)] gap-2 rounded-normal border-border border">
 				<div className="flex justify-between">
-					<Skeleton height={20} mt={6} width={100} />
-					<Skeleton height={20} mt={6} width={200} />
+					<Skeleton height={24} mt={6} width={100} />
+					<Skeleton height={24} mt={6} width={200} />
 				</div>
 				<Divider color="grey.0" />
 				<div className="flex">{children}</div>
@@ -95,7 +94,7 @@ export const EditorWrapper: FC<{
 	}
 
 	return (
-		<div className="flex flex-col bg-base px-3 py-3 h-[calc(100vh-42px)] gap-2 rounded-normal border-border border">
+		<div className="flex flex-col bg-base px-3 py-3 h-[calc(100vh-3.75rem)] gap-2 rounded-normal border-border border">
 			<div className=" flex font-medium gap-2 bg-base text-coolGrey-7 items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text size="xs" color="dimmed" ml="auto" mr={3}>
