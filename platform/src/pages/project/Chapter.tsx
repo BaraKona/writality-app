@@ -107,7 +107,7 @@ export const Chapter = () => {
 		{ enabled: !!chapterContent && !!branch }
 	);
 
-	const { mutate: createBranchMutation } = useCreateChapterBranch();
+	const { mutate: createBranchMutation } = useCreateChapterBranch(setOpened);
 	const deleteBranchMutation = useMutation(
 		() => deleteBranch(chapter as string, branch as string),
 		{

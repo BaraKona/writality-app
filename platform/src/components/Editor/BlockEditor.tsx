@@ -87,7 +87,7 @@ export const BlockEditor: FC<{
 						...inputStyles,
 						input: {
 							...inputStyles.input,
-							fontSize: "3rem !important",
+							fontSize: "2.7rem !important",
 							fontWeight: 800,
 							padding: "0 3rem",
 							height: "auto",
