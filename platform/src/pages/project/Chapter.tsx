@@ -212,14 +212,16 @@ export const Chapter = () => {
 						: () => console.log("ff")
 				}
 			/>
-			{/* <VersionModal
+			<VersionModal
 				setOpened={setVersionModalOpen}
 				opened={versionModalOpen}
-				deleteVersion={deleteChapterVersionMutation.mutate}
+				deleteVersion={() =>
+					deleteSingleChapterVersion(chapter as string, version.uid)
+				}
 				version={version}
 				currentContent={branch ? currentBranch : chapterContent?.content}
 				setText={setText}
-			/> */}
+			/>
 			<EditorWrapper
 				save={
 					branch

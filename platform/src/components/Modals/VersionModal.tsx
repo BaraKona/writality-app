@@ -13,6 +13,8 @@ import { CancelButton } from "../buttons/CancelButton";
 import { CreateChapterButton } from "../buttons";
 import { inputStyles } from "../../styles/inputStyles";
 import { modalStyles } from "../../styles/modalStyles";
+import { useBlockNote, BlockNoteView } from "@blocknote/react";
+
 export const VersionModal: FC<{
 	opened: boolean;
 	setOpened: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,7 +22,6 @@ export const VersionModal: FC<{
 	version: IChapterVersion;
 	setText: React.Dispatch<React.SetStateAction<string>>;
 	currentContent: IChapterVersion;
-	editor: any;
 }> = ({
 	opened,
 	setOpened,
@@ -28,9 +29,25 @@ export const VersionModal: FC<{
 	version,
 	currentContent,
 	setText,
-	editor,
 }) => {
 	const theme = useMantineTheme();
+	const editor = useBlockNote(
+		{
+			initialContent: version?.content ? JSON.parse(version?.content) : null,
+			editable: false,
+		},
+		[version?.content]
+	);
+
+	const editor2 = useBlockNote(
+		{
+			initialContent: currentContent?.content
+				? JSON.parse(currentContent?.content)
+				: null,
+			editable: false,
+		},
+		[currentContent?.content]
+	);
 
 	if (!version) {
 		return null;
@@ -53,25 +70,19 @@ export const VersionModal: FC<{
 				<div className="flex flex-wrap mx-auto text-coolGrey-7">
 					<div className="px-5 border-r border-border grow shrink w-1/2 mx-auto">
 						<h2 className="text-gray-700 font-medium underline text-md my-2">
-							{currentContent?.name || "Main"}
+							{currentContent?.title || "Main"}
 						</h2>
-						<TypographyStylesProvider>
-							<div
-								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 text-xs px-3"
-								dangerouslySetInnerHTML={{ __html: currentContent?.content }}
-							/>
-						</TypographyStylesProvider>
+						<div className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 text-xs px-3">
+							<BlockNoteView editor={editor2} theme="light" />
+						</div>
 					</div>
 					<div className="px-5 border-l border-border grow shrink w-1/2 mx-auto">
 						<h2 className="text-gray-700 font-medium underline text-md my-2">
-							{version?.name}
+							{version?.title || version.name}
 						</h2>
-						<TypographyStylesProvider>
-							<div
-								className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 text-xs px-3"
-								dangerouslySetInnerHTML={{ __html: version?.content }}
-							/>
-						</TypographyStylesProvider>
+						<div className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 text-xs px-3">
+							<BlockNoteView editor={editor} theme="light" className="!px-0" />
+						</div>
 					</div>
 				</div>
 				<div className="mt-5 flex">
@@ -80,7 +91,8 @@ export const VersionModal: FC<{
 							icon={<IconReplace size={14} />}
 							text="Replace"
 							createNewChapter={() => {
-								editor.commands.setContent(version.content), setOpened(false);
+								setText(version?.content as string);
+								setOpened(false);
 							}}
 						/>
 					</div>
