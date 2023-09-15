@@ -6,7 +6,6 @@ import { MainLoader } from "./components/MainLoader";
 import { useUser } from "./hooks/user/useUser";
 import { EditorContextWrapper } from "./contexts/EditorContext";
 import { DraggableProvider } from "./components/DragAndDrop/DraggableProvider";
-import { DatesProvider } from "@mantine/dates";
 export function AuthenticatedApp({}) {
 	const { data: currentUser, isLoading } = useUser();
 
@@ -22,11 +21,7 @@ export function AuthenticatedApp({}) {
 		<TabContextWrapper>
 			<EditorContextWrapper>
 				<DraggableProvider>
-					<DatesProvider
-						settings={{ locale: "en", firstDayOfWeek: 0, weekendDays: [0] }}
-					>
-						<RouterProvider router={router} />
-					</DatesProvider>
+					<RouterProvider router={router} />
 				</DraggableProvider>
 			</EditorContextWrapper>
 		</TabContextWrapper>
