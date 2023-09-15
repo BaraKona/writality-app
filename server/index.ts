@@ -12,6 +12,7 @@ import projects from "./src/routes/project/projects";
 import chapters from "./src/routes/project/chapters";
 import versions from "./src/routes/project/versions";
 import branches from "./src/routes/project/branches";
+import analytics from "./src/routes/analytics";
 
 const cookieParser = require("cookie-parser");
 
@@ -51,6 +52,8 @@ app.use("/projects", projects);
 app.use("/chapters", chapters);
 app.use("/versions", versions);
 app.use("/branches", branches);
+
+app.use("/analytics", analytics);
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {

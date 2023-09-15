@@ -48,6 +48,7 @@ export const createChapter = async (userId: string, projectId: string) => {
 					action: "create",
 				},
 			],
+			wordCount: 0,
 		},
 	});
 	try {
@@ -101,7 +102,7 @@ export const getSingleChapter = async (req: any, res: any) => {
 
 export const updateChapterContent = async (req: any, res: any) => {
 	const { chapterId, projectId } = req.params;
-	const { content, title } = req.body;
+	const { content, title, wordCount } = req.body;
 	const userId = req.user.uid;
 	try {
 		const chapter = await Chapter.findOne({
@@ -139,6 +140,7 @@ export const updateChapterContent = async (req: any, res: any) => {
 					user: chapter.content.dateCreated.user,
 					date: chapter.content.dateCreated.date,
 				},
+				wordCount,
 			}),
 		]);
 

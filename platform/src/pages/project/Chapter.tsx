@@ -71,6 +71,7 @@ export const Chapter = () => {
 	const [title, setTitle] = useState("");
 	const { chapter, project } = useParams();
 	const [editorContent, setEditorContent] = useState("");
+	const [wordCount, setWordCount] = useState(0);
 
 	const [sidebar, setSidebar] = useLocalStorage({
 		key: "chapter-sidebar",
@@ -226,7 +227,11 @@ export const Chapter = () => {
 				save={
 					branch
 						? updateBranchMutation.mutate
-						: () => updateChapterContentMutation(editorContent)
+						: () =>
+								updateChapterContentMutation({
+									content: editorContent,
+									wordCount,
+								})
 				}
 				content={currentBranch ? currentBranch : chapterContent?.content}
 			>
@@ -238,6 +243,9 @@ export const Chapter = () => {
 						setTitle={setTitle}
 						isEditable={Boolean(branch) || currentProject?.type === "standard"}
 						setContent={setEditorContent}
+						editorContent={editorContent}
+						setWordCount={setWordCount}
+						wordCount={wordCount}
 					/>
 				)}
 				{merge && currentBranch && (

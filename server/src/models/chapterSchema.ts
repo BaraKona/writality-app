@@ -15,6 +15,7 @@ interface IChapterContent {
 	};
 	projectId: string;
 	chapterId: string;
+	wordCount: number;
 }
 interface Chapter {
 	title: string;
@@ -137,6 +138,9 @@ const chapterSchema = new Schema<Chapter>({
 		chapterId: {
 			type: String,
 			required: true,
+		},
+		wordCount: {
+			type: Number,
 		},
 	},
 });

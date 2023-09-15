@@ -34,15 +34,23 @@ export const getSingleChapter = async (
 	return data;
 };
 
-export const updateChapterContent = async (
-	projectId: string,
-	chapterId: string,
-	content: string,
-	title: string
-) => {
+export const updateChapterContent = async ({
+	projectId,
+	chapterId,
+	content,
+	title,
+	wordCount,
+}: {
+	projectId: string;
+	chapterId: string;
+	content: string;
+	title: string;
+	wordCount: number;
+}) => {
 	const { data } = await chapterApi.patch(`content/${projectId}/${chapterId}`, {
 		content,
 		title,
+		wordCount,
 	});
 	return data;
 };

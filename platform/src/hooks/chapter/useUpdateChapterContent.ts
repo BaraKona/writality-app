@@ -9,8 +9,14 @@ export const useUpdateChapterContent = (
 ) => {
 	const queryClient = useQueryClient();
 	return useMutation(
-		(content: string) =>
-			updateChapterContent(projectId, chapterId, content, title),
+		(content: { content: string; wordCount: number }) =>
+			updateChapterContent({
+				projectId,
+				chapterId,
+				content: content.content,
+				title,
+				wordCount: content.wordCount,
+			}),
 		{
 			onSuccess: (data) => {
 				useToast("success", "Chapter updated successfully 😃");

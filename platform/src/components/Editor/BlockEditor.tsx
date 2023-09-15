@@ -13,15 +13,29 @@ export const BlockEditor: FC<{
 	setTitle: React.Dispatch<React.SetStateAction<string>>;
 	isEditable?: boolean;
 	setContent: React.Dispatch<React.SetStateAction<string>>;
-}> = ({ content, isLoading, setTitle, isEditable, setContent }) => {
+	editorContent: string;
+	setWordCount: React.Dispatch<React.SetStateAction<number>>;
+	wordCount: number;
+}> = ({
+	content,
+	isLoading,
+	setTitle,
+	isEditable,
+	setContent,
+	editorContent,
+	setWordCount,
+	wordCount,
+}) => {
 	const editor = useBlockNote(
 		{
 			initialContent: content?.content ? JSON.parse(content?.content) : null,
 			onEditorReady: (editor) => {
 				setContent(JSON.stringify(editor.topLevelBlocks));
+				setWordCount(countWordsFromTopLevelBlocks(editor.topLevelBlocks));
 			},
 			onEditorContentChange: (editor) => {
 				setContent(JSON.stringify(editor.topLevelBlocks));
+				setWordCount(countWordsFromTopLevelBlocks(editor.topLevelBlocks));
 			},
 		},
 		[content]
@@ -109,7 +123,7 @@ export const BlockEditor: FC<{
 				/>
 				<BlockNoteView editor={editor} theme="light" />
 				<SmallText className="absolute top-3 right-5 bg-white rounded-normal shadow-sm border border-border p-2 z-50">
-					{countWordsFromTopLevelBlocks(editor.topLevelBlocks)} Words
+					{wordCount} Words
 				</SmallText>
 			</div>
 		</div>

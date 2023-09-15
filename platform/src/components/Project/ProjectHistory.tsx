@@ -4,11 +4,7 @@ import { Timeline, Text } from "@mantine/core";
 import {
 	IconCirclePlus,
 	IconDragDrop,
-	IconGitBranch,
-	IconGitCommit,
-	IconGitPullRequest,
 	IconHistory,
-	IconMessageDots,
 	IconRefresh,
 	IconTrashX,
 } from "@tabler/icons-react";
