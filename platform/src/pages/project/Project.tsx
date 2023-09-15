@@ -124,6 +124,12 @@ export function Project() {
 		return <FourOFour />;
 	}
 
+	const chapterCount =
+		currentProject?.chapters.length +
+		currentProject?.folders.reduce((acc, folder) => {
+			return acc + folder.chapterIds.length;
+		}, 0);
+
 	return (
 		<section className="relative">
 			<DeleteModal
@@ -214,7 +220,7 @@ export function Project() {
 									updateDescription={updateDescription.mutate}
 								/>
 								<ChapterRenderer
-									chapterCount={chapters?.length}
+									chapterCount={chapterCount}
 									createNewChapter={createNewChapter}
 									createNewFolder={createNewFolder}
 									isLoading={isLoading}

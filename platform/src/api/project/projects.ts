@@ -154,6 +154,5 @@ export const getOpenFolderChapters = async (
 		`/open-folder/${projectId}/${folderId}`
 	);
 
-	console.log("data", data);
 	return data;
 };
