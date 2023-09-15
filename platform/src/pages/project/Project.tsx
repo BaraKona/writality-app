@@ -55,6 +55,7 @@ import { DragAndDropWrapper } from "../../components/DragAndDrop/DragAndDropWrap
 import { useMoveChapterToFolder } from "../../hooks/projects/useMoveChapterToFolder";
 import { useOpenFolderChapters } from "../../hooks/projects/useOpenFolderChapters";
 import { useLocalStorage } from "@mantine/hooks";
+import { IProject } from "../../interfaces/IProject";
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
@@ -126,9 +127,13 @@ export function Project() {
 
 	const chapterCount =
 		currentProject?.chapters.length +
-		currentProject?.folders.reduce((acc, folder) => {
-			return acc + folder.chapterIds.length;
-		}, 0);
+		currentProject?.folders.reduce(
+			(acc: number, folder: IProject["folders"]) => {
+				/** @ts-ignore */
+				return acc + folder.chapterIds?.length;
+			},
+			0
+		);
 
 	return (
 		<section className="relative">
