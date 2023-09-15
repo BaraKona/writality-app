@@ -53,15 +53,14 @@ export const ProjectListItem: FC<{
 
 	return (
 		<div
-			className={`${
+			className={`transition-all ease-in-out duration-500 ${
 				sidebarProjectOpen ? "" : "mb-1"
-			} transition-all ease-in-out duration-500`}
+			} `}
 		>
 			<li
 				onClick={onClick}
-				className={`px-1.5 py-1 transition-all ease-in-out duration-500 cursor-pointer flex flex-col text-xs font-medium group hover:bg-coolGrey-1 bg-white rounded-normal border border-border ${
-					sidebarProjectOpen ? " text-coolGrey-7" : " text-coolGrey-5"
-				} ${project === projectId ? "bg-gray-100" : ""}`}
+				className={`px-1.5 py-1 transition-all ease-in-out duration-500 cursor-pointer flex flex-col text-xs font-medium group hover:bg-coolGrey-1  rounded-normal border border-border
+				${project === projectId ? "bg-coolGrey-1" : "bg-white"}`}
 			>
 				<div className="gap-1 flex justify-between items-center">
 					<div className="flex gap-1 items-center">
@@ -97,14 +96,12 @@ export const ProjectListItem: FC<{
 					</ButtonWrapper>
 				</div>
 			</li>
-			{isLoading ? (
-				<Skeleton className="mt-1" height={18} width="100%" />
-			) : (
-				<>
-					<div ref={parent}>
-						{sidebarProjectOpen && projectFolders.length !== 0 && (
-							<div className="ml-4 pl-2 pt-2  border-l border-border ">
-								{projectFolders?.map((folder) => {
+			<div ref={parent}>
+				{sidebarProjectOpen && (
+					<>
+						{projectFolders.length > 0 ? (
+							<div className="ml-4 pl-2 pt-2 border-l border-border ">
+								{projectFolders.map((folder) => {
 									return (
 										<FolderListItem
 											folder={folder}
@@ -118,31 +115,33 @@ export const ProjectListItem: FC<{
 									);
 								})}
 							</div>
+						) : (
+							<div className="ml-4 pl-2 pt-2  border-l border-border "> </div>
 						)}
+					</>
+				)}
+			</div>
+			<div ref={parent}>
+				{sidebarProjectOpen && chapters?.length !== 0 && (
+					<div className="ml-4 pb-1 border-l border-border">
+						{chapters?.map((chapter: IChapter) => (
+							<SmallText
+								className={`flex items-center justify-between pl-1 p-0.5 ml-2 my-0.5 cursor-pointer rounded-normal hover:bg-coolGrey-1 transition-all ease-in-out duration-300 ${
+									chapterId === chapter.uid ? "bg-coolGrey-1" : ""
+								}`}
+								onClick={() =>
+									navigate(`project/${projectId}/chapter/${chapter.uid}`)
+								}
+							>
+								<span className="flex gap-1.5 items-start">
+									<IconFileText size={16} className="flex-shrink-0" />
+									{chapter.content.title || "Untitled Chapter"}
+								</span>
+							</SmallText>
+						))}
 					</div>
-					<div ref={parent}>
-						{sidebarProjectOpen && chapters?.length !== 0 && (
-							<div className="ml-4 pb-1 border-l border-border">
-								{chapters?.map((chapter: IChapter) => (
-									<SmallText
-										className={`flex items-center justify-between pl-1 p-0.5 ml-2 my-0.5 cursor-pointer rounded-normal hover:bg-coolGrey-1 transition-all ease-in-out duration-300 ${
-											chapterId === chapter.uid ? "bg-coolGrey-1" : ""
-										}`}
-										onClick={() =>
-											navigate(`project/${projectId}/chapter/${chapter.uid}`)
-										}
-									>
-										<span className="flex gap-1.5 items-center">
-											<IconFileText size={16} />
-											{chapter.content.title || "Untitled Chapter"}
-										</span>
-									</SmallText>
-								))}
-							</div>
-						)}
-					</div>
-				</>
-			)}
+				)}
+			</div>
 		</div>
 	);
 };

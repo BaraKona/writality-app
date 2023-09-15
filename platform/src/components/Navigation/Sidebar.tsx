@@ -17,6 +17,7 @@ import {
 	IconCubePlus,
 	IconSquarePlus,
 	IconCube,
+	IconRocket,
 } from "@tabler/icons-react";
 import { cyclops8 } from "../../assets/icons";
 import { MainFrame } from "../Project";
@@ -121,7 +122,15 @@ export const Sidebar: FC<{}> = () => {
 							<CategoryListItem className="mb-auto">
 								<Divider color="grey.0" />
 							</CategoryListItem>
+
 							<CategoryListItem>
+								<CommunityListItem
+									type="event"
+									name="Coming Soon"
+									onClick={() => openPages("/coming-soon")}
+								>
+									<IconRocket size={18} />
+								</CommunityListItem>
 								<CommunityListItem
 									name="Settings"
 									onClick={() => navigate("/settings")}
@@ -139,7 +148,7 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 						</div>
-						<CategoryListItem className="w-full rounded border border-border mt-1.5 h-[calc(100vh-59px)]">
+						<CategoryListItem className="w-full rounded border border-border mt-1.5 h-[calc(100vh-50px)]">
 							<section className="flex flex-row justify-center gap-1 mb-2">
 								<SidebarTopNav
 									sidebarNav={sidebarNav}

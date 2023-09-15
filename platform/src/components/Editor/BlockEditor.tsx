@@ -5,11 +5,7 @@ import { IChapterContent } from "../../interfaces/IChapterContent";
 import { Skeleton, Textarea } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
 import { SmallText } from "../texts/SmallText";
-import {
-	BlockNoteEditor,
-	BlockSchema,
-	DefaultBlockSchema,
-} from "@blocknote/core";
+import { BlockNoteEditor } from "@blocknote/core";
 
 export const BlockEditor: FC<{
 	content: IChapterContent;

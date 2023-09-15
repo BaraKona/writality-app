@@ -2,11 +2,15 @@ import { FC } from "react";
 import { IProject } from "../../interfaces/IProject";
 import { Timeline, Text } from "@mantine/core";
 import {
+	IconCirclePlus,
+	IconDragDrop,
 	IconGitBranch,
 	IconGitCommit,
 	IconGitPullRequest,
 	IconHistory,
 	IconMessageDots,
+	IconRefresh,
+	IconTrashX,
 } from "@tabler/icons-react";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 
@@ -24,29 +28,32 @@ export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 
 	return (
 		<div className="col-span-3 row-span-2 items-center justify-center flex rounded-normal border border-border p-4 overflow-y-auto">
-			<Timeline active={1} bulletSize={24} lineWidth={2}>
+			<div className="flex gap-2 flex-col items-center w-full">
 				{project?.history?.map((history, index) => {
 					return (
-						<Timeline.Item
-							lineActive={index === 0}
-							key={index}
-							bullet={<IconMessageDots size={12} />}
-							title={`Project updated`}
-							className="text-coolGrey-7 text-xs font-medium w-56"
-						>
-							<Text color="dimmed" size="xs">
-								<Text variant="link" component="span" inherit>
-									{history.user.substring(0, 5)}{" "}
+						<div className="flex gap-2 items-center w-full justify-between">
+							<div className="flex gap-2 items-center">
+								{history.action.includes("created") && (
+									<IconCirclePlus size={18} />
+								)}
+								{history.action.includes("updated") && (
+									<IconRefresh size={18} />
+								)}
+								{history.action.includes("moved") && <IconDragDrop size={18} />}
+								{history.action.includes("deleted") && <IconTrashX size={18} />}
+
+								<Text color="dimmed" size="xs">
+									<Text variant="link" component="span" inherit>
+										{history.user.substring(0, 5)}{" "}
+									</Text>
+									{history.action}
 								</Text>
-								{history.action}
-							</Text>
-							<Text size="xs" mt={4}>
-								{useTimeFromNow(history.date.toString())}
-							</Text>
-						</Timeline.Item>
+							</div>
+							<Text size="xs">{useTimeFromNow(history.date.toString())}</Text>
+						</div>
 					);
 				})}
-			</Timeline>
+			</div>
 		</div>
 	);
 };

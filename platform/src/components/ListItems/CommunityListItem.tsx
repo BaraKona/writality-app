@@ -6,8 +6,9 @@ import { tooltipStyles } from "../../styles/tooltipStyles";
 export const CommunityListItem: FC<{
 	children: ReactNode;
 	name: string;
+	type?: "event" | "standard";
 	onClick?: () => void;
-}> = ({ name, onClick, children }) => {
+}> = ({ name, onClick, children, type }) => {
 	const { pathname } = useLocation();
 	const path = pathname?.split("/")[1];
 
@@ -16,6 +17,8 @@ export const CommunityListItem: FC<{
 			<li onClick={onClick} className="cursor-default list-none">
 				<div
 					className={`p-1.5 flex mb-0.5 text-xs font-medium rounded-normal items-center transition-all ease-in-out duration-500 ${
+						type === "event" ? "bg-orange-100" : ""
+					} ${
 						path.includes(name.toLowerCase())
 							? "bg-coolGrey-2 font-medium text-coolGrey-8"
 							: "text-coolGrey-5"

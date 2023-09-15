@@ -41,7 +41,7 @@ export const UserProjects: FC<{
 	}
 
 	return (
-		<>
+		<div>
 			{projects?.standard.length > 0 && (
 				<section className="overflow-y-auto my-2" ref={parent}>
 					<Divider
@@ -50,42 +50,45 @@ export const UserProjects: FC<{
 						label={<Text className="!text-blueTextLight">Projects</Text>}
 						labelPosition="center"
 					/>
-
-					{projects.standard?.map((project: IProject, index: number) => {
-						return (
-							<ProjectListItem
-								key={project.uid}
-								onClick={() => openProject(`project/${project.uid}/home`)}
-								name={project.title || "Untitled Project"}
-								projectId={project.uid}
-								projectFolders={project.folders}
-								type={project.type}
-							/>
-						);
-					})}
+					<div className="max-h-96 overflow-y-auto">
+						{projects.standard?.map((project: IProject, index: number) => {
+							return (
+								<ProjectListItem
+									key={project.uid}
+									onClick={() => openProject(`project/${project.uid}/home`)}
+									name={project.title || "Untitled Project"}
+									projectId={project.uid}
+									projectFolders={project.folders}
+									type={project.type}
+								/>
+							);
+						})}
+					</div>
 				</section>
 			)}
 
 			{projects?.collaboration.length > 0 && (
-				<section className="overflow-y-auto my-2">
+				<section className="overflow-y-auto my-2" ref={parent}>
 					<Divider
 						color="grey.0"
 						my={4}
 						label={<Text className="!text-blueTextLight">Collaborations</Text>}
 						labelPosition="center"
 					/>
-					{projects.collaboration?.map((project: IProject, index: number) => {
-						return (
-							<ProjectListItem
-								key={project.uid}
-								onClick={() => openProject(`project/${project.uid}/home`)}
-								name={project.title || "Untitled Project"}
-								projectFolders={project.folders}
-								projectId={project.uid}
-								type={project.type}
-							/>
-						);
-					})}
+					<div className="max-h-96 overflow-y-auto">
+						{projects.collaboration?.map((project: IProject, index: number) => {
+							return (
+								<ProjectListItem
+									key={project.uid}
+									onClick={() => openProject(`project/${project.uid}/home`)}
+									name={project.title || "Untitled Project"}
+									projectId={project.uid}
+									projectFolders={project.folders}
+									type={project.type}
+								/>
+							);
+						})}
+					</div>
 				</section>
 			)}
 
@@ -100,6 +103,6 @@ export const UserProjects: FC<{
 						/>
 					</div>
 				)}
-		</>
+		</div>
 	);
 };
