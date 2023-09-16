@@ -18,6 +18,7 @@ import {
 	IconSquarePlus,
 	IconCube,
 	IconRocket,
+	IconInbox,
 } from "@tabler/icons-react";
 import { cyclops8 } from "../../assets/icons";
 import { MainFrame } from "../Project";
@@ -92,6 +93,9 @@ export const Sidebar: FC<{}> = () => {
 								>
 									<IconUserCircle size={18} />
 								</CommunityListItem>
+								<CommunityListItem name="Inbox">
+									<IconInbox size={18} />
+								</CommunityListItem>
 								<CategoryListItem>
 									<Divider color="grey.0" />
 								</CategoryListItem>
@@ -124,11 +128,7 @@ export const Sidebar: FC<{}> = () => {
 							</CategoryListItem>
 
 							<CategoryListItem>
-								<CommunityListItem
-									type="event"
-									name="Coming Soon"
-									onClick={() => openPages("/coming-soon")}
-								>
+								<CommunityListItem type="event" name="Coming Soon">
 									<IconRocket size={18} />
 								</CommunityListItem>
 								<CommunityListItem

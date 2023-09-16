@@ -30,24 +30,26 @@ export const ProjectChapters: FC<{
 }) => {
 	const [parent] = useAutoAnimate();
 	return (
-		<div ref={parent} className="p-2 gap-1.5 flex flex-col">
+		<div ref={parent} className="p-2 flex flex-col">
 			{project?.folders?.map((folder: any, index: number) => (
 				<Droppable id={folder.uid} type="folder">
-					<FolderListItem
-						openFolder={openFolder}
-						folder={folder}
-						projectId={project.uid}
-						folderChapters={folderChapters}
-						key={index}
-						withNumber
-						openedFolder={openedFolder}
-						className="px-2.5 py-1.5 border border-border flex items-end justify-between rounded-normal "
-						icon={
-							<ButtonWrapper>
-								<IconDotsVertical size={14} className="cursor-pointer" />
-							</ButtonWrapper>
-						}
-					/>
+					<div className={openedFolder === folder.uid ? "" : "mb-1"}>
+						<FolderListItem
+							openFolder={openFolder}
+							folder={folder}
+							projectId={project.uid}
+							folderChapters={folderChapters}
+							key={index}
+							withNumber
+							openedFolder={openedFolder}
+							className="px-2.5 py-1.5 border border-border flex items-end justify-between rounded-normal "
+							icon={
+								<ButtonWrapper>
+									<IconDotsVertical size={14} className="cursor-pointer" />
+								</ButtonWrapper>
+							}
+						/>
+					</div>
 				</Droppable>
 			))}
 

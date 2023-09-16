@@ -50,7 +50,7 @@ export const UserProjects: FC<{
 						label={<Text className="!text-blueTextLight">Projects</Text>}
 						labelPosition="center"
 					/>
-					<div className="max-h-96 overflow-y-auto">
+					<div className="h-1/2 overflow-y-auto">
 						{projects.standard?.map((project: IProject, index: number) => {
 							return (
 								<ProjectListItem

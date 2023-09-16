@@ -62,11 +62,6 @@ export const ChapterRenderer: FC<{
 							>
 								<Menu.Label className="flex justify-between items-center">
 									Folder Name
-									{/* <IconFolderPlus
-										size={18}
-										className="hover:text-black cursor-pointer"
-										type="submit"
-									/> */}
 								</Menu.Label>
 								<TextInput
 									styles={inputStyles}
