@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import http from "http";
 import { Server } from "socket.io";
+
 import users from "./src/routes/users";
 import chats from "./src/routes/chat/chat";
 import posts from "./src/routes/posts";
@@ -15,6 +16,7 @@ import branches from "./src/routes/project/branches";
 import analytics from "./src/routes/analytics";
 
 const cookieParser = require("cookie-parser");
+const compression = require("compression");
 
 const app = express() as express.Application;
 const server = http.createServer(app);
@@ -34,7 +36,11 @@ app.use(express.json({ limit: "30mb" }));
 // support parsing of application/x-www-form-urlencoded post data
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
-
+app.use(
+	compression({
+		level: 6,
+	})
+);
 // configure cors
 app.use(
 	cors({
