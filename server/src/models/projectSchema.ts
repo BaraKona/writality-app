@@ -10,6 +10,12 @@ const enum collaboratorRole {
 	editor = "editor",
 	viewer = "viewer",
 }
+
+type history = {
+	date: Date;
+	user: string;
+	action: string;
+};
 interface IProject {
 	type: projectType;
 	uid: string;
@@ -44,11 +50,7 @@ interface IProject {
 		dateCreated: Date;
 	}[];
 	hasChat: boolean;
-	history?: {
-		date: Date;
-		user: string;
-		action: string;
-	}[];
+	history?: history[];
 }
 const projectSchema = new Schema<IProject>({
 	type: { type: String, required: true, enum: ["standard", "collaboration"] },

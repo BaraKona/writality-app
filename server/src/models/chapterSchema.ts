@@ -141,6 +141,7 @@ const chapterSchema = new Schema<Chapter>({
 		},
 		wordCount: {
 			type: Number,
+			default: 0,
 		},
 	},
 });

@@ -34,6 +34,14 @@ export const createProject = async (req: any, res: any) => {
 			},
 		],
 		chat: [],
+		history: [
+			{
+				date: new Date(),
+				user: userId,
+
+				action: "created project",
+			},
+		],
 	});
 
 	try {

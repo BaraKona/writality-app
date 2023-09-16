@@ -47,7 +47,7 @@ export const getProjectWordCount = async (req: any, res: any) => {
 		}
 
 		chapterWithMostWord = chapters.reduce((acc, chapter) => {
-			if (chapter.content?.wordCount || 0 > acc.content?.wordCount || 0) {
+			if (chapter.content?.wordCount > acc.content?.wordCount) {
 				return chapter;
 			} else {
 				return acc;

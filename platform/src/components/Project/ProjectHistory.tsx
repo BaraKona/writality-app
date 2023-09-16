@@ -23,7 +23,7 @@ export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 	}
 
 	return (
-		<div className="col-span-3 row-span-2 items-center justify-center flex rounded-normal border border-border p-4 overflow-y-auto">
+		<div className="col-span-3 row-span-2 items-start justify-center flex rounded-normal border border-border p-4 overflow-y-auto">
 			<div className="flex gap-2 flex-col items-center w-full">
 				{project?.history?.map((history, index) => {
 					return (
