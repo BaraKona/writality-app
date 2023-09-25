@@ -1,7 +1,5 @@
 import axios from "axios";
-import { IChapter } from "../../interfaces/IChapter";
 import { useToast } from "../../hooks/useToast";
-import { IChapterContent } from "../../interfaces/IChapterContent";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 
 const chapterApi = axios.create({
