@@ -10,12 +10,12 @@ import { v4 as uuidv4 } from "uuid";
 import User from "../../models/user/userSchema";
 
 export const createProject = async (req: any, res: any) => {
-	const userId = req.user.uid;
+	const userId = req.user._id;
 
 	const newProject = new Project({
 		type: "standard",
-		uid: uuidv4(),
 		owner: userId,
+		uid: uuidv4(),
 		title: "New Project",
 		dateCreated: {
 			user: userId,
@@ -38,7 +38,6 @@ export const createProject = async (req: any, res: any) => {
 			{
 				date: new Date(),
 				user: userId,
-
 				action: "created project",
 			},
 		],
@@ -48,15 +47,14 @@ export const createProject = async (req: any, res: any) => {
 		await newProject.save();
 		res.status(201).json(newProject);
 	} catch (error) {
+		console.log(error);
 		res.status(409).json({ message: error.message });
 	}
 };
 
 export const getUserProjects = async (req: any, res: any) => {
-	const userId = req.user.uid;
-	console.log(userId);
+	const userId = req.user._id;
 	try {
-		// get projects where user is owner or collaborator and active
 		const projects = await Project.find({
 			$or: [
 				{ owner: userId },
@@ -66,7 +64,23 @@ export const getUserProjects = async (req: any, res: any) => {
 					},
 				},
 			],
-		}).sort({ dateCreated: 1 });
+		})
+			.populate({
+				path: "chapters",
+				select: "dateUpdated projectId title uid content.title",
+			})
+			// .populate({
+			// 	path: "collaborators.uid",
+			// 	select: "name email",
+			// })
+			.populate({
+				path: "folders.chapters",
+			})
+			.populate({
+				path: "history.user",
+				select: "name email",
+			})
+			.sort({ dateCreated: 1 });
 
 		const standard = projects.filter((project) => project.type === "standard");
 		const collaboration = projects.filter(
@@ -79,6 +93,7 @@ export const getUserProjects = async (req: any, res: any) => {
 		};
 		res.status(200).json(sortedProjects);
 	} catch (error) {
+		console.log(error);
 		res.status(404).json({ message: error.message });
 	}
 };
@@ -94,9 +109,31 @@ export const getAllProjects = async (req: any, res: any) => {
 
 export const getProject = async (req: any, res: any) => {
 	const { projectId } = req.params;
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	try {
-		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const project = await await Project.findOne({
+			owner: userId,
+			uid: projectId,
+		})
+			.populate({
+				path: "chapters",
+				select: "dateUpdated projectId title uid content.title",
+			})
+			.populate({
+				path: "collaborators.uid",
+				select: "name email",
+			})
+			.populate({
+				path: "folders.chapters",
+			})
+			.populate({
+				path: "history.user",
+				select: "name email",
+			});
+
+		project.history.sort((a, b) => {
+			return new Date(b.date).getTime() - new Date(a.date).getTime();
+		});
 		res.status(200).json(project);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
@@ -144,7 +181,7 @@ export const updateProjectDescription = async (req: any, res: any) => {
 export const updateProjectBoard = async (req: any, res: any) => {
 	const { projectId } = req.params;
 	const { board } = req.body;
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
 		project.board = board;
@@ -166,7 +203,7 @@ export const updateProjectBoard = async (req: any, res: any) => {
 
 export const updateProjectTitle = async (req: any, res: any) => {
 	const { projectId } = req.params;
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	const { title } = req.body;
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
@@ -191,7 +228,8 @@ export const updateProjectTitle = async (req: any, res: any) => {
 };
 
 export const updateProjectType = async (req: any, res: any) => {
-	const { userId, projectId } = req.params;
+	const { projectId } = req.params;
+	const userId = req.user._id;
 	const { type } = req.body;
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
@@ -261,7 +299,7 @@ export const getUserFavourites = async (req: any, res: any) => {
 };
 
 export const createFolder = async (req: any, res: any) => {
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	const { projectId } = req.params;
 	const { name } = req.body;
 
@@ -291,7 +329,7 @@ export const createFolder = async (req: any, res: any) => {
 };
 
 export const createProjectChapter = async (req: any, res: any) => {
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	const { projectId } = req.params;
 
 	try {
@@ -306,7 +344,7 @@ export const createProjectChapter = async (req: any, res: any) => {
 			user: userId,
 			action: "created chapter",
 		});
-		project.chapters.push(chapter.uid);
+		project.chapters.push(chapter._id);
 		await project.save();
 		res.status(200).json(chapter);
 	} catch (error) {
@@ -316,7 +354,7 @@ export const createProjectChapter = async (req: any, res: any) => {
 };
 
 export const getProjectChapters = async (req: any, res: any) => {
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	const { projectId } = req.params;
 
 	try {
@@ -333,7 +371,7 @@ export const getProjectChapters = async (req: any, res: any) => {
 };
 
 export const deleteProjectChapter = async (req: any, res: any) => {
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	const { projectId, chapterId } = req.params;
 
 	try {
@@ -358,7 +396,7 @@ export const deleteProjectChapter = async (req: any, res: any) => {
 };
 
 export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	const { projectId, chapterId } = req.params;
 	const { folderId } = req.body;
 
@@ -367,13 +405,13 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 
 		// remove from all folders
 		project.folders.forEach((folder) => {
-			folder.chapterIds = folder.chapterIds.filter((id) => id !== chapterId);
+			folder.chapters = folder.chapters.filter((id) => id !== chapterId);
 		});
 
 		// add to new folder
 		project.folders.forEach((folder) => {
 			if (folder.uid === folderId) {
-				folder.chapterIds.push(chapterId);
+				folder.chapters.push(chapterId);
 			}
 		});
 
@@ -398,19 +436,19 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 };
 
 export const getOpenFolderChapters = async (req: any, res: any) => {
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	const { projectId, folderId } = req.params;
 
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
 		const folder = project.folders.find((folder) => folder.uid === folderId);
 
-		if (!folder || !folder.chapterIds) {
+		if (!folder || !folder.chapters) {
 			return;
 		}
 		const chapters = await Chapter.find({
 			projectId,
-			uid: { $in: folder?.chapterIds },
+			uid: { $in: folder?.chapters },
 		});
 		res.status(200).json(chapters);
 	} catch (error) {

@@ -80,21 +80,12 @@ export const updateProjectTitle = async (projectId: string, title: string) => {
 	return data;
 };
 
-export const updateProjectType = async (
-	userId: string,
-	projectId: string,
-	type: string
-) => {
-	try {
-		const { data } = await projectApi.patch(`${userId}/${projectId}/type`, {
-			type,
-		});
-		useToast("success", "Project type updated successfully 😃");
-		return data;
-	} catch (err: any) {
-		const { data } = err.response;
-		useToast("error", "something went wrong 😖");
-	}
+export const updateProjectType = async (projectId: string, type: string) => {
+	const { data } = await projectApi.patch(`user/${projectId}/type`, {
+		type,
+	});
+
+	return data;
 };
 
 export const getUserFavourites = async () => {
@@ -156,3 +147,8 @@ export const getOpenFolderChapters = async (
 
 	return data;
 };
+
+// export const getDeprecatedChapters = async () => {
+// 	const { data } = await projectApi.get("/fix");
+// 	return data;
+// };

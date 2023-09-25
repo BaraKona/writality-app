@@ -26,7 +26,6 @@ export const getProjectChapters = async (
 };
 
 export const getSingleChapter = async (
-	userId: string,
 	projectId: string,
 	chapterId: string
 ) => {

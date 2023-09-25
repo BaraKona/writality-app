@@ -1,52 +1,33 @@
 import {
-	IconArrowRight,
 	IconChevronDown,
 	IconChevronRight,
 	IconFileText,
-	IconFolder,
-	IconX,
 } from "@tabler/icons-react";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IconRenderer } from "../IconRenderer";
 import { useLocalStorage } from "@mantine/hooks";
 import { IProject } from "../../interfaces/IProject";
 import { FolderListItem } from "./FolderListItem";
-import { useOpenFolderChapters } from "../../hooks/projects/useOpenFolderChapters";
 import { ButtonWrapper } from "../buttons/ButtonWrapper";
-import { useProjectChapters } from "../../hooks/chapter/useProjectChapters";
-import { Chapter } from "../Chapters";
 import { SmallText } from "../texts/SmallText";
 import { IChapter } from "../../interfaces/IChapter";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { Skeleton } from "@mantine/core";
 
 export const ProjectListItem: FC<{
 	name: string;
 	projectId: string;
 	projectFolders: IProject["folders"];
+	chapters: IChapter[];
 	onClick?: () => void;
 	type: "standard" | "collaboration";
-}> = ({ name, onClick, projectId, type, projectFolders }) => {
+}> = ({ name, onClick, projectId, type, projectFolders, chapters }) => {
 	const [parent] = useAutoAnimate();
 	const { project, chapter: chapterId } = useParams();
 
 	const [sidebarProjectOpen, setSidebarProjectOpen] = useLocalStorage({
 		key: `sidebarProjectOpen-${projectId}`,
 		defaultValue: localStorage.getItem(`sidebarProjectOpen-${projectId}`) || "",
-	});
-
-	const [openFolder, setOpenFolder] = useLocalStorage({
-		key: `sidebarFolderOpen-${projectId}`,
-		defaultValue: localStorage.getItem(`sidebarFolderOpen-${projectId}`) || "",
-	});
-
-	const { data: folderChapters } = useOpenFolderChapters(
-		projectId,
-		openFolder as string
-	);
-	const { data: chapters, isLoading } = useProjectChapters({
-		projectId,
 	});
 
 	const navigate = useNavigate();
@@ -105,12 +86,11 @@ export const ProjectListItem: FC<{
 									return (
 										<FolderListItem
 											folder={folder}
-											folderChapters={folderChapters}
+											folderChapters={folder.chapters}
 											small
 											projectId={projectId}
 											className="rounded-normal"
-											openFolder={setOpenFolder}
-											openedFolder={openFolder}
+											location="sidebar"
 										/>
 									);
 								})}

@@ -88,8 +88,7 @@ export const Chapter = () => {
 
 	const { data: chapterContent, isLoading } = useQuery(
 		["chapter", chapter],
-		() =>
-			getSingleChapter(currentUser.uid, project as string, chapter as string),
+		() => getSingleChapter(project as string, chapter as string),
 		{ enabled: !!chapter && !!project && !!currentUser.uid }
 	);
 	const { data: chapterVersions } = useQuery(

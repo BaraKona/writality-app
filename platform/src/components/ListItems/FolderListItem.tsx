@@ -1,53 +1,53 @@
 import { FC } from "react";
 import { SmallText } from "../texts/SmallText";
 import {
-	IconArrowRight,
-	IconFileDescription,
 	IconFileText,
 	IconFolderFilled,
 	IconFolderOpen,
-	IconNote,
 } from "@tabler/icons-react";
 import { IProject } from "../../interfaces/IProject";
 import { IChapter } from "../../interfaces/IChapter";
 import { Chapter } from "../Chapters";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ButtonWrapper } from "../buttons/ButtonWrapper";
+import { useLocalStorage } from "@mantine/hooks";
 
 export const FolderListItem: FC<{
 	folder: IProject["folders"][0];
 	className?: string;
 	icon?: React.ReactNode;
 	withNumber?: boolean;
-	openFolder?: (folderId: string) => void;
 	folderChapters?: IChapter[];
 	small?: boolean;
 	projectId: string;
-	openedFolder?: string;
+	location: string;
 }> = ({
 	className,
 	folder,
 	icon,
 	withNumber,
-	openFolder,
 	folderChapters,
 	small,
 	projectId,
-	openedFolder,
+	location,
 }) => {
 	const [parent] = useAutoAnimate();
 	const navigate = useNavigate();
 	const { chapter: chapterId } = useParams();
+	const [openedFolder, setOpenFolder] = useLocalStorage({
+		key: `openFolder-${location}-${folder.uid}`,
+		defaultValue:
+			localStorage.getItem(`openFolder-${location}-${folder.uid}`) || "",
+	});
 
 	return (
 		<div className="flex flex-col" ref={parent}>
 			<div
-				className={`px-1 py-0.5 hover:bg-coolGrey-1 cursor-pointer ${className}`}
+				className={`px-1 py-0.5 hover:bg-coolGrey-1 cursor-pointer ${className} ${
+					openedFolder === folder.uid ? "" : "mb-1"
+				}`}
 				onClick={() =>
-					openFolder
-						? openFolder(openedFolder === folder.uid ? "" : folder.uid)
-						: null
+					setOpenFolder(openedFolder === folder.uid ? "" : folder.uid)
 				}
 			>
 				<SmallText className="flex items-center gap-1.5">
@@ -61,7 +61,7 @@ export const FolderListItem: FC<{
 				<div className="flex gap-2 items-center">
 					{withNumber && (
 						<SmallText className=" text-coolGrey-4">
-							{folder.chapterIds?.length}
+							{folder.chapters?.length}
 						</SmallText>
 					)}
 					{icon}

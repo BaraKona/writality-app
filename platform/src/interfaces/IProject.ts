@@ -1,3 +1,6 @@
+import { IChapter } from "./IChapter";
+import { IUser } from "./IUser";
+
 export const enum ProjectType {
 	standard = "standard",
 	collaboration = "collaboration",
@@ -28,7 +31,7 @@ export type IProject = {
 		name: string;
 		position?: number;
 		dateCreated: Date;
-		chapterIds?: string[];
+		chapters?: IChapter[];
 	}[];
 	collaborators: {
 		uid: string;
@@ -40,10 +43,11 @@ export type IProject = {
 		uid: string;
 		dateCreated: Date;
 	}[];
+	chapters: IChapter[];
 	hasChat: boolean;
 	history?: {
 		date: Date;
-		user: string;
+		user: IUser;
 		action: string;
 	}[];
 };

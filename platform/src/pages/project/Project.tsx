@@ -38,23 +38,16 @@ import { tooltipStyles } from "../../styles/tooltipStyles";
 import { useCreateChapter } from "../../hooks/projects/useCreateChapter";
 import { FourOFour } from "../404";
 import { PublishChapterSide } from "../../components/Project/publish/PublishChapterSide";
-import { Block, BlockNoteEditor } from "@blocknote/core";
 import { useBlockNote } from "@blocknote/react";
-import { useEditorContext } from "../../contexts/EditorContext";
-import { BannerImage } from "../../components/BannerImage";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { ProjectAnalytics } from "../../components/Project/ProjectAnalytics";
 import { ProjectBoard } from "../../components/Project/ProjectBoard";
 import { useProjectBoard } from "../../hooks/projects/useProjectBoard";
 import { ProjectHistory } from "../../components/Project/ProjectHistory";
 import { useCreateFolder } from "../../hooks/projects/useCreateFolder";
-import { useProjectChapters } from "../../hooks/chapter/useProjectChapters";
 import { useDeleteChapter } from "../../hooks/projects/useDeleteChapter";
 import { ProjectChapters } from "../../components/Project/ProjectChapters";
 import { DragAndDropWrapper } from "../../components/DragAndDrop/DragAndDropWrapper";
 import { useMoveChapterToFolder } from "../../hooks/projects/useMoveChapterToFolder";
-import { useOpenFolderChapters } from "../../hooks/projects/useOpenFolderChapters";
-import { useLocalStorage } from "@mantine/hooks";
 import { IProject } from "../../interfaces/IProject";
 export function Project() {
 	const queryClient = useQueryClient();
@@ -63,20 +56,11 @@ export function Project() {
 	const [openModal, setOpenModal] = useState(false);
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
-	const [openedFolder, setOpenFolder] = useLocalStorage({
-		key: `openFolder-${project}`,
-		defaultValue: localStorage.getItem(`openFolder-${project}`) || "",
-	});
 
-	const { data: currentProject } = useSingleProject(project as string);
-	const { mutate: updateProjectBoard } = useProjectBoard(project as string);
-	const { data: openedFolderChapters } = useOpenFolderChapters(
-		project as string,
-		openedFolder as string
+	const { data: currentProject, isLoading } = useSingleProject(
+		project as string
 	);
-	const { data: chapters, isLoading } = useProjectChapters({
-		projectId: project as string,
-	});
+	const { mutate: updateProjectBoard } = useProjectBoard(project as string);
 
 	const { mutateAsync: deleteChapter } = useDeleteChapter(
 		project as string,
@@ -108,19 +92,6 @@ export function Project() {
 		navigate(`/project/${projectId}/chapter/${chapterId}`);
 	};
 
-	const openPublishChapter = (
-		projectId: string,
-		chapterId: string,
-		chapter: IChapter
-	) => {
-		editor?.replaceBlocks(
-			editor.topLevelBlocks,
-			JSON.parse(chapter.content?.content || "[]")
-		);
-		navigate(`/project/${projectId}/publish/chapter/${chapterId}/`);
-	};
-	const editor = useBlockNote({});
-
 	if (currentProject === null) {
 		return <FourOFour />;
 	}
@@ -130,7 +101,7 @@ export function Project() {
 		currentProject?.folders.reduce(
 			(acc: number, folder: IProject["folders"]) => {
 				/** @ts-ignore */
-				return acc + folder.chapterIds?.length;
+				return acc + folder.chapters?.length;
 			},
 			0
 		);
@@ -243,17 +214,15 @@ export function Project() {
 											/>
 										) : (
 											<DragAndDropWrapper
-												items={chapters}
+												items={currentProject?.chapters}
 												handleDrop={moveChapterIntoFolder}
 											>
 												<ProjectChapters
 													project={currentProject}
-													openedFolder={openedFolder}
-													chapters={chapters}
+													chapters={currentProject?.chapters}
 													openChapter={openChapter}
 													openChapterModal={openChapterModal}
-													openFolder={setOpenFolder}
-													folderChapters={openedFolderChapters}
+													// folderChapters={openedFolderChapters}
 												/>
 											</DragAndDropWrapper>
 										)}
@@ -261,68 +230,13 @@ export function Project() {
 								</ChapterRenderer>
 								<ProjectHistory project={currentProject} />
 							</div>
-							{/* <Divider color="grey.0" orientation="vertical" /> */}
-
-							{/* <CharacterWrapper> - Protagonist </CharacterWrapper> */}
 							<ProjectBoard
 								project={currentProject}
 								updateBoard={updateProjectBoard}
 							/>
 						</div>
 					</Tabs.Panel>
-					{/* <Tabs.Panel value="publish">
-						<div className="flex flex-wrap gap-2">
-							<PublishChapterSide
-								chapter={chapters?.find((c: IChapter) => c.uid === chapter)}
-								editor={editor}
-							/>
-							<ChapterRenderer
-								chapterCount={chapters?.length}
-								createNewChapter={createNewChapter}
-								createNewFolder={createNewFolder}
-								isLoading={isLoading}
-							>
-								{isLoading ? (
-									<>
-										{[...Array(10)].map((_, i) => (
-											<Skeleton h={20} w="100%" m={3} />
-										))}
-									</>
-								) : (
-									<>
-										{chapters?.length == 0 ? (
-											<NoChapters
-												createNewChapter={createNewChapter}
-												title="Chapters"
-												p1="You have no chapters currently. Chapters make up your project and can be collaborated on."
-												p2="Chapters are also versioned so you can always go back to previews versions if you decide to scrap your current work."
-											/>
-										) : (
-											<div ref={parent}>
-												{chapters?.map((chapter: IChapter, index: number) => (
-													<Chapter
-														openChapter={() =>
-															openPublishChapter(
-																chapter.projectId,
-																chapter.uid,
-																chapter
-															)
-														}
-														key={index}
-														chapter={chapter}
-														openChapterModal={() =>
-															openChapterModal(chapter.uid)
-														}
-														disabled={false}
-													/>
-												))}{" "}
-											</div>
-										)}
-									</>
-								)}
-							</ChapterRenderer>
-						</div>
-					</Tabs.Panel> */}
+
 					<Tabs.Panel value="world-info">
 						<CharacterWrapper> - Protagonist </CharacterWrapper>
 					</Tabs.Panel>

@@ -1,19 +1,15 @@
 import React, { FC, useState } from "react";
 import {
 	DndContext,
-	closestCenter,
 	KeyboardSensor,
 	PointerSensor,
 	useSensor,
 	useSensors,
-	DragOverlay,
 	rectIntersection,
 } from "@dnd-kit/core";
 import {
-	arrayMove,
 	SortableContext,
 	sortableKeyboardCoordinates,
-	verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
 import { SortableItem } from "./SortableItems";
@@ -52,7 +48,7 @@ export const DragAndDropWrapper: FC<{
 		>
 			{/* <DragOverlay> */}
 			<SortableContext
-				items={items.map((item) => item.uid)}
+				items={items.map((item) => item._id)}
 				// strategy={verticalListSortingStrategy}
 			>
 				{children}
@@ -63,7 +59,6 @@ export const DragAndDropWrapper: FC<{
 
 	function handleDragEnd(event: { active: any; over: any }) {
 		const { active, over } = event;
-
 		if (active.id !== over.id) {
 			console.log(over.data.type);
 			if (over.data.current.type === "folder") {

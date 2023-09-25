@@ -14,7 +14,7 @@ export const ProjectSettings: FC<{ project: IProject }> = ({ project }) => {
 	const [projectType, setProjectType] = useState<ProjectType>(project.type);
 	const [projectTitle, setProjectTitle] = useState(project.title);
 	const { currentUser } = useAuthContext();
-	const { mutate } = useProjectType(currentUser.uid, project.uid, projectType);
+	const { mutate } = useProjectType(project.uid, projectType);
 	const { mutate: changeProjectTitle } = useProjectTitleChange(
 		project.uid,
 		projectTitle

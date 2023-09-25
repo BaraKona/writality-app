@@ -27,15 +27,11 @@ router.get("/user/:projectId", protect, getProject);
 router.get("/user", protect, getUserProjects);
 router.get("/chapters/:projectId", protect, getProjectChapters);
 router.get("/open-folder/:projectId/:folderId", protect, getOpenFolderChapters);
-router.patch(
-	"/:userId/:projectId/description",
-	protect,
-	updateProjectDescription
-);
+router.patch("/user/:projectId/description", protect, updateProjectDescription);
 router.patch("/user/:projectId/title", protect, updateProjectTitle);
 router.delete("/project/:userId/:projectId", protect, deleteProject);
 router.delete("/chapter/:projectId/:chapterId", protect, deleteProjectChapter);
-router.patch("/:userId/:projectId/type", protect, updateProjectType);
+router.patch("/user/:projectId/type", protect, updateProjectType);
 router.patch("/user/:projectId/board", protect, updateProjectBoard);
 router.patch(
 	"/chapter/move-to-folder/:projectId/:chapterId",

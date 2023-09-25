@@ -10,50 +10,53 @@ import { SortableItem } from "../DragAndDrop/SortableItems";
 import { Droppable } from "../DragAndDrop/Droppable";
 import { DragOverlay } from "@dnd-kit/core";
 import { Draggable } from "../DragAndDrop/Draggable";
+import { useLocalStorage } from "@mantine/hooks";
 
 export const ProjectChapters: FC<{
 	project: IProject;
 	chapters: IChapter[];
 	openChapter: (projectId: string, chapterId: string) => void;
 	openChapterModal: (chapterId: string) => void;
-	openFolder: (folderId: string) => void;
-	folderChapters: IChapter[];
-	openedFolder: string;
+	// openFolder: (folderId: string) => void;
+	// folderChapters: IChapter[];
+	// openedFolder: string;
 }> = ({
 	project,
 	chapters,
 	openChapter,
 	openChapterModal,
-	openFolder,
-	folderChapters,
-	openedFolder,
+	// openFolder,
+	// folderChapters,
+	// openedFolder,
 }) => {
 	const [parent] = useAutoAnimate();
+
 	return (
 		<div ref={parent} className="p-2 flex flex-col">
 			{project?.folders?.map((folder: any, index: number) => (
 				<Droppable id={folder.uid} type="folder">
-					<div className={openedFolder === folder.uid ? "" : "mb-1"}>
-						<FolderListItem
-							openFolder={openFolder}
-							folder={folder}
-							projectId={project.uid}
-							folderChapters={folderChapters}
-							key={index}
-							withNumber
-							openedFolder={openedFolder}
-							className="px-2.5 py-1.5 border border-border flex items-end justify-between rounded-normal "
-							icon={
-								<ButtonWrapper>
-									<IconDotsVertical size={14} className="cursor-pointer" />
-								</ButtonWrapper>
-							}
-						/>
-					</div>
+					{/* <div className={openedFolder === folder.uid ? "" : "mb-1"}> */}
+					<FolderListItem
+						// openFolder={openFolder}
+						folder={folder}
+						projectId={project.uid}
+						folderChapters={folder.chapters}
+						key={index}
+						withNumber
+						location="project"
+						// openedFolder={openedFolder}
+						className="px-2.5 py-1.5 border border-border flex items-end justify-between rounded-normal "
+						icon={
+							<ButtonWrapper>
+								<IconDotsVertical size={14} className="cursor-pointer" />
+							</ButtonWrapper>
+						}
+					/>
+					{/* </div> */}
 				</Droppable>
 			))}
 
-			{chapters?.map((chapter: IChapter, index: number) => (
+			{project?.chapters?.map((chapter: IChapter, index: number) => (
 				// <Draggable id={chapter.uid}>
 				<Chapter
 					openChapter={() => openChapter(chapter.projectId, chapter.uid)}
@@ -61,7 +64,7 @@ export const ProjectChapters: FC<{
 					chapter={chapter}
 					openChapterModal={() => openChapterModal(chapter.uid)}
 					disabled={false}
-					listenerId={chapter.uid}
+					listenerId={chapter._id}
 				/>
 				// </Draggable>
 			))}

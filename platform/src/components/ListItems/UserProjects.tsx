@@ -4,7 +4,6 @@ import { Divider, Skeleton, Text } from "@mantine/core";
 import { ProjectListItem } from "./ProjectListItem";
 import { FC } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { useParams } from "react-router-dom";
 
 export const UserProjects: FC<{
 	isLoading: boolean;
@@ -60,6 +59,7 @@ export const UserProjects: FC<{
 									projectId={project.uid}
 									projectFolders={project.folders}
 									type={project.type}
+									chapters={project.chapters}
 								/>
 							);
 						})}
@@ -80,6 +80,7 @@ export const UserProjects: FC<{
 							return (
 								<ProjectListItem
 									key={project.uid}
+									chapters={project.chapters}
 									onClick={() => openProject(`project/${project.uid}/home`)}
 									name={project.title || "Untitled Project"}
 									projectId={project.uid}
@@ -92,17 +93,18 @@ export const UserProjects: FC<{
 				</section>
 			)}
 
-			{projects?.standard?.length === 0 &&
-				projects?.collaboration?.length === 0 && (
-					<div className="text-blueTextLight text-center text-xs font-normal ">
-						You have no projects. Create your first project.
-						<IconCubePlus
-							size={16}
-							className="mx-auto cursor-pointer mt-2 "
-							onClick={createProject}
-						/>
-					</div>
-				)}
+			{!projects ||
+				(projects?.standard?.length === 0 &&
+					projects?.collaboration?.length === 0 && (
+						<div className="text-blueTextLight text-center text-xs font-normal ">
+							You have no projects. Create your first project.
+							<IconCubePlus
+								size={16}
+								className="mx-auto cursor-pointer mt-2 "
+								onClick={createProject}
+							/>
+						</div>
+					))}
 		</div>
 	);
 };

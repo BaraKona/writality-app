@@ -28,7 +28,7 @@ export const Chapter: FC<{
 
 	return (
 		<div
-			className="flex gap-3 border rounded-normal border-border bg-white cursor-default py-1 px-2.5 items-center"
+			className="flex gap-3 border rounded-normal border-border bg-white cursor-default py-1 px-2.5 items-center mb-1"
 			{...attributes}
 			ref={setNodeRef}
 			style={style}
@@ -39,7 +39,7 @@ export const Chapter: FC<{
 			>
 				<IconFileText size={18} className="group-hover:text-black" />
 				<p className="text-gray-400 text-xs font-medium group-hover:text-coolGrey-7">
-					{chapter.content.title || "Untitled Chapter"}
+					{chapter.content.title || chapter.title || "Untitled Chapter"}
 				</p>
 			</div>
 			<div className="ml-auto flex gap-2 items-center">

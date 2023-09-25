@@ -83,7 +83,7 @@ export const getProjectChapters = async (req: any, res: any) => {
 
 export const getSingleChapter = async (req: any, res: any) => {
 	const { chapterId, projectId } = req.params;
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	try {
 		const chapter = await Chapter.findOne({
 			owner: userId,

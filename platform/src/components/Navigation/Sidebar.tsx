@@ -23,7 +23,6 @@ import {
 import { cyclops8 } from "../../assets/icons";
 import { MainFrame } from "../Project";
 import { useSignout } from "../../hooks/user/useSignout";
-import { useFavouriteProjects } from "../../hooks/projects/useFavouriteProjects";
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
 import { Divider } from "@mantine/core";
 import { IconUsersGroup } from "@tabler/icons-react";
@@ -35,6 +34,7 @@ import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useLocalStorage } from "@mantine/hooks";
 import { useLocation } from "react-router-dom";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { SmallText } from "../texts/SmallText";
 
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
@@ -45,9 +45,10 @@ export const Sidebar: FC<{}> = () => {
 	const [transitionStage, setTransitionStage] = useState("fadeIn");
 
 	const { data: projects, isLoading: isProjectLoading } = useUserProjects();
-	const [parent, enableAnimations] = useAutoAnimate();
+
 	const bookmarks = "bookmarks";
 	const home = "projects";
+	const inbox = "inbox";
 
 	const [sidebarNav, setSidebarNav] = useLocalStorage({
 		key: "sidebarNav",
@@ -92,9 +93,6 @@ export const Sidebar: FC<{}> = () => {
 									onClick={() => openPages("/profile")}
 								>
 									<IconUserCircle size={18} />
-								</CommunityListItem>
-								<CommunityListItem name="Inbox">
-									<IconInbox size={18} />
 								</CommunityListItem>
 								<CategoryListItem>
 									<Divider color="grey.0" />
@@ -159,6 +157,14 @@ export const Sidebar: FC<{}> = () => {
 								</SidebarTopNav>
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
+									value={inbox}
+									navigate={() => setSidebarNav(inbox)}
+								>
+									<IconInbox size={18} />
+								</SidebarTopNav>
+
+								<SidebarTopNav
+									sidebarNav={sidebarNav}
 									value={bookmarks}
 									navigate={() => setSidebarNav(bookmarks)}
 								>
@@ -172,7 +178,6 @@ export const Sidebar: FC<{}> = () => {
 									<IconCubePlus size={18} />
 								</SidebarTopNav>
 							</section>
-							{/* <Divider color="grey.0" my={4} /> */}
 
 							{sidebarNav === home && (
 								<UserProjects
@@ -184,6 +189,11 @@ export const Sidebar: FC<{}> = () => {
 								/>
 							)}
 							{sidebarNav === bookmarks && <FavouriteTabItems />}
+							{sidebarNav === inbox && (
+								<SmallText className="text-center">
+									Your chats will be here when you start chatting with someone.
+								</SmallText>
+							)}
 						</CategoryListItem>
 					</div>
 				</div>

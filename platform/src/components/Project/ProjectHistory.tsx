@@ -40,7 +40,7 @@ export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 
 								<Text color="dimmed" size="xs">
 									<Text variant="link" component="span" inherit>
-										{history.user.substring(0, 5)}{" "}
+										{history.user.name.substring(0, 5)}{" "}
 									</Text>
 									{history.action}
 								</Text>

@@ -36,7 +36,7 @@ interface IProject {
 		name: string;
 		position?: number;
 		dateCreated: Date;
-		chapterIds?: string[];
+		chapters?: string[];
 	}[];
 	chapters?: string[];
 	collaborators: {
@@ -52,6 +52,7 @@ interface IProject {
 	hasChat: boolean;
 	history?: history[];
 }
+
 const projectSchema = new Schema<IProject>({
 	type: { type: String, required: true, enum: ["standard", "collaboration"] },
 	uid: { type: String, required: true },
@@ -69,7 +70,7 @@ const projectSchema = new Schema<IProject>({
 	collaborators: {
 		type: [
 			{
-				uid: { type: String, required: true },
+				uid: { type: String, required: true, ref: "User" },
 				dateAdded: { type: Date, required: true },
 				role: {
 					type: String,
@@ -86,7 +87,7 @@ const projectSchema = new Schema<IProject>({
 		type: [
 			{
 				date: { type: Date, required: true },
-				user: { type: String, required: true },
+				user: { type: String, required: true, ref: "User" },
 				action: { type: String, required: true },
 			},
 		],
@@ -100,12 +101,12 @@ const projectSchema = new Schema<IProject>({
 				name: { type: String, required: true },
 				position: { type: Number, required: false },
 				dateCreated: { type: Date, required: true },
-				chapterIds: { type: [String], required: true, default: [] },
+				chapters: { type: [String], required: false, ref: "Chapter" },
 			},
 		],
 		required: true,
 	},
-	chapters: { type: [String], required: false },
+	chapters: { type: [String], required: false, ref: "Chapter" },
 });
 
 const Project = model<IProject>("Project", projectSchema);

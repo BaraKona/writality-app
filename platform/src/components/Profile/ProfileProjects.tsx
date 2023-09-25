@@ -30,14 +30,12 @@ export const ProfileProjects: FC<{
 	removeFavourite,
 	isLoading,
 }) => {
-	const { currentUser } = useAuthContext();
 	const navigate = useNavigate();
-	const path = useLocation().pathname;
 
 	if (isLoading) {
 		return (
 			<div>
-				<div className="text-xs font-medium mb-2">Your Posts</div>
+				<div className="text-xs font-medium mb-2">Your Projects</div>
 				<div className="flex gap-2">
 					{[...Array(5)].map((_, i) => (
 						<Skeleton key={i} height={150} width={250} />
@@ -47,7 +45,7 @@ export const ProfileProjects: FC<{
 		);
 	}
 
-	if (projects.standard.length === 0) {
+	if (projects?.standard?.length === 0 || !projects) {
 		return (
 			<div className="border-border border rounded-normal h-[calc(100vh-39rem)] flex content-center items-center">
 				<EmptyItem
