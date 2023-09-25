@@ -34,29 +34,29 @@ export const Chapter: FC<{
 			style={style}
 		>
 			<div
-				className=" text-coolGrey-7 flex place-items-center gap-3 cursor-pointer  group"
+				className=" text-coolGrey-7 flex place-items-center gap-1 cursor-pointer  group"
 				onClick={openChapter}
 			>
-				<IconFileText size={18} className="group-hover:text-black" />
+				<IconFileText size={16} className="group-hover:text-black" />
 				<p className="text-gray-400 text-xs font-medium group-hover:text-coolGrey-7">
 					{chapter.content.title || chapter.title || "Untitled Chapter"}
 				</p>
 			</div>
 			<div className="ml-auto flex gap-2 items-center">
 				<Text color="dimmed" size="xs">
-					{useTimeFromNow(chapter?.dateUpdated.date.toString()) ||
-						useTimeFromNow(chapter?.dateCreated.date.toString())}
+					{useTimeFromNow(chapter?.dateUpdated.date) ||
+						useTimeFromNow(chapter?.dateCreated.date)}
 				</Text>
 
 				<IconTrash
-					size={18}
+					size={16}
 					onClick={openChapterModal}
 					className="text-coolGrey-7 hover:text-red-900 cursor-pointer"
 				/>
 
-				<ButtonWrapper>
+				{/* <ButtonWrapper>
 					<IconDotsVertical size={14} />
-				</ButtonWrapper>
+				</ButtonWrapper> */}
 				{listenerId && (
 					<ButtonWrapper>
 						<IconGripVertical

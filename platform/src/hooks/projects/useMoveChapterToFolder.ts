@@ -12,7 +12,7 @@ export const useMoveChapterToFolder = (projectId: string) => {
 			onSuccess: (folderId) => {
 				queryClient.invalidateQueries(["project", projectId]);
 				queryClient.invalidateQueries(["chapters", projectId]);
-				queryClient.invalidateQueries(["openFolderChapters", folderId]);
+				queryClient.invalidateQueries(["projects"]);
 				useToast("success", "Chapter moved to folder successfully 😃");
 			},
 			onError: () => {

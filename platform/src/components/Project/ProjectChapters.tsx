@@ -44,6 +44,7 @@ export const ProjectChapters: FC<{
 						key={index}
 						withNumber
 						location="project"
+						listenerId={folder._id}
 						// openedFolder={openedFolder}
 						className="px-2.5 py-1.5 border border-border flex items-end justify-between rounded-normal "
 						icon={
@@ -55,19 +56,20 @@ export const ProjectChapters: FC<{
 					{/* </div> */}
 				</Droppable>
 			))}
-
-			{project?.chapters?.map((chapter: IChapter, index: number) => (
-				// <Draggable id={chapter.uid}>
-				<Chapter
-					openChapter={() => openChapter(chapter.projectId, chapter.uid)}
-					key={index}
-					chapter={chapter}
-					openChapterModal={() => openChapterModal(chapter.uid)}
-					disabled={false}
-					listenerId={chapter._id}
-				/>
-				// </Draggable>
-			))}
+			<div>
+				{project?.chapters?.map((chapter: IChapter, index: number) => (
+					// <Draggable id={chapter.uid}>
+					<Chapter
+						openChapter={() => openChapter(chapter.projectId, chapter.uid)}
+						key={index}
+						chapter={chapter}
+						openChapterModal={() => openChapterModal(chapter.uid)}
+						disabled={false}
+						listenerId={chapter._id}
+					/>
+					// </Draggable>
+				))}
+			</div>
 		</div>
 	);
 };

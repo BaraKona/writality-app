@@ -16,6 +16,15 @@ type history = {
 	user: string;
 	action: string;
 };
+
+type folder = {
+	uid: string;
+	name: string;
+	position?: number;
+	dateCreated: Date;
+	chapters?: string[];
+	folders?: folder[];
+}[];
 interface IProject {
 	type: projectType;
 	uid: string;
@@ -31,13 +40,6 @@ interface IProject {
 		user: string;
 		date: Date;
 	};
-	folders: {
-		uid: string;
-		name: string;
-		position?: number;
-		dateCreated: Date;
-		chapters?: string[];
-	}[];
 	chapters?: string[];
 	collaborators: {
 		uid: string;
@@ -51,6 +53,7 @@ interface IProject {
 	}[];
 	hasChat: boolean;
 	history?: history[];
+	folders: folder;
 }
 
 const projectSchema = new Schema<IProject>({
@@ -102,6 +105,7 @@ const projectSchema = new Schema<IProject>({
 				position: { type: Number, required: false },
 				dateCreated: { type: Date, required: true },
 				chapters: { type: [String], required: false, ref: "Chapter" },
+				folders: { type: [Object], required: false },
 			},
 		],
 		required: true,

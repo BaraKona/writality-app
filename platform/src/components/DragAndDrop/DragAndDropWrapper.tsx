@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import {
 	DndContext,
 	KeyboardSensor,
@@ -12,7 +12,6 @@ import {
 	sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 
-import { SortableItem } from "./SortableItems";
 import { IChapter } from "../../interfaces/IChapter";
 import {
 	restrictToWindowEdges,
@@ -59,6 +58,9 @@ export const DragAndDropWrapper: FC<{
 
 	function handleDragEnd(event: { active: any; over: any }) {
 		const { active, over } = event;
+
+		console.log(event);
+
 		if (active.id !== over.id) {
 			console.log(over.data.type);
 			if (over.data.current.type === "folder") {

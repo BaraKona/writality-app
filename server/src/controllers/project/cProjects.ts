@@ -67,7 +67,8 @@ export const getUserProjects = async (req: any, res: any) => {
 		})
 			.populate({
 				path: "chapters",
-				select: "dateUpdated projectId title uid content.title",
+				select:
+					"dateUpdated projectId title uid content.title content.wordCount",
 			})
 			// .populate({
 			// 	path: "collaborators.uid",

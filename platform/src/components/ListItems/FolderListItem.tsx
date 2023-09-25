@@ -4,6 +4,7 @@ import {
 	IconFileText,
 	IconFolderFilled,
 	IconFolderOpen,
+	IconGripVertical,
 } from "@tabler/icons-react";
 import { IProject } from "../../interfaces/IProject";
 import { IChapter } from "../../interfaces/IChapter";
@@ -11,6 +12,9 @@ import { Chapter } from "../Chapters";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLocalStorage } from "@mantine/hooks";
+import { ButtonWrapper } from "../buttons/ButtonWrapper";
+import { useDraggableContext } from "../DragAndDrop/DraggableProvider";
+import { MantineColor } from "@mantine/core";
 
 export const FolderListItem: FC<{
 	folder: IProject["folders"][0];
@@ -21,6 +25,7 @@ export const FolderListItem: FC<{
 	small?: boolean;
 	projectId: string;
 	location: string;
+	listenerId?: string;
 }> = ({
 	className,
 	folder,
@@ -30,6 +35,7 @@ export const FolderListItem: FC<{
 	small,
 	projectId,
 	location,
+	listenerId,
 }) => {
 	const [parent] = useAutoAnimate();
 	const navigate = useNavigate();
@@ -38,6 +44,12 @@ export const FolderListItem: FC<{
 		key: `openFolder-${location}-${folder.uid}`,
 		defaultValue:
 			localStorage.getItem(`openFolder-${location}-${folder.uid}`) || "",
+	});
+
+	const { Draggable } = useDraggableContext();
+
+	const { attributes, listeners, setNodeRef, style } = Draggable({
+		id: listenerId || "",
 	});
 
 	return (
@@ -65,6 +77,15 @@ export const FolderListItem: FC<{
 						</SmallText>
 					)}
 					{icon}
+					{listenerId && (
+						<ButtonWrapper>
+							<IconGripVertical
+								size={14}
+								{...listeners}
+								className="text-coolGrey-4 cursor-pointer"
+							/>
+						</ButtonWrapper>
+					)}
 				</div>
 			</div>
 			{(openedFolder as string) == folder.uid && (
@@ -98,6 +119,7 @@ export const FolderListItem: FC<{
 									chapter={chapter}
 									openChapterModal={() => null}
 									disabled={false}
+									listenerId={chapter._id}
 								/>
 							)}
 						</>
