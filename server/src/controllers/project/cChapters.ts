@@ -1,6 +1,7 @@
 import Chapter from "../../models/chapterSchema";
 import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
+import Project from "../../models/projectSchema";
 import { v4 as uuidv4 } from "uuid";
 
 export const createChapter = async (userId: string, projectId: string) => {
@@ -84,9 +85,25 @@ export const getProjectChapters = async (req: any, res: any) => {
 export const getSingleChapter = async (req: any, res: any) => {
 	const { chapterId, projectId } = req.params;
 	const userId = req.user._id;
+
+	const project = await Project.findOne({
+		$or: [
+			{ owner: userId },
+			{
+				collaborators: {
+					$elemMatch: { uid: userId, active: true },
+				},
+				projectId,
+			},
+		],
+	});
+
+	if (!project) {
+		res.status.res({ message: "You do not have access to this Project" });
+	}
+
 	try {
 		const chapter = await Chapter.findOne({
-			owner: userId,
 			projectId: projectId,
 			uid: chapterId,
 		});
@@ -104,9 +121,25 @@ export const updateChapterContent = async (req: any, res: any) => {
 	const { chapterId, projectId } = req.params;
 	const { content, title, wordCount } = req.body;
 	const userId = req.user.uid;
+
+	const project = await Project.findOne({
+		$or: [
+			{ owner: userId },
+			{
+				collaborators: {
+					$elemMatch: { uid: userId, active: true },
+				},
+				projectId,
+			},
+		],
+	});
+
+	if (!project) {
+		res.status.res({ message: "You do not have access to this Project" });
+	}
+
 	try {
 		const chapter = await Chapter.findOne({
-			owner: userId,
 			projectId: projectId,
 			uid: chapterId,
 		});
