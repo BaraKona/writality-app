@@ -21,6 +21,7 @@ export const useUpdateChapterContent = (
 			onSuccess: (data) => {
 				useToast("success", "Chapter updated successfully 😃");
 				queryClient.invalidateQueries(["project", projectId]);
+				queryClient.invalidateQueries(["projects"]);
 				queryClient.invalidateQueries(["chapter", chapterId]);
 				queryClient.invalidateQueries(["versions", chapterId]);
 			},

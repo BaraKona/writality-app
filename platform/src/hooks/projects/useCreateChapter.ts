@@ -8,6 +8,7 @@ export const useCreateChapter = (projectId: string) => {
 		onSuccess: () => {
 			queryClient.invalidateQueries(["project", projectId]);
 			queryClient.invalidateQueries(["chapters", projectId]);
+			queryClient.invalidateQueries(["projects"]);
 			useToast("success", "Chapter created successfully 😃");
 		},
 		onError: () => {

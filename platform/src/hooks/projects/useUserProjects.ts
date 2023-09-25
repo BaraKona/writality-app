@@ -3,7 +3,6 @@ import { getUserProjects } from "../../api/project/projects";
 import { useToast } from "../useToast";
 
 export const useUserProjects = () => {
-	const queryClient = useQueryClient();
 	return useQuery("projects", getUserProjects, {
 		onError: () => {
 			useToast("error", "Something went wrong... 😞");

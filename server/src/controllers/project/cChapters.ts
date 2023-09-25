@@ -201,9 +201,24 @@ export const deleteSingleChapter = async (
 	projectId: string,
 	chapterId: string
 ) => {
+	const project = await Project.findOne({
+		$or: [
+			{ owner: userId },
+			{
+				collaborators: {
+					$elemMatch: { uid: userId, active: true },
+				},
+				projectId,
+			},
+		],
+	});
+
+	if (!project) {
+		return;
+	}
+
 	try {
 		const chapter = await Chapter.findOne({
-			owner: userId,
 			projectId: projectId,
 			uid: chapterId,
 		});

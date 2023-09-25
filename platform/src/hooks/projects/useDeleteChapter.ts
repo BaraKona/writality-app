@@ -11,6 +11,7 @@ export const useDeleteChapter = (
 	return useMutation(() => deleteProjectChapter(projectId, chapterId), {
 		onSuccess: () => {
 			queryClient.invalidateQueries(["project", projectId]);
+			queryClient.invalidateQueries("projects");
 			queryClient.invalidateQueries(["chapters", projectId]);
 			useToast(
 				"success",

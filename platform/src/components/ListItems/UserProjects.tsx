@@ -40,16 +40,16 @@ export const UserProjects: FC<{
 	}
 
 	return (
-		<div>
+		<div className="overflow-y-auto h-[calc(100vh-100px)]">
 			{projects?.standard.length > 0 && (
-				<section className="overflow-y-auto my-2" ref={parent}>
+				<section className=" my-2" ref={parent}>
 					<Divider
 						color="grey.0"
 						my={4}
 						label={<Text className="!text-blueTextLight">Projects</Text>}
 						labelPosition="center"
 					/>
-					<div className="h-1/2 overflow-y-auto">
+					<div className=" ">
 						{projects.standard?.map((project: IProject, index: number) => {
 							return (
 								<ProjectListItem
@@ -68,14 +68,14 @@ export const UserProjects: FC<{
 			)}
 
 			{projects?.collaboration.length > 0 && (
-				<section className="overflow-y-auto my-2" ref={parent}>
+				<section className=" my-2" ref={parent}>
 					<Divider
 						color="grey.0"
 						my={4}
 						label={<Text className="!text-blueTextLight">Collaborations</Text>}
 						labelPosition="center"
 					/>
-					<div className="max-h-96 overflow-y-auto">
+					<div className="max-h-96 ">
 						{projects.collaboration?.map((project: IProject, index: number) => {
 							return (
 								<ProjectListItem
