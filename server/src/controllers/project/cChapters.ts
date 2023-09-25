@@ -120,7 +120,7 @@ export const getSingleChapter = async (req: any, res: any) => {
 export const updateChapterContent = async (req: any, res: any) => {
 	const { chapterId, projectId } = req.params;
 	const { content, title, wordCount } = req.body;
-	const userId = req.user.uid;
+	const userId = req.user._id;
 
 	const project = await Project.findOne({
 		$or: [
