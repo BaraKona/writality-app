@@ -1,7 +1,7 @@
 import { IChapterContent } from "./IChapterContent";
 
 export type IChapter = {
-	_id?: string;
+	_id: string;
 	uid: string;
 	owner: string;
 	projectId: string;
