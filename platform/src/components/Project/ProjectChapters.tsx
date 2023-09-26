@@ -32,7 +32,10 @@ export const ProjectChapters: FC<{
 	const [parent] = useAutoAnimate();
 
 	return (
-		<div ref={parent} className="p-2 flex flex-col">
+		<div
+			ref={parent}
+			className="p-2 flex flex-col overflow-auto h-[calc(100vh-14rem)]"
+		>
 			{project?.folders?.map((folder: any, index: number) => (
 				<Droppable id={folder.uid} type="folder">
 					{/* <div className={openedFolder === folder.uid ? "" : "mb-1"}> */}

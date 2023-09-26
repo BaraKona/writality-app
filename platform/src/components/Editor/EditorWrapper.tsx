@@ -3,6 +3,8 @@ import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import {
 	IconAtom2,
+	IconCloudFilled,
+	IconCloudUpload,
 	IconDeviceFloppy,
 	IconFileText,
 	IconGitBranch,
@@ -97,7 +99,14 @@ export const EditorWrapper: FC<{
 		<div className="flex flex-col bg-base px-3 py-3 h-[calc(100vh-3.75rem)] gap-2 rounded-normal border-border border">
 			<div className=" flex font-medium gap-2 bg-base text-coolGrey-7 items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
-				<Text size="xs" color="dimmed" ml="auto" mr={3}>
+				<Text
+					size="xs"
+					color="dimmed"
+					ml="auto"
+					mr={3}
+					className="flex items-center"
+				>
+					<IconCloudUpload size={16} className="mr-1" />
 					{content?.dateUpdated?.date
 						? "Last updated: " + useTimeFromNow(content.dateUpdated.date + "")
 						: "No updates yet"}

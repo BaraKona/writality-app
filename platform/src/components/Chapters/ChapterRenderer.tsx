@@ -27,7 +27,7 @@ export const ChapterRenderer: FC<{
 	const [name, setName] = useState<string>("");
 
 	return (
-		<div className="row-span-3 col-span-6 bg-base rounded-normal border border-border overflow-auto">
+		<div className="row-span-4 col-span-6 bg-base rounded-normal border border-border">
 			<div className="flex gap-2 ml-2 font-medium items-center">
 				<IconFiles size={18} />
 				{isLoading ? (
@@ -74,7 +74,7 @@ export const ChapterRenderer: FC<{
 					</Menu>
 				</div>
 			</div>
-			<Divider color="grey.0" />
+			<Divider color="grey.0 " />
 			{/* <ScrollArea className="" offsetScrollbars scrollbarSize={6}> */}
 			{children}
 			{/* </ScrollArea> */}

@@ -119,7 +119,7 @@ export function Project() {
 				isLoading={Boolean(!currentProject)}
 			>
 				<Tabs
-					className="w-full border-none important:border-none h-[calc(100vh-7.2rem)]"
+					className="w-full border-none important:border-none h-[calc(100vh-12.2rem)]"
 					value={projectTab}
 					onTabChange={(tab) => navigate(`/project/${project}/${tab}`)}
 					defaultValue="home"
@@ -155,7 +155,7 @@ export function Project() {
 							withArrow
 							styles={tooltipStyles}
 						>
-							<Tabs.Tab value="publish">
+							<Tabs.Tab value="publish" disabled>
 								<IconNews size={18} />
 							</Tabs.Tab>
 						</Tooltip>
@@ -191,10 +191,6 @@ export function Project() {
 						<div className="flex flex-col gap-2 max-w-screen-xl mx-auto">
 							<div className="grid grid-cols-9 gap-6 gap-y-2 grid-rows-4 h-[80vh]">
 								<ProjectAnalytics />
-								<ProjectDescription
-									project={currentProject}
-									updateDescription={updateDescription.mutate}
-								/>
 								<ChapterRenderer
 									chapterCount={chapterCount}
 									createNewChapter={createNewChapter}
@@ -208,9 +204,9 @@ export function Project() {
 												createNewChapter={createNewChapter}
 												title="Chapters"
 												p1="You have no chapters currently. Chapters make up your project and
-										can be collaborated on."
+											can be collaborated on."
 												p2="Chapters are also versioned so you can always go back to previews
-										versions if you decide to scrap your current work."
+											versions if you decide to scrap your current work."
 											/>
 										) : (
 											<DragAndDropWrapper
@@ -230,10 +226,16 @@ export function Project() {
 								</ChapterRenderer>
 								<ProjectHistory project={currentProject} />
 							</div>
-							<ProjectBoard
+							{/* <ProjectDescription
 								project={currentProject}
-								updateBoard={updateProjectBoard}
-							/>
+								updateDescription={updateDescription.mutate}
+							/> */}
+							{/* {currentProject?.type === "collaboration" ? (
+								<ProjectBoard
+									project={currentProject}
+									updateBoard={updateProjectBoard}
+								/>
+							) : null} */}
 						</div>
 					</Tabs.Panel>
 

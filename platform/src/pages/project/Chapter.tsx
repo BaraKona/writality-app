@@ -96,11 +96,6 @@ export const Chapter = () => {
 		() => getAllChapterVersions(chapter as string),
 		{ enabled: !!chapterContent }
 	);
-	const { data: chapterBranches } = useQuery(
-		["chapterBranches", chapter as string],
-		() => getAllBranches(chapter as string),
-		{ enabled: !!chapterContent }
-	);
 	const { data: currentBranch, isSuccess: branchSuccess } = useQuery(
 		["currentBranch", branch as string],
 		() => getSingleBranch(chapter as string, branch as string),
@@ -275,17 +270,19 @@ export const Chapter = () => {
 						)}
 					</ChapterSidebar>
 					<div>
-						<ChapterBranchMenu
-							openMergeModal={openMerge}
-							chapterBranches={chapterBranches}
-							currentBranch={branch ? currentBranch : chapterContent}
-							mainContent={chapterContent?.content}
-							checkoutMain={() => navigateToMain()}
-							openDeleteBranch={setOpenDeleteBranch}
-							openBranchModal={() => setOpened(true)}
-							close={() => closeSidebar()}
-							active={sidebar === "branches"}
-						/>
+						{sidebar === "branches" && (
+							<ChapterBranchMenu
+								chapterId={chapter as string}
+								openMergeModal={openMerge}
+								currentBranch={branch ? currentBranch : chapterContent}
+								mainContent={chapterContent?.content}
+								checkoutMain={() => navigateToMain()}
+								openDeleteBranch={setOpenDeleteBranch}
+								openBranchModal={() => setOpened(true)}
+								close={() => closeSidebar()}
+								active={sidebar === "branches"}
+							/>
+						)}
 
 						<ChapterVersionMenu
 							chapterVersions={chapterVersions}

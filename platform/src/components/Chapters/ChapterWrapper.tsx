@@ -47,7 +47,7 @@ export const ChapterWrapper: FC<{
 
 	return (
 		<div
-			className={`flex flex-col bg-base gap-2 rounded-normal h-[calc(100vh-60px)] overflow-y-auto`}
+			className={`flex flex-col bg-base gap-2 rounded-normal h-[calc(100vh-50px)] overflow-y-auto`}
 		>
 			{/* <div className=" flex font-medium gap-2 bg-base text-coolGrey-7 items-center">
 		<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
@@ -63,6 +63,7 @@ export const ChapterWrapper: FC<{
 					"https://images.unsplash.com/photo-1463143296037-46790ff95a7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
 				}
 				alt="Banner by Jez Timms on Unsplash"
+				height="h-32"
 			/>
 			<div className="flex">{children}</div>
 		</div>

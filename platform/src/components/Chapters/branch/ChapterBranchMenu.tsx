@@ -6,9 +6,11 @@ import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { tooltipStyles } from "../../../styles/tooltipStyles";
 import { useSearchParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { getAllBranches } from "../../../api/project/branches";
 export const ChapterBranchMenu: FC<{
 	openMergeModal: (type: string) => void;
-	chapterBranches: IChapterVersion[];
+	chapterId: string;
 	currentBranch: IChapterContent;
 	mainContent: IChapterContent;
 	checkoutMain: () => void;
@@ -18,7 +20,7 @@ export const ChapterBranchMenu: FC<{
 	active: boolean;
 }> = ({
 	openMergeModal,
-	chapterBranches,
+	chapterId,
 	currentBranch,
 	mainContent,
 	checkoutMain,
@@ -27,9 +29,15 @@ export const ChapterBranchMenu: FC<{
 	close,
 	active,
 }) => {
+	const { data: chapterBranches, isLoading } = useQuery(
+		["chapterBranches", chapterId],
+		() => getAllBranches(chapterId)
+	);
+
 	return (
 		<div className={`${active ? "" : "hidden"}`}>
 			<ChapterBranches
+				isLoading={isLoading}
 				openMergeModal={openMergeModal}
 				chapterBranches={chapterBranches}
 				currentBranch={currentBranch}

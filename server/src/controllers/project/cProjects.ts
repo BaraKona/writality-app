@@ -67,21 +67,16 @@ export const getUserProjects = async (req: any, res: any) => {
 		})
 			.populate({
 				path: "chapters",
-				select:
-					"dateUpdated projectId title uid content.title content.wordCount",
+				select: "projectId title uid content.title content.wordCount",
 			})
-			// .populate({
-			// 	path: "collaborators.uid",
-			// 	select: "name email",
-			// })
 			.populate({
 				path: "folders.chapters",
+				select: "projectId title uid content.title",
 			})
-			.populate({
-				path: "history.user",
-				select: "name email",
-			})
-			.sort({ dateCreated: 1 });
+			.sort({ dateCreated: 1 })
+			.select(
+				"-chat -history -collaborators -board -hasChat -description -dateUpdated -dateCreated -__v"
+			);
 
 		const standard = projects.filter((project) => project.type === "standard");
 		const collaboration = projects.filter(
@@ -118,7 +113,7 @@ export const getProject = async (req: any, res: any) => {
 		})
 			.populate({
 				path: "chapters",
-				select: "dateUpdated projectId title uid content.title",
+				select: "dateUpdated projectId title uid content.title _id",
 			})
 			.populate({
 				path: "collaborators.uid",
@@ -126,6 +121,7 @@ export const getProject = async (req: any, res: any) => {
 			})
 			.populate({
 				path: "folders.chapters",
+				select: " dateUpdated projectId title uid content.title _id",
 			})
 			.populate({
 				path: "history.user",

@@ -8,7 +8,7 @@ import {
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 
 import { IChapterContent } from "../../../interfaces/IChapterContent";
-import { Divider, ScrollArea, Text } from "@mantine/core";
+import { Divider, ScrollArea, Skeleton, Text } from "@mantine/core";
 import { IconGitBranch, IconPlus, IconX } from "@tabler/icons-react";
 import { useSearchParams } from "react-router-dom";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
@@ -16,6 +16,7 @@ import { ChapterSidebarWrapper } from "../ChapterSidebarWrapper";
 export const ChapterBranches: FC<{
 	openMergeModal: (type: string) => void;
 	chapterBranches: IChapterVersion[];
+	isLoading: boolean;
 	mainContent: IChapterContent;
 	currentBranch: IChapterContent;
 	checkoutMain: any;
@@ -31,12 +32,41 @@ export const ChapterBranches: FC<{
 	openDeleteBranch,
 	openBranchModal,
 	close,
+	isLoading,
 }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const merge = searchParams.get("merge");
-	// if (!chapterBranches) {
-	// 	return null;
-	// }
+
+	if (isLoading) {
+		return (
+			<ChapterSidebarWrapper>
+				<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center">
+					Branches
+					<ButtonWrapper onClick={openBranchModal} className="ml-auto">
+						<IconPlus
+							size={14}
+							className="text-blueTextLight group-hover:text-black"
+						/>
+					</ButtonWrapper>
+					<ButtonWrapper onClick={close}>
+						<IconX
+							size={14}
+							className="text-blueTextLight group-hover:text-black"
+						/>
+					</ButtonWrapper>
+				</div>
+				<Divider color="grey.0" />
+				<div className="flex flex-col gap-2 p-2">
+					<Skeleton height={30} width="100%" />
+					<Skeleton height={30} width="100%" />
+					<Skeleton height={30} width="100%" />
+					<Skeleton height={30} width="100%" />
+					<Skeleton height={30} width="100%" />
+				</div>
+			</ChapterSidebarWrapper>
+		);
+	}
+
 	return (
 		<ChapterSidebarWrapper>
 			<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center">
