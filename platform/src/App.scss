@@ -33,7 +33,8 @@ body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-	background: #1b1c24;
+	color: #394251;
+	background-color: #ffff !important;
 }
 
 a {
@@ -47,7 +48,7 @@ a {
 
 @media (prefers-color-scheme: dark) {
 	html {
-		color-scheme: dark;
+		color-scheme: light;
 	}
 	body {
 		color: #394251;
