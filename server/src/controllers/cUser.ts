@@ -142,7 +142,7 @@ export const signOut = async (req: any, res: any) => {
 		res.status(200).json({ message: "User logged out" });
 	} catch (error) {
 		throw new Error(
-			"Something went wrong, we could not sign you out. Please try again later"
+			"Something went wrong, we could not sign you out. Please try again later 😔"
 		);
 	}
 };
