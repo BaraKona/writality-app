@@ -3,7 +3,7 @@ import { FC } from "react";
 export const BannerImage: FC<{
 	image: string;
 	alt: string;
-	height: string;
+	height?: string;
 }> = ({ image, alt, height }) => {
 	return (
 		<img
