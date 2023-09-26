@@ -43,14 +43,8 @@ export const getAllUsers = async () => {
 };
 
 export const signOutUser = async () => {
-	try {
-		const { data } = await userApi.post("/logout");
-		useToast("success", "Signed out successfully");
-		return data;
-	} catch (err: any) {
-		useToast("error", "Something went wrong, we could not sign you out 😔");
-		console.log(err.message);
-	}
+	const { data } = await userApi.post("/logout");
+	return data;
 };
 
 export const addFavouriteProject = async (projectId: string) => {

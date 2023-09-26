@@ -134,15 +134,15 @@ export const signOut = async (req: any, res: any) => {
 		res.cookie("access_token", "", {
 			path: "/",
 			httpOnly: true,
-			domain: process.env.DOMAIN,
+			domain: process.env.DOMAIN ? process.env.DOMAIN : "",
 			secure: process.env.COOKIES_SECURE,
+			samesite: "strict",
 			expires: new Date(0),
 		});
 		res.status(200).json({ message: "User logged out" });
-		console.log("User logged out");
 	} catch (error) {
 		throw new Error(
-			"Something went wrong, we could not log you out. Please try again later"
+			"Something went wrong, we could not sign you out. Please try again later"
 		);
 	}
 };
