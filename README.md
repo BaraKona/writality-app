@@ -14,14 +14,14 @@ Welcome to the Collaborative Writing Platform, a platform for writers to come to
 
 Examples of Platform:
 
-- View of the chapter:
-  ![image](https://github.com/BaraKona/writality-app/assets/62246274/3a90d05c-2318-4d88-b297-8f2365b98a79)
+- View of the project:
+![Screen Shot 2023-09-28 at 10 36 58](https://github.com/BaraKona/writality-app/assets/62246274/d31b46d2-4e5c-4100-b2fa-39b05a8201dd)
 
-- View of the profile
-  ![image](https://github.com/BaraKona/writality-app/assets/62246274/f41d9b2c-8f8a-4e69-bee8-98ab58af5205)
+- Chapter Editor
+![Screen Shot 2023-09-28 at 10 38 24](https://github.com/BaraKona/writality-app/assets/62246274/094e2afc-cfff-4b87-b16f-c59865a35edb)
 
-- View Merge
-  <img width="1632" alt="image" src="https://github.com/BaraKona/writality-app/assets/62246274/005adc62-cf8d-4253-ad50-2b8e21e0132e">
+- Single Post View
+![Screen Shot 2023-09-28 at 10 44 48](https://github.com/BaraKona/writality-app/assets/62246274/2dfe80cd-cca9-4d90-8e8d-5b4698991391)
 
 ## Getting started
 
