@@ -1,6 +1,4 @@
-import { ProjectDescription } from "../../components/Project";
 import {
-	IconDotsVertical,
 	IconGlobe,
 	IconHome,
 	IconMessage,
@@ -9,27 +7,18 @@ import {
 } from "@tabler/icons-react";
 import {
 	NoChapters,
-	Chapter,
 	ChapterWrapper,
 	ChapterRenderer,
 } from "../../components/Chapters";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { IChapter } from "../../interfaces/IChapter";
 import { CharacterWrapper } from "../../components/Characters/CharacterWrapper";
 import { Loading } from "../../components/Loading";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import {
-	getProjectChapters,
-	createChapter,
-	deleteSingleChapter,
-} from "../../api/project/chapters";
 import { DeleteModal } from "../../components/Modals";
 import { updateProjectDescription } from "../../api/project/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Divider, Skeleton, Tabs, Tooltip } from "@mantine/core";
-import { useEditor } from "@tiptap/react";
-import { extensions } from "../../components/Editor/utils/editorExtensions";
 import { ProjectSettings } from "../../components/Project/ProjectSettings";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChatWrapper } from "../../components/Project/chatrooms/ChatWrapper";
@@ -37,10 +26,7 @@ import { tabStyles } from "../../styles/tabStyles";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { useCreateChapter } from "../../hooks/projects/useCreateChapter";
 import { FourOFour } from "../404";
-import { PublishChapterSide } from "../../components/Project/publish/PublishChapterSide";
-import { useBlockNote } from "@blocknote/react";
 import { ProjectAnalytics } from "../../components/Project/ProjectAnalytics";
-import { ProjectBoard } from "../../components/Project/ProjectBoard";
 import { useProjectBoard } from "../../hooks/projects/useProjectBoard";
 import { ProjectHistory } from "../../components/Project/ProjectHistory";
 import { useCreateFolder } from "../../hooks/projects/useCreateFolder";
@@ -121,7 +107,7 @@ export function Project() {
 				<Tabs
 					className="w-full border-none important:border-none h-[calc(100vh-12.2rem)]"
 					value={projectTab}
-					onTabChange={(tab) => navigate(`/project/${project}/${tab}`)}
+					onChange={(tab) => navigate(`/project/${project}/${tab}`)}
 					defaultValue="home"
 					radius={"md"}
 					orientation="vertical"

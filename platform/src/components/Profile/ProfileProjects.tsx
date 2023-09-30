@@ -35,7 +35,9 @@ export const ProfileProjects: FC<{
 	if (isLoading) {
 		return (
 			<div>
-				<div className="text-xs font-medium mb-2">Your Projects</div>
+				<div className="text-xs font-medium mb-2 text-coolGrey-7">
+					Your projects
+				</div>
 				<div className="flex gap-2">
 					{[...Array(5)].map((_, i) => (
 						<Skeleton key={i} height={150} width={250} />
@@ -47,7 +49,7 @@ export const ProfileProjects: FC<{
 
 	if (projects?.standard?.length === 0 || !projects) {
 		return (
-			<div className="border-border border rounded-normal h-[calc(100vh-39rem)] flex content-center items-center">
+			<div className="border-border border rounded-normal h-[calc(100vh-39rem)] flex content-center items-center text-coolGrey-7">
 				<EmptyItem
 					title="Projects"
 					p1="You do not current have any projects. You may wish to work with other people or create your own project."
@@ -60,11 +62,11 @@ export const ProfileProjects: FC<{
 
 	return (
 		<div className="">
-			<div className="text-xs font-medium">Your Projects</div>
+			<div className="text-xs font-medium text-coolGrey-7">Your projects</div>
 			<div className=" overflow-y-auto flex flex-row flex-wrap gap-3">
 				{projects.standard.map((project) => (
 					<div
-						className="flex gap-2 rounded-normal basis-60 p-2 border border-border"
+						className="flex gap-2 rounded-normal basis-60 p-2 border border-border text-coolGrey-7"
 						onClick={() => navigate(`/project/${project.uid}/home`)}
 					>
 						{project.type === ProjectType.standard ? (

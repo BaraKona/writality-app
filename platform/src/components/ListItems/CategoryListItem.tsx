@@ -19,12 +19,7 @@ export const CategoryListItem: FC<{
 				</h2>
 			</li>
 			{loading ? (
-				<Loader
-					variant="bars"
-					color="gray"
-					className="mx-auto my-2"
-					size={25}
-				/>
+				<Loader type="bars" color="gray" className="mx-auto my-2" size={25} />
 			) : (
 				<>{children}</>
 			)}

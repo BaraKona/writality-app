@@ -1,16 +1,10 @@
 import { FC } from "react";
-import { Divider, Skeleton, Tabs, Tooltip } from "@mantine/core";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { Tabs, Tooltip } from "@mantine/core";
 import { SettingsHeader } from "../../components/settings/SettingsHeader";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { tabStyles } from "../../styles/tabStyles";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-	IconHome,
-	IconSettings,
-	IconUser,
-	IconVocabulary,
-} from "@tabler/icons-react";
+import { IconUser, IconVocabulary } from "@tabler/icons-react";
 import { ProfileSettings } from "./ProfileSettings";
 import { LanguageSettings } from "./LanguageSettings";
 export const SettingsPage: FC<{}> = () => {
@@ -23,7 +17,7 @@ export const SettingsPage: FC<{}> = () => {
 			<Tabs
 				className="w-full border-none important:border-none h-[calc(100vh-7.0rem)]"
 				value={settingsTab}
-				onTabChange={(tab) => navigate(`/settings/${tab}`)}
+				onChange={(tab) => navigate(`/settings/${tab}`)}
 				defaultValue="home"
 				radius={"md"}
 				orientation="vertical"

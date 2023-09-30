@@ -40,28 +40,28 @@ export const ChatWrapper: FC<{}> = ({}) => {
 				keepMounted={false}
 				styles={{
 					...tabStyles,
-					tabsList: {
-						...tabStyles.tabsList,
-						flexBasis: 200,
-						backgroundColor: "#fff",
-						border: "1px solid #ebebeb",
-						borderTopRightRadius: "0.25rem",
-						borderTopLeftRadius: "0.25rem",
-						padding: "0.25rem 0.25rem",
-					},
-					tab: {
-						...tabStyles.tab,
-						border: "1px solid #ebebeb",
-						padding: "0.50rem 0.25rem",
-						margin: "0.25rem 0.25rem",
-						display: "block",
-						"&[data-active]": {
-							border: "1px solid #ebebeb",
-							// backgroundColor: "#eee",
-						},
-					},
+					// tabsList: {
+					// 	...tabStyles.tabsList,
+					// 	flexBasis: 200,
+					// 	backgroundColor: "#fff",
+					// 	border: "1px solid #ebebeb",
+					// 	borderTopRightRadius: "0.25rem",
+					// 	borderTopLeftRadius: "0.25rem",
+					// 	padding: "0.25rem 0.25rem",
+					// },
+					// tab: {
+					// 	...tabStyles.tab,
+					// 	border: "1px solid #ebebeb",
+					// 	padding: "0.50rem 0.25rem",
+					// 	margin: "0.25rem 0.25rem",
+					// 	display: "block",
+					// 	"&[data-active]": {
+					// 		border: "1px solid #ebebeb",
+					// 		// backgroundColor: "#eee",
+					// 	},
+					// },
 				}}
-				onTabChange={(tab) => {
+				onChange={(tab) => {
 					setSearchParams(`?chat=${tab}`);
 				}}
 				value={searchParams.get("chat") || primaryRoom.uid}

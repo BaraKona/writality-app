@@ -46,7 +46,11 @@ export const UserProjects: FC<{
 					<Divider
 						color="grey.0"
 						my={4}
-						label={<Text className="!text-blueTextLight">Projects</Text>}
+						label={
+							<Text className="!text-blueTextLight" size="xs">
+								Projects
+							</Text>
+						}
 						labelPosition="center"
 					/>
 					<div className=" ">
@@ -72,7 +76,11 @@ export const UserProjects: FC<{
 					<Divider
 						color="grey.0"
 						my={4}
-						label={<Text className="!text-blueTextLight">Collaborations</Text>}
+						label={
+							<Text className="!text-blueTextLight" size="xs">
+								Collaborations
+							</Text>
+						}
 						labelPosition="center"
 					/>
 					<div className="max-h-96 ">

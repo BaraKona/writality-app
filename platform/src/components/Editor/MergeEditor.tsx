@@ -1,11 +1,7 @@
 import React, { FC } from "react";
-import { BaseEditor } from "./BaseEditor";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { IChapterContent } from "../../interfaces/IChapterContent";
 import { Divider, Skeleton } from "@mantine/core";
-import { useEditor } from "@tiptap/react";
-import { extensions } from "./utils/editorExtensions";
-import { ButtonWrapper } from "../buttons/ButtonWrapper";
 import { BlueButton } from "../buttons/BlueButton";
 import { IconGitMerge } from "@tabler/icons-react";
 export const MergeEditor: FC<{
@@ -32,17 +28,6 @@ export const MergeEditor: FC<{
 
 	return (
 		<div className="flex gap-2 flex-col w-full h-[calc(100vh-180px)]">
-			<BaseEditor
-				editor={editor}
-				chapterTitle={main.title}
-				setTitle={() => console.log("setTitle")}
-				isTitle={true}
-				content={removedContent + branch.content}
-				height="calc(100vh - 220px)"
-				noCounter
-				noBack
-				noBar2
-			/>
 			<div>
 				<Divider color="grey.0" />
 				<div className="w-64 p-1 ml-auto">

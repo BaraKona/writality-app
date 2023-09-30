@@ -34,7 +34,7 @@ export const ProjectListItem: FC<{
 
 	return (
 		<div
-			className={`transition-all ease-in-out duration-500 ${
+			className={`transition-all ease-in-out duration-500 text-coolGrey-7 ${
 				sidebarProjectOpen ? "" : "mb-1"
 			} `}
 		>

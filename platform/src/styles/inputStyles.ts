@@ -1,26 +1,13 @@
 export const inputStyles = {
-	input: {
-		borderColor: "#e2e2e2",
-		borderRadius: "0.375rem !important",
-		border: "1px solid #e2e2e2 !important",
-		color: "#394251",
-		fontSize: "0.75rem !important",
-		marginBottom: "0.5rem",
-		backgroundColor: "transparent",
-		"&:focus": {
-			outline: "none",
-			border: "none",
-			backgroundColor: "black",
-			"--tw-ring-color": "transparent",
-		},
-		input: {
-			border: "none",
-			fontSize: "0.75rem",
-		},
-	},
-	label: {
-		color: "#394251",
-		fontSize: "0.75rem",
-		fontWeight: 600,
-	},
+	input:
+		"border-none rounded-sm text-gray-700 text-xs py-2 px-3 mb-2 bg-transparent focus:outline-none focus:border-none focus:bg-black focus:ring-transparent",
+
+	// label: {
+	// 	color: "#394251",
+	// 	fontSize: "0.75rem",
+	// 	fontWeight: 600,
+	// },
 };
+
+// export const inputStyles =
+// 	"border border-gray-300 rounded-sm !important text-gray-700 text-xs py-2 px-3 mb-2 bg-transparent focus:outline-none focus:border-none focus:bg-black focus:ring-transparent";

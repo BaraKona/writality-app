@@ -104,21 +104,22 @@ export const BlockEditor: FC<{
 					readOnly={!isEditable}
 					autosize
 					minRows={1}
-					styles={{
+					classNames={{
 						...inputStyles,
-						input: {
-							...inputStyles.input,
-							fontSize: "2.7rem !important",
-							fontWeight: 800,
-							padding: "0 3rem !important",
-							lineHeight: "2.8rem !important",
-							height: "auto",
-							border: "none",
-							backgroundColor: "transparent",
-							color: "#25262b",
-							margin: "0.5rem auto",
-							overflow: "hidden",
-						},
+
+						// input: {
+						// 	// ...inputStyles.input,
+						// 	fontSize: "2.7rem !important",
+						// 	fontWeight: 800,
+						// 	padding: "0 3rem !important",
+						// 	lineHeight: "2.8rem !important",
+						// 	height: "auto",
+						// 	border: "none",
+						// 	backgroundColor: "transparent",
+						// 	color: "#25262b",
+						// 	margin: "0.5rem auto",
+						// 	overflow: "hidden",
+						// },
 					}}
 				/>
 				<BlockNoteView editor={editor} theme="light" />

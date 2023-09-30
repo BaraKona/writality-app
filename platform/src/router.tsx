@@ -21,7 +21,11 @@ const socket = io(import.meta.env.VITE_API_URL, {
 const dashboardRoutes: RouteObject[] = [
 	{
 		path: "*", // catch all routes
-		// redirect to '/' if route does not exist
+		element: <FourOFour />,
+	},
+
+	{
+		path: "auth/*", // catch all routes
 		loader: () => redirect("/"),
 	},
 	{ path: "/", loader: () => redirect("/profile") },

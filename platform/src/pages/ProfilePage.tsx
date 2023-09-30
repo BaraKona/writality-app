@@ -35,7 +35,7 @@ export const ProfilePage = () => {
 				alt="Banner by Jez Timms on Unsplash"
 			/>
 
-			<div className="max-w-screen-lg mx-auto">
+			<div className="max-w-screen-lg mx-auto text-coolGrey-7">
 				<Title>Welcome {currentUser.name}</Title>
 				<div className="p-2 rounded-normal flex flex-col gap-2">
 					<ProfileProjects

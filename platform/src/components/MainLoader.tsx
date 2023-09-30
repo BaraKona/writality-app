@@ -4,9 +4,10 @@ export const MainLoader = () => {
 	return (
 		<div className="flex h-screen">
 			<div className="m-auto flex flex-col items-center">
-				<Loader variant="bars" color="#394251" />
+				<Loader type="bars" color="#394251" size="sm" />
 				<p>
-					<span className="font-bold">Loading</span> your account...
+					<span className="font-bold text-coolGrey-8">Loading</span> your
+					account...
 				</p>
 			</div>
 		</div>
