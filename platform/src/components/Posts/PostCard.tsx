@@ -141,7 +141,7 @@ export const PostCard: FC<{
 					</div>
 				)}
 				<BlueButton onClick={() => openPost(post.uid)}>
-					<IconEye size={18} /> Explore post
+					<IconEye size={18} className="mr-2" /> Explore post
 				</BlueButton>
 			</Card>
 		</div>

@@ -75,7 +75,7 @@ export const getUserProjects = async (req: any, res: any) => {
 			})
 			.sort({ dateCreated: 1 })
 			.select(
-				"-chat -history -collaborators -board -hasChat -description -dateUpdated -dateCreated -__v"
+				"-chat -history -collaborators -board -hasChat -description -dateUpdated -__v"
 			);
 
 		const standard = projects.filter((project) => project.type === "standard");

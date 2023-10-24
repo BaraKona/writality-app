@@ -7,10 +7,11 @@ export const EmptyItem: FC<{
 	title?: string;
 	p1?: string;
 	p2?: string;
+	className?: string;
 }> = ({ createNewChapter, title, p1, p2 }) => {
 	return (
-		<div className="flex place overflow-y-auto mx-auto">
-			<div className=" flex items-center flex-row gap-5 m-auto flex-wrap">
+		<div className="flex overflow-y-auto mx-auto">
+			<div className=" flex items-center justify-center flex-row gap-5 m-auto flex-wrap">
 				<div className="my-auto">
 					<img src={circle4} alt="circle4" width={200} height={200} />
 				</div>

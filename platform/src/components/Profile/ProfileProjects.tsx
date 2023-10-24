@@ -2,9 +2,11 @@ import { FC } from "react";
 import { IProject, ProjectType } from "../../interfaces/IProject";
 import { IconBook2, IconAtom } from "@tabler/icons-react";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { Skeleton } from "@mantine/core";
+import { Divider, Skeleton } from "@mantine/core";
 import { useLocation, useNavigate } from "react-router-dom";
 import { EmptyItem } from "../Chapters/EmptyItem";
+import { useTimeFromNow } from "../../hooks/useTimeFromNow";
+import { SmallText } from "../texts/SmallText";
 
 export const ProfileProjects: FC<{
 	projects: {
@@ -64,21 +66,27 @@ export const ProfileProjects: FC<{
 			<div className=" overflow-y-auto flex flex-row flex-wrap gap-3">
 				{projects.standard.map((project) => (
 					<div
-						className="flex gap-2 rounded-normal basis-60 p-2 border border-border"
+						className="gap-2 rounded-normal basis-64 p-2 border border-border"
 						onClick={() => navigate(`/project/${project.uid}/home`)}
 					>
-						{project.type === ProjectType.standard ? (
-							<IconBook2 size={20} className="w-5" />
-						) : (
-							<IconAtom size={20} className="w-5" />
-						)}
+						<div className="flex justify-between items-center py-2">
+							{project.type === ProjectType.standard ? (
+								<IconBook2 size={20} className="w-5" />
+							) : (
+								<IconAtom size={20} className="w-5" />
+							)}
+							<SmallText light>
+								{useTimeFromNow(project.dateCreated.date)}
+							</SmallText>
+						</div>
+
 						<div className="flex flex-col">
-							<div className="text-sm font-bold">{project.title}</div>
-							{/* <TypographyStylesProvider> */}
+							<div className="text-lg font-bold">{project.title}</div>
+							<Divider my="xs" color="grey.0" />
 							<div className="text-xs line-clamp-6 text-gray-500 w-full">
-								{project.description}
+								{project.description ||
+									"This project has no description. Adding a description will help people understand what your project is about and help you locate collaborators."}
 							</div>
-							{/* </TypographyStylesProvider> */}
 						</div>
 					</div>
 				))}
