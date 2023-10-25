@@ -19,8 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { useLocalStorage } from "@mantine/hooks";
-import { useMantineColorScheme } from "@mantine/core";
+import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const MainFrame: FC<{
 	children: ReactNode;
@@ -28,7 +27,7 @@ export const MainFrame: FC<{
 	const { setTabs, tabs } = useTabContext();
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+	const { theme, toggleTheme } = useThemeContext();
 
 	const { project, chapter } = useParams();
 	const pathname = location.pathname;
@@ -148,9 +147,9 @@ export const MainFrame: FC<{
 						key={tab.id}
 						className={` ${
 							tab.active
-								? "bg-base border border-border hover:bg-base"
-								: "cursor-pointer border border-primary hover:bg-base"
-						} flex items-center justify-between px-2 py-1.5 w-44 bg-base border border-border hover:bg-base  rounded-normal transition-all duration-500 ease-in-out min-w-0`}
+								? "light:bg-base dark:bg-black border border-border hover:bg-base hover:dark:bg-black"
+								: "cursor-pointer border border-primary "
+						} flex items-center justify-between px-2 py-1.5 w-44 bg-base dark:bg-black border border-border hover:bg-base hover:dark:bg-black  rounded-normal transition-all duration-500 ease-in-out min-w-0`}
 						onClick={() => changeTab(tab)}
 					>
 						<div
@@ -189,12 +188,12 @@ export const MainFrame: FC<{
 				</div>
 				<div
 					className="ml-auto p-2 border-border border rounded-normal py-1.5 cursor-pointer"
-					onClick={() => toggleColorScheme()}
+					onClick={toggleTheme}
 				>
-					{colorScheme !== "dark" ? (
-						<IconMoon size={18} className="text-coolGrey-4" />
+					{theme === "dark" ? (
+						<IconMoon size={14} className="text-cyan-900" />
 					) : (
-						<IconSun size={18} className="text-coolGrey-4" />
+						<IconSun size={14} className="text-yellow-600" />
 					)}
 				</div>
 			</div>

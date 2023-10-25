@@ -24,7 +24,7 @@ export const MantineProvider: FC<{ children: ReactNode }> = ({ children }) => {
 			<MantineProv
 				emotionCache={myCache}
 				theme={{
-					// colorScheme: "dark",
+					colorScheme,
 					colors: {
 						greyBlue: [
 							"#f6f7f9",
@@ -63,7 +63,6 @@ export const MantineProvider: FC<{ children: ReactNode }> = ({ children }) => {
 							"#0c0d0f",
 						],
 					},
-					// fontFamily: "Noto Sans JP, sans-serif",
 				}}
 			>
 				{children}
