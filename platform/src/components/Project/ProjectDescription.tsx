@@ -5,7 +5,7 @@ import { BlockNoteEditor } from "@blocknote/core";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import { IconDeviceFloppy, IconFileDescription } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";
-
+import { useThemeContext } from "../../Providers/ThemeProvider";
 export const ProjectDescription: FC<{
 	project: IProject;
 	updateDescription: (description: string) => void;
@@ -22,6 +22,8 @@ export const ProjectDescription: FC<{
 		},
 	];
 
+	const { theme } = useThemeContext();
+
 	const editor = useBlockNote(
 		{
 			initialContent: project?.description
@@ -35,7 +37,7 @@ export const ProjectDescription: FC<{
 	);
 
 	return (
-		<div className=" flex flex-col flex-grow p-1  bg-base border border-border rounded-normal w-72 hover:w-96 transition-all ease-in-out duration-200 h-[calc(100vh-3.2rem)]">
+		<div className=" flex flex-col flex-grow p-1  bg-base border border-border rounded-normal w-96 h-[calc(100vh-3.2rem)]">
 			<div className="flex justify-between items-center">
 				<h3 className=" text-coolGrey-7 font-medium text-sm flex gap-2">
 					<IconFileDescription size={20} />
@@ -58,7 +60,7 @@ export const ProjectDescription: FC<{
 				</Tooltip>
 			</div>
 			<div className="overflow-y-auto">
-				<BlockNoteView editor={editor} theme="light" />
+				<BlockNoteView editor={editor} theme={theme} />
 			</div>
 		</div>
 	);
