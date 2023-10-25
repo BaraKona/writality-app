@@ -11,9 +11,10 @@ import { BannerImage } from "../BannerImage";
 
 export const ChapterWrapper: FC<{
 	children: ReactNode;
+	className: string;
 	project: IProject;
 	isLoading: boolean;
-}> = ({ children, project, isLoading }) => {
+}> = ({ children, project, isLoading, className }) => {
 	if (isLoading) {
 		return (
 			<div
@@ -47,7 +48,7 @@ export const ChapterWrapper: FC<{
 
 	return (
 		<div
-			className={`flex flex-col bg-base gap-2 rounded-normal h-[calc(100vh-50px)] overflow-y-auto`}
+			className={`flex flex-col bg-base gap-2 rounded-normal h-[calc(100vh-50px)] overflow-y-auto ${className}`}
 		>
 			{/* <div className=" flex font-medium gap-2 bg-base text-coolGrey-7 items-center">
 		<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>

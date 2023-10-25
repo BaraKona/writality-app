@@ -14,22 +14,14 @@ import {
 	ChapterRenderer,
 } from "../../components/Chapters";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { IChapter } from "../../interfaces/IChapter";
 import { CharacterWrapper } from "../../components/Characters/CharacterWrapper";
 import { Loading } from "../../components/Loading";
-import { useQuery, useMutation, useQueryClient } from "react-query";
-import {
-	getProjectChapters,
-	createChapter,
-	deleteSingleChapter,
-} from "../../api/project/chapters";
+import { useMutation, useQueryClient } from "react-query";
 import { DeleteModal } from "../../components/Modals";
 import { updateProjectDescription } from "../../api/project/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Divider, Skeleton, Tabs, Tooltip } from "@mantine/core";
-import { useEditor } from "@tiptap/react";
-import { extensions } from "../../components/Editor/utils/editorExtensions";
 import { ProjectSettings } from "../../components/Project/ProjectSettings";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChatWrapper } from "../../components/Project/chatrooms/ChatWrapper";
@@ -37,10 +29,7 @@ import { tabStyles } from "../../styles/tabStyles";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { useCreateChapter } from "../../hooks/projects/useCreateChapter";
 import { FourOFour } from "../404";
-import { PublishChapterSide } from "../../components/Project/publish/PublishChapterSide";
-import { useBlockNote } from "@blocknote/react";
 import { ProjectAnalytics } from "../../components/Project/ProjectAnalytics";
-import { ProjectBoard } from "../../components/Project/ProjectBoard";
 import { useProjectBoard } from "../../hooks/projects/useProjectBoard";
 import { ProjectHistory } from "../../components/Project/ProjectHistory";
 import { useCreateFolder } from "../../hooks/projects/useCreateFolder";
@@ -56,7 +45,6 @@ export function Project() {
 	const [openModal, setOpenModal] = useState(false);
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
-
 	const { data: currentProject, isLoading } = useSingleProject(
 		project as string
 	);
@@ -107,7 +95,7 @@ export function Project() {
 		);
 
 	return (
-		<section className="relative">
+		<section className="relative flex gap-2 w-full">
 			<DeleteModal
 				opened={openModal}
 				setOpened={setOpenModal}
@@ -117,9 +105,10 @@ export function Project() {
 			<ChapterWrapper
 				project={currentProject}
 				isLoading={Boolean(!currentProject)}
+				className="w-full transition-all ease-in-out duration-200"
 			>
 				<Tabs
-					className="w-full border-none important:border-none h-[calc(100vh-12.2rem)]"
+					className="border-none important:border-none h-[calc(100vh-12.2rem)]"
 					value={projectTab}
 					onTabChange={(tab) => navigate(`/project/${project}/${tab}`)}
 					defaultValue="home"
@@ -188,7 +177,7 @@ export function Project() {
 					</Tabs.List>
 
 					<Tabs.Panel value="home">
-						<div className="flex flex-col gap-2 max-w-screen-xl mx-auto">
+						<div className="flex gap-2 max-w-screen-xl mx-auto">
 							<div className="grid grid-cols-9 gap-6 gap-y-2 grid-rows-4 h-[80vh]">
 								<ProjectAnalytics />
 								<ChapterRenderer
@@ -226,10 +215,6 @@ export function Project() {
 								</ChapterRenderer>
 								<ProjectHistory project={currentProject} />
 							</div>
-							{/* <ProjectDescription
-								project={currentProject}
-								updateDescription={updateDescription.mutate}
-							/> */}
 							{/* {currentProject?.type === "collaboration" ? (
 								<ProjectBoard
 									project={currentProject}
@@ -255,6 +240,14 @@ export function Project() {
 					</Tabs.Panel>
 				</Tabs>
 			</ChapterWrapper>
+			{projectTab === "home" && (
+				<div className="max-w-2xl">
+					<ProjectDescription
+						project={currentProject}
+						updateDescription={updateDescription.mutate}
+					/>
+				</div>
+			)}
 		</section>
 	);
 }

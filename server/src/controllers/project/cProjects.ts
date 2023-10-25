@@ -187,8 +187,10 @@ export const deleteProject = async (req: any, res: any) => {
 };
 
 export const updateProjectDescription = async (req: any, res: any) => {
-	const { userId, projectId } = req.params;
+	const userId = req.user._id;
+	const { projectId } = req.params;
 	const { description } = req.body;
+
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
 		project.description = description;

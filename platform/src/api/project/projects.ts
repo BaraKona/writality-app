@@ -60,14 +60,13 @@ export const updateProjectDescription = async (
 	description: string
 ) => {
 	try {
-		const { data } = await projectApi.patch(
-			`${userId}/${projectId}/description`,
-			{ description }
-		);
+		const { data } = await projectApi.patch(`/user/${projectId}/description`, {
+			description,
+		});
 		useToast("success", "Project description updated successfully 😃");
 		return data;
 	} catch (err: any) {
-		const { data } = err.response;
+		console.log(err);
 		useToast("error", "something went wrong 😖");
 	}
 };

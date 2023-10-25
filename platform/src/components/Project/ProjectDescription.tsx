@@ -35,7 +35,7 @@ export const ProjectDescription: FC<{
 	);
 
 	return (
-		<div className="lg:row-span-1 lg:col-span-6 col-span-full flex flex-col flex-grow p-1  bg-base border border-border rounded-normal">
+		<div className=" flex flex-col flex-grow p-1  bg-base border border-border rounded-normal w-72 hover:w-96 transition-all ease-in-out duration-200 h-[calc(100vh-3.2rem)]">
 			<div className="flex justify-between items-center">
 				<h3 className=" text-coolGrey-7 font-medium text-sm flex gap-2">
 					<IconFileDescription size={20} />
