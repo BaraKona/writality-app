@@ -16,6 +16,11 @@ export const getUserProjects = async () => {
 	return data;
 };
 
+export const getUserProfileProjects = async () => {
+	const { data } = await projectApi.get(`/profile`);
+	return data;
+};
+
 export const createProject = async () => {
 	const { data } = await projectApi.post("/");
 	return data;

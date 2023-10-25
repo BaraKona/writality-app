@@ -44,7 +44,7 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 	}
 
 	return (
-		<div className="border-border border rounded-normal h-[calc(100vh-3.2rem)]  pl-2">
+		<div className="border-border border rounded-normal h-[calc(100vh-3.2rem)] pl-2">
 			<div className="text-xs font-medium mt-2 w-full flex justify-between pb-1">
 				Your Posts{" "}
 				<CreateButton
@@ -54,7 +54,7 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 			</div>
 			<div className="flex flex-col gap-2 pr-2 h-[calc(100vh-5.5rem)] overflow-y-auto">
 				{posts.map((post) => (
-					<PostCard post={post!} openPost={openPost} />
+					<PostCard post={post!} openPost={openPost} key={post.uid} />
 				))}
 			</div>
 		</div>

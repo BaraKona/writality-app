@@ -17,14 +17,16 @@ import {
 	getProjectChapters,
 	moveProjectChapterIntoFolder,
 	getOpenFolderChapters,
+	getUserProfileProjects,
 } from "../../controllers/project/cProjects";
 
 const router = express.Router();
 
 router.post("/", protect, createProject);
 router.get("/all", protect, getAllProjects);
-router.get("/user/:projectId", protect, getProject);
+router.get("/profile", protect, getUserProfileProjects);
 router.get("/user", protect, getUserProjects);
+router.get("/user/:projectId", protect, getProject);
 router.get("/chapters/:projectId", protect, getProjectChapters);
 router.get("/open-folder/:projectId/:folderId", protect, getOpenFolderChapters);
 router.patch("/user/:projectId/description", protect, updateProjectDescription);

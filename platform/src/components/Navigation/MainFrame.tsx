@@ -11,12 +11,16 @@ import {
 	IconX,
 	IconPlus,
 	IconUserCircle,
+	IconMoon,
+	IconSun,
 } from "@tabler/icons-react";
 import { useTabContext } from "../../contexts/TabContext";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { useLocalStorage } from "@mantine/hooks";
+import { useMantineColorScheme } from "@mantine/core";
 
 export const MainFrame: FC<{
 	children: ReactNode;
@@ -24,6 +28,8 @@ export const MainFrame: FC<{
 	const { setTabs, tabs } = useTabContext();
 	const navigate = useNavigate();
 	const location = useLocation();
+	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+
 	const { project, chapter } = useParams();
 	const pathname = location.pathname;
 
@@ -136,7 +142,7 @@ export const MainFrame: FC<{
 
 	return (
 		<div className="w-[calc(100vw-19rem)]">
-			<div className="my-1.5 px-2 flex gap-1 content-start ">
+			<div className="my-1.5 px-2 flex gap-1 content-start items-center">
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}
@@ -149,7 +155,7 @@ export const MainFrame: FC<{
 					>
 						<div
 							className={`flex w-full items-center flex-row cursor-default ${
-								tab.active ? "text-black" : "text-coolGrey-7"
+								tab.active ? "text-coolGrey-7" : "text-coolGrey-7"
 							}`}
 						>
 							{tabIcons.find((t) => t.title === tab.title)?.icon ||
@@ -180,6 +186,16 @@ export const MainFrame: FC<{
 					onClick={addTab}
 				>
 					<IconPlus size={18} className="text-gray-400 " />
+				</div>
+				<div
+					className="ml-auto p-2 border-border border rounded-normal py-1.5 cursor-pointer"
+					onClick={() => toggleColorScheme()}
+				>
+					{colorScheme !== "dark" ? (
+						<IconMoon size={18} className="text-coolGrey-4" />
+					) : (
+						<IconSun size={18} className="text-coolGrey-4" />
+					)}
 				</div>
 			</div>
 			<section className="h-[calc(100vh-3rem)] rounded-normal overflow-y-auto  px-2">

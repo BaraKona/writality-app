@@ -1,6 +1,6 @@
 import { Divider, Text } from "@mantine/core";
 import { ProfileProjects } from "../components/Profile/ProfileProjects";
-import { useUserProjects } from "../hooks/projects/useUserProjects";
+import { useUserProfileProjects } from "../hooks/projects/useUserProfileProjects";
 import { useCreateProject } from "../hooks/projects/useCreateProject";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useRemoveFavourite } from "../hooks/user/useRemoveFavouriteProject";
@@ -14,7 +14,7 @@ import { Title } from "../components/Title";
 
 export const ProfilePage = () => {
 	const { currentUser } = useAuthContext();
-	const { data: projects, isLoading } = useUserProjects();
+	const { data: projects, isLoading } = useUserProfileProjects();
 	const { data: posts, isLoading: postLoading } = useUserPosts();
 	const { mutate } = useCreateProject();
 	const { mutate: mutateFavourite } = useAddFavouriteTab();
@@ -23,8 +23,6 @@ export const ProfilePage = () => {
 	function greeting() {
 		const today = new Date();
 		const curHr = today.getHours();
-
-		console.log(curHr);
 
 		if (curHr < 12) {
 			return "Good Morning";
@@ -37,7 +35,7 @@ export const ProfilePage = () => {
 
 	return (
 		<div className="flex flex-row gap-2 ">
-			<div className="place-items-center rounded-normal bg-base flex-grow border-border border ">
+			<div className="place-items-center rounded-normal bg-base flex-grow border-border border overflow-y-auto h-[calc(100vh-3.2rem)]">
 				<BannerImage
 					image={DefaultProfileBanner}
 					alt="Banner by Jez Timms on Unsplash"

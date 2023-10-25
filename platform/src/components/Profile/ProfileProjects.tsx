@@ -9,10 +9,7 @@ import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { SmallText } from "../texts/SmallText";
 
 export const ProfileProjects: FC<{
-	projects: {
-		standard: IProject[];
-		collaboration: IProject[];
-	};
+	projects: IProject[];
 	addFavourite: ({
 		type,
 		url,
@@ -47,7 +44,7 @@ export const ProfileProjects: FC<{
 		);
 	}
 
-	if (projects?.standard?.length === 0 || !projects) {
+	if (!projects || projects.length === 0) {
 		return (
 			<div className="border-border border rounded-normal h-[calc(100vh-39rem)] flex content-center items-center">
 				<EmptyItem
@@ -62,12 +59,13 @@ export const ProfileProjects: FC<{
 
 	return (
 		<div className="">
-			<div className="text-xs font-medium">Your Projects</div>
-			<div className=" overflow-y-auto flex flex-row flex-wrap gap-3">
-				{projects.standard.map((project) => (
+			<div className="text-md font-medium my-5">Your Projects</div>
+			<div className=" flex flex-row flex-wrap gap-3">
+				{projects.map((project) => (
 					<div
-						className="gap-2 rounded-normal basis-64 p-2 border border-border"
+						className="gap-2 rounded-normal basis-[15.4rem] pt-3 p-4 border border-border hover:border-coolGrey-3 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
 						onClick={() => navigate(`/project/${project.uid}/home`)}
+						key={project.uid}
 					>
 						<div className="flex justify-between items-center py-2">
 							{project.type === ProjectType.standard ? (

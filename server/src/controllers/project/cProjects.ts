@@ -94,6 +94,39 @@ export const getUserProjects = async (req: any, res: any) => {
 	}
 };
 
+export const getUserProfileProjects = async (req: any, res: any) => {
+	const userId = req.user._id;
+	try {
+		const projects = await Project.find({
+			$or: [
+				{ owner: userId },
+				{
+					collaborators: {
+						$elemMatch: { uid: userId, active: true },
+					},
+				},
+			],
+		})
+			.populate({
+				path: "chapters",
+				select: "projectId title uid content.title content.wordCount",
+			})
+			.populate({
+				path: "folders.chapters",
+				select: "projectId title uid content.title",
+			})
+			.sort({ dateCreated: 1 })
+			.select(
+				"-chat -history -collaborators -board -hasChat -description -dateUpdated -__v"
+			);
+
+		res.status(200).json(projects);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
 export const getAllProjects = async (req: any, res: any) => {
 	try {
 		const projects = await Project.find();
