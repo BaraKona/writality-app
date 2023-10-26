@@ -36,12 +36,9 @@ export const getSingleProject = async (projectId: string) => {
 	return data;
 };
 
-export const deleteSingleProject = async (
-	userId: string,
-	projectId: string
-) => {
+export const deleteSingleProject = async (projectId: string) => {
 	try {
-		const { data } = await projectApi.delete(`/project/${userId}/${projectId}`);
+		const { data } = await projectApi.delete(`/project/user/${projectId}`);
 		useToast(
 			"success",
 			"Project deleted successfully along with all its components 😃"

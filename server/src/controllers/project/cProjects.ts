@@ -171,7 +171,8 @@ export const getProject = async (req: any, res: any) => {
 };
 
 export const deleteProject = async (req: any, res: any) => {
-	const { userId, projectId } = req.params;
+	const { projectId } = req.params;
+	const userId = req.user._id;
 	try {
 		const project = await Project.findOne({ owner: userId, uid: projectId });
 		Promise.all([

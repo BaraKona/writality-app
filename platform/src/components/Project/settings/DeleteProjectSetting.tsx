@@ -15,10 +15,11 @@ export const DeleteProjectSetting = () => {
 	const navigate = useNavigate();
 	const { project } = useParams();
 	const deleteProject = useMutation(
-		() => deleteSingleProject(currentUser.uid, project as string),
+		() => deleteSingleProject(project as string),
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["projects", currentUser.uid]);
+				queryClient.invalidateQueries(["projects"]);
 				navigate("/");
 			},
 		}
