@@ -1,7 +1,6 @@
 import { FC, useEffect } from "react";
 import { IProject } from "../../interfaces/IProject";
 import { Button, Skeleton, Tooltip } from "@mantine/core";
-import { BlockNoteEditor } from "@blocknote/core";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import { IconDeviceFloppy, IconFileDescription } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";

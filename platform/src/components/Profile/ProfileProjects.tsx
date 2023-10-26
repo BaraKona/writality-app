@@ -1,6 +1,12 @@
 import { FC } from "react";
 import { IProject, ProjectType } from "../../interfaces/IProject";
-import { IconBook2, IconAtom } from "@tabler/icons-react";
+import {
+	IconBook2,
+	IconAtom,
+	IconLayoutGrid,
+	IconLayoutList,
+	IconList,
+} from "@tabler/icons-react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { Divider, Skeleton } from "@mantine/core";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,6 +14,7 @@ import { EmptyItem } from "../Chapters/EmptyItem";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { SmallText } from "../texts/SmallText";
 import { useBlockNote, BlockNoteView } from "@blocknote/react";
+import { useLocalStorage } from "@mantine/hooks";
 
 export const ProfileProjects: FC<{
 	projects: IProject[];
@@ -31,6 +38,11 @@ export const ProfileProjects: FC<{
 	isLoading,
 }) => {
 	const navigate = useNavigate();
+
+	const [layout, setLayout] = useLocalStorage<"grid" | "list">({
+		key: "project-layout",
+		defaultValue: "grid",
+	});
 
 	if (isLoading) {
 		return (
@@ -60,23 +72,73 @@ export const ProfileProjects: FC<{
 
 	return (
 		<div className="">
-			<div className="text-md font-medium my-5">Your Projects</div>
-			<div className=" flex flex-row flex-wrap gap-3">
-				{projects.map((project) => (
-					<ProjectDescription project={project} updateDescription={() => {}} />
-				))}
+			<div className="text-md font-medium my-5 flex items-center justify-between">
+				Your Projects
+				<div className="flex gap-1">
+					<div
+						className={`border rounded-normal p-2 ${
+							layout === "grid"
+								? "border-transparent bg-coolGrey-1"
+								: "border-coolGrey-2 hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
+						}`}
+					>
+						<IconLayoutGrid size={16} onClick={() => setLayout("grid")} />
+					</div>
+					<div
+						className={`border rounded-normal p-2 ${
+							layout === "list"
+								? "border-transparent bg-coolGrey-1"
+								: "border-coolGrey-2 hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
+						}`}
+					>
+						<IconList size={16} onClick={() => setLayout("list")} />
+					</div>
+				</div>
 			</div>
+
+			{layout === "grid" ? (
+				<div className="flex flex-row flex-wrap gap-3">
+					{projects.map((project) => (
+						<GridProjects project={project} />
+					))}
+				</div>
+			) : (
+				<ListProjects projects={projects} />
+			)}
 		</div>
 	);
 };
 
-const ProjectDescription = ({
-	project,
-	updateDescription,
-}: {
-	project: IProject;
-	updateDescription: (arg0: string) => void;
-}) => {
+const ListProjects = ({ projects }: { projects: IProject[] }) => {
+	const navigate = useNavigate();
+	return (
+		<div className="flex flex-col gap-1.5">
+			{projects.map((project) => (
+				<div
+					className="gap-2 rounded-normal p-2 border border-border hover:border-coolGrey-3 hover:shadow-sm cursor-pointer transition-all duration-200 ease-in-out"
+					onClick={() => navigate(`/project/${project.uid}/home`)}
+					key={project.uid}
+				>
+					<div className="flex justify-between items-center ">
+						<div className="flex gap-2 items-center">
+							{project.type === ProjectType.standard ? (
+								<IconBook2 size={20} className="w-5" />
+							) : (
+								<IconAtom size={20} className="w-5" />
+							)}
+							<div className="text-sm font-semibold">{project.title}</div>
+						</div>
+						<SmallText light>
+							{useTimeFromNow(project.dateCreated.date)}
+						</SmallText>
+					</div>
+				</div>
+			))}
+		</div>
+	);
+};
+
+const GridProjects = ({ project }: { project: IProject }) => {
 	const navigate = useNavigate();
 	const editor = useBlockNote(
 		{
