@@ -20,14 +20,14 @@ export function IconRenderer({
 		<div ref={parent}>
 			{type === "collaboration" ? (
 				open ? (
-					<IconAtom size={18} />
+					<IconAtom size={18} className="text-violet-900" />
 				) : (
-					<IconAtom2 size={18} />
+					<IconAtom2 size={18} className="text-violet-900" />
 				)
 			) : open ? (
-				<IconBook size={18} />
+				<IconBook size={18} className="text-neutral-600" />
 			) : (
-				<IconBook2 size={18} />
+				<IconBook2 size={18} className="text-neutral-600" />
 			)}
 		</div>
 	);

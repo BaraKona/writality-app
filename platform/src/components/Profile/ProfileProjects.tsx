@@ -2,7 +2,7 @@ import { FC } from "react";
 import { IProject, ProjectType } from "../../interfaces/IProject";
 import {
 	IconBook2,
-	IconAtom,
+	IconAtom2,
 	IconLayoutGrid,
 	IconLayoutList,
 	IconList,
@@ -122,9 +122,9 @@ const ListProjects = ({ projects }: { projects: IProject[] }) => {
 					<div className="flex justify-between items-center ">
 						<div className="flex gap-2 items-center">
 							{project.type === ProjectType.standard ? (
-								<IconBook2 size={20} className="w-5" />
+								<IconBook2 size={20} className="text-neutral-600" />
 							) : (
-								<IconAtom size={20} className="w-5" />
+								<IconAtom2 size={20} className="text-violet-900" />
 							)}
 							<div className="text-sm font-semibold">{project.title}</div>
 						</div>
@@ -167,9 +167,9 @@ const GridProjects = ({ project }: { project: IProject }) => {
 		>
 			<div className="flex justify-between items-center py-2">
 				{project.type === ProjectType.standard ? (
-					<IconBook2 size={20} className="w-5" />
+					<IconBook2 size={20} className="text-neutral-600" />
 				) : (
-					<IconAtom size={20} className="w-5" />
+					<IconAtom2 size={20} className="text-violet-900" />
 				)}
 				<SmallText light>{useTimeFromNow(project.dateCreated.date)}</SmallText>
 			</div>

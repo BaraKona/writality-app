@@ -54,9 +54,9 @@ export const EditorWrapper: FC<{
 			path: "/project/" + project?.uid + "/home",
 			icon:
 				project?.type === "standard" ? (
-					<IconBook2 size={18} />
+					<IconBook2 size={18} className="text-neutral-600" />
 				) : (
-					<IconAtom2 size={18} />
+					<IconAtom2 size={18} className="text-violet-900" />
 				),
 			isLoading: isLoading,
 		},

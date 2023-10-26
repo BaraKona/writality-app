@@ -15,7 +15,7 @@ export const TabListItem: FC<{
 		story: <IconBooks size={18} />,
 		post: <IconNotes size={18} />,
 		user: <IconTemplate size={18} />,
-		project: <IconBook2 size={18} />,
+		project: <IconBook2 size={18} className="text-neutral-600" />,
 	};
 
 	return (
