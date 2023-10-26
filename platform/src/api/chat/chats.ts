@@ -1,7 +1,5 @@
 import axios from "axios";
-import { IChat } from "../../interfaces/IChat";
 import { useToast } from "../../hooks/useToast";
-import { v4 as uuidv4 } from "uuid";
 
 const chatApi = axios.create({
 	baseURL: import.meta.env.VITE_API_URL + "/chats",

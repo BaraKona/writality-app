@@ -1,5 +1,4 @@
 import axios from "axios";
-import { IProject } from "../../interfaces/IProject";
 import { useToast } from "../../hooks/useToast";
 
 const projectApi = axios.create({
@@ -151,8 +150,3 @@ export const getOpenFolderChapters = async (
 
 	return data;
 };
-
-// export const getDeprecatedChapters = async () => {
-// 	const { data } = await projectApi.get("/fix");
-// 	return data;
-// };

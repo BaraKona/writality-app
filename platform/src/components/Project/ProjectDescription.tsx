@@ -32,6 +32,12 @@ export const ProjectDescription: FC<{
 			onEditorContentChange: (editor) => {
 				console.log(editor.topLevelBlocks);
 			},
+
+			domAttributes: {
+				blockContainer: {
+					class: "text-xs",
+				},
+			},
 		},
 		[project]
 	);

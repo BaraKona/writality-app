@@ -1,4 +1,3 @@
-import { useAuthContext } from "./contexts/AuthContext";
 import { RouterProvider } from "react-router-dom";
 import { TabContextWrapper } from "./contexts/TabContext";
 import { publicRouter, router } from "./router";

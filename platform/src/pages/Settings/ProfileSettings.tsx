@@ -5,22 +5,19 @@ import {
 	TextInput,
 	Textarea,
 	Text,
-	Flex,
-	SegmentedControl,
 	Switch,
 	Space,
 } from "@mantine/core";
 import { useUser } from "../../hooks/user/useUser";
 import { inputStyles } from "../../styles/inputStyles";
 import { SmallText } from "../../components/texts/SmallText";
-import { useTimeFromNow, useDefaultDate } from "../../hooks/useTimeFromNow";
-import { countriesList, flags } from "../../utils/countriesList";
+import { useDefaultDate } from "../../hooks/useTimeFromNow";
+import { countriesList } from "../../utils/countriesList";
 import { interestList, preferenceList } from "../../utils/interestList";
 import { BlueButton } from "../../components/buttons/BlueButton";
 import { useUpdateUserData } from "../../hooks/user/useUpdateUserData";
 import { useState } from "react";
 import { IUser } from "../../interfaces/IUser";
-import { languages } from "../../utils/languagesList";
 import { IconEyeClosed } from "@tabler/icons-react";
 import { IconEye } from "@tabler/icons-react";
 

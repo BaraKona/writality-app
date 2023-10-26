@@ -1,10 +1,9 @@
-import { Divider, Text } from "@mantine/core";
+import { Text } from "@mantine/core";
 import { ProfileProjects } from "../components/Profile/ProfileProjects";
 import { useUserProfileProjects } from "../hooks/projects/useUserProfileProjects";
 import { useCreateProject } from "../hooks/projects/useCreateProject";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useRemoveFavourite } from "../hooks/user/useRemoveFavouriteProject";
-import { IconHome, IconUserCircle, IconUserCode } from "@tabler/icons-react";
 import { ProfilePosts } from "../components/Profile/ProfilePosts";
 import { useUserPosts } from "../hooks/posts/useUserPosts";
 import { useAddFavouriteTab } from "../hooks/user/useAddFavouriteTab";
