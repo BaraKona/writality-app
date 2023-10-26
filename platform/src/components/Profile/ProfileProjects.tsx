@@ -75,24 +75,26 @@ export const ProfileProjects: FC<{
 			<div className="text-md font-medium my-5 flex items-center justify-between">
 				Your Projects
 				<div className="flex gap-1">
-					<div
+					<button
 						className={`border rounded-normal p-2 ${
 							layout === "grid"
 								? "border-transparent bg-coolGrey-1"
 								: "border-coolGrey-2 hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
 						}`}
+						onClick={() => setLayout("grid")}
 					>
-						<IconLayoutGrid size={16} onClick={() => setLayout("grid")} />
-					</div>
-					<div
+						<IconLayoutGrid size={16} />
+					</button>
+					<button
 						className={`border rounded-normal p-2 ${
 							layout === "list"
 								? "border-transparent bg-coolGrey-1"
 								: "border-coolGrey-2 hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
 						}`}
+						onClick={() => setLayout("list")}
 					>
-						<IconList size={16} onClick={() => setLayout("list")} />
-					</div>
+						<IconList size={16} />
+					</button>
 				</div>
 			</div>
 
