@@ -35,7 +35,7 @@ export const ProjectDescription: FC<{
 
 			domAttributes: {
 				blockContainer: {
-					class: "text-xs",
+					class: "text-xs -mr-10",
 				},
 			},
 		},

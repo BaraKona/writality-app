@@ -117,7 +117,7 @@ export const getUserProfileProjects = async (req: any, res: any) => {
 			})
 			.sort({ dateCreated: 1 })
 			.select(
-				"-chat -history -collaborators -board -hasChat -description -dateUpdated -__v"
+				"-chat -history -collaborators -board -hasChat -dateUpdated -__v"
 			);
 
 		res.status(200).json(projects);
