@@ -56,7 +56,7 @@ export const EditorWrapper: FC<{
 				project?.type === "standard" ? (
 					<IconBook2 size={18} className="text-neutral-600" />
 				) : (
-					<IconAtom2 size={18} className="text-violet-900" />
+					<IconAtom2 size={18} className="text-cyan-800" />
 				),
 			isLoading: isLoading,
 		},

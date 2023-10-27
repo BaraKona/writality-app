@@ -20,9 +20,9 @@ export function IconRenderer({
 		<div ref={parent}>
 			{type === "collaboration" ? (
 				open ? (
-					<IconAtom size={18} className="text-violet-900" />
+					<IconAtom size={18} className="text-cyan-800" />
 				) : (
-					<IconAtom2 size={18} className="text-violet-900" />
+					<IconAtom2 size={18} className="text-cyan-800" />
 				)
 			) : open ? (
 				<IconBook size={18} className="text-neutral-600" />

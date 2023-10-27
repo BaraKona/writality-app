@@ -13,6 +13,8 @@ module.exports = {
 			colors: {
 				baseColour: "#f2f2f2",
 				base: "#fff",
+				baseDark: "#191a23",
+				borderDark: "#35384a",
 				border: "#ebebeb",
 				coolGrey: "#374151",
 				blueTextLight: "#868e99",

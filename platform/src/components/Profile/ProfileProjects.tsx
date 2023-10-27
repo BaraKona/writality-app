@@ -126,7 +126,7 @@ const ListProjects = ({ projects }: { projects: IProject[] }) => {
 							{project.type === ProjectType.standard ? (
 								<IconBook2 size={20} className="text-neutral-600" />
 							) : (
-								<IconAtom2 size={20} className="text-violet-900" />
+								<IconAtom2 size={20} className="text-cyan-800" />
 							)}
 							<div className="text-sm font-semibold">{project.title}</div>
 						</div>
@@ -171,7 +171,7 @@ const GridProjects = ({ project }: { project: IProject }) => {
 				{project.type === ProjectType.standard ? (
 					<IconBook2 size={20} className="text-neutral-600" />
 				) : (
-					<IconAtom2 size={20} className="text-violet-900" />
+					<IconAtom2 size={20} className="text-cyan-800" />
 				)}
 				<SmallText light>{useTimeFromNow(project.dateCreated.date)}</SmallText>
 			</div>
