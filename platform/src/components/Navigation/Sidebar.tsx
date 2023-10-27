@@ -82,7 +82,7 @@ export const Sidebar: FC<{}> = () => {
 						<div className="ml-2 px-1.5 mt-1 mb-1 flex">
 							{theme === "dark" ? (
 								<img
-									src={cyclops7}
+									src={cyclops8}
 									alt="writality"
 									width={23}
 									height={23}
