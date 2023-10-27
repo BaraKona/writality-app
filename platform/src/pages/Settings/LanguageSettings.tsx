@@ -27,7 +27,10 @@ export const LanguageSettings = () => {
 				<Text size={12} color="dimmed">
 					Manage your language preferences
 				</Text>
-				<Divider my="xs" color="grey.0" />
+				<Divider
+					my="xs"
+					className="!border-coolGrey-1 dark:!border-borderDark"
+				/>
 
 				<MultiSelect
 					label="Languages"

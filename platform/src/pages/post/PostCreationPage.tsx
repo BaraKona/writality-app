@@ -52,7 +52,7 @@ export const PostCreationPage: FC<{}> = () => {
 	return (
 		<div className="h-[calc(100vh-2.7rem)] place-items-center rounded-normal bg-base px-3 py-3">
 			<Breadcrumbs items={breadcrumbs} />
-			<Divider my="xs" color="grey.0" />
+			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" />
 			<div className="flex gap-3">
 				<PostBody post={post} addFavourite={() => {}} />
 				<Divider

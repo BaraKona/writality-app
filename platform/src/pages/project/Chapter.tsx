@@ -264,7 +264,10 @@ export const Chapter = () => {
 						/>
 						{merge === "replace" && (
 							<>
-								<Divider my={2} color="grey.0" />
+								<Divider
+									my={2}
+									className="!border-coolGrey-1 dark:!border-borderDark"
+								/>
 								<ChapterMergeButton setOpen={() => setMergeOpened(true)} />
 							</>
 						)}

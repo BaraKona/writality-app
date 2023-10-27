@@ -16,7 +16,7 @@ export const ChapterSettings: FC<{ close: () => void }> = ({ close }) => {
 					/>
 				</ButtonWrapper>
 			</div>
-			<Divider color="grey.0" />
+			<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 			<ScrollArea.Autosize
 				mah={400}
 				offsetScrollbars

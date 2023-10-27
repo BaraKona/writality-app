@@ -81,7 +81,10 @@ export const ProfileSettings = () => {
 					/>
 				</div>
 
-				<Divider my="xs" color="grey.0" />
+				<Divider
+					my="xs"
+					className="!border-coolGrey-1 dark:!border-borderDark"
+				/>
 
 				<div>
 					<SmallText>Member since: </SmallText>
@@ -155,7 +158,10 @@ export const ProfileSettings = () => {
 					Location
 				</Text>
 				<div className="text-sm text-"> Manage your location </div>
-				<Divider my="xs" color="grey.0" />
+				<Divider
+					my="xs"
+					className="!border-coolGrey-1 dark:!border-borderDark"
+				/>
 				<Select
 					label="Country"
 					placeholder="Your country"

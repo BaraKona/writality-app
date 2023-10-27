@@ -44,7 +44,7 @@ export const MergeEditor: FC<{
 				noBar2
 			/>
 			<div>
-				<Divider color="grey.0" />
+				<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 				<div className="w-64 p-1 ml-auto">
 					<BlueButton onClick={mergeReplace}>
 						<IconGitMerge size={18} />

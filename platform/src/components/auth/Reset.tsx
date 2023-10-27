@@ -23,7 +23,12 @@ export function Reset() {
 				/>
 				<BlueButton>Reset Password</BlueButton>
 			</form>
-			<Divider my="md" label="or" labelPosition="center" color="grey.0" />
+			<Divider
+				my="md"
+				label="or"
+				labelPosition="center"
+				className="!border-coolGrey-1 dark:!border-borderDark"
+			/>
 			<Link to="/auth/login">
 				<p className="text-center text-xs text-coolGrey-7 font-medium ">
 					<span className="underline cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-gray-400 font-semibold">

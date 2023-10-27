@@ -55,7 +55,7 @@ export const ChapterBranches: FC<{
 						/>
 					</ButtonWrapper>
 				</div>
-				<Divider color="grey.0" />
+				<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 				<div className="flex flex-col gap-2 p-2">
 					<Skeleton height={30} width="100%" />
 					<Skeleton height={30} width="100%" />
@@ -84,7 +84,7 @@ export const ChapterBranches: FC<{
 					/>
 				</ButtonWrapper>
 			</div>
-			<Divider color="grey.0" />
+			<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 			{chapterBranches?.length > 0 ? (
 				<div className="text-coolGrey-7">
 					<div className="flex justify-between gap-2 border-b border-border dark:border-borderDark items-center">

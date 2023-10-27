@@ -42,7 +42,7 @@ export const ChapterHistory: FC<{
 						/>
 					</ButtonWrapper>
 				</div>
-				<Divider color="grey.0" />
+				<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 				<ScrollArea.Autosize
 					scrollbarSize={6}
 					className="px-2"

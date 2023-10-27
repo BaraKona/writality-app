@@ -55,14 +55,14 @@ export const FolderListItem: FC<{
 	return (
 		<div className="flex flex-col" ref={parent}>
 			<div
-				className={`px-1 py-0.5 hover:bg-coolGrey-1 cursor-pointer ${className} ${
+				className={`px-1 py-0.5 hover:bg-coolGrey-1 dark:hover:bg-hoverDark cursor-pointer ${className} ${
 					openedFolder === folder.uid ? "" : "mb-1"
 				}`}
 				onClick={() =>
 					setOpenFolder(openedFolder === folder.uid ? "" : folder.uid)
 				}
 			>
-				<SmallText className="flex items-center gap-1.5">
+				<SmallText className="flex items-center gap-1.5 text-teal-900 dark:text-teal-600">
 					{openedFolder == folder.uid ? (
 						<IconFolderOpen size={16} />
 					) : (
@@ -92,14 +92,16 @@ export const FolderListItem: FC<{
 				<div
 					className={` ${
 						small ? "ml-3" : "ml-5"
-					} pl-1 py-1 gap-0.5 flex flex-col border-l `}
+					} pl-1 py-1 gap-0.5 flex flex-col border-l border-border dark:border-borderDark`}
 				>
 					{folderChapters?.map((chapter: IChapter, index: number) => (
 						<>
 							{small ? (
 								<SmallText
-									className={`flex items-center justify-between py-0.5 px-0.5 ml-2 cursor-pointer rounded-normal hover:bg-coolGrey-1 ${
-										chapterId === chapter.uid ? "bg-coolGrey-1" : ""
+									className={`flex items-center justify-between py-0.5 px-0.5 ml-2 cursor-pointer rounded-normal hover:bg-coolGrey-1 dark:hover:bg-hoverDark dark:text-coolGrey-5 ${
+										chapterId === chapter.uid
+											? "bg-coolGrey-1 dark:bg-hoverDark"
+											: ""
 									}`}
 									onClick={() =>
 										navigate(`project/${projectId}/chapter/${chapter.uid}`)

@@ -63,7 +63,12 @@ export default function Login() {
 				</div>
 				<BlueButton>{isLoading ? "Loading..." : "Login"}</BlueButton>
 			</form>
-			<Divider my="md" label="or" labelPosition="center" color="grey.0" />
+			<Divider
+				my="md"
+				label="or"
+				labelPosition="center"
+				className="!border-coolGrey-1 dark:!border-borderDark"
+			/>
 
 			<Link to="/auth/register">
 				<p className="text-center font-medium text-xs text-coolGrey-7">

@@ -34,7 +34,7 @@ export const ProjectListItem: FC<{
 
 	return (
 		<div
-			className={`transition-all ease-in-out duration-500 dark:text-coolGrey-3 ${
+			className={`transition-all ease-in-out duration-500 dark:text-coolGrey-4 ${
 				sidebarProjectOpen ? "" : "mb-1"
 			} `}
 		>
@@ -72,7 +72,7 @@ export const ProjectListItem: FC<{
 					</div>
 				</li>
 			</div>
-			<div className="border-l ml-2.5">
+			<div className="border-l ml-2.5 border-border dark:border-borderDark">
 				<div ref={parent}>
 					{sidebarProjectOpen && (
 						<>
@@ -92,7 +92,7 @@ export const ProjectListItem: FC<{
 									})}
 								</div>
 							) : (
-								<div className="pl-2 pt-2  border-border dark:border-borderDark ">
+								<div className="pl-2 pt-2 border-border dark:border-borderDark ">
 									{" "}
 								</div>
 							)}
@@ -104,8 +104,10 @@ export const ProjectListItem: FC<{
 						<div className="pb-1 border-border dark:border-borderDark">
 							{chapters?.map((chapter: IChapter) => (
 								<SmallText
-									className={`flex items-center justify-between pl-[0.8rem] p-0.5 ml-2 my-0.5 cursor-pointer rounded-normal hover:bg-coolGrey-1 transition-all ease-in-out duration-300 ${
-										chapterId === chapter.uid ? "bg-coolGrey-1" : ""
+									className={`dark:text-coolGrey-5 flex items-center justify-between pl-[0.8rem] p-0.5 ml-2 my-0.5 cursor-pointer rounded-normal hover:bg-coolGrey-1 dark:hover:bg-hoverDark transition-all ease-in-out duration-300 ${
+										chapterId === chapter.uid
+											? "bg-coolGrey-1 dark:bg-hoverDark"
+											: ""
 									}`}
 									onClick={() =>
 										navigate(`project/${projectId}/chapter/${chapter.uid}`)

@@ -24,7 +24,10 @@ export const ProjectAnalytics: FC<{}> = ({}) => {
 			<div className="w-full">
 				<h2 className="text-2xl font-bold">Analytics</h2>
 				<p className="text-sm text-gray-500">Analytics for your project</p>
-				<Divider mb="md" color="grey.0" />
+				<Divider
+					mb="md"
+					className="!border-coolGrey-1 dark:!border-borderDark"
+				/>
 
 				<div>
 					{isLoading ? (

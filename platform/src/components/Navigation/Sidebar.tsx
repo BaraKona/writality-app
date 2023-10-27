@@ -19,8 +19,9 @@ import {
 	IconCube,
 	IconRocket,
 	IconInbox,
+	Icon3dCubeSphere,
 } from "@tabler/icons-react";
-import { cyclops8 } from "../../assets/icons";
+import { cyclops8, cyclops7 } from "../../assets/icons";
 import { MainFrame } from "../Project";
 import { useSignout } from "../../hooks/user/useSignout";
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
@@ -35,6 +36,7 @@ import { useLocalStorage } from "@mantine/hooks";
 import { useLocation } from "react-router-dom";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { SmallText } from "../texts/SmallText";
+import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
@@ -45,9 +47,10 @@ export const Sidebar: FC<{}> = () => {
 	const [transitionStage, setTransitionStage] = useState("fadeIn");
 
 	const { data: projects, isLoading: isProjectLoading } = useUserProjects();
-
+	const { theme } = useThemeContext();
 	const bookmarks = "bookmarks";
 	const home = "projects";
+	const collabs = "collaborations";
 	const inbox = "inbox";
 
 	const [sidebarNav, setSidebarNav] = useLocalStorage({
@@ -69,21 +72,34 @@ export const Sidebar: FC<{}> = () => {
 	}, [location, displayLocation]);
 
 	return (
-		<aside className="flex h-screen dark:bg-baseDark" aria-label="Sidebar">
+		<aside
+			className="flex h-screen dark:bg-baseDark dark:text-coolGrey-4"
+			aria-label="Sidebar"
+		>
 			<div className="flex overflow-y-auto h-full w-[20rem]">
 				<div className="flex flex-col py-2 w-full">
 					<Link to="/">
-						<div className="ml-2 mt-1 mb-1 flex">
-							<img
-								src={cyclops8}
-								alt="writality"
-								width={23}
-								height={23}
-								className="inline-block"
-							/>
+						<div className="ml-2 px-1.5 mt-1 mb-1 flex">
+							{theme === "dark" ? (
+								<img
+									src={cyclops7}
+									alt="writality"
+									width={23}
+									height={23}
+									className="inline-block"
+								/>
+							) : (
+								<img
+									src={cyclops8}
+									alt="writality"
+									width={23}
+									height={23}
+									className="inline-block"
+								/>
+							)}
 							<div className="font-semibold px-2 text-sm">Writality</div>
 						</div>
-						{/* <Divider color="grey.0" /> */}
+						{/* <Divider className="!border-coolGrey-1 dark:!border-borderDark" /> */}
 					</Link>
 					<div className="flex h-full">
 						<div className="flex-col flex">
@@ -95,7 +111,7 @@ export const Sidebar: FC<{}> = () => {
 									<IconUserCircle size={18} />
 								</CommunityListItem>
 								<CategoryListItem>
-									<Divider color="grey.0" />
+									<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 								</CategoryListItem>
 								<CommunityListItem
 									name="Posts"
@@ -111,7 +127,7 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 							<CategoryListItem>
-								<Divider color="grey.0" />
+								<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 							</CategoryListItem>
 							<CategoryListItem>
 								<CommunityListItem
@@ -122,7 +138,7 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 							<CategoryListItem className="mb-auto">
-								<Divider color="grey.0" />
+								<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 							</CategoryListItem>
 
 							<CategoryListItem>
@@ -157,6 +173,13 @@ export const Sidebar: FC<{}> = () => {
 								</SidebarTopNav>
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
+									value={collabs}
+									navigate={() => setSidebarNav(collabs)}
+								>
+									<Icon3dCubeSphere size={18} />
+								</SidebarTopNav>
+								<SidebarTopNav
+									sidebarNav={sidebarNav}
 									value={inbox}
 									navigate={() => setSidebarNav(inbox)}
 								>
@@ -181,11 +204,22 @@ export const Sidebar: FC<{}> = () => {
 
 							{sidebarNav === home && (
 								<UserProjects
-									projects={projects}
+									projects={projects.standard}
 									isLoading={isProjectLoading}
 									openProject={openProject}
 									removeFavouriteProject={removeFavouriteProject}
 									createProject={createProject}
+									tab={home}
+								/>
+							)}
+							{sidebarNav === collabs && (
+								<UserProjects
+									projects={projects.collaboration}
+									isLoading={isProjectLoading}
+									openProject={openProject}
+									removeFavouriteProject={removeFavouriteProject}
+									createProject={createProject}
+									tab={collabs}
 								/>
 							)}
 							{sidebarNav === bookmarks && <FavouriteTabItems />}

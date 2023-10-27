@@ -150,7 +150,10 @@ export function Project() {
 						</Tooltip>
 						{currentProject?.type === "collaboration" && (
 							<>
-								<Divider my="xs" color="grey.0" />
+								<Divider
+									my="xs"
+									className="!border-coolGrey-1 dark:!border-borderDark"
+								/>
 								<Tooltip
 									label="Chat"
 									position="right"
@@ -163,7 +166,10 @@ export function Project() {
 								</Tooltip>
 							</>
 						)}
-						<Divider my="xs" color="grey.0" />
+						<Divider
+							my="xs"
+							className="!border-coolGrey-1 dark:!border-borderDark"
+						/>
 						<Tooltip
 							label="Settings"
 							position="right"

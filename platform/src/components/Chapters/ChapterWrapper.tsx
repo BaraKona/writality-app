@@ -24,7 +24,7 @@ export const ChapterWrapper: FC<{
 					<Skeleton height={20} mt={6} width={100} />
 					<Skeleton height={20} mt={6} width={200} />
 				</div>
-				<Divider color="grey.0" />
+				<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 				<div className="flex">{children}</div>
 			</div>
 		);
@@ -58,7 +58,7 @@ export const ChapterWrapper: FC<{
 		: "No updates yet"}
 		</Text>
 		</div>
-		<Divider color="grey.0" /> */}
+		<Divider className="!border-coolGrey-1 dark:!border-borderDark" /> */}
 			<BannerImage
 				image={
 					"https://images.unsplash.com/photo-1463143296037-46790ff95a7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"

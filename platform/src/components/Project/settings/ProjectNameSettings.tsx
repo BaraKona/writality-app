@@ -27,7 +27,7 @@ export const ProjectNameSettings: React.FC<{
 				}}
 				disabled={isLoading}
 			/>
-			<Divider my="xs" color="grey.0" />
+			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" />
 		</div>
 	);
 };

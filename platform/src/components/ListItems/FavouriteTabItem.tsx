@@ -32,11 +32,14 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 						<div className="text-blueTextLight text-center text-xs font-normal">
 							Bookmarks
 						</div>
-						<Divider color="grey.0" my={4} />
+						<Divider
+							className="!border-coolGrey-1 dark:!border-borderDark"
+							my={4}
+						/>
 					</div>
 					{projects?.length > 0 && (
 						<Divider
-							color="grey.0"
+							className="!border-coolGrey-1 dark:!border-borderDark"
 							my={4}
 							label={<Text className="!text-blueTextLight">Projects</Text>}
 							labelPosition="center"
@@ -55,7 +58,7 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 					})}
 					{posts?.length > 0 && (
 						<Divider
-							color="grey.0"
+							className="!border-coolGrey-1 dark:!border-borderDark"
 							my={4}
 							label={<Text className="!text-blueTextLight">Posts</Text>}
 							labelPosition="center"

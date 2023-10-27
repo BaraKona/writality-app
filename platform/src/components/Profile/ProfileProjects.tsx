@@ -184,7 +184,10 @@ const GridProjects = ({ project }: { project: IProject }) => {
 
 			<div className="flex flex-col">
 				<div className="text-lg font-bold">{project.title}</div>
-				<Divider my="xs" color="grey.0" />
+				<Divider
+					my="xs"
+					className="!border-coolGrey-1 dark:!border-borderDark"
+				/>
 				<div className="text-xs line-clamp-6 text-gray-500 w-full max-h-44">
 					{project.description ? (
 						<BlockNoteView editor={editor} />

@@ -43,7 +43,7 @@ export const EditorWrapper: FC<{
 					<Skeleton height={24} mt={6} width={100} />
 					<Skeleton height={24} mt={6} width={200} />
 				</div>
-				<Divider color="grey.0" />
+				<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 				<div className="flex">{children}</div>
 			</div>
 		);
@@ -134,7 +134,7 @@ export const EditorWrapper: FC<{
 					</Tooltip>
 				</div>
 			</div>
-			<Divider color="grey.0" />
+			<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 			<div className=" overflow-y-hidden bg-base">
 				<div className="text-editor flex justify-between align-middle">
 					{children}

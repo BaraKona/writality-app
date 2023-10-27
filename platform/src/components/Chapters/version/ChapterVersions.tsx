@@ -48,7 +48,7 @@ export const ChapterVersions: FC<{
 					/>
 				</ButtonWrapper>
 			</div>
-			<Divider color="grey.0" />
+			<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 			{chapterVersions.length > 0 ? (
 				<div>
 					<ScrollArea.Autosize

@@ -76,7 +76,7 @@ export const ChangeProjectTypeSetting: FC<{
 					)}
 				</Text>
 			</div>
-			<Divider my="xs" color="grey.0" />
+			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" />
 		</div>
 	);
 };

@@ -31,7 +31,10 @@ export const SinglePost = () => {
 						},
 					]}
 				/>
-				<Divider my="xs" color="grey.0" />
+				<Divider
+					my="xs"
+					className="!border-coolGrey-1 dark:!border-borderDark"
+				/>
 				<div className="flex gap-3">
 					<Skeleton className="w-2/3" height={800} />
 					<Divider
@@ -69,7 +72,7 @@ export const SinglePost = () => {
 	return (
 		<div className="place-items-center rounded-normal bg-base px-3 py-3">
 			<Breadcrumbs items={breadcrumbs} />
-			<Divider my="xs" color="grey.0" />
+			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" />
 			<div className="flex gap-3">
 				<PostBody
 					post={post}
@@ -82,7 +85,11 @@ export const SinglePost = () => {
 						})
 					}
 				/>
-				<Divider my="xs" color="grey.0" orientation="vertical" />
+				<Divider
+					my="xs"
+					className="!border-coolGrey-1 dark:!border-borderDark"
+					orientation="vertical"
+				/>
 				<PostCommentSection post={post} isLoading={isLoading} />
 			</div>
 		</div>
