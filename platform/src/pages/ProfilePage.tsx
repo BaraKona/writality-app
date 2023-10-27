@@ -34,7 +34,7 @@ export const ProfilePage = () => {
 
 	return (
 		<div className="flex flex-row gap-2 ">
-			<div className="place-items-center rounded-normal bg-base flex-grow border-border dark:border-borderDark border overflow-y-auto h-[calc(100vh-3.2rem)]">
+			<div className="place-items-center rounded-normal bg-base dark:bg-baseDark  flex-grow border-border dark:border-baseDark border overflow-y-auto h-[calc(100vh-3.2rem)]">
 				<BannerImage
 					image={DefaultProfileBanner}
 					alt="Banner by Jez Timms on Unsplash"
@@ -45,7 +45,7 @@ export const ProfilePage = () => {
 						{greeting()} {currentUser.name}!
 					</Title>
 					<div className="max-w-3xl flex flex-col">
-						<p className="text-sm text-coolGrey-4 -mt-4">
+						<p className="text-sm text-coolGrey-4 dark:text-coolGrey-3 -mt-4">
 							"So here is why I write what I do: We all have futures. We all
 							have pasts. We all have stories. And we all, every single one of
 							us, no matter who we are and no matter what’s been taken from us
@@ -56,7 +56,7 @@ export const ProfilePage = () => {
 							<Text
 								weight={600}
 								size="md"
-								className="text-coolGrey-7 italic float-right"
+								className="text-coolGrey-7 dark:text-pink-700 italic float-right"
 							>
 								- N. K. Jemisin
 							</Text>

@@ -78,8 +78,8 @@ export const ProfileProjects: FC<{
 					<button
 						className={`border rounded-normal p-2 ${
 							layout === "grid"
-								? "border-transparent bg-coolGrey-1"
-								: "border-coolGrey-2 hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
+								? "border-transparent bg-coolGrey-1 dark:bg-hoverDark cursor-default"
+								: "border-coolGrey-2 dark:border-hoverDark hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
 						}`}
 						onClick={() => setLayout("grid")}
 					>
@@ -88,8 +88,8 @@ export const ProfileProjects: FC<{
 					<button
 						className={`border rounded-normal p-2 ${
 							layout === "list"
-								? "border-transparent bg-coolGrey-1"
-								: "border-coolGrey-2 hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
+								? "border-transparent bg-coolGrey-1  dark:bg-hoverDark cursor-default"
+								: "border-coolGrey-2 dark:border-hoverDark hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
 						}`}
 						onClick={() => setLayout("list")}
 					>
@@ -117,7 +117,7 @@ const ListProjects = ({ projects }: { projects: IProject[] }) => {
 		<div className="flex flex-col gap-1.5">
 			{projects.map((project) => (
 				<div
-					className="gap-2 rounded-normal p-2 border border-border dark:border-borderDark hover:border-coolGrey-3 hover:shadow-sm cursor-pointer transition-all duration-200 ease-in-out"
+					className="gap-2 rounded-normal p-2 border border-border dark:border-borderDark hover:border-coolGrey-3 hover:shadow-sm dark:shadow-none dark:hover:border-coolGrey-5 cursor-pointer transition-all duration-200 ease-in-out"
 					onClick={() => navigate(`/project/${project.uid}/home`)}
 					key={project.uid}
 				>
@@ -157,7 +157,10 @@ const GridProjects = ({ project }: { project: IProject }) => {
 
 			domAttributes: {
 				blockContainer: {
-					class: "text-xs -mx-12",
+					class: "text-xs -mx-12 dark:text-coolGrey-4",
+				},
+				editor: {
+					class: "dark:bg-baseDark bg-base",
 				},
 			},
 		},
@@ -166,7 +169,7 @@ const GridProjects = ({ project }: { project: IProject }) => {
 
 	return (
 		<div
-			className="gap-2 rounded-normal basis-[15.4rem] pt-3 p-4 border border-border dark:border-borderDark hover:border-coolGrey-3 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
+			className="gap-2 rounded-normal basis-[15.4rem] pt-3 p-4 border border-border dark:border-borderDark hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
 			onClick={() => navigate(`/project/${project.uid}/home`)}
 			key={project.uid}
 		>

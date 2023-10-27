@@ -17,6 +17,7 @@ import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
 import { BlueButton } from "../buttons/BlueButton";
 import { IconEye } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+import { useThemeContext } from "../../Providers/ThemeProvider";
 import {
 	collaborationTypeColour,
 	postTypeColour,
@@ -49,6 +50,7 @@ export const PostCard: FC<{
 		}
 	};
 
+	const { theme } = useThemeContext();
 	const navigate = useNavigate();
 	const gray = "#e5e7eb";
 	const gray2 = "#ced4da";
@@ -59,11 +61,12 @@ export const PostCard: FC<{
 			<Card
 				padding="md"
 				withBorder
-				style={{
-					background: post?.theme?.background || "white",
-					borderColor: "#ebebeb",
-					borderRadius: "0.25rem",
-				}}
+				className="bg-base dark:bg-baseDark !border-border dark:!border-borderDark"
+				// style={{
+				// 	background: post?.theme?.background || "white",
+				// 	borderColor: "#ebebeb",
+				// 	borderRadius: "0.25rem",
+				// }}
 			>
 				{/* <Card.Section>
 					<Image
@@ -83,7 +86,7 @@ export const PostCard: FC<{
 					<div className="flex gap-1">
 						<Badge
 							color={collaborationTypeColour(post?.collaborationType)}
-							variant="light"
+							variant={theme === "light" ? "light" : "outline"}
 							radius="sm"
 							size="md"
 						>
@@ -91,7 +94,7 @@ export const PostCard: FC<{
 						</Badge>
 						<Badge
 							color={postTypeColour(post?.postType)}
-							variant="light"
+							variant={theme === "light" ? "light" : "outline"}
 							size="md"
 							radius="sm"
 						>
@@ -103,20 +106,20 @@ export const PostCard: FC<{
 				<Text
 					weight={600}
 					size="md"
-					className="text-coolGrey-7"
-					style={{
-						color: post?.theme?.projectTitle || blue,
-					}}
+					className="text-coolGrey-7 dark:text-coolGrey-3"
+					// style={{
+					// 	color: post?.theme?.projectTitle || blue,
+					// }}
 				>
 					{post.projectTitle || "Untitled post"}
 				</Text>
 				<Text
 					weight={500}
 					size="xs"
-					className="text-coolGrey-7"
-					style={{
-						color: post?.theme?.postTitle || gray2,
-					}}
+					className="text-coolGrey-7 dark:text-coolGrey-3"
+					// style={{
+					// 	color: post?.theme?.postTitle || gray2,
+					// }}
 				>
 					{post.postTitle || "Untitled post"}
 				</Text>
@@ -125,9 +128,9 @@ export const PostCard: FC<{
 					size="xs"
 					color="dimmed"
 					className="line-clamp-3 h-14"
-					style={{
-						color: post?.theme?.text || blue,
-					}}
+					// style={{
+					// 	color: post?.theme?.text || blue,
+					// }}
 				>
 					{post.collaboration}
 				</Text>
@@ -158,7 +161,7 @@ const UserRenderer = ({ post }: { post: IPost }) => {
 				height={30}
 				radius="lg"
 			/>
-			<div className="flex flex-col text-coolGrey-7">
+			<div className="flex flex-col text-coolGrey-7 dark:text-coolGrey-3">
 				<Text className="text-xs font-semibold">
 					{post?.owner.slice(0, 10) || "User"}
 				</Text>
