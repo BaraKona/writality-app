@@ -82,7 +82,7 @@ export const Sidebar: FC<{}> = () => {
 						<div className="ml-2 px-1.5 mt-1 mb-1 flex">
 							{theme === "dark" ? (
 								<img
-									src={cyclops8}
+									src={cyclops7}
 									alt="writality"
 									width={23}
 									height={23}
@@ -204,7 +204,7 @@ export const Sidebar: FC<{}> = () => {
 
 							{sidebarNav === home && (
 								<UserProjects
-									projects={projects.standard}
+									projects={projects?.standard}
 									isLoading={isProjectLoading}
 									openProject={openProject}
 									removeFavouriteProject={removeFavouriteProject}
