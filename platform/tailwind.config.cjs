@@ -15,6 +15,7 @@ module.exports = {
 				base: "#fff",
 				baseDark: "#191a23",
 				borderDark: "#35384a",
+				hoverDark: "#262736",
 				border: "#ebebeb",
 				coolGrey: "#374151",
 				blueTextLight: "#868e99",

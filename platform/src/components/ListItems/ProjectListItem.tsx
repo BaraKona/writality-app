@@ -34,13 +34,13 @@ export const ProjectListItem: FC<{
 
 	return (
 		<div
-			className={`transition-all ease-in-out duration-500 ${
+			className={`transition-all ease-in-out duration-500 dark:text-coolGrey-3 ${
 				sidebarProjectOpen ? "" : "mb-1"
 			} `}
 		>
 			<div className="flex gap-1">
 				<ButtonWrapper
-					className="border border-border dark:border-borderDark hover:bg-coolGrey-0"
+					className="border dark:border-baseDark border-border dark:hover:bg-hoverDark dark:hover:border-hoverDark hover:bg-coolGrey-0"
 					onClick={() =>
 						setSidebarProjectOpen(
 							sidebarProjectOpen === projectId ? "" : projectId
@@ -48,15 +48,19 @@ export const ProjectListItem: FC<{
 					}
 				>
 					{sidebarProjectOpen ? (
-						<IconChevronDown className="text-coolGrey-5" size={14} />
+						<IconChevronDown className="text-coolGrey-5" size={18} />
 					) : (
-						<IconChevronRight className="text-coolGrey-5" size={14} />
+						<IconChevronRight className="text-coolGrey-5" size={18} />
 					)}
 				</ButtonWrapper>
 				<li
 					onClick={onClick}
-					className={`px-1.5 py-1 transition-all ease-in-out duration-500 cursor-pointer flex flex-col text-xs font-medium group hover:bg-coolGrey-1 rounded-normal border border-border dark:border-borderDark
-				${project === projectId ? "bg-coolGrey-1" : "bg-white"}`}
+					className={`px-1.5 py-1 transition-all ease-in-out duration-500 cursor-pointer flex flex-col text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-normal border border-border dark:border-baseDark
+				${
+					project === projectId
+						? "bg-coolGrey-1 dark:bg-hoverDark dark:hover:border-hoverDark"
+						: "dark:bg-baseDark"
+				}`}
 				>
 					<div className="gap-1 flex justify-between items-center">
 						<div className="flex gap-1 items-center">

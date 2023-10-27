@@ -25,9 +25,9 @@ export function IconRenderer({
 					<IconAtom2 size={18} className="text-cyan-800" />
 				)
 			) : open ? (
-				<IconBook size={18} className="text-neutral-600" />
+				<IconBook size={18} className="text-neutral-600 dark:text-stone-500" />
 			) : (
-				<IconBook2 size={18} className="text-neutral-600" />
+				<IconBook2 size={18} className="text-neutral-600 dark:text-stone-500" />
 			)}
 		</div>
 	);

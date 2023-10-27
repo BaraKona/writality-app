@@ -124,7 +124,10 @@ const ListProjects = ({ projects }: { projects: IProject[] }) => {
 					<div className="flex justify-between items-center ">
 						<div className="flex gap-2 items-center">
 							{project.type === ProjectType.standard ? (
-								<IconBook2 size={20} className="text-neutral-600" />
+								<IconBook2
+									size={20}
+									className="text-neutral-600 dark:text-stone-500"
+								/>
 							) : (
 								<IconAtom2 size={20} className="text-cyan-800" />
 							)}
@@ -169,7 +172,10 @@ const GridProjects = ({ project }: { project: IProject }) => {
 		>
 			<div className="flex justify-between items-center py-2">
 				{project.type === ProjectType.standard ? (
-					<IconBook2 size={20} className="text-neutral-600" />
+					<IconBook2
+						size={20}
+						className="text-neutral-600 dark:text-stone-500"
+					/>
 				) : (
 					<IconAtom2 size={20} className="text-cyan-800" />
 				)}

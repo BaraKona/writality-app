@@ -56,9 +56,9 @@ export const PostsPage: FC = () => {
 			<BannerImage image={DefaultPostBanner} alt="Post banner" />
 			<div className="">
 				<div className="max-w-screen-lg mx-auto">
-					<div className="bg-base rounded-normal">
+					<div className="bg-base dark:bg-baseDark rounded-normal">
 						<Title>Posts</Title>
-						<div className="mx-auto bg-base rounded-normal flex flex-wrap gap-2">
+						<div className="mx-auto bg-base dark:bg-baseDark rounded-normal flex flex-wrap gap-2">
 							{posts?.map((post: IPost) => (
 								<PostCard post={post!} openPost={openPost} />
 							))}

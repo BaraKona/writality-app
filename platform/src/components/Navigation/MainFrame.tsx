@@ -159,9 +159,15 @@ export const MainFrame: FC<{
 						>
 							{tabIcons.find((t) => t.title === tab.title)?.icon ||
 								(tab.active ? (
-									<IconBook size={18} className="text-neutral-600" />
+									<IconBook
+										size={18}
+										className="text-neutral-600 dark:text-stone-500"
+									/>
 								) : (
-									<IconBook2 size={18} className="text-neutral-600" />
+									<IconBook2
+										size={18}
+										className="text-neutral-600 dark:text-stone-500"
+									/>
 								))}
 							<span className="ml-0.5 text-xs font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
 								{tab.title}

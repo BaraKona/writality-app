@@ -69,7 +69,7 @@ export const Sidebar: FC<{}> = () => {
 	}, [location, displayLocation]);
 
 	return (
-		<aside className="flex h-screen" aria-label="Sidebar">
+		<aside className="flex h-screen dark:bg-baseDark" aria-label="Sidebar">
 			<div className="flex overflow-y-auto h-full w-[20rem]">
 				<div className="flex flex-col py-2 w-full">
 					<Link to="/">
