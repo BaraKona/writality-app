@@ -122,7 +122,7 @@ export const EditorWrapper: FC<{
 						<div className="ml-3 p-1.5 border-border border rounded-normal cursor-pointer hover:bg-base hover:shadow transition-all ease-in-out duration-300">
 							<IconDeviceFloppy
 								size={18}
-								className="text-coolGrey-7 group-hover:text-black"
+								className="text-coolGrey-7 group-hover:text-black dark:hover:text-coolGrey-1"
 							/>
 						</div>
 					</Tooltip>

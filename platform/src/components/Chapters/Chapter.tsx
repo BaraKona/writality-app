@@ -37,7 +37,10 @@ export const Chapter: FC<{
 				className=" text-coolGrey-7 flex place-items-center gap-1 cursor-pointer  group"
 				onClick={openChapter}
 			>
-				<IconFileText size={16} className="group-hover:text-black" />
+				<IconFileText
+					size={16}
+					className="group-hover:text-black dark:hover:text-coolGrey-1"
+				/>
 				<p className="text-gray-400 text-xs font-medium group-hover:text-coolGrey-7">
 					{chapter.content.title || chapter.title || "Untitled Chapter"}
 				</p>

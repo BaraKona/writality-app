@@ -48,7 +48,7 @@ export const Chat: FC<{
 					rightSection={
 						<IconSend
 							size={18}
-							className="text-coolGrey-7 hover:text-black"
+							className="text-coolGrey-7 hover:text-black dark:hover:text-coolGrey-1"
 							onClick={sendComment}
 						/>
 					}

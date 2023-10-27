@@ -18,7 +18,7 @@ export const ChapterSettingsButton: FC<{ setActive: () => void }> = ({
 			>
 				<IconFileSettings
 					size={18}
-					className="text-coolGrey-7 group-hover:text-black"
+					className="text-coolGrey-7 group-hover:text-black dark:hover:text-coolGrey-1"
 				/>
 			</div>
 		</Tooltip>

@@ -60,7 +60,10 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 					styles={inputStyles}
 					onSubmit={() => console.log("submit")}
 					rightSection={
-						<IconSend size={18} className="text-coolGrey-7 hover:text-black" />
+						<IconSend
+							size={18}
+							className="text-coolGrey-7 hover:text-black dark:hover:text-coolGrey-1"
+						/>
 					}
 				/>
 			</div>

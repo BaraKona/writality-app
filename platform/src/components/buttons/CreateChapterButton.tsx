@@ -8,9 +8,11 @@ export const CreateButton: FC<{
 	return (
 		<button
 			onClick={createNewChapter}
-			className="text-coolGrey-7 font-medium text-xs py-1 flex cursor-pointer items-center gap-1 group hover:text-black hover:bg-gray-100 rounded-normal px-2"
+			className="text-coolGrey-7 font-medium text-xs py-1 flex cursor-pointer items-center gap-1 group hover:text-black dark:hover:text-coolGrey-1 hover:bg-gray-100 rounded-normal px-2"
 		>
-			<span className="group-hover:text-black">{icon}</span>
+			<span className="group-hover:text-black dark:hover:text-coolGrey-1">
+				{icon}
+			</span>
 			{text}
 		</button>
 	);

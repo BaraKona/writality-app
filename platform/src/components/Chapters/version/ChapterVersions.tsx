@@ -38,11 +38,14 @@ export const ChapterVersions: FC<{
 				<ButtonWrapper className="ml-auto">
 					<IconPlus
 						size={14}
-						className="text-gray-400 group-hover:text-black"
+						className="text-gray-400 group-hover:text-black dark:hover:text-coolGrey-1"
 					/>
 				</ButtonWrapper>
 				<ButtonWrapper onClick={close}>
-					<IconX size={14} className="text-gray-400 group-hover:text-black" />
+					<IconX
+						size={14}
+						className="text-gray-400 group-hover:text-black dark:hover:text-coolGrey-1"
+					/>
 				</ButtonWrapper>
 			</div>
 			<Divider color="grey.0" />
@@ -67,7 +70,7 @@ export const ChapterVersions: FC<{
 											onClick={() => {
 												setOpen(true), setVersion(version);
 											}}
-											className="group-hover:text-black text-gray-400 cursor-pointer"
+											className="group-hover:text-black dark:hover:text-coolGrey-1 text-gray-400 cursor-pointer"
 										>
 											<IconHourglassLow size={18} />
 										</div>

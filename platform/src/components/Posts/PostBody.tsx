@@ -65,7 +65,7 @@ export const PostBody: FC<{
 							>
 								{post?.postType}
 							</Badge>
-							<div className="ml-auto cursor-pointer hover:text-black group-hover:visible transition-all ease-in-out duration-300">
+							<div className="ml-auto cursor-pointer hover:text-black dark:hover:text-coolGrey-1 group-hover:visible transition-all ease-in-out duration-300">
 								<IconBookmarkPlus size={18} onClick={addFavourite} />
 							</div>
 						</div>

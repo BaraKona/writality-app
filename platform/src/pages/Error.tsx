@@ -9,7 +9,7 @@ export const Error = () => {
 				Something went wrong. Please try again.
 			</h2>
 			<Link to="/">
-				<button className="bg-base text-coolGrey-7 hover:text-black px-4 py-2 rounded-normal mt-4 border border-coolGrey text-xs">
+				<button className="bg-base text-coolGrey-7 hover:text-black dark:hover:text-coolGrey-1 px-4 py-2 rounded-normal mt-4 border border-coolGrey text-xs">
 					Go Back
 				</button>
 			</Link>

@@ -147,9 +147,9 @@ export const MainFrame: FC<{
 						key={tab.id}
 						className={` ${
 							tab.active
-								? "bg-base dark:bg-baseDark border border-border hover:bg-base hover:dark:bg-baseDark"
+								? "bg-base dark:bg-baseDark border border-border dark:border-borderDark hover:bg-base hover:dark:bg-baseDark"
 								: "cursor-pointer border border-primary "
-						} flex items-center justify-between px-2 py-1.5 w-44 bg-base dark:bg-baseDark border border-border hover:bg-base hover:dark:bg-baseDark  rounded-normal transition-all duration-500 ease-in-out min-w-0`}
+						} flex items-center justify-between px-2 py-1.5 w-44 bg-base dark:bg-baseDark border border-border dark:border-borderDark hover:bg-base hover:dark:bg-baseDark  rounded-normal transition-all duration-500 ease-in-out min-w-0`}
 						onClick={() => changeTab(tab)}
 					>
 						<div
@@ -170,11 +170,11 @@ export const MainFrame: FC<{
 								{tab.active && (
 									<>
 										<IconPin
-											className="cursor-pointer text-gray-400 hover:text-black"
+											className="cursor-pointer text-gray-400 hover:text-black dark:hover:text-coolGrey-1"
 											size={13}
 										/>
 										<IconX
-											className="cursor-pointer text-gray-400 hover:text-black"
+											className="cursor-pointer text-gray-400 hover:text-black dark:hover:text-coolGrey-1"
 											onClick={(e) => closeTab(e, tab)}
 											size={13}
 										/>
@@ -191,7 +191,7 @@ export const MainFrame: FC<{
 					<IconPlus size={18} className="text-gray-400 " />
 				</div>
 				<div
-					className="ml-auto p-2 border-border border rounded-normal py-1.5 cursor-pointer"
+					className="ml-auto p-2 border-border dark:border-borderDark border rounded-normal py-1.5 cursor-pointer"
 					onClick={toggleTheme}
 				>
 					{theme === "dark" ? (

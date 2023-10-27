@@ -45,13 +45,13 @@ export const ChapterBranches: FC<{
 					<ButtonWrapper onClick={openBranchModal} className="ml-auto">
 						<IconPlus
 							size={14}
-							className="text-blueTextLight group-hover:text-black"
+							className="text-blueTextLight group-hover:text-black dark:hover:text-coolGrey-1"
 						/>
 					</ButtonWrapper>
 					<ButtonWrapper onClick={close}>
 						<IconX
 							size={14}
-							className="text-blueTextLight group-hover:text-black"
+							className="text-blueTextLight group-hover:text-black dark:hover:text-coolGrey-1"
 						/>
 					</ButtonWrapper>
 				</div>
@@ -74,13 +74,13 @@ export const ChapterBranches: FC<{
 				<ButtonWrapper onClick={openBranchModal} className="ml-auto">
 					<IconPlus
 						size={14}
-						className="text-blueTextLight group-hover:text-black"
+						className="text-blueTextLight group-hover:text-black dark:hover:text-coolGrey-1"
 					/>
 				</ButtonWrapper>
 				<ButtonWrapper onClick={close}>
 					<IconX
 						size={14}
-						className="text-blueTextLight group-hover:text-black"
+						className="text-blueTextLight group-hover:text-black dark:hover:text-coolGrey-1"
 					/>
 				</ButtonWrapper>
 			</div>
@@ -93,7 +93,7 @@ export const ChapterBranches: FC<{
 							onClick={checkoutMain}
 						>
 							<div
-								className={`hover:text-black ${
+								className={`hover:text-black dark:hover:text-coolGrey-1 ${
 									currentBranch?.uid === mainContent?.uid
 										? "text-coolGrey-7"
 										: "text-blueTextLight"
@@ -120,7 +120,7 @@ export const ChapterBranches: FC<{
 								<div className="flex justify-between">
 									<div className="flex gap-1">
 										<button
-											className={`hover:text-black ${
+											className={`hover:text-black dark:hover:text-coolGrey-1 ${
 												branch.uid === currentBranch?.uid
 													? "text-black"
 													: "text-blueTextLight"
@@ -147,7 +147,7 @@ export const ChapterBranches: FC<{
 										<div className="flex ml-1.5 flex-col border-l border-border gap-1 px-1">
 											<button
 												onClick={() => openMergeModal("replace")}
-												className={`flex gap-1 text-coolGrey-7 text-xs font-medium items-center rounded-normal hover:text-black px-2 border-border group ${
+												className={`flex gap-1 text-coolGrey-7 text-xs font-medium items-center rounded-normal hover:text-black dark:hover:text-coolGrey-1 px-2 border-border group ${
 													merge === "replace" ? "bg-primary" : ""
 												}`}
 											>
