@@ -45,15 +45,15 @@ a {
 	box-sizing: border-box;
 }
 
-// @media (prefers-color-scheme: dark) {
-// 	html {
-// 		color-scheme: light;
-// 	}
-// 	body {
-// 		color: #394251;
-// 		background-color: #ffff !important;
-// 	}
-// }
+@media (prefers-color-scheme: dark) {
+	html {
+		color-scheme: light;
+	}
+	body {
+		color: #394251;
+		background-color: #ffff !important;
+	}
+}
 textarea:focus,
 input:focus,
 input:active {
