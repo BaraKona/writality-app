@@ -18,7 +18,7 @@ export const SettingsPage: FC<{}> = () => {
 	const { settingsTab } = useParams();
 
 	return (
-		<div className="h-[calc(100vh-2.6rem)] place-items-center rounded-normal border border-border bg-base px-3 py-2 ">
+		<div className="h-[calc(100vh-2.6rem)] place-items-center rounded-normal border border-border dark:border-borderDark bg-base px-3 py-2 ">
 			<SettingsHeader />
 			<Tabs
 				className="w-full border-none important:border-none h-[calc(100vh-7.0rem)]"
@@ -53,7 +53,7 @@ export const SettingsPage: FC<{}> = () => {
 						</Tabs.Tab>
 					</Tooltip>
 
-					{/* <Divider my="xs" className="border-border" />
+					{/* <Divider my="xs" className="border-border dark:border-borderDark" />
 					<Tooltip
 						label="Settings"
 						position="right"

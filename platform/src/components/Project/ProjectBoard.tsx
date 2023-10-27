@@ -37,7 +37,7 @@ export const ProjectBoard: FC<{
 	);
 
 	return (
-		<div className="lg:row-span-4 lg:col-span-full col-span-full flex flex-col flex-grow p-1  bg-base border border-border rounded-normal">
+		<div className="lg:row-span-4 lg:col-span-full col-span-full flex flex-col flex-grow p-1  bg-base border border-border dark:border-borderDark rounded-normal">
 			<div className="flex justify-between items-center">
 				<h3 className=" text-coolGrey-7 font-medium text-sm flex gap-2">
 					<IconClipboard size={20} />
@@ -50,7 +50,7 @@ export const ProjectBoard: FC<{
 					styles={tooltipStyles}
 				>
 					<button
-						className="bg-base p-2 hover:bg-gray-100 rounded-normal border border-border"
+						className="bg-base p-2 hover:bg-gray-100 rounded-normal border border-border dark:border-borderDark"
 						onClick={() => updateBoard(JSON.stringify(editor.topLevelBlocks))}
 					>
 						<IconDeviceFloppy size={18} />

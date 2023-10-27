@@ -28,7 +28,7 @@ export const Chapter: FC<{
 
 	return (
 		<div
-			className="flex gap-3 border rounded-normal border-border bg-white cursor-default py-1 px-2.5 items-center mb-1"
+			className="flex gap-3 border rounded-normal border-border dark:border-borderDark bg-white cursor-default py-1 px-2.5 items-center mb-1"
 			{...attributes}
 			ref={setNodeRef}
 			style={style}

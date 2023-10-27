@@ -20,7 +20,7 @@ export const ProjectAnalytics: FC<{}> = ({}) => {
 	);
 
 	return (
-		<div className="col-span-3 p-2 row-span-2 rounded-normal border border-border flex flex-col items-center max-h-96 overflow-y-hidden">
+		<div className="col-span-3 p-2 row-span-2 rounded-normal border border-border dark:border-borderDark flex flex-col items-center max-h-96 overflow-y-hidden">
 			<div className="w-full">
 				<h2 className="text-2xl font-bold">Analytics</h2>
 				<p className="text-sm text-gray-500">Analytics for your project</p>
@@ -67,8 +67,8 @@ const ListItem: FC<{ children: ReactNode; title: string }> = ({
 	title,
 }) => {
 	return (
-		<div className="flex basis-24 flex-grow flex-shrink-0 flex-col h-28 border-border border rounded-normal p-1 items-center">
-			<p className=" text-gray-500 text-center border-b border-border w-full h-[2.3rem] flex justify-center items-center text-xs">
+		<div className="flex basis-24 flex-grow flex-shrink-0 flex-col h-28 border-border dark:border-borderDark border rounded-normal p-1 items-center">
+			<p className=" text-gray-500 text-center border-b border-border dark:border-borderDark w-full h-[2.3rem] flex justify-center items-center text-xs">
 				{title}
 			</p>
 			<p className="text-lg font-bold text-center">{children}</p>

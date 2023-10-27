@@ -49,7 +49,7 @@ export const ProjectChapters: FC<{
 						location="project"
 						listenerId={folder._id}
 						// openedFolder={openedFolder}
-						className="px-2.5 py-1.5 border border-border flex items-end justify-between rounded-normal "
+						className="px-2.5 py-1.5 border border-border dark:border-borderDark flex items-end justify-between rounded-normal "
 						icon={
 							<ButtonWrapper>
 								<IconDotsVertical size={14} className="cursor-pointer" />

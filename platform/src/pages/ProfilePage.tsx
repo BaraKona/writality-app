@@ -34,7 +34,7 @@ export const ProfilePage = () => {
 
 	return (
 		<div className="flex flex-row gap-2 ">
-			<div className="place-items-center rounded-normal bg-base flex-grow border-border border overflow-y-auto h-[calc(100vh-3.2rem)]">
+			<div className="place-items-center rounded-normal bg-base flex-grow border-border dark:border-borderDark border overflow-y-auto h-[calc(100vh-3.2rem)]">
 				<BannerImage
 					image={DefaultProfileBanner}
 					alt="Banner by Jez Timms on Unsplash"

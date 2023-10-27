@@ -58,7 +58,7 @@ export const AdvancedMergeModal: FC<{
 				title="Advanced Merge"
 			>
 				<div className="flex flex-wrap max-w-[1600px] gap-3">
-					<div className=" border-r border-border grow shrink max-w-2xl overflow-y-auto ">
+					<div className=" border-r border-border dark:border-borderDark grow shrink max-w-2xl overflow-y-auto ">
 						<BaseEditor
 							editor={editor}
 							height="650px"

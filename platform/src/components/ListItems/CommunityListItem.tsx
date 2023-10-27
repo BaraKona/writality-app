@@ -16,11 +16,11 @@ export const CommunityListItem: FC<{
 		<Tooltip label={name} position="right" withArrow styles={tooltipStyles}>
 			<li onClick={onClick} className="cursor-default list-none">
 				<div
-					className={`p-1.5 flex mb-0.5 text-xs font-medium rounded-normal items-center transition-all ease-in-out duration-500 border-border border hover:shadow-md hover:bg-coolGrey-1 ${
+					className={`p-1.5 flex mb-0.5 text-xs font-medium rounded-normal items-center transition-all ease-in-out duration-500 border-border dark:border-borderDark border hover:shadow-md hover:bg-coolGrey-1 ${
 						type === "event" ? "bg-orange-100" : ""
 					} ${
 						path.includes(name.toLowerCase())
-							? "border-border hover:border-coolGrey-3 bg-coolGrey-1 shadow-md"
+							? "border-border dark:border-borderDark hover:border-coolGrey-3 bg-coolGrey-1 shadow-md"
 							: ""
 					}`}
 				>

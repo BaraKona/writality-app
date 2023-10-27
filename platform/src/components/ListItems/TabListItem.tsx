@@ -21,7 +21,7 @@ export const TabListItem: FC<{
 	return (
 		<li
 			onClick={onClick}
-			className={`px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group hover:bg-base border border-border  rounded-normal hover:shadow cursor-default ${
+			className={`px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group hover:bg-base border border-border dark:border-borderDark  rounded-normal hover:shadow cursor-default ${
 				url === location
 					? "bg-base text-black shadow"
 					: "bg-transparent text-coolGrey-7"

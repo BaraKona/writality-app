@@ -27,7 +27,7 @@ export const ChapterRenderer: FC<{
 	const [name, setName] = useState<string>("");
 
 	return (
-		<div className="row-span-4 col-span-6 bg-base rounded-normal border border-border">
+		<div className="row-span-4 col-span-6 bg-base rounded-normal border border-border dark:border-borderDark">
 			<div className="flex gap-2 ml-2 font-medium items-center">
 				<IconFiles size={18} />
 				{isLoading ? (

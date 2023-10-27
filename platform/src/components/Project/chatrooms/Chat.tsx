@@ -28,7 +28,7 @@ export const Chat: FC<{
 					))}
 				</div>
 			</div>
-			<div className="flex gap-2 place-items-center mt-3 bg-base border-t border-border p-2">
+			<div className="flex gap-2 place-items-center mt-3 bg-base border-t border-border dark:border-borderDark p-2">
 				<Textarea
 					placeholder="Your comment"
 					className="flex-grow "

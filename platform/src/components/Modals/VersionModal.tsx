@@ -68,7 +68,7 @@ export const VersionModal: FC<{
 				title="Version"
 			>
 				<div className="flex flex-wrap mx-auto text-coolGrey-7">
-					<div className="px-5 border-r border-border grow shrink w-1/2 mx-auto">
+					<div className="px-5 border-r border-border dark:border-borderDark grow shrink w-1/2 mx-auto">
 						<h2 className="text-gray-700 font-medium underline text-md my-2">
 							{currentContent?.title || "Main"}
 						</h2>
@@ -76,7 +76,7 @@ export const VersionModal: FC<{
 							<BlockNoteView editor={editor2} theme="light" />
 						</div>
 					</div>
-					<div className="px-5 border-l border-border grow shrink w-1/2 mx-auto">
+					<div className="px-5 border-l border-border dark:border-borderDark grow shrink w-1/2 mx-auto">
 						<h2 className="text-gray-700 font-medium underline text-md my-2">
 							{version?.title || version.name}
 						</h2>

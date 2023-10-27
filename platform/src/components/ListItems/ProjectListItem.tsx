@@ -40,7 +40,7 @@ export const ProjectListItem: FC<{
 		>
 			<div className="flex gap-1">
 				<ButtonWrapper
-					className="border border-border hover:bg-coolGrey-0"
+					className="border border-border dark:border-borderDark hover:bg-coolGrey-0"
 					onClick={() =>
 						setSidebarProjectOpen(
 							sidebarProjectOpen === projectId ? "" : projectId
@@ -55,7 +55,7 @@ export const ProjectListItem: FC<{
 				</ButtonWrapper>
 				<li
 					onClick={onClick}
-					className={`px-1.5 py-1 transition-all ease-in-out duration-500 cursor-pointer flex flex-col text-xs font-medium group hover:bg-coolGrey-1 rounded-normal border border-border
+					className={`px-1.5 py-1 transition-all ease-in-out duration-500 cursor-pointer flex flex-col text-xs font-medium group hover:bg-coolGrey-1 rounded-normal border border-border dark:border-borderDark
 				${project === projectId ? "bg-coolGrey-1" : "bg-white"}`}
 				>
 					<div className="gap-1 flex justify-between items-center">
@@ -73,7 +73,7 @@ export const ProjectListItem: FC<{
 					{sidebarProjectOpen && (
 						<>
 							{projectFolders.length > 0 ? (
-								<div className="pl-[1.05rem] pt-2 border-border">
+								<div className="pl-[1.05rem] pt-2 border-border dark:border-borderDark">
 									{projectFolders.map((folder) => {
 										return (
 											<FolderListItem
@@ -88,14 +88,16 @@ export const ProjectListItem: FC<{
 									})}
 								</div>
 							) : (
-								<div className="pl-2 pt-2  border-border "> </div>
+								<div className="pl-2 pt-2  border-border dark:border-borderDark ">
+									{" "}
+								</div>
 							)}
 						</>
 					)}
 				</div>
 				<div ref={parent}>
 					{sidebarProjectOpen && chapters?.length !== 0 && (
-						<div className="pb-1 border-border">
+						<div className="pb-1 border-border dark:border-borderDark">
 							{chapters?.map((chapter: IChapter) => (
 								<SmallText
 									className={`flex items-center justify-between pl-[0.8rem] p-0.5 ml-2 my-0.5 cursor-pointer rounded-normal hover:bg-coolGrey-1 transition-all ease-in-out duration-300 ${

@@ -34,7 +34,10 @@ export const SinglePost = () => {
 				<Divider my="xs" color="grey.0" />
 				<div className="flex gap-3">
 					<Skeleton className="w-2/3" height={800} />
-					<Divider className=" border-border" orientation="vertical" />
+					<Divider
+						className=" border-border dark:border-borderDark"
+						orientation="vertical"
+					/>
 					<Skeleton className="w-1/3" height={800} />
 				</div>
 			</div>

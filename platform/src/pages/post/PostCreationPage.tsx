@@ -55,7 +55,10 @@ export const PostCreationPage: FC<{}> = () => {
 			<Divider my="xs" color="grey.0" />
 			<div className="flex gap-3">
 				<PostBody post={post} addFavourite={() => {}} />
-				<Divider className=" border-border" orientation="vertical" />
+				<Divider
+					className=" border-border dark:border-borderDark"
+					orientation="vertical"
+				/>
 				<CreatePostSection
 					createPost={createPost}
 					setPost={setPost}

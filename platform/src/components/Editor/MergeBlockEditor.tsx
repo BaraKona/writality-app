@@ -54,7 +54,7 @@ export const MergeBlockEditor: FC<{
 	// 		},
 	// 	});
 	// 	return (
-	// 		<div className="h-[calc(100vh-7.3rem)] border bg-base border-border rounded-normal w-full">
+	// 		<div className="h-[calc(100vh-7.3rem)] border bg-base border-border dark:border-borderDark rounded-normal w-full">
 	// 			<div className="max-w-4xl mx-auto py-10 h-[calc(100vh-7.5rem)] overflow-y-auto">
 	// 				<Textarea
 	// 					placeholder="Title"
@@ -110,7 +110,7 @@ export const MergeBlockEditor: FC<{
 	);
 
 	return (
-		<div className="h-[calc(100vh-7.3rem)] w-full border bg-base border-border rounded-normal">
+		<div className="h-[calc(100vh-7.3rem)] w-full border bg-base border-border dark:border-borderDark rounded-normal">
 			<div className="max-w-4xl mx-auto py-10 h-[calc(100vh-7.5rem)] overflow-y-auto">
 				{/* <Textarea
 					placeholder="Title"

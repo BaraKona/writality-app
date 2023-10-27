@@ -87,7 +87,7 @@ export const ChapterBranches: FC<{
 			<Divider color="grey.0" />
 			{chapterBranches?.length > 0 ? (
 				<div className="text-coolGrey-7">
-					<div className="flex justify-between gap-2 border-b border-border items-center">
+					<div className="flex justify-between gap-2 border-b border-border dark:border-borderDark items-center">
 						<div
 							className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-xs font-medium"
 							onClick={checkoutMain}
@@ -115,7 +115,7 @@ export const ChapterBranches: FC<{
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}
-								className="flex flex-col gap-2 border-b border-border py-1 px-2"
+								className="flex flex-col gap-2 border-b border-border dark:border-borderDark py-1 px-2"
 							>
 								<div className="flex justify-between">
 									<div className="flex gap-1">
@@ -144,10 +144,10 @@ export const ChapterBranches: FC<{
 								</div>
 								{branch.uid === currentBranch?.uid ? (
 									<div className="flex flex-row gap-1 transition-all ease-in-out duration-200">
-										<div className="flex ml-1.5 flex-col border-l border-border gap-1 px-1">
+										<div className="flex ml-1.5 flex-col border-l border-border dark:border-borderDark gap-1 px-1">
 											<button
 												onClick={() => openMergeModal("replace")}
-												className={`flex gap-1 text-coolGrey-7 text-xs font-medium items-center rounded-normal hover:text-black dark:hover:text-coolGrey-1 px-2 border-border group ${
+												className={`flex gap-1 text-coolGrey-7 text-xs font-medium items-center rounded-normal hover:text-black dark:hover:text-coolGrey-1 px-2 border-border dark:border-borderDark group ${
 													merge === "replace" ? "bg-primary" : ""
 												}`}
 											>

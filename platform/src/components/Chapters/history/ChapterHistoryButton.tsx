@@ -10,7 +10,7 @@ export const ChapterHistoryButton: FC<{
 	return (
 		<Tooltip label="History" position="left" withArrow styles={tooltipStyles}>
 			<div
-				className={`border items-center flex border-border hover:bg-base hover:shadow p-1.5 justify-center transition-all ease-in-out duration-300 rounded-normal group ${
+				className={`border items-center flex border-border dark:border-borderDark hover:bg-base hover:shadow p-1.5 justify-center transition-all ease-in-out duration-300 rounded-normal group ${
 					active ? "bg-base shadow" : "bg-transparent"
 				}`}
 				onClick={setActive}

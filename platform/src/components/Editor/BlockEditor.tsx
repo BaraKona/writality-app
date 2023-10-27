@@ -76,7 +76,7 @@ export const BlockEditor: FC<{
 
 	if (isLoading || !editor || !content)
 		return (
-			<div className="h-[calc(100vh-8.5rem)] w-full border bg-base border-border rounded-normal relative">
+			<div className="h-[calc(100vh-8.5rem)] w-full border bg-base border-border dark:border-borderDark rounded-normal relative">
 				<div className="max-w-screen-md mx-auto p-9 h-[calc(100vh-7.5rem)] overflow-y-auto">
 					<Skeleton height={50} width="100%" radius="sm" mb={10} mt={20} />
 					<Skeleton height={10} width="100%" radius="sm" mb={10} mt={20} />
@@ -95,7 +95,7 @@ export const BlockEditor: FC<{
 	editor.isEditable = isEditable ? isEditable : false;
 
 	return (
-		<div className="h-[calc(100vh-8.5rem)] w-full border bg-base border-border rounded-normal relative">
+		<div className="h-[calc(100vh-8.5rem)] w-full border bg-base border-border dark:border-borderDark rounded-normal relative">
 			<div className="max-w-4xl mx-auto pt-9 h-[calc(100vh-8.7rem)] overflow-y-auto">
 				<Textarea
 					placeholder="Title"
@@ -122,7 +122,7 @@ export const BlockEditor: FC<{
 					}}
 				/>
 				<BlockNoteView editor={editor} theme="light" />
-				<SmallText className="absolute top-3 right-5 bg-white rounded-normal shadow-sm border border-border p-2 z-50">
+				<SmallText className="absolute top-3 right-5 bg-white rounded-normal shadow-sm border border-border dark:border-borderDark p-2 z-50">
 					{wordCount} Words
 				</SmallText>
 			</div>

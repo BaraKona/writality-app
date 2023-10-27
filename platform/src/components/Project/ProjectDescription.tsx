@@ -42,7 +42,7 @@ export const ProjectDescription: FC<{
 	);
 
 	return (
-		<div className=" flex flex-col flex-grow p-1  bg-base border border-border rounded-normal w-96 h-[calc(100vh-3.2rem)]">
+		<div className=" flex flex-col flex-grow p-1  bg-base border border-border dark:border-borderDark rounded-normal w-96 h-[calc(100vh-3.2rem)]">
 			<div className="flex justify-between items-center">
 				<h3 className=" text-coolGrey-7 font-medium text-sm flex gap-2">
 					<IconFileDescription size={20} />
@@ -55,7 +55,7 @@ export const ProjectDescription: FC<{
 					styles={tooltipStyles}
 				>
 					<button
-						className="bg-base p-2 hover:bg-gray-100 rounded-normal border border-border"
+						className="bg-base p-2 hover:bg-gray-100 rounded-normal border border-border dark:border-borderDark"
 						onClick={() => {
 							updateDescription(JSON.stringify(editor.topLevelBlocks) || "");
 						}}

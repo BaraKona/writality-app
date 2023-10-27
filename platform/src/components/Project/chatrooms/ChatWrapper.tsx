@@ -33,7 +33,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 	return (
 		<div className="flex">
 			<Tabs
-				className={`w-full border-none important:border-none bg-base border border-border`}
+				className={`w-full border-none important:border-none bg-base border border-border dark:border-borderDark`}
 				defaultValue={primaryRoom.uid}
 				radius={"md"}
 				orientation="vertical"
@@ -95,7 +95,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 								setComment("");
 						}}
 					/>
-					<div className=" basis-72 p-4 border-border border rounded-t-normal">
+					<div className=" basis-72 p-4 border-border dark:border-borderDark border rounded-t-normal">
 						<SmallText>Chat participants</SmallText>
 						<Divider my="xs" color="grey.0" />
 					</div>

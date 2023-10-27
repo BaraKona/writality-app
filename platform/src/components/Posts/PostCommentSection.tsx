@@ -12,7 +12,7 @@ export const PostCommentSection: FC<{ post: IPost; isLoading: boolean }> = ({
 }) => {
 	const [open, setOpen] = useState(false);
 	return (
-		<div className="w-96 flex-grow-0 mt-16 p-2 rounded-normal border-border border">
+		<div className="w-96 flex-grow-0 mt-16 p-2 rounded-normal border-border dark:border-borderDark border">
 			<div className="flex gap-2 mb-2">
 				<Avatar.Group spacing="sm">
 					<Avatar src="image.png" radius="xl" />

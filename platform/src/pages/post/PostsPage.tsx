@@ -47,7 +47,7 @@ export const PostsPage: FC = () => {
 				styles={tooltipStyles}
 			>
 				<button
-					className="bg-base p-2 hover:bg-gray-100 rounded-normal fixed right-5 top-14 border border-border"
+					className="bg-base p-2 hover:bg-gray-100 rounded-normal fixed right-5 top-14 border border-border dark:border-borderDark"
 					onClick={openPostCreation}
 				>
 					<IconEdit size={18} />
