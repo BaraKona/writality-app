@@ -157,10 +157,10 @@ const GridProjects = ({ project }: { project: IProject }) => {
 
 			domAttributes: {
 				blockContainer: {
-					class: "text-xs -mx-12 dark:text-coolGrey-4",
+					class: "text-xs -mx-12 dark:!text-coolGrey-4 !text-coolGrey-6",
 				},
 				editor: {
-					class: "dark:bg-baseDark bg-base",
+					class: "dark:!bg-baseDark !bg-base",
 				},
 			},
 		},
