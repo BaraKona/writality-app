@@ -4,7 +4,7 @@ export const ChapterSidebarWrapper: FC<{
 	children: ReactNode;
 }> = ({ children }) => {
 	return (
-		<div className="min-w-auto w-72 border border-border dark:border-borderDark rounded-normal bg-base h-[calc(100vh-118px)]">
+		<div className="min-w-auto w-72 border border-border dark:border-borderDark rounded-normal h-[calc(100vh-118px)]">
 			{children}
 		</div>
 	);

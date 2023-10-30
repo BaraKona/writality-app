@@ -38,7 +38,7 @@ export const EditorWrapper: FC<{
 
 	if (isLoading || !content) {
 		return (
-			<div className="flex flex-col bg-base px-3 py-3.5 h-[calc(100vh-3.75rem)] gap-2 rounded-normal border-border dark:border-borderDark border">
+			<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3.5 h-[calc(100vh-3.75rem)] gap-2 rounded-normal border-border dark:border-borderDark border">
 				<div className="flex justify-between">
 					<Skeleton height={24} mt={6} width={100} />
 					<Skeleton height={24} mt={6} width={200} />
@@ -99,8 +99,8 @@ export const EditorWrapper: FC<{
 	}
 
 	return (
-		<div className="flex flex-col bg-base px-3 py-3 h-[calc(100vh-3.75rem)] gap-2 rounded-normal border-border dark:border-borderDark border">
-			<div className=" flex font-medium gap-2 bg-base text-coolGrey-7 items-center">
+		<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3 h-[calc(100vh-3.75rem)] gap-2 rounded-normal border-border dark:border-t dark:border-none dark:border-baseDark border">
+			<div className=" flex font-medium gap-2  text-coolGrey-7 items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text
 					size="xs"
@@ -135,7 +135,7 @@ export const EditorWrapper: FC<{
 				</div>
 			</div>
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
-			<div className=" overflow-y-hidden bg-base">
+			<div className=" overflow-y-hidden ">
 				<div className="text-editor flex justify-between align-middle">
 					{children}
 				</div>

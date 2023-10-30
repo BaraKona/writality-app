@@ -40,7 +40,7 @@ export const ChapterBranches: FC<{
 	if (isLoading) {
 		return (
 			<ChapterSidebarWrapper>
-				<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center">
+				<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center dark:text-coolGrey-4">
 					Branches
 					<ButtonWrapper onClick={openBranchModal} className="ml-auto">
 						<IconPlus
@@ -69,7 +69,7 @@ export const ChapterBranches: FC<{
 
 	return (
 		<ChapterSidebarWrapper>
-			<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center">
+			<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center dark:text-coolGrey-4">
 				Branches
 				<ButtonWrapper onClick={openBranchModal} className="ml-auto">
 					<IconPlus

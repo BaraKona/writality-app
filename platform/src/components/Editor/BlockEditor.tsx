@@ -6,6 +6,7 @@ import { Skeleton, Textarea } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
 import { SmallText } from "../texts/SmallText";
 import { BlockNoteEditor } from "@blocknote/core";
+import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const BlockEditor: FC<{
 	content: IChapterContent;
@@ -37,9 +38,20 @@ export const BlockEditor: FC<{
 				setContent(JSON.stringify(editor.topLevelBlocks));
 				setWordCount(countWordsFromTopLevelBlocks(editor.topLevelBlocks));
 			},
+
+			domAttributes: {
+				blockContainer: {
+					class: "dark:!text-coolGrey-3 !text-coolGrey-7",
+				},
+				editor: {
+					class: "dark:!bg-baseDark !bg-base",
+				},
+			},
 		},
 		[content]
 	);
+
+	const { theme } = useThemeContext();
 
 	function countWordsFromTopLevelBlocks(
 		topLevelBlocks: BlockNoteEditor["topLevelBlocks"]
@@ -76,7 +88,7 @@ export const BlockEditor: FC<{
 
 	if (isLoading || !editor || !content)
 		return (
-			<div className="h-[calc(100vh-8.5rem)] w-full border bg-base border-border dark:border-borderDark rounded-normal relative">
+			<div className="h-[calc(100vh-8.5rem)] w-full border border-border dark:border-borderDark rounded-normal relative">
 				<div className="max-w-screen-md mx-auto p-9 h-[calc(100vh-7.5rem)] overflow-y-auto">
 					<Skeleton height={50} width="100%" radius="sm" mb={10} mt={20} />
 					<Skeleton height={10} width="100%" radius="sm" mb={10} mt={20} />
@@ -95,7 +107,7 @@ export const BlockEditor: FC<{
 	editor.isEditable = isEditable ? isEditable : false;
 
 	return (
-		<div className="h-[calc(100vh-8.5rem)] w-full border bg-base border-border dark:border-borderDark rounded-normal relative">
+		<div className="h-[calc(100vh-8.5rem)] w-full border border-border dark:border-baseDark dark:border-t-borderDark rounded-normal relative">
 			<div className="max-w-4xl mx-auto pt-9 h-[calc(100vh-8.7rem)] overflow-y-auto">
 				<Textarea
 					placeholder="Title"
@@ -115,14 +127,14 @@ export const BlockEditor: FC<{
 							height: "auto",
 							border: "none",
 							backgroundColor: "transparent",
-							color: "#25262b",
+							color: theme === "dark" ? "#ddd" : "#374151",
 							margin: "0.5rem auto",
 							overflow: "hidden",
 						},
 					}}
 				/>
-				<BlockNoteView editor={editor} theme="light" />
-				<SmallText className="absolute top-3 right-5 bg-white rounded-normal shadow-sm border border-border dark:border-borderDark p-2 z-50">
+				<BlockNoteView editor={editor} />
+				<SmallText className="absolute top-3 right-5 bg-base dark:bg-hoverDark rounded-normal shadow-sm border border-border dark:border-hoverDark text-fuchsia-700 cursor-default p-2 z-50">
 					{wordCount} Words
 				</SmallText>
 			</div>
