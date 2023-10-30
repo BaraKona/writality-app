@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import { IProject } from "../../interfaces/IProject";
-import { Button, Skeleton, Tooltip } from "@mantine/core";
+import { Button, Divider, Skeleton, Tooltip } from "@mantine/core";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import { IconDeviceFloppy, IconFileDescription } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";
@@ -36,15 +36,18 @@ export const ProjectDescription: FC<{
 				blockContainer: {
 					class: "text-xs -mr-10",
 				},
+				editor: {
+					class: "dark:!bg-baseDark !bg-base",
+				},
 			},
 		},
 		[project]
 	);
 
 	return (
-		<div className=" flex flex-col flex-grow p-1  bg-base border border-border dark:border-borderDark rounded-normal w-96 h-[calc(100vh-3.2rem)]">
+		<div className=" flex flex-col flex-grow p-1 border border-border dark:border-borderDark rounded-normal w-96 h-[calc(100vh-3.2rem)]">
 			<div className="flex justify-between items-center">
-				<h3 className=" text-coolGrey-7 font-medium text-sm flex gap-2">
+				<h3 className=" text-coolGrey-7 dark:text-coolGrey-4 font-medium text-sm flex gap-2">
 					<IconFileDescription size={20} />
 					Project Description
 				</h3>
@@ -55,7 +58,7 @@ export const ProjectDescription: FC<{
 					styles={tooltipStyles}
 				>
 					<button
-						className="bg-base p-2 hover:bg-gray-100 rounded-normal border border-border dark:border-borderDark"
+						className="bg-base p-1.5 hover:bg-gray-100 rounded-normal border border-border dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
 						onClick={() => {
 							updateDescription(JSON.stringify(editor.topLevelBlocks) || "");
 						}}
@@ -64,6 +67,7 @@ export const ProjectDescription: FC<{
 					</button>
 				</Tooltip>
 			</div>
+			<Divider className="!border-coolGrey-1 dark:!border-borderDark !my-2" />
 			<div className="overflow-y-auto">
 				<BlockNoteView editor={editor} theme={theme} />
 			</div>

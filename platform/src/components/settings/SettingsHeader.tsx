@@ -1,14 +1,15 @@
 import { Divider } from "@mantine/core";
 import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
 import { IconSettings } from "@tabler/icons-react";
+import { FC } from "react";
 
-export const SettingsHeader = () => {
+export const SettingsHeader: FC<{ tab: string | undefined }> = ({ tab }) => {
 	const breadcrumbs = [
-		{ label: "Settings", path: "/settings", icon: <IconSettings size={18} /> },
+		{ label: tab, path: "/settings", icon: <IconSettings size={18} /> },
 	];
 
 	return (
-		<div className="bg-base rounded-normal text-coolGrey-7">
+		<div className="rounded-normal text-coolGrey-7 dark:text-coolGrey-4">
 			<div className="relative flex w-full items-center">
 				<Breadcrumbs items={breadcrumbs} />
 				<div className=" ml-auto flex cursor-pointer"></div>

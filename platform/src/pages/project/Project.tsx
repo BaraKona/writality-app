@@ -38,6 +38,7 @@ import { ProjectChapters } from "../../components/Project/ProjectChapters";
 import { DragAndDropWrapper } from "../../components/DragAndDrop/DragAndDropWrapper";
 import { useMoveChapterToFolder } from "../../hooks/projects/useMoveChapterToFolder";
 import { IProject } from "../../interfaces/IProject";
+
 export function Project() {
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
@@ -95,7 +96,7 @@ export function Project() {
 		);
 
 	return (
-		<section className="relative flex gap-2 w-full">
+		<section className="relative flex gap-2 w-full ">
 			<DeleteModal
 				opened={openModal}
 				setOpened={setOpenModal}

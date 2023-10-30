@@ -1,16 +1,9 @@
 import { IChapter } from "../../interfaces/IChapter";
-import React, { FC, ReactNode } from "react";
-import { book8 } from "../../assets/icons";
+import { FC } from "react";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
-import { Button, Menu, Text } from "@mantine/core";
-import {
-	IconDotsVertical,
-	IconFileText,
-	IconGripVertical,
-	IconTrash,
-} from "@tabler/icons-react";
+import { Text } from "@mantine/core";
+import { IconFileText, IconGripVertical, IconTrash } from "@tabler/icons-react";
 import { ButtonWrapper } from "../buttons/ButtonWrapper";
-import { useDraggable } from "@dnd-kit/core";
 import { useDraggableContext } from "../DragAndDrop/DraggableProvider";
 
 export const Chapter: FC<{
@@ -28,20 +21,20 @@ export const Chapter: FC<{
 
 	return (
 		<div
-			className="flex gap-3 border rounded-normal border-border dark:border-borderDark bg-white cursor-default py-1 px-2.5 items-center mb-1"
+			className="flex gap-3 border rounded-normal border-border bg-base dark:bg-baseDark dark:border-borderDark cursor-default py-1 px-2.5 items-center mb-1"
 			{...attributes}
 			ref={setNodeRef}
 			style={style}
 		>
 			<div
-				className=" text-coolGrey-7 flex place-items-center gap-1 cursor-pointer  group"
+				className=" text-coolGrey-7 dark:text-coolGrey-5 flex place-items-center gap-1 cursor-pointer group"
 				onClick={openChapter}
 			>
 				<IconFileText
 					size={16}
-					className="group-hover:text-black dark:hover:text-coolGrey-1"
+					className="group-hover:text-black dark:group-hover:text-coolGrey-3 dark:hover:text-coolGrey-1"
 				/>
-				<p className="text-gray-400 text-xs font-medium group-hover:text-coolGrey-7">
+				<p className="text-gray-400 text-xs font-medium group-hover:text-coolGrey-7 dark:group-hover:text-coolGrey-3">
 					{chapter.content.title || chapter.title || "Untitled Chapter"}
 				</p>
 			</div>

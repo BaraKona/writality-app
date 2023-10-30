@@ -27,8 +27,8 @@ export const ChapterRenderer: FC<{
 	const [name, setName] = useState<string>("");
 
 	return (
-		<div className="row-span-4 col-span-6 bg-base rounded-normal border border-border dark:border-borderDark">
-			<div className="flex gap-2 ml-2 font-medium items-center">
+		<div className="row-span-4 col-span-6 rounded-normal border border-border dark:border-borderDark">
+			<div className="flex gap-2 ml-2 font-medium items-center dark:text-coolGrey-4 p-1.5">
 				<IconFiles size={18} />
 				{isLoading ? (
 					<Skeleton width={100} height={20} />
@@ -41,7 +41,7 @@ export const ChapterRenderer: FC<{
 				<div className="ml-auto mr-1 flex gap-2">
 					<CreateChapterButton
 						createNewChapter={createNewChapter}
-						text="New Chapter"
+						text=""
 						icon={<IconFilePlus size={18} />}
 					/>
 					<Menu shadow="md" width={200}>
@@ -49,7 +49,7 @@ export const ChapterRenderer: FC<{
 							<button>
 								<CreateChapterButton
 									createNewChapter={() => {}}
-									text="New Folder"
+									text=""
 									icon={<IconFolderPlus size={18} />}
 								/>
 							</button>
@@ -74,7 +74,10 @@ export const ChapterRenderer: FC<{
 					</Menu>
 				</div>
 			</div>
-			<Divider color="grey.0 " />
+			<Divider
+				className="
+				!border-coolGrey-1 dark:!border-borderDark"
+			/>
 			{/* <ScrollArea className="" offsetScrollbars scrollbarSize={6}> */}
 			{children}
 			{/* </ScrollArea> */}

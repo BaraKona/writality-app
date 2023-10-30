@@ -22,8 +22,10 @@ export const ProjectAnalytics: FC<{}> = ({}) => {
 	return (
 		<div className="col-span-3 p-2 row-span-2 rounded-normal border border-border dark:border-borderDark flex flex-col items-center max-h-96 overflow-y-hidden">
 			<div className="w-full">
-				<h2 className="text-2xl font-bold">Analytics</h2>
-				<p className="text-sm text-gray-500">Analytics for your project</p>
+				<h2 className="text-2xl font-bold dark:text-coolGrey-4">Analytics</h2>
+				<p className="text-sm text-gray-500 dark:text-coolGrey-4">
+					Analytics for your project
+				</p>
 				<Divider
 					mb="md"
 					className="!border-coolGrey-1 dark:!border-borderDark"
@@ -31,30 +33,30 @@ export const ProjectAnalytics: FC<{}> = ({}) => {
 
 				<div>
 					{isLoading ? (
-						<div className="flex flex-wrap gap-2">
-							<Skeleton height={112} width="31.5%" />
-							<Skeleton height={112} width="31.5%" />
-							<Skeleton height={112} width="31.5%" />
-							<Skeleton height={112} width="31.5%" />
-							<Skeleton height={112} width="31.5%" />
-							<Skeleton height={112} width="31.5%" />
+						<div className="flex flex-wrap gap-2 max-h-[18rem]">
+							<Skeleton height={112} width={110} />
+							<Skeleton height={112} width={110} />
+							<Skeleton height={112} width={110} />
+							<Skeleton height={112} width={110} />
+							<Skeleton height={112} width={110} />
+							<Skeleton height={112} width={110} />
 						</div>
 					) : (
-						<div className="flex gap-2 flex-wrap max-h-[18rem] overflow-y-auto">
+						<div className="flex gap-2 flex-wrap max-h-[18rem] overflow-y-auto dark:text-orange-500">
 							<ListItem title="Words">{chapterAnalytics?.wordCount}</ListItem>
-							<ListItem title="Total Chapter Count">
+							<ListItem title="Chapters">
 								{chapterAnalytics?.chapterCount}
 							</ListItem>
-							<ListItem title="Total Branch Count">
+							<ListItem title="Branches">
 								{chapterAnalytics?.branchCount}
 							</ListItem>
-							<ListItem title="Total Version Count">
+							<ListItem title="Versions">
 								{chapterAnalytics?.versionCount}
 							</ListItem>
-							<ListItem title="Number of contributors">
+							<ListItem title="Contributors">
 								{chapterAnalytics?.userCount}
 							</ListItem>
-							<ListItem title="Chapter with most words">
+							<ListItem title="Largest chapter">
 								{chapterAnalytics?.chapterWithMostWords || "-"}
 							</ListItem>
 						</div>
@@ -71,7 +73,7 @@ const ListItem: FC<{ children: ReactNode; title: string }> = ({
 }) => {
 	return (
 		<div className="flex basis-24 flex-grow flex-shrink-0 flex-col h-28 border-border dark:border-borderDark border rounded-normal p-1 items-center">
-			<p className=" text-gray-500 text-center border-b border-border dark:border-borderDark w-full h-[2.3rem] flex justify-center items-center text-xs">
+			<p className=" text-gray-500 dark:text-coolGrey-4 text-center border-b border-border dark:border-borderDark w-full h-[2.3rem] flex justify-center items-center text-xs">
 				{title}
 			</p>
 			<p className="text-lg font-bold text-center">{children}</p>

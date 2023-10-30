@@ -34,7 +34,7 @@ export const ProjectChapters: FC<{
 	return (
 		<div
 			ref={parent}
-			className="p-2 flex flex-col overflow-auto h-[calc(100vh-14rem)]"
+			className="p-2 flex flex-col overflow-auto h-[calc(100vh-15rem)]"
 		>
 			{project?.folders?.map((folder: any, index: number) => (
 				<Droppable id={folder.uid} type="folder">

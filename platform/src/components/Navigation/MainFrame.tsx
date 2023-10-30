@@ -153,9 +153,7 @@ export const MainFrame: FC<{
 						onClick={() => changeTab(tab)}
 					>
 						<div
-							className={`flex w-full items-center flex-row cursor-default ${
-								tab.active ? "text-coolGrey-7" : "text-coolGrey-7"
-							}`}
+							className={`flex w-full items-center flex-row cursor-default text-coolGrey-7 dark:text-coolGrey-4`}
 						>
 							{tabIcons.find((t) => t.title === tab.title)?.icon ||
 								(tab.active ? (
