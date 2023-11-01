@@ -44,9 +44,9 @@ export const UsersPage = () => {
 					my="xs"
 					className="!border-coolGrey-1 dark:!border-borderDark"
 				/>
-				<div className="flex gap-2 flex-wrap h-[calc(100vh-10rem)] overflow-y-auto max-h-80">
+				<div className="flex gap-2 flex-wrap h-[calc(100vh-10rem)] overflow-y-auto">
 					{users?.map((user: IUser) => (
-						<div className="flex flex-col gap-2 rounded-normal border-border border dark:border-borderDark p-2 basis-64 max-w-[250px] hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out">
+						<div className="flex flex-col gap-2 rounded-normal border-border border dark:border-borderDark p-2 basis-64 max-h-80 max-w-[250px] hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out">
 							<div className="flex gap-2">
 								<div className="w-12 h-12 rounded-full bg-coolGrey-1/70 dark:bg-borderDark flex items-center justify-center">
 									<div
