@@ -57,11 +57,12 @@ export const PostCard: FC<{
 	const blue = "#394251";
 
 	return (
-		<div className="basis-[20.5rem] max-w-[20.5rem] group">
+		<div className="basis-[20.5rem] max-w-[20.5rem] group hover:border-coolGrey-3">
 			<Card
 				padding="md"
 				withBorder
-				className="bg-base dark:bg-baseDark !border-border dark:!border-borderDark"
+				className="bg-base dark:bg-baseDark !border-border dark:!border-borderDark dark:!hover:shadow-none dark:hover:!border-coolGrey-5 hover:!shadow-md transition-all duration-200 ease-in-out cursor-pointer"
+				onClick={() => openPost(post.uid)}
 				// style={{
 				// 	background: post?.theme?.background || "white",
 				// 	borderColor: "#ebebeb",
@@ -143,9 +144,9 @@ export const PostCard: FC<{
 						))}
 					</div>
 				)}
-				<BlueButton onClick={() => openPost(post.uid)}>
+				{/* <BlueButton onClick={() => openPost(post.uid)}>
 					<IconEye size={18} className="mr-2" /> Explore post
-				</BlueButton>
+				</BlueButton> */}
 			</Card>
 		</div>
 	);

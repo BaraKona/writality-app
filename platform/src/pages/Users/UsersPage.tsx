@@ -76,7 +76,7 @@ export const UsersPage = () => {
 									{user.country ? (
 										flags[user.country]
 									) : (
-										<div className="w-6	h-4 bg-coolGrey-3 rounded" />
+										<div className="w-6	h-4 bg-coolGrey-2 dark:bg-hoverDark rounded" />
 									)}
 								</span>
 								<span className="text-sm">
