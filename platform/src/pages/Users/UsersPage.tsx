@@ -37,9 +37,9 @@ export const UsersPage = () => {
 	return (
 		<section className="h-[calc(100vh-3.2rem)] overflow-y-auto rounded-normal bg-base dark:bg-baseDark">
 			<BannerImage
-				image="https://images.unsplash.com/photo-1506782081254-09bcfd996fd6?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				image="https://images.unsplash.com/photo-1607496220321-0c71c2fdbffb?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 				alt="Post banner"
-				styling="bottom-0"
+				styling="!object-center"
 			/>
 			<div className="max-w-screen-xl mx-auto">
 				<Title>
