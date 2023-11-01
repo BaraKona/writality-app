@@ -12,7 +12,7 @@ import { Image } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { DefaultPostBanner } from "../../assets/images";
 import { BannerImage } from "../../components/BannerImage";
-import { IconEdit } from "@tabler/icons-react";
+import { IconEdit, IconTemplate } from "@tabler/icons-react";
 import { CreateButton } from "../../components/buttons/CreateChapterButton";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { Title } from "../../components/Title";
@@ -57,7 +57,10 @@ export const PostsPage: FC = () => {
 			<div className="">
 				<div className="max-w-screen-lg mx-auto">
 					<div className="bg-base dark:bg-baseDark rounded-normal">
-						<Title>Posts</Title>
+						<div className="flex gap-4 items-center">
+							<IconTemplate size={40} className="dark:text-purple-600" />
+							<Title>Posts</Title>
+						</div>
 						<div className="mx-auto bg-base dark:bg-baseDark rounded-normal flex flex-wrap gap-2">
 							{posts?.map((post: IPost) => (
 								<PostCard post={post!} openPost={openPost} />

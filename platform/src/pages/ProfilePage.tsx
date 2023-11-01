@@ -33,7 +33,7 @@ export const ProfilePage = () => {
 	}
 
 	return (
-		<div className="flex flex-row gap-2 ">
+		<div className="flex flex-row gap-2">
 			<div className="place-items-center rounded-normal bg-base dark:bg-baseDark  flex-grow border-border dark:border-baseDark border overflow-y-auto h-[calc(100vh-3.2rem)]">
 				<BannerImage
 					image={DefaultProfileBanner}
