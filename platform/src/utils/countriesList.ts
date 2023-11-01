@@ -195,7 +195,7 @@ export const countriesList = [
 	{ label: "Yemen", code: "YE", value: "YE" },
 	{ label: "Zambia", code: "ZM", value: "ZM" },
 	{ label: "Zimbabwe", code: "ZW", value: "ZW" },
-];
+] as { label: string; code: string; value: string }[];
 export const flags = {
 	AF: "🇦🇫",
 	AL: "🇦🇱",
@@ -393,4 +393,4 @@ export const flags = {
 	YE: "🇾🇪",
 	ZM: "🇿🇲",
 	ZW: "🇿🇼",
-};
+} as { [key: string]: string };

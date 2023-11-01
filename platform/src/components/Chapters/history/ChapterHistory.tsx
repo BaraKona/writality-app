@@ -33,7 +33,7 @@ export const ChapterHistory: FC<{
 	return (
 		<ChapterSidebarWrapper>
 			<div>
-				<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center">
+				<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center dark:text-coolGrey-4">
 					History
 					<ButtonWrapper className="ml-auto" onClick={close}>
 						<IconX

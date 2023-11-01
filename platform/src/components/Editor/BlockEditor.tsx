@@ -107,7 +107,7 @@ export const BlockEditor: FC<{
 	editor.isEditable = isEditable ? isEditable : false;
 
 	return (
-		<div className="h-[calc(100vh-8.5rem)] w-full border border-border dark:border-baseDark dark:border-t-borderDark rounded-normal relative">
+		<div className="h-[calc(100vh-8.5rem)] w-full border border-border dark:border-baseDark  rounded-normal relative">
 			<div className="max-w-4xl mx-auto pt-9 h-[calc(100vh-8.7rem)] overflow-y-auto">
 				<Textarea
 					placeholder="Title"
