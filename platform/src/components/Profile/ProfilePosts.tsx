@@ -45,7 +45,7 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 
 	return (
 		<div className="border-border dark:border-borderDark border rounded-normal h-[calc(100vh-3.2rem)] pl-2">
-			<div className="text-xs font-medium mt-2 w-full flex justify-between pb-1">
+			<div className="text-xs font-medium mt-2 w-full flex justify-between pb-1 pl-1 pr-2">
 				Your Posts{" "}
 				<CreateButton
 					createNewChapter={() => navigate("/posts/create")}

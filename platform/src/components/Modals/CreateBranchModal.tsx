@@ -4,6 +4,7 @@ import { IconGitBranch } from "@tabler/icons-react";
 import { modalStyles } from "../../styles/modalStyles";
 import { inputStyles } from "../../styles/inputStyles";
 import { BlueButton } from "../buttons/BlueButton";
+import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const CreateBranchModal: FC<{
 	opened: boolean;
@@ -12,6 +13,8 @@ export const CreateBranchModal: FC<{
 	branchName: string;
 	setBranchName: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ opened, setOpened, createBranch, branchName, setBranchName }) => {
+	const { theme } = useThemeContext();
+
 	return (
 		<Modal
 			size="lg"
@@ -21,7 +24,7 @@ export const CreateBranchModal: FC<{
 				blur: 3,
 			}}
 			className="text-coolGrey-7 text-xs"
-			styles={modalStyles}
+			styles={() => modalStyles(theme)}
 			scrollAreaComponent={Modal.NativeScrollArea}
 			onClose={() => setOpened(false)}
 			title="You are about to create a new branch 🤝"

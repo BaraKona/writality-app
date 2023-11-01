@@ -79,7 +79,7 @@ export const ProfileProjects: FC<{
 						className={`border rounded-normal p-2 ${
 							layout === "grid"
 								? "border-transparent bg-coolGrey-1 dark:bg-hoverDark cursor-default"
-								: "border-coolGrey-2 dark:border-hoverDark hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
+								: "border-coolGrey-2 dark:border-borderDark dark:hover:bg-hoverDark hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
 						}`}
 						onClick={() => setLayout("grid")}
 					>
@@ -88,8 +88,8 @@ export const ProfileProjects: FC<{
 					<button
 						className={`border rounded-normal p-2 ${
 							layout === "list"
-								? "border-transparent bg-coolGrey-1  dark:bg-hoverDark cursor-default"
-								: "border-coolGrey-2 dark:border-hoverDark hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
+								? "border-transparent bg-coolGrey-1 dark:bg-hoverDark cursor-default"
+								: "border-coolGrey-2 dark:border-borderDark dark:hover:bg-hoverDark hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
 						}`}
 						onClick={() => setLayout("list")}
 					>

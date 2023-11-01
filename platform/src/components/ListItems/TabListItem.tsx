@@ -23,17 +23,19 @@ export const TabListItem: FC<{
 	return (
 		<li
 			onClick={onClick}
-			className={`px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group hover:bg-base border border-border dark:border-borderDark  rounded-normal hover:shadow cursor-default ${
+			className={`px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group hover:bg-base border border-border dark:bg-baseDark dark:hover:bg-hoverDark dark:border-baseDark rounded-normal hover:shadow cursor-default ${
 				url === location
-					? "bg-base text-black shadow"
-					: "bg-transparent text-coolGrey-7"
+					? "bg-base dark:bg-hoverDark shadow dark:shadow-none"
+					: ""
 			}`}
 		>
-			<div className="gap-1 flex  items-center">
-				{icons[type]}
-				<span className=" whitespace-nowrap w-[7rem] text-ellipsis overflow-hidden">
-					{name}
-				</span>
+			<div className="gap-1 flex items-center justify-between w-full">
+				<div className="flex gap-1">
+					{icons[type]}
+					<span className=" whitespace-nowrap w-[12rem] text-ellipsis overflow-hidden">
+						{name}
+					</span>
+				</div>
 				<IconX
 					onClick={(e) => {
 						e.stopPropagation(), removeFavourite ? removeFavourite() : null;

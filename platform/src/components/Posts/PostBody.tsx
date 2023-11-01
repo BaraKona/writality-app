@@ -20,12 +20,12 @@ export const PostBody: FC<{
 	const blue = "#394251";
 
 	return (
-		<div className="overflow-y-auto h-[calc(100vh-6.6rem)] basis-[60rem] rounded-normal flex-grow">
+		<div className="overflow-y-auto h-[calc(100vh-7.6rem)] basis-[60rem] rounded-normal flex-grow">
 			<Paper
-				className="relative text-coolGrey-7 h-[calc(100vh-6.6rem)] flex"
-				style={{
-					background: post?.theme?.background || "white",
-				}}
+				className="relative  h-[calc(100vh-6.6rem)] flex dark:bg-baseDark"
+				// style={{
+				// 	background: post?.theme?.background || "white",
+				// }}
 			>
 				<Image
 					alt={post?.postTitle}
@@ -40,11 +40,11 @@ export const PostBody: FC<{
 				<div className="px-2 mx-auto flex max-w-screen-xl gap-2">
 					<div className="max-w-screen-md mx-auto">
 						<Text
-							className=" text-sm rounded-normal px-4 py-0.5 absolute top-10 right-8"
-							style={{
-								background: post?.theme?.time || gray,
-								color: post?.theme?.text || blue,
-							}}
+							className="text-sm rounded-normal px-4 py-0.5 absolute top-10 right-0 !text-coolGrey-4"
+							// style={{
+							// 	background: post?.theme?.time || gray,
+							// 	color: post?.theme?.text || blue,
+							// }}
 						>
 							{useDefaultDateTime(post?.dateCreated.toString())}
 						</Text>
@@ -65,25 +65,25 @@ export const PostBody: FC<{
 							>
 								{post?.postType}
 							</Badge>
-							<div className="ml-auto cursor-pointer hover:text-black dark:hover:text-coolGrey-1 group-hover:visible transition-all ease-in-out duration-300">
+							<div className="ml-auto cursor-pointer text-coolGrey-3 hover:text-coolGrey-1 group-hover:visible transition-all ease-in-out duration-300">
 								<IconBookmarkPlus size={18} onClick={addFavourite} />
 							</div>
 						</div>
 
 						<Space h="md" />
 						<h1
-							className="font-bold my-8"
-							style={{
-								color: post?.theme?.projectTitle || blue,
-							}}
+							className="font-bold my-8 text-coolGrey-7 dark:text-orange-800"
+							// style={{
+							// 	color: post?.theme?.projectTitle || blue,
+							// }}
 						>
 							{post?.projectTitle}
 						</h1>
 						<h2
-							className="font-semibold "
-							style={{
-								color: post?.theme?.postTitle || gray2,
-							}}
+							className="font-semibold text-coolGrey-7 dark:text-coolGrey-4"
+							// style={{
+							// 	color: post?.theme?.postTitle || gray2,
+							// }}
 						>
 							{post?.postTitle}
 						</h2>
@@ -101,9 +101,10 @@ export const PostBody: FC<{
 						)}
 						<Space h="md" />
 						<Text
-							style={{
-								color: post?.theme?.text || blue,
-							}}
+							className="text-coolGrey-7 dark:text-coolGrey-4"
+							// style={{
+							// 	color: post?.theme?.text || blue,
+							// }}
 						>
 							{post?.description}
 						</Text>

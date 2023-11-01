@@ -14,10 +14,6 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 		(tab: any) => tab.tabType === "post"
 	);
 
-	const projects = currentUser?.bookmarks?.filter(
-		(tab: any) => tab.tabType === "project"
-	);
-
 	return (
 		<>
 			{!currentUser ? (
@@ -29,41 +25,12 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 			) : (
 				<>
 					<div>
-						<div className="text-blueTextLight text-center text-xs font-normal">
-							Bookmarks
-						</div>
 						<Divider
 							className="!border-coolGrey-1 dark:!border-borderDark"
 							my={4}
 						/>
 					</div>
-					{projects?.length > 0 && (
-						<Divider
-							className="!border-coolGrey-1 dark:!border-borderDark"
-							my={4}
-							label={<Text className="!text-blueTextLight">Projects</Text>}
-							labelPosition="center"
-						/>
-					)}
-					{projects?.map((tab: any, index: number) => {
-						return (
-							<TabListItem
-								key={index}
-								type={tab.tabType as any}
-								url={tab.url}
-								name={tab.name || "Untitled"}
-								onClick={() => navigate(tab.url)}
-							/>
-						);
-					})}
-					{posts?.length > 0 && (
-						<Divider
-							className="!border-coolGrey-1 dark:!border-borderDark"
-							my={4}
-							label={<Text className="!text-blueTextLight">Posts</Text>}
-							labelPosition="center"
-						/>
-					)}
+
 					{posts?.map((tab: any, index: number) => {
 						return (
 							<TabListItem

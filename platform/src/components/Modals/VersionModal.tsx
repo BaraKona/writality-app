@@ -14,6 +14,7 @@ import { CreateChapterButton } from "../buttons";
 import { inputStyles } from "../../styles/inputStyles";
 import { modalStyles } from "../../styles/modalStyles";
 import { useBlockNote, BlockNoteView } from "@blocknote/react";
+import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const VersionModal: FC<{
 	opened: boolean;
@@ -30,7 +31,7 @@ export const VersionModal: FC<{
 	currentContent,
 	setText,
 }) => {
-	const theme = useMantineTheme();
+	const { theme } = useThemeContext();
 	const editor = useBlockNote(
 		{
 			initialContent: version?.content ? JSON.parse(version?.content) : null,
@@ -61,27 +62,27 @@ export const VersionModal: FC<{
 					opacity: 0.55,
 					blur: 3,
 				}}
-				styles={modalStyles}
+				styles={() => modalStyles(theme)}
 				scrollAreaComponent={Modal.NativeScrollArea}
 				onClose={() => setOpened(false)}
-				className="text-coolGrey-7 text-sm"
+				className="text-coolGrey-7 text-sm dark:text-coolGrey-4 dark:!bg-baseDark"
 				title="Version"
 			>
-				<div className="flex flex-wrap mx-auto text-coolGrey-7">
+				<div className="flex flex-wrap mx-auto text-coolGrey-7 dark:text-coolGrey-4">
 					<div className="px-5 border-r border-border dark:border-borderDark grow shrink w-1/2 mx-auto">
 						<h2 className="text-gray-700 font-medium underline text-md my-2">
 							{currentContent?.title || "Main"}
 						</h2>
 						<div className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 text-xs px-3">
-							<BlockNoteView editor={editor2} theme="light" />
+							<BlockNoteView editor={editor2} />
 						</div>
 					</div>
-					<div className="px-5 border-l border-border dark:border-borderDark grow shrink w-1/2 mx-auto">
-						<h2 className="text-gray-700 font-medium underline text-md my-2">
+					<div className="px-5 border-l border-border dark:border-borderDark  grow shrink w-1/2 mx-auto">
+						<h2 className="text-gray-700 font-medium underline text-md my-2 dark:text-coolGrey-4">
 							{version?.title || version.name}
 						</h2>
-						<div className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 text-xs px-3">
-							<BlockNoteView editor={editor} theme="light" className="!px-0" />
+						<div className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 dark:text-coolGrey-4 text-xs px-3">
+							<BlockNoteView editor={editor} className="!px-0" />
 						</div>
 					</div>
 				</div>

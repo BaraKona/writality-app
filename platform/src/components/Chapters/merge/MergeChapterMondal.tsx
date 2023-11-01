@@ -4,6 +4,7 @@ import { modalStyles } from "../../../styles/modalStyles";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 import { BlueButton } from "../../buttons/BlueButton";
 import { IconGitMerge } from "@tabler/icons-react";
+import { useThemeContext } from "../../../Providers/ThemeProvider";
 
 export const MergeBranchModal: FC<{
 	opened: boolean;
@@ -11,12 +12,14 @@ export const MergeBranchModal: FC<{
 	mergeBranch: () => void;
 	currentBranch: IChapterVersion;
 }> = ({ opened, setMergeOpened, currentBranch, mergeBranch }) => {
+	const { theme } = useThemeContext();
+
 	return (
 		<>
 			<Modal
 				size="lg"
 				opened={opened}
-				styles={modalStyles}
+				styles={() => modalStyles(theme)}
 				className="text-coolGrey-7 text-sm"
 				scrollAreaComponent={Modal.NativeScrollArea}
 				onClose={() => setMergeOpened(false)}

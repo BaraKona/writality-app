@@ -10,6 +10,7 @@ import { IconTrash } from "@tabler/icons-react";
 import { CreateChapterButton } from "../buttons";
 import { CancelButton } from "../buttons/CancelButton";
 import { modalStyles } from "../../styles/modalStyles";
+import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const DeleteModal: FC<{
 	opened: boolean;
@@ -17,6 +18,8 @@ export const DeleteModal: FC<{
 	deleteBranch: () => void;
 	type: string;
 }> = ({ opened, setOpened, deleteBranch, type }) => {
+	const { theme } = useThemeContext();
+
 	return (
 		<>
 			<Modal
@@ -27,7 +30,7 @@ export const DeleteModal: FC<{
 					blur: 3,
 				}}
 				className="text-coolGrey-7 text-xs"
-				styles={modalStyles}
+				styles={() => modalStyles(theme)}
 				scrollAreaComponent={Modal.NativeScrollArea}
 				onClose={() => setOpened(false)}
 				title={`Are you sure you want to delete this ${type} ? 🤔`}

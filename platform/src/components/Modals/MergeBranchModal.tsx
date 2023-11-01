@@ -16,6 +16,7 @@ import { modalStyles } from "../../styles/modalStyles";
 import { BlueButton } from "../buttons/BlueButton";
 import { inputStyles } from "../../styles/inputStyles";
 import { ButtonWrapper } from "../buttons/ButtonWrapper";
+import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const MergeBranchModal: FC<{
 	mergeOpened: boolean;
@@ -36,7 +37,7 @@ export const MergeBranchModal: FC<{
 	position,
 	openAdvancedMerge,
 }) => {
-	const theme = useMantineTheme();
+	const { theme } = useThemeContext();
 
 	const selectionData = [
 		{ label: "Merge at top", value: "before" },
@@ -48,14 +49,10 @@ export const MergeBranchModal: FC<{
 				size="lg"
 				opened={mergeOpened}
 				overlayProps={{
-					color:
-						theme.colorScheme === "dark"
-							? theme.colors.dark[9]
-							: theme.colors.gray[2],
 					opacity: 0.55,
 					blur: 3,
 				}}
-				styles={modalStyles}
+				styles={() => modalStyles(theme)}
 				className="text-coolGrey-7 text-sm"
 				scrollAreaComponent={Modal.NativeScrollArea}
 				onClose={() => setMergeOpened(false)}
