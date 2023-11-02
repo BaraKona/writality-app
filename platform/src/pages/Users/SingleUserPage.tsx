@@ -38,7 +38,7 @@ export const SingleUserPage: FC<{}> = () => {
 			>
 				<IconChevronLeft size={18} />
 			</button>
-			<div className="absolute top-[10.5rem] left-16 w-28 h-28 rounded-full !bg-coolGrey-2/70 dark:!bg-coolGrey-5/70 dark:bg-borderDark flex items-center justify-center">
+			<div className="absolute top-[10rem] left-16 w-32 h-32 rounded-full !bg-coolGrey-2/70 dark:!bg-coolGrey-5/70 dark:bg-borderDark flex items-center justify-center border-[10px] dark:border-baseDark border-base">
 				<div
 					className={`text-4xl font-bold truncate -mt-1 ${initialsColor(
 						user.name
@@ -70,11 +70,17 @@ export const SingleUserPage: FC<{}> = () => {
 						/>
 					</div>
 					<h2 className="font-bold my-4">Interests</h2>
-					{user.interests.length === 0 && (
-						<span className="bg-orange-300  dark:bg-orange-900  capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
-							no interests
-						</span>
-					)}
+					<div className="flex flex-wrap gap-2">
+						{user.interests.length === 0 && (
+							<>
+								{[1, 2, 3].map((i) => (
+									<span className="bg-coolGrey-1 dark:bg-coolGrey-8/60 capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
+										no interests
+									</span>
+								))}
+							</>
+						)}
+					</div>
 					<div className="flex flex-wrap gap-2">
 						{user.interests.map((interest: IUser["interests"]) => (
 							<span className="bg-orange-300  dark:bg-orange-900 capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
@@ -83,11 +89,17 @@ export const SingleUserPage: FC<{}> = () => {
 						))}
 					</div>
 					<h2 className="font-bold my-4">Roles</h2>
-					{user.roles.length === 0 && (
-						<span className="bg-rose-400 dark:bg-pink-950 capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
-							no roles
-						</span>
-					)}
+					<div className="flex flex-wrap gap-2">
+						{user.roles.length === 0 && (
+							<>
+								{[1, 2, 3, 4].map((i) => (
+									<span className="bg-coolGrey-1 dark:bg-coolGrey-8/60 capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
+										no roles
+									</span>
+								))}
+							</>
+						)}
+					</div>
 					<div className="flex flex-wrap gap-2">
 						{user.roles.map((role: IUser["roles"]) => (
 							<span className="bg-rose-400 dark:bg-pink-950 capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
@@ -96,7 +108,7 @@ export const SingleUserPage: FC<{}> = () => {
 						))}
 					</div>
 				</div>
-				<div className="w-1/2 dark:bg-black/70 border-l border-border dark:border-l-black/70 pb-2">
+				<div className="w-1/2 dark:bg-black/70 border-l border-border dark:border-l-black/70 pb-2 min-h-[693px]">
 					<SingleUserSection projects={projects} posts={posts} />
 				</div>
 			</div>

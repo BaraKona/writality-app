@@ -54,7 +54,7 @@ export const SingleUserSection: FC<{
 				{posts.length === 0 ? (
 					<NoChapters title="User has no posts" p1="User has no posts" />
 				) : (
-					<div className="flex gap-2 flex-wrap px-4 max-w-[700px] mx-auto">
+					<div className="flex gap-2 flex-wrap px-4 max-w-[700px] mx-auto ">
 						{posts.map((post) => (
 							<PostCard
 								post={post}
