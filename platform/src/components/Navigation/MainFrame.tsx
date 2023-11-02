@@ -20,6 +20,7 @@ import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useThemeContext } from "../../Providers/ThemeProvider";
+import { IconUsersGroup } from "@tabler/icons-react";
 
 export const MainFrame: FC<{
 	children: ReactNode;
@@ -74,6 +75,10 @@ export const MainFrame: FC<{
 		{
 			title: "Settings",
 			icon: <IconSettings size={18} />,
+		},
+		{
+			title: "Users",
+			icon: <IconUsersGroup size={18} />,
 		},
 		{
 			title: "Help",
@@ -205,7 +210,7 @@ export const MainFrame: FC<{
 					)}
 				</div>
 			</div>
-			<section className="h-[calc(100vh-3rem)] rounded-normal overflow-y-auto  px-2">
+			<section className="h-[calc(100vh-3rem)] !rounded-normal overflow-y-auto px-2">
 				{children}
 			</section>
 		</div>

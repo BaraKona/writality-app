@@ -1,19 +1,19 @@
 export const interestList = [
 	{ label: "Adventure", value: "adventure" },
 	{ label: "Fantasy", value: "fantasy" },
-	{ label: "Science Fiction", value: "sci_fi" },
+	{ label: "Science Fiction", value: "sci-fi" },
 	{ label: "Romance", value: "romance" },
 	{ label: "Mystery", value: "mystery" },
 	{ label: "Thriller", value: "thriller" },
 	{ label: "Horror", value: "horror" },
-	{ label: "Historical Fiction", value: "historical_fiction" },
+	{ label: "Historical Fiction", value: "historical fiction" },
 	{ label: "Poetry", value: "poetry" },
 	{ label: "Comedy", value: "comedy" },
 	{ label: "Drama", value: "drama" },
 	{ label: "Action", value: "action" },
 	{ label: "Dystopian", value: "dystopian" },
 	{ label: "Paranormal", value: "paranormal" },
-	{ label: "Young Adult", value: "young_adult" },
+	{ label: "Young Adult", value: "young adult" },
 ];
 
 export const preferenceList = [
@@ -22,7 +22,7 @@ export const preferenceList = [
 	{ label: "Proofreading", value: "proofreading" },
 	{ label: "Ideation", value: "ideation" },
 	{ label: "Worldbuilding", value: "worldbuilding" },
-	{ label: "Character Development", value: "character_development" },
+	{ label: "Character Development", value: "character development" },
 	{ label: "Plotting", value: "plotting" },
 	{ label: "Outlining", value: "outlining" },
 	{ label: "Collaboration", value: "collaboration" },
@@ -30,5 +30,5 @@ export const preferenceList = [
 	{ label: "Storytelling", value: "storytelling" },
 	{ label: "Research", value: "research" },
 	{ label: "Formatting", value: "formatting" },
-	{ label: "Cover Design", value: "cover_design" },
+	{ label: "Cover Design", value: "cover design" },
 ];

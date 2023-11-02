@@ -42,6 +42,11 @@ export const getAllUsers = async () => {
 	}
 };
 
+export const getSingleUser = async (userId: string) => {
+	const { data } = await userApi.get(`/user/${userId}`);
+	return data;
+};
+
 export const signOutUser = async () => {
 	const { data } = await userApi.post("/logout");
 	return data;

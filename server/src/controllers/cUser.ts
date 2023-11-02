@@ -66,6 +66,16 @@ export const getAllUsers = async (req: any, res: any) => {
 	}
 };
 
+export const getSingleUser = async (req: any, res: any) => {
+	const userId = req.params.userId;
+	try {
+		const user = await User.findOne({ uid: userId }).select("-password");
+		res.status(200).json(user);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
 export const updateUserData = async (req: any, res: any) => {
 	const userId = req.user.uid;
 	const {

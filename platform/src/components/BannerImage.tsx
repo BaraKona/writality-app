@@ -7,13 +7,17 @@ export const BannerImage: FC<{
 	styling?: string;
 }> = ({ image, alt, height, styling }) => {
 	return (
-		<img
-			src={image}
-			alt={alt}
+		<div
 			className={`w-full ${
 				height ? height : "h-56"
-			} ${styling} first-letter:rounded-normal object-cover rounded-normal`}
-			loading="lazy"
-		/>
+			}  bg-coolGrey-1 dark:bg-coolGrey-5 rounded-normal`}
+		>
+			<img
+				src={image}
+				alt={alt}
+				className={`${styling} w-full h-full first-letter:rounded-normal object-cover rounded-normal`}
+				loading="lazy"
+			/>
+		</div>
 	);
 };

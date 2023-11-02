@@ -9,6 +9,7 @@ import {
 	removeFavouriteProject,
 	updateUserData,
 	addbookmarks,
+	getSingleUser,
 } from "../controllers/cUser";
 import { protect } from "../middleware/jwtAuth";
 
@@ -18,6 +19,7 @@ router.post("/signup", createUser);
 // router.post("/", loginUser);
 router.get("/", protect, getUser);
 router.get("/all", protect, getAllUsers);
+router.get("/user/:userId", protect, getSingleUser);
 router.patch("/", protect, updateUserData);
 router.post("/signin", signIn);
 router.post("/logout", signOut);

@@ -12,6 +12,7 @@ import { SinglePost } from "./pages/post/SinglePost";
 import { PostCreationPage } from "./pages/post/PostCreationPage";
 import { SettingsPage } from "./pages/Settings/SettingsPage";
 import { UsersPage } from "./pages/Users/UsersPage";
+import { SingleUserPage } from "./pages/Users/SingleUserPage";
 
 const socket = io(import.meta.env.VITE_API_URL, {
 	withCredentials: true,
@@ -28,6 +29,10 @@ const dashboardRoutes: RouteObject[] = [
 	{
 		path: "/profile",
 		element: <ProfilePage />,
+	},
+	{
+		path: "users/:userId",
+		element: <SingleUserPage />,
 	},
 	{
 		path: "/stories",

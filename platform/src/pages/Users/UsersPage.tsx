@@ -5,37 +5,15 @@ import { IUser } from "../../interfaces/IUser";
 import { countriesList, flags } from "../../utils/countriesList";
 import { BannerImage } from "../../components/BannerImage";
 import { Title } from "../../components/Title";
+import { useNavigate } from "react-router-dom";
+import { initials, initialsColor } from "../../utils/userIcons";
+import { UserCountryRenderer } from "../../components/UserCountryRenderer";
 export const UsersPage = () => {
 	const { data: users } = usePublicUsers();
-
-	const initials = (name: string) => {
-		return name.charAt(0).toUpperCase() + name.charAt(1).toUpperCase();
-	};
-
-	const initialsColor = (name: string) => {
-		const colors = [
-			"text-lime-600",
-			"text-green-600",
-			"text-emerald-600",
-			"text-teal-600",
-			"text-cyan-600",
-			"text-lightBlue-600",
-			"text-blue-600",
-			"text-indigo-600",
-			"text-violet-600",
-			"text-purple-600",
-			"text-fuchsia-600",
-			"text-pink-600",
-			"text-rose-600",
-		];
-
-		const index = name.length % colors.length;
-
-		return colors[index];
-	};
+	const navigate = useNavigate();
 
 	return (
-		<section className="h-[calc(100vh-3.2rem)] overflow-y-auto rounded-normal bg-base dark:bg-baseDark">
+		<section className="overflow-y-auto rounded-normal bg-base dark:bg-baseDark">
 			<BannerImage
 				image="https://images.unsplash.com/photo-1607496220321-0c71c2fdbffb?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 				alt="Post banner"
@@ -51,7 +29,10 @@ export const UsersPage = () => {
 
 				<div className="flex gap-2 flex-wrap">
 					{users?.map((user: IUser) => (
-						<div className="flex flex-col gap-2 rounded-normal border-border border dark:border-borderDark p-2 basis-80 h-80 max-w-[300px] hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out">
+						<div
+							onClick={() => navigate(`/users/${user.uid}`)}
+							className="flex flex-col gap-2 rounded-normal border-border border dark:border-borderDark p-2 basis-80 h-80 max-w-[300px] hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
+						>
 							<div className="flex gap-2">
 								<div className="w-12 h-12 rounded-full bg-coolGrey-1/70 dark:bg-borderDark flex items-center justify-center">
 									<div
@@ -71,22 +52,7 @@ export const UsersPage = () => {
 								</div>
 							</div>
 							<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
-							<div className="flex gap-2 items-center">
-								<span className="text-xl">
-									{user.country ? (
-										flags[user.country]
-									) : (
-										<div className="w-6	h-4 bg-coolGrey-2 dark:bg-hoverDark rounded" />
-									)}
-								</span>
-								<span className="text-sm">
-									{user.country
-										? Object.entries(countriesList).find(
-												([key, value]) => value.code === user.country
-										  )?.[1].label
-										: "Unknown"}
-								</span>
-							</div>
+							<UserCountryRenderer country={user.country} />
 							<div className="text-sm text-coolGrey-5 dark:text-coolGrey-5 h-24 line-clamp-5">
 								{user.aboutMe ||
 									"User has not written anything about themselves yet."}

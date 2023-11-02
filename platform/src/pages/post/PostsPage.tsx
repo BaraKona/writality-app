@@ -39,7 +39,7 @@ export const PostsPage: FC = () => {
 		navigate(`/posts/create`);
 	};
 	return (
-		<div className="place-items-center rounded-normal relative h-[calc(100vh-3rem)] overflow-y-auto">
+		<div className="place-items-center rounded-normal relative overflow-y-auto">
 			<Tooltip
 				label="Create a new post"
 				position="left"
