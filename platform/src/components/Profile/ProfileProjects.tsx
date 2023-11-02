@@ -15,6 +15,8 @@ import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { SmallText } from "../texts/SmallText";
 import { useBlockNote, BlockNoteView } from "@blocknote/react";
 import { useLocalStorage } from "@mantine/hooks";
+import { GridProjects } from "../Project/GridProjects";
+import { ListProjects } from "../Project/ListProjects";
 
 export const ProfileProjects: FC<{
 	projects: IProject[];
@@ -101,104 +103,15 @@ export const ProfileProjects: FC<{
 			{layout === "grid" ? (
 				<div className="flex flex-row flex-wrap gap-3">
 					{projects.map((project) => (
-						<GridProjects project={project} />
+						<GridProjects
+							project={project}
+							onClick={() => navigate(`/project/${project.uid}/home`)}
+						/>
 					))}
 				</div>
 			) : (
 				<ListProjects projects={projects} />
 			)}
-		</div>
-	);
-};
-
-const ListProjects = ({ projects }: { projects: IProject[] }) => {
-	const navigate = useNavigate();
-	return (
-		<div className="flex flex-col gap-1.5">
-			{projects.map((project) => (
-				<div
-					className="gap-2 rounded-normal p-2 border border-border dark:border-borderDark hover:border-coolGrey-3 hover:shadow-sm dark:shadow-none dark:hover:border-coolGrey-5 cursor-pointer transition-all duration-200 ease-in-out"
-					onClick={() => navigate(`/project/${project.uid}/home`)}
-					key={project.uid}
-				>
-					<div className="flex justify-between items-center ">
-						<div className="flex gap-2 items-center">
-							{project.type === ProjectType.standard ? (
-								<IconBook2
-									size={20}
-									className="text-neutral-600 dark:text-stone-500"
-								/>
-							) : (
-								<IconAtom2 size={20} className="text-cyan-800" />
-							)}
-							<div className="text-sm font-semibold">{project.title}</div>
-						</div>
-						<SmallText light>
-							{useTimeFromNow(project.dateCreated.date)}
-						</SmallText>
-					</div>
-				</div>
-			))}
-		</div>
-	);
-};
-
-const GridProjects = ({ project }: { project: IProject }) => {
-	const navigate = useNavigate();
-	const editor = useBlockNote(
-		{
-			initialContent: project?.description
-				? JSON.parse(project.description)
-				: null,
-			onEditorContentChange: (editor) => {
-				console.log(editor.topLevelBlocks);
-			},
-			editable: false,
-
-			domAttributes: {
-				blockContainer: {
-					class: "text-xs -mx-12 dark:!text-coolGrey-4 !text-coolGrey-6",
-				},
-				editor: {
-					class: "dark:!bg-baseDark !bg-base",
-				},
-			},
-		},
-		[project]
-	);
-
-	return (
-		<div
-			className="gap-2 rounded-normal basis-[15.4rem] pt-3 p-4 border border-border dark:border-borderDark hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
-			onClick={() => navigate(`/project/${project.uid}/home`)}
-			key={project.uid}
-		>
-			<div className="flex justify-between items-center py-2">
-				{project.type === ProjectType.standard ? (
-					<IconBook2
-						size={20}
-						className="text-neutral-600 dark:text-stone-500"
-					/>
-				) : (
-					<IconAtom2 size={20} className="text-cyan-800" />
-				)}
-				<SmallText light>{useTimeFromNow(project.dateCreated.date)}</SmallText>
-			</div>
-
-			<div className="flex flex-col">
-				<div className="text-lg font-bold">{project.title}</div>
-				<Divider
-					my="xs"
-					className="!border-coolGrey-1 dark:!border-borderDark"
-				/>
-				<div className="text-xs line-clamp-6 text-gray-500 w-full max-h-44">
-					{project.description ? (
-						<BlockNoteView editor={editor} />
-					) : (
-						"This project has no description. Adding a description will help people understand what your project is about and help you locate collaborators."
-					)}
-				</div>
-			</div>
 		</div>
 	);
 };

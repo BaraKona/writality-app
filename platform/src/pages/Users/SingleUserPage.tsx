@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { BannerImage } from "../../components/BannerImage";
-import { useSingleUser } from "../../hooks/user/useSingleUser";
+import { useSingleUser } from "../../hooks/public/useSingleUser";
 import { useNavigate, useParams } from "react-router-dom";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { UserCountryRenderer } from "../../components/UserCountryRenderer";
@@ -8,10 +8,14 @@ import { ReadMoreText } from "../../components/ReadMoreText";
 import { IconChevronLeft, IconClock } from "@tabler/icons-react";
 import { IUser } from "../../interfaces/IUser";
 import { SingleUserSection } from "../../components/user/SingleUserSection";
+import { useSingleUserProjects } from "../../hooks/public/usePublicUserProject";
+import { useSingleUserPosts } from "../../hooks/posts/useSingleUserPosts";
 
 export const SingleUserPage: FC<{}> = () => {
 	const { userId } = useParams();
 	const { data: user } = useSingleUser(userId as string);
+	const { data: projects } = useSingleUserProjects(userId as string);
+	const { data: posts } = useSingleUserPosts(userId as string);
 
 	const maxTextLength = 400;
 	const navigate = useNavigate();
@@ -92,8 +96,8 @@ export const SingleUserPage: FC<{}> = () => {
 						))}
 					</div>
 				</div>
-				<div className="w-1/2 dark:bg-black/70 bg-[#7d2d33]">
-					<SingleUserSection />
+				<div className="w-1/2 dark:bg-black/70 border-l border-border dark:border-l-black/70 pb-2">
+					<SingleUserSection projects={projects} posts={posts} />
 				</div>
 			</div>
 		</section>

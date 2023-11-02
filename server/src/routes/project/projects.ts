@@ -18,6 +18,7 @@ import {
 	moveProjectChapterIntoFolder,
 	getOpenFolderChapters,
 	getUserProfileProjects,
+	getSingleUserProjects,
 } from "../../controllers/project/cProjects";
 
 const router = express.Router();
@@ -26,6 +27,7 @@ router.post("/", protect, createProject);
 router.get("/all", protect, getAllProjects);
 router.get("/profile", protect, getUserProfileProjects);
 router.get("/user", protect, getUserProjects);
+router.get("/public/:userId", protect, getSingleUserProjects);
 router.get("/user/:projectId", protect, getProject);
 router.get("/chapters/:projectId", protect, getProjectChapters);
 router.get("/open-folder/:projectId/:folderId", protect, getOpenFolderChapters);

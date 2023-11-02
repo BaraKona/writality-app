@@ -35,6 +35,7 @@ const postSchema = new Schema<IPost>({
 	owner: {
 		type: String,
 		required: true,
+		ref: "User",
 	},
 	uid: {
 		type: String,

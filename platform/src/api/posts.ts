@@ -41,6 +41,10 @@ export const getPosts = async () => {
 	}
 };
 
+export const getSingleUserPosts = async (userId: string) => {
+	const res = await postApi.get(`/user/public/${userId}`);
+	return res.data;
+};
 export const getPost = async (postId: string) => {
 	const res = await postApi.get(`/${postId}`);
 	return res.data;

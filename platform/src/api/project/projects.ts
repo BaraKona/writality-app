@@ -50,6 +50,11 @@ export const deleteSingleProject = async (projectId: string) => {
 	}
 };
 
+export const getSingleUserProjects = async (userId: string) => {
+	const { data } = await projectApi.get(`/public/${userId}`);
+	return data;
+};
+
 export const updateProjectDescription = async (
 	userId: string,
 	projectId: string,

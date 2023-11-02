@@ -1,9 +1,9 @@
+import User from "../models/user/userSchema";
 import Posts from "../models/postSchema";
 import { v4 as uuidv4 } from "uuid";
 export const getPosts = async (req: any, res: any) => {
 	try {
 		const posts = await Posts.find({}).sort({ dateCreated: -1 }).limit(25);
-
 		res.status(200).json(posts);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
@@ -67,6 +67,20 @@ export const getUserPosts = async (req: any, res: any) => {
 			.limit(25);
 		res.status(200).json(posts);
 	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const getSingleUserPosts = async (req: any, res: any) => {
+	const userId = req.params.userId;
+	try {
+		// const { _id } = await User.findOne({ uid: userId });
+		const posts = await Posts.find({ owner: userId })
+			.sort({ dateCreated: -1 })
+			.limit(25);
+		res.status(200).json(posts);
+	} catch (error) {
+		console.log(error);
 		res.status(404).json({ message: error.message });
 	}
 };

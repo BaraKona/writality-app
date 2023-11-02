@@ -25,7 +25,8 @@ import {
 export const PostCard: FC<{
 	post: IPost;
 	openPost: (postId: string) => void;
-}> = ({ post, openPost }) => {
+	style?: string;
+}> = ({ post, openPost, style }) => {
 	const postCardPicture = () => {
 		const pictures = [
 			"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80",
@@ -57,11 +58,13 @@ export const PostCard: FC<{
 	const blue = "#394251";
 
 	return (
-		<div className="basis-[20.5rem] max-w-[20.5rem] group hover:border-coolGrey-3">
+		<div
+			className={`basis-[20.5rem] max-w-[20.5rem] group hover:border-coolGrey-3 ${style}`}
+		>
 			<Card
 				padding="md"
 				withBorder
-				className="bg-base dark:bg-baseDark !border-border dark:!border-borderDark dark:!hover:shadow-none dark:hover:!border-coolGrey-5 hover:!shadow-md transition-all duration-200 ease-in-out cursor-pointer"
+				className="!bg-transparent !border-border dark:!border-borderDark dark:!hover:shadow-none dark:hover:!border-coolGrey-5 hover:!shadow-md transition-all duration-200 ease-in-out cursor-pointer"
 				onClick={() => openPost(post.uid)}
 				// style={{
 				// 	background: post?.theme?.background || "white",

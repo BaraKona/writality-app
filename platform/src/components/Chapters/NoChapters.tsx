@@ -3,7 +3,7 @@ import { circle4 } from "../../assets/icons";
 import { BlueButton } from "../buttons/BlueButton";
 
 export const NoChapters: FC<{
-	createNewChapter: () => void;
+	createNewChapter?: () => void;
 	title?: string;
 	p1?: string;
 	p2?: string;
@@ -22,9 +22,11 @@ export const NoChapters: FC<{
 							<br /> <br />
 							{p2}
 						</p>
-						<div className="mr-auto w-32">
-							<BlueButton onClick={createNewChapter}>Create</BlueButton>
-						</div>
+						{createNewChapter && (
+							<div className="mr-auto w-32">
+								<BlueButton onClick={createNewChapter}>Create</BlueButton>
+							</div>
+						)}
 					</>
 				</div>
 			</div>
