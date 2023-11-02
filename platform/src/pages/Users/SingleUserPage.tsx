@@ -1,19 +1,20 @@
 import { FC, useState } from "react";
 import { BannerImage } from "../../components/BannerImage";
 import { useSingleUser } from "../../hooks/user/useSingleUser";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { UserCountryRenderer } from "../../components/UserCountryRenderer";
 import { ReadMoreText } from "../../components/ReadMoreText";
-import { IconClock } from "@tabler/icons-react";
+import { IconChevronLeft, IconClock } from "@tabler/icons-react";
 import { IUser } from "../../interfaces/IUser";
-import { circle4 } from "../../assets/icons";
+import { SingleUserSection } from "../../components/user/SingleUserSection";
+
 export const SingleUserPage: FC<{}> = () => {
 	const { userId } = useParams();
 	const { data: user } = useSingleUser(userId as string);
 
 	const maxTextLength = 400;
-	const [isExpanded, setIsExpanded] = useState(false);
+	const navigate = useNavigate();
 
 	if (!user) {
 		return null;
@@ -26,6 +27,13 @@ export const SingleUserPage: FC<{}> = () => {
 				alt="Post banner"
 				styling="rounded-br-none"
 			/>
+
+			<button
+				className="bg-base p-1.5 hover:bg-gray-100 rounded-normal absolute left-2 top-2 border border-border dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
+				onClick={() => navigate("/users")}
+			>
+				<IconChevronLeft size={18} />
+			</button>
 			<div className="absolute top-[10.5rem] left-16 w-28 h-28 rounded-full !bg-coolGrey-2/70 dark:!bg-coolGrey-5/70 dark:bg-borderDark flex items-center justify-center">
 				<div
 					className={`text-4xl font-bold truncate -mt-1 ${initialsColor(
@@ -60,7 +68,7 @@ export const SingleUserPage: FC<{}> = () => {
 					<h2 className="font-bold my-4">Interests</h2>
 					{user.interests.length === 0 && (
 						<span className="bg-orange-300  dark:bg-orange-900  capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
-							<img src={circle4} alt="circle4" width={150} height={150} />
+							no interests
 						</span>
 					)}
 					<div className="flex flex-wrap gap-2">
@@ -73,7 +81,7 @@ export const SingleUserPage: FC<{}> = () => {
 					<h2 className="font-bold my-4">Roles</h2>
 					{user.roles.length === 0 && (
 						<span className="bg-rose-400 dark:bg-pink-950 capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
-							<img src={circle4} alt="circle4" width={150} height={150} />
+							no roles
 						</span>
 					)}
 					<div className="flex flex-wrap gap-2">
@@ -84,7 +92,9 @@ export const SingleUserPage: FC<{}> = () => {
 						))}
 					</div>
 				</div>
-				<div className="w-1/2 dark:bg-black/70 bg-[#7d2d33]"></div>
+				<div className="w-1/2 dark:bg-black/70 bg-[#7d2d33]">
+					<SingleUserSection />
+				</div>
 			</div>
 		</section>
 	);

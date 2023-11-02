@@ -27,6 +27,7 @@ type folder = {
 }[];
 interface IProject {
 	type: projectType;
+	public: boolean;
 	uid: string;
 	owner: string;
 	title: string;
@@ -58,6 +59,7 @@ interface IProject {
 
 const projectSchema = new Schema<IProject>({
 	type: { type: String, required: true, enum: ["standard", "collaboration"] },
+	public: { type: Boolean, default: true },
 	uid: { type: String, required: true },
 	owner: { type: String, required: true },
 	title: { type: String, required: true },
