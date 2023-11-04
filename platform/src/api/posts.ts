@@ -54,3 +54,8 @@ export const getUserPosts = async () => {
 	const res = await postApi.get("/user");
 	return res.data;
 };
+
+export const postComment = async (postId: string, comment: string) => {
+	const res = await postApi.post(`/comment/${postId}`, { comment });
+	return res.data;
+};

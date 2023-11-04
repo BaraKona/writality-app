@@ -1,6 +1,7 @@
 import User from "../models/user/userSchema";
 import Posts from "../models/postSchema";
 import { v4 as uuidv4 } from "uuid";
+
 export const getPosts = async (req: any, res: any) => {
 	try {
 		const posts = await Posts.find({}).sort({ dateCreated: -1 }).limit(25);
@@ -11,7 +12,7 @@ export const getPosts = async (req: any, res: any) => {
 };
 
 export const createPost = async (req: any, res: any) => {
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	const {
 		postTitle,
 		projectTitle,
@@ -52,15 +53,24 @@ export const createPost = async (req: any, res: any) => {
 export const useSinglePost = async (req: any, res: any) => {
 	const { postId } = req.params;
 	try {
-		const post = await Posts.findOne({ uid: postId });
+		const post = await Posts.findOne({ uid: postId })
+			.populate({
+				path: "owner",
+				select: "-password -aboutMe -roles -interests -bookmarks",
+			})
+			.populate({
+				path: "comments.owner",
+				select: "-password -aboutMe -roles -interests -bookmarks",
+			});
 		res.status(200).json(post);
 	} catch (error) {
+		console.log(error);
 		res.status(404).json({ message: error.message });
 	}
 };
 
 export const getUserPosts = async (req: any, res: any) => {
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	try {
 		const posts = await Posts.find({ owner: userId })
 			.sort({ dateCreated: -1 })
@@ -72,13 +82,34 @@ export const getUserPosts = async (req: any, res: any) => {
 };
 
 export const getSingleUserPosts = async (req: any, res: any) => {
-	const userId = req.params.userId;
+	const userId = req.params._id;
 	try {
-		// const { _id } = await User.findOne({ uid: userId });
 		const posts = await Posts.find({ owner: userId })
 			.sort({ dateCreated: -1 })
 			.limit(25);
 		res.status(200).json(posts);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const postComment = async (req: any, res: any) => {
+	const userId = req.user._id;
+	const { postId } = req.params;
+	const { comment } = req.body;
+	const uid = uuidv4();
+	try {
+		const post = await Posts.findOne({ uid: postId });
+		post.comments.push({
+			uid,
+			owner: userId,
+			content: comment,
+			likes: 0,
+			dateCreated: new Date(),
+		});
+		await post.save();
+		res.status(200).json(post);
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

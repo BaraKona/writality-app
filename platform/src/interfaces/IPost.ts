@@ -1,6 +1,8 @@
+import { IUser } from "./IUser";
+
 export type IPost = {
 	uid: string;
-	owner: string;
+	owner: IUser;
 	postTitle: string;
 	projectTitle: string;
 	description: string;
@@ -13,9 +15,9 @@ export type IPost = {
 	}[];
 	dateCreated: Date;
 	dateUpdated: Date;
-	comments?: {
+	comments: {
 		uid: string;
-		owner: string;
+		owner: IUser;
 		content: string;
 		likes: number;
 		dateCreated: Date;
