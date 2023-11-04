@@ -166,9 +166,7 @@ const UserRenderer = ({ post }: { post: IPost }) => {
 				radius="lg"
 			/>
 			<div className="flex flex-col text-coolGrey-7 dark:text-coolGrey-3">
-				<Text className="text-xs font-semibold">
-					{post?.owner.slice(0, 10) || "User"}
-				</Text>
+				<Text className="text-xs font-semibold">{post?.owner.name}</Text>
 				<Text size="xs" color="dimmed">
 					{useDefaultDateTime(post?.dateCreated.toString())}
 				</Text>
