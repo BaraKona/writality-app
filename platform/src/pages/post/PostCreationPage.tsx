@@ -9,6 +9,7 @@ import { useCreatePost } from "../../hooks/posts/useCreatePost";
 export const PostCreationPage: FC<{}> = () => {
 	const [post, setPost] = useState<IPost>({
 		uid: "",
+		/** @ts-ignore */
 		owner: "",
 		postTitle: "",
 		projectTitle: "",
