@@ -67,6 +67,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 		callback: (message: string) => void;
 	}) {
 		socket.emit(name, roomId, callback);
+		socket.disconnect();
 	}
 
 	function listenForUpdates({
@@ -79,10 +80,12 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 		callback: (message: string) => void;
 	}) {
 		socket.off(name).on(name, callback);
+		socket.disconnect();
 	}
 
 	function sendUpdates({ name, roomId }: { name: string; roomId: string }) {
 		socket.emit(name, roomId);
+		socket.disconnect();
 	}
 
 	return (
