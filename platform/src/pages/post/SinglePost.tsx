@@ -6,11 +6,24 @@ import { Divider, Skeleton } from "@mantine/core";
 import { PostBody } from "../../components/Posts/PostBody";
 import { PostCommentSection } from "../../components/Posts/PostCommentSection";
 import { useAddFavouriteTab } from "../../hooks/user/useAddFavouriteTab";
+import { useSocket } from "../../Providers/SocketProvider";
+import { useQueryClient } from "react-query";
+
 export const SinglePost = () => {
 	const { postId } = useParams<{ postId: string }>();
 	const { data: post, isLoading } = useSinglePost(postId as string);
 	const location = useLocation();
 	const { mutate } = useAddFavouriteTab();
+
+	const queryClient = useQueryClient();
+
+	const { joinRoom, listenForUpdates } = useSocket();
+
+	listenForUpdates({
+		name: "update-post",
+		message: "post updated",
+		callback: () => queryClient.invalidateQueries(["post", postId]),
+	});
 
 	if (isLoading) {
 		return (

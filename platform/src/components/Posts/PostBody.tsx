@@ -89,8 +89,9 @@ export const PostBody: FC<{
 						</h2>
 						{post?.genres?.length > 0 && (
 							<div className="flex flex-wrap gap-2 my-4 cursor-default">
-								{post.genres.map((genre) => (
+								{post.genres.map((genre, index) => (
 									<Text
+										key={index}
 										className="text-sm font-semibold leading-none"
 										color="dimmed"
 									>

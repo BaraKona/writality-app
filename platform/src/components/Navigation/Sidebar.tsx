@@ -214,7 +214,7 @@ export const Sidebar: FC<{}> = () => {
 							)}
 							{sidebarNav === collabs && (
 								<UserProjects
-									projects={projects.collaboration}
+									projects={projects?.collaboration}
 									isLoading={isProjectLoading}
 									openProject={openProject}
 									removeFavouriteProject={removeFavouriteProject}

@@ -16,7 +16,7 @@ export const ReadMoreText: FC<{
 	}
 
 	return (
-		<p className="text-sm">
+		<div className="text-sm">
 			{isExpanded ? (
 				<p>{text}</p>
 			) : (
@@ -34,6 +34,6 @@ export const ReadMoreText: FC<{
 					{isExpanded ? "Read Less" : "Read More"}
 				</button>
 			)}
-		</p>
+		</div>
 	);
 };

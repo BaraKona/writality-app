@@ -48,7 +48,11 @@ export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 					<div className="gap-2 mt-3 flex flex-col justify-between ">
 						<div ref={parent} className="overflow-y-auto flex-grow mt-auto">
 							{post?.comments?.map((comment) => (
-								<PostComment comment={comment} owner={post.owner._id} />
+								<PostComment
+									comment={comment}
+									owner={post.owner._id}
+									key={comment.uid}
+								/>
 							))}
 						</div>
 					</div>

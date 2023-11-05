@@ -5,6 +5,8 @@ import { MainLoader } from "./components/MainLoader";
 import { useUser } from "./hooks/user/useUser";
 import { EditorContextWrapper } from "./contexts/EditorContext";
 import { DraggableProvider } from "./components/DragAndDrop/DraggableProvider";
+import { SocketProvider } from "./Providers/SocketProvider";
+
 export function AuthenticatedApp({}) {
 	const { data: currentUser, isLoading } = useUser();
 
@@ -18,11 +20,13 @@ export function AuthenticatedApp({}) {
 
 	return (
 		<TabContextWrapper>
-			<EditorContextWrapper>
-				<DraggableProvider>
-					<RouterProvider router={router} />
-				</DraggableProvider>
-			</EditorContextWrapper>
+			<SocketProvider>
+				<EditorContextWrapper>
+					<DraggableProvider>
+						<RouterProvider router={router} />
+					</DraggableProvider>
+				</EditorContextWrapper>
+			</SocketProvider>
 		</TabContextWrapper>
 	);
 }

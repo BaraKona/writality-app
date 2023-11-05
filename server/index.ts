@@ -22,11 +22,12 @@ const app = express() as express.Application;
 const server = http.createServer(app);
 mongoose.set("strictQuery", true);
 const io = new Server(server, {
-	cors: {
-		origin: process.env.URL,
-		credentials: true,
-		methods: ["GET", "POST"],
-	},
+	// cors: {
+	// 	origin: process.env.URL,
+	// 	credentials: true,
+	// 	methods: ["GET", "POST"],
+	// },
+	cors: {},
 });
 
 // configure dotenv
@@ -73,6 +74,10 @@ io.on("connection", (socket) => {
 			"This is a collaborative project, and you have joined the collaboration 😃👍"
 		);
 	});
+	socket.on("join-post-chat", (room, callback) => {
+		socket.join(room);
+		callback("Joined post chat");
+	});
 	socket.on("disconnect", () => {
 		console.log("user disconnected");
 	});
@@ -84,6 +89,9 @@ io.on("connection", (socket) => {
 	});
 	socket.on("update-col-desc", (room, desc) => {
 		socket.to(room).emit("update-col-desc", desc);
+	});
+	socket.on("update-post", (room) => {
+		socket.to(room).emit("update-post");
 	});
 	socket.on("create-col-chapter", (room, chapter) => {
 		socket.to(room).emit("create-col-chapter", chapter);
