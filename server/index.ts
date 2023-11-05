@@ -28,7 +28,8 @@ const io = new Server(
 		? { cors: {} }
 		: {
 				cors: {
-					origin: process.env.URL,
+					origin: [process.env.URL],
+					methods: ["GET", "POST"],
 					credentials: true,
 				},
 		  }
