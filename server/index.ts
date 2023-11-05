@@ -21,14 +21,19 @@ const compression = require("compression");
 const app = express() as express.Application;
 const server = http.createServer(app);
 mongoose.set("strictQuery", true);
-const io = new Server(server, {
-	// cors: {
-	// 	origin: process.env.URL,
-	// 	credentials: true,
-	// 	methods: ["GET", "POST"],
-	// },
-	cors: {},
-});
+
+const io = new Server(
+	server,
+	process.env.CORS
+		? { cors: {} }
+		: {
+				cors: {
+					origin: process.env.URL,
+					methods: ["GET", "POST"],
+					credentials: true,
+				},
+		  }
+);
 
 // configure dotenv
 dotenv.config();
