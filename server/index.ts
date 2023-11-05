@@ -22,13 +22,6 @@ const app = express() as express.Application;
 const server = http.createServer(app);
 mongoose.set("strictQuery", true);
 
-const io = new Server(server, {
-	cors: {
-		origin: [process.env.URL],
-		// credentials: true,
-	},
-});
-
 // configure dotenv
 dotenv.config();
 // support parsing of application/json type post data
@@ -48,6 +41,13 @@ app.use(
 		credentials: true,
 	})
 );
+
+const io = new Server(server, {
+	cors: {
+		origin: [process.env.URL],
+		credentials: true,
+	},
+});
 
 // Routes for the API
 app.use("/users", users);
