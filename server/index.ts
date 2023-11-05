@@ -27,7 +27,7 @@ dotenv.config();
 
 const io = new Server(server, {
 	cors: {
-		origin: [process.env.URL],
+		origin: process.env.URL,
 	},
 });
 
