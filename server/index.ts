@@ -22,19 +22,14 @@ const app = express() as express.Application;
 const server = http.createServer(app);
 mongoose.set("strictQuery", true);
 
-const io = new Server(
-	server,
-	process.env.CORS
-		? { cors: {} }
-		: {
-				cors: {
-					origin: [process.env.URL],
-					methods: ["GET", "POST"],
-					credentials: true,
-				},
-		  }
-);
+const io = new Server(server, {
+	cors: {
+		origin: [process.env.URL],
+		credentials: true,
+	},
+});
 
+console.log(process.env.CORS);
 // configure dotenv
 dotenv.config();
 // support parsing of application/json type post data
