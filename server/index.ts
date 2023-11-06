@@ -25,14 +25,6 @@ mongoose.set("strictQuery", true);
 // configure dotenv
 dotenv.config();
 
-const io = new Server(server, {
-	cors: {
-		origin: "*",
-		// methods: ["GET", "POST"],
-		// credentials: true,
-	},
-});
-
 // support parsing of application/json type post data
 app.use(express.json({ limit: "30mb" }));
 // support parsing of application/x-www-form-urlencoded post data
@@ -51,6 +43,12 @@ app.use(
 		credentials: true,
 	})
 );
+const io = new Server(server, {
+	cors: {
+		origin: [process.env.URL],
+		credentials: true,
+	},
+});
 
 // Routes for the API
 app.use("/users", users);
