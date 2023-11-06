@@ -57,7 +57,9 @@ export function useSocket() {
 }
 
 export function SocketProvider({ children }: { children: ReactNode }) {
-	const socket = io(import.meta.env.VITE_API_URL);
+	const socket = io(import.meta.env.VITE_API_URL, {
+		withCredentials: true,
+	});
 
 	function joinRoom({
 		name,

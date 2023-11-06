@@ -26,9 +26,9 @@ mongoose.set("strictQuery", true);
 dotenv.config();
 
 // support parsing of application/json type post data
-app.use(express.json({ limit: "30mb" }));
+app.use(express.json({ limit: "3mb" }));
 // support parsing of application/x-www-form-urlencoded post data
-app.use(express.urlencoded({ limit: "30mb", extended: true }));
+app.use(express.urlencoded({ limit: "3mb", extended: true }));
 app.use(cookieParser());
 app.use(
 	compression({
@@ -39,10 +39,15 @@ app.use(
 // configure cors
 app.use(
 	cors({
-		origin: [process.env.URL],
+		origin: [
+			"https://www.app.writality.com",
+			"https://app.writality.com",
+			"http://localhost:5173",
+		],
 		credentials: true,
 	})
 );
+
 const io = new Server(server, {
 	cors: {
 		origin: [process.env.URL],
