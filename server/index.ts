@@ -27,12 +27,13 @@ dotenv.config();
 
 const io = new Server(server, {
 	cors: {
-		origin: process.env.URL,
+		origin: false,
 		methods: ["GET", "POST"],
 		credentials: true,
 	},
 });
 
+console.log(io);
 // support parsing of application/json type post data
 app.use(express.json({ limit: "30mb" }));
 // support parsing of application/x-www-form-urlencoded post data
