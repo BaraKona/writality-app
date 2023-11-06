@@ -28,6 +28,7 @@ dotenv.config();
 const io = new Server(server, {
 	cors: {
 		origin: process.env.ENVIRONMENT === "development" ? process.env.URL : "*",
+		allowedHeaders: [process.env.URL],
 		methods: ["GET", "POST"],
 		credentials: true,
 	},
