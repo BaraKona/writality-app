@@ -39,18 +39,17 @@ app.use(
 // configure cors
 app.use(
 	cors({
+		origin: [process.env.URL],
+		credentials: true,
+	})
+);
+const io = new Server(server, {
+	cors: {
 		origin: [
 			"https://www.app.writality.com",
 			"https://app.writality.com",
 			"http://localhost:5173",
 		],
-		credentials: true,
-	})
-);
-
-const io = new Server(server, {
-	cors: {
-		origin: [process.env.URL],
 		credentials: true,
 	},
 });
