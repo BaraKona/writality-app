@@ -64,9 +64,6 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 	const socket = io(import.meta.env.VITE_API_URL, {
 		withCredentials: true,
 		transports: ["websocket"],
-		extraHeaders: {
-			"writality-app-cors": "running",
-		},
 	});
 
 	function joinRoom({

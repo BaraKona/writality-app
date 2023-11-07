@@ -106,6 +106,7 @@ export const FolderListItem: FC<{
 									onClick={() =>
 										navigate(`project/${projectId}/chapter/${chapter.uid}`)
 									}
+									key={index}
 								>
 									<span className="flex gap-1.5 items-start">
 										<IconFileText size={16} className="flex-shrink-0" />{" "}
