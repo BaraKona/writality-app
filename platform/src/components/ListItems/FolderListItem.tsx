@@ -95,7 +95,7 @@ export const FolderListItem: FC<{
 					} pl-1 py-1 gap-0.5 flex flex-col border-l border-border dark:border-borderDark`}
 				>
 					{folderChapters?.map((chapter: IChapter, index: number) => (
-						<>
+						<div key={index}>
 							{small ? (
 								<SmallText
 									className={`flex items-center justify-between py-0.5 px-0.5 ml-2 cursor-pointer rounded-normal hover:bg-coolGrey-1 dark:hover:bg-hoverDark dark:text-coolGrey-5 ${
@@ -106,7 +106,6 @@ export const FolderListItem: FC<{
 									onClick={() =>
 										navigate(`project/${projectId}/chapter/${chapter.uid}`)
 									}
-									key={index}
 								>
 									<span className="flex gap-1.5 items-start">
 										<IconFileText size={16} className="flex-shrink-0" />{" "}
@@ -118,14 +117,13 @@ export const FolderListItem: FC<{
 									openChapter={() =>
 										navigate(`/project/${projectId}/chapter/${chapter.uid}`)
 									}
-									key={index}
 									chapter={chapter}
 									openChapterModal={() => null}
 									disabled={false}
 									listenerId={chapter._id}
 								/>
 							)}
-						</>
+						</div>
 					))}
 				</div>
 			)}

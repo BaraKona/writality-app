@@ -27,7 +27,7 @@ type SocketType = {
 
 const defaultSocket: SocketType = {
 	socket: io(import.meta.env.VITE_API_URL, {
-		transports: ["websocket"],
+		transports: ["websocket", "polling", "flashsocket"],
 	}),
 	joinRoom: ({
 		name,
@@ -58,9 +58,11 @@ export function useSocket() {
 
 export function SocketProvider({ children }: { children: ReactNode }) {
 	const socket = io(import.meta.env.VITE_API_URL, {
-		transports: ["websocket"],
+		transports: ["websocket", "polling", "flashsocket"],
 	});
 
+	console.log(socket);
+	console.log(import.meta.env.VITE_API_URL);
 	function joinRoom({
 		name,
 		roomId,

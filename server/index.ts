@@ -36,6 +36,13 @@ app.use(
 	})
 );
 
+const io = new Server(server, {
+	cors: {
+		origin: process.env.URL,
+		methods: ["GET", "POST"],
+	},
+});
+
 // configure cors
 app.use(
 	cors({
@@ -43,12 +50,6 @@ app.use(
 		credentials: true,
 	})
 );
-const io = new Server(server, {
-	cors: {
-		origin: process.env.URL,
-		methods: ["GET", "POST"],
-	},
-});
 
 io.engine.on("initial_headers", (headers, req) => {
 	headers["Access-Control-Allow-Origin"] = [process.env.URL];
