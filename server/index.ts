@@ -46,7 +46,16 @@ app.use(
 const io = new Server(server, {
 	cors: {
 		origin: process.env.URL,
+		methods: ["GET", "POST"],
 	},
+});
+
+io.engine.on("initial_headers", (headers, req) => {
+	headers["Access-Control-Allow-Origin"] = [process.env.URL];
+});
+
+io.engine.on("headers", (headers, req) => {
+	headers["Access-Control-Allow-Origin"] = [process.env.URL]; // url to all
 });
 
 // Routes for the API
