@@ -45,11 +45,7 @@ app.use(
 );
 const io = new Server(server, {
 	cors: {
-		origin: [
-			"https://www.app.writality.com",
-			"https://app.writality.com",
-			"http://localhost:5173",
-		],
+		origin: "*",
 		credentials: true,
 	},
 });
