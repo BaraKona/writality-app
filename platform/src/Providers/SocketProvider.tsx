@@ -26,7 +26,10 @@ type SocketType = {
 };
 
 const defaultSocket: SocketType = {
-	socket: io(import.meta.env.VITE_API_URL),
+	socket: io({
+		withCredentials: true,
+		path: import.meta.env.VITE_API_URL + "/socket.io",
+	}),
 	joinRoom: ({
 		name,
 		roomId,

@@ -45,8 +45,8 @@ app.use(
 );
 const io = new Server(server, {
 	cors: {
-		origin: "*",
-		// credentials: true,
+		origin: [process.env.URL],
+		credentials: true,
 	},
 });
 
