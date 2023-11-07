@@ -47,6 +47,7 @@ const io = new Server(server, {
 	cors: {
 		origin: [process.env.URL],
 		credentials: true,
+		allowedHeaders: ["writality-app-cors"],
 	},
 });
 

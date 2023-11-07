@@ -28,6 +28,10 @@ type SocketType = {
 const defaultSocket: SocketType = {
 	socket: io(import.meta.env.VITE_API_URL, {
 		transports: ["websocket", "polling", "flashsocket"],
+		withCredentials: true,
+		extraHeaders: {
+			"writality-app-cors": "running",
+		},
 	}),
 	joinRoom: ({
 		name,
