@@ -40,7 +40,9 @@ const io = new Server(server, {
 	cors: {
 		origin: process.env.URL,
 		methods: ["GET", "POST"],
+		credentials: true,
 	},
+	allowEIO3: true,
 });
 
 // configure cors
