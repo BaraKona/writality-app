@@ -16,7 +16,6 @@ import { IconEdit, IconTemplate } from "@tabler/icons-react";
 import { CreateButton } from "../../components/buttons/CreateChapterButton";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { Title } from "../../components/Title";
-// import { useSocket } from "../../Providers/SocketProvider";
 
 export const PostsPage: FC = () => {
 	const [createProjectModal, setCreateProjectModal] = useState(false);
@@ -33,20 +32,12 @@ export const PostsPage: FC = () => {
 	const { data: posts } = useQuery("posts", getPosts);
 	const navigate = useNavigate();
 
-	// const socket = useSocket();
-
 	const openPost = (postId: string) => {
 		navigate(`/posts/${postId}`);
 	};
 	const openPostCreation = () => {
 		navigate(`/posts/create`);
 	};
-
-	/** @ts-ignore */
-	// socket.off("Joined post chat").on("Joined post chat", (message: string) => {
-	// 	console.log(message);
-	// });
-	// console.log(socket);
 
 	return (
 		<div className="place-items-center rounded-normal relative overflow-y-auto">
