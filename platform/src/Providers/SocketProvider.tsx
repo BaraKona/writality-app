@@ -2,6 +2,7 @@ import { createContext, useContext, ReactNode, useEffect } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import { io, Socket } from "socket.io-client";
 import Pusher, { Channel } from "pusher-js";
+import { initPusher } from "../api/external/pusher";
 
 type SocketType = {
 	subscribeToChannel: ({ room }: { room: string }) => Channel;
@@ -28,9 +29,7 @@ export function useSocket() {
 }
 
 export function SocketProvider({ children }: { children: ReactNode }) {
-	const pusher = new Pusher(import.meta.env.PUSHER_KEY, {
-		cluster: "eu",
-	});
+	const pusher = initPusher();
 
 	function subscribeToChannel({ room }: { room: string }) {
 		return pusher.subscribe(room);
