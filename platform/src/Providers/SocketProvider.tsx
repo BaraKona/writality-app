@@ -1,5 +1,5 @@
-import { createContext, useContext, ReactNode } from "react";
-import { Channel } from "pusher-js";
+import { createContext, useContext, ReactNode, useEffect } from "react";
+import Pusher, { Channel } from "pusher-js";
 import { initPusher } from "../api/external/pusher";
 
 type SocketType = {
@@ -27,7 +27,14 @@ export function useSocket() {
 }
 
 export function SocketProvider({ children }: { children: ReactNode }) {
-	const pusher = initPusher();
+	let pusher = {} as Pusher;
+
+	useEffect(() => {
+		pusher = initPusher();
+		return () => {
+			pusher.disconnect();
+		};
+	});
 
 	function subscribeToChannel({ room }: { room: string }) {
 		return pusher.subscribe(room);

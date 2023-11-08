@@ -7,7 +7,6 @@ export const useSinglePost = (postId: string) => {
 	return useQuery(["post", postId], () => getPost(postId), {
 		onSuccess: (data) => {
 			const pusher = subscribeToChannel({ room: `post-${postId}` });
-
 			pusher.bind("comments", () => {
 				queryClient.invalidateQueries(["post", postId]);
 			});
