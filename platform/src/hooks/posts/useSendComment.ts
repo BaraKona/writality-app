@@ -5,7 +5,7 @@ import { useSocket } from "../../Providers/SocketProvider";
 
 export const useSendComment = (postId: string) => {
 	const queryClient = useQueryClient();
-	const { sendUpdates } = useSocket();
+	// const { sendUpdates } = useSocket();
 
 	return useMutation((comment: string) => postComment(postId, comment), {
 		onError: (error) => {
@@ -17,7 +17,7 @@ export const useSendComment = (postId: string) => {
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries(["post", postId]);
-			sendUpdates({ name: "update-post", roomId: postId });
+			// sendUpdates({ name: "update-post", roomId: postId });
 			useToast("success", "Your comment has been posted!");
 		},
 	});

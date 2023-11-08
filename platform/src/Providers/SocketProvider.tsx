@@ -1,54 +1,24 @@
 import { createContext, useContext, ReactNode, useEffect } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import { io, Socket } from "socket.io-client";
+import Pusher, { Channel } from "pusher-js";
 
 type SocketType = {
-	socket: Socket;
-	joinRoom: ({
-		name,
-		roomId,
+	subscribeToChannel: ({ room }: { room: string }) => Channel;
+	listenToEvent: ({
+		room,
+		event,
 		callback,
 	}: {
-		name: string;
-		roomId: string;
-		callback: (message: string) => void;
+		room: string;
+		event: string;
+		callback: () => void;
 	}) => void;
-	listenForUpdates: ({
-		name,
-		message,
-		callback,
-	}: {
-		name: string;
-		message: string;
-		callback: (message: string) => void;
-	}) => void;
-	sendUpdates: ({ name, roomId }: { name: string; roomId: string }) => void;
 };
 
 const defaultSocket: SocketType = {
-	socket: io(import.meta.env.VITE_API_URL, {
-		transports: ["websocket", "polling", "flashsocket"],
-		withCredentials: true,
-	}),
-	joinRoom: ({
-		name,
-		roomId,
-		callback,
-	}: {
-		name: string;
-		roomId: string;
-		callback: (message: string) => void;
-	}) => {},
-	listenForUpdates: ({
-		name,
-		message,
-		callback,
-	}: {
-		name: string;
-		message: string;
-		callback: (message: string) => void;
-	}) => {},
-	sendUpdates: ({ name, roomId }: { name: string; roomId: string }) => {},
+	subscribeToChannel: () => ({} as Channel),
+	listenToEvent: () => {},
 };
 
 const SocketContext = createContext<SocketType>(defaultSocket);
@@ -58,49 +28,32 @@ export function useSocket() {
 }
 
 export function SocketProvider({ children }: { children: ReactNode }) {
-	const socket = io(import.meta.env.VITE_API_URL, {
-		transports: ["websocket", "polling", "flashsocket"],
-		withCredentials: true,
+	const pusher = new Pusher("e8e5b489fee2211904ed", {
+		cluster: "eu",
 	});
 
-	console.log(socket);
-	console.log(import.meta.env.VITE_API_URL);
-	function joinRoom({
-		name,
-		roomId,
-		callback,
-	}: {
-		name: string;
-		roomId: string;
-		callback: (message: string) => void;
-	}) {
-		socket.emit(name, roomId, callback);
+	function subscribeToChannel({ room }: { room: string }) {
+		return pusher.subscribe(room);
 	}
 
-	function listenForUpdates({
-		name,
-		message,
+	function listenToEvent({
+		room,
+		event,
 		callback,
 	}: {
-		name: string;
-		message: string;
-		callback: (message: string) => void;
+		room: string;
+		event: string;
+		callback: () => void;
 	}) {
-		socket.off(name).on(name, callback);
-	}
-
-	function sendUpdates({ name, roomId }: { name: string; roomId: string }) {
-		socket.emit(name, roomId);
-		socket.disconnect();
+		const channel = subscribeToChannel({ room });
+		channel.bind(event, callback);
 	}
 
 	return (
 		<SocketContext.Provider
 			value={{
-				socket,
-				joinRoom,
-				listenForUpdates,
-				sendUpdates,
+				subscribeToChannel,
+				listenToEvent,
 			}}
 		>
 			{children}

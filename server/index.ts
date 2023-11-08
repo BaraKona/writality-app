@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import http from "http";
-import { Server } from "socket.io";
+import { initPusher } from "./pusherProvider";
 
 import users from "./src/routes/users";
 import chats from "./src/routes/chat/chat";
@@ -36,30 +36,37 @@ app.use(
 	})
 );
 
-const io = new Server(server, {
-	cors: {
-		origin: process.env.URL,
-		methods: ["GET", "POST"],
-		credentials: true,
-	},
-	allowEIO3: true,
-});
+// const pusher = initPusher();
+
+// const io = new Server(server, {
+// 	cors: {
+// 		origin: process.env.PLATFORM_URL,
+// 		methods: ["GET", "POST"],
+// 		credentials: true,
+// 	},
+// 	allowEIO3: true,
+// });
 
 // configure cors
 app.use(
 	cors({
-		origin: [process.env.URL],
+		origin: [process.env.PLATFORM_URL],
 		credentials: true,
 	})
 );
 
-io.engine.on("initial_headers", (headers, req) => {
-	headers["Access-Control-Allow-Origin"] = [process.env.URL];
-});
+// io.engine.on("initial_headers", (headers, req) => {
+// 	headers["Access-Control-Allow-Origin"] = [process.env.URL];
+// });
 
-io.engine.on("headers", (headers, req) => {
-	headers["Access-Control-Allow-Origin"] = [process.env.URL]; // url to all
-});
+// io.engine.on("headers", (headers, req) => {
+// 	headers["Access-Control-Allow-Origin"] = [process.env.URL]; // url to all
+// });
+
+// io.engine.on("connection_error", (err) => {
+// 	console.log(err);
+// 	return err;
+// });
 
 // Routes for the API
 app.use("/users", users);
@@ -78,60 +85,60 @@ app.get("/", (req, res) => {
 	res.send("Connected to server!");
 });
 
-io.on("connection", (socket) => {
-	socket.on("join-collaboration", (room, callback) => {
-		socket.join(room);
-		callback(
-			"This is a collaborative project, and you have joined the collaboration 😃👍"
-		);
-	});
-	socket.on("join-post-chat", (room, callback) => {
-		socket.join(room);
-		callback("Joined post chat");
-	});
-	socket.on("disconnect", () => {
-		console.log("user disconnected");
-	});
-	socket.on("join-chapter", (room, callback) => {
-		socket.join(room);
-	});
-	socket.on("save", (room, content) => {
-		socket.to(room).emit("save", content);
-	});
-	socket.on("update-col-desc", (room, desc) => {
-		socket.to(room).emit("update-col-desc", desc);
-	});
-	socket.on("update-post", (room) => {
-		socket.to(room).emit("update-post");
-	});
-	socket.on("create-col-chapter", (room, chapter) => {
-		socket.to(room).emit("create-col-chapter", chapter);
-	});
-	socket.on("delete-col-chapter", (room, chapter) => {
-		socket.to(room).emit("delete-col-chapter", chapter);
-	});
-	socket.on("create-col-version", (room, version) => {
-		socket.to(room).emit("create-col-version", version);
-	});
-	socket.on("create-col-branch", (room, branch) => {
-		socket.to(room).emit("create-col-branch", branch);
-	});
-	socket.on("update-col-branch", (room, name) => {
-		socket.to(room).emit("update-col-branch", name);
-	});
-	socket.on("delete-col-branch", (room, name) => {
-		socket.to(room).emit("delete-col-branch", name);
-	});
-	socket.on("delete-col-version", (room, version) => {
-		socket.to(room).emit("delete-col-version", version);
-	});
-	socket.on("comment-col-chat", (room, comment) => {
-		socket.to(room).emit("comment-col-chat", comment);
-	});
-	socket.on("merge-col-branch", (room, branchName) => {
-		socket.to(room).emit("merge-col-branch", branchName);
-	});
-});
+// io.on("connection", (socket) => {
+// 	socket.on("join-collaboration", (room, callback) => {
+// 		socket.join(room);
+// 		callback(
+// 			"This is a collaborative project, and you have joined the collaboration 😃👍"
+// 		);
+// 	});
+// 	socket.on("join-post-chat", (room, callback) => {
+// 		socket.join(room);
+// 		callback("Joined post chat");
+// 	});
+// 	socket.on("disconnect", () => {
+// 		console.log("user disconnected");
+// 	});
+// 	socket.on("join-chapter", (room, callback) => {
+// 		socket.join(room);
+// 	});
+// 	socket.on("save", (room, content) => {
+// 		socket.to(room).emit("save", content);
+// 	});
+// 	socket.on("update-col-desc", (room, desc) => {
+// 		socket.to(room).emit("update-col-desc", desc);
+// 	});
+// 	socket.on("update-post", (room) => {
+// 		socket.to(room).emit("update-post");
+// 	});
+// 	socket.on("create-col-chapter", (room, chapter) => {
+// 		socket.to(room).emit("create-col-chapter", chapter);
+// 	});
+// 	socket.on("delete-col-chapter", (room, chapter) => {
+// 		socket.to(room).emit("delete-col-chapter", chapter);
+// 	});
+// 	socket.on("create-col-version", (room, version) => {
+// 		socket.to(room).emit("create-col-version", version);
+// 	});
+// 	socket.on("create-col-branch", (room, branch) => {
+// 		socket.to(room).emit("create-col-branch", branch);
+// 	});
+// 	socket.on("update-col-branch", (room, name) => {
+// 		socket.to(room).emit("update-col-branch", name);
+// 	});
+// 	socket.on("delete-col-branch", (room, name) => {
+// 		socket.to(room).emit("delete-col-branch", name);
+// 	});
+// 	socket.on("delete-col-version", (room, version) => {
+// 		socket.to(room).emit("delete-col-version", version);
+// 	});
+// 	socket.on("comment-col-chat", (room, comment) => {
+// 		socket.to(room).emit("comment-col-chat", comment);
+// 	});
+// 	socket.on("merge-col-branch", (room, branchName) => {
+// 		socket.to(room).emit("merge-col-branch", branchName);
+// 	});
+// });
 
 const PORT = process.env.PORT || 5000;
 

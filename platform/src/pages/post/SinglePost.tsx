@@ -8,6 +8,8 @@ import { PostCommentSection } from "../../components/Posts/PostCommentSection";
 import { useAddFavouriteTab } from "../../hooks/user/useAddFavouriteTab";
 import { useSocket } from "../../Providers/SocketProvider";
 import { useQueryClient } from "react-query";
+import Pusher from "pusher-js";
+import { useEffect } from "react";
 
 export const SinglePost = () => {
 	const { postId } = useParams<{ postId: string }>();
@@ -17,13 +19,22 @@ export const SinglePost = () => {
 
 	const queryClient = useQueryClient();
 
-	const { joinRoom, listenForUpdates } = useSocket();
+	const { listenToEvent, subscribeToChannel } = useSocket();
 
-	listenForUpdates({
-		name: "update-post",
-		message: "post updated",
+	listenToEvent({
+		room: "post-page",
+		event: "postUpdated",
 		callback: () => queryClient.invalidateQueries(["post", postId]),
 	});
+
+	useEffect(() => {
+		const pusher = subscribeToChannel({ room: `post-${postId}` });
+
+		pusher.bind("comments", () => {
+			queryClient.invalidateQueries(["post", postId]);
+			console.log("comments");
+		});
+	}, [postId]);
 
 	if (isLoading) {
 		return (
