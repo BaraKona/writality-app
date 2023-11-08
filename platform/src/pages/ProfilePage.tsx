@@ -52,7 +52,7 @@ export const ProfilePage = () => {
 							or what poison we’ve internalized or how hard we’ve had to work to
 							expel it –– we all get to dream."
 						</p>
-						<p>
+						<div>
 							<Text
 								weight={600}
 								size="md"
@@ -60,7 +60,7 @@ export const ProfilePage = () => {
 							>
 								- N. K. Jemisin
 							</Text>
-						</p>
+						</div>
 					</div>
 
 					<div className="py-2 rounded-normal flex flex-col gap-2">

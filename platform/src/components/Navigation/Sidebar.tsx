@@ -20,6 +20,7 @@ import {
 	IconRocket,
 	IconInbox,
 	Icon3dCubeSphere,
+	IconMessage,
 } from "@tabler/icons-react";
 import { cyclops8, cyclops7 } from "../../assets/icons";
 import { MainFrame } from "../Project";
@@ -52,6 +53,7 @@ export const Sidebar: FC<{}> = () => {
 	const home = "projects";
 	const collabs = "collaborations";
 	const inbox = "inbox";
+	const messages = "messages";
 
 	const [sidebarNav, setSidebarNav] = useLocalStorage({
 		key: "sidebarNav",
@@ -178,6 +180,25 @@ export const Sidebar: FC<{}> = () => {
 								>
 									<Icon3dCubeSphere size={18} />
 								</SidebarTopNav>
+
+								<SidebarTopNav
+									sidebarNav={sidebarNav}
+									value="create project"
+									navigate={createProject}
+								>
+									<IconCubePlus size={18} />
+								</SidebarTopNav>
+								<Divider
+									className="!border-coolGrey-1 dark:!border-borderDark mx-3"
+									orientation="vertical"
+								/>
+								<SidebarTopNav
+									sidebarNav={sidebarNav}
+									value={messages}
+									navigate={() => setSidebarNav(messages)}
+								>
+									<IconMessage size={18} />
+								</SidebarTopNav>
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
 									value={inbox}
@@ -185,20 +206,12 @@ export const Sidebar: FC<{}> = () => {
 								>
 									<IconInbox size={18} />
 								</SidebarTopNav>
-
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
 									value={bookmarks}
 									navigate={() => setSidebarNav(bookmarks)}
 								>
 									<IconBookmarks size={18} />
-								</SidebarTopNav>
-								<SidebarTopNav
-									sidebarNav={sidebarNav}
-									value="create project"
-									navigate={createProject}
-								>
-									<IconCubePlus size={18} />
 								</SidebarTopNav>
 							</section>
 

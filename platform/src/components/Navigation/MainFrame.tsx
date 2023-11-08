@@ -126,6 +126,7 @@ export const MainFrame: FC<{
 					active: true,
 				},
 			]);
+			navigate("/profile");
 		}
 	};
 

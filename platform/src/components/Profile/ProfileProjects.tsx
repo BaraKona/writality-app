@@ -102,8 +102,9 @@ export const ProfileProjects: FC<{
 
 			{layout === "grid" ? (
 				<div className="flex flex-row flex-wrap gap-3">
-					{projects.map((project) => (
+					{projects.map((project, index) => (
 						<GridProjects
+							key={index}
 							project={project}
 							onClick={() => navigate(`/project/${project.uid}/home`)}
 						/>

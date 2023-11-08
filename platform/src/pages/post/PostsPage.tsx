@@ -18,17 +18,6 @@ import { tooltipStyles } from "../../styles/tooltipStyles";
 import { Title } from "../../components/Title";
 
 export const PostsPage: FC = () => {
-	const [createProjectModal, setCreateProjectModal] = useState(false);
-	const queryClient = useQueryClient();
-
-	const [title, setTitle] = useState("");
-	const [description, setDescription] = useState("");
-	const [collaboration, setCollaboration] = useState("");
-	const [genres, setGenres] = useState<string[]>([]);
-	const [postType, setPostType] = useState<string>("");
-	const [collaborationType, setCollaborationType] = useState<string>("");
-	const [projectTitle, setProjectTitle] = useState<string>("");
-
 	const { data: posts } = useQuery("posts", getPosts);
 	const navigate = useNavigate();
 

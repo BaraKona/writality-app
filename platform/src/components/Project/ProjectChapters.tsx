@@ -37,14 +37,13 @@ export const ProjectChapters: FC<{
 			className="p-2 flex flex-col overflow-auto h-[calc(100vh-15rem)]"
 		>
 			{project?.folders?.map((folder: any, index: number) => (
-				<Droppable id={folder.uid} type="folder">
+				<Droppable id={folder.uid} type="folder" key={index}>
 					{/* <div className={openedFolder === folder.uid ? "" : "mb-1"}> */}
 					<FolderListItem
 						// openFolder={openFolder}
 						folder={folder}
 						projectId={project.uid}
 						folderChapters={folder.chapters}
-						key={index}
 						withNumber
 						location="project"
 						listenerId={folder._id}
