@@ -51,7 +51,7 @@ export const EditorWrapper: FC<{
 	const breadcrumbs = [
 		{
 			label: project?.title,
-			path: "/project/" + project?.uid + "/home",
+			path: "/project/" + project?.uid + "/overview",
 			icon:
 				project?.type === "standard" ? (
 					<IconBook2

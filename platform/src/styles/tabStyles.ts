@@ -3,15 +3,16 @@ export const tabStyles = {
 		color: "#394251",
 	},
 	tabsList: {
-		borderRight: "none",
+		border: "none",
 		borderTopRightRadius: "0px",
 		borderBottomRightRadius: "0px",
-		paddingRight: "8px",
+		gap: "4px",
+		alignItems: "center",
 	},
 	tab: {
 		backgroundColor: "#f2f2f2",
 		color: "#394251",
-		border: "1px solid #e3e3e3",
+		border: "none solid #e3e3e3",
 		marginBottom: "2px",
 		borderTopLeftRadius: "0px",
 		borderBottomLeftRadius: "0px",
@@ -21,6 +22,7 @@ export const tabStyles = {
 		transition: "all 0.2s ease-in-out",
 		alignItems: "center",
 		justifyContent: "center",
+		height: "32px",
 		"&:hover": {
 			color: "#000",
 			backgroundColor: "white",

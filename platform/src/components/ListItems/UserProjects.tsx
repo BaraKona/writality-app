@@ -44,7 +44,7 @@ export const UserProjects: FC<{
 							return (
 								<ProjectListItem
 									key={project.uid}
-									onClick={() => openProject(`project/${project.uid}/home`)}
+									onClick={() => openProject(`project/${project.uid}/overview`)}
 									name={project.title || "Untitled Project"}
 									projectId={project.uid}
 									projectFolders={project.folders}

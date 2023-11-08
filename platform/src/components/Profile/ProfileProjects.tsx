@@ -106,7 +106,7 @@ export const ProfileProjects: FC<{
 						<GridProjects
 							key={index}
 							project={project}
-							onClick={() => navigate(`/project/${project.uid}/home`)}
+							onClick={() => navigate(`/project/${project.uid}/overview`)}
 						/>
 					))}
 				</div>

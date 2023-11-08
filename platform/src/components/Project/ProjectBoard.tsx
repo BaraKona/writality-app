@@ -29,17 +29,22 @@ export const ProjectBoard: FC<{
 	const editor = useBlockNote(
 		{
 			initialContent: project?.board ? JSON.parse(project.board) : null,
-			onEditorContentChange: (editor) => {
-				console.log(editor.topLevelBlocks);
+			domAttributes: {
+				blockContainer: {
+					class: "dark:!text-coolGrey-3 !text-coolGrey-7",
+				},
+				editor: {
+					class: "dark:!bg-baseDark !bg-base",
+				},
 			},
 		},
 		[project]
 	);
 
 	return (
-		<div className="lg:row-span-4 lg:col-span-full col-span-full flex flex-col flex-grow p-1  bg-base border border-border dark:border-borderDark rounded-normal">
+		<div className="flex flex-col flex-grow p-1 border border-border dark:border-borderDark rounded-normal">
 			<div className="flex justify-between items-center">
-				<h3 className=" text-coolGrey-7 font-medium text-sm flex gap-2">
+				<h3 className=" text-coolGrey-7 dark:text-coolGrey-4 font-medium text-sm flex gap-2">
 					<IconClipboard size={20} />
 					Board
 				</h3>
@@ -50,15 +55,15 @@ export const ProjectBoard: FC<{
 					styles={tooltipStyles}
 				>
 					<button
-						className="bg-base p-2 hover:bg-gray-100 rounded-normal border border-border dark:border-borderDark"
+						className="p-2 hover:bg-gray-100 dark:hover:bg-hoverDark dark:text-coolGrey-4 rounded-normal border border-border dark:border-borderDark"
 						onClick={() => updateBoard(JSON.stringify(editor.topLevelBlocks))}
 					>
 						<IconDeviceFloppy size={18} />
 					</button>
 				</Tooltip>
 			</div>
-			<div className="overflow-y-auto">
-				<BlockNoteView editor={editor} theme="light" />
+			<div className="overflow-y-auto h-[calc(100vh-10.8rem)]">
+				<BlockNoteView editor={editor} />
 			</div>
 		</div>
 	);

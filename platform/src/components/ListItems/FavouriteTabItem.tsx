@@ -1,7 +1,6 @@
 import { IconBookmarkPlus } from "@tabler/icons-react";
 import { IProject } from "../../interfaces/IProject";
 import { Divider, Skeleton, Text } from "@mantine/core";
-import { ProjectListItem } from "./ProjectListItem";
 import { FC } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";

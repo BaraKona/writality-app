@@ -34,7 +34,7 @@ export type IProject = {
 		chapters?: IChapter[];
 	}[];
 	collaborators: {
-		uid: string;
+		uid: IUser;
 		dateAdded: Date;
 		role: collaboratorRole;
 		active: boolean;

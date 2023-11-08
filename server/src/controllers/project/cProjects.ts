@@ -175,7 +175,7 @@ export const getProject = async (req: any, res: any) => {
 			})
 			.populate({
 				path: "collaborators.uid",
-				select: "name email",
+				select: "name email uid",
 			})
 			.populate({
 				path: "folders.chapters",

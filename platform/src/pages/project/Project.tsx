@@ -1,18 +1,15 @@
 import { ProjectDescription } from "../../components/Project";
 import {
+	IconAdjustmentsHorizontal,
 	IconDotsVertical,
 	IconGlobe,
 	IconHome,
 	IconMessage,
 	IconNews,
 	IconSettings,
+	IconUsers,
 } from "@tabler/icons-react";
-import {
-	NoChapters,
-	Chapter,
-	ChapterWrapper,
-	ChapterRenderer,
-} from "../../components/Chapters";
+import { NoChapters, ChapterRenderer } from "../../components/Chapters";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { CharacterWrapper } from "../../components/Characters/CharacterWrapper";
 import { Loading } from "../../components/Loading";
@@ -38,6 +35,10 @@ import { ProjectChapters } from "../../components/Project/ProjectChapters";
 import { DragAndDropWrapper } from "../../components/DragAndDrop/DragAndDropWrapper";
 import { useMoveChapterToFolder } from "../../hooks/projects/useMoveChapterToFolder";
 import { IProject } from "../../interfaces/IProject";
+import { ProjectCollaborators } from "../../components/Project/collaborators/ProjectCollaborators";
+import { Title } from "../../components/Title";
+import { ProjectBoard } from "../../components/Project/ProjectBoard";
+import { ProjectWrapper } from "../../components/Chapters/ProjectWrapper";
 
 export function Project() {
 	const queryClient = useQueryClient();
@@ -96,42 +97,53 @@ export function Project() {
 		);
 
 	return (
-		<section className="relative flex gap-2 w-full ">
+		<section className="relative flex gap-2 w-full">
 			<DeleteModal
 				opened={openModal}
 				setOpened={setOpenModal}
 				deleteBranch={deleteChapter}
 				type="chapter"
 			/>
-			<ChapterWrapper
+			<ProjectWrapper
 				project={currentProject}
 				isLoading={Boolean(!currentProject)}
 				className="w-full transition-all ease-in-out duration-200"
+				tab={projectTab || "overview"}
 			>
 				<Tabs
-					className="border-none important:border-none h-[calc(100vh-12.2rem)]"
+					className="border-none important:border-none h-[calc(100vh-12.2rem)] w-full px-2"
 					value={projectTab}
 					onTabChange={(tab) => navigate(`/project/${project}/${tab}`)}
-					defaultValue="home"
+					defaultValue="overview"
 					radius={"md"}
-					orientation="vertical"
 					styles={tabStyles}
 					keepMounted={false}
 				>
 					<Tabs.List className="sticky">
+						<div className="mr-auto cursor-pointer dark:text-coolGrey-4">
+							<h2 className="text-3xl font-semibold my-3 mb-5">
+								{currentProject?.title}
+							</h2>
+						</div>
 						<Tooltip
 							label="Home"
-							position="right"
+							position="top"
 							withArrow
 							styles={tooltipStyles}
 						>
-							<Tabs.Tab value="home">
-								<IconHome size={18} />
-							</Tabs.Tab>
+							<Tabs.Tab value="overview">Overview</Tabs.Tab>
+						</Tooltip>
+						<Tooltip
+							label="Board"
+							position="top"
+							withArrow
+							styles={tooltipStyles}
+						>
+							<Tabs.Tab value="board">Board</Tabs.Tab>
 						</Tooltip>
 						<Tooltip
 							label="World"
-							position="right"
+							position="top"
 							withArrow
 							styles={tooltipStyles}
 						>
@@ -141,7 +153,7 @@ export function Project() {
 						</Tooltip>
 						<Tooltip
 							label="Publish"
-							position="right"
+							position="top"
 							withArrow
 							styles={tooltipStyles}
 						>
@@ -151,13 +163,9 @@ export function Project() {
 						</Tooltip>
 						{currentProject?.type === "collaboration" && (
 							<>
-								<Divider
-									my="xs"
-									className="!border-coolGrey-1 dark:!border-borderDark"
-								/>
 								<Tooltip
 									label="Chat"
-									position="right"
+									position="top"
 									withArrow
 									styles={tooltipStyles}
 								>
@@ -165,26 +173,32 @@ export function Project() {
 										<IconMessage size={18} />
 									</Tabs.Tab>
 								</Tooltip>
+								<Tooltip
+									label="Collaborators"
+									position="top"
+									withArrow
+									styles={tooltipStyles}
+								>
+									<Tabs.Tab value="collaborators">
+										<IconUsers size={18} />
+									</Tabs.Tab>
+								</Tooltip>
 							</>
 						)}
-						<Divider
-							my="xs"
-							className="!border-coolGrey-1 dark:!border-borderDark"
-						/>
 						<Tooltip
 							label="Settings"
-							position="right"
+							position="top"
 							withArrow
 							styles={tooltipStyles}
 						>
 							<Tabs.Tab value="settings">
-								<IconSettings size={18} />
+								<IconAdjustmentsHorizontal size={18} />
 							</Tabs.Tab>
 						</Tooltip>
 					</Tabs.List>
 
-					<Tabs.Panel value="home">
-						<div className="flex gap-2 max-w-screen-xl mx-auto">
+					<Tabs.Panel value="overview">
+						<div className="flex gap-2 mx-auto">
 							<div className="grid grid-cols-9 gap-6 gap-y-2 grid-rows-4 h-[80vh]">
 								<ProjectAnalytics />
 								<ChapterRenderer
@@ -222,6 +236,14 @@ export function Project() {
 								</ChapterRenderer>
 								<ProjectHistory project={currentProject} />
 							</div>
+
+							<div className="max-w-2xl">
+								<ProjectDescription
+									project={currentProject}
+									updateDescription={updateDescription.mutate}
+								/>
+							</div>
+
 							{/* {currentProject?.type === "collaboration" ? (
 								<ProjectBoard
 									project={currentProject}
@@ -245,16 +267,21 @@ export function Project() {
 					<Tabs.Panel value="chat">
 						<ChatWrapper />
 					</Tabs.Panel>
+					<Tabs.Panel value="collaborators">
+						{currentProject ? (
+							<ProjectCollaborators project={currentProject} />
+						) : (
+							<Loading isLoading={true} />
+						)}
+					</Tabs.Panel>
+					<Tabs.Panel value="board">
+						<ProjectBoard
+							project={currentProject}
+							updateBoard={updateProjectBoard}
+						/>
+					</Tabs.Panel>
 				</Tabs>
-			</ChapterWrapper>
-			{projectTab === "home" && (
-				<div className="max-w-2xl">
-					<ProjectDescription
-						project={currentProject}
-						updateDescription={updateDescription.mutate}
-					/>
-				</div>
-			)}
+			</ProjectWrapper>
 		</section>
 	);
 }

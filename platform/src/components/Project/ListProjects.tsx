@@ -11,7 +11,7 @@ export const ListProjects = ({ projects }: { projects: IProject[] }) => {
 			{projects.map((project) => (
 				<div
 					className="gap-2 rounded-normal p-2 border border-border dark:border-borderDark hover:border-coolGrey-3 hover:shadow-sm dark:shadow-none dark:hover:border-coolGrey-5 cursor-pointer transition-all duration-200 ease-in-out"
-					onClick={() => navigate(`/project/${project.uid}/home`)}
+					onClick={() => navigate(`/project/${project.uid}/overview`)}
 					key={project.uid}
 				>
 					<div className="flex justify-between items-center ">

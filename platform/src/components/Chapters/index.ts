@@ -1,6 +1,6 @@
 export { NoChapters } from "./NoChapters";
 export { Chapter } from "./Chapter";
-export { ChapterWrapper } from "./ChapterWrapper";
+export { ProjectWrapper } from "./ProjectWrapper";
 export { ChapterBranches } from "./branch/ChapterBranches";
 export { ChapterVersions } from "./version/ChapterVersions";
 export { ChapterHistory } from "./history/ChapterHistory";

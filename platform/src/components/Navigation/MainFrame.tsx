@@ -4,7 +4,6 @@ import {
 	IconBook2,
 	IconBooks,
 	IconHelp,
-	IconHome,
 	IconPin,
 	IconSettings,
 	IconTemplate,
