@@ -238,6 +238,12 @@ export const Sidebar: FC<{}> = () => {
 							{sidebarNav === bookmarks && <FavouriteTabItems />}
 							{sidebarNav === inbox && (
 								<SmallText className="text-center" light>
+									Your notifications will be here when you start chatting with
+									someone.
+								</SmallText>
+							)}
+							{sidebarNav === messages && (
+								<SmallText className="text-center" light>
 									Your chats will be here when you start chatting with someone.
 								</SmallText>
 							)}
