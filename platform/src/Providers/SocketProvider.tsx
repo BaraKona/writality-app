@@ -28,7 +28,7 @@ export function useSocket() {
 }
 
 export function SocketProvider({ children }: { children: ReactNode }) {
-	const pusher = new Pusher("e8e5b489fee2211904ed", {
+	const pusher = new Pusher(import.meta.env.PUSHER_KEY, {
 		cluster: "eu",
 	});
 
