@@ -17,25 +17,6 @@ export const SinglePost = () => {
 	const location = useLocation();
 	const { mutate } = useAddFavouriteTab();
 
-	const queryClient = useQueryClient();
-
-	const { listenToEvent, subscribeToChannel } = useSocket();
-
-	listenToEvent({
-		room: "post-page",
-		event: "postUpdated",
-		callback: () => queryClient.invalidateQueries(["post", postId]),
-	});
-
-	useEffect(() => {
-		const pusher = subscribeToChannel({ room: `post-${postId}` });
-
-		pusher.bind("comments", () => {
-			queryClient.invalidateQueries(["post", postId]);
-			console.log("comments");
-		});
-	}, [postId]);
-
 	if (isLoading) {
 		return (
 			<div className="h-[calc(100vh-3rem)] place-items-center rounded-normal px-3 py-3">

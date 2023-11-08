@@ -1,7 +1,5 @@
-import { createContext, useContext, ReactNode, useEffect } from "react";
-import { useLocalStorage } from "@mantine/hooks";
-import { io, Socket } from "socket.io-client";
-import Pusher, { Channel } from "pusher-js";
+import { createContext, useContext, ReactNode } from "react";
+import { Channel } from "pusher-js";
 import { initPusher } from "../api/external/pusher";
 
 type SocketType = {

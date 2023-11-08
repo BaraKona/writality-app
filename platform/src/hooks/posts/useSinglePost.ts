@@ -1,15 +1,16 @@
 import { getPost } from "../../api/posts";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { useSocket } from "../../Providers/SocketProvider";
 export const useSinglePost = (postId: string) => {
-	// const { joinRoom } = useSocket();
+	const { subscribeToChannel } = useSocket();
+	const queryClient = useQueryClient();
 	return useQuery(["post", postId], () => getPost(postId), {
-		onSuccess: () => {
-			// joinRoom({
-			// 	name: "join-post-chat",
-			// 	roomId: postId,
-			// 	callback: () => console.log("joined post chat"),
-			// });
+		onSuccess: (data) => {
+			const pusher = subscribeToChannel({ room: `post-${postId}` });
+
+			pusher.bind("comments", () => {
+				queryClient.invalidateQueries(["post", postId]);
+			});
 		},
 	});
 };

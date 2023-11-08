@@ -1,6 +1,5 @@
 import { createBrowserRouter, redirect, RouteObject } from "react-router-dom";
 import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
-import { io } from "socket.io-client";
 import { Sidebar } from "./components/Navigation";
 import { Chapter, Project } from "./pages/project";
 import { PostsPage } from "./pages/post/PostsPage";
@@ -13,11 +12,6 @@ import { PostCreationPage } from "./pages/post/PostCreationPage";
 import { SettingsPage } from "./pages/Settings/SettingsPage";
 import { UsersPage } from "./pages/Users/UsersPage";
 import { SingleUserPage } from "./pages/Users/SingleUserPage";
-
-const socket = io(import.meta.env.VITE_API_URL, {
-	withCredentials: true,
-	transports: ["websocket", "polling", "flashsocket"],
-});
 
 const dashboardRoutes: RouteObject[] = [
 	{
