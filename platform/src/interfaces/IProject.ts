@@ -5,12 +5,14 @@ export const enum ProjectType {
 	standard = "standard",
 	collaboration = "collaboration",
 }
+
 const enum collaboratorRole {
 	owner = "owner",
 	admin = "admin",
 	editor = "editor",
-	viewer = "viewer",
+	guest = "guest",
 }
+
 export type IProject = {
 	type: ProjectType;
 	uid: string;

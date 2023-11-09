@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Project from "../../models/projectSchema";
 import Chapter from "../../models/chapterSchema";
 import Branch from "../../models/branchSchema";
@@ -433,8 +432,6 @@ export const createProjectChapter = async (req: any, res: any) => {
 				collaborator.lastContribution = new Date();
 			}
 		});
-
-		console.log(project.collaborators);
 
 		project.chapters.push(chapter._id);
 		await project.save();
