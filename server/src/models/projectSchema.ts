@@ -77,10 +77,11 @@ const projectSchema = new Schema<IProject>({
 			{
 				uid: { type: String, required: true, ref: "User" },
 				dateAdded: { type: Date, required: true },
+				lastContribution: { type: Date, required: false, default: null },
 				role: {
 					type: String,
 					required: true,
-					enum: ["owner", "admin", "editor", "viewer"],
+					enum: ["owner", "admin", "editor", "guest"],
 				},
 				active: { type: Boolean, required: true },
 			},

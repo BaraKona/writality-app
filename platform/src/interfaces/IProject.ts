@@ -37,6 +37,7 @@ export type IProject = {
 		uid: IUser;
 		dateAdded: Date;
 		role: collaboratorRole;
+		lastContribution: Date;
 		active: boolean;
 	}[];
 	chatRooms: {
