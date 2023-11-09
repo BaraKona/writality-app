@@ -47,6 +47,7 @@ interface IProject {
 		dateAdded: Date;
 		role: collaboratorRole;
 		active: boolean;
+		lastContribution: Date;
 	}[];
 	chatRooms: {
 		uid: string;

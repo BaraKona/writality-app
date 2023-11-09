@@ -31,6 +31,7 @@ export const createProject = async (req: any, res: any) => {
 				dateAdded: new Date(),
 				role: "owner",
 				active: true,
+				lastContribution: new Date(),
 			},
 		],
 		chat: [],
@@ -119,7 +120,6 @@ export const getUserProfileProjects = async (req: any, res: any) => {
 			.select(
 				"-chat -history -collaborators -board -hasChat -dateUpdated -__v"
 			);
-
 		res.status(200).json(projects);
 	} catch (error) {
 		console.log(error);
@@ -229,6 +229,13 @@ export const updateProjectDescription = async (req: any, res: any) => {
 			user: userId,
 			action: "updated description",
 		});
+
+		project.collaborators.find((collaborator) => {
+			if (collaborator.uid === userId.toString()) {
+				collaborator.lastContribution = new Date();
+			}
+		});
+
 		await project.save();
 		res.status(200).json(project);
 	} catch (error) {
@@ -252,6 +259,13 @@ export const updateProjectBoard = async (req: any, res: any) => {
 			user: userId,
 			action: "updated board",
 		});
+
+		project.collaborators.find((collaborator) => {
+			if (collaborator.uid === userId.toString()) {
+				collaborator.lastContribution = new Date();
+			}
+		});
+
 		await project.save();
 		res.status(200).json(project);
 	} catch (error) {
@@ -277,6 +291,11 @@ export const updateProjectTitle = async (req: any, res: any) => {
 			action: "updated title",
 		});
 
+		project.collaborators.find((collaborator) => {
+			if (collaborator.uid === userId.toString()) {
+				collaborator.lastContribution = new Date();
+			}
+		});
 		await project.save();
 		res.status(200).json(project);
 	} catch (error) {
@@ -321,6 +340,12 @@ export const updateProjectType = async (req: any, res: any) => {
 			date: new Date(),
 			user: userId,
 			action: "updated type",
+		});
+
+		project.collaborators.find((collaborator) => {
+			if (collaborator.uid === userId.toString()) {
+				collaborator.lastContribution = new Date();
+			}
 		});
 
 		await project.save();
@@ -402,6 +427,15 @@ export const createProjectChapter = async (req: any, res: any) => {
 			user: userId,
 			action: "created chapter",
 		});
+
+		project.collaborators.find((collaborator) => {
+			if (collaborator.uid === userId.toString()) {
+				collaborator.lastContribution = new Date();
+			}
+		});
+
+		console.log(project.collaborators);
+
 		project.chapters.push(chapter._id);
 		await project.save();
 		res.status(200).json(chapter);
@@ -444,6 +478,13 @@ export const deleteProjectChapter = async (req: any, res: any) => {
 			user: userId,
 			action: "deleted chapter",
 		});
+
+		project.collaborators.find((collaborator) => {
+			if (collaborator.uid === userId.toString()) {
+				collaborator.lastContribution = new Date();
+			}
+		});
+
 		project.chapters = project.chapters.filter((id) => id !== chapterId);
 		await project.save();
 		res.status(200).json({ message: "Chapter deleted successfully." });
@@ -485,6 +526,13 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 			user: userId,
 			action: "moved chapter",
 		});
+
+		project.collaborators.find((collaborator) => {
+			if (collaborator.uid === userId.toString()) {
+				collaborator.lastContribution = new Date();
+			}
+		});
+
 		await project.save();
 		res.status(200).json(folderId);
 	} catch (error) {
