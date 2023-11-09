@@ -13,7 +13,7 @@ import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 	if (!project?.history || project?.history?.length === 0) {
 		return (
-			<div className="col-span-3 items-center row-span-2 flex justify-center rounded-normal border border-border dark:border-borderDark p-2 overflow-y-auto">
+			<div className="col-span-3 items-center row-span-4 flex justify-center rounded-normal border border-border dark:border-borderDark p-2 overflow-y-auto">
 				<Text color="dimmed" size="xs" className="flex gap-2">
 					<IconHistory size={18} />
 					No history yet
@@ -23,7 +23,7 @@ export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 	}
 
 	return (
-		<div className="col-span-3 row-span-2 items-start justify-center flex rounded-normal border border-border dark:border-borderDark p-4 overflow-y-auto">
+		<div className="col-span-3 row-span-4 items-start justify-center flex rounded-normal border border-border dark:border-borderDark p-4 overflow-y-auto">
 			<div className="flex gap-2 flex-col items-center w-full">
 				{project?.history?.map((history, index) => {
 					return (

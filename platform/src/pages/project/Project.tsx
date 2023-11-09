@@ -199,7 +199,7 @@ export function Project() {
 
 					<Tabs.Panel value="overview">
 						<div className="flex gap-2 mx-auto">
-							<div className="grid grid-cols-9 gap-6 gap-y-2 grid-rows-4 h-[80vh]">
+							<div className="grid grid-cols-9 gap-6 gap-y-2 grid-rows-6 h-[80vh]">
 								<ProjectAnalytics />
 								<ChapterRenderer
 									chapterCount={chapterCount}

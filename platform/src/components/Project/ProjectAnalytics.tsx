@@ -20,48 +20,37 @@ export const ProjectAnalytics: FC<{}> = ({}) => {
 	);
 
 	return (
-		<div className="col-span-3 p-2 row-span-2 rounded-normal border border-border dark:border-borderDark flex flex-col items-center max-h-96 overflow-y-hidden">
+		<div className="col-span-3 row-span-2 rounded-normal flex flex-col items-center max-h-96 overflow-y-hidden">
 			<div className="w-full">
-				<h2 className="text-2xl font-bold dark:text-coolGrey-4">Analytics</h2>
-				<p className="text-sm text-gray-500 dark:text-coolGrey-4">
-					Analytics for your project
-				</p>
-				<Divider
-					mb="md"
-					className="!border-coolGrey-1 dark:!border-borderDark"
-				/>
-
-				<div>
-					{isLoading ? (
-						<div className="flex flex-wrap gap-2 max-h-[18rem]">
-							<Skeleton height={112} width={110} />
-							<Skeleton height={112} width={110} />
-							<Skeleton height={112} width={110} />
-							<Skeleton height={112} width={110} />
-							<Skeleton height={112} width={110} />
-							<Skeleton height={112} width={110} />
-						</div>
-					) : (
-						<div className="flex gap-2 flex-wrap max-h-[18rem] overflow-y-auto dark:text-orange-500">
-							<ListItem title="Words">{chapterAnalytics?.wordCount}</ListItem>
-							<ListItem title="Chapters">
-								{chapterAnalytics?.chapterCount}
-							</ListItem>
-							<ListItem title="Branches">
-								{chapterAnalytics?.branchCount}
-							</ListItem>
-							<ListItem title="Versions">
-								{chapterAnalytics?.versionCount}
-							</ListItem>
-							<ListItem title="Contributors">
-								{chapterAnalytics?.userCount}
-							</ListItem>
-							<ListItem title="Largest chapter">
-								{chapterAnalytics?.chapterWithMostWords || "-"}
-							</ListItem>
-						</div>
-					)}
-				</div>
+				{isLoading ? (
+					<div className="flex flex-wrap gap-2 max-h-[18rem]">
+						<Skeleton height={112} width={110} />
+						<Skeleton height={112} width={110} />
+						<Skeleton height={112} width={110} />
+						<Skeleton height={112} width={110} />
+						<Skeleton height={112} width={110} />
+						<Skeleton height={112} width={110} />
+					</div>
+				) : (
+					<div className="flex gap-2 flex-wrap max-h-[18rem] overflow-y-auto dark:text-orange-500">
+						<ListItem title="Words">{chapterAnalytics?.wordCount}</ListItem>
+						<ListItem title="Chapters">
+							{chapterAnalytics?.chapterCount}
+						</ListItem>
+						<ListItem title="Branches">
+							{chapterAnalytics?.branchCount}
+						</ListItem>
+						<ListItem title="Versions">
+							{chapterAnalytics?.versionCount}
+						</ListItem>
+						<ListItem title="Contributors">
+							{chapterAnalytics?.userCount}
+						</ListItem>
+						<ListItem title="Largest chapter">
+							{chapterAnalytics?.chapterWithMostWords || "-"}
+						</ListItem>
+					</div>
+				)}
 			</div>
 		</div>
 	);
