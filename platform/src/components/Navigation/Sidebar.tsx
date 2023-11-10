@@ -38,11 +38,15 @@ import { useLocation } from "react-router-dom";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { SmallText } from "../texts/SmallText";
 import { useThemeContext } from "../../Providers/ThemeProvider";
+import { useUser } from "../../hooks/user/useUser";
+import { IUser } from "../../interfaces/IUser";
+import { Notifications } from "../ListItems/Notifications";
 
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { mutate: signOut } = useSignout();
 	const { mutate: createProject } = useCreateProject();
+	const { currentUser } = useAuthContext();
 
 	const [displayLocation, setDisplayLocation] = useState(location);
 	const [transitionStage, setTransitionStage] = useState("fadeIn");
@@ -204,7 +208,14 @@ export const Sidebar: FC<{}> = () => {
 									value={inbox}
 									navigate={() => setSidebarNav(inbox)}
 								>
-									<IconInbox size={18} />
+									<div className="relative">
+										<IconInbox size={18} />
+										{currentUser.inbox?.filter(
+											(inbox: any) => inbox?.notificationRead === false
+										).length > 0 && (
+											<div className="absolute top-0 right-0 w-2 h-2 bg-fuchsia-500 rounded-full" />
+										)}
+									</div>
 								</SidebarTopNav>
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
@@ -237,10 +248,7 @@ export const Sidebar: FC<{}> = () => {
 							)}
 							{sidebarNav === bookmarks && <FavouriteTabItems />}
 							{sidebarNav === inbox && (
-								<SmallText className="text-center" light>
-									Your notifications will be here when you start chatting with
-									someone.
-								</SmallText>
+								<Notifications notification={currentUser?.inbox} />
 							)}
 							{sidebarNav === messages && (
 								<SmallText className="text-center" light>

@@ -9,15 +9,14 @@ import { circle4 } from "../../../assets/icons";
 
 export const ProjectCollaboratorTable: FC<{
 	collaborators: IProject["collaborators"];
-}> = ({ collaborators }) => {
+	emptyText: string;
+}> = ({ collaborators, emptyText }) => {
 	if (!collaborators || collaborators?.length === 0) {
 		return (
 			<div className="dark:bg-hoverDark/30 bg-coolGrey-1/60 max-w-4xl flex-grow rounded-normal h-64 p-4 px-6 items-center justify-center flex flex-col gap-4">
 				<img src={circle4} alt="circle4" width={100} height={100} />
 				<p className="text-sm max-w-md text-center mx-auto dark:text-coolGrey-6">
-					You have no guests. Invite guests to your project to monitor and view
-					the progress of your project. They will not be able to edit or modify
-					your project.
+					{emptyText}
 				</p>
 			</div>
 		);
@@ -43,10 +42,10 @@ export const ProjectCollaboratorTable: FC<{
 						return (
 							<div className="w-full flex gap-3 text-coolGrey-12 dark:text-coolGrey-4 text-sm items-center py-2">
 								<div className="w-3/12 flex flex-col">
-									<Text className="!text-lg font-semibold">
-										{collaborator.uid.name}
+									<Text className="!text-[1.1rem] font-semibold">
+										{collaborator.user.name}
 									</Text>
-									<Text className="">{collaborator.uid.email}</Text>
+									<Text className="">{collaborator.user.email}</Text>
 								</div>
 								<div className="w-2/12">
 									<Text className="">

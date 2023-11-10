@@ -173,7 +173,7 @@ export const getProject = async (req: any, res: any) => {
 				select: "dateUpdated projectId title uid content.title _id",
 			})
 			.populate({
-				path: "collaborators.uid",
+				path: "collaborators.user",
 				select: "name email uid",
 			})
 			.populate({
@@ -190,6 +190,7 @@ export const getProject = async (req: any, res: any) => {
 		});
 		res.status(200).json(project);
 	} catch (error) {
+		console.log(error);
 		res.status(404).json({ message: error.message });
 	}
 };
@@ -230,7 +231,7 @@ export const updateProjectDescription = async (req: any, res: any) => {
 		});
 
 		project.collaborators.find((collaborator) => {
-			if (collaborator.uid === userId.toString()) {
+			if (collaborator.user === userId.toString()) {
 				collaborator.lastContribution = new Date();
 			}
 		});
@@ -260,7 +261,7 @@ export const updateProjectBoard = async (req: any, res: any) => {
 		});
 
 		project.collaborators.find((collaborator) => {
-			if (collaborator.uid === userId.toString()) {
+			if (collaborator.user === userId.toString()) {
 				collaborator.lastContribution = new Date();
 			}
 		});
@@ -291,7 +292,7 @@ export const updateProjectTitle = async (req: any, res: any) => {
 		});
 
 		project.collaborators.find((collaborator) => {
-			if (collaborator.uid === userId.toString()) {
+			if (collaborator.user === userId.toString()) {
 				collaborator.lastContribution = new Date();
 			}
 		});
@@ -342,7 +343,7 @@ export const updateProjectType = async (req: any, res: any) => {
 		});
 
 		project.collaborators.find((collaborator) => {
-			if (collaborator.uid === userId.toString()) {
+			if (collaborator.user === userId.toString()) {
 				collaborator.lastContribution = new Date();
 			}
 		});
@@ -428,7 +429,7 @@ export const createProjectChapter = async (req: any, res: any) => {
 		});
 
 		project.collaborators.find((collaborator) => {
-			if (collaborator.uid === userId.toString()) {
+			if (collaborator.user === userId.toString()) {
 				collaborator.lastContribution = new Date();
 			}
 		});
@@ -477,7 +478,7 @@ export const deleteProjectChapter = async (req: any, res: any) => {
 		});
 
 		project.collaborators.find((collaborator) => {
-			if (collaborator.uid === userId.toString()) {
+			if (collaborator.user === userId.toString()) {
 				collaborator.lastContribution = new Date();
 			}
 		});
@@ -525,7 +526,7 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 		});
 
 		project.collaborators.find((collaborator) => {
-			if (collaborator.uid === userId.toString()) {
+			if (collaborator.user === userId.toString()) {
 				collaborator.lastContribution = new Date();
 			}
 		});

@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { Breadcrumbs } from "../../components/Breadcrumbs/Breadcrumbs";
 import { IconArticle, IconTemplate, IconHome } from "@tabler/icons-react";
-import { CreatePostSection } from "../../components/Modals/CreatePostSection";
+import { CreatePostSection } from "../../components/Posts/CreatePostSection";
 import { Divider } from "@mantine/core";
 import { PostBody } from "../../components/Posts/PostBody";
 import { IPost } from "../../interfaces/IPost";

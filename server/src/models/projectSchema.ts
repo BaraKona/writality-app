@@ -4,11 +4,11 @@ const enum projectType {
 	standard = "standard",
 	collaboration = "collaboration",
 }
-const enum collaboratorRole {
+export const enum collaboratorRole {
 	owner = "owner",
 	admin = "admin",
 	editor = "editor",
-	viewer = "viewer",
+	guest = "guest",
 }
 
 type history = {
@@ -43,11 +43,24 @@ interface IProject {
 	};
 	chapters?: string[];
 	collaborators: {
-		uid: string;
+		user: string;
 		dateAdded: Date;
 		role: collaboratorRole;
 		active: boolean;
 		lastContribution: Date;
+	}[];
+	pendingInvite: {
+		user: string;
+		dateAdded: Date;
+		role: collaboratorRole;
+		active: boolean;
+	}[];
+	guests: {
+		user: string;
+		dateAdded: Date;
+		role: collaboratorRole;
+		lastContribution: Date;
+		active: boolean;
 	}[];
 	chatRooms: {
 		uid: string;
@@ -76,7 +89,39 @@ const projectSchema = new Schema<IProject>({
 	collaborators: {
 		type: [
 			{
-				uid: { type: String, required: true, ref: "User" },
+				user: { type: String, required: true, ref: "User" },
+				dateAdded: { type: Date, required: true },
+				lastContribution: { type: Date, required: false, default: null },
+				role: {
+					type: String,
+					required: true,
+					enum: ["owner", "admin", "editor", "guest"],
+				},
+				active: { type: Boolean, required: true },
+			},
+		],
+		required: true,
+	},
+	pendingInvite: {
+		type: [
+			{
+				user: { type: String, required: true, ref: "User" },
+				dateAdded: { type: Date, required: true },
+				lastContribution: { type: Date, required: false, default: null },
+				role: {
+					type: String,
+					required: true,
+					enum: ["owner", "admin", "editor", "guest"],
+				},
+				active: { type: Boolean, required: true },
+			},
+		],
+		required: true,
+	},
+	guests: {
+		type: [
+			{
+				user: { type: String, required: true, ref: "User" },
 				dateAdded: { type: Date, required: true },
 				lastContribution: { type: Date, required: false, default: null },
 				role: {

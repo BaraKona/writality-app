@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import http from "http";
-import { initPusher } from "./pusherProvider";
 
 import users from "./src/routes/users";
 import chats from "./src/routes/chat/chat";
@@ -14,6 +13,7 @@ import chapters from "./src/routes/project/chapters";
 import versions from "./src/routes/project/versions";
 import branches from "./src/routes/project/branches";
 import analytics from "./src/routes/analytics";
+import notification from "./src/routes/notification/notification";
 
 const cookieParser = require("cookie-parser");
 const compression = require("compression");
@@ -55,6 +55,7 @@ app.use("/versions", versions);
 app.use("/branches", branches);
 
 app.use("/analytics", analytics);
+app.use("/notifications", notification);
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {

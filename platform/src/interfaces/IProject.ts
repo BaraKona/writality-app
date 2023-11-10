@@ -36,12 +36,27 @@ export type IProject = {
 		chapters?: IChapter[];
 	}[];
 	collaborators: {
-		uid: IUser;
+		user: IUser;
 		dateAdded: Date;
 		role: collaboratorRole;
 		lastContribution: Date;
 		active: boolean;
 	}[];
+	pendingInvite: {
+		user: IUser;
+		dateAdded: Date;
+		role: collaboratorRole;
+		lastContribution: Date;
+		active: boolean;
+	}[];
+	guests: {
+		user: IUser;
+		dateAdded: Date;
+		role: collaboratorRole;
+		lastContribution: Date;
+		active: boolean;
+	}[];
+
 	chatRooms: {
 		uid: string;
 		dateCreated: Date;

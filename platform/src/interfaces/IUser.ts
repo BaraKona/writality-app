@@ -1,3 +1,27 @@
+export enum notificationType {
+	projectInvite = "project-invitation",
+	comment = "comment",
+	reply = "reply",
+	like = "like",
+	dislike = "dislike",
+	follow = "follow",
+	message = "message",
+	invite = "invite",
+	request = "request",
+	mention = "mention",
+	tag = "tag",
+	other = "other",
+}
+
+interface notification {
+	notificationType: notificationType;
+	notificationBody: string;
+	notificationTitle: string;
+	notificationTime: Date;
+	notificationRead: boolean;
+	ctaId?: string;
+}
+
 export type IUser = {
 	_id: string;
 	name: string;
@@ -22,4 +46,5 @@ export type IUser = {
 	languages?: string[];
 	primaryLanguage?: string;
 	isPublic: boolean;
+	inbox?: notification[];
 };

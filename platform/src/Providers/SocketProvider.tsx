@@ -1,6 +1,7 @@
 import { createContext, useContext, ReactNode, useEffect } from "react";
 import Pusher, { Channel } from "pusher-js";
 import { initPusher } from "../api/external/pusher";
+import { useQueryClient } from "react-query";
 
 type SocketType = {
 	subscribeToChannel: ({ room }: { room: string }) => Channel;
@@ -28,9 +29,15 @@ export function useSocket() {
 
 export function SocketProvider({ children }: { children: ReactNode }) {
 	let pusher = {} as Pusher;
-
+	const queryClient = useQueryClient();
+	/** @ts-ignore */
+	const { data } = queryClient.getQueryState("user");
 	useEffect(() => {
 		pusher = initPusher();
+		subscribeToChannel({ room: `user-${data.uid}` });
+		pusher.bind("notification", () => {
+			queryClient.invalidateQueries(["user"]);
+		});
 		return () => {
 			pusher.disconnect();
 		};

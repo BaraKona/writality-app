@@ -1,43 +1,67 @@
-import { Button, Modal, Select, useMantineTheme } from "@mantine/core";
-import { IconBrandTelegram, IconSend } from "@tabler/icons-react";
+import { Button, Modal, TextInput } from "@mantine/core";
+import { IconCubeSend } from "@tabler/icons-react";
 import React, { FC, useState } from "react";
-import { UseMutationResult } from "react-query";
-// import { purpleButton } from "../../styles";
+import { useThemeContext } from "../../Providers/ThemeProvider";
+import { modalStyles } from "../../styles/modalStyles";
+import { inputStyles } from "../../styles/inputStyles";
+
 export const InviteUserModal: FC<{
 	opened: boolean;
 	setOpened: React.Dispatch<React.SetStateAction<boolean>>;
 	users: any;
-	addProjectCollaborator: UseMutationResult<any, unknown, string, unknown>;
-}> = ({ opened, setOpened, users, addProjectCollaborator }) => {
-	const [value, setValue] = useState<string | null>(null);
-	const theme = useMantineTheme();
+	projectId: string;
+	addProjectCollaborator: ({
+		projectId,
+		userId,
+	}: {
+		projectId: string;
+		userId: string;
+	}) => void;
+}> = ({ opened, setOpened, users, addProjectCollaborator, projectId }) => {
+	const [value, setValue] = useState<string>("");
+	const [error, setError] = useState<string>("");
+	const [success, setSuccess] = useState<string>("");
+	const { theme } = useThemeContext();
+	function findUser(email: string) {
+		setSuccess("");
+		setError("");
+
+		if (users.filter((user: any) => user.email === email).length > 0) {
+			setError("");
+			setValue("");
+			setSuccess("User found! They will receive a notification shortly.");
+
+			addProjectCollaborator({
+				projectId,
+				userId: users.find((user: any) => user.email === email).uid,
+			});
+			return;
+		}
+
+		setError("Hm, that didn't work. Double-check the email is correct");
+	}
+
+	function close() {
+		setOpened(false);
+		setSuccess("");
+		setError("");
+		setValue("");
+	}
 	return (
 		<Modal
 			size="lg"
 			opened={opened}
 			overlayProps={{
-				color:
-					theme.colorScheme === "dark"
-						? theme.colors.dark[9]
-						: theme.colors.gray[2],
 				opacity: 0.55,
 				blur: 3,
 			}}
-			styles={{
-				content: {
-					background: theme.colorScheme === "dark" ? "#191a23" : "#fff",
-					border: "1px solid #363130",
-				},
-				header: {
-					background: theme.colorScheme === "dark" ? "#191a23" : "#fff",
-					borderBottom: "1px solid #363130",
-				},
-			}}
+			radius="md"
+			styles={modalStyles(theme)}
 			scrollAreaComponent={Modal.NativeScrollArea}
-			onClose={() => setOpened(false)}
+			onClose={close}
 			title="Invite users to collaborate with you 🤗"
 		>
-			<p className="border-t-stone-800">
+			<p className="text-sm">
 				Adding collaborators to your story allows you to work with other people
 				on the same story. You can add collaborators by entering their username
 				below. <br /> <br />
@@ -45,37 +69,38 @@ export const InviteUserModal: FC<{
 				to delete it or add collaborators. If you want to remove a collaborator,
 				you can do so in the collaborators tab.
 			</p>
-			<div className="mt-5">
-				<Select
-					label="Select user"
-					searchable
-					placeholder="Select user"
-					nothingFound="No options"
-					clearable
-					value={value}
-					onChange={setValue}
-					// change mantine select background color to transparent
-					data={users?.map((user: any) => ({
-						// label: user.displayName,
-						label: user.name,
-						value: user.uid,
-					}))}
-					// on submit add collaborator
-				/>
-				<Button color="gray" className="mt-4" onClick={() => setOpened(false)}>
-					Cancel
-				</Button>
+			<div className="mt-5 flex gap-2 items-center">
+				<div className="grow">
+					<TextInput
+						label="Find user (email)"
+						placeholder="Select user"
+						value={value}
+						onChange={(e) => setValue(e.currentTarget.value)}
+						styles={inputStyles}
+					/>
+				</div>
 				<Button
 					variant="outline"
 					color="gray"
-					className="mt-4"
-					// styles={purpleButton}
-					onClick={() => addProjectCollaborator.mutate(value as string)}
-					rightIcon={<IconBrandTelegram size={14} />}
+					className="mt-5"
+					onClick={() => findUser(value)}
 					type="submit"
+					disabled={value.length === 0}
 				>
-					Send
+					<IconCubeSend size={24} />
 				</Button>
+			</div>
+			<div>
+				{error && (
+					<div className="-mt-1 px-2">
+						<p className="text-rose-500 text-xs">{error}</p>
+					</div>
+				)}
+				{success && (
+					<div className="-mt-1 px-2">
+						<p className="text-lime-700 text-xs">{success}</p>
+					</div>
+				)}
 			</div>
 		</Modal>
 	);

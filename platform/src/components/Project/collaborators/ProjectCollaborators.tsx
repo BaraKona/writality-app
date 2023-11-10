@@ -1,18 +1,20 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useState } from "react";
 import { IProject } from "../../../interfaces/IProject";
 import { UserCard } from "../../user/UserCard";
 import { Divider, Select, Skeleton, Table, Text } from "@mantine/core";
 import { Title } from "../../Title";
 import { IconTrash, IconUsers } from "@tabler/icons-react";
-import { useDefaultDate, useTimeFromNow } from "../../../hooks/useTimeFromNow";
-import { ButtonWrapper } from "../../buttons/ButtonWrapper";
-import { inputStyles } from "../../../styles/inputStyles";
 import { ProjectCollaboratorTable } from "./ProjectCollaboratorTable";
+import { InviteUserModal } from "../../Modals";
+import { usePublicUsers } from "../../../hooks/user/usePublicUsers";
+import { useSendProjectInvites } from "../../../hooks/notification/useSendProjectInvites";
 
 export const ProjectCollaborators: FC<{ project: IProject }> = ({
 	project,
 }) => {
-	console.log(project);
+	const [openCollaborator, setOpenCollaborator] = useState(false);
+	const { data: users } = usePublicUsers();
+	const { mutate: sendInvite } = useSendProjectInvites();
 
 	if (!project) {
 		return <Skeleton height={20} width={100} />;
@@ -20,6 +22,13 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 
 	return (
 		<div className="border rounded-normal border-border dark:border-borderDark p-2 h-[calc(100vh-8rem)]">
+			<InviteUserModal
+				opened={openCollaborator}
+				setOpened={setOpenCollaborator}
+				users={users}
+				addProjectCollaborator={sendInvite}
+				projectId={project.uid}
+			/>
 			<div className="flex gap-2 items-center dark:text-coolGrey-4">
 				<IconUsers size={25} />
 				<h2 className="font-semiBold text-2xl">Collaborators</h2>
@@ -36,13 +45,14 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 					button={
 						<CollaboratorButton
 							text="Invite Collaborator"
-							onClick={() => {
-								console.log("invite guest");
-							}}
+							onClick={() => setOpenCollaborator(true)}
 						/>
 					}
 				>
-					<ProjectCollaboratorTable collaborators={project.collaborators} />
+					<ProjectCollaboratorTable
+						collaborators={project.collaborators}
+						emptyText="You have no collaborators. Invite collaborators to your project to monitor and view the progress of your project. They will not be able to edit or modify your project."
+					/>
 				</Section>
 				<Divider className="!border-coolGrey-1 dark:!border-borderDark my-2" />
 				<Section
@@ -59,6 +69,7 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 				>
 					<ProjectCollaboratorTable
 						collaborators={[] as IProject["collaborators"]}
+						emptyText="You have no guests. Invite guests to your project to monitor and view the progress of your project. They will not be able to edit or modify your project."
 					/>
 				</Section>
 
@@ -66,7 +77,13 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 				<Section
 					title="Pending Invites"
 					description="Manage your pending invites here. You can resend or cancel them entirely."
-				/>
+				>
+					{" "}
+					<ProjectCollaboratorTable
+						collaborators={project.pendingInvite}
+						emptyText="You have no pending invites"
+					/>
+				</Section>
 			</div>
 		</div>
 	);
