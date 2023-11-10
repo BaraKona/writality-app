@@ -2,7 +2,6 @@ import { FC } from "react";
 import { IProject, ProjectType } from "../../interfaces/IProject";
 import {
 	IconBook2,
-	IconAtom2,
 	IconLayoutGrid,
 	IconLayoutList,
 	IconList,

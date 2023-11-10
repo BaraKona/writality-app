@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 
 export enum notificationType {
 	projectInvite = "project-invitation",
+	projectRevoke = "project-invitation-revoke",
 	comment = "comment",
 	reply = "reply",
 	like = "like",

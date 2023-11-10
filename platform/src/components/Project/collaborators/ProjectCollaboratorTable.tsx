@@ -13,9 +13,9 @@ export const ProjectCollaboratorTable: FC<{
 }> = ({ collaborators, emptyText }) => {
 	if (!collaborators || collaborators?.length === 0) {
 		return (
-			<div className="dark:bg-hoverDark/30 bg-coolGrey-1/60 max-w-4xl flex-grow rounded-normal h-64 p-4 px-6 items-center justify-center flex flex-col gap-4">
+			<div className="dark:bg-hoverDark/30 border dark:border-none max-w-4xl flex-grow rounded-normal h-64 p-4 px-6 items-center justify-center flex flex-col gap-4">
 				<img src={circle4} alt="circle4" width={100} height={100} />
-				<p className="text-sm max-w-md text-center mx-auto dark:text-coolGrey-6">
+				<p className="text-sm max-w-md text-center mx-auto dark:text-coolGrey-6 text-coolGrey-5">
 					{emptyText}
 				</p>
 			</div>
@@ -23,7 +23,7 @@ export const ProjectCollaboratorTable: FC<{
 	}
 
 	return (
-		<div className="dark:bg-hoverDark/30 bg-coolGrey-1/60 max-w-4xl flex-grow rounded-normal h-64 p-6">
+		<div className="dark:bg-hoverDark/30 border dark:border-none max-w-4xl flex-grow rounded-normal h-64 p-6">
 			<div className="w-full flex gap-3 text-coolGrey-4 dark:text-coolGrey-4 text-xs uppercase font-bold">
 				<div className="w-3/12">
 					<Text className="">Name</Text>
@@ -45,19 +45,21 @@ export const ProjectCollaboratorTable: FC<{
 									<Text className="!text-[1.1rem] font-semibold">
 										{collaborator.user.name}
 									</Text>
-									<Text className="">{collaborator.user.email}</Text>
+									<p className="text-coolGrey-5 -mt-1">
+										{collaborator.user.email}
+									</p>
 								</div>
 								<div className="w-2/12">
-									<Text className="">
+									<p className="text-coolGrey-5">
 										{useDefaultDate(collaborator.dateAdded)}
-									</Text>
+									</p>
 								</div>
 								<div className="w-2/12">
-									<Text className="">
+									<p className="text-coolGrey-5">
 										{collaborator?.lastContribution
 											? useTimeFromNow(collaborator?.lastContribution)
 											: "Never"}
-									</Text>
+									</p>
 								</div>
 								<div className="w-5/12 flex items-center">
 									<Select

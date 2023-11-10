@@ -8,6 +8,8 @@ import { ProjectCollaboratorTable } from "./ProjectCollaboratorTable";
 import { InviteUserModal } from "../../Modals";
 import { usePublicUsers } from "../../../hooks/user/usePublicUsers";
 import { useSendProjectInvites } from "../../../hooks/notification/useSendProjectInvites";
+import { ProjectInviteTable } from "./ProjectInviteTable";
+import { useRevokeProjectInvitation } from "../../../hooks/notification/useRevokeProjectInvitation";
 
 export const ProjectCollaborators: FC<{ project: IProject }> = ({
 	project,
@@ -15,6 +17,7 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 	const [openCollaborator, setOpenCollaborator] = useState(false);
 	const { data: users } = usePublicUsers();
 	const { mutate: sendInvite } = useSendProjectInvites();
+	const { mutate: revokeInvite } = useRevokeProjectInvitation();
 
 	if (!project) {
 		return <Skeleton height={20} width={100} />;
@@ -33,7 +36,7 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 				<IconUsers size={25} />
 				<h2 className="font-semiBold text-2xl">Collaborators</h2>
 			</div>
-			<p className="text-coolGrey-4  text-sm pb-4">
+			<p className="text-coolGrey-5 text-sm pb-4">
 				Manage collaborators and their permissions here
 			</p>
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark my-2" />
@@ -78,10 +81,11 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 					title="Pending Invites"
 					description="Manage your pending invites here. You can resend or cancel them entirely."
 				>
-					{" "}
-					<ProjectCollaboratorTable
+					<ProjectInviteTable
 						collaborators={project.pendingInvite}
 						emptyText="You have no pending invites"
+						revokeInvite={revokeInvite}
+						projectId={project.uid}
 					/>
 				</Section>
 			</div>
@@ -101,9 +105,9 @@ const Section: FC<{
 				<h3 className="text-coolGrey-7 dark:text-coolGrey-4 font-medium text-sm flex gap-2 mb-5">
 					{title}
 				</h3>
-				<Text className="text-coolGrey-4 dark:text-coolGrey-4 max-w-xs">
+				<p className="text-coolGrey-5 dark:text-coolGrey-4 max-w-xs text-sm">
 					{description}
-				</Text>
+				</p>
 				<div className="mt-5">{button}</div>
 			</div>
 			{children}
@@ -117,7 +121,7 @@ const CollaboratorButton: FC<{
 }> = ({ text, onClick }) => {
 	return (
 		<button
-			className="px-4 py-2 rounded-normal bg-lime-500 dark:bg-lime-300/70 hover:bg-lime-500/80 dark:hover:bg-lime-400/70 text-sm"
+			className="px-4 py-2 rounded-normal bg-lime-500 dark:bg-lime-300/70 font-semibold hover:bg-lime-500/80 dark:hover:bg-lime-400/70 text-xs"
 			onClick={onClick}
 		>
 			{text}

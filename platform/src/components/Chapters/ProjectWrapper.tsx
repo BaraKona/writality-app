@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { Divider, Flex, Skeleton } from "@mantine/core";
-import { IconAtom, IconBook } from "@tabler/icons-react";
+import { IconAtom, IconBook, Icon3dCubeSphere } from "@tabler/icons-react";
 
 import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
 import { Text } from "@mantine/core";
@@ -39,7 +39,7 @@ export const ProjectWrapper: FC<{
 				project.type === "standard" ? (
 					<IconBook size={18} />
 				) : (
-					<IconAtom size={18} />
+					<Icon3dCubeSphere size={18} />
 				)
 			) : (
 				<Skeleton height={18} width={18} />

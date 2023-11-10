@@ -181,6 +181,10 @@ export const getProject = async (req: any, res: any) => {
 				select: " dateUpdated projectId title uid content.title _id",
 			})
 			.populate({
+				path: "pendingInvite.user",
+				select: "name email uid",
+			})
+			.populate({
 				path: "history.user",
 				select: "name email",
 			});
@@ -375,6 +379,33 @@ export const getUserFavourites = async (req: any, res: any) => {
 		});
 
 		res.status(200).json(projects);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const revokeProjectInvitation = async (req: any, res: any) => {
+	const userId = req.user._id;
+	const { projectId, inviteeId } = req.params;
+
+	try {
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true, role: "admin" },
+					},
+					uid: projectId,
+				},
+			],
+		});
+		project.pendingInvite = project.pendingInvite.filter(
+			(invite) => inviteeId !== invite.user.toString()
+		);
+		await project.save();
+		res.status(200).json({ message: "Invitation revoked successfully." });
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

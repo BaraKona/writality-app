@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { IProject, ProjectType } from "../../interfaces/IProject";
-import { IconAtom2, IconBook2 } from "@tabler/icons-react";
+import { Icon3dCubeSphere, IconBook2 } from "@tabler/icons-react";
 import { SmallText } from "../texts/SmallText";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 
@@ -22,7 +22,7 @@ export const ListProjects = ({ projects }: { projects: IProject[] }) => {
 									className="text-neutral-600 dark:text-stone-500"
 								/>
 							) : (
-								<IconAtom2 size={20} className="text-cyan-800" />
+								<Icon3dCubeSphere size={20} className="text-cyan-800" />
 							)}
 							<div className="text-sm font-semibold">{project.title}</div>
 						</div>

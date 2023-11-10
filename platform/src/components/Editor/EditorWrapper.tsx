@@ -2,9 +2,8 @@ import { FC, ReactNode, useState } from "react";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import {
-	IconAtom2,
-	IconCloudFilled,
 	IconCloudUpload,
+	Icon3dCubeSphere,
 	IconDeviceFloppy,
 	IconFileText,
 	IconGitBranch,
@@ -59,7 +58,7 @@ export const EditorWrapper: FC<{
 						className="text-neutral-600 dark:text-stone-500"
 					/>
 				) : (
-					<IconAtom2 size={18} className="text-cyan-800" />
+					<Icon3dCubeSphere size={18} className="text-cyan-800" />
 				),
 			isLoading: isLoading,
 		},
