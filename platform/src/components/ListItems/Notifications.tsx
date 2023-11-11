@@ -6,7 +6,6 @@ import { Text, Divider, Popover } from "@mantine/core";
 import { IconCubeOff, IconCubePlus, IconInbox } from "@tabler/icons-react";
 import { SmallText } from "../texts/SmallText";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { notificationType } from "../../interfaces/IUser";
 import { useOpenNotification } from "../../hooks/notification/useOpenNotification";
 
 export const Notifications: FC<{
@@ -39,7 +38,11 @@ export const Notifications: FC<{
 					position="bottom"
 					withArrow
 					shadow="md"
-					onOpen={() => openNotification(notification._id)}
+					onOpen={() => {
+						!notification.notificationRead
+							? openNotification(notification._id)
+							: null;
+					}}
 				>
 					<Popover.Target>
 						<li

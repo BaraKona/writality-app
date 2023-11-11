@@ -26,7 +26,7 @@ export const createProject = async (req: any, res: any) => {
 		},
 		collaborators: [
 			{
-				uid: userId,
+				user: userId,
 				dateAdded: new Date(),
 				role: "owner",
 				active: true,
@@ -163,11 +163,9 @@ export const getAllProjects = async (req: any, res: any) => {
 export const getProject = async (req: any, res: any) => {
 	const { projectId } = req.params;
 	const userId = req.user._id;
+
 	try {
-		const project = await await Project.findOne({
-			owner: userId,
-			uid: projectId,
-		})
+		const project = await Project.findOne({ owner: userId, uid: projectId })
 			.populate({
 				path: "chapters",
 				select: "dateUpdated projectId title uid content.title _id",
@@ -189,9 +187,10 @@ export const getProject = async (req: any, res: any) => {
 				select: "name email",
 			});
 
-		project.history.sort((a, b) => {
+		project?.history.sort((a, b) => {
 			return new Date(b.date).getTime() - new Date(a.date).getTime();
 		});
+
 		res.status(200).json(project);
 	} catch (error) {
 		console.log(error);
@@ -449,23 +448,26 @@ export const createProjectChapter = async (req: any, res: any) => {
 	try {
 		const chapter = await createChapter(userId, projectId);
 		const project = await Project.findOne({ owner: userId, uid: projectId });
+
 		project.dateUpdated = {
 			user: userId,
 			date: new Date(),
 		};
+
 		project.history.push({
 			date: new Date(),
 			user: userId,
 			action: "created chapter",
 		});
 
-		project.collaborators.find((collaborator) => {
-			if (collaborator.user === userId.toString()) {
+		project.collaborators?.find((collaborator) => {
+			if (collaborator.user.toString() === userId) {
 				collaborator.lastContribution = new Date();
 			}
 		});
 
 		project.chapters.push(chapter._id);
+
 		await project.save();
 		res.status(200).json(chapter);
 	} catch (error) {

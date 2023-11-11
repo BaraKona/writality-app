@@ -143,6 +143,7 @@ const projectSchema = new Schema<IProject>({
 				action: { type: String, required: true },
 			},
 		],
+		default: [],
 		required: false,
 	},
 	board: { type: String },
