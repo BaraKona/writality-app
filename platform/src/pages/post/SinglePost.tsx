@@ -14,8 +14,28 @@ import { useEffect } from "react";
 export const SinglePost = () => {
 	const { postId } = useParams<{ postId: string }>();
 	const { data: post, isLoading } = useSinglePost(postId as string);
+	const queryClient = useQueryClient();
 	const location = useLocation();
 	const { mutate } = useAddFavouriteTab();
+
+	const { pusher } = useSocket();
+
+	useEffect(() => {
+		if (post && pusher) {
+			const channel = pusher.subscribe(`post-${post.uid}`);
+			channel.bind("comment", () => {
+				queryClient.invalidateQueries(["post", post.uid]);
+			});
+		}
+
+		return () => {
+			if (pusher) {
+				pusher.disconnect();
+				pusher.unsubscribe(`post-${post.uid}`);
+				pusher.unbind("comment");
+			}
+		};
+	}, [post]);
 
 	if (isLoading) {
 		return (

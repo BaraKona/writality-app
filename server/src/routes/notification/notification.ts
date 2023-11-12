@@ -3,6 +3,7 @@ import {
 	sendProjectInvite,
 	revokeProjectInvite,
 	openNotification,
+	acceptProjectInvitation,
 } from "../../controllers/notification/cNotification";
 import { protect } from "../../middleware/jwtAuth";
 
@@ -15,5 +16,10 @@ router.delete(
 	revokeProjectInvite
 );
 router.patch("/open-notification/:notificationId", protect, openNotification);
+router.patch(
+	"/accept-project-invitation/:notificationId/:projectId",
+	protect,
+	acceptProjectInvitation
+);
 
 export default router;

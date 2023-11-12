@@ -37,10 +37,13 @@ export const ProjectCollaboratorTable: FC<{
 				<div className="w-5/12" />
 			</div>
 			{collaborators.length > 0 ? (
-				<div className="border-b border-border dark:border-borderDark">
-					{collaborators.map((collaborator) => {
+				<div>
+					{collaborators.map((collaborator, index) => {
 						return (
-							<div className="w-full flex gap-3 text-coolGrey-12 dark:text-coolGrey-4 text-sm items-center py-2">
+							<div
+								className="w-full flex gap-3 text-coolGrey-12 dark:text-coolGrey-4 text-sm items-center py-2 border-b border-border dark:border-borderDark"
+								key={index}
+							>
 								<div className="w-3/12 flex flex-col">
 									<Text className="!text-[1.1rem] font-semibold">
 										{collaborator.user.name}

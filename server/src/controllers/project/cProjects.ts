@@ -7,6 +7,7 @@ import { createChapter, deleteSingleChapter } from "./cChapters";
 
 import { v4 as uuidv4 } from "uuid";
 import User from "../../models/user/userSchema";
+import { initPusher } from "../../../pusherProvider";
 
 export const createProject = async (req: any, res: any) => {
 	const userId = req.user._id;
@@ -60,7 +61,7 @@ export const getUserProjects = async (req: any, res: any) => {
 				{ owner: userId },
 				{
 					collaborators: {
-						$elemMatch: { uid: userId, active: true },
+						$elemMatch: { user: userId, active: true },
 					},
 				},
 			],
@@ -102,7 +103,7 @@ export const getUserProfileProjects = async (req: any, res: any) => {
 				{ owner: userId },
 				{
 					collaborators: {
-						$elemMatch: { uid: userId, active: true },
+						$elemMatch: { user: userId, active: true },
 					},
 				},
 			],
@@ -165,7 +166,18 @@ export const getProject = async (req: any, res: any) => {
 	const userId = req.user._id;
 
 	try {
-		const project = await Project.findOne({ owner: userId, uid: projectId })
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true },
+					},
+					uid: projectId,
+					type: "collaboration",
+				},
+			],
+		})
 			.populate({
 				path: "chapters",
 				select: "dateUpdated projectId title uid content.title _id",
@@ -221,7 +233,18 @@ export const updateProjectDescription = async (req: any, res: any) => {
 	const { description } = req.body;
 
 	try {
-		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true },
+					},
+					uid: projectId,
+					type: "collaboration",
+				},
+			],
+		});
 		project.description = description;
 		project.dateUpdated = {
 			user: userId,
@@ -251,7 +274,18 @@ export const updateProjectBoard = async (req: any, res: any) => {
 	const { board } = req.body;
 	const userId = req.user._id;
 	try {
-		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true },
+					},
+					uid: projectId,
+					type: "collaboration",
+				},
+			],
+		});
 		project.board = board;
 		project.dateUpdated = {
 			user: userId,
@@ -281,7 +315,16 @@ export const updateProjectTitle = async (req: any, res: any) => {
 	const userId = req.user._id;
 	const { title } = req.body;
 	try {
-		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true, role: "admin" },
+					},
+				},
+			],
+		});
 		project.title = title;
 		project.dateUpdated = {
 			user: userId,
@@ -312,7 +355,18 @@ export const updateProjectType = async (req: any, res: any) => {
 	const userId = req.user._id;
 	const { type } = req.body;
 	try {
-		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true, role: "admin" },
+					},
+					uid: projectId,
+					type: "collaboration",
+				},
+			],
+		});
 		project.type = type;
 
 		if (!project.hasChat) {
@@ -417,7 +471,18 @@ export const createFolder = async (req: any, res: any) => {
 	const { name } = req.body;
 
 	try {
-		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true },
+					},
+					uid: projectId,
+					type: "collaboration",
+				},
+			],
+		});
 		const folder = {
 			uid: uuidv4(),
 			name,
@@ -447,8 +512,18 @@ export const createProjectChapter = async (req: any, res: any) => {
 
 	try {
 		const chapter = await createChapter(userId, projectId);
-		const project = await Project.findOne({ owner: userId, uid: projectId });
-
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true },
+					},
+					uid: projectId,
+					type: "collaboration",
+				},
+			],
+		});
 		project.dateUpdated = {
 			user: userId,
 			date: new Date(),
@@ -461,12 +536,18 @@ export const createProjectChapter = async (req: any, res: any) => {
 		});
 
 		project.collaborators?.find((collaborator) => {
-			if (collaborator.user.toString() === userId) {
+			if (collaborator.user === userId.toString()) {
 				collaborator.lastContribution = new Date();
 			}
 		});
 
 		project.chapters.push(chapter._id);
+
+		initPusher().trigger(`project-${project.uid}`, "update", {
+			projectId: project.uid,
+			chapterId: chapter.uid,
+			action: "create",
+		});
 
 		await project.save();
 		res.status(200).json(chapter);

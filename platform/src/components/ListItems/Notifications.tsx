@@ -7,6 +7,7 @@ import { IconCubeOff, IconCubePlus, IconInbox } from "@tabler/icons-react";
 import { SmallText } from "../texts/SmallText";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useOpenNotification } from "../../hooks/notification/useOpenNotification";
+import { useAcceptProjectInvitation } from "../../hooks/notification/useAcceptProjectInvitation";
 
 export const Notifications: FC<{
 	notification: IUser["inbox"];
@@ -15,6 +16,7 @@ export const Notifications: FC<{
 
 	const navigate = useNavigate();
 	const { mutate: openNotification } = useOpenNotification();
+	const { mutate: acceptProjectInvitation } = useAcceptProjectInvitation();
 
 	const [parent] = useAutoAnimate();
 	// icons type = notificationType: reactNode
@@ -33,6 +35,7 @@ export const Notifications: FC<{
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark !mb-2" />
 			{notification?.map((notification: any, index: number) => (
 				<Popover
+					key={index}
 					width={300}
 					trapFocus
 					position="bottom"
@@ -81,7 +84,12 @@ export const Notifications: FC<{
 									</button>
 									<button
 										className="flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-normal border border-border dark:border-borderDark p-1 px-3 hover:bg-coolGrey-2/40 dark:hover:bg-hoverDark transition-colors ease-in-out duration-300"
-										onClick={() => console.log("delete")}
+										onClick={() => {
+											acceptProjectInvitation({
+												projectId: notification.ctaId,
+												notificationId: notification._id,
+											});
+										}}
 									>
 										<Text>Accept</Text>
 									</button>

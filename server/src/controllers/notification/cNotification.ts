@@ -124,3 +124,61 @@ export const openNotification = async (req: any, res: any) => {
 		res.status(404).json({ message: error.message });
 	}
 };
+
+export const acceptProjectInvitation = async (req: any, res: any) => {
+	const userId = req.user._id;
+	const { notificationId, projectId } = req.params;
+	const pusher = initPusher();
+
+	try {
+		const user = await User.findOne({ _id: userId });
+
+		const projectId = user.inbox.find(
+			/**@ts-ignore */
+			(notification) => notification._id.toString() === notificationId
+		).ctaId;
+
+		const project = await Project.findOne({ uid: projectId });
+
+		project.collaborators.push({
+			user: userId.toString(),
+			dateAdded: new Date(),
+			role: collaboratorRole.editor,
+			active: true,
+			lastContribution: null,
+		});
+
+		project.pendingInvite = project.pendingInvite.filter(
+			(invite) => invite.user.toString() !== userId.toString()
+		);
+
+		const notification = {
+			notificationType: notificationType.projectAccept,
+			notificationBody: `You have accepted an invitation to join ${project.title}. You can find it in your list of collaborations.`,
+			notificationTitle: "You have joined a project",
+			notificationTime: new Date(),
+			notificationRead: false,
+			ctaId: project.uid,
+		};
+
+		user.inbox.push(notification);
+
+		await user.save();
+		await project.save();
+
+		pusher.trigger(`project-${projectId}`, "update", {
+			notificationId,
+			userId,
+		});
+
+		pusher.trigger(`user-${userId}`, "notification", {
+			notification,
+			userId,
+		});
+
+		res.status(200).json({ message: "Project joined successfully." });
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};

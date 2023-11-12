@@ -24,3 +24,13 @@ export const openNotification = async (notificationId: string) => {
 	const { data } = await userApi.patch(`/open-notification/${notificationId}`);
 	return data;
 };
+
+export const acceptProjectInvitation = async (
+	notificationId: string,
+	projectId: string
+) => {
+	const { data } = await userApi.patch(
+		`/accept-project-invitation/${notificationId}/${projectId}`
+	);
+	return data;
+};

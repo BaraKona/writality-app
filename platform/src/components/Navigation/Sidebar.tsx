@@ -41,12 +41,16 @@ import { useThemeContext } from "../../Providers/ThemeProvider";
 import { useUser } from "../../hooks/user/useUser";
 import { IUser } from "../../interfaces/IUser";
 import { Notifications } from "../ListItems/Notifications";
+import { useQueryClient } from "react-query";
 
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
+	const queryClient = useQueryClient();
 	const { mutate: signOut } = useSignout();
 	const { mutate: createProject } = useCreateProject();
-	const { currentUser } = useAuthContext();
+
+	/* @ts-ignore*/
+	const { data: currentUser } = queryClient.getQueryState<IUser>("user");
 
 	const [displayLocation, setDisplayLocation] = useState(location);
 	const [transitionStage, setTransitionStage] = useState("fadeIn");

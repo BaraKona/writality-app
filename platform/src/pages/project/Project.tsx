@@ -17,7 +17,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { DeleteModal } from "../../components/Modals";
 import { updateProjectDescription } from "../../api/project/projects";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Divider, Skeleton, Tabs, Tooltip } from "@mantine/core";
 import { ProjectSettings } from "../../components/Project/ProjectSettings";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
@@ -39,6 +39,7 @@ import { ProjectCollaborators } from "../../components/Project/collaborators/Pro
 import { Title } from "../../components/Title";
 import { ProjectBoard } from "../../components/Project/ProjectBoard";
 import { ProjectWrapper } from "../../components/Chapters/ProjectWrapper";
+import { useSocket } from "../../Providers/SocketProvider";
 
 export function Project() {
 	const queryClient = useQueryClient();
@@ -47,6 +48,9 @@ export function Project() {
 	const [openModal, setOpenModal] = useState(false);
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
+
+	const { pusher } = useSocket();
+
 	const { data: currentProject, isLoading } = useSingleProject(
 		project as string
 	);
@@ -95,6 +99,22 @@ export function Project() {
 			},
 			0
 		);
+
+	useEffect(() => {
+		if (currentProject && currentUser && pusher) {
+			pusher.subscribe(`project-${currentProject.uid}`);
+			pusher.bind("update", () => {
+				queryClient.invalidateQueries(["project", project]);
+			});
+		}
+
+		return () => {
+			if (pusher) {
+				pusher.unsubscribe(`project-${currentProject?.uid}`);
+				pusher.unbind("update");
+			}
+		};
+	}, [currentProject]);
 
 	return (
 		<section className="relative flex gap-2 w-full">
