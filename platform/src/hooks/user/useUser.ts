@@ -6,7 +6,7 @@ import { useSocket } from "../../Providers/SocketProvider";
 
 export const useUser = () => {
 	const { setCurrentUser } = useAuthContext();
-	const { subscribeToChannel } = useSocket();
+	// const { subscribeToChannel } = useSocket();
 	const queryClient = useQueryClient();
 
 	return useQuery(["user"], () => getUser(), {
