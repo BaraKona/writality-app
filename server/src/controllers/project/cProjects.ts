@@ -63,6 +63,7 @@ export const getUserProjects = async (req: any, res: any) => {
 					collaborators: {
 						$elemMatch: { user: userId, active: true },
 					},
+					type: "collaboration",
 				},
 			],
 		})
@@ -105,6 +106,7 @@ export const getUserProfileProjects = async (req: any, res: any) => {
 					collaborators: {
 						$elemMatch: { user: userId, active: true },
 					},
+					type: "collaboration",
 				},
 			],
 		})
@@ -134,11 +136,12 @@ export const getSingleUserProjects = async (req: any, res: any) => {
 		const { _id } = await User.findOne({ uid: userId });
 		const projects = await Project.find({
 			$or: [
-				{ owner: _id },
+				{ owner: userId },
 				{
 					collaborators: {
-						$elemMatch: { uid: _id, active: true },
+						$elemMatch: { user: userId, active: true },
 					},
+					type: "collaboration",
 				},
 			],
 		})
@@ -317,11 +320,13 @@ export const updateProjectTitle = async (req: any, res: any) => {
 	try {
 		const project = await Project.findOne({
 			$or: [
-				{ owner: userId },
+				{ owner: userId, uid: projectId },
 				{
 					collaborators: {
-						$elemMatch: { user: userId, active: true, role: "admin" },
+						$elemMatch: { user: userId, active: true },
 					},
+					uid: projectId,
+					type: "collaboration",
 				},
 			],
 		});
