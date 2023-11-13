@@ -29,7 +29,7 @@ export const PostsPage: FC = () => {
 	};
 
 	return (
-		<div className="place-items-center rounded-normal relative overflow-y-auto">
+		<div className="place-items-center rounded-md relative overflow-y-auto">
 			<Tooltip
 				label="Create a new post"
 				position="left"
@@ -37,7 +37,7 @@ export const PostsPage: FC = () => {
 				styles={tooltipStyles}
 			>
 				<button
-					className="bg-base p-2 hover:bg-gray-100 rounded-normal fixed right-5 top-14 border border-border dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
+					className="bg-base p-2 hover:bg-gray-100 rounded-md fixed right-5 top-14 border border-border dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
 					onClick={openPostCreation}
 				>
 					<IconEdit size={18} />
@@ -46,12 +46,12 @@ export const PostsPage: FC = () => {
 			<BannerImage image={DefaultPostBanner} alt="Post banner" />
 			<div className="">
 				<div className="max-w-screen-lg mx-auto">
-					<div className="bg-base dark:bg-baseDark rounded-normal">
+					<div className="bg-base dark:bg-baseDark rounded-md">
 						<div className="flex gap-4 items-center">
 							<IconTemplate size={40} className="dark:text-purple-600" />
 							<Title>Posts</Title>
 						</div>
-						<div className="mx-auto bg-base dark:bg-baseDark rounded-normal flex flex-wrap gap-2">
+						<div className="mx-auto bg-base dark:bg-baseDark rounded-md flex flex-wrap gap-2">
 							{posts?.map((post: IPost) => (
 								<PostCard post={post!} openPost={openPost} key={post.uid} />
 							))}

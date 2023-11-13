@@ -9,7 +9,7 @@ export const SettingsHeader: FC<{ tab: string | undefined }> = ({ tab }) => {
 	];
 
 	return (
-		<div className="rounded-normal text-coolGrey-7 dark:text-coolGrey-4">
+		<div className="rounded-md text-coolGrey-7 dark:text-coolGrey-4">
 			<div className="relative flex w-full items-center">
 				<Breadcrumbs items={breadcrumbs} />
 				<div className=" ml-auto flex cursor-pointer"></div>

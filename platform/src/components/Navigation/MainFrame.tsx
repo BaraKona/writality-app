@@ -154,7 +154,7 @@ export const MainFrame: FC<{
 							tab.active
 								? "bg-base border border-border dark:bg-hoverDark dark:border-hoverDark hover:bg-base hover:dark:bg-hoverDark cursor-default"
 								: "border border-primary cursor-pointer"
-						} flex items-center justify-between px-2 py-1.5 w-44 bg-base dark:bg-baseDark border border-border dark:border-borderDark hover:bg-base hover:dark:bg-baseDark  rounded-normal transition-all duration-500 ease-in-out min-w-0`}
+						} flex items-center justify-between px-2 py-1.5 w-44 bg-base dark:bg-baseDark border border-border dark:border-borderDark hover:bg-base hover:dark:bg-baseDark  rounded-md transition-all duration-500 ease-in-out min-w-0`}
 						onClick={() => changeTab(tab)}
 					>
 						<div
@@ -194,13 +194,13 @@ export const MainFrame: FC<{
 					</div>
 				))}
 				<div
-					className="rounded-normal hover:bg-coolGrey-1 dark:hover:bg-hoverDark flex items-center p-1.5 cursor-pointer"
+					className="rounded-md hover:bg-coolGrey-1 dark:hover:bg-hoverDark flex items-center p-1.5 cursor-pointer"
 					onClick={addTab}
 				>
 					<IconPlus size={14} className="text-coolGrey-4" />
 				</div>
 				<div
-					className="ml-auto p-2 border-border  dark:border-borderDark border rounded-normal py-1.5 cursor-pointer"
+					className="ml-auto p-2 border-border  dark:border-borderDark border rounded-md py-1.5 cursor-pointer"
 					onClick={toggleTheme}
 				>
 					{theme === "dark" ? (
@@ -210,7 +210,7 @@ export const MainFrame: FC<{
 					)}
 				</div>
 			</div>
-			<section className="h-[calc(100vh-3rem)] !rounded-normal overflow-y-auto px-2">
+			<section className="h-[calc(100vh-3rem)] !rounded-md overflow-y-auto px-2">
 				{children}
 			</section>
 		</div>

@@ -11,7 +11,7 @@ export const CategoryListItem: FC<{
 		<ul className={`p-1.5 ${className}`}>
 			<li>
 				<h2
-					className={`flex justify-between items-center ml-0.5 font-normal text-xs rounded-normal`}
+					className={`flex justify-between items-center ml-0.5 font-normal text-xs rounded-md`}
 				>
 					<p className="text-coolGrey-7 font-bold cursor-pointer hover:font-semibold hover:text-black dark:hover:text-coolGrey-1">
 						{button ? <IconSquareRoundedPlus size={18} /> : ""}

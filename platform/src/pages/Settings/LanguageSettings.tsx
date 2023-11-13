@@ -19,7 +19,7 @@ export const LanguageSettings = () => {
 	};
 
 	return (
-		<div className="h-[calc(100vh-6.4rem)] place-items-center rounded-normal border border-border dark:border-borderDark bg-base dark:bg-baseDark px-3 py-2 overflow-y-auto">
+		<div className="h-[calc(100vh-6.4rem)] place-items-center rounded-md border border-border dark:border-borderDark bg-base dark:bg-baseDark px-3 py-2 overflow-y-auto">
 			<div className="max-w-lg mx-auto mt-10">
 				<Text size={20} className=" font-medium text-coolGrey-7">
 					Language

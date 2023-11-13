@@ -10,7 +10,7 @@ export const UserCard: FC<{ user: IUser }> = ({ user }) => {
 	return (
 		<div
 			onClick={() => navigate(`/users/${user.uid}`)}
-			className="flex flex-col gap-2 rounded-normal border-border border dark:border-borderDark p-2 basis-80 h-80 max-w-[300px] hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
+			className="flex flex-col gap-2 rounded-md border-border border dark:border-borderDark p-2 basis-80 h-80 max-w-[300px] hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
 		>
 			<div className="flex gap-2">
 				<div className="w-12 h-12 rounded-full bg-coolGrey-1/70 dark:bg-borderDark flex items-center justify-center">
@@ -39,13 +39,13 @@ export const UserCard: FC<{ user: IUser }> = ({ user }) => {
 			<Divider mt="xs" className="!border-coolGrey-1 dark:!border-borderDark" />
 			<div className="flex gap-1.5 flex-wrap">
 				{user.roles?.length === 0 && (
-					<span className="text-xs rounded bg-coolGrey-1 dark:bg-borderDark px-2 py-1 capitalize">
+					<span className="text-xs rounded-md bg-coolGrey-1 dark:bg-borderDark px-2 py-1 capitalize">
 						No roles
 					</span>
 				)}
 				{user.roles?.slice(0, 4).map((role) => (
 					<span
-						className="text-xs rounded bg-coolGrey-1 dark:bg-borderDark px-2 py-1 capitalize"
+						className="text-xs rounded-md bg-coolGrey-1 dark:bg-borderDark px-2 py-1 capitalize"
 						key={role}
 					>
 						{role}

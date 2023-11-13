@@ -20,7 +20,7 @@ export const PostBody: FC<{
 	const blue = "#394251";
 
 	return (
-		<div className="overflow-y-auto h-[calc(100vh-7.6rem)] basis-[60rem] rounded-normal flex-grow">
+		<div className="overflow-y-auto h-[calc(100vh-7.6rem)] basis-[60rem] rounded-md flex-grow">
 			<Paper
 				className="relative  h-[calc(100vh-6.6rem)] flex dark:bg-baseDark"
 				// style={{
@@ -40,7 +40,7 @@ export const PostBody: FC<{
 				<div className="px-2 mx-auto flex max-w-screen-xl gap-2">
 					<div className="max-w-screen-md mx-auto">
 						<Text
-							className="text-sm rounded-normal px-4 py-0.5 absolute top-10 right-0 !text-coolGrey-4"
+							className="text-sm rounded-md px-4 py-0.5 absolute top-10 right-0 !text-coolGrey-4"
 							// style={{
 							// 	background: post?.theme?.time || gray,
 							// 	color: post?.theme?.text || blue,

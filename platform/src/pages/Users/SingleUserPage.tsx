@@ -25,7 +25,7 @@ export const SingleUserPage: FC<{}> = () => {
 	}
 
 	return (
-		<section className="relative overflow-y-auto rounded-normal">
+		<section className="relative overflow-y-auto rounded-md">
 			<BannerImage
 				image="https://images.unsplash.com/photo-1544604860-206456f08229"
 				alt="Post banner"
@@ -33,7 +33,7 @@ export const SingleUserPage: FC<{}> = () => {
 			/>
 
 			<button
-				className="bg-base p-1.5 hover:bg-gray-100 rounded-normal absolute left-2 top-2 border border-border dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
+				className="bg-base p-1.5 hover:bg-gray-100 rounded-md absolute left-2 top-2 border border-border dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
 				onClick={() => navigate("/users")}
 			>
 				<IconChevronLeft size={18} />
@@ -74,7 +74,7 @@ export const SingleUserPage: FC<{}> = () => {
 						{user.interests.length === 0 && (
 							<>
 								{[1, 2, 3].map((i) => (
-									<span className="bg-coolGrey-1 dark:bg-coolGrey-8/60 capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
+									<span className="bg-coolGrey-1 dark:bg-coolGrey-8/60 capitalize p-2 rounded-md h-24 w-24 text-sm flex items-center justify-center text-center">
 										no interests
 									</span>
 								))}
@@ -83,7 +83,7 @@ export const SingleUserPage: FC<{}> = () => {
 					</div>
 					<div className="flex flex-wrap gap-2">
 						{user.interests.map((interest: IUser["interests"]) => (
-							<span className="bg-orange-300  dark:bg-orange-900 capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
+							<span className="bg-orange-300  dark:bg-orange-900 capitalize p-2 rounded-md h-24 w-24 text-sm flex items-center justify-center text-center">
 								{interest}
 							</span>
 						))}
@@ -93,7 +93,7 @@ export const SingleUserPage: FC<{}> = () => {
 						{user.roles.length === 0 && (
 							<>
 								{[1, 2, 3, 4].map((i) => (
-									<span className="bg-coolGrey-1 dark:bg-coolGrey-8/60 capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
+									<span className="bg-coolGrey-1 dark:bg-coolGrey-8/60 capitalize p-2 rounded-md h-24 w-24 text-sm flex items-center justify-center text-center">
 										no roles
 									</span>
 								))}
@@ -102,7 +102,7 @@ export const SingleUserPage: FC<{}> = () => {
 					</div>
 					<div className="flex flex-wrap gap-2">
 						{user.roles.map((role: IUser["roles"]) => (
-							<span className="bg-rose-400 dark:bg-pink-950 capitalize p-2 rounded-normal h-24 w-24 text-sm flex items-center justify-center text-center">
+							<span className="bg-rose-400 dark:bg-pink-950 capitalize p-2 rounded-md h-24 w-24 text-sm flex items-center justify-center text-center">
 								{role}
 							</span>
 						))}

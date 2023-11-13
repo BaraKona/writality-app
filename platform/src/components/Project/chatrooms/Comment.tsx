@@ -13,7 +13,7 @@ export const Comment: FC<{
 	return (
 		<div className="flex gap-3">
 			<div className="">
-				<div className="w-10 h-10 rounded-full bg-coolGrey-1/70 dark:bg-borderDark flex items-center justify-center">
+				<div className="mt-3 w-10 h-10 rounded-full bg-base dark:bg-baseDark flex items-center justify-center border border-border dark:border-borderDark">
 					<div
 						className={`font-bold truncate -mt-1 ${initialsColor(
 							comment.user.name
@@ -23,15 +23,17 @@ export const Comment: FC<{
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-col space-y-2 border border-border dark:border-borderDark rounded-normal grow p-5">
+			<div className="flex flex-col space-y-2 bg-base dark:bg-baseDark border border-border dark:border-borderDark rounded-md grow p-5">
 				<div className="flex flex-col space-y-2">
 					<div className="flex items-center gap-3">
-						<div className="font-semibold">{comment.user.name}</div>
-						<div className="text-sm">
+						<div className="font-semibold text-coolGrey-7 dark:text-coolGrey-4">
+							{comment.user.name}
+						</div>
+						<div className="text-xs text-orange-700 dark:text-orange-400">
 							&middot;{useTimeFromNow(comment.date)}
 						</div>
 					</div>
-					<div className="text-sm font-medium text-coolGrey-7 text-blue">
+					<div className="text-sm text-coolGrey-5 text-blue">
 						<ReactMarkdown
 							remarkPlugins={[remarkGfm]}
 							children={comment.content}

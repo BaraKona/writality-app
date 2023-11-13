@@ -60,7 +60,7 @@ export const ProfileProjects: FC<{
 
 	if (!projects || projects.length === 0) {
 		return (
-			<div className="border-border dark:border-borderDark border rounded-normal h-[calc(100vh-39rem)] flex content-center items-center">
+			<div className="border-border dark:border-borderDark border rounded-md h-[calc(100vh-39rem)] flex content-center items-center">
 				<EmptyItem
 					title="Projects"
 					p1="You do not current have any projects. You may wish to work with other people or create your own project."
@@ -77,7 +77,7 @@ export const ProfileProjects: FC<{
 				Your Projects
 				<div className="flex gap-1">
 					<button
-						className={`border rounded-normal p-2 ${
+						className={`border rounded-md p-2 ${
 							layout === "grid"
 								? "border-transparent bg-coolGrey-1 dark:bg-hoverDark cursor-default"
 								: "border-coolGrey-2 dark:border-borderDark dark:hover:bg-hoverDark hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
@@ -87,7 +87,7 @@ export const ProfileProjects: FC<{
 						<IconLayoutGrid size={16} />
 					</button>
 					<button
-						className={`border rounded-normal p-2 ${
+						className={`border rounded-md p-2 ${
 							layout === "list"
 								? "border-transparent bg-coolGrey-1 dark:bg-hoverDark cursor-default"
 								: "border-coolGrey-2 dark:border-borderDark dark:hover:bg-hoverDark hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"

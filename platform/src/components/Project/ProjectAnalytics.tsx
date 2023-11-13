@@ -20,7 +20,7 @@ export const ProjectAnalytics: FC<{}> = ({}) => {
 	);
 
 	return (
-		<div className="col-span-3 row-span-2 rounded-normal flex flex-col items-center max-h-96 overflow-y-hidden">
+		<div className="col-span-3 row-span-2 rounded-md flex flex-col items-center max-h-96 overflow-y-hidden">
 			<div className="w-full">
 				{isLoading ? (
 					<div className="flex flex-wrap gap-2 max-h-[18rem]">
@@ -61,7 +61,7 @@ const ListItem: FC<{ children: ReactNode; title: string }> = ({
 	title,
 }) => {
 	return (
-		<div className="flex basis-24 flex-grow flex-shrink-0 flex-col h-28 border-border dark:border-borderDark border rounded-normal p-1 items-center">
+		<div className="flex basis-24 flex-grow flex-shrink-0 flex-col h-28 border-border dark:border-borderDark border rounded-md p-1 items-center">
 			<p className=" text-gray-500 dark:text-coolGrey-4 text-center border-b border-border dark:border-borderDark w-full h-[2.3rem] flex justify-center items-center text-xs">
 				{title}
 			</p>

@@ -18,6 +18,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 
 	const { mutate } = useComment(project as string);
 	const { data: chatRooms, isLoading } = useChatRooms(project as string);
+
 	if (!chatRooms) {
 		return <div>loading</div>;
 	}
@@ -35,34 +36,16 @@ export const ChatWrapper: FC<{}> = ({}) => {
 	return (
 		<div className="flex">
 			<Tabs
-				className={`w-full border-none important:border-none border border-border dark:border-borderDark h-[calc(100vh-8rem)]`}
+				className={`w-full !border-none border border-border dark:border-borderDark h-[calc(100vh-8rem)]`}
 				defaultValue={primaryRoom.uid}
 				radius={"md"}
 				orientation="vertical"
 				keepMounted={false}
 				styles={{
-					...tabStyles,
-					tabsList: {
-						...tabStyles.tabsList,
-						flexBasis: 200,
-						// backgroundColor: "#fff",
-						// border: "1px solid #ebebeb",
-						border:
-							theme === "dark" ? "1px solid #35384a" : "1px solid #ebebeb",
-						// borderTopRightRadius: "0.25rem",
-						borderTopLeftRadius: "0.25rem",
-						borderBottomLeftRadius: "0.25rem",
-						padding: "0.25rem 0.25rem",
-					},
 					tab: {
-						...tabStyles.tab,
-						border: "1px solid #ebebeb",
-						padding: "0.50rem 0.25rem",
-						margin: "0.25rem 0.25rem",
-						display: "block",
 						"&[data-active]": {
-							border: "1px solid #35384a",
-							// backgroundColor: "#eee",
+							border: "none",
+							// backgroundColor: "!bg-coolGrey-4",
 						},
 					},
 				}}
@@ -71,9 +54,13 @@ export const ChatWrapper: FC<{}> = ({}) => {
 				}}
 				value={searchParams.get("chat") || primaryRoom.uid}
 			>
-				<Tabs.List>
+				<Tabs.List className="!border border-border dark:border-borderDark rounded-l-md w-64 p-2">
 					{chatRooms?.map((chatRoom: IChat) => (
-						<Tabs.Tab key={chatRoom.uid} value={chatRoom.uid}>
+						<Tabs.Tab
+							key={chatRoom.uid}
+							value={chatRoom.uid}
+							className="!border-none w-full !rounded-md enabled:!bg-coolGrey-1 dark:enabled:!bg-hoverDark"
+						>
 							<ChatItem
 								name={chatRoom.name}
 								active={chatRoom.uid === searchParams.get("chat")}
@@ -99,6 +86,11 @@ export const ChatWrapper: FC<{}> = ({}) => {
 							}),
 								setComment("");
 						}}
+						title={
+							chatRooms?.find(
+								(chatRoom: IChat) => chatRoom.uid === searchParams.get("chat")
+							)?.name
+						}
 					/>
 					<div className=" basis-72 p-4 border-border dark:border-borderDark border rounded-t-normal rounded-tl-none rounded-br">
 						<SmallText>Chat participants</SmallText>
@@ -120,18 +112,17 @@ const ChatItem: FC<{
 }> = ({ name, active, latestComment }) => {
 	// console.log(latestComment);
 	return (
-		<div className="items-center">
+		<div className="flex gap-2 flex-col">
 			{/* {active ? (
 				<IconCircleDotFilled size={14} className="text-green-600" />
 			) : (
 				<IconCircleDot size={14} />
 			)} */}
-			<div className="text-xs font-medium">{name}</div>
-			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" />
-			<SmallText light>
-				{latestComment?.length > 20
-					? latestComment.slice(0, 20) + "..."
-					: latestComment}
+			<div className="text-sm font-semibold text-coolGrey-7 dark:text-coolGrey-5">
+				{name}
+			</div>
+			<SmallText light className="truncate w-52">
+				{latestComment}
 			</SmallText>
 		</div>
 	);

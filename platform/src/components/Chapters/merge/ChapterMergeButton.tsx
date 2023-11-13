@@ -14,7 +14,7 @@ export const ChapterMergeButton: FC<{
 			styles={tooltipStyles}
 		>
 			<Button
-				className={`border items-center flex border-border dark:border-borderDark hover:bg-base hover:shadow p-1.5 justify-center bg-greyBlue transition-all ease-in-out duration-300 rounded-normal group`}
+				className={`border items-center flex border-border dark:border-borderDark hover:bg-base hover:shadow p-1.5 justify-center bg-greyBlue transition-all ease-in-out duration-300 rounded-md group`}
 				size="xs"
 				color="greyBlue"
 				p={0}

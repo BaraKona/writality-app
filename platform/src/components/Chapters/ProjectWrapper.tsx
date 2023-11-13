@@ -19,7 +19,7 @@ export const ProjectWrapper: FC<{
 	if (isLoading) {
 		return (
 			<div
-				className={`flex flex-col pt-5 bg-base dark:bg-baseDark px-7  gap-2 rounded-normal h-[calc(100vh-20px)] w-full`}
+				className={`flex flex-col pt-5 bg-base dark:bg-baseDark px-7  gap-2 rounded-md h-[calc(100vh-20px)] w-full`}
 			>
 				<div className="flex justify-between">
 					<Skeleton height={20} mt={6} width={100} />
@@ -49,7 +49,7 @@ export const ProjectWrapper: FC<{
 
 	return (
 		<div
-			className={`flex flex-col bg-base dark:bg-baseDark gap-2 rounded-normal ${className}`}
+			className={`flex flex-col bg-base dark:bg-baseDark gap-2 rounded-md ${className}`}
 		>
 			<BannerImage
 				image={

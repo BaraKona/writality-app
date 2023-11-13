@@ -98,7 +98,7 @@ export const FolderListItem: FC<{
 						<div key={index}>
 							{small ? (
 								<SmallText
-									className={`flex items-center justify-between py-0.5 px-0.5 ml-2 cursor-pointer rounded-normal hover:bg-coolGrey-1 dark:hover:bg-hoverDark dark:text-coolGrey-5 ${
+									className={`flex items-center justify-between py-0.5 px-0.5 ml-2 cursor-pointer rounded-md hover:bg-coolGrey-1 dark:hover:bg-hoverDark dark:text-coolGrey-5 ${
 										chapterId === chapter.uid
 											? "bg-coolGrey-1 dark:bg-hoverDark"
 											: ""

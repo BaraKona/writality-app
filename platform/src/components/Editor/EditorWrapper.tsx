@@ -37,7 +37,7 @@ export const EditorWrapper: FC<{
 
 	if (isLoading || !content) {
 		return (
-			<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3.5 h-[calc(100vh-3.75rem)] gap-2 rounded-normal border-border dark:border-borderDark border">
+			<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3.5 h-[calc(100vh-3.75rem)] gap-2 rounded-md border-border dark:border-borderDark border">
 				<div className="flex justify-between">
 					<Skeleton height={24} mt={6} width={100} />
 					<Skeleton height={24} mt={6} width={200} />
@@ -98,7 +98,7 @@ export const EditorWrapper: FC<{
 	}
 
 	return (
-		<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3 h-[calc(100vh-3.75rem)] gap-2 rounded-normal border-border dark:border-t dark:border-none dark:border-baseDark border">
+		<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3 h-[calc(100vh-3.75rem)] gap-2 rounded-md border-border dark:border-t dark:border-none dark:border-baseDark border">
 			<div className=" flex font-medium gap-2  text-coolGrey-7 items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text
@@ -124,7 +124,7 @@ export const EditorWrapper: FC<{
 						withArrow
 						styles={tooltipStyles}
 					>
-						<div className="ml-3 p-1.5 border-border dark:border-borderDark border rounded-normal cursor-pointer hover:bg-base hover:shadow transition-all ease-in-out duration-300">
+						<div className="ml-3 p-1.5 border-border dark:border-borderDark border rounded-md cursor-pointer hover:bg-base hover:shadow transition-all ease-in-out duration-300">
 							<IconDeviceFloppy
 								size={18}
 								className="text-coolGrey-7 group-hover:text-black dark:hover:text-coolGrey-1"

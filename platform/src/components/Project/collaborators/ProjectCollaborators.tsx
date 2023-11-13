@@ -24,7 +24,7 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 	}
 
 	return (
-		<div className="border rounded-normal border-border dark:border-borderDark p-2 h-[calc(100vh-8rem)]">
+		<div className="border rounded-md border-border dark:border-borderDark p-2 h-[calc(100vh-8rem)]">
 			<InviteUserModal
 				opened={openCollaborator}
 				setOpened={setOpenCollaborator}
@@ -121,7 +121,7 @@ const CollaboratorButton: FC<{
 }> = ({ text, onClick }) => {
 	return (
 		<button
-			className="px-4 py-2 rounded-normal bg-lime-500 dark:bg-lime-300/70 font-semibold hover:bg-lime-500/80 dark:hover:bg-lime-400/70 text-xs"
+			className="px-4 py-2 rounded-md bg-lime-500 dark:bg-lime-300/70 font-semibold hover:bg-lime-500/80 dark:hover:bg-lime-400/70 text-xs"
 			onClick={onClick}
 		>
 			{text}

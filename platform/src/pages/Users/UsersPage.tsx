@@ -14,7 +14,7 @@ export const UsersPage = () => {
 	const navigate = useNavigate();
 
 	return (
-		<section className="overflow-y-auto rounded-normal bg-base dark:bg-baseDark">
+		<section className="overflow-y-auto rounded-md bg-base dark:bg-baseDark">
 			<BannerImage
 				image="https://images.unsplash.com/photo-1544604860-206456f08229"
 				alt="Post banner"
