@@ -5,11 +5,13 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { initials, initialsColor } from "../../../utils/userIcons";
 import { IChat } from "../../../interfaces/IChat";
+import { useNavigate } from "react-router-dom";
 export const Comment: FC<{
 	previousComment: IChat["comments"][0] | null;
 	comment: IChat["comments"][0];
 }> = ({ comment, previousComment }) => {
-	const { currentUser } = useAuthContext();
+	const navigate = useNavigate();
+
 	return (
 		<div className="flex gap-3">
 			<div className="">
@@ -26,7 +28,10 @@ export const Comment: FC<{
 			<div className="flex flex-col space-y-2 bg-base dark:bg-baseDark border border-border dark:border-borderDark rounded-md grow p-5">
 				<div className="flex flex-col space-y-2">
 					<div className="flex items-center gap-3">
-						<div className="font-semibold text-coolGrey-7 dark:text-coolGrey-4">
+						<div
+							className="font-semibold text-coolGrey-7 dark:text-coolGrey-4 hover:underline cursor-pointer"
+							onClick={() => navigate(`/users/${comment.user.uid}`)}
+						>
 							{comment.user.name}
 						</div>
 						<div className="text-xs text-orange-700 dark:text-orange-400">

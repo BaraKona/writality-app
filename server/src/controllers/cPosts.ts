@@ -83,9 +83,14 @@ export const getUserPosts = async (req: any, res: any) => {
 };
 
 export const getSingleUserPosts = async (req: any, res: any) => {
-	const userId = req.params._id;
+	const { userId } = req.params;
+
 	try {
-		const posts = await Posts.find({ owner: userId })
+		const user = await User.findOne({ uid: userId });
+		if (!user) {
+			res.status(404).json({ message: "user not found" });
+		}
+		const posts = await Posts.find({ owner: user._id })
 			.sort({ dateCreated: -1 })
 			.limit(25);
 		res.status(200).json(posts);

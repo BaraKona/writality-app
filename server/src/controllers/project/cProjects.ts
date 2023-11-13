@@ -136,10 +136,10 @@ export const getSingleUserProjects = async (req: any, res: any) => {
 		const { _id } = await User.findOne({ uid: userId });
 		const projects = await Project.find({
 			$or: [
-				{ owner: userId },
+				{ owner: _id },
 				{
 					collaborators: {
-						$elemMatch: { user: userId, active: true },
+						$elemMatch: { user: _id, active: true },
 					},
 					type: "collaboration",
 				},

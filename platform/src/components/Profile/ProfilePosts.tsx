@@ -31,7 +31,7 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 
 	if (posts.length === 0) {
 		return (
-			<div className="border-border dark:border-borderDark border rounded-md h-[calc(100vh-3.2rem)] items-center justify-center flex p-4 bg-coolGrey-2/20">
+			<div className="border-border dark:border-borderDark border rounded-md h-[calc(100vh-3.2rem)] items-center justify-center flex p-4 bg-coolGrey-1/60 dark:bg-black/20">
 				<EmptyItem
 					title="Posts"
 					p1="You have no posts currently. Posts are a great way to get collaborators"
