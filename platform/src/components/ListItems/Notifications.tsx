@@ -3,12 +3,17 @@ import { IUser } from "../../interfaces/IUser";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Text, Divider, Popover } from "@mantine/core";
-import { IconCubeOff, IconCubePlus, IconInbox } from "@tabler/icons-react";
+import {
+	Icon3dCubeSphere,
+	IconCubeOff,
+	IconCubePlus,
+	IconInbox,
+} from "@tabler/icons-react";
 import { SmallText } from "../texts/SmallText";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useOpenNotification } from "../../hooks/notification/useOpenNotification";
 import { useAcceptProjectInvitation } from "../../hooks/notification/useAcceptProjectInvitation";
-
+import { notificationType } from "../../interfaces/IUser";
 export const Notifications: FC<{
 	notification: IUser["inbox"];
 }> = ({ notification }) => {
@@ -27,6 +32,12 @@ export const Notifications: FC<{
 		),
 		"project-invitation-revoke": (
 			<IconCubeOff size={16} className="text-rose-600 dark:text-rose-400" />
+		),
+		"project-invitation-accept": (
+			<Icon3dCubeSphere
+				size={16}
+				className="text-blue-600 dark:text-blue-400"
+			/>
 		),
 	};
 
@@ -77,24 +88,25 @@ export const Notifications: FC<{
 									{notification.notificationBody}
 								</span>
 							</div>
-							{notification?.notificationType === "project-invitation" && (
-								<div className="flex gap-2">
-									<button className="ml-auto  flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-normal border border-border dark:border-borderDark p-1 px-3 dark:hover:bg-rose-700/50 dark:hover:border-rose-700 hover:bg-rose-400 hover:text-coolGrey-0 hover:border-rose-400  transition-colors ease-in-out duration-300">
-										<Text>Decline</Text>
-									</button>
-									<button
-										className="flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-normal border border-border dark:border-borderDark p-1 px-3 hover:bg-coolGrey-2/40 dark:hover:bg-hoverDark transition-colors ease-in-out duration-300"
-										onClick={() => {
-											acceptProjectInvitation({
-												projectId: notification.ctaId,
-												notificationId: notification._id,
-											});
-										}}
-									>
-										<Text>Accept</Text>
-									</button>
-								</div>
-							)}
+							{notification?.notificationType === "project-invitation" &&
+								notification.active && (
+									<div className="flex gap-2">
+										<button className="ml-auto  flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-normal border border-border dark:border-borderDark p-1 px-3 dark:hover:bg-rose-700/50 dark:hover:border-rose-700 hover:bg-rose-400 hover:text-coolGrey-0 hover:border-rose-400  transition-colors ease-in-out duration-300">
+											<Text>Decline</Text>
+										</button>
+										<button
+											className="flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-normal border border-border dark:border-borderDark p-1 px-3 hover:bg-coolGrey-2/40 dark:hover:bg-hoverDark transition-colors ease-in-out duration-300"
+											onClick={() => {
+												acceptProjectInvitation({
+													projectId: notification.ctaId,
+													notificationId: notification._id,
+												});
+											}}
+										>
+											<Text>Accept</Text>
+										</button>
+									</div>
+								)}
 						</div>
 					</Popover.Dropdown>
 				</Popover>

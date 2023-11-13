@@ -9,30 +9,8 @@ import { SocketProvider } from "./Providers/SocketProvider";
 import { useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
 import { initPusher } from "./api/external/pusher";
-import Pusher from "pusher-js";
-
 export function AuthenticatedApp({}) {
 	const { data: currentUser, isLoading } = useUser();
-	const queryClient = useQueryClient();
-	const [pusher, setPusher] = useState<Pusher | null>(null);
-
-	useEffect(() => {
-		if (currentUser) {
-			setPusher(initPusher());
-
-			const channel = pusher?.subscribe(`user-${currentUser?.uid}`);
-			channel?.bind("notification", () => {
-				queryClient.invalidateQueries(["user"]);
-			});
-		}
-		return () => {
-			if (pusher) {
-				pusher.disconnect();
-				pusher.unsubscribe(`user-${currentUser?.uid}`);
-				pusher.unbind("notification");
-			}
-		};
-	}, [currentUser]);
 
 	if (isLoading) {
 		return <MainLoader />;
@@ -44,7 +22,7 @@ export function AuthenticatedApp({}) {
 
 	return (
 		<TabContextWrapper>
-			<SocketProvider pusher={pusher}>
+			<SocketProvider>
 				<EditorContextWrapper>
 					<DraggableProvider>
 						<RouterProvider router={router} />

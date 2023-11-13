@@ -1,5 +1,7 @@
 export enum notificationType {
 	projectInvite = "project-invitation",
+	projectRevoke = "project-invitation-revoke",
+	projectAccept = "project-invitation-accept",
 	comment = "comment",
 	reply = "reply",
 	like = "like",
@@ -19,6 +21,7 @@ interface notification {
 	notificationTitle: string;
 	notificationTime: Date;
 	notificationRead: boolean;
+	active?: boolean;
 	ctaId?: string;
 }
 

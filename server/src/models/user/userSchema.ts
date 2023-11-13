@@ -23,7 +23,9 @@ interface notification {
 	notificationTitle: string;
 	notificationTime: Date;
 	notificationRead: boolean;
+	active?: boolean;
 	ctaId?: string;
+	_id?: string;
 }
 
 export interface IUser {
@@ -130,6 +132,7 @@ const userSchema = new Schema<IUser>({
 				notificationTime: Date,
 				notificationRead: Boolean,
 				ctaId: String,
+				active: Boolean,
 			},
 		],
 	},

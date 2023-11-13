@@ -1,4 +1,10 @@
-import { createContext, useContext, ReactNode, useEffect } from "react";
+import {
+	createContext,
+	useContext,
+	ReactNode,
+	useEffect,
+	useState,
+} from "react";
 import Pusher, { Channel } from "pusher-js";
 import { initPusher } from "../api/external/pusher";
 import { useQueryClient } from "react-query";
@@ -14,14 +20,14 @@ type SocketType = {
 	// 	event: string;
 	// 	callback: () => void;
 	// }) => void;
-	disconnect: () => void;
+	// disconnect: () => void;
 	pusher: Pusher | null;
 };
 
 const defaultSocket: SocketType = {
 	// subscribeToChannel: () => ({} as Channel),
 	// listenToEvent: () => {},
-	disconnect: () => {},
+	// disconnect: () => {},
 	pusher: null,
 };
 
@@ -31,16 +37,11 @@ export function useSocket() {
 	return useContext(SocketContext);
 }
 
-export function SocketProvider({
-	children,
-	pusher,
-}: {
-	children: ReactNode;
-	pusher: Pusher | null;
-}) {
+export function SocketProvider({ children }: { children: ReactNode }) {
 	const queryClient = useQueryClient();
 	/** @ts-ignore */
-	const { data } = queryClient.getQueryState("user");
+	const { data: user } = queryClient.getQueryState("user");
+	const [pusher, setPusher] = useState<Pusher | null>(null);
 	// useEffect(() => {
 	// 	var pusher = initPusher();
 	// 	subscribeToChannel({ room: `user-${data.uid}` });
@@ -70,16 +71,34 @@ export function SocketProvider({
 	// 	if (channel) channel.bind(event, callback);
 	// }
 
-	function disconnect() {
-		if (pusher) pusher.disconnect();
-	}
+	// function disconnect() {
+	// 	if (pusher) pusher.disconnect();
+	// }
+
+	useEffect(() => {
+		if (!user) return;
+
+		const pusher = initPusher();
+		setPusher(pusher);
+
+		const channel = pusher.subscribe(`user-${user.uid}`);
+		channel.bind("notification", () => {
+			queryClient.invalidateQueries(["user"]);
+		});
+
+		return () => {
+			pusher.disconnect();
+			pusher.unsubscribe(`user-${user.uid}`);
+			pusher.unbind_all();
+		};
+	}, [user]);
 
 	return (
 		<SocketContext.Provider
 			value={{
 				// subscribeToChannel,
 				// listenToEvent,
-				disconnect,
+				// disconnect,
 				pusher,
 			}}
 		>

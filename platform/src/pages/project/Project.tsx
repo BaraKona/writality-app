@@ -101,12 +101,12 @@ export function Project() {
 		);
 
 	useEffect(() => {
-		if (currentProject && currentUser && pusher) {
-			pusher.subscribe(`project-${currentProject.uid}`);
-			pusher.bind("update", () => {
-				queryClient.invalidateQueries(["project", project]);
-			});
-		}
+		if (!pusher || !currentProject) return;
+
+		pusher.subscribe(`project-${currentProject.uid}`);
+		pusher.bind("update", () => {
+			queryClient.invalidateQueries(["project", project]);
+		});
 
 		return () => {
 			if (pusher) {

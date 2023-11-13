@@ -24,6 +24,7 @@ export const sendProjectInvite = async (req: any, res: any) => {
 			notificationTitle: "Invitation to join project",
 			notificationTime: new Date(),
 			notificationRead: false,
+			active: true,
 			ctaId: project.uid,
 		};
 
@@ -42,6 +43,7 @@ export const sendProjectInvite = async (req: any, res: any) => {
 			notification,
 			userId,
 		});
+
 		res.status(200).json({ message: "Invite sent", projectId });
 	} catch (error) {
 		console.log(error);
@@ -79,6 +81,7 @@ export const revokeProjectInvite = async (req: any, res: any) => {
 			notificationTitle: "Invitation revoked",
 			notificationTime: new Date(),
 			notificationRead: false,
+			active: true,
 			ctaId: project.uid,
 		};
 
@@ -139,6 +142,31 @@ export const acceptProjectInvitation = async (req: any, res: any) => {
 		).ctaId;
 
 		const project = await Project.findOne({ uid: projectId });
+		const owner = await User.findOne({ _id: project.owner });
+
+		if (!project || !owner) {
+			return res.status(404).json({ message: "Project or User not found" });
+		}
+
+		if (
+			project.collaborators.some((collaborator) => collaborator.user === userId)
+		) {
+			return res
+				.status(400)
+				.json({ message: "You are already a collaborator on this project." });
+		}
+
+		if (
+			project.pendingInvite.every(
+				(invite) => invite.user.toString() !== userId.toString()
+			)
+		) {
+			return res
+				.status(400)
+				.json({
+					message: "You no longer have permission to join this project",
+				});
+		}
 
 		project.collaborators.push({
 			user: userId.toString(),
@@ -158,12 +186,29 @@ export const acceptProjectInvitation = async (req: any, res: any) => {
 			notificationTitle: "You have joined a project",
 			notificationTime: new Date(),
 			notificationRead: false,
+			active: true,
 			ctaId: project.uid,
 		};
 
+		const notificationForOwner = {
+			notificationType: notificationType.projectAccept,
+			notificationBody: `${user.name} has accepted your invitation to join ${project.title}.`,
+			notificationTitle: "User has joined your project",
+			notificationTime: new Date(),
+			notificationRead: false,
+			active: true,
+			ctaId: project.uid,
+		};
+
+		owner.inbox.push(notificationForOwner);
 		user.inbox.push(notification);
 
+		user.inbox.find(
+			(notification) => notification._id.toString() === notificationId
+		).active = false;
+
 		await user.save();
+		await owner.save();
 		await project.save();
 
 		pusher.trigger(`project-${projectId}`, "update", {

@@ -21,21 +21,22 @@ export const SinglePost = () => {
 	const { pusher } = useSocket();
 
 	useEffect(() => {
-		if (post && pusher) {
-			const channel = pusher.subscribe(`post-${post.uid}`);
-			channel.bind("comment", () => {
-				queryClient.invalidateQueries(["post", post.uid]);
-			});
-		}
+		if (!post || !pusher) return;
 
+		const channel = pusher.subscribe(`post-${post.uid}`);
+		channel.bind("comments", () => {
+			queryClient.invalidateQueries(["post", post.uid]);
+		});
+
+		console.log(pusher);
 		return () => {
 			if (pusher) {
 				pusher.disconnect();
 				pusher.unsubscribe(`post-${post.uid}`);
-				pusher.unbind("comment");
+				pusher.unbind("comments");
 			}
 		};
-	}, [post]);
+	}, [post, pusher]);
 
 	if (isLoading) {
 		return (
