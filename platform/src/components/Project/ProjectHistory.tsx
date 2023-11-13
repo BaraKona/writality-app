@@ -27,7 +27,10 @@ export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 			<div className="flex gap-2 flex-col items-center w-full">
 				{project?.history?.map((history, index) => {
 					return (
-						<div className="flex gap-2 items-center w-full justify-between">
+						<div
+							className="flex gap-2 items-center w-full justify-between"
+							key={index}
+						>
 							<div className="flex gap-2 items-center">
 								{history.action.includes("created") && (
 									<IconCirclePlus
