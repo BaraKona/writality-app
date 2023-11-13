@@ -35,6 +35,7 @@ const chatSchema = new Schema<IChat>({
 			},
 			user: {
 				type: String,
+				ref: "User",
 				required: true,
 			},
 			date: {

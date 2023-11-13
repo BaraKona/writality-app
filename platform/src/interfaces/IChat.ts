@@ -1,3 +1,5 @@
+import { IUser } from "./IUser";
+
 export type IChat = {
 	uid: string;
 	projectId: string;
@@ -5,7 +7,7 @@ export type IChat = {
 	name: string;
 	comments: {
 		uid: string;
-		user: string;
+		user: IUser;
 		date: Date;
 		content: string;
 	}[];

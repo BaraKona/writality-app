@@ -1,5 +1,6 @@
 import Chat from "../../models/chat/chapterSchema";
 import { v4 as uuidv4 } from "uuid";
+
 export const createChat = async (req: any, res: any) => {
 	const { projectId, comments } = req.body;
 	const uid = uuidv4();
@@ -17,7 +18,8 @@ export const getProjectChat = async (req: any, res: any) => {
 	try {
 		const chat = await Chat.find({
 			projectId,
-		});
+		}).populate("comments.user", "name uid");
+
 		res.status(200).json(chat);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
@@ -26,10 +28,9 @@ export const getProjectChat = async (req: any, res: any) => {
 
 export const commentOnChat = async (req: any, res: any) => {
 	const { projectId, chatId } = req.params;
-	const userId = req.user.uid;
+	const userId = req.user._id;
 	const { comment } = req.body;
-	console.log(projectId, chatId, userId, comment);
-	console.log(req.body);
+
 	try {
 		const chat = await Chat.findOne({
 			projectId,

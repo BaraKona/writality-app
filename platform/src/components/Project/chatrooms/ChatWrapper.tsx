@@ -9,6 +9,7 @@ import { tabStyles } from "../../../styles/tabStyles";
 import { useComment } from "../../../hooks/chatRooms/useComment";
 import { Icon123, IconCircleDotFilled } from "@tabler/icons-react";
 import { SmallText } from "../../texts/SmallText";
+import { useThemeContext } from "../../../Providers/ThemeProvider";
 
 export const ChatWrapper: FC<{}> = ({}) => {
 	const { project } = useParams<{ project: string }>();
@@ -29,11 +30,12 @@ export const ChatWrapper: FC<{}> = ({}) => {
 		(chatRoom: IChat) => chatRoom.uid === searchParams.get("chat")
 	)?.comments;
 
-	console.log(chatRoomComments);
+	const { theme } = useThemeContext();
+
 	return (
 		<div className="flex">
 			<Tabs
-				className={`w-full border-none important:border-none bg-base border border-border dark:border-borderDark`}
+				className={`w-full border-none important:border-none border border-border dark:border-borderDark h-[calc(100vh-8rem)]`}
 				defaultValue={primaryRoom.uid}
 				radius={"md"}
 				orientation="vertical"
@@ -43,10 +45,13 @@ export const ChatWrapper: FC<{}> = ({}) => {
 					tabsList: {
 						...tabStyles.tabsList,
 						flexBasis: 200,
-						backgroundColor: "#fff",
-						border: "1px solid #ebebeb",
-						borderTopRightRadius: "0.25rem",
+						// backgroundColor: "#fff",
+						// border: "1px solid #ebebeb",
+						border:
+							theme === "dark" ? "1px solid #35384a" : "1px solid #ebebeb",
+						// borderTopRightRadius: "0.25rem",
 						borderTopLeftRadius: "0.25rem",
+						borderBottomLeftRadius: "0.25rem",
 						padding: "0.25rem 0.25rem",
 					},
 					tab: {
@@ -56,7 +61,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 						margin: "0.25rem 0.25rem",
 						display: "block",
 						"&[data-active]": {
-							border: "1px solid #ebebeb",
+							border: "1px solid #35384a",
 							// backgroundColor: "#eee",
 						},
 					},
@@ -95,7 +100,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 								setComment("");
 						}}
 					/>
-					<div className=" basis-72 p-4 border-border dark:border-borderDark border rounded-t-normal">
+					<div className=" basis-72 p-4 border-border dark:border-borderDark border rounded-t-normal rounded-tl-none rounded-br">
 						<SmallText>Chat participants</SmallText>
 						<Divider
 							my="xs"
