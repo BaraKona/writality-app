@@ -44,83 +44,85 @@ export const Notifications: FC<{
 	return (
 		<section ref={parent}>
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark !mb-2" />
-			{notification?.map((notification: any, index: number) => (
-				<Popover
-					key={index}
-					width={300}
-					trapFocus
-					position="bottom"
-					withArrow
-					shadow="md"
-					onOpen={() => {
-						!notification.notificationRead
-							? openNotification(notification._id)
-							: null;
-					}}
-				>
-					<Popover.Target>
-						<li
-							className={` items-center justify-between relative px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group border border-border dark:bg-baseDark dark:hover:bg-hoverDark dark:border-baseDark rounded-normal hover:bg-coolGrey-1 cursor-pointer `}
-						>
-							<div className="gap-1 flex items-center justify-between w-full">
-								<div className="flex gap-2">
+			<div className="h-[calc(100vh-6.5rem)] overflow-y-auto">
+				{notification?.map((notification: any, index: number) => (
+					<Popover
+						key={index}
+						width={300}
+						trapFocus
+						position="bottom"
+						withArrow
+						shadow="md"
+						onOpen={() => {
+							!notification.notificationRead
+								? openNotification(notification._id)
+								: null;
+						}}
+					>
+						<Popover.Target>
+							<li
+								className={` items-center justify-between relative px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group border border-border dark:bg-baseDark dark:hover:bg-hoverDark dark:border-baseDark rounded-normal hover:bg-coolGrey-1 cursor-pointer `}
+							>
+								<div className="gap-1 flex items-center justify-between w-full">
+									<div className="flex gap-2">
+										{icons[notification.notificationType]}
+										<span className=" whitespace-nowrap w-[12rem] text-ellipsis overflow-hidden">
+											{notification.notificationTitle}
+										</span>
+									</div>
+								</div>
+								{notification?.notificationRead === false && (
+									<span className=" w-2 h-2 bg-fuchsia-500 rounded-full" />
+								)}
+							</li>
+						</Popover.Target>
+						<Popover.Dropdown className="!bg-base dark:!bg-baseDark !border-border dark:!border-borderDark !text-coolGrey-6 dark:!text-coolGrey-4">
+							<div className="flex flex-col gap-2 p-4 text-coolGrey-6 dark:text-coolGrey-4">
+								<p className=" flex gap-4 items-center">
 									{icons[notification.notificationType]}
-									<span className=" whitespace-nowrap w-[12rem] text-ellipsis overflow-hidden">
-										{notification.notificationTitle}
+									{notification.notificationTitle}
+								</p>
+								<Divider className="!border-coolGrey-1 dark:!border-borderDark !mb-2" />
+								<p className="text-sm">{notification.notification}</p>
+								<div className="flex gap-2 items-center">
+									<span className="text-xs font-normal">
+										{notification.notificationBody}
 									</span>
 								</div>
+								{notification?.notificationType === "project-invitation" &&
+									notification.active && (
+										<div className="flex gap-2">
+											<button className="ml-auto  flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-normal border border-border dark:border-borderDark p-1 px-3 dark:hover:bg-rose-700/50 dark:hover:border-rose-700 hover:bg-rose-400 hover:text-coolGrey-0 hover:border-rose-400  transition-colors ease-in-out duration-300">
+												<Text>Decline</Text>
+											</button>
+											<button
+												className="flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-normal border border-border dark:border-borderDark p-1 px-3 hover:bg-coolGrey-2/40 dark:hover:bg-hoverDark transition-colors ease-in-out duration-300"
+												onClick={() => {
+													acceptProjectInvitation({
+														projectId: notification.ctaId,
+														notificationId: notification._id,
+													});
+												}}
+											>
+												<Text>Accept</Text>
+											</button>
+										</div>
+									)}
 							</div>
-							{notification?.notificationRead === false && (
-								<span className=" w-2 h-2 bg-fuchsia-500 rounded-full" />
-							)}
-						</li>
-					</Popover.Target>
-					<Popover.Dropdown className="!bg-base dark:!bg-baseDark !border-border dark:!border-borderDark !text-coolGrey-6 dark:!text-coolGrey-4">
-						<div className="flex flex-col gap-2 p-4 text-coolGrey-6 dark:text-coolGrey-4">
-							<p className=" flex gap-4 items-center">
-								{icons[notification.notificationType]}
-								{notification.notificationTitle}
-							</p>
-							<Divider className="!border-coolGrey-1 dark:!border-borderDark !mb-2" />
-							<p className="text-sm">{notification.notification}</p>
-							<div className="flex gap-2 items-center">
-								<span className="text-xs font-normal">
-									{notification.notificationBody}
-								</span>
-							</div>
-							{notification?.notificationType === "project-invitation" &&
-								notification.active && (
-									<div className="flex gap-2">
-										<button className="ml-auto  flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-normal border border-border dark:border-borderDark p-1 px-3 dark:hover:bg-rose-700/50 dark:hover:border-rose-700 hover:bg-rose-400 hover:text-coolGrey-0 hover:border-rose-400  transition-colors ease-in-out duration-300">
-											<Text>Decline</Text>
-										</button>
-										<button
-											className="flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-normal border border-border dark:border-borderDark p-1 px-3 hover:bg-coolGrey-2/40 dark:hover:bg-hoverDark transition-colors ease-in-out duration-300"
-											onClick={() => {
-												acceptProjectInvitation({
-													projectId: notification.ctaId,
-													notificationId: notification._id,
-												});
-											}}
-										>
-											<Text>Accept</Text>
-										</button>
-									</div>
-								)}
-						</div>
-					</Popover.Dropdown>
-				</Popover>
-			))}
+						</Popover.Dropdown>
+					</Popover>
+				))}
 
-			{currentUser && currentUser?.inbox?.length === 0 && (
-				<div className="text-blueTextLight text-center text-xs font-normal flex flex-col gap-4 items-center justify-center">
-					<SmallText className="text-center" light>
-						Your inbox is empty. You will receive notifications and messages
-						here.
-					</SmallText>
-					<IconInbox size={16} className="mx-auto mt-2" />
-				</div>
-			)}
+				{currentUser && currentUser?.inbox?.length === 0 && (
+					<div className="text-blueTextLight text-center text-xs font-normal flex flex-col gap-4 items-center justify-center">
+						<SmallText className="text-center" light>
+							Your inbox is empty. You will receive notifications and messages
+							here.
+						</SmallText>
+						<IconInbox size={16} className="mx-auto mt-2" />
+					</div>
+				)}
+			</div>
 		</section>
 	);
 };

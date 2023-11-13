@@ -4,12 +4,12 @@ import { useToast } from "../useToast";
 import { useSocket } from "../../Providers/SocketProvider";
 
 export const useSignout = () => {
-	const { disconnect } = useSocket();
+	// const { disconnect } = useSocket();
 
 	return useMutation(() => signOutUser(), {
 		onSuccess: () => {
 			useToast("success", "You are now signed out!");
-			disconnect();
+			// disconnect();
 			window.location.pathname = "/";
 		},
 		onError: () => {
