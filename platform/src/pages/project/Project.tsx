@@ -1,12 +1,9 @@
 import { ProjectDescription } from "../../components/Project";
 import {
 	IconAdjustmentsHorizontal,
-	IconDotsVertical,
 	IconGlobe,
-	IconHome,
 	IconMessage,
 	IconNews,
-	IconSettings,
 	IconUsers,
 } from "@tabler/icons-react";
 import { NoChapters, ChapterRenderer } from "../../components/Chapters";
@@ -18,7 +15,7 @@ import { DeleteModal } from "../../components/Modals";
 import { updateProjectDescription } from "../../api/project/projects";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Divider, Skeleton, Tabs, Tooltip } from "@mantine/core";
+import { Tabs, Tooltip } from "@mantine/core";
 import { ProjectSettings } from "../../components/Project/ProjectSettings";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChatWrapper } from "../../components/Project/chatrooms/ChatWrapper";
@@ -36,7 +33,6 @@ import { DragAndDropWrapper } from "../../components/DragAndDrop/DragAndDropWrap
 import { useMoveChapterToFolder } from "../../hooks/projects/useMoveChapterToFolder";
 import { IProject } from "../../interfaces/IProject";
 import { ProjectCollaborators } from "../../components/Project/collaborators/ProjectCollaborators";
-import { Title } from "../../components/Title";
 import { ProjectBoard } from "../../components/Project/ProjectBoard";
 import { ProjectWrapper } from "../../components/Chapters/ProjectWrapper";
 import { useSocket } from "../../Providers/SocketProvider";
@@ -131,56 +127,51 @@ export function Project() {
 				tab={projectTab || "overview"}
 			>
 				<Tabs
-					className="border-none important:border-none h-[calc(100vh-12.2rem)] w-full px-2"
+					className="border-none important:border-none h-[calc(100vh-12.2rem)] w-full !px-2"
 					value={projectTab}
 					onTabChange={(tab) => navigate(`/project/${project}/${tab}`)}
 					defaultValue="overview"
 					radius={"md"}
-					styles={tabStyles}
+					// styles={tabStyles}
 					keepMounted={false}
 				>
-					<Tabs.List className="sticky">
+					<Tabs.List className="flex !items-center !border-none !gap-2">
 						<div className="mr-auto cursor-pointer dark:text-coolGrey-4">
 							<h2 className="text-3xl font-semibold my-3 mb-5">
 								{currentProject?.title}
 							</h2>
 						</div>
-						<Tooltip
-							label="Home"
-							position="top"
-							withArrow
-							styles={tooltipStyles}
-						>
-							<Tabs.Tab value="overview">Overview</Tabs.Tab>
-						</Tooltip>
-						<Tooltip
-							label="Board"
-							position="top"
-							withArrow
-							styles={tooltipStyles}
-						>
-							<Tabs.Tab value="board">Board</Tabs.Tab>
-						</Tooltip>
-						<Tooltip
-							label="World"
-							position="top"
-							withArrow
-							styles={tooltipStyles}
-						>
-							<Tabs.Tab value="world-info" disabled>
-								<IconGlobe size={18} />
+						<div className="flex gap-2 bg-coolGrey-1 dark:bg-hoverDark/50 p-1.5 rounded-md">
+							<Tabs.Tab
+								className="!p-1.5 font-semibold !px-3 !text-coolGrey-6 dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-md !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
+								value="overview"
+							>
+								Overview
 							</Tabs.Tab>
-						</Tooltip>
-						<Tooltip
-							label="Publish"
-							position="top"
-							withArrow
-							styles={tooltipStyles}
-						>
-							<Tabs.Tab value="publish" disabled>
-								<IconNews size={18} />
+
+							<Tabs.Tab
+								className="!p-1.5 font-semibold !px-3 !text-coolGrey-6 dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-md !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
+								value="board"
+							>
+								Board
 							</Tabs.Tab>
-						</Tooltip>
+
+							<Tabs.Tab
+								className="!p-1.5 font-semibold !px-3 !text-coolGrey-6 dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-md !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
+								value="world-info"
+								disabled
+							>
+								World
+							</Tabs.Tab>
+
+							<Tabs.Tab
+								className="!p-1.5 font-semibold !px-3 !text-coolGrey-6 dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-md !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
+								value="publish"
+								disabled
+							>
+								Publish
+							</Tabs.Tab>
+						</div>
 						{currentProject?.type === "collaboration" && (
 							<>
 								<Tooltip
@@ -189,7 +180,10 @@ export function Project() {
 									withArrow
 									styles={tooltipStyles}
 								>
-									<Tabs.Tab value="chat">
+									<Tabs.Tab
+										className="!p-[9px] !-mt-0.5 !bg-coolGrey-1 dark:!bg-hoverDark/50 !text-coolGrey-6 dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-md !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
+										value="chat"
+									>
 										<IconMessage size={18} />
 									</Tabs.Tab>
 								</Tooltip>
@@ -199,7 +193,10 @@ export function Project() {
 									withArrow
 									styles={tooltipStyles}
 								>
-									<Tabs.Tab value="collaborators">
+									<Tabs.Tab
+										className="!p-[9px] !-mt-0.5 !bg-coolGrey-1 dark:!bg-hoverDark/50 !text-coolGrey-6 dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-md !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
+										value="collaborators"
+									>
 										<IconUsers size={18} />
 									</Tabs.Tab>
 								</Tooltip>
@@ -211,7 +208,10 @@ export function Project() {
 							withArrow
 							styles={tooltipStyles}
 						>
-							<Tabs.Tab value="settings">
+							<Tabs.Tab
+								className="!p-[9px] !-mt-0.5 !bg-coolGrey-1 dark:!bg-hoverDark/50 !text-coolGrey-6 dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-md !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
+								value="settings"
+							>
 								<IconAdjustmentsHorizontal size={18} />
 							</Tabs.Tab>
 						</Tooltip>
