@@ -15,7 +15,7 @@ module.exports = {
 				base: "#fff",
 				baseDark: "#191a23",
 				borderDark: "#35384a",
-				hoverDark: "#262736",
+				hoverDark: "#1f202c",
 				// baseDark: "#000",
 				// borderDark: "rgba(255, 255, 255, 0.1)",
 				// hoverDark: "rgba(255, 255, 255, 0.05)",
