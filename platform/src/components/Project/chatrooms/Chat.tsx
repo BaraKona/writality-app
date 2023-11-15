@@ -1,12 +1,8 @@
-import { TextInput, Button, Input, Textarea } from "@mantine/core";
-import { IconSend } from "@tabler/icons-react";
+import { Textarea } from "@mantine/core";
 import React, { FC } from "react";
 import { IChat } from "../../../interfaces/IChat";
 import { Comment } from "./Comment";
-import { ScrollArea } from "@mantine/core";
 import { inputStyles } from "../../../styles/inputStyles";
-import { BlueButton } from "../../buttons/BlueButton";
-import { useQueryClient } from "react-query";
 import { initials, initialsColor } from "../../../utils/userIcons";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { getHotkeyHandler } from "@mantine/hooks";
@@ -52,7 +48,7 @@ export const Chat: FC<{
 							{initials(currentUser.name)}
 						</div>
 					</div>
-					<div className="border border-border dark:border-borderDark rounded-md w-full relative h-40 p-2 bg-base dark:bg-baseDark">
+					<div className="border border-border dark:border-borderDark rounded-lg w-full relative h-40 p-2 bg-base dark:bg-baseDark">
 						<Textarea
 							placeholder="Your comment ( (Cmd | Shift) + Enter to send )"
 							className="flex-grow dark:!bg-baseDark"
@@ -79,7 +75,7 @@ export const Chat: FC<{
 							}}
 						/>
 						<button
-							className="absolute text-sm bottom-3 right-2 text-coolGrey-7 hover:text-black dark:hover:text-coolGrey-1 bg-coolGrey-1 dark:bg-baseDark dark:border dark:border-borderDark rounded-md px-2 py-1 transition-all duration-200 ease-in-out"
+							className="absolute text-sm bottom-3 right-2 text-coolGrey-7 hover:text-black dark:hover:text-coolGrey-1 bg-coolGrey-1 dark:bg-baseDark dark:border dark:border-borderDark rounded-lg px-2 py-1 transition-all duration-200 ease-in-out"
 							onClick={sendComment}
 						>
 							send

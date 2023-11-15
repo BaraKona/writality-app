@@ -1,6 +1,6 @@
 import { RichTextEditor } from "@mantine/tiptap";
 import { FC, useEffect } from "react";
-import { Button, ScrollArea, Text, TextInput } from "@mantine/core";
+import { ScrollArea, Text, TextInput } from "@mantine/core";
 import { IconArrowBackUp, IconArrowForwardUp } from "@tabler/icons-react";
 import { BubbleMenu } from "@tiptap/react";
 import { inputStyles } from "../../styles/inputStyles";
@@ -77,7 +77,7 @@ export const BaseEditor: FC<{
 					</BubbleMenu>
 				)}
 				{!noCounter && (
-					<RichTextEditor.ControlsGroup className="border border-border dark:border-borderDark  rounded-md p-[0.3rem] cursor-pointer  hover:bg-primary hover:bg-opacity-40 ">
+					<RichTextEditor.ControlsGroup className="border border-border dark:border-borderDark  rounded-lg p-[0.3rem] cursor-pointer  hover:bg-primary hover:bg-opacity-40 ">
 						<Text color="dimmed" size="xs" weight={500}>
 							{editor.storage.characterCount.words()} words
 						</Text>
@@ -88,12 +88,12 @@ export const BaseEditor: FC<{
 						<button
 							onClick={() => editor?.chain().focus().undo().run()}
 							disabled={!editor?.can().undo()}
-							className="border border-border dark:border-borderDark  rounded-md p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-primary hover:bg-opacity-40 "
+							className="border border-border dark:border-borderDark  rounded-lg p-[0.3rem] border-r-0 cursor-pointer rounded-r-none hover:bg-primary hover:bg-opacity-40 "
 						>
 							<IconArrowBackUp size={14} />
 						</button>
 						<button
-							className="border border-border dark:border-borderDark  rounded-md p-[0.3rem] rounded-l-none cursor-pointer hover:bg-primary hover:bg-opacity-40 "
+							className="border border-border dark:border-borderDark  rounded-lg p-[0.3rem] rounded-l-none cursor-pointer hover:bg-primary hover:bg-opacity-40 "
 							onClick={() => editor?.chain().focus().redo().run()}
 							disabled={!editor?.can().redo()}
 						>

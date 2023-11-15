@@ -7,7 +7,7 @@ export const ProjectWrapper: FC<{
 }> = ({ children, tab }) => {
 	return (
 		<div
-			className={`flex flex-col bg-base dark:bg-baseDark gap-2 rounded-md w-full transition-all ease-in-out duration-200"`}
+			className={`flex flex-col bg-base dark:bg-baseDark gap-2 rounded-lg w-full transition-all ease-in-out duration-200"`}
 		>
 			<BannerImage
 				image={

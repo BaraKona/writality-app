@@ -1,11 +1,7 @@
 import { Tooltip } from "@mantine/core";
 import { tooltipStyles } from "../../../styles/tooltipStyles";
 import { FC } from "react";
-import {
-	IconFileSettings,
-	IconFileTime,
-	IconVersions,
-} from "@tabler/icons-react";
+import { IconFileSettings } from "@tabler/icons-react";
 
 export const ChapterSettingsButton: FC<{ setActive: () => void }> = ({
 	setActive,
@@ -13,7 +9,7 @@ export const ChapterSettingsButton: FC<{ setActive: () => void }> = ({
 	return (
 		<Tooltip label="Settings" position="left" withArrow styles={tooltipStyles}>
 			<div
-				className="border items-center flex border-border dark:border-borderDark p-1 justify-center rounded-md group"
+				className="border items-center flex border-border dark:border-borderDark p-1 justify-center rounded-lg group"
 				onClick={setActive}
 			>
 				<IconFileSettings

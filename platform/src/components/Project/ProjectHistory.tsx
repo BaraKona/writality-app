@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { IProject } from "../../interfaces/IProject";
-import { Timeline, Text } from "@mantine/core";
+import { Text } from "@mantine/core";
 import {
 	IconCirclePlus,
 	IconDragDrop,
@@ -13,7 +13,7 @@ import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 	if (!project?.history || project?.history?.length === 0) {
 		return (
-			<div className="col-span-3 items-center row-span-4 flex justify-center rounded-md border border-border dark:border-borderDark p-2 overflow-y-auto">
+			<div className="col-span-3 items-center row-span-4 flex justify-center rounded-lg border border-border dark:border-borderDark p-2 overflow-y-auto">
 				<Text color="dimmed" size="xs" className="flex gap-2">
 					<IconHistory size={18} />
 					No history yet
@@ -23,7 +23,7 @@ export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 	}
 
 	return (
-		<div className="col-span-3 row-span-4 items-start justify-centerl rounded-md border border-border dark:border-borderDark py-4">
+		<div className="col-span-3 row-span-4 items-start justify-center rounded-lg border border-border dark:border-borderDark py-4">
 			<div className="flex gap-2 items-center mb-3 px-4">
 				<IconHistory size={18} />
 				Recent Activity

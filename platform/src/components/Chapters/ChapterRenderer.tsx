@@ -1,12 +1,5 @@
-import { FC, ReactNode, useEffect, useState } from "react";
-import {
-	Button,
-	Divider,
-	Menu,
-	ScrollArea,
-	Skeleton,
-	TextInput,
-} from "@mantine/core";
+import { FC, ReactNode, useState } from "react";
+import { Divider, Menu, Skeleton, TextInput } from "@mantine/core";
 import { IconFilePlus, IconFiles, IconFolderPlus } from "@tabler/icons-react";
 import { CreateChapterButton } from "../buttons";
 import { inputStyles } from "../../styles/inputStyles";
@@ -27,7 +20,7 @@ export const ChapterRenderer: FC<{
 	const [name, setName] = useState<string>("");
 
 	return (
-		<div className="row-span-6 col-span-6 rounded-md border border-border dark:border-borderDark">
+		<div className="row-span-6 col-span-6 rounded-lg border border-border dark:border-borderDark">
 			<div className="flex gap-2 ml-2 font-medium items-center dark:text-coolGrey-4 p-1.5">
 				<IconFiles size={18} />
 				{isLoading ? (

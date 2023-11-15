@@ -12,7 +12,7 @@ export const BreadcrumbItem: React.FC<{
 				{item.isLoading ? (
 					<Skeleton height={18} width={50} className="my-1 mx-1" />
 				) : (
-					<span className="text-coolGrey-7 dark:text-coolGrey-4 capitalize gap-2 text-xs font-medium p-2 py-1 cursor-default rounded-md transition-background duration-100 flex items-center">
+					<span className="text-coolGrey-7 dark:text-coolGrey-4 capitalize gap-2 text-xs font-medium p-2 py-1 cursor-default rounded-lg transition-background duration-100 flex items-center">
 						{item.icon}
 						{item.label}
 					</span>
@@ -27,7 +27,7 @@ export const BreadcrumbItem: React.FC<{
 			) : (
 				<span
 					className={
-						"text-blueTextLight hover:bg-gray-100 gap-2 capitalize hover:text-coolGrey-7 dark:hover:bg-hoverDark dark:text-coolGrey-4 text-xs flex font-medium p-2 py-1 rounded-md transition-background duration-100 items-center"
+						"text-blueTextLight hover:bg-gray-100 gap-2 capitalize hover:text-coolGrey-7 dark:hover:bg-hoverDark dark:text-coolGrey-4 text-xs flex font-medium p-2 py-1 rounded-lg transition-background duration-100 items-center"
 					}
 				>
 					{item.icon}

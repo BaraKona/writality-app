@@ -147,7 +147,7 @@ export const ChapterBranches: FC<{
 										<div className="flex ml-1.5 flex-col border-l border-border dark:border-borderDark gap-1 px-1">
 											<button
 												onClick={() => openMergeModal("replace")}
-												className={`flex gap-1 text-coolGrey-7 text-xs font-medium items-center rounded-md hover:text-black dark:hover:text-coolGrey-1 px-2 border-border dark:border-borderDark group ${
+												className={`flex gap-1 text-coolGrey-7 text-xs font-medium items-center rounded-lg hover:text-black dark:hover:text-coolGrey-1 px-2 border-border dark:border-borderDark group ${
 													merge === "replace" ? "bg-primary" : ""
 												}`}
 											>
@@ -155,7 +155,7 @@ export const ChapterBranches: FC<{
 											</button>
 											<button
 												onClick={() => openMergeModal("into")}
-												className={`flex gap-1 text-coolGrey-7 text-xs font-medium items-center px-2 hover:bg-primary rounded-md ${
+												className={`flex gap-1 text-coolGrey-7 text-xs font-medium items-center px-2 hover:bg-primary rounded-lg ${
 													merge === "into" ? "bg-primary" : ""
 												}`}
 											>
@@ -164,7 +164,7 @@ export const ChapterBranches: FC<{
 											</button>
 											<button
 												onClick={() => openDeleteBranch(true)}
-												className="flex gap-1 text-coolGrey-7 text-xs font-medium items-center px-2 hover:bg-primary rounded-md"
+												className="flex gap-1 text-coolGrey-7 text-xs font-medium items-center px-2 hover:bg-primary rounded-lg"
 											>
 												<VscGitPullRequestClosed size={14} />
 												Delete branch

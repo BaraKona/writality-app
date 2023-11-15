@@ -13,7 +13,6 @@ import { SmallText } from "../texts/SmallText";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useOpenNotification } from "../../hooks/notification/useOpenNotification";
 import { useAcceptProjectInvitation } from "../../hooks/notification/useAcceptProjectInvitation";
-import { notificationType } from "../../interfaces/IUser";
 export const Notifications: FC<{
 	notification: IUser["inbox"];
 }> = ({ notification }) => {
@@ -61,7 +60,7 @@ export const Notifications: FC<{
 					>
 						<Popover.Target>
 							<li
-								className={`items-center justify-between relative px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group border border-border dark:bg-baseDark dark:hover:bg-hoverDark dark:border-baseDark rounded-md hover:bg-coolGrey-1 cursor-pointer `}
+								className={`items-center justify-between relative px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group border border-border dark:bg-baseDark dark:hover:bg-hoverDark dark:border-baseDark rounded-lg hover:bg-coolGrey-1 cursor-pointer `}
 							>
 								<div className="gap-1 flex items-center justify-between w-full">
 									<div className="flex gap-2">
@@ -92,11 +91,11 @@ export const Notifications: FC<{
 								{notification?.notificationType === "project-invitation" &&
 									notification.active && (
 										<div className="flex gap-2">
-											<button className="ml-auto  flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-md border border-border dark:border-borderDark p-1 px-3 dark:hover:bg-rose-700/50 dark:hover:border-rose-700 hover:bg-rose-400 hover:text-coolGrey-0 hover:border-rose-400  transition-colors ease-in-out duration-300">
+											<button className="ml-auto  flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-lg border border-border dark:border-borderDark p-1 px-3 dark:hover:bg-rose-700/50 dark:hover:border-rose-700 hover:bg-rose-400 hover:text-coolGrey-0 hover:border-rose-400  transition-colors ease-in-out duration-300">
 												<Text>Decline</Text>
 											</button>
 											<button
-												className="flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-md border border-border dark:border-borderDark p-1 px-3 hover:bg-coolGrey-2/40 dark:hover:bg-hoverDark transition-colors ease-in-out duration-300"
+												className="flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-lg border border-border dark:border-borderDark p-1 px-3 hover:bg-coolGrey-2/40 dark:hover:bg-hoverDark transition-colors ease-in-out duration-300"
 												onClick={() => {
 													acceptProjectInvitation({
 														projectId: notification.ctaId,

@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from "react";
 import { CategoryListItem, CommunityListItem } from "../ListItems";
-import { useAuthContext } from "../../contexts/AuthContext";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
 	IconBooks,
@@ -8,14 +7,9 @@ import {
 	IconHelp,
 	IconSettings,
 	IconTemplate,
-	IconHome,
-	IconPinned,
-	IconPinnedFilled,
 	IconBookmarks,
 	IconUserCircle,
-	IconPlus,
 	IconCubePlus,
-	IconSquarePlus,
 	IconCube,
 	IconRocket,
 	IconInbox,
@@ -34,11 +28,8 @@ import { SidebarTopNav } from "./components/SidebarTopNav";
 import { useCreateProject } from "../../hooks/projects/useCreateProject";
 import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useLocalStorage } from "@mantine/hooks";
-import { useLocation } from "react-router-dom";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { SmallText } from "../texts/SmallText";
 import { useThemeContext } from "../../Providers/ThemeProvider";
-import { useUser } from "../../hooks/user/useUser";
 import { IUser } from "../../interfaces/IUser";
 import { Notifications } from "../ListItems/Notifications";
 import { useQueryClient } from "react-query";
@@ -172,7 +163,7 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 						</div>
-						<CategoryListItem className="w-full rounded-md border border-border dark:border-borderDark mt-1.5 h-[calc(100vh-50px)]">
+						<CategoryListItem className="w-full rounded-lg border border-border dark:border-borderDark mt-1.5 h-[calc(100vh-50px)]">
 							<section className="flex flex-row justify-center gap-1 mb-2">
 								<SidebarTopNav
 									sidebarNav={sidebarNav}

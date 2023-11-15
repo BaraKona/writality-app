@@ -1,13 +1,10 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, useState } from "react";
 import { useChatRooms } from "../../../hooks/chatRooms/useChatRooms";
 import { useParams, useSearchParams } from "react-router-dom";
 import { IChat } from "../../../interfaces/IChat";
-import { IconCircleDot, IconMessageDots } from "@tabler/icons-react";
 import { Chat } from "../collaborators";
 import { Divider, Tabs } from "@mantine/core";
-import { tabStyles } from "../../../styles/tabStyles";
 import { useComment } from "../../../hooks/chatRooms/useComment";
-import { Icon123, IconCircleDotFilled } from "@tabler/icons-react";
 import { SmallText } from "../../texts/SmallText";
 import { useThemeContext } from "../../../Providers/ThemeProvider";
 
@@ -59,7 +56,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 						<Tabs.Tab
 							key={chatRoom.uid}
 							value={chatRoom.uid}
-							className="!border-none w-full !rounded-md enabled:!bg-coolGrey-1 dark:enabled:!bg-hoverDark"
+							className="!border-none w-full !rounded-lg enabled:!bg-coolGrey-1 dark:enabled:!bg-hoverDark"
 						>
 							<ChatItem
 								name={chatRoom.name}

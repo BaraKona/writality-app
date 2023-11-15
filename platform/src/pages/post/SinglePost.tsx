@@ -8,7 +8,6 @@ import { PostCommentSection } from "../../components/Posts/PostCommentSection";
 import { useAddFavouriteTab } from "../../hooks/user/useAddFavouriteTab";
 import { useSocket } from "../../Providers/SocketProvider";
 import { useQueryClient } from "react-query";
-import Pusher from "pusher-js";
 import { useEffect } from "react";
 
 export const SinglePost = () => {
@@ -40,7 +39,7 @@ export const SinglePost = () => {
 
 	if (isLoading) {
 		return (
-			<div className="h-[calc(100vh-3rem)] place-items-center rounded-md px-3 py-3">
+			<div className="h-[calc(100vh-3rem)] place-items-center rounded-lg px-3 py-3">
 				<Breadcrumbs
 					items={[
 						{
@@ -96,7 +95,7 @@ export const SinglePost = () => {
 	];
 
 	return (
-		<div className="place-items-center rounded-md px-3 py-3">
+		<div className="place-items-center rounded-lg px-3 py-3">
 			<Breadcrumbs items={breadcrumbs} />
 			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" />
 			<div className="flex gap-3">

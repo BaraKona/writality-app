@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { IPost } from "../../interfaces/IPost";
 import { PostCard } from "../Posts/PostCard";
-import { Divider, Skeleton } from "@mantine/core";
+import { Skeleton } from "@mantine/core";
 
 import { useNavigate } from "react-router-dom";
 import { EmptyItem } from "../Chapters/EmptyItem";
@@ -31,7 +31,7 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 
 	if (posts.length === 0) {
 		return (
-			<div className="border-border dark:border-borderDark border rounded-md h-[calc(100vh-3.2rem)] items-center justify-center flex p-4 bg-coolGrey-1/60 dark:bg-black/20">
+			<div className="border-border dark:border-borderDark border rounded-lg h-[calc(100vh-3.2rem)] items-center justify-center flex p-4 bg-coolGrey-1/60 dark:bg-black/20">
 				<EmptyItem
 					title="Posts"
 					p1="You have no posts currently. Posts are a great way to get collaborators"
@@ -44,7 +44,7 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 	}
 
 	return (
-		<div className="border-border dark:border-borderDark border rounded-md h-[calc(100vh-3.2rem)] pl-2">
+		<div className="border-border dark:border-borderDark border rounded-lg h-[calc(100vh-3.2rem)] pl-2">
 			<div className="text-xs font-medium mt-2 w-full flex justify-between pb-1 pl-1 pr-2">
 				Your Posts{" "}
 				<CreateButton

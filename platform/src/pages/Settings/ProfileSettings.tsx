@@ -40,7 +40,7 @@ export const ProfileSettings = () => {
 	};
 
 	return (
-		<div className="h-full place-items-center rounded-md border border-border dark:border-borderDark bg-base dark:bg-baseDark px-3 py-2 overflow-y-auto">
+		<div className="h-full place-items-center rounded-lg border border-border dark:border-borderDark bg-base dark:bg-baseDark px-3 py-2 overflow-y-auto">
 			<div className="max-w-lg mx-auto mt-10">
 				<div className="flex justify-between items-end">
 					<div>

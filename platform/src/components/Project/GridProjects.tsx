@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { IProject, ProjectType } from "../../interfaces/IProject";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import { IconAtom2, IconBook2 } from "@tabler/icons-react";
@@ -37,7 +36,7 @@ export const GridProjects = ({
 
 	return (
 		<div
-			className="gap-2 rounded-md basis-[15.4rem] pt-3 p-4 border border-border dark:border-borderDark hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
+			className="gap-2 rounded-lg basis-[15.4rem] pt-3 p-4 border border-border dark:border-borderDark hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
 			onClick={onClick}
 			key={project.uid}
 		>

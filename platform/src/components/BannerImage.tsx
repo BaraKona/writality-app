@@ -10,12 +10,12 @@ export const BannerImage: FC<{
 		<div
 			className={`w-full ${
 				height ? height : "h-56"
-			}  bg-coolGrey-1 dark:bg-coolGrey-5 rounded-md`}
+			}  bg-coolGrey-1 dark:bg-coolGrey-5 rounded-lg`}
 		>
 			<img
 				src={image}
 				alt={alt}
-				className={`${styling} w-full h-full first-letter:rounded-md object-cover rounded-md`}
+				className={`${styling} w-full h-full first-letter:rounded-lg object-cover rounded-lg`}
 				loading="lazy"
 			/>
 		</div>

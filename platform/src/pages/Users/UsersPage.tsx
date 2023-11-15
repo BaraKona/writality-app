@@ -1,20 +1,16 @@
-import { Divider } from "@mantine/core";
 import { usePublicUsers } from "../../hooks/user/usePublicUsers";
 import { IconUsersGroup } from "@tabler/icons-react";
 import { IUser } from "../../interfaces/IUser";
-import { countriesList, flags } from "../../utils/countriesList";
 import { BannerImage } from "../../components/BannerImage";
 import { Title } from "../../components/Title";
 import { useNavigate } from "react-router-dom";
-import { initials, initialsColor } from "../../utils/userIcons";
-import { UserCountryRenderer } from "../../components/UserCountryRenderer";
 import { UserCard } from "../../components/user/UserCard";
 export const UsersPage = () => {
 	const { data: users } = usePublicUsers();
 	const navigate = useNavigate();
 
 	return (
-		<section className="overflow-y-auto rounded-md bg-base dark:bg-baseDark">
+		<section className="overflow-y-auto rounded-lg bg-base dark:bg-baseDark">
 			<BannerImage
 				image="https://images.unsplash.com/photo-1544604860-206456f08229"
 				alt="Post banner"

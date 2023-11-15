@@ -1,16 +1,11 @@
 import { BlockNoteEditor } from "@blocknote/core";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/core/style.css";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { IChapterContent } from "../../interfaces/IChapterContent";
-import { Skeleton, TextInput, Textarea, Tooltip } from "@mantine/core";
-import { inputStyles } from "../../styles/inputStyles";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { highlightDifferences } from "../../utils/textDiffMatch";
 import { useSearchParams } from "react-router-dom";
-import { BlueButton } from "../buttons/BlueButton";
-import { IconGitMerge } from "@tabler/icons-react";
-import { tooltipStyles } from "../../styles/tooltipStyles";
 const emptyContent = JSON.stringify([
 	{
 		id: "77388834-76ac-4d3c-9477-c6b92a71e260",
@@ -54,7 +49,7 @@ export const MergeBlockEditor: FC<{
 	// 		},
 	// 	});
 	// 	return (
-	// 		<div className="h-[calc(100vh-7.3rem)] border bg-base border-border dark:border-borderDark rounded-md w-full">
+	// 		<div className="h-[calc(100vh-7.3rem)] border bg-base border-border dark:border-borderDark rounded-lg w-full">
 	// 			<div className="max-w-4xl mx-auto py-10 h-[calc(100vh-7.5rem)] overflow-y-auto">
 	// 				<Textarea
 	// 					placeholder="Title"
@@ -110,7 +105,7 @@ export const MergeBlockEditor: FC<{
 	);
 
 	return (
-		<div className="h-[calc(100vh-7.3rem)] w-full border bg-base border-border dark:border-borderDark rounded-md">
+		<div className="h-[calc(100vh-7.3rem)] w-full border bg-base border-border dark:border-borderDark rounded-lg">
 			<div className="max-w-4xl mx-auto py-10 h-[calc(100vh-7.5rem)] overflow-y-auto">
 				{/* <Textarea
 					placeholder="Title"

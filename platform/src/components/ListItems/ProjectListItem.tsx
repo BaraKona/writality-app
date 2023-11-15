@@ -55,7 +55,7 @@ export const ProjectListItem: FC<{
 				</ButtonWrapper>
 				<li
 					onClick={onClick}
-					className={`px-1.5 py-1 transition-all ease-in-out duration-500 cursor-pointer flex flex-col text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-md border border-border dark:border-baseDark
+					className={`px-1.5 py-1 transition-all ease-in-out duration-500 cursor-pointer flex flex-col text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-lg border border-border dark:border-baseDark
 				${
 					project === projectId
 						? "bg-coolGrey-1 dark:bg-hoverDark dark:hover:border-hoverDark"
@@ -109,7 +109,7 @@ export const ProjectListItem: FC<{
 							{chapters?.map((chapter: IChapter) => (
 								<SmallText
 									key={chapter.uid}
-									className={`dark:text-coolGrey-5 flex items-center justify-between pl-[0.8rem] p-0.5 ml-2 my-0.5 cursor-pointer rounded-md hover:bg-coolGrey-1 dark:hover:bg-hoverDark transition-all ease-in-out duration-300 ${
+									className={`dark:text-coolGrey-5 flex items-center justify-between pl-[0.8rem] p-0.5 ml-2 my-0.5 cursor-pointer rounded-lg hover:bg-coolGrey-1 dark:hover:bg-hoverDark transition-all ease-in-out duration-300 ${
 										chapterId === chapter.uid
 											? "bg-coolGrey-1 dark:bg-hoverDark"
 											: ""

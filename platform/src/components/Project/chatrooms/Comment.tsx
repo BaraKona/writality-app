@@ -1,6 +1,5 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
-import { useAuthContext } from "../../../contexts/AuthContext";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { initials, initialsColor } from "../../../utils/userIcons";
@@ -25,7 +24,7 @@ export const Comment: FC<{
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-col space-y-2 bg-base dark:bg-baseDark border border-border dark:border-borderDark rounded-md grow p-5">
+			<div className="flex flex-col space-y-2 bg-base dark:bg-baseDark border border-border dark:border-borderDark rounded-lg grow p-5">
 				<div className="flex flex-col space-y-2">
 					<div className="flex items-center gap-3">
 						<div

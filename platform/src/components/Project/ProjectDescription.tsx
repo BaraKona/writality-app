@@ -1,6 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { IProject } from "../../interfaces/IProject";
-import { Button, Divider, Skeleton, Tooltip } from "@mantine/core";
+import { Divider, Tooltip } from "@mantine/core";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import { IconDeviceFloppy, IconFileDescription } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";
@@ -45,7 +45,7 @@ export const ProjectDescription: FC<{
 	);
 
 	return (
-		<div className=" flex flex-col flex-grow p-1 border border-border dark:border-borderDark rounded-md w-96 h-[calc(100vh-12rem)]">
+		<div className=" flex flex-col flex-grow p-1 border border-border dark:border-borderDark rounded-lg w-96 h-[calc(100vh-12rem)]">
 			<div className="flex justify-between items-center">
 				<h3 className=" text-coolGrey-7 dark:text-coolGrey-4 font-medium text-sm flex gap-2">
 					<IconFileDescription size={20} />
@@ -58,7 +58,7 @@ export const ProjectDescription: FC<{
 					styles={tooltipStyles}
 				>
 					<button
-						className="bg-base p-1.5 hover:bg-gray-100 rounded-md border border-border dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
+						className="bg-base p-1.5 hover:bg-gray-100 rounded-lg border border-border dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
 						onClick={() => {
 							updateDescription(JSON.stringify(editor.topLevelBlocks) || "");
 						}}

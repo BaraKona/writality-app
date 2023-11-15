@@ -126,7 +126,7 @@ export const FolderListItem: FC<{
 							listenerId={`folder_${folder.uid}`}
 							allFolders={allFolders}
 							// openedFolder={openedFolder}
-							// className="px-2.5 py-1.5 border border-border dark:border-borderDark flex items-end justify-between rounded-md "
+							// className="px-2.5 py-1.5 border border-border dark:border-borderDark flex items-end justify-betweenmd "
 							icon={icon}
 						/>
 					))}

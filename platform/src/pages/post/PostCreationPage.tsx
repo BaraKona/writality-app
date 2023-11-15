@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { Breadcrumbs } from "../../components/Breadcrumbs/Breadcrumbs";
-import { IconArticle, IconTemplate, IconHome } from "@tabler/icons-react";
+import { IconArticle, IconTemplate } from "@tabler/icons-react";
 import { CreatePostSection } from "../../components/Posts/CreatePostSection";
 import { Divider } from "@mantine/core";
 import { PostBody } from "../../components/Posts/PostBody";
@@ -51,7 +51,7 @@ export const PostCreationPage: FC<{}> = () => {
 	];
 
 	return (
-		<div className="h-[calc(100vh-2.7rem)] place-items-center rounded-md bg-base px-3 py-3">
+		<div className="h-[calc(100vh-2.7rem)] place-items-center rounded-lg bg-base px-3 py-3">
 			<Breadcrumbs items={breadcrumbs} />
 			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" />
 			<div className="flex gap-3">
