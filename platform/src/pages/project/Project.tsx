@@ -112,7 +112,7 @@ export function Project() {
 
 		pusher.subscribe(`project-${currentProject.uid}`);
 		pusher.bind("update", () => {
-			queryClient.invalidateQueries(["project", project]);
+			queryClient.invalidateQueries(["project", currentProject.uid]);
 		});
 
 		return () => {
