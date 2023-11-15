@@ -78,19 +78,22 @@ export const ProjectListItem: FC<{
 						<>
 							{projectFolders.length > 0 ? (
 								<div className="pl-[1.05rem] pt-2 border-border dark:border-borderDark">
-									{projectFolders.map((folder) => {
-										return (
-											<FolderListItem
-												key={folder.uid}
-												folder={folder}
-												folderChapters={folder.chapters}
-												small
-												projectId={projectId}
-												className="rounded-md"
-												location="sidebar"
-											/>
-										);
-									})}
+									{projectFolders
+										.filter((folder) => !folder.parentId)
+										?.map((folder) => {
+											return (
+												<FolderListItem
+													key={`folder_${folder.uid}`}
+													folder={folder}
+													folderChapters={folder.chapters}
+													allFolders={projectFolders}
+													small
+													projectId={projectId}
+													className="rounded-md"
+													location="sidebar"
+												/>
+											);
+										})}
 								</div>
 							) : (
 								<div className="pl-2 pt-2 border-border dark:border-borderDark ">

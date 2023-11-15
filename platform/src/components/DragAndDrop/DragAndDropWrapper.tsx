@@ -21,13 +21,7 @@ import {
 export const DragAndDropWrapper: FC<{
 	children: React.ReactNode;
 	items: IChapter[];
-	handleDrop: ({
-		chapterId,
-		folderId,
-	}: {
-		chapterId: string;
-		folderId: string;
-	}) => void;
+	handleDrop: ({ id, folderId }: { id: string; folderId: string }) => void;
 }> = ({ children, items, handleDrop }) => {
 	if (!items) return null;
 
@@ -59,13 +53,11 @@ export const DragAndDropWrapper: FC<{
 	function handleDragEnd(event: { active: any; over: any }) {
 		const { active, over } = event;
 
-		console.log(event);
-
 		if (active.id !== over.id) {
 			console.log(over.data.type);
 			if (over.data.current.type === "folder") {
 				handleDrop({
-					chapterId: active.id,
+					id: active.id,
 					folderId: over.id,
 				});
 			}

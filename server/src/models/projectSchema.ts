@@ -22,6 +22,7 @@ type folder = {
 	name: string;
 	position?: number;
 	dateCreated: Date;
+	parentId?: string;
 	chapters?: string[];
 	folders?: folder[];
 }[];
@@ -152,10 +153,11 @@ const projectSchema = new Schema<IProject>({
 			{
 				uid: { type: String, required: true },
 				name: { type: String, required: true },
+				parentId: { type: String, required: false },
 				position: { type: Number, required: false },
 				dateCreated: { type: Date, required: true },
 				chapters: { type: [String], required: false, ref: "Chapter" },
-				folders: { type: [Object], required: false },
+				folders: { type: [Object], required: false, ref: "Folder" },
 			},
 		],
 		required: true,

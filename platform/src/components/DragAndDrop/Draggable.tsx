@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { useDraggable } from "@dnd-kit/core";
-import { IconGripVertical } from "@tabler/icons-react";
 
 export const Draggable: FC<{
 	children: React.ReactNode;

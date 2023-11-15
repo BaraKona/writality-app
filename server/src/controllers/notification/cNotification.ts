@@ -161,11 +161,9 @@ export const acceptProjectInvitation = async (req: any, res: any) => {
 				(invite) => invite.user.toString() !== userId.toString()
 			)
 		) {
-			return res
-				.status(400)
-				.json({
-					message: "You no longer have permission to join this project",
-				});
+			return res.status(400).json({
+				message: "You no longer have permission to join this project",
+			});
 		}
 
 		project.collaborators.push({

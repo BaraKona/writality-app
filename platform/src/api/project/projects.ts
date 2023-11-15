@@ -152,3 +152,15 @@ export const getOpenFolderChapters = async (
 
 	return data;
 };
+
+export const nestFolder = async (
+	projectId: string,
+	folderId: string,
+	parentFolderId: string
+) => {
+	const { data } = await projectApi.patch(
+		`/folder/nest/${projectId}/${parentFolderId}`,
+		{ folderToNestId: folderId }
+	);
+	return data;
+};

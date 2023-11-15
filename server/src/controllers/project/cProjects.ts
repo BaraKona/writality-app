@@ -190,16 +190,16 @@ export const getProject = async (req: any, res: any) => {
 				select: "name email uid",
 			})
 			.populate({
-				path: "folders.chapters",
-				select: " dateUpdated projectId title uid content.title _id",
-			})
-			.populate({
 				path: "pendingInvite.user",
 				select: "name email uid",
 			})
 			.populate({
 				path: "history.user",
 				select: "name email",
+			})
+			.populate({
+				path: "folders.chapters",
+				select: "dateUpdated projectId title uid content.title _id",
 			});
 
 		project?.history.sort((a, b) => {
@@ -492,6 +492,7 @@ export const createFolder = async (req: any, res: any) => {
 			uid: uuidv4(),
 			name,
 			dateCreated: new Date(),
+			level: 0,
 		};
 		project.folders.push(folder);
 		project.dateUpdated = {
@@ -585,7 +586,18 @@ export const deleteProjectChapter = async (req: any, res: any) => {
 
 	try {
 		await deleteSingleChapter(userId, projectId, chapterId);
-		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true, role: "admin" },
+					},
+					uid: projectId,
+					type: "collaboration",
+				},
+			],
+		});
 		project.dateUpdated = {
 			user: userId,
 			date: new Date(),
@@ -617,14 +629,24 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 	const { folderId } = req.body;
 
 	try {
-		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true },
+					},
+					uid: projectId,
+					type: "collaboration",
+				},
+			],
+		});
 
 		// remove from all folders
 		project.folders.forEach((folder) => {
 			folder.chapters = folder.chapters.filter((id) => id !== chapterId);
 		});
 
-		// add to new folder
 		project.folders.forEach((folder) => {
 			if (folder.uid === folderId) {
 				folder.chapters.push(chapterId);
@@ -641,7 +663,7 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 		project.history.push({
 			date: new Date(),
 			user: userId,
-			action: "moved chapter",
+			action: `moved chapter into folder`,
 		});
 
 		project.collaborators.find((collaborator) => {
@@ -663,7 +685,18 @@ export const getOpenFolderChapters = async (req: any, res: any) => {
 	const { projectId, folderId } = req.params;
 
 	try {
-		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true },
+					},
+					uid: projectId,
+					type: "collaboration",
+				},
+			],
+		});
 		const folder = project.folders.find((folder) => folder.uid === folderId);
 
 		if (!folder || !folder.chapters) {
@@ -674,6 +707,56 @@ export const getOpenFolderChapters = async (req: any, res: any) => {
 			uid: { $in: folder?.chapters },
 		});
 		res.status(200).json(chapters);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const nestFolder = async (req: any, res: any) => {
+	const userId = req.user._id;
+	const { projectId, folderId } = req.params;
+	const { folderToNestId } = req.body;
+
+	if (folderId === folderToNestId) {
+		res.status(404).json({ message: "Folder cannot be nested within itself." });
+		return;
+	}
+
+	try {
+		const project = await Project.findOne({ owner: userId, uid: projectId });
+
+		const folderToNest = project.folders.find(
+			(folder) => folder.uid === folderToNestId
+		);
+
+		const folder = project.folders.find((folder) => folder.uid === folderId);
+
+		if (!folder || !folderToNest) {
+			res.status(404).json({ message: "Folder not found." });
+			return;
+		}
+
+		folderToNest.parentId = folder.uid;
+
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+		project.history.push({
+			date: new Date(),
+			user: userId,
+			action: `moved folder ${folderToNest.name} into ${folder.name}`,
+		});
+
+		project.collaborators.find((collaborator) => {
+			if (collaborator.user === userId.toString()) {
+				collaborator.lastContribution = new Date();
+			}
+		});
+
+		await project.save();
+		res.status(200).json(folder);
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

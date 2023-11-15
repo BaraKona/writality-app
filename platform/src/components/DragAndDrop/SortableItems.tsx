@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { IconGripVertical } from "@tabler/icons-react";
 
 export const SortableItem: FC<{ id: string; children: React.ReactNode }> = ({
 	children,

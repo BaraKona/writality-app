@@ -14,7 +14,7 @@ export const getProjectWordCount = async (req: any, res: any) => {
 
 		let chapterIds = project.chapters;
 
-		for (let i = 0; i < folders.length; i++) {
+		for (let i = 0; i < folders?.length; i++) {
 			const folder = folders[i];
 			chapterIds = chapterIds.concat(folder.chapters);
 		}

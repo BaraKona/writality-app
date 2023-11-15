@@ -12,9 +12,9 @@ export const SidebarTopNav: FC<{
 		<Tooltip label={value} position="top" withArrow styles={tooltipStyles}>
 			<div
 				onClick={navigate}
-				className={`p-1 rounded-md dark:text-coolGrey-4 border border-border dark:border-baseDark dark:hover:shadow-none dark:hover:bg-hoverDark dark:hover:border-hoverDark hover:shadow-md ${
+				className={`p-1 rounded-md dark:text-coolGrey-4 bg-coolGrey-1 dark:border-baseDark dark:hover:shadow-none dark:hover:bg-hoverDark dark:hover:border-hoverDark hover:bg-coolGrey-7 hover:text-coolGrey-1 transition-all ease-in-out duration-300 dark:bg-hoverDark ${
 					sidebarNav === value
-						? "shadow dark:shadow-none border border-border dark:border-hoverDark hover:border-coolGrey-3 dark:hover:bg-hoverDark bg-coolGrey-1 dark:bg-hoverDark"
+						? "bg-coolGrey-7 dark:border-hoverDark hover:border-coolGrey-3 dark:hover:bg-hoverDark text-coolGrey-1 dark:bg-emerald-900"
 						: ""
 				}`}
 			>

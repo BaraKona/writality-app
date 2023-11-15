@@ -6,11 +6,6 @@ import { IconDotsVertical } from "@tabler/icons-react";
 import { IChapter } from "../../interfaces/IChapter";
 import { Chapter } from "../Chapters/Chapter";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { SortableItem } from "../DragAndDrop/SortableItems";
-import { Droppable } from "../DragAndDrop/Droppable";
-import { DragOverlay } from "@dnd-kit/core";
-import { Draggable } from "../DragAndDrop/Draggable";
-import { useLocalStorage } from "@mantine/hooks";
 
 export const ProjectChapters: FC<{
 	project: IProject;
@@ -36,17 +31,19 @@ export const ProjectChapters: FC<{
 			ref={parent}
 			className="p-2 flex flex-col overflow-auto h-[calc(100vh-15rem)]"
 		>
-			{project?.folders?.map((folder: any, index: number) => (
-				<Droppable id={folder.uid} type="folder" key={index}>
-					{/* <div className={openedFolder === folder.uid ? "" : "mb-1"}> */}
+			{project?.folders
+				?.filter((folder) => !folder.parentId)
+				.map((folder: any, index: number) => (
 					<FolderListItem
 						// openFolder={openFolder}
+						allFolders={project.folders}
 						folder={folder}
 						projectId={project.uid}
 						folderChapters={folder.chapters}
+						nestedFolders={folder.folders}
 						withNumber
 						location="project"
-						listenerId={folder._id}
+						listenerId={`folder_${folder.uid}`}
 						// openedFolder={openedFolder}
 						className="px-2.5 py-1.5 border border-border dark:border-borderDark flex items-end justify-between rounded-md "
 						icon={
@@ -55,9 +52,7 @@ export const ProjectChapters: FC<{
 							</ButtonWrapper>
 						}
 					/>
-					{/* </div> */}
-				</Droppable>
-			))}
+				))}
 			<div>
 				{project?.chapters?.map((chapter: IChapter, index: number) => (
 					// <Draggable id={chapter.uid}>
@@ -67,7 +62,7 @@ export const ProjectChapters: FC<{
 						chapter={chapter}
 						openChapterModal={() => openChapterModal(chapter.uid)}
 						disabled={false}
-						listenerId={chapter._id}
+						listenerId={`chapter_${chapter._id}`}
 					/>
 					// </Draggable>
 				))}

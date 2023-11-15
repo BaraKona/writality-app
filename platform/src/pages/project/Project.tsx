@@ -1,9 +1,7 @@
 import { ProjectDescription } from "../../components/Project";
 import {
 	IconAdjustmentsHorizontal,
-	IconGlobe,
 	IconMessage,
-	IconNews,
 	IconUsers,
 } from "@tabler/icons-react";
 import { NoChapters, ChapterRenderer } from "../../components/Chapters";
@@ -19,7 +17,6 @@ import { Tabs, Tooltip } from "@mantine/core";
 import { ProjectSettings } from "../../components/Project/ProjectSettings";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChatWrapper } from "../../components/Project/chatrooms/ChatWrapper";
-import { tabStyles } from "../../styles/tabStyles";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { useCreateChapter } from "../../hooks/projects/useCreateChapter";
 import { FourOFour } from "../404";
@@ -36,6 +33,7 @@ import { ProjectCollaborators } from "../../components/Project/collaborators/Pro
 import { ProjectBoard } from "../../components/Project/ProjectBoard";
 import { ProjectWrapper } from "../../components/Chapters/ProjectWrapper";
 import { useSocket } from "../../Providers/SocketProvider";
+import { useNestFolder } from "../../hooks/projects/useNestFolder";
 
 export function Project() {
 	const queryClient = useQueryClient();
@@ -78,6 +76,19 @@ export function Project() {
 	const { mutate: moveChapterIntoFolder } = useMoveChapterToFolder(
 		project as string
 	);
+	const { mutate: moveFolderIntoFolder } = useNestFolder(project as string);
+
+	function dropIntoFolder({ folderId, id }: { folderId: string; id: string }) {
+		if (id.includes("folder")) {
+			moveFolderIntoFolder({ parentId: folderId, folderId: id.split("_")[1] });
+		}
+
+		if (id.includes("chapter")) {
+			console.log(id.split("-")[1]);
+			console.log(folderId);
+			moveChapterIntoFolder({ chapterId: id.split("_")[1], folderId });
+		}
+	}
 	const openChapter = (projectId: string, chapterId: string) => {
 		navigate(`/project/${projectId}/chapter/${chapterId}`);
 	};
@@ -88,7 +99,7 @@ export function Project() {
 
 	const chapterCount =
 		currentProject?.chapters.length +
-		currentProject?.folders.reduce(
+		currentProject?.folders?.reduce(
 			(acc: number, folder: IProject["folders"]) => {
 				/** @ts-ignore */
 				return acc + folder.chapters?.length;
@@ -120,12 +131,7 @@ export function Project() {
 				deleteBranch={deleteChapter}
 				type="chapter"
 			/>
-			<ProjectWrapper
-				project={currentProject}
-				isLoading={Boolean(!currentProject)}
-				className="w-full transition-all ease-in-out duration-200"
-				tab={projectTab || "overview"}
-			>
+			<ProjectWrapper tab={projectTab || "overview"}>
 				<Tabs
 					className="border-none important:border-none h-[calc(100vh-12.2rem)] w-full !px-2"
 					value={projectTab}
@@ -228,7 +234,7 @@ export function Project() {
 									isLoading={isLoading}
 								>
 									<>
-										{currentProject?.folders.length === 0 &&
+										{currentProject?.folders?.length === 0 &&
 										currentProject.chapters.length === 0 ? (
 											<NoChapters
 												createNewChapter={createNewChapter}
@@ -241,7 +247,7 @@ export function Project() {
 										) : (
 											<DragAndDropWrapper
 												items={currentProject?.chapters}
-												handleDrop={moveChapterIntoFolder}
+												handleDrop={dropIntoFolder}
 											>
 												<ProjectChapters
 													project={currentProject}

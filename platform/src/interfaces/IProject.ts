@@ -13,6 +13,18 @@ const enum collaboratorRole {
 	guest = "guest",
 }
 
+type folders = {
+	uid: string;
+	name: string;
+	position?: number;
+	dateCreated: Date;
+	level: number;
+	chapters?: IChapter[];
+	folders?: folders[];
+	parentId?: string;
+	children?: string[];
+};
+
 export type IProject = {
 	type: ProjectType;
 	uid: string;
@@ -28,13 +40,7 @@ export type IProject = {
 		user: string;
 		date: Date;
 	};
-	folders: {
-		uid: string;
-		name: string;
-		position?: number;
-		dateCreated: Date;
-		chapters?: IChapter[];
-	}[];
+	folders: folders[];
 	collaborators: {
 		user: IUser;
 		dateAdded: Date;
