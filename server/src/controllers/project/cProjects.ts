@@ -538,7 +538,7 @@ export const createProjectChapter = async (req: any, res: any) => {
 		project.history.push({
 			date: new Date(),
 			user: userId,
-			action: "created chapter",
+			action: `created a new chapter`,
 		});
 
 		project.collaborators?.find((collaborator) => {
@@ -585,6 +585,7 @@ export const deleteProjectChapter = async (req: any, res: any) => {
 	const { projectId, chapterId } = req.params;
 
 	try {
+		const chapter = await Chapter.findOne({ uid: chapterId });
 		await deleteSingleChapter(userId, projectId, chapterId);
 		const project = await Project.findOne({
 			$or: [
@@ -605,7 +606,7 @@ export const deleteProjectChapter = async (req: any, res: any) => {
 		project.history.push({
 			date: new Date(),
 			user: userId,
-			action: "deleted chapter",
+			action: `deleted chapter named ${chapter.title}`,
 		});
 
 		project.collaborators.find((collaborator) => {
