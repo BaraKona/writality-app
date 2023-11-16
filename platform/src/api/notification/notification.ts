@@ -43,3 +43,13 @@ export const acceptProjectInvitation = async (
 	);
 	return data;
 };
+
+export const acceptFriendRequest = async (
+	userId: string,
+	notificationId: string
+) => {
+	const { data } = await notificationApi.patch(
+		`/accept-friend-request/${notificationId}/${userId}`
+	);
+	return data;
+};

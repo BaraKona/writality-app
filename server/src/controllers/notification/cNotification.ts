@@ -127,10 +127,29 @@ export const sendFriendRequest = async (req: any, res: any) => {
 			ctaId: user.uid,
 		};
 
+		const notificationForUser = {
+			notificationType: notificationType.friendRequest,
+			notificationBody: `You have sent a friend request to ${friend.name}`,
+			notificationTitle: "Friend request",
+			notificationTime: new Date(),
+			notificationRead: false,
+			active: false,
+			ctaId: user.uid,
+		};
+
 		friend.inbox.push(notification);
+
+		user.inbox.push(notificationForUser);
+
+		await user.save();
 		await friend.save();
 
 		pusher.trigger(`user-${friendId}`, "notification", {
+			notification,
+			userId,
+		});
+
+		pusher.trigger(`user-${userId}`, "notification", {
 			notification,
 			userId,
 		});
@@ -258,6 +277,83 @@ export const acceptProjectInvitation = async (req: any, res: any) => {
 		});
 
 		res.status(200).json({ message: "Project joined successfully." });
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const acceptFriendRequest = async (req: any, res: any) => {
+	const userId = req.user._id;
+	const { userId: friendId, notificationId } = req.params;
+	const pusher = initPusher();
+
+	try {
+		const user = await User.findOne({ _id: userId });
+
+		const friend = await User.findOne({ uid: friendId });
+
+		if (!friend) {
+			return res.status(404).json({ message: "User not found" });
+		}
+
+		if (user.friends.some((friend) => friend.user === friend.user)) {
+			return res
+				.status(400)
+				.json({ message: "You are already friends with this user." });
+		}
+
+		user.friends.push({
+			user: friend._id.toString(),
+			dateAdded: new Date(),
+		});
+
+		friend.friends.push({
+			user: user._id.toString(),
+			dateAdded: new Date(),
+		});
+
+		const notification = {
+			notificationType: notificationType.friendAccept,
+			notificationBody: `${user.name} has accepted your friend request.`,
+			notificationTitle: "Friend request accepted",
+			notificationTime: new Date(),
+			notificationRead: false,
+			active: true,
+			ctaId: user.uid,
+		};
+
+		const notificationForFriend = {
+			notificationType: notificationType.friendAccept,
+			notificationBody: `You are now friends with ${friend.name}.`,
+			notificationTitle: "You are now friends",
+			notificationTime: new Date(),
+			notificationRead: false,
+			active: true,
+			ctaId: friend.uid,
+		};
+
+		friend.inbox.push(notification);
+		user.inbox.push(notificationForFriend);
+
+		user.inbox.find(
+			(notification) => notification._id.toString() === notificationId
+		).active = false;
+
+		await user.save();
+		await friend.save();
+
+		pusher.trigger(`user-${friendId}`, "notification", {
+			notification,
+			userId,
+		});
+
+		pusher.trigger(`user-${userId}`, "notification", {
+			notification: notificationForFriend,
+			userId,
+		});
+
+		res.status(200).json({ message: "Friend request accepted successfully." });
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

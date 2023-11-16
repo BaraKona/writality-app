@@ -5,6 +5,7 @@ import {
 	openNotification,
 	acceptProjectInvitation,
 	sendFriendRequest,
+	acceptFriendRequest,
 } from "../../controllers/notification/cNotification";
 import { protect } from "../../middleware/jwtAuth";
 
@@ -23,6 +24,11 @@ router.patch(
 	"/accept-project-invitation/:notificationId/:projectId",
 	protect,
 	acceptProjectInvitation
+);
+router.patch(
+	"/accept-friend-request/:notificationId/:userId",
+	protect,
+	acceptFriendRequest
 );
 
 export default router;

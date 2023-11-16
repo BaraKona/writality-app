@@ -45,7 +45,9 @@ export const createUser = async (req: any, res: any) => {
 export const getUser = async (req: any, res: any) => {
 	const userId = req.user.uid;
 	try {
-		const user = await User.findOne({ uid: userId }).select("-password");
+		const user = await User.findOne({ uid: userId })
+			.select("-password")
+			.populate("friends.user", "-password");
 		res.status(200).json(user);
 	} catch (error) {
 		res.status(404).json({ message: error.message });

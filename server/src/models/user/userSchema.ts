@@ -5,6 +5,7 @@ export enum notificationType {
 	projectRevoke = "project-invitation-revoke",
 	projectAccept = "project-invitation-accept",
 	friendRequest = "friend-request",
+	friendAccept = "friend-accept",
 	comment = "comment",
 	reply = "reply",
 	like = "like",
@@ -52,6 +53,10 @@ export interface IUser {
 	primaryLanguage?: string;
 	isPublic: boolean;
 	inbox?: notification[];
+	friends?: {
+		user: string;
+		dateAdded: Date;
+	}[];
 }
 const userSchema = new Schema<IUser>({
 	name: {
@@ -120,6 +125,17 @@ const userSchema = new Schema<IUser>({
 		type: Boolean,
 		default: true,
 		required: true,
+	},
+	friends: {
+		type: [
+			{
+				user: {
+					type: Schema.Types.ObjectId,
+					ref: "User",
+				},
+				dateAdded: Date,
+			},
+		],
 	},
 	inbox: {
 		type: [

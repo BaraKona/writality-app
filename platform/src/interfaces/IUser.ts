@@ -40,7 +40,6 @@ export type IUser = {
 		url: string;
 		name: string;
 	}[];
-
 	aboutMe?: string;
 	profilePicture?: string;
 	interests?: string[];
@@ -49,5 +48,9 @@ export type IUser = {
 	languages?: string[];
 	primaryLanguage?: string;
 	isPublic: boolean;
+	friends: {
+		user: IUser;
+		dateAdded: string;
+	}[];
 	inbox?: notification[];
 };

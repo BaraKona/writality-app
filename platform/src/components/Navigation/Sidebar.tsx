@@ -34,6 +34,7 @@ import { IUser } from "../../interfaces/IUser";
 import { Notifications } from "../notification/Notifications";
 import { useQueryClient } from "react-query";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { UserFriends } from "../ListItems/UserFriends";
 
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
@@ -241,12 +242,7 @@ export const Sidebar: FC<{}> = () => {
 							{sidebarNav === inbox && (
 								<Notifications notification={currentUser?.inbox} />
 							)}
-							{sidebarNav === friends && (
-								<SmallText className="text-center" light>
-									You have no friends. Your friends will appear here and you can
-									chat with them.
-								</SmallText>
-							)}
+							{sidebarNav === friends && <UserFriends />}
 						</CategoryListItem>
 					</div>
 				</div>

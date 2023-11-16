@@ -2,7 +2,7 @@ import { FC } from "react";
 import { IUser } from "../../interfaces/IUser";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Text, Divider, Popover } from "@mantine/core";
+import { Divider, Popover } from "@mantine/core";
 import {
 	Icon3dCubeSphere,
 	IconCubeOff,
@@ -14,40 +14,44 @@ import { SmallText } from "../texts/SmallText";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useOpenNotification } from "../../hooks/notification/useOpenNotification";
 import { useAcceptProjectInvitation } from "../../hooks/notification/useAcceptProjectInvitation";
+import { NotificationActions } from "./NotificationActions";
+import { useAcceptFriendRequest } from "../../hooks/notification/useAcceptFriendRequest";
 export const Notifications: FC<{
 	notification: IUser["inbox"];
 }> = ({ notification }) => {
 	const { currentUser } = useAuthContext();
 
 	const navigate = useNavigate();
+
 	const { mutate: openNotification } = useOpenNotification();
 	const { mutate: acceptProjectInvitation } = useAcceptProjectInvitation();
+	const { mutate: acceptFriendRequest } = useAcceptFriendRequest();
 
 	const [parent] = useAutoAnimate();
 	// icons type = notificationType: reactNode
 
 	const icons: any = {
 		"project-invitation": (
-			<IconCubePlus size={16} className="text-green-600 dark:text-green-400" />
+			<IconCubePlus size={18} className="text-green-600 dark:text-green-400" />
 		),
 		"project-invitation-revoke": (
-			<IconCubeOff size={16} className="text-rose-600 dark:text-rose-400" />
+			<IconCubeOff size={18} className="text-rose-600 dark:text-rose-400" />
 		),
 		"project-invitation-accept": (
 			<Icon3dCubeSphere
-				size={16}
+				size={18}
 				className="text-blue-600 dark:text-blue-400"
 			/>
 		),
 		"friend-request": (
-			<IconUserPlus size={16} className="text-lime-600 dark:text-lime-400" />
+			<IconUserPlus size={18} className="text-lime-600 dark:text-lime-400" />
 		),
 	};
 
 	return (
 		<section ref={parent}>
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark !mb-2" />
-			<div className="h-[calc(100dvh-6.5rem)] overflow-y-auto">
+			<div className="h-[calc(100dvh-6.5rem)] overflow-y-auto flex flex-col gap-1">
 				{notification?.map((notification: any, index: number) => (
 					<Popover
 						key={index}
@@ -64,7 +68,7 @@ export const Notifications: FC<{
 					>
 						<Popover.Target>
 							<li
-								className={`items-center justify-between relative px-1.5 py-1 transition-all ease-in-out duration-500 flex text-xs font-medium mb-0.5 group border border-border dark:bg-baseDark dark:hover:bg-hoverDark dark:border-baseDark rounded-lg hover:bg-coolGrey-1 cursor-pointer `}
+								className={`p-2 py-1.5 gap-1 transition-all ease-in-out duration-500 cursor-pointer flex text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-md`}
 							>
 								<div className="gap-1 flex items-center justify-between w-full">
 									<div className="flex gap-2">
@@ -94,22 +98,25 @@ export const Notifications: FC<{
 								</div>
 								{notification?.notificationType === "project-invitation" &&
 									notification.active && (
-										<div className="flex gap-2">
-											<button className="ml-auto  flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-lg border border-border dark:border-borderDark p-1 px-3 dark:hover:bg-rose-700/50 dark:hover:border-rose-700 hover:bg-rose-400 hover:text-coolGrey-0 hover:border-rose-400  transition-colors ease-in-out duration-300">
-												<Text>Decline</Text>
-											</button>
-											<button
-												className="flex items-center gap-2 text-coolGrey-4 dark:text-coolGrey-4 text-sm rounded-lg border border-border dark:border-borderDark p-1 px-3 hover:bg-coolGrey-2/40 dark:hover:bg-hoverDark transition-colors ease-in-out duration-300"
-												onClick={() => {
-													acceptProjectInvitation({
-														projectId: notification.ctaId,
-														notificationId: notification._id,
-													});
-												}}
-											>
-												<Text>Accept</Text>
-											</button>
-										</div>
+										<NotificationActions
+											onClick={() => {
+												acceptProjectInvitation({
+													projectId: notification.ctaId,
+													notificationId: notification._id,
+												});
+											}}
+										/>
+									)}
+								{notification?.notificationType === "friend-request" &&
+									notification.active && (
+										<NotificationActions
+											onClick={() => {
+												acceptFriendRequest({
+													userId: notification.ctaId,
+													notificationId: notification._id,
+												});
+											}}
+										/>
 									)}
 							</div>
 						</Popover.Dropdown>

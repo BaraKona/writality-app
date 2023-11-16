@@ -38,7 +38,7 @@ export const ProjectListItem: FC<{
 				sidebarProjectOpen ? "" : "mb"
 			} `}
 		>
-			<div className="flex items-center">
+			<ul className="flex items-center">
 				<li
 					onClick={onClick}
 					className={`p-2 py-1 gap-1 transition-all ease-in-out duration-500 cursor-pointer flex text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-md
@@ -78,7 +78,7 @@ export const ProjectListItem: FC<{
 						</div>
 					</div>
 				</li>
-			</div>
+			</ul>
 			<div className="ml-3 ">
 				<div ref={parent}>
 					{sidebarProjectOpen && (
