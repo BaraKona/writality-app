@@ -225,10 +225,10 @@
     "@babel/helper-validator-identifier" "^7.22.5"
     to-fast-properties "^2.0.0"
 
-"@blocknote/core@^0.9.5":
-  version "0.9.5"
-  resolved "https://registry.yarnpkg.com/@blocknote/core/-/core-0.9.5.tgz#2096a6b2deff565b864b510b2e4f6335b9ad2cb3"
-  integrity sha512-aTU9pSUTQvMDWcvpdUJG+8MvP8CfSutWu6xiorGw2nNBMwnnletFxVxebZvvDBMSyjO6Ye4xtiaIA7D3PXn7PA==
+"@blocknote/core@^0.9.6":
+  version "0.9.6"
+  resolved "https://registry.yarnpkg.com/@blocknote/core/-/core-0.9.6.tgz#a6961fd92cbb20b6c13c8698ef55647e8dc655f0"
+  integrity sha512-L0T8L+akKPI4tJh9n18Cq0gR5WxCXoVPfPtA4gfFu+Yu5mtLfY4Rts5bKNzbFFFahx0Ns3VLjLHkr4h+YeT5Dw==
   dependencies:
     "@emotion/cache" "^11.10.5"
     "@emotion/serialize" "^1.1.1"
@@ -269,12 +269,12 @@
     y-protocols "^1.0.5"
     yjs "^13.6.1"
 
-"@blocknote/react@^0.9.5":
-  version "0.9.5"
-  resolved "https://registry.yarnpkg.com/@blocknote/react/-/react-0.9.5.tgz#68328eb2352761ef37e748a3f9e4ea128a53fae9"
-  integrity sha512-Mp+6hg0uja83U5NGvlU9CSM+a/T68nq9gsS4e4ixiQwrHYq227qU+X9cFK4fnVQZLENwMWE5gQ+W6DPP92JwLg==
+"@blocknote/react@^0.9.6":
+  version "0.9.6"
+  resolved "https://registry.yarnpkg.com/@blocknote/react/-/react-0.9.6.tgz#94ef0fdd21b417afbe9a2898e9e7115fb81ce7a8"
+  integrity sha512-xybLu1vSiIVXe6nginmC/3MKfjFVAycGII2/1kythmyxM1YgLBg4JWD6i8ABrniRlXkQ9tjpjrlWbdP4Ld2/zg==
   dependencies:
-    "@blocknote/core" "^0.9.5"
+    "@blocknote/core" "^0.9.6"
     "@emotion/react" "^11.10.5"
     "@mantine/core" "^5.6.1"
     "@mantine/hooks" "^5.6.1"
