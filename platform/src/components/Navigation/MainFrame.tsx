@@ -210,7 +210,7 @@ export const MainFrame: FC<{
 					)}
 				</div>
 			</div>
-			<section className="h-[calc(100vh-3rem)] !rounded-lg overflow-y-auto px-2">
+			<section className="h-[calc(100vh-3rem)] !rounded-lg overflow-y-auto mx-2">
 				{children}
 			</section>
 		</div>

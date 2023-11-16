@@ -89,7 +89,7 @@ export const ProjectCollaboratorTable: FC<{
 											console.log(value);
 										}}
 										styles={inputStyles}
-										className="ml-auto pt-2"
+										className="ml-auto pt-2 dark:!border-borderDark"
 									/>
 									<ButtonWrapper
 										className="ml-2 p-2"

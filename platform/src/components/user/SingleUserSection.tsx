@@ -1,7 +1,6 @@
 import { Tabs } from "@mantine/core";
 import { FC } from "react";
 import { IProject } from "../../interfaces/IProject";
-import { ProfileProjects } from "../Profile/ProfileProjects";
 import { GridProjects } from "../Project/GridProjects";
 import { NoChapters } from "../Chapters";
 import { IPost } from "../../interfaces/IPost";
@@ -19,30 +18,40 @@ export const SingleUserSection: FC<{
 	const navigate = useNavigate();
 
 	return (
-		<Tabs defaultValue="projects" keepMounted={false}>
-			<Tabs.List className="!border-border !border-b dark:!border-borderDark">
-				<Tabs.Tab
-					value="projects"
-					className="dark:!text-coolGrey-4 !font-semibold hover:!bg-coolGrey-1/10 !rounded-t-normal"
-				>
-					Projects
-				</Tabs.Tab>
-				<Tabs.Tab
-					value="posts"
-					className="dark:!text-coolGrey-4 !font-semibold hover:!bg-coolGrey-1/10 !rounded-t-normal "
-				>
-					Posts
-				</Tabs.Tab>
+		<Tabs
+			defaultValue="projects"
+			keepMounted={false}
+			className="border-none important:border-none w-full !pl-2 !flex !flex-col !grow"
+		>
+			<Tabs.List className="flex !items-center !border-none !gap-2 !mb-2 !grow-0">
+				<div className="flex gap-2 bg-coolGrey-1 dark:bg-hoverDark p-1.5 rounded-lg">
+					<Tabs.Tab
+						value="projects"
+						className="!p-1.5 font-semibold !px-3 !text-coolGrey-6 dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-lg !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
+					>
+						Projects
+					</Tabs.Tab>
+					<Tabs.Tab
+						value="posts"
+						className="!p-1.5 font-semibold !px-3 !text-coolGrey-6 dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-lg !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1 "
+					>
+						Posts
+					</Tabs.Tab>
+				</div>
 			</Tabs.List>
 
-			<Tabs.Panel value="projects" pt="xs">
+			<Tabs.Panel
+				value="projects"
+				pt="xs"
+				className="dark:bg-black/70 dark:border-l-black/70 !rounded-md py-2 flex !grow"
+			>
 				{projects.length === 0 ? (
 					<NoChapters
 						title="User has no public projects"
-						p1="User has no projects"
+						p1="This user does not have any public projects. If you know them, you can still send them a message"
 					/>
 				) : (
-					<div className="flex gap-2 flex-wrap px-4">
+					<div className="flex gap-2 flex-wrap px-2">
 						{projects.map((project) => (
 							<GridProjects project={project} />
 						))}
@@ -50,11 +59,18 @@ export const SingleUserSection: FC<{
 				)}
 			</Tabs.Panel>
 
-			<Tabs.Panel value="posts" pt="xs">
+			<Tabs.Panel
+				value="posts"
+				pt="xs"
+				className="dark:bg-black/70 dark:border-l-black/70 !rounded-md flex !grow"
+			>
 				{posts.length === 0 ? (
-					<NoChapters title="User has no posts" p1="User has no posts" />
+					<NoChapters
+						title="User has no posts"
+						p1="This user does has not created any posts. If you know them, you can still send them a message"
+					/>
 				) : (
-					<div className="flex gap-2 flex-wrap px-4 max-w-[700px] mx-auto ">
+					<div className="flex gap-2 flex-wrap px-4 max-w-[700px] mx-auto py-2 self-start">
 						{posts?.map((post) => (
 							<PostCard
 								post={post}

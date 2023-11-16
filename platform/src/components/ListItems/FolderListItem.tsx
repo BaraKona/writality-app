@@ -27,7 +27,7 @@ export const FolderListItem: FC<{
 	projectId: string;
 	location: string;
 	listenerId?: string;
-	nestedFolders?: IProject["folders"][0]["folders"];
+	level: number;
 }> = ({
 	className,
 	folder,
@@ -38,8 +38,8 @@ export const FolderListItem: FC<{
 	projectId,
 	location,
 	listenerId,
-	nestedFolders,
 	allFolders,
+	level,
 }) => {
 	const [parent] = useAutoAnimate();
 	const navigate = useNavigate();
@@ -63,6 +63,14 @@ export const FolderListItem: FC<{
 			childFolder?.parentId === folder.uid
 	);
 
+	const levelColour = [
+		"text-[#7F6B8A] dark:text-[#957DAD]",
+		"text-[#794872] dark:text-[#D291BC]",
+		"text-[#C18FC8] dark:text-[#E0BBE4]",
+		"text-[#F07B98] dark:text-[#FEC8D8]",
+		"text-[#FFA185] dark:text-[#FFAFD4]",
+	];
+
 	return (
 		<div className="flex flex-col" ref={parent}>
 			<Droppable id={folder.uid} type="folder">
@@ -78,7 +86,9 @@ export const FolderListItem: FC<{
 					}
 				>
 					<SmallText
-						className={`flex items-center gap-1.5 text-teal-800 dark:text-teal-600 `}
+						className={`flex items-center gap-1.5 ${
+							levelColour[level % levelColour.length]
+						} `}
 					>
 						{openedFolder == folder.uid ? (
 							<IconFolderOpen size={16} />
@@ -93,7 +103,7 @@ export const FolderListItem: FC<{
 								{folder.chapters?.length}
 							</SmallText>
 						)}
-						{icon}
+						{/* {icon} */}
 						{listenerId && location === "project" && (
 							<ButtonWrapper>
 								<IconGripVertical
@@ -125,9 +135,8 @@ export const FolderListItem: FC<{
 							className={className}
 							listenerId={`folder_${folder.uid}`}
 							allFolders={allFolders}
-							// openedFolder={openedFolder}
-							// className="px-2.5 py-1.5 border border-border dark:border-borderDark flex items-end justify-betweenmd "
 							icon={icon}
+							level={level + 1}
 						/>
 					))}
 					{folderChapters?.map((chapter: IChapter, index: number) => (

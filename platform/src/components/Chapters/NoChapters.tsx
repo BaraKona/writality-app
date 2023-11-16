@@ -9,7 +9,7 @@ export const NoChapters: FC<{
 	p2?: string;
 }> = ({ createNewChapter, title, p1, p2 }) => {
 	return (
-		<div className="flex items-center justify-center p-2 overflow-y-auto">
+		<div className="flex items-center justify-center p-2 overflow-y-auto grow">
 			<div className=" flex items-center flex-col gap-5 m-auto flex-wrap mt-5">
 				<div className="my-auto">
 					<img src={circle4} alt="circle4" width={200} height={200} />

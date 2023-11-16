@@ -35,11 +35,11 @@ export const UserProjects: FC<{
 	}
 
 	return (
-		<div className="overflow-y-auto h-[calc(100vh-100px)]">
+		<div className="flex">
 			{projects?.length > 0 && (
-				<section className="" ref={parent}>
-					<Divider className="!border-coolGrey-1 dark:!border-borderDark !mb-2" />
-					<div className=" ">
+				<section className="grow" ref={parent}>
+					<Divider className="!border-coolGrey-1 dark:!border-borderDark !mb-2 " />
+					<div className="flex gap-1 flex-col grow overflow-y-auto h-[calc(100vh-100px)]">
 						{projects?.map((project: IProject, index: number) => {
 							return (
 								<ProjectListItem

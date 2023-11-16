@@ -119,7 +119,7 @@ const CollaboratorButton: FC<{
 }> = ({ text, onClick }) => {
 	return (
 		<button
-			className="px-4 py-2 rounded-lg bg-lime-500 dark:bg-lime-300/70 font-semibold hover:bg-lime-500/80 dark:hover:bg-lime-400/70 text-xs"
+			className="px-4 py-2 rounded-lg bg-lime-500 dark:bg-lime-700 dark:text-coolGrey-8 font-semibold hover:bg-lime-500/80 dark:hover:bg-lime-400/70 text-xs"
 			onClick={onClick}
 		>
 			{text}

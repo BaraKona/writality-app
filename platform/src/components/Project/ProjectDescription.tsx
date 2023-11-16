@@ -47,7 +47,7 @@ export const ProjectDescription: FC<{
 	return (
 		<div className=" flex flex-col flex-grow p-1 border border-border dark:border-borderDark rounded-lg w-[28rem] h-[calc(100vh-12rem)]">
 			<div className="flex justify-between items-center">
-				<h3 className=" text-coolGrey-7 dark:text-coolGrey-4 font-medium text-sm flex gap-2">
+				<h3 className=" text-coolGrey-7 dark:text-stone-500 font-medium text-sm flex gap-2 px-2">
 					<IconFileDescription size={20} />
 					Project Description
 				</h3>

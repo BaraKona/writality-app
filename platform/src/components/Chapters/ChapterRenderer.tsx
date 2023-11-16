@@ -1,8 +1,13 @@
 import { FC, ReactNode, useState } from "react";
-import { Divider, Menu, Skeleton, TextInput } from "@mantine/core";
-import { IconFilePlus, IconFiles, IconFolderPlus } from "@tabler/icons-react";
-import { CreateChapterButton } from "../buttons";
+import { Divider, Menu, Skeleton, TextInput, Tooltip } from "@mantine/core";
+import {
+	IconFilePlus,
+	IconFiles,
+	IconFolderPlus,
+	IconFolders,
+} from "@tabler/icons-react";
 import { inputStyles } from "../../styles/inputStyles";
+import { tooltipStyles } from "../../styles/tooltipStyles";
 
 export const ChapterRenderer: FC<{
 	children: ReactNode;
@@ -31,21 +36,32 @@ export const ChapterRenderer: FC<{
 					</h3>
 				)}
 
-				<div className="ml-auto mr-1 flex gap-2">
-					<CreateChapterButton
-						createNewChapter={createNewChapter}
-						text=""
-						icon={<IconFilePlus size={18} />}
-					/>
+				<div className="ml-auto mr-1 flex gap-1">
+					<Tooltip
+						label="Create chapter"
+						position="top"
+						withArrow
+						styles={tooltipStyles}
+					>
+						<button
+							className="p-1.5 rounded-md cursor-pointer hover:bg-coolGrey-1 dark:hover:bg-hoverDark"
+							onClick={createNewChapter}
+						>
+							<IconFilePlus size={18} />
+						</button>
+					</Tooltip>
 					<Menu shadow="md" width={200}>
 						<Menu.Target>
-							<button>
-								<CreateChapterButton
-									createNewChapter={() => {}}
-									text=""
-									icon={<IconFolderPlus size={18} />}
-								/>
-							</button>
+							<Tooltip
+								label="Create new folder"
+								position="top"
+								withArrow
+								styles={tooltipStyles}
+							>
+								<button className="p-1.5 rounded-md cursor-pointer hover:bg-coolGrey-1 dark:hover:bg-hoverDark">
+									<IconFolderPlus size={18} />
+								</button>
+							</Tooltip>
 						</Menu.Target>
 						<Menu.Dropdown>
 							<form
@@ -65,6 +81,16 @@ export const ChapterRenderer: FC<{
 							</form>
 						</Menu.Dropdown>
 					</Menu>
+					<Tooltip
+						label="Collapse folders"
+						position="top"
+						withArrow
+						styles={tooltipStyles}
+					>
+						<button className="p-1.5 rounded-md cursor-pointer hover:bg-coolGrey-1 dark:hover:bg-hoverDark">
+							<IconFolders size={18} />
+						</button>
+					</Tooltip>
 				</div>
 			</div>
 			<Divider

@@ -25,7 +25,7 @@ export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 	return (
 		<div className="col-span-3 row-span-4 items-start justify-center rounded-lg border border-border dark:border-borderDark py-4">
 			<div className="flex gap-2 items-center mb-3 px-4">
-				<IconHistory size={18} />
+				<IconHistory size={20} />
 				Recent Activity
 			</div>
 			<div className="flex gap-2 flex-col items-center w-full h-[28.5rem] overflow-y-auto px-4 pb-4">

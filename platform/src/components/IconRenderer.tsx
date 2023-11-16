@@ -19,9 +19,15 @@ export function IconRenderer({
 		<div ref={parent}>
 			{type === "collaboration" ? (
 				open ? (
-					<Icon3dCubeSphere size={18} className="text-cyan-800" />
+					<Icon3dCubeSphere
+						size={18}
+						className="dark:text-cyan-600 text-sky-700"
+					/>
 				) : (
-					<Icon3dCubeSphere size={18} className="text-cyan-800" />
+					<Icon3dCubeSphere
+						size={18}
+						className="dark:text-cyan-600 text-sky-700"
+					/>
 				)
 			) : open ? (
 				<IconBook size={18} className="text-neutral-600 dark:text-stone-500" />

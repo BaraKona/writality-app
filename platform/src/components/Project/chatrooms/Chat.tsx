@@ -17,8 +17,8 @@ export const Chat: FC<{
 	const { currentUser } = useAuthContext();
 
 	return (
-		<div className="flex-grow border-t border-border dark:border-borderDark  bg-coolGrey-1/40 dark:bg-black/30">
-			<div className=" dark:border-borderDark border-b border-border py-2 bg-base dark:bg-baseDark">
+		<div className="flex-grow border-t border-border dark:border-borderDark  bg-coolGrey-1/40 dark:bg-black/20 border-b">
+			<div className=" dark:border-borderDark border-b border-border py-2 bg-base dark:bg-baseDark px-2">
 				<div className="max-w-3xl mx-auto font-bold text-lg dark:text-coolGrey-4">
 					{title}
 				</div>
@@ -50,7 +50,7 @@ export const Chat: FC<{
 					</div>
 					<div className="border border-border dark:border-borderDark rounded-lg w-full relative h-40 p-2 bg-base dark:bg-baseDark">
 						<Textarea
-							placeholder="Your comment ( (Cmd | Shift) + Enter to send )"
+							placeholder="Your message - Shift + Enter to send "
 							className="flex-grow dark:!bg-baseDark"
 							variant="default"
 							size="md"

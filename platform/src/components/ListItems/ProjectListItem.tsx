@@ -35,35 +35,42 @@ export const ProjectListItem: FC<{
 	return (
 		<div
 			className={`transition-all ease-in-out duration-500 dark:text-coolGrey-4 ${
-				sidebarProjectOpen ? "" : "mb-1"
+				sidebarProjectOpen ? "" : "mb"
 			} `}
 		>
-			<div className="flex gap-1">
-				<ButtonWrapper
-					className="border dark:border-baseDark border-border dark:hover:bg-hoverDark dark:hover:border-hoverDark hover:bg-coolGrey-0"
-					onClick={() =>
-						setSidebarProjectOpen(
-							sidebarProjectOpen === projectId ? "" : projectId
-						)
-					}
-				>
-					{sidebarProjectOpen ? (
-						<IconChevronDown className="text-coolGrey-5" size={18} />
-					) : (
-						<IconChevronRight className="text-coolGrey-5" size={18} />
-					)}
-				</ButtonWrapper>
+			<div className="flex items-center">
 				<li
 					onClick={onClick}
-					className={`px-1.5 py-1 transition-all ease-in-out duration-500 cursor-pointer flex flex-col text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-lg border border-border dark:border-baseDark
+					className={`p-2 py-1 gap-1 transition-all ease-in-out duration-500 cursor-pointer flex text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-md
 				${
 					project === projectId
 						? "bg-coolGrey-1 dark:bg-hoverDark dark:hover:border-hoverDark"
 						: "dark:bg-baseDark"
 				}`}
 				>
+					<ButtonWrapper
+						className="dark:hover:bg-hoverDark dark:hover:border-hoverDark hover:bg-coolGrey-0 !rounded-md"
+						onClick={(e: any) => {
+							e.stopPropagation(),
+								setSidebarProjectOpen(
+									sidebarProjectOpen === projectId ? "" : projectId
+								);
+						}}
+					>
+						{sidebarProjectOpen ? (
+							<IconChevronDown className="text-coolGrey-5" size={16} />
+						) : (
+							<IconChevronRight className="text-coolGrey-5" size={16} />
+						)}
+					</ButtonWrapper>
 					<div className="gap-1 flex justify-between items-center">
-						<div className="flex gap-1 items-center">
+						<div
+							className={`flex gap-1 items-center ${
+								type === "standard"
+									? "text-stone-500 dark:text-stone-400"
+									: "dark:text-cyan-600 text-sky-700"
+							}`}
+						>
 							<IconRenderer type={type} open={Boolean(sidebarProjectOpen)} />
 							<span className=" whitespace-nowrap w-[12rem] text-ellipsis overflow-hidden">
 								{name}
@@ -72,12 +79,12 @@ export const ProjectListItem: FC<{
 					</div>
 				</li>
 			</div>
-			<div className="border-l ml-2.5 border-border dark:border-borderDark">
+			<div className="ml-3 ">
 				<div ref={parent}>
 					{sidebarProjectOpen && (
 						<>
 							{projectFolders.length > 0 ? (
-								<div className="pl-[1.05rem] pt-2 border-border dark:border-borderDark">
+								<div className="pl-[1.05rem] pt-0.5">
 									{projectFolders
 										.filter((folder) => !folder.parentId)
 										?.map((folder) => {
@@ -91,14 +98,13 @@ export const ProjectListItem: FC<{
 													projectId={projectId}
 													className="rounded-md"
 													location="sidebar"
+													level={0}
 												/>
 											);
 										})}
 								</div>
 							) : (
-								<div className="pl-2 pt-2 border-border dark:border-borderDark ">
-									{" "}
-								</div>
+								<div className="pl-2 pt-2 "> </div>
 							)}
 						</>
 					)}

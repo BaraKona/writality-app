@@ -21,13 +21,13 @@ export const Chapter: FC<{
 
 	return (
 		<div
-			className="flex gap-3 border rounded-lg border-border bg-base dark:bg-baseDark dark:border-borderDark cursor-default py-1 px-2.5 items-center mb-1"
+			className="flex gap-3 dark:hover:bg-hoverDark hover:bg-coolGrey-1 rounded-md border-border bg-base dark:bg-baseDark dark:border-borderDark cursor-default py-1 px-2.5 items-center mb-1"
 			{...attributes}
 			ref={setNodeRef}
 			style={style}
 		>
 			<div
-				className=" text-coolGrey-7 dark:text-coolGrey-5 flex place-items-center gap-1 cursor-pointer group"
+				className=" text-coolGrey-7 dark:text-coolGrey-5 flex place-items-center gap-1 cursor-pointer group grow"
 				onClick={openChapter}
 			>
 				<IconFileText
@@ -50,9 +50,6 @@ export const Chapter: FC<{
 					className="text-coolGrey-7 hover:text-red-900 cursor-pointer"
 				/>
 
-				{/* <ButtonWrapper>
-					<IconDotsVertical size={14} />
-				</ButtonWrapper> */}
 				{listenerId && (
 					<ButtonWrapper>
 						<IconGripVertical

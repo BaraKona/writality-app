@@ -2,7 +2,7 @@ import { FC } from "react";
 
 export const ButtonWrapper: FC<{
 	children: React.ReactNode;
-	onClick?: () => void;
+	onClick?: (item?: any) => void;
 	className?: string;
 }> = ({ children, onClick, className }) => {
 	return (

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { CategoryListItem, CommunityListItem } from "../ListItems";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
@@ -33,6 +33,7 @@ import { useThemeContext } from "../../Providers/ThemeProvider";
 import { IUser } from "../../interfaces/IUser";
 import { Notifications } from "../ListItems/Notifications";
 import { useQueryClient } from "react-query";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
@@ -42,9 +43,6 @@ export const Sidebar: FC<{}> = () => {
 
 	/* @ts-ignore*/
 	const { data: currentUser } = queryClient.getQueryState<IUser>("user");
-
-	const [displayLocation, setDisplayLocation] = useState(location);
-	const [transitionStage, setTransitionStage] = useState("fadeIn");
 
 	const { data: projects, isLoading: isProjectLoading } = useUserProjects();
 	const { theme } = useThemeContext();
@@ -64,13 +62,12 @@ export const Sidebar: FC<{}> = () => {
 	const openProject = (route: string) => {
 		navigate(route);
 	};
+
 	const openPages = (route: string) => {
 		navigate(route);
 	};
 
-	useEffect(() => {
-		if (location !== displayLocation) setTransitionStage("fadeOut");
-	}, [location, displayLocation]);
+	const [parent] = useAutoAnimate();
 
 	return (
 		<aside
@@ -255,15 +252,7 @@ export const Sidebar: FC<{}> = () => {
 				</div>
 			</div>
 			<MainFrame>
-				<div
-					className={`parent-container ${transitionStage}`}
-					onAnimationEnd={() => {
-						if (transitionStage === "fadeOut") {
-							setTransitionStage("fadeIn");
-							setDisplayLocation(location);
-						}
-					}}
-				>
+				<div ref={parent}>
 					<Outlet />
 				</div>
 			</MainFrame>
