@@ -43,7 +43,7 @@ export const SingleUserSection: FC<{
 			<Tabs.Panel
 				value="projects"
 				pt="xs"
-				className="dark:bg-black/70 dark:border-l-black/70 !rounded-md py-2 flex !grow"
+				className="dark:bg-black/70 dark:border-l-black/70 bg-coolGrey-1 !rounded-md py-2 flex !grow"
 			>
 				{projects.length === 0 ? (
 					<NoChapters
@@ -62,7 +62,7 @@ export const SingleUserSection: FC<{
 			<Tabs.Panel
 				value="posts"
 				pt="xs"
-				className="dark:bg-black/70 dark:border-l-black/70 !rounded-md flex !grow"
+				className="dark:bg-black/70 dark:border-l-black/70 bg-coolGrey-1 !rounded-md flex !grow"
 			>
 				{posts.length === 0 ? (
 					<NoChapters

@@ -64,11 +64,11 @@ export const FolderListItem: FC<{
 	);
 
 	const levelColour = [
-		"text-[#7F6B8A] dark:text-[#957DAD]",
-		"text-[#794872] dark:text-[#D291BC]",
-		"text-[#C18FC8] dark:text-[#E0BBE4]",
-		"text-[#F07B98] dark:text-[#FEC8D8]",
-		"text-[#FFA185] dark:text-[#FFAFD4]",
+		"dark:text-[#957DAD]",
+		"dark:text-[#D291BC]",
+		"dark:text-[#E0BBE4]",
+		"dark:text-[#FEC8D8]",
+		"dark:text-[#FFAFD4]",
 	];
 
 	return (

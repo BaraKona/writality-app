@@ -9,7 +9,12 @@ export const SidebarTopNav: FC<{
 	navigate: () => void;
 }> = ({ children, sidebarNav, value, navigate }) => {
 	return (
-		<Tooltip label={value} position="top" withArrow styles={tooltipStyles}>
+		<Tooltip
+			label={<p className="capitalize">{value}</p>}
+			position="top"
+			withArrow
+			styles={tooltipStyles}
+		>
 			<div
 				onClick={navigate}
 				className={`p-1 rounded-lg dark:text-coolGrey-4 bg-coolGrey-1 dark:border-baseDark dark:hover:shadow-none dark:hover:bg-sky-900 dark:hover:border-hoverDark hover:bg-coolGrey-7 hover:text-coolGrey-1 transition-all ease-in-out duration-300 ${

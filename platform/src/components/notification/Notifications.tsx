@@ -8,6 +8,7 @@ import {
 	IconCubeOff,
 	IconCubePlus,
 	IconInbox,
+	IconUserPlus,
 } from "@tabler/icons-react";
 import { SmallText } from "../texts/SmallText";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -37,6 +38,9 @@ export const Notifications: FC<{
 				size={16}
 				className="text-blue-600 dark:text-blue-400"
 			/>
+		),
+		"friend-request": (
+			<IconUserPlus size={16} className="text-lime-600 dark:text-lime-400" />
 		),
 	};
 
@@ -75,7 +79,7 @@ export const Notifications: FC<{
 								)}
 							</li>
 						</Popover.Target>
-						<Popover.Dropdown className="!bg-base dark:!bg-baseDark !border-border dark:!border-borderDark !text-coolGrey-6 dark:!text-coolGrey-4">
+						<Popover.Dropdown className="!bg-base dark:!bg-baseDark !border-border dark:!border-borderDark !text-coolGrey-6 dark:!text-coolGrey-4 !right-0">
 							<div className="flex flex-col gap-2 p-4 text-coolGrey-6 dark:text-coolGrey-4">
 								<p className=" flex gap-4 items-center">
 									{icons[notification.notificationType]}

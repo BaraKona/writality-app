@@ -14,7 +14,7 @@ import {
 	IconRocket,
 	IconInbox,
 	Icon3dCubeSphere,
-	IconMessage,
+	IconUserHeart,
 } from "@tabler/icons-react";
 import { cyclops8, cyclops7 } from "../../assets/icons";
 import { MainFrame } from "../Project";
@@ -31,7 +31,7 @@ import { useLocalStorage } from "@mantine/hooks";
 import { SmallText } from "../texts/SmallText";
 import { useThemeContext } from "../../Providers/ThemeProvider";
 import { IUser } from "../../interfaces/IUser";
-import { Notifications } from "../ListItems/Notifications";
+import { Notifications } from "../notification/Notifications";
 import { useQueryClient } from "react-query";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
@@ -50,7 +50,7 @@ export const Sidebar: FC<{}> = () => {
 	const home = "projects";
 	const collabs = "collaborations";
 	const inbox = "inbox";
-	const messages = "messages";
+	const friends = "friends";
 
 	const [sidebarNav, setSidebarNav] = useLocalStorage({
 		key: "sidebarNav",
@@ -71,7 +71,7 @@ export const Sidebar: FC<{}> = () => {
 
 	return (
 		<aside
-			className="flex h-screen dark:bg-baseDark dark:text-coolGrey-4"
+			className="flex h-[calc(100dvh)] dark:bg-baseDark dark:text-coolGrey-4"
 			aria-label="Sidebar"
 		>
 			<div className="flex overflow-y-auto h-full w-[20rem]">
@@ -97,7 +97,6 @@ export const Sidebar: FC<{}> = () => {
 							)}
 							<div className="font-semibold px-2 text-sm">Writality</div>
 						</div>
-						{/* <Divider className="!border-coolGrey-1 dark:!border-borderDark" /> */}
 					</Link>
 					<div className="flex h-full">
 						<div className="flex-col flex">
@@ -190,10 +189,10 @@ export const Sidebar: FC<{}> = () => {
 								/>
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
-									value={messages}
-									navigate={() => setSidebarNav(messages)}
+									value={friends}
+									navigate={() => setSidebarNav(friends)}
 								>
-									<IconMessage size={18} />
+									<IconUserHeart size={18} />
 								</SidebarTopNav>
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
@@ -242,9 +241,10 @@ export const Sidebar: FC<{}> = () => {
 							{sidebarNav === inbox && (
 								<Notifications notification={currentUser?.inbox} />
 							)}
-							{sidebarNav === messages && (
+							{sidebarNav === friends && (
 								<SmallText className="text-center" light>
-									Your chats will be here when you start chatting with someone.
+									You have no friends. Your friends will appear here and you can
+									chat with them.
 								</SmallText>
 							)}
 						</CategoryListItem>

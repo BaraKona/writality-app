@@ -5,13 +5,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { UserCountryRenderer } from "../../components/UserCountryRenderer";
 import { ReadMoreText } from "../../components/ReadMoreText";
-import { IconChevronLeft, IconClock } from "@tabler/icons-react";
+import { IconChevronLeft, IconClock, IconUserPlus } from "@tabler/icons-react";
 import { IUser } from "../../interfaces/IUser";
 import { SingleUserSection } from "../../components/user/SingleUserSection";
 import { useSingleUserProjects } from "../../hooks/public/usePublicUserProject";
 import { useSingleUserPosts } from "../../hooks/posts/useSingleUserPosts";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useLocalStorage } from "@mantine/hooks";
+import { useSendFriendRequest } from "../../hooks/notification/useSendFriendRequest";
+
+import { Divider } from "@mantine/core";
 
 export const SingleUserPage: FC<{}> = () => {
 	const { userId } = useParams();
@@ -19,6 +22,8 @@ export const SingleUserPage: FC<{}> = () => {
 	const { data: user } = useSingleUser(userId as string);
 	const { data: projects } = useSingleUserProjects(userId as string);
 	const { data: posts } = useSingleUserPosts(userId as string);
+
+	const { mutate: sendFriendRequest } = useSendFriendRequest();
 
 	const maxTextLength = 400;
 	const navigate = useNavigate();
@@ -57,17 +62,17 @@ export const SingleUserPage: FC<{}> = () => {
 
 			<div className="flex w-full">
 				<div className="w-1/2 px-16 pb-6 relative border-r border-border dark:border-borderDark">
-					<div className="right-4 top-4 text-sm flex flex-col gap-2  absolute ">
+					<div className="right-4 top-4 text-sm flex flex-col gap-2 absolute">
 						<div className="flex gap-2 items-center">
 							<IconClock size={20} /> Member since:{" "}
 							{new Date(user.createdAt).toLocaleDateString()}
 						</div>
 						{currentUser && currentUser._id !== user._id ? (
 							<button
-								className="bg-coolGrey-2/70 dark:bg-fuchsia-800/70 dark:hover:bg-fuchsia-800 rounded-lg p-1.5 hover:bg-gray-100"
-								onClick={() => setSidebarNav("messages")}
+								className=" dark:bg-fuchsia-800/70 dark:hover:bg-fuchsia-800 rounded-lg p-1.5 hover:bg-gray-100 self-end"
+								onClick={() => sendFriendRequest(user.uid)}
 							>
-								Message
+								<IconUserPlus size={20} />
 							</button>
 						) : (
 							<button

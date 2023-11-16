@@ -4,6 +4,7 @@ export enum notificationType {
 	projectInvite = "project-invitation",
 	projectRevoke = "project-invitation-revoke",
 	projectAccept = "project-invitation-accept",
+	friendRequest = "friend-request",
 	comment = "comment",
 	reply = "reply",
 	like = "like",

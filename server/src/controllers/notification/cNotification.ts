@@ -104,6 +104,44 @@ export const revokeProjectInvite = async (req: any, res: any) => {
 	}
 };
 
+export const sendFriendRequest = async (req: any, res: any) => {
+	const userId = req.user._id;
+	const { userId: friendId } = req.params;
+	const pusher = initPusher();
+
+	try {
+		const friend = await User.findOne({ uid: friendId });
+		const user = await User.findOne({ _id: userId });
+
+		if (!friend || !user) {
+			return res.status(404).json({ message: "User not found" });
+		}
+
+		const notification = {
+			notificationType: notificationType.friendRequest,
+			notificationBody: `${user.name} has sent you a friend request`,
+			notificationTitle: "Friend request",
+			notificationTime: new Date(),
+			notificationRead: false,
+			active: true,
+			ctaId: user.uid,
+		};
+
+		friend.inbox.push(notification);
+		await friend.save();
+
+		pusher.trigger(`user-${friendId}`, "notification", {
+			notification,
+			userId,
+		});
+
+		res.status(200).json({ message: "Friend request sent successfully." });
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
 export const openNotification = async (req: any, res: any) => {
 	const userId = req.user._id;
 	const { notificationId } = req.params;
