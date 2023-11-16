@@ -159,7 +159,7 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 						</div>
-						<CategoryListItem className="w-full rounded-lg border border-border dark:border-borderDark mt-1.5 h-[calc(100vh-50px)]">
+						<CategoryListItem className="w-full rounded-lg border border-border dark:border-borderDark mt-1.5 h-[calc(100dvh-50px)]">
 							<section className="flex flex-row justify-center gap-1 mb-2">
 								<SidebarTopNav
 									sidebarNav={sidebarNav}

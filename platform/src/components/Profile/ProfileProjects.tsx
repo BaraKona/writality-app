@@ -51,7 +51,7 @@ export const ProfileProjects: FC<{
 
 	if (!projects || projects.length === 0) {
 		return (
-			<div className="border-border dark:border-borderDark border rounded-lg h-[calc(100vh-39rem)] flex content-center items-center">
+			<div className="border-border dark:border-borderDark border rounded-lg h-[calc(100dvh-39rem)] flex content-center items-center">
 				<EmptyItem
 					title="Projects"
 					p1="You do not current have any projects. You may wish to work with other people or create your own project."

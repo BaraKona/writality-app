@@ -19,9 +19,9 @@ export const PostBody: FC<{
 	const blue = "#394251";
 
 	return (
-		<div className="overflow-y-auto h-[calc(100vh-7.6rem)] basis-[60rem] rounded-lg flex-grow">
+		<div className="overflow-y-auto h-[calc(100dvh-7.6rem)] basis-[60rem] rounded-lg flex-grow">
 			<Paper
-				className="relative  h-[calc(100vh-6.6rem)] flex dark:bg-baseDark"
+				className="relative  h-[calc(100dvh-6.6rem)] flex dark:bg-baseDark"
 				// style={{
 				// 	background: post?.theme?.background || "white",
 				// }}

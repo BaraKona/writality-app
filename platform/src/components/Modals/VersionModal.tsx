@@ -73,7 +73,7 @@ export const VersionModal: FC<{
 						<h2 className="text-gray-700 font-medium underline text-md my-2">
 							{currentContent?.title || "Main"}
 						</h2>
-						<div className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 text-xs px-3">
+						<div className="h-[calc(100dvh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 text-xs px-3">
 							<BlockNoteView editor={editor2} />
 						</div>
 					</div>
@@ -81,7 +81,7 @@ export const VersionModal: FC<{
 						<h2 className="text-gray-700 font-medium underline text-md my-2 dark:text-coolGrey-4">
 							{version?.title || version.name}
 						</h2>
-						<div className="h-[calc(100vh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 dark:text-coolGrey-4 text-xs px-3">
+						<div className="h-[calc(100dvh-300px)] min-w-[300px] overflow-y-auto text-coolGrey-7 dark:text-coolGrey-4 text-xs px-3">
 							<BlockNoteView editor={editor} className="!px-0" />
 						</div>
 					</div>

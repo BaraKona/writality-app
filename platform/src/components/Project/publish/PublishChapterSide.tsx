@@ -14,7 +14,7 @@ export const PublishChapterSide: FC<{
 	if (!chapter || !editor)
 		return (
 			<div className="flex flex-col flex-grow px-3 mx-auto w-80 bg-base border border-border dark:border-borderDark rounded-lg">
-				<div className="flex items-center h-[calc(100vh-13rem)]">
+				<div className="flex items-center h-[calc(100dvh-13rem)]">
 					<div className=" flex items-center flex-col gap-5 m-auto flex-wrap">
 						<div className="my-auto">
 							<img src={circle1} alt="circle1" width={200} height={200} />
@@ -36,7 +36,7 @@ export const PublishChapterSide: FC<{
 	editor.isEditable = false;
 	return (
 		<div className="flex flex-col flex-grow  mx-auto w-80 bg-base border border-border dark:border-borderDark rounded-lg">
-			<div className="max-w-4xl mx-auto py-10 h-[calc(100vh-7.5rem)] overflow-y-auto">
+			<div className="max-w-4xl mx-auto py-10 h-[calc(100dvh-7.5rem)] overflow-y-auto">
 				<Textarea
 					placeholder="Title"
 					defaultValue={chapter.content.title}

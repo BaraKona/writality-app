@@ -39,7 +39,7 @@ export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark" my={10} />
 			<div className=" flex-grow-1 flex flex-col justify-between -mx-2">
-				<div className="h-[calc(100vh-17rem)] overflow-y-auto px-4 pl-2">
+				<div className="h-[calc(100dvh-17rem)] overflow-y-auto px-4 pl-2">
 					<ReadMoreText
 						text={post?.collaboration}
 						maxTextLength={200}

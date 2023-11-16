@@ -76,7 +76,7 @@ export const CreatePostSection: FC<{
 					className="!border-coolGrey-1 dark:!border-borderDark"
 				/>
 				<form onSubmit={(e) => createPost(e)}>
-					<div className="flex flex-wrap h-[calc(100vh-14rem)] overflow-y-auto">
+					<div className="flex flex-wrap h-[calc(100dvh-14rem)] overflow-y-auto">
 						<TextInput
 							label="Project Title"
 							placeholder="Project Title"

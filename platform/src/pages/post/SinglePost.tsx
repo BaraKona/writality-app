@@ -39,7 +39,7 @@ export const SinglePost = () => {
 
 	if (isLoading) {
 		return (
-			<div className="h-[calc(100vh-3rem)] place-items-center rounded-lg px-3 py-3">
+			<div className="h-[calc(100dvh-3rem)] place-items-center rounded-lg px-3 py-3">
 				<Breadcrumbs
 					items={[
 						{

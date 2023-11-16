@@ -88,8 +88,8 @@ export const BlockEditor: FC<{
 
 	if (isLoading || !editor || !content)
 		return (
-			<div className="h-[calc(100vh-8.5rem)] w-full border border-border dark:border-borderDark rounded-lg relative">
-				<div className="max-w-screen-md mx-auto p-9 h-[calc(100vh-7.5rem)] overflow-y-auto">
+			<div className="h-[calc(100dvh-8.5rem)] w-full border border-border dark:border-borderDark rounded-lg relative">
+				<div className="max-w-screen-md mx-auto p-9 h-[calc(100dvh-7.5rem)] overflow-y-auto">
 					<Skeleton height={50} width="100%" radius="sm" mb={10} mt={20} />
 					<Skeleton height={10} width="100%" radius="sm" mb={10} mt={20} />
 					<Skeleton height={20} width="100%" radius="sm" mb={3} />
@@ -107,8 +107,8 @@ export const BlockEditor: FC<{
 	editor.isEditable = isEditable ? isEditable : false;
 
 	return (
-		<div className="h-[calc(100vh-8.5rem)] w-full border border-border dark:border-baseDark  rounded-lg relative">
-			<div className="max-w-4xl mx-auto pt-9 h-[calc(100vh-8.7rem)] overflow-y-auto">
+		<div className="h-[calc(100dvh-8.5rem)] w-full border border-border dark:border-baseDark  rounded-lg relative">
+			<div className="max-w-4xl mx-auto pt-9 h-[calc(100dvh-8.7rem)] overflow-y-auto">
 				<Textarea
 					placeholder="Title"
 					defaultValue={content.title}

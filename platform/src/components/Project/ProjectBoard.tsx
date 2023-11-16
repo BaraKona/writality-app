@@ -57,7 +57,7 @@ export const ProjectBoard: FC<{
 					</button>
 				</Tooltip>
 			</div>
-			<div className="overflow-y-auto h-[calc(100vh-10.8rem)]">
+			<div className="overflow-y-auto h-[calc(100dvh-10.8rem)]">
 				<BlockNoteView editor={editor} />
 			</div>
 		</div>

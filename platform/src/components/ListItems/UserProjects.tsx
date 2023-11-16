@@ -1,6 +1,6 @@
 import { IconCubePlus } from "@tabler/icons-react";
 import { IProject } from "../../interfaces/IProject";
-import { Divider, Skeleton, Text } from "@mantine/core";
+import { Divider, Skeleton } from "@mantine/core";
 import { ProjectListItem } from "./ProjectListItem";
 import { FC } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -39,7 +39,7 @@ export const UserProjects: FC<{
 			{projects?.length > 0 && (
 				<section className="grow" ref={parent}>
 					<Divider className="!border-coolGrey-1 dark:!border-borderDark !mb-2 " />
-					<div className="flex gap-1 flex-col grow overflow-y-auto h-[calc(100vh-100px)]">
+					<div className="flex gap-1 flex-col grow overflow-y-auto h-[calc(100dvh-100px)]">
 						{projects?.map((project: IProject, index: number) => {
 							return (
 								<ProjectListItem

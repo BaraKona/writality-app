@@ -24,7 +24,7 @@ export const Chat: FC<{
 				</div>
 			</div>
 			<div className="flex-grow mx-auto border-border dark:border-borderDark max-w-3xl ">
-				<div className="flex flex-col-reverse gap-2 h-[calc(100vh-21.6rem)] overflow-y-auto ">
+				<div className="flex flex-col-reverse gap-2 h-[calc(100dvh-21.6rem)] overflow-y-auto ">
 					<div className="flex flex-grow flex-col justify-end gap-2 px-2">
 						{comments?.map((comment, index) => (
 							<Comment

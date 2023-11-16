@@ -28,7 +28,7 @@ export const EditorWrapper: FC<{
 
 	if (isLoading || !content) {
 		return (
-			<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3.5 h-[calc(100vh-3.75rem)] gap-2 rounded-lg border-border dark:border-borderDark border">
+			<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3.5 h-[calc(100dvh-3.75rem)] gap-2 rounded-lg border-border dark:border-borderDark border">
 				<div className="flex justify-between">
 					<Skeleton height={24} mt={6} width={100} />
 					<Skeleton height={24} mt={6} width={200} />
@@ -89,7 +89,7 @@ export const EditorWrapper: FC<{
 	}
 
 	return (
-		<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3 h-[calc(100vh-3.75rem)] gap-2 rounded-lg border-border dark:border-t dark:border-none dark:border-baseDark border">
+		<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3 h-[calc(100dvh-3.75rem)] gap-2 rounded-lg border-border dark:border-t dark:border-none dark:border-baseDark border">
 			<div className=" flex font-medium gap-2  text-coolGrey-7 items-center">
 				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
 				<Text

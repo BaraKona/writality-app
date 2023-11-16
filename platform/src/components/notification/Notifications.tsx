@@ -47,7 +47,7 @@ export const Notifications: FC<{
 	return (
 		<section ref={parent}>
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark !mb-2" />
-			<div className="h-[calc(100vh-6.5rem)] overflow-y-auto">
+			<div className="h-[calc(100dvh-6.5rem)] overflow-y-auto">
 				{notification?.map((notification: any, index: number) => (
 					<Popover
 						key={index}

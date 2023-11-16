@@ -16,7 +16,7 @@ export const MergeEditor: FC<{
 }> = ({ branch, main, editor, mergeReplace }) => {
 	if (!editor) {
 		return (
-			<div className="flex gap-2 h-[calc(100vh-400px)]">
+			<div className="flex gap-2 h-[calc(100dvh-400px)]">
 				<Skeleton height={400} mt={6} width={400} />
 				<Skeleton height={400} mt={6} width={400} />
 			</div>
@@ -31,14 +31,14 @@ export const MergeEditor: FC<{
 	);
 
 	return (
-		<div className="flex gap-2 flex-col w-full h-[calc(100vh-180px)]">
+		<div className="flex gap-2 flex-col w-full h-[calc(100dvh-180px)]">
 			<BaseEditor
 				editor={editor}
 				chapterTitle={main.title}
 				setTitle={() => console.log("setTitle")}
 				isTitle={true}
 				content={removedContent + branch.content}
-				height="calc(100vh - 220px)"
+				height="calc(100dvh - 220px)"
 				noCounter
 				noBack
 				noBar2

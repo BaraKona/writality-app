@@ -107,7 +107,7 @@ export const ChapterBranches: FC<{
 					<ScrollArea.Autosize
 						styles={{
 							viewport: {
-								maxHeight: "calc(100vh - 156px)",
+								maxHeight: "calc(100dvh - 156px)",
 							},
 						}}
 						scrollbarSize={6}

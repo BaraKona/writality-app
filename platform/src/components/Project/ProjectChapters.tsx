@@ -18,7 +18,7 @@ export const ProjectChapters: FC<{
 	return (
 		<div
 			ref={parent}
-			className="p-2 flex flex-col overflow-auto h-[calc(100vh-15rem)]"
+			className="p-2 flex flex-col overflow-auto h-[calc(100dvh-15rem)]"
 		>
 			{project?.folders
 				?.filter((folder) => !folder.parentId)

@@ -55,7 +55,7 @@ export const ChapterVersions: FC<{
 						scrollbarSize={6}
 						styles={{
 							viewport: {
-								maxHeight: "calc(100vh - 156px)",
+								maxHeight: "calc(100dvh - 156px)",
 							},
 						}}
 					>

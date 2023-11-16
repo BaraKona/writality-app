@@ -33,7 +33,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 	return (
 		<div className="flex">
 			<Tabs
-				className={`w-full !border-none border border-border dark:border-borderDark h-[calc(100vh-8rem)]`}
+				className={`w-full !border-none border border-border dark:border-borderDark h-[calc(100dvh-8rem)]`}
 				defaultValue={primaryRoom.uid}
 				radius={"md"}
 				orientation="vertical"

@@ -22,7 +22,7 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 	}
 
 	return (
-		<div className="border rounded-lg border-border dark:border-borderDark p-2 h-[calc(100vh-8rem)]">
+		<div className="border rounded-lg border-border dark:border-borderDark p-2 h-[calc(100dvh-8rem)]">
 			<InviteUserModal
 				opened={openCollaborator}
 				setOpened={setOpenCollaborator}
@@ -39,7 +39,7 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 			</p>
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark my-2" />
 
-			<div className="flex flex-col h-[calc(100vh-13rem)] overflow-y-auto">
+			<div className="flex flex-col h-[calc(100dvh-13rem)] overflow-y-auto">
 				<Section
 					title="Collaborators"
 					description="Invite collaborators to your project to work faster and collaborate easily together. Manage their permissions to better structure your project."

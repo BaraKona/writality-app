@@ -48,7 +48,7 @@ export const ChapterHistory: FC<{
 					className="px-2"
 					styles={{
 						viewport: {
-							maxHeight: "calc(100vh - 156px)",
+							maxHeight: "calc(100dvh - 156px)",
 						},
 					}}
 				>
