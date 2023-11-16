@@ -10,13 +10,13 @@ export const UserFriends: FC<{}> = () => {
 	const { currentUser } = useAuthContext();
 	const [parent] = useAutoAnimate();
 
-	if (!currentUser?.friends)
+	if (!currentUser?.friends || currentUser?.friends?.length === 0)
 		return (
 			<section className="grow" ref={parent}>
 				<Divider className="!border-coolGrey-1 dark:!border-borderDark !mb-2 " />
 				<SmallText className="text-center" light>
-					You have no friends. Your friends will appear here and you can chat
-					with them.
+					You have no friends 😔. Your friends will appear here (hopefully
+					soonish 🤞) and you can chat with them.
 				</SmallText>
 			</section>
 		);
