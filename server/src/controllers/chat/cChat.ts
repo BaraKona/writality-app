@@ -39,14 +39,12 @@ export const getProjectChat = async (req: any, res: any) => {
 };
 
 export const commentOnChat = async (req: any, res: any) => {
-	const { projectId, chatId } = req.params;
+	const { chatId } = req.params;
 	const userId = req.user._id;
 	const { comment } = req.body;
 
 	try {
-		const chat = await Chat.findOne({
-			$or: [{ _id: chatId }, { uid: chatId, projectId }],
-		});
+		const chat = await Chat.findById(chatId);
 		chat.comments.push({
 			content: comment,
 			date: new Date(),
@@ -56,9 +54,9 @@ export const commentOnChat = async (req: any, res: any) => {
 		});
 		chat.dateUpdated = new Date();
 		await chat.save();
-		console.log(chat);
 		res.status(200).json(chat);
 	} catch (error) {
+		console.log(error);
 		res.status(404).json({ message: error.message });
 	}
 };

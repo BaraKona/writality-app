@@ -25,10 +25,9 @@ export const commentOnChat = async (
 		return null;
 	}
 	try {
-		const { data } = await chatApi.patch(
-			`project/${projectId}/chat/${chatId}/comment`,
-			{ comment }
-		);
+		const { data } = await chatApi.patch(`/comment/${chatId}`, {
+			comment,
+		});
 		return data;
 	} catch (err: any) {
 		console.log(err);

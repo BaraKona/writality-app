@@ -145,7 +145,7 @@ export const MainFrame: FC<{
 	};
 
 	return (
-		<div className="w-[calc(100vw-19rem)]">
+		<div className="w-[calc(100vw-19rem)] min-w-[992px] overflow-auto">
 			<div className="my-1.5 px-2 flex gap-1 content-start items-center">
 				{tabs.map((tab) => (
 					<div

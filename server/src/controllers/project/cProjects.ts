@@ -380,14 +380,9 @@ export const updateProjectType = async (req: any, res: any) => {
 				uid: uuidv4(),
 				name: "General",
 				comments: [],
-				dateCreated: {
-					user: userId,
-					date: new Date(),
-				},
-				dateUpdated: {
-					user: userId,
-					date: new Date(),
-				},
+				users: [userId],
+				dateCreated: new Date(),
+				dateUpdated: new Date(),
 			});
 
 			await newChat.save();

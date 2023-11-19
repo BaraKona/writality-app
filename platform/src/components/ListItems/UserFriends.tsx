@@ -36,7 +36,7 @@ export const UserFriends: FC<{}> = () => {
 						}
 						className={`p-2 py-1 gap-1 transition-all ease-in-out duration-500 cursor-pointer flex items-center text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-md ${
 							chatId === friend?.chat && `bg-coolGrey-1 dark:bg-hoverDark`
-						}}`}
+						}`}
 					>
 						{/* <IconUser size={18} /> */}
 						<div className=" w-7 h-7 rounded-full bg-base dark:bg-baseDark flex items-center justify-center border border-border dark:border-borderDark">

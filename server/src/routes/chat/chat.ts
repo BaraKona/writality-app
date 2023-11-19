@@ -11,11 +11,7 @@ const router = express.Router();
 
 router.get("/project/:projectId", protect, getProjectChat);
 router.get("/user/:chatId", protect, getUserChatById);
-router.patch(
-	"/project/:projectId/chat/:chatId/comment",
-	protect,
-	commentOnChat
-);
+router.patch("/comment/:chatId", protect, commentOnChat);
 router.post("/", protect, createChat);
 
 export default router;

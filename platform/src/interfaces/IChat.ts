@@ -1,6 +1,7 @@
 import { IUser } from "./IUser";
 
 export type IChat = {
+	_id: string;
 	uid: string;
 	projectId: string;
 	owner: string;

@@ -75,7 +75,7 @@ export const Sidebar: FC<{}> = () => {
 			className="flex h-[calc(100dvh)] dark:bg-baseDark dark:text-coolGrey-4"
 			aria-label="Sidebar"
 		>
-			<div className="flex overflow-y-auto h-full w-[20rem]">
+			<div className="flex overflow-y-auto h-full w-[20rem] min-w-[20rem]">
 				<div className="flex flex-col py-2 w-full">
 					<Link to="/">
 						<div className="ml-2 px-1.5 mt-1 mb-1 flex">

@@ -6,6 +6,7 @@ import { inputStyles } from "../../../styles/inputStyles";
 import { initials, initialsColor } from "../../../utils/userIcons";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { getHotkeyHandler } from "@mantine/hooks";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export const Chat: FC<{
 	setComment: React.Dispatch<React.SetStateAction<string>>;
@@ -16,21 +17,29 @@ export const Chat: FC<{
 }> = ({ setComment, comment, comments, sendComment, title }) => {
 	const { currentUser } = useAuthContext();
 
+	const [parent] = useAutoAnimate();
+
 	return (
 		<section className="grow flex flex-col gap-2">
-			<div className=" py-2 px-2 rounded-lg bg-coolGrey-1 dark:bg-hoverDark">
+			<div className=" py-2 px-2 rounded-lg bg-coolGrey-1 dark:bg-baseDarker">
 				<div className="max-w-3xl mx-auto font-bold text-lg dark:text-coolGrey-4">
 					{title}
 				</div>
 			</div>
 			<div className="bg-coolGrey-1/40 dark:bg-black/20 rounded-lg grow flex">
 				<div className="mx-auto max-w-3xl grow flex flex-col">
-					<div className="flex flex-col-reverse gap-2 grow overflow-y-auto ">
-						<div className="flex flex-grow flex-col justify-end gap-2 px-2">
+					<div className="flex flex-col-reverse gap-2 grow">
+						<div
+							className="flex flex-grow flex-col justify-end gap-2 px-2"
+							ref={parent}
+						>
 							{comments?.map((comment, index) => (
 								<Comment
 									comment={comment}
-									previousComment={comments[index - 1] || null}
+									connect={
+										index !== comments.length - 1 &&
+										comment.user.uid === comments[index + 1].user.uid
+									}
 								/>
 							))}
 						</div>
@@ -40,7 +49,7 @@ export const Chat: FC<{
 						</div>
 					</div>
 					<div className="flex gap-3 items-start p-2 shrink-0 ">
-						<div className="w-11 h-10 rounded-full bg-coolGrey-1/70 dark:bg-borderDark flex items-center justify-center">
+						<div className="w-11 h-10 rounded-full bg-base dark:bg-baseDark border border-border dark:border-borderDark flex items-center justify-center">
 							<div
 								className={`font-bold truncate -mt-1 ${initialsColor(
 									currentUser.name
@@ -52,7 +61,7 @@ export const Chat: FC<{
 						<div className="border border-border dark:border-borderDark rounded-lg w-full relative h-40 p-2 bg-base dark:bg-baseDark">
 							<Textarea
 								placeholder="Your message - Shift + Enter to send "
-								className="flex-grow dark:!bg-baseDark"
+								className="flex-grow dark:!bg-baseDark !text-coolGrey-7 dark:!text-coolGrey-4"
 								variant="default"
 								size="md"
 								minRows={4}
@@ -69,9 +78,7 @@ export const Chat: FC<{
 									input: {
 										...inputStyles.input,
 										fontSize: "1rem",
-										// backgroundColor: "#fff !important",
 										border: "none !important",
-										// borderColor: "#ebebeb !important",
 									},
 								}}
 							/>

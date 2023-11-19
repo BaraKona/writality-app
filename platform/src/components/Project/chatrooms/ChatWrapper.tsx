@@ -3,10 +3,9 @@ import { useChatRooms } from "../../../hooks/chatRooms/useChatRooms";
 import { useParams, useSearchParams } from "react-router-dom";
 import { IChat } from "../../../interfaces/IChat";
 import { Chat } from "../collaborators";
-import { Divider, Tabs } from "@mantine/core";
+import { Tabs } from "@mantine/core";
 import { useComment } from "../../../hooks/chatRooms/useComment";
 import { SmallText } from "../../texts/SmallText";
-import { useThemeContext } from "../../../Providers/ThemeProvider";
 
 export const ChatWrapper: FC<{}> = ({}) => {
 	const { project } = useParams<{ project: string }>();
@@ -21,20 +20,18 @@ export const ChatWrapper: FC<{}> = ({}) => {
 	}
 	const primaryRoom = chatRooms[0];
 	if (!searchParams.get("chat")) {
-		setSearchParams(`?chat=${primaryRoom.uid}`);
+		setSearchParams(`?chat=${primaryRoom._id}`);
 	}
 
 	const chatRoomComments = chatRooms?.find(
-		(chatRoom: IChat) => chatRoom.uid === searchParams.get("chat")
+		(chatRoom: IChat) => chatRoom._id === searchParams.get("chat")
 	)?.comments;
-
-	const { theme } = useThemeContext();
 
 	return (
 		<div className="flex">
 			<Tabs
 				className={`w-full !border-none h-[calc(100dvh-8rem)] !justify-center`}
-				defaultValue={primaryRoom.uid}
+				defaultValue={primaryRoom._id}
 				radius={"md"}
 				orientation="vertical"
 				keepMounted={false}
@@ -54,13 +51,13 @@ export const ChatWrapper: FC<{}> = ({}) => {
 				<Tabs.List className="!border-none w-40 !gap-2 mr-2 ">
 					{chatRooms?.map((chatRoom: IChat) => (
 						<Tabs.Tab
-							key={chatRoom.uid}
-							value={chatRoom.uid}
+							key={chatRoom._id}
+							value={chatRoom._id}
 							className="!border-none w-full !rounded-lg enabled:!bg-coolGrey-1 dark:enabled:!bg-hoverDark"
 						>
 							<ChatItem
 								name={chatRoom.name}
-								active={chatRoom.uid === searchParams.get("chat")}
+								active={chatRoom._id === searchParams.get("chat")}
 								latestComment={
 									chatRoom.comments[chatRoom.comments.length - 1]?.content
 								}
@@ -69,7 +66,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 					))}
 				</Tabs.List>
 				<Tabs.Panel
-					value={searchParams.get("chat") || primaryRoom.uid}
+					value={searchParams.get("chat") || primaryRoom._id}
 					className="flex gap-2"
 				>
 					<Chat
@@ -85,7 +82,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 						}}
 						title={
 							chatRooms?.find(
-								(chatRoom: IChat) => chatRoom.uid === searchParams.get("chat")
+								(chatRoom: IChat) => chatRoom._id === searchParams.get("chat")
 							)?.name
 						}
 					/>
