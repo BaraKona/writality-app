@@ -117,7 +117,7 @@ export const FolderListItem: FC<{
 				</div>
 			</Droppable>
 
-			{(openedFolder as string) == folder.uid && (
+			{(openedFolder as string) === folder.uid ? (
 				<div
 					className={` ${
 						small ? "ml-3" : "ml-5"
@@ -171,7 +171,7 @@ export const FolderListItem: FC<{
 						</div>
 					))}
 				</div>
-			)}
+			) : null}
 		</div>
 	);
 };

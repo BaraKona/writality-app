@@ -51,6 +51,7 @@ export type IUser = {
 	friends: {
 		user: IUser;
 		dateAdded: string;
+		chat: string;
 	}[];
 	inbox?: notification[];
 };

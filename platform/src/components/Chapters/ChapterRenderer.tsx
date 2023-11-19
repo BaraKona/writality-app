@@ -8,10 +8,12 @@ import {
 } from "@tabler/icons-react";
 import { inputStyles } from "../../styles/inputStyles";
 import { tooltipStyles } from "../../styles/tooltipStyles";
+import { IProject } from "../../interfaces/IProject";
 
 export const ChapterRenderer: FC<{
 	children: ReactNode;
 	chapterCount: number;
+	project: IProject;
 	isLoading: boolean;
 	createNewChapter: () => void;
 	createNewFolder: (name: string) => void;
@@ -21,8 +23,15 @@ export const ChapterRenderer: FC<{
 	createNewChapter,
 	isLoading,
 	createNewFolder,
+	project,
 }) => {
 	const [name, setName] = useState<string>("");
+
+	function closeAllFolders() {
+		project.folders.forEach((folder) => {
+			localStorage.setItem(`openFolder-project-${folder.uid}`, "");
+		});
+	}
 
 	return (
 		<div className="row-span-6 col-span-6 rounded-lg border border-border dark:border-borderDark">
@@ -87,7 +96,10 @@ export const ChapterRenderer: FC<{
 						withArrow
 						styles={tooltipStyles}
 					>
-						<button className="p-1.5 rounded-md cursor-pointer hover:bg-coolGrey-1 dark:hover:bg-hoverDark">
+						<button
+							className="p-1.5 rounded-md cursor-pointer hover:bg-coolGrey-1 dark:hover:bg-hoverDark"
+							onClick={() => closeAllFolders()}
+						>
 							<IconFolders size={18} />
 						</button>
 					</Tooltip>
@@ -97,9 +109,7 @@ export const ChapterRenderer: FC<{
 				className="
 				!border-coolGrey-1 dark:!border-borderDark"
 			/>
-			{/* <ScrollArea className="" offsetScrollbars scrollbarSize={6}> */}
 			{children}
-			{/* </ScrollArea> */}
 		</div>
 	);
 };

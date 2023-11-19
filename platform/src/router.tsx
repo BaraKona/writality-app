@@ -11,6 +11,7 @@ import { SinglePost } from "./pages/post/SinglePost";
 import { PostCreationPage } from "./pages/post/PostCreationPage";
 import { SettingsPage } from "./pages/Settings/SettingsPage";
 import { UsersPage } from "./pages/Users/UsersPage";
+import { UserChat } from "./pages/UserChat";
 import { SingleUserPage } from "./pages/Users/SingleUserPage";
 
 const dashboardRoutes: RouteObject[] = [
@@ -23,6 +24,10 @@ const dashboardRoutes: RouteObject[] = [
 	{
 		path: "/profile",
 		element: <ProfilePage />,
+	},
+	{
+		path: "chat/:userId/:chatId",
+		element: <UserChat />,
 	},
 	{
 		path: "users/:userId",

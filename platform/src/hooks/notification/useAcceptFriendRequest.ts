@@ -10,7 +10,7 @@ export const useAcceptFriendRequest = () => {
 			acceptFriendRequest(userId, notificationId),
 		{
 			onSuccess: () => {
-				queryClient.invalidateQueries("notifications");
+				queryClient.invalidateQueries("user");
 				useToast("success", "Friend request accepted.");
 			},
 			onError: () => {

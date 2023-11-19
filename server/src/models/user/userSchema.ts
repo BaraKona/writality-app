@@ -56,6 +56,7 @@ export interface IUser {
 	friends?: {
 		user: string;
 		dateAdded: Date;
+		chat?: string;
 	}[];
 }
 const userSchema = new Schema<IUser>({
@@ -130,10 +131,14 @@ const userSchema = new Schema<IUser>({
 		type: [
 			{
 				user: {
-					type: Schema.Types.ObjectId,
+					type: String,
 					ref: "User",
 				},
 				dateAdded: Date,
+				chat: {
+					type: String,
+					ref: "Chat",
+				},
 			},
 		],
 	},

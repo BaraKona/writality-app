@@ -3,13 +3,19 @@ import {
 	createChat,
 	commentOnChat,
 	getProjectChat,
+	getUserChatById,
 } from "../../controllers/chat/cChat";
 import { protect } from "../../middleware/jwtAuth";
 
 const router = express.Router();
 
-router.get("/:projectId", protect, getProjectChat);
-router.patch("/:projectId/chat/:chatId/comment", protect, commentOnChat);
+router.get("/project/:projectId", protect, getProjectChat);
+router.get("/user/:chatId", protect, getUserChatById);
+router.patch(
+	"/project/:projectId/chat/:chatId/comment",
+	protect,
+	commentOnChat
+);
 router.post("/", protect, createChat);
 
 export default router;

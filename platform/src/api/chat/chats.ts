@@ -8,7 +8,7 @@ const chatApi = axios.create({
 
 export const getProjectChat = async (projectId: string) => {
 	try {
-		const { data } = await chatApi.get(`/${projectId}`);
+		const { data } = await chatApi.get(`project/${projectId}`);
 		return data;
 	} catch (err: any) {
 		console.log(err);
@@ -26,9 +26,18 @@ export const commentOnChat = async (
 	}
 	try {
 		const { data } = await chatApi.patch(
-			`/${projectId}/chat/${chatId}/comment`,
+			`project/${projectId}/chat/${chatId}/comment`,
 			{ comment }
 		);
+		return data;
+	} catch (err: any) {
+		console.log(err);
+	}
+};
+
+export const getUserChatById = async (chatId: string) => {
+	try {
+		const { data } = await chatApi.get(`user/${chatId}`);
 		return data;
 	} catch (err: any) {
 		console.log(err);

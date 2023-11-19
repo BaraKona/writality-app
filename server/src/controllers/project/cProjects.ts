@@ -2,7 +2,7 @@ import Project from "../../models/projectSchema";
 import Chapter from "../../models/chapterSchema";
 import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
-import Chat from "../../models/chat/chapterSchema";
+import Chat from "../../models/chat/chatSchema";
 import { createChapter, deleteSingleChapter } from "./cChapters";
 
 import { v4 as uuidv4 } from "uuid";

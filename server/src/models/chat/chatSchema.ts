@@ -9,7 +9,9 @@ interface IChat {
 		user: string;
 		date: Date;
 		content: string;
+		isRead?: boolean;
 	}[];
+	users: string[];
 	dateCreated: Date;
 	dateUpdated: Date;
 }
@@ -25,8 +27,22 @@ const chatSchema = new Schema<IChat>({
 	},
 	projectId: {
 		type: String,
+		required: false,
+	},
+	dateCreated: {
+		type: Date,
 		required: true,
 	},
+	dateUpdated: {
+		type: Date,
+		required: true,
+	},
+	users: [
+		{
+			type: String,
+			ref: "User",
+		},
+	],
 	comments: [
 		{
 			uid: {
@@ -45,6 +61,10 @@ const chatSchema = new Schema<IChat>({
 			content: {
 				type: String,
 				required: true,
+			},
+			isRead: {
+				type: Boolean,
+				required: false,
 			},
 		},
 	],

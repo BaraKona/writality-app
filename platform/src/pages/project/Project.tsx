@@ -231,6 +231,7 @@ export function Project() {
 									chapterCount={chapterCount}
 									createNewChapter={createNewChapter}
 									createNewFolder={createNewFolder}
+									project={currentProject}
 									isLoading={isLoading}
 								>
 									<>

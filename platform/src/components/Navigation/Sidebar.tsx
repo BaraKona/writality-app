@@ -15,6 +15,7 @@ import {
 	IconInbox,
 	Icon3dCubeSphere,
 	IconUserHeart,
+	IconSocial,
 } from "@tabler/icons-react";
 import { cyclops8, cyclops7 } from "../../assets/icons";
 import { MainFrame } from "../Project";
@@ -28,7 +29,6 @@ import { SidebarTopNav } from "./components/SidebarTopNav";
 import { useCreateProject } from "../../hooks/projects/useCreateProject";
 import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useLocalStorage } from "@mantine/hooks";
-import { SmallText } from "../texts/SmallText";
 import { useThemeContext } from "../../Providers/ThemeProvider";
 import { IUser } from "../../interfaces/IUser";
 import { Notifications } from "../notification/Notifications";
@@ -116,6 +116,12 @@ export const Sidebar: FC<{}> = () => {
 									onClick={() => openPages("/posts")}
 								>
 									<IconTemplate size={18} />
+								</CommunityListItem>
+								<CommunityListItem
+									name="Writing Groups"
+									onClick={() => openPages("/writing-group")}
+								>
+									<IconSocial size={18} />
 								</CommunityListItem>
 								<CommunityListItem
 									name="Stories"

@@ -5,10 +5,13 @@ import { Divider } from "@mantine/core";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { IUser } from "../../interfaces/IUser";
 import { initials, initialsColor } from "../../utils/userIcons";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const UserFriends: FC<{}> = () => {
 	const { currentUser } = useAuthContext();
 	const [parent] = useAutoAnimate();
+	const navigate = useNavigate();
+	const { chatId } = useParams();
 
 	if (!currentUser?.friends || currentUser?.friends?.length === 0)
 		return (
@@ -28,7 +31,12 @@ export const UserFriends: FC<{}> = () => {
 				{currentUser?.friends?.map((friend: IUser["friends"][0]) => (
 					<li
 						key={friend?.user?.uid}
-						className="p-2 py-1 gap-1 transition-all ease-in-out duration-500 cursor-pointer flex items-center text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-md"
+						onClick={() =>
+							navigate(`/chat/${friend?.user?.uid}/${friend?.chat}`)
+						}
+						className={`p-2 py-1 gap-1 transition-all ease-in-out duration-500 cursor-pointer flex items-center text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-md ${
+							chatId === friend?.chat && `bg-coolGrey-1 dark:bg-hoverDark`
+						}}`}
 					>
 						{/* <IconUser size={18} /> */}
 						<div className=" w-7 h-7 rounded-full bg-base dark:bg-baseDark flex items-center justify-center border border-border dark:border-borderDark">

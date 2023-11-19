@@ -1,4 +1,4 @@
-import Chat from "../../models/chat/chapterSchema";
+import Chat from "../../models/chat/chatSchema";
 import { v4 as uuidv4 } from "uuid";
 
 export const createChat = async (req: any, res: any) => {
@@ -10,6 +10,18 @@ export const createChat = async (req: any, res: any) => {
 		res.status(201).json(newChat);
 	} catch (error) {
 		res.status(409).json({ message: error.message });
+	}
+};
+export const getUserChatById = async (req: any, res: any) => {
+	const { chatId } = req.params;
+	try {
+		const chat = await Chat.findById(chatId).populate(
+			"comments.user",
+			"name uid"
+		);
+		res.status(200).json(chat);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
 	}
 };
 
@@ -33,14 +45,14 @@ export const commentOnChat = async (req: any, res: any) => {
 
 	try {
 		const chat = await Chat.findOne({
-			projectId,
-			uid: chatId,
+			$or: [{ _id: chatId }, { uid: chatId, projectId }],
 		});
 		chat.comments.push({
 			content: comment,
 			date: new Date(),
 			user: userId,
 			uid: uuidv4(),
+			isRead: false,
 		});
 		chat.dateUpdated = new Date();
 		await chat.save();

@@ -3,6 +3,8 @@ import Project from "../../models/projectSchema";
 import { notificationType } from "../../models/user/userSchema";
 import { initPusher } from "../../../pusherProvider";
 import { collaboratorRole } from "../../models/projectSchema";
+import Chat from "../../models/chat/chatSchema";
+import { v4 as uuidv4 } from "uuid";
 
 export const sendProjectInvite = async (req: any, res: any) => {
 	const { projectId, userId } = req.params;
@@ -106,7 +108,14 @@ export const revokeProjectInvite = async (req: any, res: any) => {
 
 export const sendFriendRequest = async (req: any, res: any) => {
 	const userId = req.user._id;
+	const userUid = req.user.uid;
 	const { userId: friendId } = req.params;
+
+	if (userUid === friendId) {
+		return res
+			.status(400)
+			.json({ message: "You cannot send a friend request to yourself." });
+	}
 	const pusher = initPusher();
 
 	try {
@@ -297,20 +306,31 @@ export const acceptFriendRequest = async (req: any, res: any) => {
 			return res.status(404).json({ message: "User not found" });
 		}
 
-		if (user.friends.some((friend) => friend.user === friend.user)) {
+		if (user.friends.some((fr) => fr.user === friend._id.toString())) {
 			return res
 				.status(400)
 				.json({ message: "You are already friends with this user." });
 		}
 
+		const chat = await Chat.create({
+			name: `${user.name} and ${friend.name}`,
+			comments: [],
+			users: [user._id, friend._id],
+			dateCreated: Date.now(),
+			dateUpdated: Date.now(),
+			uid: uuidv4(),
+		});
+
 		user.friends.push({
 			user: friend._id.toString(),
 			dateAdded: new Date(),
+			chat: chat._id.toString(),
 		});
 
 		friend.friends.push({
 			user: user._id.toString(),
 			dateAdded: new Date(),
+			chat: chat._id.toString(),
 		});
 
 		const notification = {

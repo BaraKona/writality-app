@@ -33,7 +33,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 	return (
 		<div className="flex">
 			<Tabs
-				className={`w-full !border-none border border-border dark:border-borderDark h-[calc(100dvh-8rem)]`}
+				className={`w-full !border-none h-[calc(100dvh-8rem)] !justify-center`}
 				defaultValue={primaryRoom.uid}
 				radius={"md"}
 				orientation="vertical"
@@ -51,7 +51,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 				}}
 				value={searchParams.get("chat") || primaryRoom.uid}
 			>
-				<Tabs.List className="!border border-border dark:border-borderDark rounded-l-md w-64 p-2">
+				<Tabs.List className="!border-none w-40 !gap-2 mr-2 ">
 					{chatRooms?.map((chatRoom: IChat) => (
 						<Tabs.Tab
 							key={chatRoom.uid}
@@ -70,7 +70,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 				</Tabs.List>
 				<Tabs.Panel
 					value={searchParams.get("chat") || primaryRoom.uid}
-					className="flex"
+					className="flex gap-2"
 				>
 					<Chat
 						comments={chatRoomComments}
@@ -89,12 +89,11 @@ export const ChatWrapper: FC<{}> = ({}) => {
 							)?.name
 						}
 					/>
-					<div className=" basis-72 p-4 border-border dark:border-borderDark border rounded-t-normal rounded-tl-none rounded-br">
-						<SmallText>Chat participants</SmallText>
-						<Divider
-							my="xs"
-							className="!border-coolGrey-1 dark:!border-borderDark"
-						/>
+					<div className="basis-72 flex rounded-lg flex-col gap-2">
+						<div className="bg-coolGrey-1 dark:bg-hoverDark rounded-lg p-4 flex items-center justify-between">
+							<SmallText>Chat participants</SmallText>
+						</div>
+						<div className="bg-coolGrey-1 dark:bg-black grow rounded-lg p-4 flex items-center justify-between"></div>
 					</div>
 				</Tabs.Panel>
 			</Tabs>
