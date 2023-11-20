@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import { inputStyles } from "../../styles/inputStyles";
 import { IPost } from "../../interfaces/IPost";
 import { BlueButton } from "../buttons/BlueButton";
+import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const CreatePostSection: FC<{
 	createPost: (e: any) => void;
@@ -70,7 +71,7 @@ export const CreatePostSection: FC<{
 							placeholder="Project Title"
 							className="w-full"
 							variant="default"
-							styles={inputStyles}
+							styles={inputStyles()}
 							onChange={(e) =>
 								setPost({ ...post, projectTitle: e.target.value })
 							}
@@ -81,7 +82,7 @@ export const CreatePostSection: FC<{
 							required
 							className="w-full"
 							variant="default"
-							styles={inputStyles}
+							styles={inputStyles()}
 							onChange={(e) => setPost({ ...post, postTitle: e.target.value })}
 						/>
 
@@ -90,7 +91,7 @@ export const CreatePostSection: FC<{
 							placeholder="Describe your project so people know what you're working on."
 							required
 							className="w-full"
-							styles={inputStyles}
+							styles={inputStyles()}
 							variant="default"
 							maxRows={5}
 							minRows={5}
@@ -103,7 +104,7 @@ export const CreatePostSection: FC<{
 							placeholder="Briefly describe who and what you're looking for."
 							required
 							className="w-full"
-							styles={inputStyles}
+							styles={inputStyles()}
 							variant="default"
 							maxRows={5}
 							minRows={5}

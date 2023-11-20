@@ -117,9 +117,9 @@ export const BlockEditor: FC<{
 					autosize
 					minRows={1}
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 						input: {
-							...inputStyles.input,
+							...inputStyles().input,
 							fontSize: "2.7rem !important",
 							fontWeight: 800,
 							padding: "0 3rem !important",

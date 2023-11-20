@@ -124,9 +124,9 @@ export const ProfileSettings = () => {
 					onChange={(value) => setUserState({ ...userState, interests: value })}
 					className="w-full"
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 						input: {
-							...inputStyles.input,
+							...inputStyles().input,
 							margin: "0",
 						},
 					}}

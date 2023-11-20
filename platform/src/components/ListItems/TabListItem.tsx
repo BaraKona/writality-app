@@ -42,7 +42,7 @@ export const TabListItem: FC<{
 					}}
 					size={10}
 					stroke={3}
-					className={`cursor-pointer hover:black ml-auto text-gray-400 ${
+					className={`cursor-pointer hover:black ml-auto text-coolGrey-4 dark:text-coolGrey-6 ${
 						url === location ? "visible" : "invisible"
 					}`}
 				/>

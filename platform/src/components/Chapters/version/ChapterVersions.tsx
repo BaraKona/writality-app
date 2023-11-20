@@ -5,7 +5,6 @@ import { Divider, ScrollArea, Text } from "@mantine/core";
 import {
 	IconHourglassLow,
 	IconPlus,
-	IconRectangleVertical,
 	IconVersions,
 	IconX,
 } from "@tabler/icons-react";
@@ -38,13 +37,13 @@ export const ChapterVersions: FC<{
 				<ButtonWrapper className="ml-auto">
 					<IconPlus
 						size={14}
-						className="text-gray-400 group-hover:text-black dark:hover:text-coolGrey-1"
+						className="text-coolGrey-4 dark:text-coolGrey-6 group-hover:text-black dark:hover:text-coolGrey-1"
 					/>
 				</ButtonWrapper>
 				<ButtonWrapper onClick={close}>
 					<IconX
 						size={14}
-						className="text-gray-400 group-hover:text-black dark:hover:text-coolGrey-1"
+						className="text-coolGrey-4 dark:text-coolGrey-6 group-hover:text-black dark:hover:text-coolGrey-1"
 					/>
 				</ButtonWrapper>
 			</div>
@@ -70,7 +69,7 @@ export const ChapterVersions: FC<{
 											onClick={() => {
 												setOpen(true), setVersion(version);
 											}}
-											className="group-hover:text-black dark:hover:text-coolGrey-1 text-gray-400 cursor-pointer"
+											className="group-hover:text-black dark:hover:text-coolGrey-1 text-coolGrey-4 dark:text-coolGrey-6 cursor-pointer"
 										>
 											<IconHourglassLow size={18} />
 										</div>

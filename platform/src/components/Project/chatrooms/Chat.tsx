@@ -74,9 +74,9 @@ export const Chat: FC<{
 								])}
 								value={comment}
 								styles={{
-									...inputStyles,
+									...inputStyles(),
 									input: {
-										...inputStyles.input,
+										...inputStyles().input,
 										fontSize: "1rem",
 										border: "none !important",
 									},

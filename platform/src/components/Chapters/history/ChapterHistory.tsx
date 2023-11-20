@@ -35,7 +35,7 @@ export const ChapterHistory: FC<{
 					<ButtonWrapper className="ml-auto" onClick={close}>
 						<IconX
 							size={14}
-							className="text-gray-400 group-hover:text-black dark:hover:text-coolGrey-1"
+							className="text-coolGrey-4 dark:text-coolGrey-6 group-hover:text-black dark:hover:text-coolGrey-1"
 						/>
 					</ButtonWrapper>
 				</div>

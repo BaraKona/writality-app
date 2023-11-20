@@ -49,17 +49,24 @@ export const MergeBranchModal: FC<{
 			>
 				<p className="text-xs mb-3">
 					Merging{" "}
-					<span className="text-gray-400 underline">{currentBranch?.name}</span>{" "}
-					into <span className="text-gray-400 underline">main</span> will
-					replace the main content of your chapter with that of{" "}
+					<span className="text-coolGrey-4 dark:text-coolGrey-6 underline">
+						{currentBranch?.name}
+					</span>{" "}
+					into{" "}
+					<span className="text-coolGrey-4 dark:text-coolGrey-6 underline">
+						main
+					</span>{" "}
+					will replace the main content of your chapter with that of{" "}
 					{currentBranch?.name}. However, do not worry. A copy of your current
 					main will be saved in case you ever want to go back!
 					<br />
 					<br />
-					<span className="text-gray-400 underline">Note:</span> Merging
-					branches will not delete the branch. You can always go back to it
-					later. However, if you want to delete the branch, you can do so in the
-					branch manager.
+					<span className="text-coolGrey-4 dark:text-coolGrey-6 underline">
+						Note:
+					</span>{" "}
+					Merging branches will not delete the branch. You can always go back to
+					it later. However, if you want to delete the branch, you can do so in
+					the branch manager.
 				</p>
 				<BlueButton onClick={() => replaceMain(currentBranch?.content)}>
 					<VscGitMerge size={18} /> Replace Main
@@ -77,7 +84,7 @@ export const MergeBranchModal: FC<{
 						value={position}
 						onChange={setPosition}
 						color="orange"
-						styles={inputStyles}
+						styles={inputStyles()}
 					/>
 					<BlueButton onClick={mergeBranch}>
 						<VscGitMerge size={18} />

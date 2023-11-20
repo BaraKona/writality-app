@@ -1,7 +1,6 @@
 import { Divider, TextInput } from "@mantine/core";
 import { inputStyles } from "../../../styles/inputStyles";
 import { IProject } from "../../../interfaces/IProject";
-import { Dispatch, SetStateAction } from "react";
 
 export const ProjectNameSettings: React.FC<{
 	project: IProject;
@@ -16,7 +15,7 @@ export const ProjectNameSettings: React.FC<{
 				Change the name of project your project.
 			</p>
 			<TextInput
-				styles={{ ...inputStyles }}
+				styles={{ ...inputStyles() }}
 				placeholder="Project name"
 				defaultValue={project?.title}
 				onChange={(e) => setProjectTitle(e.currentTarget.value)}

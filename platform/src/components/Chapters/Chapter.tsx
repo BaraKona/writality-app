@@ -34,7 +34,7 @@ export const Chapter: FC<{
 					size={16}
 					className="group-hover:text-black dark:group-hover:text-coolGrey-3 dark:hover:text-coolGrey-1"
 				/>
-				<p className="text-gray-400 text-xs font-medium group-hover:text-coolGrey-7 dark:group-hover:text-coolGrey-3">
+				<p className="text-coolGrey-4 dark:text-coolGrey-6 text-xs font-medium group-hover:text-coolGrey-7 dark:group-hover:text-coolGrey-3">
 					{chapter.content.title || chapter.title || "Untitled Chapter"}
 				</p>
 			</div>

@@ -1,17 +1,9 @@
-import {
-	Button,
-	Input,
-	Modal,
-	TextInput,
-	useMantineTheme,
-	TypographyStylesProvider,
-} from "@mantine/core";
+import { Button, Modal } from "@mantine/core";
 import React, { FC } from "react";
 import { IconTrash, IconReplace } from "@tabler/icons-react";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { CancelButton } from "../buttons/CancelButton";
 import { CreateChapterButton } from "../buttons";
-import { inputStyles } from "../../styles/inputStyles";
 import { modalStyles } from "../../styles/modalStyles";
 import { useBlockNote, BlockNoteView } from "@blocknote/react";
 import { useThemeContext } from "../../Providers/ThemeProvider";

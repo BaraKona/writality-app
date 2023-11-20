@@ -1,19 +1,15 @@
 import { Link } from "react-router-dom";
-import React, { useRef, useState } from "react";
-import { TextInput, PasswordInput, Button, Divider } from "@mantine/core";
-import { apple, google } from "../../assets/icons";
-import { useAuthContext } from "../../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import React, { useRef } from "react";
+import { TextInput, PasswordInput, Divider } from "@mantine/core";
 import toast from "react-hot-toast";
-import { useToast } from "../../hooks/useToast";
 import { useLogin } from "../../hooks/user/useLogin";
 import { inputStyles } from "../../styles/inputStyles";
 import { BlueButton } from "../buttons/BlueButton";
 import { AuthTitle } from "./AuthTitle";
+
 export default function Login() {
 	const emailRef = useRef<HTMLDivElement>(null) as any;
 	const passwordRef = useRef<HTMLDivElement>(null) as any;
-	const navigate = useNavigate();
 
 	const { mutate: login, isLoading } = useLogin();
 
@@ -42,7 +38,7 @@ export default function Login() {
 					placeholder="your@email.com"
 					className="mb-2"
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 					}}
 				/>
 				<PasswordInput
@@ -50,13 +46,17 @@ export default function Login() {
 					ref={passwordRef}
 					required
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 					}}
+					className="!border-border !dark:border-borderDark mb-2"
 				/>
 				<div className="flex justify-between my-5 text-xs">
-					<p className="text-coolGrey-7"> Forgot Password? </p>
+					<p className="text-coolGrey-7 dark:text-coolGrey-4">
+						{" "}
+						Forgot Password?{" "}
+					</p>
 					<Link to="/auth/reset">
-						<a className="text-gray-400 font-semibold underline cursor-pointer hover:underline-offset-2 ease-in-out duration-300">
+						<a className="text-coolGrey-4 dark:text-coolGrey-6 font-semibold underline cursor-pointer hover:underline-offset-2 ease-in-out duration-300">
 							Reset password
 						</a>
 					</Link>
@@ -73,7 +73,7 @@ export default function Login() {
 			<Link to="/auth/register">
 				<p className="text-center font-medium text-xs text-coolGrey-7">
 					Don&#39;t have an account yet?
-					<span className="underline pl-5 cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-gray-400 font-semibold">
+					<span className="underline pl-5 cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-coolGrey-4 dark:text-coolGrey-6 font-semibold">
 						Create an account
 					</span>
 				</p>

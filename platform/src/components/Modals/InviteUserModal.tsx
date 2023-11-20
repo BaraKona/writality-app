@@ -76,7 +76,7 @@ export const InviteUserModal: FC<{
 						placeholder="Select user"
 						value={value}
 						onChange={(e) => setValue(e.currentTarget.value)}
-						styles={inputStyles}
+						styles={inputStyles()}
 					/>
 				</div>
 				<Button

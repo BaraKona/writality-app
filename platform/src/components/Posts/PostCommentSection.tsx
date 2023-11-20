@@ -1,9 +1,8 @@
 import { FC, useState } from "react";
 import { IPost } from "../../interfaces/IPost";
-import { Avatar, Divider, Textarea } from "@mantine/core";
+import { Divider, Textarea } from "@mantine/core";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { Text } from "@mantine/core";
-import { Form } from "react-router-dom";
 import { inputStyles } from "../../styles/inputStyles";
 import { IconSend } from "@tabler/icons-react";
 import { ReadMoreText } from "../ReadMoreText";
@@ -62,7 +61,7 @@ export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 					className="mt-auto"
 					variant="default"
 					size="sm"
-					styles={inputStyles}
+					styles={inputStyles()}
 					value={comment}
 					onChange={(event) => setComment(event.currentTarget.value)}
 					rightSection={

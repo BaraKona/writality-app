@@ -36,6 +36,8 @@ export interface IUser {
 	password: string;
 	token: string;
 	uid: string;
+	isRegistrationComplete?: boolean;
+	isOnboardingCompleted?: boolean;
 	createdAt: Date;
 	role?: string;
 	favouriteProjects?: string[];
@@ -68,6 +70,14 @@ const userSchema = new Schema<IUser>({
 		type: String,
 		required: true,
 		unique: true,
+	},
+	isRegistrationComplete: {
+		type: Boolean,
+		default: false,
+	},
+	isOnboardingCompleted: {
+		type: Boolean,
+		default: false,
 	},
 	uid: {
 		type: String,

@@ -46,7 +46,7 @@ export function Register() {
 					placeholder="Your Name"
 					label="Name"
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 					}}
 				/>
 				<TextInput
@@ -56,7 +56,7 @@ export function Register() {
 					label="Email Address"
 					type="email"
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 					}}
 				/>
 				<PasswordInput
@@ -94,7 +94,7 @@ export function Register() {
 			<Link to="/auth/login">
 				<p className="text-center text-xs text-coolGrey-7 font-medium ">
 					Already have an account ?
-					<span className="underline pl-5 cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-gray-400 font-semibold">
+					<span className="underline pl-5 cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-coolGrey-4 dark:text-coolGrey-6 font-semibold">
 						Login
 					</span>
 				</p>

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import React from "react";
 import { AuthTitle } from "./AuthTitle";
 import { Divider, TextInput } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
@@ -18,7 +17,7 @@ export function Reset() {
 					type="email"
 					className="mb-4"
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 					}}
 				/>
 				<BlueButton>Reset Password</BlueButton>
@@ -31,7 +30,7 @@ export function Reset() {
 			/>
 			<Link to="/auth/login">
 				<p className="text-center text-xs text-coolGrey-7 font-medium ">
-					<span className="underline cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-gray-400 font-semibold">
+					<span className="underline cursor-pointer hover:underline-offset-2 ease-in-out duration-300 text-coolGrey-4 dark:text-coolGrey-6 font-semibold">
 						&#8592; Back to Login
 					</span>
 				</p>

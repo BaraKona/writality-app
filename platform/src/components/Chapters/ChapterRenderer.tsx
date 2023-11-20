@@ -9,6 +9,7 @@ import {
 import { inputStyles } from "../../styles/inputStyles";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { IProject } from "../../interfaces/IProject";
+import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const ChapterRenderer: FC<{
 	children: ReactNode;
@@ -27,11 +28,7 @@ export const ChapterRenderer: FC<{
 }) => {
 	const [name, setName] = useState<string>("");
 
-	function closeAllFolders() {
-		project.folders.forEach((folder) => {
-			localStorage.setItem(`openFolder-project-${folder.uid}`, "");
-		});
-	}
+	const { theme } = useThemeContext();
 
 	return (
 		<div className="row-span-6 col-span-6 rounded-lg border border-border dark:border-borderDark">
@@ -82,7 +79,7 @@ export const ChapterRenderer: FC<{
 									Folder Name
 								</Menu.Label>
 								<TextInput
-									styles={inputStyles}
+									styles={inputStyles()}
 									className="px-2"
 									onChange={(e) => setName(e.target.value)}
 									error={name.length < 1}

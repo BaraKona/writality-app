@@ -88,7 +88,7 @@ export const ProjectCollaboratorTable: FC<{
 										onChange={(value) => {
 											console.log(value);
 										}}
-										styles={inputStyles}
+										styles={inputStyles()}
 										className="ml-auto pt-2 dark:!border-borderDark"
 									/>
 									<ButtonWrapper

@@ -24,7 +24,7 @@ export const PublishChapterSide: FC<{
 								{" "}
 								Publish chapters{" "}
 							</h3>
-							<p className="w-72 text-gray-400 text-sm mb-3">
+							<p className="w-72 text-coolGrey-4 dark:text-coolGrey-6 text-sm mb-3">
 								Select a chapter to publish to review and publish it. Published
 								chapters will be available to read by the public.
 							</p>
@@ -44,9 +44,9 @@ export const PublishChapterSide: FC<{
 					minRows={1}
 					maxRows={4}
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 						input: {
-							...inputStyles.input,
+							...inputStyles().input,
 							fontSize: "3rem !important",
 							fontWeight: 800,
 							padding: "0 3rem",

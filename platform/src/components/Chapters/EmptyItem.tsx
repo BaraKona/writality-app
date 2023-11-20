@@ -18,7 +18,7 @@ export const EmptyItem: FC<{
 				<div>
 					<h3 className="text-md font-semibold mb-2 "> {title} </h3>
 					<>
-						<p className="w-72 text-gray-400 text-sm mb-3">
+						<p className="w-72 text-coolGrey-4 dark:text-coolGrey-6 text-sm mb-3">
 							{p1}
 							<br /> <br />
 							{p2}
