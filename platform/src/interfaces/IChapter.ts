@@ -1,4 +1,5 @@
 import { IChapterContent } from "./IChapterContent";
+import { IUser } from "./IUser";
 
 export type IChapter = {
 	_id: string;
@@ -19,7 +20,7 @@ export type IChapter = {
 	type: string;
 	history: {
 		date: Date;
-		user: string;
+		user: IUser;
 		action: string;
 	}[];
 };

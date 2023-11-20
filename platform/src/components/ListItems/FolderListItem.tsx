@@ -120,7 +120,7 @@ export const FolderListItem: FC<{
 			{(openedFolder as string) === folder.uid ? (
 				<div
 					className={` ${
-						small ? "ml-3" : "ml-5"
+						small ? "ml-3" : "ml-[1.1rem]"
 					} pl-1 py-1 gap-0.5 flex flex-col border-l border-border dark:border-borderDark`}
 				>
 					{children?.map((folder: IProject["folders"][0], index: number) => (

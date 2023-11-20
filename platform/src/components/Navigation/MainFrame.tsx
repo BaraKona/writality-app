@@ -172,7 +172,7 @@ export const MainFrame: FC<{
 										className="text-neutral-600 dark:text-stone-500"
 									/>
 								))}
-							<span className="ml-0.5 text-xs font-medium  whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
+							<span className="ml-0.5 text-xs font-medium whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
 								{tab.title}
 							</span>
 							<div className="flex gap-0.5 ml-auto">
@@ -210,7 +210,7 @@ export const MainFrame: FC<{
 					)}
 				</div>
 			</div>
-			<section className="h-[calc(100dvh-3rem)] !rounded-lg overflow-y-auto mx-2">
+			<section className="h-[calc(100dvh-3rem)] !rounded-lg overflow-y-auto px-2">
 				{children}
 			</section>
 		</div>

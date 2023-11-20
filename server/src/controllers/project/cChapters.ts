@@ -86,33 +86,32 @@ export const getSingleChapter = async (req: any, res: any) => {
 	const { chapterId, projectId } = req.params;
 	const userId = req.user._id;
 
-	const project = await Project.findOne({
-		$or: [
-			{ owner: userId },
-			{
-				collaborators: {
-					$elemMatch: { uid: userId, active: true },
-				},
-				projectId,
-			},
-		],
-	});
-
-	if (!project) {
-		res.status.res({ message: "You do not have access to this Project" });
-	}
-
 	try {
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, projectId },
+				{
+					collaborators: {
+						$elemMatch: { uid: userId, active: true },
+					},
+					projectId,
+				},
+			],
+		});
+
+		if (!project) {
+			res.status.res({ message: "You do not have access to this Project" });
+		}
 		const chapter = await Chapter.findOne({
 			projectId: projectId,
 			uid: chapterId,
-		});
-		// sort history by date
-		chapter.history = chapter.history.sort((a, b) => {
-			return new Date(b.date).getTime() - new Date(a.date).getTime();
-		});
+		}).populate("history.user", "name uid");
+
+		chapter.history = chapter.history.reverse();
+
 		res.status(200).json(chapter);
 	} catch (error) {
+		console.log(error);
 		res.status(404).json({ message: error.message });
 	}
 };
@@ -124,7 +123,7 @@ export const updateChapterContent = async (req: any, res: any) => {
 
 	const project = await Project.findOne({
 		$or: [
-			{ owner: userId },
+			{ owner: userId, projectId },
 			{
 				collaborators: {
 					$elemMatch: { uid: userId, active: true },
@@ -203,7 +202,7 @@ export const deleteSingleChapter = async (
 ) => {
 	const project = await Project.findOne({
 		$or: [
-			{ owner: userId },
+			{ owner: userId, projectId },
 			{
 				collaborators: {
 					$elemMatch: { uid: userId, active: true },

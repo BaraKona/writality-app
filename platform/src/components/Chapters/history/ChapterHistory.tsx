@@ -1,9 +1,7 @@
 import { FC } from "react";
-import { VscInfo } from "react-icons/vsc";
-import { Timeline, Text, ScrollArea, Divider } from "@mantine/core";
+import { Text, ScrollArea, Divider } from "@mantine/core";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import {
-	IconGitCommit,
 	IconMessageDots,
 	IconFilePlus,
 	IconGitMerge,
@@ -12,7 +10,6 @@ import {
 } from "@tabler/icons-react";
 import { IChapter } from "../../../interfaces/IChapter";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
-import { inputStyles } from "../../../styles/inputStyles";
 import { ChapterSidebarWrapper } from "../ChapterSidebarWrapper";
 
 export const ChapterHistory: FC<{
@@ -25,9 +22,9 @@ export const ChapterHistory: FC<{
 	// const active = history.length <= 1 ? history.length : history.length - 2;
 
 	const historyAction = {
-		created: <IconFilePlus size={12} />,
-		merged: <IconGitMerge size={12} />,
-		updated: <IconRefresh size={12} />,
+		created: <IconFilePlus size={16} />,
+		merged: <IconGitMerge size={16} />,
+		updated: <IconRefresh size={16} />,
 	};
 
 	return (
@@ -52,36 +49,30 @@ export const ChapterHistory: FC<{
 						},
 					}}
 				>
-					<Timeline
-						active={0}
-						bulletSize={24}
-						lineWidth={2}
-						className="py-2"
-						radius="md"
-					>
+					<div className="flex flex-col gap-1">
 						{history?.map((item, index) => (
-							<Timeline.Item
-								lineActive={index === 0}
-								key={index}
-								bullet={
-									// @ts-ignore
-									historyAction[item.action] || <IconMessageDots size={12} />
-								}
-								title={`Chapter ${item.action}`}
-								className="text-coolGrey-7 text-xs font-medium pt-1"
-							>
-								<Text color="dimmed" size="xs">
-									Chapter was {item.action} by{" "}
-									<Text variant="link" component="span" inherit>
-										{item.user.substring(0, 5)}
+							<div className="relative flex gap-2 p-2">
+								<div
+									className="min-w-[1rem] rounded-md mt-1 bg-orange-400 text-black p-1 self-start
+								"
+								>
+									{historyAction[item.action] || <IconMessageDots size={16} />}
+								</div>
+
+								<div>
+									<Text color="dimmed" size="xs">
+										Chapter was {item.action} by{" "}
+										<Text variant="link" component="span" inherit>
+											{item.user?.name}
+										</Text>
 									</Text>
-								</Text>
-								<Text size="xs" mt={4}>
-									{useTimeFromNow(item.date.toString())}
-								</Text>
-							</Timeline.Item>
+									<Text size="xs" mt={4}>
+										{useTimeFromNow(item.date.toString())}
+									</Text>
+								</div>
+							</div>
 						))}
-					</Timeline>
+					</div>
 				</ScrollArea.Autosize>
 			</div>
 		</ChapterSidebarWrapper>

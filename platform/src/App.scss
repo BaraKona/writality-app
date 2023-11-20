@@ -54,6 +54,7 @@ a {
 		background-color: #ffff !important;
 	}
 }
+
 textarea:focus,
 input:focus,
 input:active {
@@ -106,13 +107,13 @@ select:active {
 	margin: 0 auto;
 }
 *::-webkit-scrollbar {
-	width: 10px;
+	width: 8px;
 }
 *::-webkit-scrollbar-track {
-	background: #fffff5; /* color of the tracking area */
+	background: transparent !important; /* color of the tracking area */
 }
 *::-webkit-scrollbar-thumb {
-	background-color: #525252; /* color of the scroll thumb */
+	background-color: #9ca3af !important; /* color of the scroll thumb */
 	border-radius: 20px; /* roundness of the scroll thumb */
-	border: 3px solid #525252; /* creates padding around scroll thumb */
+	border: 3px solid #9ca3af !important; /* creates padding around scroll thumb */
 }

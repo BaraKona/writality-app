@@ -1,17 +1,9 @@
 import { useState } from "react";
-import {
-	EditorWrapper,
-	ChapterEditorController,
-} from "../../components/Editor";
+import { EditorWrapper } from "../../components/Editor";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { Loading } from "../../components/Loading";
 import { CreateBranchModal } from "../../components/Modals/CreateBranchModal";
-import {
-	getSingleChapter,
-	mergePositionMain,
-	mergeReplaceMain,
-} from "../../api/project/chapters";
+import { getSingleChapter } from "../../api/project/chapters";
 import {
 	getAllChapterVersions,
 	deleteSingleChapterVersion,
@@ -19,8 +11,6 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import {
-	createBranch,
-	getAllBranches,
 	getSingleBranch,
 	updateBranch,
 	deleteBranch,
@@ -29,24 +19,17 @@ import {
 	UpdateContentModal,
 	DeleteModal,
 	VersionModal,
-	AdvancedMergeModal,
 } from "../../components/Modals";
-import { branchCreator, useAppendHistory } from "../../hooks";
 import { useMergeReplace } from "../../hooks/chapter/useMergeReplace";
-import { useEditor } from "@tiptap/react";
-import { extensions } from "../../components/Editor/utils/editorExtensions";
 import { ChapterBranchMenu } from "../../components/Chapters/branch/ChapterBranchMenu";
 import { ChapterVersionMenu } from "../../components/Chapters/version/ChapterVersionMenu";
 import { ChapterHistoryMenu } from "../../components/Chapters/history/ChapterHistoryMenu";
-import { ChapterSettingsMenu } from "../../components/Chapters/settings/ChapterSettingsMenu";
 import { ChapterSidebar } from "../../components/Chapters/ChapterSidebar";
 import { ChapterVersionButton } from "../../components/Chapters/version/ChapterVersionButton";
 import { ChapterHistoryButton } from "../../components/Chapters/history/ChapterHistoryButton";
 import { ChapterBranchButton } from "../../components/Chapters/branch/ChapterBranchButton";
 import { useUpdateChapterContent } from "../../hooks/chapter/useUpdateChapterContent";
-import { ChapterSettingsButton } from "../../components/Chapters/settings/ChapterSettingsButton";
 import { useLocalStorage } from "@mantine/hooks";
-import { MergeEditor } from "../../components/Editor/MergeEditor";
 import { BlockEditor } from "../../components/Editor/BlockEditor";
 import { useCreateChapterBranch } from "../../hooks/chapter/useCreateChapterBranch";
 import { MergeBlockEditor } from "../../components/Editor/MergeBlockEditor";
@@ -54,7 +37,6 @@ import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChapterMergeButton } from "../../components/Chapters/merge/ChapterMergeButton";
 import { MergeBranchModal } from "../../components/Chapters/merge/MergeChapterMondal";
 import { Divider } from "@mantine/core";
-import { useBlockNote } from "@blocknote/react";
 
 export const Chapter = () => {
 	const navigate = useNavigate();

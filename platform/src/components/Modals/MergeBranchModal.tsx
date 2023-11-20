@@ -1,21 +1,10 @@
-import {
-	Button,
-	Input,
-	Modal,
-	TextInput,
-	useMantineTheme,
-	Select,
-	Space,
-} from "@mantine/core";
-import React, { FC, useState } from "react";
+import { Modal, Select, Space } from "@mantine/core";
+import React, { FC } from "react";
 import { VscGitMerge, VscGitCompare } from "react-icons/vsc";
-import { IconChevronDown, IconChevronRight } from "@tabler/icons-react";
-import { IChapterContent } from "../../interfaces/IChapterContent";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { modalStyles } from "../../styles/modalStyles";
 import { BlueButton } from "../buttons/BlueButton";
 import { inputStyles } from "../../styles/inputStyles";
-import { ButtonWrapper } from "../buttons/ButtonWrapper";
 import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const MergeBranchModal: FC<{

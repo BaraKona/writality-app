@@ -51,21 +51,15 @@ export const PostCreationPage: FC<{}> = () => {
 	];
 
 	return (
-		<div className="h-[calc(100dvh-2.7rem)] place-items-center rounded-lg bg-base px-3 py-3">
-			<Breadcrumbs items={breadcrumbs} />
-			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" />
-			<div className="flex gap-3">
-				<PostBody post={post} addFavourite={() => {}} />
-				<Divider
-					className=" border-border dark:border-borderDark"
-					orientation="vertical"
-				/>
-				<CreatePostSection
-					createPost={createPost}
-					setPost={setPost}
-					post={post}
-				/>
-			</div>
+		<div className="h-[calc(100dvh-3rem)] rounded-lg py-3 flex gap-2">
+			{/* <Breadcrumbs items={breadcrumbs} />
+			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" /> */}
+			<PostBody post={post} addFavourite={() => {}} />
+			<CreatePostSection
+				createPost={createPost}
+				setPost={setPost}
+				post={post}
+			/>
 		</div>
 	);
 };

@@ -39,7 +39,7 @@ export const ProjectBoard: FC<{
 	return (
 		<div className="flex flex-col flex-grow p-1 border border-border dark:border-borderDark rounded-lg">
 			<div className="flex justify-between items-center">
-				<h3 className=" text-coolGrey-7 dark:text-coolGrey-4 font-medium text-sm flex gap-2">
+				<h3 className=" text-coolGrey-7 dark:text-coolGrey-4 font-medium text-sm flex gap-2 px-4">
 					<IconClipboard size={20} />
 					Board
 				</h3>

@@ -1,21 +1,9 @@
-import {
-	Button,
-	Chip,
-	Input,
-	Modal,
-	TextInput,
-	useMantineTheme,
-	Text,
-	Textarea,
-	Flex,
-	Divider,
-	ColorInput,
-} from "@mantine/core";
+import { Chip, TextInput, Text, Textarea, Flex, Divider } from "@mantine/core";
 import React, { FC } from "react";
-import { IconDatabase } from "@tabler/icons-react";
 import { inputStyles } from "../../styles/inputStyles";
 import { IPost } from "../../interfaces/IPost";
 import { BlueButton } from "../buttons/BlueButton";
+
 export const CreatePostSection: FC<{
 	createPost: (e: any) => void;
 	setPost: React.Dispatch<React.SetStateAction<IPost>>;
@@ -63,7 +51,7 @@ export const CreatePostSection: FC<{
 		{ value: "Other", title: "Other" },
 	];
 	return (
-		<div className="overflow-y-auto basis-[26rem]">
+		<div className="overflow-y-auto basis-[30rem] bg-coolGrey-1 dark:bg-baseDarker rounded-lg p-4">
 			<div className="px-1 ">
 				<div className="border-t-stone-800 font-normal text-xs">
 					The best way to find people is to put yourself out there. Feel free to
@@ -202,7 +190,7 @@ export const CreatePostSection: FC<{
 								</Flex>
 							</Chip.Group>
 						</div>
-						<Divider
+						{/* <Divider
 							my="xs"
 							className="!border-coolGrey-1 dark:!border-borderDark"
 						/>
@@ -267,7 +255,7 @@ export const CreatePostSection: FC<{
 									})
 								}
 							/>
-						</div>
+						</div> */}
 					</div>
 					<div className="mt-5">
 						<BlueButton>Create Post</BlueButton>

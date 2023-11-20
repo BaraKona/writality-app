@@ -73,6 +73,7 @@ const chapterSchema = new Schema<Chapter>({
 		user: {
 			type: String,
 			required: false,
+			ref: "User",
 		},
 		date: {
 			type: Date,
@@ -88,6 +89,7 @@ const chapterSchema = new Schema<Chapter>({
 			user: {
 				type: String,
 				required: true,
+				ref: "User",
 			},
 			action: {
 				type: String,
@@ -125,6 +127,7 @@ const chapterSchema = new Schema<Chapter>({
 			user: {
 				type: String,
 				required: true,
+				ref: "User",
 			},
 			date: {
 				type: Date,
@@ -138,6 +141,7 @@ const chapterSchema = new Schema<Chapter>({
 		chapterId: {
 			type: String,
 			required: true,
+			ref: "Chapter",
 		},
 		wordCount: {
 			type: Number,

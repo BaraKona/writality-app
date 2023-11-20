@@ -21,7 +21,7 @@ export const Chapter: FC<{
 
 	return (
 		<div
-			className="flex gap-3 dark:hover:bg-hoverDark hover:bg-coolGrey-1 rounded-md border-border bg-base dark:bg-baseDark dark:border-borderDark cursor-default py-1 px-2.5 items-center mb-1"
+			className="flex gap-3 dark:hover:bg-hoverDark hover:bg-coolGrey-1 rounded-md border-border bg-base dark:bg-baseDark dark:border-borderDark cursor-default py-1 px-2.5 items-center"
 			{...attributes}
 			ref={setNodeRef}
 			style={style}

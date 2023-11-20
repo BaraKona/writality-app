@@ -133,12 +133,11 @@ export function Project() {
 			/>
 			<ProjectWrapper tab={projectTab || "overview"}>
 				<Tabs
-					className="border-none important:border-none h-[calc(100dvh-12.2rem)] w-full !px-2"
+					className="border-none important:border-none w-full "
 					value={projectTab}
 					onTabChange={(tab) => navigate(`/project/${project}/${tab}`)}
 					defaultValue="overview"
 					radius={"md"}
-					// styles={tabStyles}
 					keepMounted={false}
 				>
 					<Tabs.List className="flex !items-center !border-none !gap-2">

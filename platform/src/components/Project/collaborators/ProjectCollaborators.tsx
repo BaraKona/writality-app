@@ -22,7 +22,7 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 	}
 
 	return (
-		<div className="border rounded-lg border-border dark:border-borderDark p-2 h-[calc(100dvh-8rem)]">
+		<div className="rounded-lg p-4 h-[calc(100dvh-8rem)] bg-coolGrey-0 dark:bg-black">
 			<InviteUserModal
 				opened={openCollaborator}
 				setOpened={setOpenCollaborator}
@@ -37,9 +37,8 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 			<p className="text-coolGrey-5 text-sm pb-4">
 				Manage collaborators and their permissions here
 			</p>
-			<Divider className="!border-coolGrey-1 dark:!border-borderDark my-2" />
 
-			<div className="flex flex-col h-[calc(100dvh-13rem)] overflow-y-auto">
+			<div className="flex flex-col h-[calc(100dvh-14rem)] overflow-y-auto gap-4 px-4">
 				<Section
 					title="Collaborators"
 					description="Invite collaborators to your project to work faster and collaborate easily together. Manage their permissions to better structure your project."
@@ -55,7 +54,7 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 						emptyText="You have no collaborators. Invite collaborators to your project to monitor and view the progress of your project. They will not be able to edit or modify your project."
 					/>
 				</Section>
-				<Divider className="!border-coolGrey-1 dark:!border-borderDark my-2" />
+
 				<Section
 					title="Guest Accounts"
 					description="Invite guests to monitor and view the progress of your project. They will not be able to edit or modify your project."
@@ -74,7 +73,6 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 					/>
 				</Section>
 
-				<Divider className="!border-coolGrey-1 dark:!border-borderDark my-2" />
 				<Section
 					title="Pending Invites"
 					description="Manage your pending invites here. You can resend or cancel them entirely."
@@ -98,7 +96,7 @@ const Section: FC<{
 	button?: ReactNode;
 }> = ({ title, description, children, button }) => {
 	return (
-		<div className="w-full  flex gap-4 p-4 py-10 justify-between">
+		<div className="w-full  flex gap-4 p-4 py-10 justify-between  dark:bg-baseDarker rounded-lg bg-base">
 			<div className="basis-96 ">
 				<h3 className="text-coolGrey-7 dark:text-coolGrey-4 font-medium text-sm flex gap-2 mb-5">
 					{title}
