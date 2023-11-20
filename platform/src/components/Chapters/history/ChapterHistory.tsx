@@ -56,6 +56,7 @@ export const ChapterHistory: FC<{
 									className="min-w-[1rem] rounded-md mt-1 bg-orange-400 text-black p-1 self-start
 								"
 								>
+									{/**@ts-ignore */}
 									{historyAction[item.action] || <IconMessageDots size={16} />}
 								</div>
 
