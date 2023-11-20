@@ -1,14 +1,17 @@
 import { RouterProvider } from "react-router-dom";
 import { TabContextWrapper } from "./contexts/TabContext";
-import { publicRouter, router } from "./router";
+import {
+	onboardingRouter,
+	publicRouter,
+	router,
+	verificationRouter,
+} from "./router";
 import { MainLoader } from "./components/MainLoader";
 import { useUser } from "./hooks/user/useUser";
 import { EditorContextWrapper } from "./contexts/EditorContext";
 import { DraggableProvider } from "./components/DragAndDrop/DraggableProvider";
 import { SocketProvider } from "./Providers/SocketProvider";
-import { useQueryClient } from "react-query";
-import { useEffect, useState } from "react";
-import { initPusher } from "./api/external/pusher";
+
 export function AuthenticatedApp({}) {
 	const { data: currentUser, isLoading } = useUser();
 
@@ -18,6 +21,18 @@ export function AuthenticatedApp({}) {
 
 	if (!currentUser) {
 		return <RouterProvider router={publicRouter} />;
+	}
+
+	if (currentUser && !currentUser.emailVerified) {
+		return <RouterProvider router={verificationRouter} />;
+	}
+
+	if (
+		currentUser &&
+		currentUser.emailVerified &&
+		!currentUser.isOnboardingCompleted
+	) {
+		return <RouterProvider router={onboardingRouter} />;
 	}
 
 	return (

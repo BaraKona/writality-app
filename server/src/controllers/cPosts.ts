@@ -1,7 +1,7 @@
 import User from "../models/user/userSchema";
 import Posts from "../models/postSchema";
 import { v4 as uuidv4 } from "uuid";
-import { initPusher } from "../../pusherProvider";
+import { initPusher } from "../pusherProvider";
 
 export const getPosts = async (req: any, res: any) => {
 	try {

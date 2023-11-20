@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>Verify Email</title>
+	</head>
+
+	<body>
+		<section
+			style="
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: #4b5563;
+				padding: 2rem;
+				height: 5rem;
+			"
+		>
+			<img
+				src="https://res.cloudinary.com/dqyxzkzzt/image/upload/v1700519513/cyclops_9_kc1owr.svg"
+				alt="writality"
+				style="width: 5rem; height: 5rem"
+			/>
+			<h1
+				style="
+					color: #fff;
+					margin-left: 1rem;
+					font-family: 'Poppins', sans-serif;
+					font-weight: 600;
+					font-size: 2rem;
+				"
+			>
+				Writality
+			</h1>
+		</section>
+		<p>Hi {{ $user->name }},</p>
+		<p>Thanks for creating an account with the verification demo app.</p>
+		<p>Please follow the link below to verify your email address</p>
+		<a href="{{ route('verify', $user->verification_token) }}">Verify Email</a>
+	</body>
+</html>

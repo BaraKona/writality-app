@@ -1,11 +1,10 @@
 import User from "../models/user/userSchema";
 import Project from "../models/projectSchema";
-import jwt from "jsonwebtoken";
+import { emailToken, transporter, verifyEmailToken } from "../nodemailer";
 import { v4 as uuidv4 } from "uuid";
-const bcrypt = require("bcrypt");
-import generateToken from "../middleware/jwtGenerateToken";
 
-const tokenDuration = 86400; // 24 hours
+import generateToken from "../middleware/jwtGenerateToken";
+const bcrypt = require("bcrypt");
 
 export const createUser = async (req: any, res: any) => {
 	const { name, email, password } = req.body;
@@ -252,6 +251,68 @@ export const addbookmarks = async (req: any, res: any) => {
 				res.status(200).json({ message: "Tab favourited successfully." });
 			}
 		}
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const sendVerificationEmail = async (req: any, res: any) => {
+	const userId = req.user._id;
+
+	try {
+		const user = await User.findById(userId);
+
+		if (!user) {
+			res.status(404).json({ message: "User not found." });
+		}
+
+		if (user.emailVerified) {
+			res.status(200).json({ message: "Email already verified." });
+		}
+
+		const token = emailToken(user.email);
+
+		const mailOptions = {
+			from: process.env.EMAIL,
+			to: user.email,
+			subject: `Hey ${user.name}, here is your verification link`,
+			html: `<h1>Verify your Writality account</h1>
+			<p>Click the link below to verify your email and get started</p>
+			<a href="${process.env.PLATFORM_URL}/verify-email?token=${token}">Verify Email</a>
+			<p>Thanks for joining Writality!</p>
+			<p>Writality Team</p>`,
+		};
+
+		transporter.sendMail(mailOptions, (err: any, info: any) => {
+			if (err) {
+				console.log(err);
+			}
+		});
+
+		res.status(200).json({ message: "Email sent successfully." });
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const verifyEmail = async (req: any, res: any) => {
+	const { token } = req.body;
+
+	try {
+		const email = verifyEmailToken(token);
+
+		const user = await User.findOne({ email });
+
+		if (!user) {
+			res.status(404).json({ message: "User not found." });
+		}
+
+		user.emailVerified = true;
+
+		await user.save();
+
+		res.status(200).json({ message: "Email verified successfully." });
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}

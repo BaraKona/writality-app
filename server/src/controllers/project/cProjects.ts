@@ -7,7 +7,7 @@ import { createChapter, deleteSingleChapter } from "./cChapters";
 
 import { v4 as uuidv4 } from "uuid";
 import User from "../../models/user/userSchema";
-import { initPusher } from "../../../pusherProvider";
+import { initPusher } from "../../pusherProvider";
 
 export const createProject = async (req: any, res: any) => {
 	const userId = req.user._id;

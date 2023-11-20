@@ -6,8 +6,6 @@ import React, {
 	useEffect,
 } from "react";
 
-import { getUser } from "../api/user";
-
 type AuthContextType = {
 	currentUser: any;
 	setCurrentUser: React.Dispatch<React.SetStateAction<any>>;
@@ -33,12 +31,12 @@ export function AuthContextWrapper({ children }: { children: ReactNode }) {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const getCurrentUser = async () => {
-			const user = await getUser();
-			setCurrentUser(user);
-			setIsLoading(false);
-		};
-		getCurrentUser();
+		// const getCurrentUser = async () => {
+		// 	const user = await getUser();
+		// 	setCurrentUser(user);
+		// 	setIsLoading(false);
+		// };
+		// getCurrentUser();
 	}, []);
 	const sharedState = {
 		currentUser,

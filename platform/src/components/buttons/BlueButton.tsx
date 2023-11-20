@@ -5,18 +5,20 @@ export const BlueButton: FC<{
 	onClick?: () => void;
 	disabled?: boolean;
 	children: ReactNode;
-}> = ({ onClick, children, disabled }) => {
+	isLoading?: boolean;
+}> = ({ onClick, children, disabled, isLoading }) => {
 	const { theme } = useThemeContext();
 	return (
 		<Button
+			loading={isLoading}
 			disabled={disabled}
 			type="submit"
 			onClick={onClick}
-			className="w-full flex gap-2"
+			className="w-full flex gap-2 dark:!bg-sky-800 dark:text-coolGrey-1 !bg-coolGrey-6 hover:!bg-coolGrey-7"
 			size="xs"
 			w="100%"
-			variant={theme === "dark" ? "outline" : "filled"}
-			color={theme === "dark" ? "cyan" : "greyBlue"}
+			variant="filled"
+			color="grey"
 		>
 			{children}
 		</Button>

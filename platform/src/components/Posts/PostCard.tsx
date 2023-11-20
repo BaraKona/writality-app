@@ -1,21 +1,7 @@
 import { FC } from "react";
 import { IPost } from "../../interfaces/IPost";
-import {
-	Image,
-	Text,
-	Badge,
-	Button,
-	Group,
-	ScrollArea,
-	Title,
-	Divider,
-	Paper,
-	Card,
-} from "@mantine/core";
-import { Project } from "../../pages/project";
+import { Image, Text, Badge, Group, Card } from "@mantine/core";
 import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
-import { BlueButton } from "../buttons/BlueButton";
-import { IconEye } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../Providers/ThemeProvider";
 import {

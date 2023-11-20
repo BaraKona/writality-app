@@ -66,7 +66,7 @@ export function Register() {
 					required
 					label="Password"
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 					}}
 				/>
 				<PasswordInput
@@ -77,7 +77,7 @@ export function Register() {
 					label="Confirm Password"
 					className="mb-5"
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 					}}
 				/>
 				<BlueButton>

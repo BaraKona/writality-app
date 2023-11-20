@@ -13,13 +13,15 @@ import { SettingsPage } from "./pages/Settings/SettingsPage";
 import { UsersPage } from "./pages/Users/UsersPage";
 import { UserChat } from "./pages/UserChat";
 import { SingleUserPage } from "./pages/Users/SingleUserPage";
+import { VerifyEmailPage } from "./pages/auth/VerifyEmailPage";
+import { VerifiedPage } from "./pages/auth/VerifiedPage";
+import { OnboardingPage } from "./pages/onboarding/OnboardingPage";
 
 const dashboardRoutes: RouteObject[] = [
-	{
-		path: "*", // catch all routes
-		// redirect to '/' if route does not exist
-		loader: () => redirect("/"),
-	},
+	// {
+	// 	path: "*", // catch all routes
+	// 	loader: () => redirect("/"),
+	// },
 	{ path: "/", loader: () => redirect("/profile") },
 	{
 		path: "/profile",
@@ -96,9 +98,37 @@ export const router = createBrowserRouter([
 	},
 ]);
 
+export const verificationRouter = createBrowserRouter([
+	{ path: "*", loader: () => redirect("/verification") },
+
+	{
+		path: "/verification",
+		element: <VerifyEmailPage />,
+	},
+	{
+		path: "/verify-email/",
+		element: <VerifiedPage />,
+	},
+	{
+		path: "*",
+		element: <FourOFour />,
+	},
+]);
+
+export const onboardingRouter = createBrowserRouter([
+	{ path: "/", loader: () => redirect("/onboarding") },
+	{
+		path: "/onboarding",
+		element: <OnboardingPage />,
+	},
+	{
+		path: "*",
+		loader: () => redirect("/onboarding"),
+	},
+]);
+
 export const publicRouter = createBrowserRouter([
 	{ path: "/", loader: () => redirect("/auth/login") },
-	// if errorElement route does not exist, it will redirect to /
 	{
 		path: "*",
 		element: <FourOFour />,

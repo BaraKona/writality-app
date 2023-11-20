@@ -89,3 +89,13 @@ export const addbookmarks = async ({
 	const { data } = await userApi.post("/favourites/tabs", { type, url, name });
 	return data;
 };
+
+export const sendVerificationEmail = async () => {
+	const { data } = await userApi.post("/email/send-verification");
+	return data;
+};
+
+export const verifyUser = async (token: string) => {
+	const { data } = await userApi.post("/email/verify", { token });
+	return data;
+};
