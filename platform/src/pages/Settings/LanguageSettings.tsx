@@ -60,7 +60,7 @@ export const LanguageSettings = () => {
 						setUserState({ ...userState, primaryLanguage: value as string })
 					}
 					className="w-full"
-					styles={inputStyles}
+					styles={inputStyles()}
 					data={languages}
 					searchable
 					nothingFound="Nothing found"

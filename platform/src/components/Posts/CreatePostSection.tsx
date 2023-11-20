@@ -3,7 +3,6 @@ import React, { FC } from "react";
 import { inputStyles } from "../../styles/inputStyles";
 import { IPost } from "../../interfaces/IPost";
 import { BlueButton } from "../buttons/BlueButton";
-import { useThemeContext } from "../../Providers/ThemeProvider";
 
 export const CreatePostSection: FC<{
 	createPost: (e: any) => void;
@@ -199,7 +198,7 @@ export const CreatePostSection: FC<{
 							<div className="flex gap-2">
 								<ColorInput
 									label="Time Colour"
-									styles={inputStyles}
+									styles={inputStyles()}
 									format="hexa"
 									onChange={(value) =>
 										setPost({
@@ -210,7 +209,7 @@ export const CreatePostSection: FC<{
 								/>
 								<ColorInput
 									label="Project title Colour"
-									styles={inputStyles}
+									styles={inputStyles()}
 									format="hexa"
 									onChange={(value) =>
 										setPost({
@@ -223,7 +222,7 @@ export const CreatePostSection: FC<{
 							<div className="flex gap-2">
 								<ColorInput
 									label="Post title Colour"
-									styles={inputStyles}
+									styles={inputStyles()}
 									format="hexa"
 									onChange={(value) =>
 										setPost({
@@ -234,7 +233,7 @@ export const CreatePostSection: FC<{
 								/>
 								<ColorInput
 									label="Text Colour"
-									styles={inputStyles}
+									styles={inputStyles()}
 									format="hexa"
 									onChange={(value) =>
 										setPost({
@@ -247,7 +246,7 @@ export const CreatePostSection: FC<{
 							<ColorInput
 								className="w-full"
 								label="Background Color"
-								styles={inputStyles}
+								styles={inputStyles()}
 								format="hexa"
 								onChange={(value) =>
 									setPost({

@@ -100,7 +100,7 @@ export const ProfileSettings = () => {
 					placeholder="Username"
 					defaultValue={user?.name}
 					className="w-full"
-					styles={inputStyles}
+					styles={inputStyles()}
 					onChange={(e) => setUserState({ ...userState, name: e.target.value })}
 				/>
 				<Textarea
@@ -112,7 +112,7 @@ export const ProfileSettings = () => {
 						setUserState({ ...userState, aboutMe: e.target.value })
 					}
 					className="w-full"
-					styles={inputStyles}
+					styles={inputStyles()}
 					minRows={5}
 					maxRows={7}
 				/>
@@ -142,9 +142,9 @@ export const ProfileSettings = () => {
 					onChange={(value) => setUserState({ ...userState, roles: value })}
 					className="w-full"
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 						input: {
-							...inputStyles.input,
+							...inputStyles().input,
 							margin: "0",
 						},
 					}}
@@ -171,7 +171,7 @@ export const ProfileSettings = () => {
 						setUserState({ ...userState, country: value as string })
 					}
 					className="w-full"
-					styles={inputStyles}
+					styles={inputStyles()}
 					data={countriesList}
 					searchable
 					nothingFound="Nothing found"

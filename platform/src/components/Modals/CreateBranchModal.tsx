@@ -49,7 +49,7 @@ export const CreateBranchModal: FC<{
 					}
 					placeholder="Branch name"
 					onChange={(e) => setBranchName(e.currentTarget.value)}
-					styles={inputStyles}
+					styles={inputStyles()}
 					value={branchName}
 					required
 				/>
