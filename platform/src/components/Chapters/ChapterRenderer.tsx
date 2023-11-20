@@ -1,11 +1,6 @@
 import { FC, ReactNode, useState } from "react";
 import { Divider, Menu, Skeleton, TextInput, Tooltip } from "@mantine/core";
-import {
-	IconFilePlus,
-	IconFiles,
-	IconFolderPlus,
-	IconFolders,
-} from "@tabler/icons-react";
+import { IconFilePlus, IconFiles, IconFolderPlus } from "@tabler/icons-react";
 import { inputStyles } from "../../styles/inputStyles";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { IProject } from "../../interfaces/IProject";
@@ -87,7 +82,7 @@ export const ChapterRenderer: FC<{
 							</form>
 						</Menu.Dropdown>
 					</Menu>
-					<Tooltip
+					{/* <Tooltip
 						label="Collapse folders"
 						position="top"
 						withArrow
@@ -99,7 +94,7 @@ export const ChapterRenderer: FC<{
 						>
 							<IconFolders size={18} />
 						</button>
-					</Tooltip>
+					</Tooltip> */}
 				</div>
 			</div>
 			<Divider

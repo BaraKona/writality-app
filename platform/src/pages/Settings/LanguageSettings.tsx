@@ -40,9 +40,9 @@ export const LanguageSettings = () => {
 					onChange={(value) => setUserState({ ...userState, languages: value })}
 					className="w-full"
 					styles={{
-						...inputStyles,
+						...inputStyles(),
 						input: {
-							...inputStyles.input,
+							...inputStyles().input,
 							margin: "0",
 						},
 					}}
