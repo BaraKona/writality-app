@@ -282,11 +282,14 @@ export const sendVerificationEmail = async (req: any, res: any) => {
 			<p>Thanks for joining Writality!</p>
 			<p>Writality Team</p>`,
 		};
-
-		transporter().sendMail(mailOptions, (err: any, info: any) => {
-			if (err) {
-				console.log(err);
-			}
+		await new Promise((resolve, reject) => {
+			transporter().sendMail(mailOptions, (err: any, info: any) => {
+				if (err) {
+					console.log(err);
+				} else {
+					resolve(info);
+				}
+			});
 		});
 
 		res.status(200).json({ message: "Email sent successfully." });
