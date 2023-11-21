@@ -3,15 +3,17 @@ import jwt from "jsonwebtoken";
 
 const nodemailer = require("nodemailer");
 
-export const transporter = nodemailer.createTransport({
-	host: "smtp.zoho.eu",
-	secure: true,
-	port: 465,
-	auth: {
-		user: process.env.EMAIL,
-		pass: process.env.EMAIL_PASSWORD,
-	},
-});
+export const transporter = () => {
+	return nodemailer.createTransport({
+		host: "smtp.zoho.eu",
+		secure: true,
+		port: 465,
+		auth: {
+			user: process.env.EMAIL,
+			pass: process.env.EMAIL_PASSWORD,
+		},
+	});
+};
 
 export const emailToken = (email: string) => {
 	const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, {

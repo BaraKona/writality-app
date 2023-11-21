@@ -278,12 +278,12 @@ export const sendVerificationEmail = async (req: any, res: any) => {
 			subject: `Hey ${user.name}, here is your verification link`,
 			html: `<h1>Verify your Writality account</h1>
 			<p>Click the link below to verify your email and get started</p>
-			<a href="${process.env.PLATFORM_URL}/verify-email?token=${token}">Verify Email</a>
+			<a href="${process.env.PLATFORM_URL}/verify-email?token=${token}" target="_blank">Verify Email</a>
 			<p>Thanks for joining Writality!</p>
 			<p>Writality Team</p>`,
 		};
 
-		transporter.sendMail(mailOptions, (err: any, info: any) => {
+		transporter().sendMail(mailOptions, (err: any, info: any) => {
 			if (err) {
 				console.log(err);
 			}

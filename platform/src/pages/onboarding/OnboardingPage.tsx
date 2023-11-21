@@ -9,6 +9,7 @@ import { OnboardingStep3 } from "../../components/onboarding/OnboardingStep3";
 import { IUser } from "../../interfaces/IUser";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useCompleteOnboarding } from "../../hooks/onboarding/useCompleteOnboarding";
+import { OnboardingStep4 } from "../../components/onboarding/OnboardingStep4";
 
 export const OnboardingPage: FC = () => {
 	const [step, setStep] = useState(1);
@@ -34,11 +35,17 @@ export const OnboardingPage: FC = () => {
 					)}
 					{step === 3 && (
 						<OnboardingStep3
-							next={() => completeOnboarding(user)}
+							next={() => setStep(step + 1)}
 							back={() => setStep(step - 1)}
-							isLoading={isLoading}
 							user={user}
 							setUser={setUser}
+						/>
+					)}
+					{step === 4 && (
+						<OnboardingStep4
+							next={() => completeOnboarding(user)}
+							isLoading={isLoading}
+							step={step}
 						/>
 					)}
 				</OnboardingCard>

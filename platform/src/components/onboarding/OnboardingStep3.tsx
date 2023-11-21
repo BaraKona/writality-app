@@ -12,9 +12,8 @@ export const OnboardingStep3: FC<{
 	next: () => void;
 	back: () => void;
 	user: IUser;
-	isLoading: boolean;
 	setUser: (user: IUser) => void;
-}> = ({ next, user, setUser, back, isLoading }) => {
+}> = ({ next, user, setUser, back }) => {
 	const [parent] = useAutoAnimate();
 
 	return (
@@ -89,7 +88,6 @@ export const OnboardingStep3: FC<{
 					<BlueButton
 						className="mt-auto max-w-[100px]"
 						onClick={next}
-						isLoading={isLoading}
 						disabled={!user?.interests || !user?.roles || !user?.aboutMe}
 					>
 						Finish up
