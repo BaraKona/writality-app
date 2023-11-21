@@ -6,28 +6,45 @@ import { IconMailCheck } from "@tabler/icons-react";
 import { BlueButton } from "../../components/buttons/BlueButton";
 import { Divider } from "@mantine/core";
 import { useSendVerificationEmail } from "../../hooks/user/useSendVerificationEmail";
+import { useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export function VerifyEmailPage() {
 	const { mutate: sendEmail, isLoading } = useSendVerificationEmail();
+	const [buttonStatus, setButtonStatus] = useState(0);
+	const [parent] = useAutoAnimate();
 
 	return (
 		<AuthWrapper>
 			<AuthHeader />
 			<AuthTitle
 				title="Almost there! 🎉"
-				subtitle="We've sent you an email with a link to verify your account"
+				subtitle={
+					buttonStatus === 0
+						? "Send a verification email to your inbox"
+						: "We just sent you an email, please verify your email address"
+				}
 			>
 				<IconMailCheck
 					size={48}
 					className="mx-auto animate-bounce my-8 text-orange-400 dark:text-orange-500"
 				/>
-				<p className="text-center text-coolGrey-5 dark:text-coolGrey-6 text-xs">
-					Didn't get the email? Check your spam folder
-				</p>
-				<Divider className="!my-4" label="OR" labelPosition="center" />
+				{buttonStatus === 1 && (
+					<div>
+						<p className="text-center text-coolGrey-5 dark:text-coolGrey-6 text-xs">
+							Didn't get the email? Check your spam folder
+						</p>
+						<Divider className="!my-4" label="OR" labelPosition="center" />
+					</div>
+				)}
 
-				<BlueButton isLoading={isLoading} onClick={sendEmail}>
-					Resend Email
+				<BlueButton
+					isLoading={isLoading}
+					onClick={() => {
+						setButtonStatus(1), sendEmail();
+					}}
+				>
+					{buttonStatus === 0 ? "Send verification email" : "Send again"}
 				</BlueButton>
 			</AuthTitle>
 			<AuthFooter />

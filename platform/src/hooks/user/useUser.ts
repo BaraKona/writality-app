@@ -14,5 +14,7 @@ export const useUser = () => {
 			useToast("error", "Could not log you in. Please try again");
 		},
 		retry: false,
+		refetchOnMount: false,
+		refetchOnWindowFocus: false,
 	});
 };

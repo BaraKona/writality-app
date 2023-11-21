@@ -18,10 +18,10 @@ import { VerifiedPage } from "./pages/auth/VerifiedPage";
 import { OnboardingPage } from "./pages/onboarding/OnboardingPage";
 
 const dashboardRoutes: RouteObject[] = [
-	// {
-	// 	path: "*", // catch all routes
-	// 	loader: () => redirect("/"),
-	// },
+	{
+		path: "*", // catch all routes
+		loader: () => redirect("/"),
+	},
 	{ path: "/", loader: () => redirect("/profile") },
 	{
 		path: "/profile",

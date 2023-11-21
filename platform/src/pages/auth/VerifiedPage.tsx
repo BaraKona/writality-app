@@ -23,11 +23,7 @@ export function VerifiedPage() {
 				window.location.href = "/";
 			}, 2000);
 		}
-
-		return () => {
-			setSearchParams({});
-		};
-	}, [searchParams]);
+	}, [searchParams, isSuccess]);
 
 	return (
 		<AuthWrapper>

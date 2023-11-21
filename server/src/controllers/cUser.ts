@@ -317,3 +317,31 @@ export const verifyEmail = async (req: any, res: any) => {
 		res.status(404).json({ message: error.message });
 	}
 };
+
+export const completeOnboarding = async (req: any, res: any) => {
+	const userId = req.user._id;
+	const { aboutMe, interests, country, roles, languages, primaryLanguage } =
+		req.body;
+
+	try {
+		const user = await User.findById(userId);
+
+		if (!user) {
+			res.status(404).json({ message: "User not found." });
+		}
+
+		user.aboutMe = aboutMe;
+		user.interests = interests;
+		user.country = country;
+		user.roles = roles;
+		user.languages = languages;
+		user.primaryLanguage = primaryLanguage;
+		user.isOnboardingCompleted = true;
+
+		await user.save();
+
+		res.status(200).json({ message: "Onboarding completed successfully." });
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
