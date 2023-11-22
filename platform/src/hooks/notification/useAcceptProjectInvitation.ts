@@ -25,7 +25,10 @@ export const useAcceptProjectInvitation = () => {
 				queryClient.invalidateQueries("user");
 				queryClient.invalidateQueries("projects");
 				setSidebarNav("collaborations");
-				navigate(`/project/${projectId}/overview`);
+
+				setTimeout(() => {
+					navigate(`/project/${projectId}/overview`);
+				}, 2000);
 			},
 			onError: (error: any) => {
 				console.log(error);
