@@ -107,7 +107,7 @@ export const getSingleChapter = async (req: any, res: any) => {
 			uid: chapterId,
 		}).populate("history.user", "name uid");
 
-		chapter.history = chapter.history.reverse();
+		chapter.history = chapter.history?.reverse();
 
 		res.status(200).json(chapter);
 	} catch (error) {

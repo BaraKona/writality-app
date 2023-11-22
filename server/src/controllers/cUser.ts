@@ -10,10 +10,8 @@ export const createUser = async (req: any, res: any) => {
 	const { name, email, password } = req.body;
 
 	if (!name || !email || !password) {
-		console.log(name, email, password);
 		return res.status(400).json({ message: "Please fill all fields" });
 	}
-	console.log(name, email, password);
 	const encryptedPassword = await bcrypt.hash(password, 10);
 
 	const newUser = new User({
