@@ -23,7 +23,7 @@ export const ProjectCollaboratorTable: FC<{
 	}
 
 	return (
-		<div className="dark:bg-hoverDark/30 border dark:border-none max-w-4xl flex-grow rounded-lg h-64 p-6">
+		<div className="dark:bg-hoverDark/30 border dark:border-none max-w-4xl flex-grow rounded-lg h-64 p-6 flex flex-col">
 			<div className="w-full flex gap-3 text-coolGrey-4 dark:text-coolGrey-4 text-xs uppercase font-bold">
 				<div className="w-3/12">
 					<Text className="">Name</Text>
@@ -37,11 +37,11 @@ export const ProjectCollaboratorTable: FC<{
 				<div className="w-5/12" />
 			</div>
 			{collaborators.length > 0 ? (
-				<div>
+				<div className="overflow-y-auto grow">
 					{collaborators.map((collaborator, index) => {
 						return (
 							<div
-								className="w-full flex gap-3 text-coolGrey-12 dark:text-coolGrey-4 text-sm items-center py-2 border-b border-border dark:border-borderDark"
+								className="w-full flex gap-3 text-coolGrey-12 dark:text-coolGrey-4 text-sm items-center  border-b border-border dark:border-borderDark"
 								key={index}
 							>
 								<div className="w-3/12 flex flex-col">

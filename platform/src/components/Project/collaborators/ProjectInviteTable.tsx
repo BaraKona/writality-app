@@ -28,7 +28,7 @@ export const ProjectInviteTable: FC<{
 	}
 
 	return (
-		<div className="dark:bg-hoverDark/30 border dark:border-none max-w-4xl flex-grow rounded-lg h-64 p-6">
+		<div className="dark:bg-hoverDark/30 border dark:border-none max-w-4xl flex-grow rounded-lg h-64 p-6 flex flex-col">
 			<div className="w-full flex gap-3 text-coolGrey-4 dark:text-coolGrey-4 text-xs uppercase font-bold">
 				<div className="w-2/5">
 					<Text className="">Name</Text>
@@ -39,11 +39,11 @@ export const ProjectInviteTable: FC<{
 				<div className="w-2/5" />
 			</div>
 			{collaborators.length > 0 ? (
-				<div>
+				<div className="overflow-y-auto grow">
 					{collaborators.map((collaborator, index) => {
 						return (
 							<div
-								className="dark:border-borderDark border-b border-border w-full flex gap-3 text-coolGrey-12 dark:text-coolGrey-4 text-sm items-center py-2"
+								className="dark:border-borderDark border-b border-border w-full flex gap-3 text-coolGrey-12 dark:text-coolGrey-4 text-sm items-center"
 								key={index}
 							>
 								<div className="w-2/5 flex flex-col">

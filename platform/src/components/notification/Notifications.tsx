@@ -8,6 +8,7 @@ import {
 	IconCubeOff,
 	IconCubePlus,
 	IconInbox,
+	IconUserHeart,
 	IconUserPlus,
 } from "@tabler/icons-react";
 import { SmallText } from "../texts/SmallText";
@@ -45,6 +46,12 @@ export const Notifications: FC<{
 		),
 		"friend-request": (
 			<IconUserPlus size={18} className="text-lime-600 dark:text-lime-400" />
+		),
+		"friend-accept": (
+			<IconUserHeart
+				size={18}
+				className="text-emerald-600 dark:text-emerald-400"
+			/>
 		),
 	};
 

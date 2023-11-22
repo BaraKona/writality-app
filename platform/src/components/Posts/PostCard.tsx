@@ -45,7 +45,7 @@ export const PostCard: FC<{
 
 	return (
 		<div
-			className={`basis-[20.5rem] max-w-[20.5rem] group hover:border-coolGrey-3 ${style}`}
+			className={`basis-[20.5rem] self-start max-w-[24rem] grow group hover:border-coolGrey-3 ${style}`}
 		>
 			<Card
 				padding="md"

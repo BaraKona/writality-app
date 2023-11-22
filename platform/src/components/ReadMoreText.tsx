@@ -1,3 +1,4 @@
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { FC, useState } from "react";
 
 export const ReadMoreText: FC<{

@@ -1,10 +1,16 @@
 import { useMutation, useQueryClient } from "react-query";
 import { acceptProjectInvitation } from "../../api/notification/notification";
 import { useToast } from "../useToast";
-import { error } from "console";
+import { useLocalStorage } from "@mantine/hooks";
+import { useNavigate } from "react-router-dom";
 
 export const useAcceptProjectInvitation = () => {
 	const queryClient = useQueryClient();
+	const [sidebarNav, setSidebarNav] = useLocalStorage({
+		key: "sidebarNav",
+	});
+	const navigate = useNavigate();
+
 	return useMutation(
 		({
 			notificationId,
@@ -14,9 +20,12 @@ export const useAcceptProjectInvitation = () => {
 			projectId: string;
 		}) => acceptProjectInvitation(notificationId, projectId),
 		{
-			onSuccess: ({}) => {
+			onSuccess: ({ projectId }) => {
 				useToast("success", "Invitation accepted successfully.");
 				queryClient.invalidateQueries("user");
+				queryClient.invalidateQueries("projects");
+				setSidebarNav("collaborations");
+				navigate(`/project/${projectId}/overview`);
 			},
 			onError: (error: any) => {
 				console.log(error);

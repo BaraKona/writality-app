@@ -51,7 +51,7 @@ export const SingleUserSection: FC<{
 						p1="This user does not have any public projects. If you know them, you can still send them a message"
 					/>
 				) : (
-					<div className="flex gap-2 flex-wrap px-2">
+					<div className="flex gap-2 flex-wrap px-2 flex-row content-start">
 						{projects.map((project) => (
 							<GridProjects project={project} />
 						))}
@@ -70,7 +70,7 @@ export const SingleUserSection: FC<{
 						p1="This user does has not created any posts. If you know them, you can still send them a message"
 					/>
 				) : (
-					<div className="flex gap-2 flex-wrap px-4 max-w-[700px] mx-auto py-2 self-start">
+					<div className="flex gap-2 flex-wrap px-4 w-full py-2 flex-row content-start">
 						{posts?.map((post) => (
 							<PostCard
 								post={post}

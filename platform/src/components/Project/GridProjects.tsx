@@ -36,7 +36,7 @@ export const GridProjects = ({
 
 	return (
 		<div
-			className="gap-2 rounded-lg basis-[15.4rem] pt-3 p-4 border border-border dark:border-borderDark hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
+			className="gap-2 rounded-lg basis-[15.4rem] pt-3 p-4 border border-border dark:border-borderDark hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out self-start"
 			onClick={onClick}
 			key={project.uid}
 		>

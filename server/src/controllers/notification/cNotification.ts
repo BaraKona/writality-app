@@ -20,6 +20,26 @@ export const sendProjectInvite = async (req: any, res: any) => {
 			return res.status(404).json({ message: "Project or User not found" });
 		}
 
+		if (
+			project.collaborators.some(
+				(collaborator) => collaborator.user === user._id.toString()
+			)
+		) {
+			return res.status(400).json({
+				message: "This user is already a collaborator on this project.",
+			});
+		}
+
+		if (
+			project.pendingInvite.some(
+				(invite) => invite.user === user._id.toString()
+			)
+		) {
+			return res.status(400).json({
+				message: "This user has already been invited to this project.",
+			});
+		}
+
 		const notification = {
 			notificationType: notificationType.projectInvite,
 			notificationBody: `You have been invited to join ${project.title} by ${invitee.name}`,
@@ -285,7 +305,7 @@ export const acceptProjectInvitation = async (req: any, res: any) => {
 			userId,
 		});
 
-		res.status(200).json({ message: "Project joined successfully." });
+		res.status(200).json({ projectId });
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

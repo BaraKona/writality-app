@@ -29,7 +29,9 @@ export const InviteUserModal: FC<{
 		if (users.filter((user: any) => user.email === email).length > 0) {
 			setError("");
 			setValue("");
-			setSuccess("User found! They will receive a notification shortly.");
+			setSuccess(
+				"User found! They will receive a notification shortly if they are not already a member of the project."
+			);
 
 			addProjectCollaborator({
 				projectId,
