@@ -8,9 +8,12 @@ import { Divider } from "@mantine/core";
 import { useSendVerificationEmail } from "../../hooks/user/useSendVerificationEmail";
 import { useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useSignout } from "../../hooks/user/useSignout";
 
 export function VerifyEmailPage() {
 	const { mutate: sendEmail, isLoading } = useSendVerificationEmail();
+	const { mutate: signOut } = useSignout();
+
 	const [buttonStatus, setButtonStatus] = useState(0);
 	const [parent] = useAutoAnimate();
 
@@ -46,6 +49,9 @@ export function VerifyEmailPage() {
 				>
 					{buttonStatus === 0 ? "Send verification email" : "Send again"}
 				</BlueButton>
+					<p className="mt-2 text-center text-coolGrey-5 dark:text-coolGrey-6 text-xs hover:underline cursor-pointer" onClick={signOut}>
+						Sign in with a different account ?
+					</p>
 			</AuthTitle>
 			<AuthFooter />
 		</AuthWrapper>
