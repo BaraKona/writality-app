@@ -34,6 +34,7 @@ import { ProjectBoard } from "../../components/Project/ProjectBoard";
 import { ProjectWrapper } from "../../components/Chapters/ProjectWrapper";
 import { useSocket } from "../../Providers/SocketProvider";
 import { useNestFolder } from "../../hooks/projects/useNestFolder";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export function Project() {
 	const queryClient = useQueryClient();
@@ -42,7 +43,7 @@ export function Project() {
 	const [openModal, setOpenModal] = useState(false);
 	const [chapterId, setChapterId] = useState("");
 	const navigate = useNavigate();
-
+	const [parent] = useAutoAnimate();
 	const { pusher } = useSocket();
 
 	const { data: currentProject, isLoading } = useSingleProject(
@@ -124,7 +125,7 @@ export function Project() {
 	}, [currentProject]);
 
 	return (
-		<section className="relative flex gap-2 w-full">
+		<section className="relative flex gap-2 w-full" ref={parent}>
 			<DeleteModal
 				opened={openModal}
 				setOpened={setOpenModal}
@@ -222,7 +223,7 @@ export function Project() {
 						</Tooltip>
 					</Tabs.List>
 
-					<Tabs.Panel value="overview">
+					<Tabs.Panel value="overview" ref={parent}>
 						<div className="flex gap-2 mx-auto">
 							<div className="grid grid-cols-9 gap-2 gap-y-2 grid-rows-6 h-[80vh]">
 								<ProjectAnalytics />
@@ -279,28 +280,28 @@ export function Project() {
 						</div>
 					</Tabs.Panel>
 
-					<Tabs.Panel value="world-info">
+					<Tabs.Panel value="world-info" ref={parent}>
 						<CharacterWrapper> - Protagonist </CharacterWrapper>
 					</Tabs.Panel>
 
-					<Tabs.Panel value="settings">
+					<Tabs.Panel value="settings" ref={parent}>
 						{currentProject ? (
 							<ProjectSettings project={currentProject} />
 						) : (
 							<Loading isLoading={true} />
 						)}
 					</Tabs.Panel>
-					<Tabs.Panel value="chat">
+					<Tabs.Panel value="chat" ref={parent}>
 						<ChatWrapper />
 					</Tabs.Panel>
-					<Tabs.Panel value="collaborators">
+					<Tabs.Panel value="collaborators" ref={parent}>
 						{currentProject ? (
 							<ProjectCollaborators project={currentProject} />
 						) : (
 							<Loading isLoading={true} />
 						)}
 					</Tabs.Panel>
-					<Tabs.Panel value="board">
+					<Tabs.Panel value="board" ref={parent}>
 						<ProjectBoard
 							project={currentProject}
 							updateBoard={updateProjectBoard}
