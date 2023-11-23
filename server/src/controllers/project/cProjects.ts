@@ -406,7 +406,7 @@ export const updateProjectType = async (req: any, res: any) => {
 		});
 
 		await project.save();
-		res.status(200).json(project);
+		res.status(200).json({ project });
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });
