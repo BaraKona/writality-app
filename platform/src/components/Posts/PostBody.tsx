@@ -18,7 +18,15 @@ export const PostBody: FC<{
 	addFavourite?: () => void;
 	removeBookmark?: () => void;
 	breadCrumbs?: BreadcrumbItemProp[];
-}> = ({ post, isLoading, addFavourite, breadCrumbs, removeBookmark }) => {
+	isCreate?: boolean;
+}> = ({
+	post,
+	isLoading,
+	addFavourite,
+	breadCrumbs,
+	removeBookmark,
+	isCreate,
+}) => {
 	const { theme } = useThemeContext();
 	const { currentUser } = useAuthContext();
 	return (
@@ -55,27 +63,32 @@ export const PostBody: FC<{
 						>
 							{post?.postType}
 						</Badge>
-						{currentUser.bookmarks.some((bookmark: any) =>
-							bookmark.url.includes(post.uid)
-						) ? (
-							<button
-								className="text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg"
-								onClick={(e) => {
-									e.stopPropagation(), removeBookmark();
-								}}
-							>
-								<IconBookmarkFilled size={18} />
-							</button>
-						) : (
-							<button
-								className={`text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg`}
-								onClick={(e) => {
-									e.stopPropagation(), addFavourite();
-								}}
-							>
-								<IconBookmarkPlus size={18} />
-							</button>
-						)}
+
+						{!isCreate && removeBookmark && addFavourite ? (
+							<>
+								{currentUser.bookmarks.some((bookmark: any) =>
+									bookmark.url.includes(post.uid)
+								) ? (
+									<button
+										className="text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg"
+										onClick={(e) => {
+											e.stopPropagation(), removeBookmark();
+										}}
+									>
+										<IconBookmarkFilled size={18} />
+									</button>
+								) : (
+									<button
+										className={`text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg`}
+										onClick={(e) => {
+											e.stopPropagation(), addFavourite();
+										}}
+									>
+										<IconBookmarkPlus size={18} />
+									</button>
+								)}
+							</>
+						) : null}
 					</div>
 
 					<Space h="md" />

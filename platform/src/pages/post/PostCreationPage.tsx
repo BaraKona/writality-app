@@ -50,9 +50,7 @@ export const PostCreationPage: FC<{}> = () => {
 
 	return (
 		<div className="h-[calc(100dvh-3rem)] rounded-lg py-3 flex gap-2">
-			{/* <Breadcrumbs items={breadcrumbs} />
-			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" /> */}
-			<PostBody post={post} addFavourite={() => {}} />
+			<PostBody post={post} addFavourite={() => {}} isCreate />
 			<CreatePostSection
 				createPost={createPost}
 				setPost={setPost}
