@@ -15,7 +15,7 @@ export const PostBody: FC<{
 	post: IPost;
 	isLoading?: boolean;
 	addFavourite: () => void;
-	breadCrumbs: BreadcrumbItemProp[];
+	breadCrumbs?: BreadcrumbItemProp[];
 }> = ({ post, isLoading, addFavourite, breadCrumbs }) => {
 	const { theme } = useThemeContext();
 
@@ -25,9 +25,11 @@ export const PostBody: FC<{
 				image="https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
 				alt={post?.postTitle}
 			/>
-			<div className="my-2">
-				<Breadcrumbs items={breadCrumbs} />
-			</div>
+			{breadCrumbs ? (
+				<div className="my-2">
+					<Breadcrumbs items={breadCrumbs} />
+				</div>
+			) : null}
 
 			<div className="px-2 mx-auto flex max-w-screen-xl gap-2">
 				<div className="max-w-screen-md mx-auto">
