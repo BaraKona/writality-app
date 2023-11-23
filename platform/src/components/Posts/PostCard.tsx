@@ -16,7 +16,7 @@ export const PostCard: FC<{
 	openPost: (postId: string) => void;
 	width?: string;
 }> = ({ post, openPost, width }) => {
-	const { mutate: addFavourite } = useAddBookmark();
+	const { mutate: addBookmark } = useAddBookmark();
 	const { mutate: removeBookmark } = useRemoveBookmark();
 	const { currentUser } = useAuthContext();
 
@@ -49,9 +49,10 @@ export const PostCard: FC<{
 							className={`absolute top-2 right-2 text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg`}
 							onClick={(e) => {
 								e.stopPropagation(),
-									addFavourite({
+									addBookmark({
 										url: `/posts/${post.uid}`,
 										name: post.postTitle,
+										type: "post",
 									});
 							}}
 						>

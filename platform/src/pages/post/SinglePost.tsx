@@ -109,6 +109,7 @@ export const SinglePost = () => {
 						mutate({
 							url: location.pathname,
 							name: post?.projectTitle || post?.postTitle,
+							type: "post",
 						})
 					}
 				/>

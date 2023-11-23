@@ -1,6 +1,5 @@
 import { IconBookmarkPlus } from "@tabler/icons-react";
-import { IProject } from "../../interfaces/IProject";
-import { Divider, Skeleton, Text } from "@mantine/core";
+import { Divider, Skeleton } from "@mantine/core";
 import { FC } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -14,9 +13,7 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 
 	const [parent] = useAutoAnimate();
 
-	const posts = currentUser?.bookmarks?.filter(
-		(tab: any) => tab.tabType === "post"
-	);
+	const bookmarks = currentUser?.bookmarks;
 
 	return (
 		<div ref={parent}>
@@ -35,11 +32,11 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 						/>
 					</div>
 
-					{posts?.map((bookmark: any, index: number) => {
+					{bookmarks?.map((bookmark: any, index: number) => {
 						return (
 							<TabListItem
 								key={index}
-								type={bookmark.tabType as any}
+								type={bookmark.tabType}
 								url={bookmark.url}
 								name={bookmark.name || "Untitled"}
 								onClick={() => navigate(bookmark.url)}

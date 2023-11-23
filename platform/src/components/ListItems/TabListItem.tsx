@@ -1,4 +1,4 @@
-import { IconBook2, IconNotes, IconX } from "@tabler/icons-react";
+import { IconBook2, IconNotes, IconUser, IconX } from "@tabler/icons-react";
 import { FC } from "react";
 import { useLocation } from "react-router-dom";
 import { IconBooks, IconClipboard } from "@tabler/icons-react";
@@ -13,11 +13,9 @@ export const TabListItem: FC<{
 
 	const icons = {
 		story: <IconBooks size={18} />,
-		post: <IconNotes size={18} />,
-		user: <IconClipboard size={18} />,
-		project: (
-			<IconBook2 size={18} className="text-neutral-600 dark:text-stone-500" />
-		),
+		post: <IconClipboard size={18} className="dark:text-purple-600" />,
+		user: <IconUser size={18} className="dark:text-lime-600" />,
+		project: <IconBook2 size={18} />,
 	};
 
 	return (

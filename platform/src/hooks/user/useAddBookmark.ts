@@ -5,9 +5,9 @@ import { useToast } from "../useToast";
 export const useAddBookmark = () => {
 	const queryClient = useQueryClient();
 	return useMutation(
-		({ url, name }: { url: string; name: string }) =>
+		({ url, name, type }: { url: string; name: string; type: string }) =>
 			addbookmarks({
-				type: "post",
+				type,
 				url,
 				name,
 			}),

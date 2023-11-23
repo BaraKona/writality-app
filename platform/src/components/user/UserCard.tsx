@@ -20,7 +20,7 @@ export const UserCard: FC<{ user: IUser }> = ({ user }) => {
 			className="flex relative flex-col rounded-lg basis-[25rem] h-[25rem] max-w-[314px] hover:border-coolGrey-3 dark:hover:shadow-none shadow dark:hover:border-coolGrey-5 shadow\ hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
 		>
 			<div className="h-24 w-full rounded-t-lg bg-gradient-to-tr  from-pink-600/60 via-pink-700/60 to-amber-600/80 flex items-center justify-center" />
-			<div className="w-20 h-20 rounded-full bg-coolGrey-1/70 dark:bg-borderDark flex items-center justify-center absolute right-0 left-0 mx-auto top-14 border-base dark:border-baseDark dark:border-baseBorder border-[0.5rem]">
+			<div className="w-20 h-20 rounded-full bg-coolGrey-1/70 dark:bg-borderDark/70 flex items-center justify-center absolute right-0 left-0 mx-auto top-14 border-base dark:border-baseDark dark:border-baseBorder border-[0.5rem]">
 				<div
 					className={`text-2xl font-bold truncate  ${initialsColor(
 						user.name
@@ -48,6 +48,7 @@ export const UserCard: FC<{ user: IUser }> = ({ user }) => {
 							addBookmark({
 								url: `/users/${user.uid}`,
 								name: user.name,
+								type: "user",
 							});
 					}}
 				>
