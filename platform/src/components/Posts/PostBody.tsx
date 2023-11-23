@@ -15,8 +15,8 @@ import { useAuthContext } from "../../contexts/AuthContext";
 export const PostBody: FC<{
 	post: IPost;
 	isLoading?: boolean;
-	addFavourite: () => void;
-	removeBookmark: () => void;
+	addFavourite?: () => void;
+	removeBookmark?: () => void;
 	breadCrumbs?: BreadcrumbItemProp[];
 }> = ({ post, isLoading, addFavourite, breadCrumbs, removeBookmark }) => {
 	const { theme } = useThemeContext();
