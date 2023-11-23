@@ -10,7 +10,7 @@ export const Loading: FC<{
 	return (
 		<>
 			{isLoading ? (
-				<div className="flex justify-center items-center h-[calc(100dvh-42px)] bg-base dark:bg-baseDark rounded-lg">
+				<div className="flex justify-center items-center h-[calc(100dvh-3rem)] bg-base dark:bg-baseDark rounded-lg">
 					<Loader
 						variant="bars"
 						color={theme === "dark" ? "#9CA3AF" : `"#394251"`}

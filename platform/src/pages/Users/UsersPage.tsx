@@ -3,11 +3,12 @@ import { IconUsersGroup } from "@tabler/icons-react";
 import { IUser } from "../../interfaces/IUser";
 import { BannerImage } from "../../components/BannerImage";
 import { Title } from "../../components/Title";
-import { useNavigate } from "react-router-dom";
 import { UserCard } from "../../components/user/UserCard";
+import { Loading } from "../../components/Loading";
 export const UsersPage = () => {
 	const { data: users } = usePublicUsers();
-	const navigate = useNavigate();
+
+	if (!users) return <Loading isLoading={true} />;
 
 	return (
 		<section className="overflow-y-auto rounded-lg bg-base dark:bg-baseDark">

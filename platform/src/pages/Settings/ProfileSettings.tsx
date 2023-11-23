@@ -41,7 +41,7 @@ export const ProfileSettings = () => {
 
 	return (
 		<section className=" place-items-center rounded-lg border border-border dark:border-borderDark bg-base dark:bg-baseDark px-3 py-2 overflow-y-auto h-[calc(100dvh-7.8rem)]">
-			<div className="max-w-screen-lg mx-auto mt-10">
+			<div className="max-w-screen-md mx-auto mt-10">
 				<div className="flex justify-between items-end ">
 					<div>
 						<Text
@@ -116,10 +116,10 @@ export const ProfileSettings = () => {
 							onChange={(e) =>
 								setUserState({ ...userState, aboutMe: e.target.value })
 							}
-							className="w-full"
+							className="w-full !mt-[1.2rem]"
 							styles={inputStyles()}
-							minRows={5}
-							maxRows={7}
+							minRows={8}
+							maxRows={8}
 						/>
 					</div>
 					<div className="w-1/2">
