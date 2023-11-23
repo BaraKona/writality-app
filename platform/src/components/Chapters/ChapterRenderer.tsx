@@ -51,7 +51,7 @@ export const ChapterRenderer: FC<{
 							<IconFilePlus size={18} />
 						</button>
 					</Tooltip>
-					<Menu shadow="md" width={200}>
+					<Menu shadow="md" width={200} withArrow>
 						<Menu.Target>
 							<Tooltip
 								label="Create new folder"
@@ -64,37 +64,32 @@ export const ChapterRenderer: FC<{
 								</button>
 							</Tooltip>
 						</Menu.Target>
-						<Menu.Dropdown>
+						<Menu.Dropdown className="!border-coolGrey-1 dark:!border-borderDark !rounded-lg dark:!bg-baseDark !pr-2">
 							<form
 								onSubmit={(e) => {
-									e.preventDefault(), createNewFolder(name);
+									e.preventDefault();
 								}}
 							>
-								<Menu.Label className="flex justify-between items-center">
-									Folder Name
-								</Menu.Label>
-								<TextInput
-									styles={inputStyles()}
-									className="px-2"
-									onChange={(e) => setName(e.target.value)}
-									error={name.length < 1}
-								/>
+								<Menu.Label>Folder Name</Menu.Label>
+								<div className="flex items-start gap-1">
+									<TextInput
+										styles={inputStyles()}
+										className="pl-2"
+										onChange={(e) => setName(e.target.value)}
+										error={name.length < 1}
+									/>
+									<button
+										className="p-1.5 mt-0.5 rounded-md hover:bg-coolGrey-1 dark:hover:bg-hoverDark text-coolGrey-7 dark:text-coolGrey-4"
+										onClick={() => {
+											createNewFolder(name), setName("");
+										}}
+									>
+										<IconFolderPlus size={18} />
+									</button>
+								</div>
 							</form>
 						</Menu.Dropdown>
 					</Menu>
-					{/* <Tooltip
-						label="Collapse folders"
-						position="top"
-						withArrow
-						styles={tooltipStyles}
-					>
-						<button
-							className="p-1.5 rounded-md cursor-pointer hover:bg-coolGrey-1 dark:hover:bg-hoverDark"
-							onClick={() => closeAllFolders()}
-						>
-							<IconFolders size={18} />
-						</button>
-					</Tooltip> */}
 				</div>
 			</div>
 			<Divider
