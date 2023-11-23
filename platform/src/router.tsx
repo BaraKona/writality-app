@@ -11,7 +11,7 @@ import { SinglePost } from "./pages/post/SinglePost";
 import { PostCreationPage } from "./pages/post/PostCreationPage";
 import { SettingsPage } from "./pages/Settings/SettingsPage";
 import { UsersPage } from "./pages/Users/UsersPage";
-import { UserChat } from "./pages/UserChat";
+import { UserChat } from "./pages/Users/UserChat";
 import { SingleUserPage } from "./pages/Users/SingleUserPage";
 import { VerifyEmailPage } from "./pages/auth/VerifyEmailPage";
 import { VerifiedPage } from "./pages/auth/VerifiedPage";

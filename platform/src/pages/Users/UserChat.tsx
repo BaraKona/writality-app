@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Chat } from "../components/Project/chatrooms/Chat";
-import { useSingleUser } from "../hooks/public/useSingleUser";
+import { Chat } from "../../components/Project/chatrooms/Chat";
+import { useSingleUser } from "../../hooks/public/useSingleUser";
 import { useNavigate, useParams } from "react-router-dom";
-import { BannerImage } from "../components/BannerImage";
-import { initials, initialsColor } from "../utils/userIcons";
+import { BannerImage } from "../../components/BannerImage";
+import { initials, initialsColor } from "../../utils/userIcons";
 import { Divider } from "@mantine/core";
-import { ReadMoreText } from "../components/ReadMoreText";
-import { useDefaultDate } from "../hooks/useTimeFromNow";
-import { IUser } from "../interfaces/IUser";
-import { useUserChat } from "../hooks/chat/useUserChat";
-import { useComment } from "../hooks/chatRooms/useComment";
+import { ReadMoreText } from "../../components/ReadMoreText";
+import { useDefaultDate } from "../../hooks/useTimeFromNow";
+import { IUser } from "../../interfaces/IUser";
+import { useUserChat } from "../../hooks/chat/useUserChat";
+import { useComment } from "../../hooks/chatRooms/useComment";
 
 export const UserChat = () => {
 	const [comment, setComment] = useState<string>("");

@@ -10,6 +10,7 @@ import { BannerImage } from "../../components/BannerImage";
 import { IconEdit, IconTemplate } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { Title } from "../../components/Title";
+import { Loading } from "../../components/Loading";
 
 export const PostsPage: FC = () => {
 	const { data: posts } = useQuery("posts", getPosts);
@@ -22,8 +23,10 @@ export const PostsPage: FC = () => {
 		navigate(`/posts/create`);
 	};
 
+	if (!posts) return <Loading isLoading={true} />;
+
 	return (
-		<div className="place-items-center rounded-lg relative overflow-y-auto">
+		<div className="overflow-y-auto rounded-lg bg-base dark:bg-baseDark">
 			<Tooltip
 				label="Create a new post"
 				position="left"
@@ -38,19 +41,18 @@ export const PostsPage: FC = () => {
 				</button>
 			</Tooltip>
 			<BannerImage image={DefaultPostBanner} alt="Post banner" />
-			<div className="">
-				<div className="max-w-screen-lg mx-auto">
-					<div className="bg-base dark:bg-baseDark rounded-lg">
-						<div className="flex gap-4 items-center">
-							<IconTemplate size={40} className="dark:text-purple-600" />
-							<Title>Posts</Title>
-						</div>
-						<div className="mx-auto bg-base dark:bg-baseDark rounded-lg flex flex-wrap gap-2">
-							{posts?.map((post: IPost) => (
-								<PostCard post={post!} openPost={openPost} key={post.uid} />
-							))}
-						</div>
+			<div className="max-w-screen-xl mx-auto">
+				<Title>
+					<div className="flex gap-2">
+						<IconTemplate size={40} className="dark:text-purple-600" />
+						Users
 					</div>
+				</Title>
+
+				<div className="flex gap-2 flex-wrap">
+					{posts?.map((post: IPost) => (
+						<PostCard post={post} openPost={openPost} key={post?.uid} />
+					))}
 				</div>
 			</div>
 		</div>

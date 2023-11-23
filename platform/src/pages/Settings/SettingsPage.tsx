@@ -1,71 +1,53 @@
 import { FC } from "react";
-import { Tabs, Tooltip } from "@mantine/core";
-import { SettingsHeader } from "../../components/settings/SettingsHeader";
-import { tooltipStyles } from "../../styles/tooltipStyles";
+import { Tabs } from "@mantine/core";
 import { tabStyles } from "../../styles/tabStyles";
 import { useNavigate, useParams } from "react-router-dom";
-import { IconUser, IconVocabulary } from "@tabler/icons-react";
 import { ProfileSettings } from "./ProfileSettings";
 import { LanguageSettings } from "./LanguageSettings";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 export const SettingsPage: FC<{}> = () => {
 	const navigate = useNavigate();
 	const { settingsTab } = useParams();
-
+	const [parent] = useAutoAnimate();
 	return (
-		<div className="h-[calc(100dvh-3.2rem)] place-items-center rounded-lg border border-border dark:border-borderDark bg-base dark:bg-baseDark px-3 py-2  ">
-			<SettingsHeader tab={settingsTab} />
-			<Tabs
-				className="w-full border-none important:border-none h-[calc(100dvh-7.0rem)]"
-				value={settingsTab}
-				onTabChange={(tab) => navigate(`/settings/${tab}`)}
-				defaultValue="home"
-				radius={"md"}
-				orientation="vertical"
-				styles={tabStyles}
-				keepMounted={false}
-			>
-				<Tabs.List>
-					<Tooltip
-						label="Profile"
-						position="right"
-						withArrow
-						styles={tooltipStyles}
-					>
-						<Tabs.Tab value="profile">
-							<IconUser size={18} />
-						</Tabs.Tab>
-					</Tooltip>
+		<Tabs
+			className="border-none important:border-none w-full "
+			value={settingsTab}
+			onTabChange={(tab) => navigate(`/settings/${tab}`)}
+			defaultValue="home"
+			radius={"md"}
+			styles={tabStyles}
+			keepMounted={false}
+		>
+			<Tabs.List className="flex !items-center !border-none !gap-2">
+				<div className="mr-auto cursor-pointer dark:text-coolGrey-4">
+					<h2 className="text-3xl font-semibold my-3 mb-5 capitalize">
+						{settingsTab}
+					</h2>
+				</div>
 
-					<Tooltip
-						label="Language"
-						position="right"
-						withArrow
-						styles={tooltipStyles}
+				<div className="flex gap-2 bg-coolGrey-1 dark:bg-hoverDark p-1.5 rounded-lg">
+					<Tabs.Tab
+						value="profile"
+						className="!p-1 font-semibold !px-3 !text-coolGrey-6 dark:bg-transparent dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-lg !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
 					>
-						<Tabs.Tab value="language">
-							<IconVocabulary size={18} />
-						</Tabs.Tab>
-					</Tooltip>
+						Profile
+					</Tabs.Tab>
 
-					{/* <Divider my="xs" className="border-border dark:border-borderDark" />
-					<Tooltip
-						label="Settings"
-						position="right"
-						withArrow
-						styles={tooltipStyles}
+					<Tabs.Tab
+						value="language"
+						className="!p-1 font-semibold !px-3 !text-coolGrey-6 dark:bg-transparent dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-lg !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
 					>
-						<Tabs.Tab value="settings">
-							<IconSettings size={18} />
-						</Tabs.Tab>
-					</Tooltip> */}
-				</Tabs.List>
-				<Tabs.Panel value="profile">
-					<ProfileSettings />
-				</Tabs.Panel>
-				<Tabs.Panel value="language">
-					<LanguageSettings />
-				</Tabs.Panel>
-			</Tabs>
-		</div>
+						Language
+					</Tabs.Tab>
+				</div>
+			</Tabs.List>
+			<Tabs.Panel value="profile" ref={parent}>
+				<ProfileSettings />
+			</Tabs.Panel>
+			<Tabs.Panel value="language" ref={parent}>
+				<LanguageSettings />
+			</Tabs.Panel>
+		</Tabs>
 	);
 };

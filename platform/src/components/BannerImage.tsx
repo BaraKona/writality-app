@@ -10,7 +10,7 @@ export const BannerImage: FC<{
 		<div
 			className={`w-full ${
 				height ? height : "h-56"
-			}  bg-coolGrey-1 dark:bg-coolGrey-5 rounded-lg`}
+			}  bg-coolGrey-1 dark:bg-hoverDark rounded-lg`}
 		>
 			<img
 				src={image}

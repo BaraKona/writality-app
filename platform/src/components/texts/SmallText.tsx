@@ -10,7 +10,7 @@ export const SmallText: FC<{
 		<div
 			onClick={onClick}
 			className={`text-xs ${
-				light ? "text-blueTextLight" : "text-coolGrey-7"
+				light ? "text-blueTextLight" : "text-coolGrey-7 dark:text-coolGrey-5"
 			}  font-medium ${className}`}
 		>
 			{children}

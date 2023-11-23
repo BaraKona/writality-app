@@ -40,11 +40,14 @@ export const ProfileSettings = () => {
 	};
 
 	return (
-		<div className="h-full place-items-center rounded-lg border border-border dark:border-borderDark bg-base dark:bg-baseDark px-3 py-2 overflow-y-auto">
-			<div className="max-w-lg mx-auto mt-10">
-				<div className="flex justify-between items-end">
+		<section className=" place-items-center rounded-lg border border-border dark:border-borderDark bg-base dark:bg-baseDark px-3 py-2 overflow-y-auto h-[calc(100dvh-7.8rem)]">
+			<div className="max-w-screen-lg mx-auto mt-10">
+				<div className="flex justify-between items-end ">
 					<div>
-						<Text size={20} className=" font-medium text-coolGrey-7">
+						<Text
+							size={20}
+							className=" font-medium text-coolGrey-7 dark:text-coolGrey-5"
+						>
 							Profile
 						</Text>
 						<Text size={12} color="dimmed">
@@ -80,109 +83,128 @@ export const ProfileSettings = () => {
 						}
 					/>
 				</div>
-
 				<Divider
 					my="xs"
 					className="!border-coolGrey-1 dark:!border-borderDark"
 				/>
+				<div className=" mx-auto mt-10 flex gap-3">
+					<div className="w-1/2">
+						<div>
+							<SmallText>Member since: </SmallText>
+							<SmallText light>{useDefaultDate(user.createdAt)}</SmallText>
+						</div>
+						<div className="my-2">
+							<SmallText>Email:</SmallText>
+							<SmallText light>{user?.email}</SmallText>
+						</div>
 
+						<TextInput
+							label="Username"
+							placeholder="Username"
+							defaultValue={user?.name}
+							className="w-full"
+							styles={inputStyles()}
+							onChange={(e) =>
+								setUserState({ ...userState, name: e.target.value })
+							}
+						/>
+						<Textarea
+							label="About me"
+							placeholder="About me"
+							description="Tell us about yourself"
+							defaultValue={user?.aboutMe}
+							onChange={(e) =>
+								setUserState({ ...userState, aboutMe: e.target.value })
+							}
+							className="w-full"
+							styles={inputStyles()}
+							minRows={5}
+							maxRows={7}
+						/>
+					</div>
+					<div className="w-1/2">
+						<MultiSelect
+							label="Interests"
+							placeholder="Interests"
+							description="What are your interests?"
+							defaultValue={user?.interests}
+							onChange={(value) =>
+								setUserState({ ...userState, interests: value })
+							}
+							className="w-full"
+							styles={{
+								...inputStyles(),
+								input: {
+									...inputStyles().input,
+									margin: "0",
+								},
+							}}
+							data={interestList}
+							searchable
+							nothingFound="Nothing found"
+						/>
+						<MultiSelect
+							label="Roles"
+							placeholder="Roles"
+							description="What roles would you like to have?"
+							defaultValue={user?.roles}
+							onChange={(value) => setUserState({ ...userState, roles: value })}
+							className="w-full"
+							styles={{
+								...inputStyles(),
+								input: {
+									...inputStyles().input,
+									margin: "0",
+								},
+							}}
+							data={preferenceList}
+							searchable
+							nothingFound="Nothing found"
+							limit={5}
+						/>
+					</div>
+				</div>
 				<div>
-					<SmallText>Member since: </SmallText>
-					<SmallText light>{useDefaultDate(user.createdAt)}</SmallText>
+					<Space my="md" />
+					<Text
+						size={20}
+						className=" font-medium text-coolGrey-7 dark:text-coolGrey-5"
+					>
+						Location
+					</Text>
+					<div className="text-sm text-coolGrey-7 dark:text-coolGrey-5">
+						{" "}
+						Manage your location{" "}
+					</div>
+					<Divider
+						my="xs"
+						className="!border-coolGrey-1 dark:!border-borderDark"
+					/>
+					<Select
+						label="Country"
+						placeholder="Your country"
+						description="Where are you from? or where do you live?"
+						defaultValue={user?.country}
+						onChange={(value) =>
+							setUserState({ ...userState, country: value as string })
+						}
+						className="w-full"
+						styles={inputStyles()}
+						data={countriesList}
+						searchable
+						nothingFound="Nothing found"
+					/>
+					<div className="ml-auto max-w-[100px]">
+						<BlueButton
+							className="max-w-xs ml-auto"
+							onClick={() => updateUserData(userState)}
+							disabled={!hasUpdated()}
+						>
+							Save
+						</BlueButton>
+					</div>
 				</div>
-				<div className="my-2">
-					<SmallText>Email:</SmallText>
-					<SmallText light>{user?.email}</SmallText>
-				</div>
-
-				<TextInput
-					label="Username"
-					placeholder="Username"
-					defaultValue={user?.name}
-					className="w-full"
-					styles={inputStyles()}
-					onChange={(e) => setUserState({ ...userState, name: e.target.value })}
-				/>
-				<Textarea
-					label="About me"
-					placeholder="About me"
-					description="Tell us about yourself"
-					defaultValue={user?.aboutMe}
-					onChange={(e) =>
-						setUserState({ ...userState, aboutMe: e.target.value })
-					}
-					className="w-full"
-					styles={inputStyles()}
-					minRows={5}
-					maxRows={7}
-				/>
-				<MultiSelect
-					label="Interests"
-					placeholder="Interests"
-					description="What are your interests?"
-					defaultValue={user?.interests}
-					onChange={(value) => setUserState({ ...userState, interests: value })}
-					className="w-full"
-					styles={{
-						...inputStyles(),
-						input: {
-							...inputStyles().input,
-							margin: "0",
-						},
-					}}
-					data={interestList}
-					searchable
-					nothingFound="Nothing found"
-				/>
-				<MultiSelect
-					label="Roles"
-					placeholder="Roles"
-					description="What roles would you like to have?"
-					defaultValue={user?.roles}
-					onChange={(value) => setUserState({ ...userState, roles: value })}
-					className="w-full"
-					styles={{
-						...inputStyles(),
-						input: {
-							...inputStyles().input,
-							margin: "0",
-						},
-					}}
-					data={preferenceList}
-					searchable
-					nothingFound="Nothing found"
-					limit={5}
-				/>
-				<Space my="md" />
-				<Text size={20} className=" font-medium text-coolGrey-7">
-					Location
-				</Text>
-				<div className="text-sm text-"> Manage your location </div>
-				<Divider
-					my="xs"
-					className="!border-coolGrey-1 dark:!border-borderDark"
-				/>
-				<Select
-					label="Country"
-					placeholder="Your country"
-					description="Where are you from? or where do you live?"
-					defaultValue={user?.country}
-					onChange={(value) =>
-						setUserState({ ...userState, country: value as string })
-					}
-					className="w-full"
-					styles={inputStyles()}
-					data={countriesList}
-					searchable
-					nothingFound="Nothing found"
-				/>
-				<BlueButton
-					onClick={() => updateUserData(userState)}
-					disabled={!hasUpdated()}
-				>
-					Save
-				</BlueButton>
 			</div>
-		</div>
+		</section>
 	);
 };

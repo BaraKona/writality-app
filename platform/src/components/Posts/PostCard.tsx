@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { IPost } from "../../interfaces/IPost";
-import { Image, Text, Badge, Group, Card } from "@mantine/core";
+import { Text, Badge, Group } from "@mantine/core";
 import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../Providers/ThemeProvider";
@@ -8,11 +8,12 @@ import {
 	collaborationTypeColour,
 	postTypeColour,
 } from "../../utils/typeColours";
+import { initials, initialsColor } from "../../utils/userIcons";
 export const PostCard: FC<{
 	post: IPost;
 	openPost: (postId: string) => void;
-	style?: string;
-}> = ({ post, openPost, style }) => {
+	className?: string;
+}> = ({ post, openPost, className }) => {
 	const postCardPicture = () => {
 		const pictures = [
 			"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80",
@@ -44,28 +45,12 @@ export const PostCard: FC<{
 	const blue = "#394251";
 
 	return (
-		<div
-			className={`basis-[20.5rem] self-start max-w-[24rem] grow group hover:border-coolGrey-3 ${style}`}
+		<section
+			className={`flex flex-col gap-2 rounded-lg border-border border dark:border-borderDark p-4 shrink ${
+				className ? className : "basis-[26.3rem] h-80 max-w-[500px]"
+			} hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out`}
 		>
-			<Card
-				padding="md"
-				withBorder
-				className="!bg-transparent !border-border dark:!border-borderDark dark:!hover:shadow-none dark:hover:!border-coolGrey-5 hover:!shadow-md transition-all duration-200 ease-in-out cursor-pointer"
-				onClick={() => openPost(post.uid)}
-				// style={{
-				// 	background: post?.theme?.background || "white",
-				// 	borderColor: "#ebebeb",
-				// 	borderRadius: "0.25rem",
-				// }}
-			>
-				{/* <Card.Section>
-					<Image
-						src={postCardPicture()}
-						height={160}
-						alt={post.postTitle}
-						className="group-hover:grayscale-0 grayscale transition-all ease-in-out duration-300"
-					/>
-				</Card.Section> */}
+			<div onClick={() => openPost(post.uid)}>
 				<Group
 					position="apart"
 					mt="xs"
@@ -97,9 +82,6 @@ export const PostCard: FC<{
 					weight={600}
 					size="md"
 					className="text-coolGrey-7 dark:text-coolGrey-3"
-					// style={{
-					// 	color: post?.theme?.projectTitle || blue,
-					// }}
 				>
 					{post.projectTitle || "Untitled post"}
 				</Text>
@@ -107,21 +89,11 @@ export const PostCard: FC<{
 					weight={500}
 					size="xs"
 					className="text-coolGrey-7 dark:text-coolGrey-3"
-					// style={{
-					// 	color: post?.theme?.postTitle || gray2,
-					// }}
 				>
 					{post.postTitle || "Untitled post"}
 				</Text>
 
-				<Text
-					size="xs"
-					color="dimmed"
-					className="line-clamp-3 h-14"
-					// style={{
-					// 	color: post?.theme?.text || blue,
-					// }}
-				>
+				<Text size="xs" color="dimmed" className="line-clamp-3 h-14">
 					{post.collaboration}
 				</Text>
 				{post.genres?.length > 0 && (
@@ -133,24 +105,23 @@ export const PostCard: FC<{
 						))}
 					</div>
 				)}
-				{/* <BlueButton onClick={() => openPost(post.uid)}>
-					<IconEye size={18} className="mr-2" /> Explore post
-				</BlueButton> */}
-			</Card>
-		</div>
+			</div>
+		</section>
 	);
 };
 
 const UserRenderer = ({ post }: { post: IPost }) => {
 	return (
 		<div className="flex items-center gap-2 mb-3">
-			<Image
-				src="https://images.unsplash.com/photo-1490709501740-c7ac36b7d587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-				alt="Profile picture"
-				width={30}
-				height={30}
-				radius="lg"
-			/>
+			<div className="w-12 h-12 rounded-full bg-coolGrey-1/70 dark:bg-borderDark flex items-center justify-center">
+				<div
+					className={`text-xl font-bold truncate -mt-1 ${initialsColor(
+						post.owner.name
+					)}`}
+				>
+					{initials(post.owner.name)}
+				</div>
+			</div>
 			<div className="flex flex-col text-coolGrey-7 dark:text-coolGrey-3">
 				<Text className="text-xs font-semibold">{post?.owner.name}</Text>
 				<Text size="xs" color="dimmed">

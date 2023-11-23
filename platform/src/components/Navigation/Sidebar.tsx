@@ -35,6 +35,7 @@ import { Notifications } from "../notification/Notifications";
 import { useQueryClient } from "react-query";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { UserFriends } from "../ListItems/UserFriends";
+import { UserWritingGroups } from "../writingGroup/UserWritingGroups";
 
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
@@ -47,11 +48,13 @@ export const Sidebar: FC<{}> = () => {
 
 	const { data: projects, isLoading: isProjectLoading } = useUserProjects();
 	const { theme } = useThemeContext();
+
 	const bookmarks = "bookmarks";
 	const home = "projects";
 	const collabs = "collaborations";
 	const inbox = "inbox";
 	const friends = "friends";
+	const writingGroup = "writing group";
 
 	const [sidebarNav, setSidebarNav] = useLocalStorage({
 		key: "sidebarNav",
@@ -118,7 +121,7 @@ export const Sidebar: FC<{}> = () => {
 									<IconTemplate size={18} />
 								</CommunityListItem>
 								<CommunityListItem
-									name="Writing Groups"
+									name="Writing Groups (coming soon)"
 									onClick={() => openPages("/writing-group")}
 								>
 									<IconSocial size={18} />
@@ -182,7 +185,17 @@ export const Sidebar: FC<{}> = () => {
 								>
 									<Icon3dCubeSphere size={18} />
 								</SidebarTopNav>
-
+								<SidebarTopNav
+									sidebarNav={sidebarNav}
+									value={writingGroup}
+									navigate={() => setSidebarNav(writingGroup)}
+								>
+									<IconSocial size={18} />
+								</SidebarTopNav>
+								<Divider
+									className="!border-coolGrey-1 dark:!border-borderDark mx-2"
+									orientation="vertical"
+								/>
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
 									value="create project"
@@ -191,7 +204,7 @@ export const Sidebar: FC<{}> = () => {
 									<IconCubePlus size={18} />
 								</SidebarTopNav>
 								<Divider
-									className="!border-coolGrey-1 dark:!border-borderDark mx-3"
+									className="!border-coolGrey-1 dark:!border-borderDark mx-2"
 									orientation="vertical"
 								/>
 								<SidebarTopNav
@@ -249,6 +262,7 @@ export const Sidebar: FC<{}> = () => {
 								<Notifications notification={currentUser?.inbox} />
 							)}
 							{sidebarNav === friends && <UserFriends />}
+							{sidebarNav === writingGroup && <UserWritingGroups />}
 						</CategoryListItem>
 					</div>
 				</div>

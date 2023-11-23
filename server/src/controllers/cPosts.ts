@@ -5,9 +5,16 @@ import { initPusher } from "../pusherProvider";
 
 export const getPosts = async (req: any, res: any) => {
 	try {
-		const posts = await Posts.find({}).sort({ dateCreated: -1 }).limit(25);
+		const posts = await Posts.find({})
+			.sort({ dateCreated: -1 })
+			.limit(25)
+			.populate({
+				path: "owner",
+				select: "-password -aboutMe -roles -interests -bookmarks",
+			});
 		res.status(200).json(posts);
 	} catch (error) {
+		console.log(error);
 		res.status(404).json({ message: error.message });
 	}
 };
@@ -75,7 +82,11 @@ export const getUserPosts = async (req: any, res: any) => {
 	try {
 		const posts = await Posts.find({ owner: userId })
 			.sort({ dateCreated: -1 })
-			.limit(25);
+			.limit(25)
+			.populate({
+				path: "owner",
+				select: "-password -aboutMe -roles -interests -bookmarks",
+			});
 		res.status(200).json(posts);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
@@ -92,7 +103,11 @@ export const getSingleUserPosts = async (req: any, res: any) => {
 		}
 		const posts = await Posts.find({ owner: user._id })
 			.sort({ dateCreated: -1 })
-			.limit(25);
+			.limit(25)
+			.populate({
+				path: "owner",
+				select: "-password -aboutMe -roles -interests -bookmarks",
+			});
 		res.status(200).json(posts);
 	} catch (error) {
 		console.log(error);

@@ -75,7 +75,7 @@ export const SingleUserSection: FC<{
 							<PostCard
 								post={post}
 								openPost={() => navigate(`/posts/${post.uid}`)}
-								style={"w-72"}
+								className="min-w-[300px] h-80 max-w-[23.2rem]"
 							/>
 						))}
 					</div>

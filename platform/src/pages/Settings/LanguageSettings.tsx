@@ -6,6 +6,7 @@ import { useUpdateUserData } from "../../hooks/user/useUpdateUserData";
 import { useState } from "react";
 import { IUser } from "../../interfaces/IUser";
 import { languages } from "../../utils/languagesList";
+import { SmallText } from "../../components/texts/SmallText";
 
 export const LanguageSettings = () => {
 	const { data: user } = useUser();
@@ -19,14 +20,15 @@ export const LanguageSettings = () => {
 	};
 
 	return (
-		<div className="h-[calc(100dvh-6.4rem)] place-items-center rounded-lg border border-border dark:border-borderDark bg-base dark:bg-baseDark px-3 py-2 overflow-y-auto">
+		<div className="h-[calc(100dvh-7.5rem)] place-items-center rounded-lg border border-border dark:border-borderDark bg-base dark:bg-baseDark px-3 py-2 overflow-y-auto">
 			<div className="max-w-lg mx-auto mt-10">
-				<Text size={20} className=" font-medium text-coolGrey-7">
+				<Text
+					size={20}
+					className=" font-medium text-coolGrey-7 dark:text-coolGrey-5"
+				>
 					Language
 				</Text>
-				<Text size={12} color="dimmed">
-					Manage your language preferences
-				</Text>
+				<SmallText>Manage your language preferences</SmallText>
 				<Divider
 					my="xs"
 					className="!border-coolGrey-1 dark:!border-borderDark"
@@ -66,12 +68,14 @@ export const LanguageSettings = () => {
 					nothingFound="Nothing found"
 				/>
 
-				<BlueButton
-					onClick={() => updateUserData(userState)}
-					disabled={!hasUpdated()}
-				>
-					Save
-				</BlueButton>
+				<div className="ml-auto max-w-[100px]">
+					<BlueButton
+						onClick={() => updateUserData(userState)}
+						disabled={!hasUpdated()}
+					>
+						Save
+					</BlueButton>
+				</div>
 			</div>
 		</div>
 	);
