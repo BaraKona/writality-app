@@ -30,7 +30,7 @@ export const PostBody: FC<{
 	const { theme } = useThemeContext();
 	const { currentUser } = useAuthContext();
 	return (
-		<div className="overflow-y-auto h-[calc(100vh-3.4rem)] grow basis-[60rem] rounded-lg relative pr-3">
+		<div className="overflow-y-auto h-[calc(100vh-4.1rem)] grow basis-[60rem] rounded-lg relative pr-3">
 			<BannerImage
 				image="https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
 				alt={post?.postTitle}

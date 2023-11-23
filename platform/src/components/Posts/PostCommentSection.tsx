@@ -5,78 +5,84 @@ import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import { Text } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
 import { IconSend } from "@tabler/icons-react";
-import { ReadMoreText } from "../ReadMoreText";
 import { useSendComment } from "../../hooks/posts/useSendComment";
 import { PostComment } from "../../pages/post/PostComment";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { initials, initialsColor } from "../../utils/userIcons";
+import { getHotkeyHandler } from "@mantine/hooks";
 
 export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 	const [comment, setComment] = useState("");
 	const [parent] = useAutoAnimate();
 	const { mutate } = useSendComment(post.uid);
 
-	return (
-		<div className="w-96 flex-grow-0 px-2 pt-2 flex flex-col rounded-lg border border-border dark:border-borderDark">
-			<div className="flex gap-2 items-center">
-				<div className="w-12 h-12 rounded-full !bg-coolGrey-2/70 dark:!bg-coolGrey-5/70 dark:bg-borderDark flex items-center justify-center dark:border-baseDark border-base shrink-0">
-					<div
-						className={`text-lg font-bold truncate -mt-1 ${initialsColor(
-							post?.owner.name
-						)}`}
-					>
-						{initials(post?.owner.name)}
-					</div>
-				</div>
-				<div className="flex text-sm text-coolGrey-7 dark:text-coolGrey-4 flex-col">
-					<div className="font-semibold">{post?.owner.name || "User"}</div>
-					<Text className="text-xs font-normal" color="dimmed">
-						{useTimeFromNow(post?.dateCreated.toString())}
-					</Text>
-				</div>
-			</div>
+	function sendComment() {
+		mutate(comment);
+		setComment("");
+	}
 
-			<Divider className="!border-coolGrey-1 dark:!border-borderDark" my={10} />
-			<div className="grow flex flex-col justify-between -mx-2">
-				<div className="h-[calc(100dvh-12.5rem)] overflow-y-auto px-4 pl-2">
-					{/* <ReadMoreText
-						text={post?.collaboration}
-						maxTextLength={200}
-						errorText="This post has no message to collaborators"
-					/> */}
-					<div className="gap-2 mt-3 flex flex-col justify-between ">
-						<div ref={parent} className="overflow-y-auto flex-grow mt-auto">
-							<div className="h-1 w-10 rounded-lg bg-coolGrey-4 mx-auto mt-auto mb-2" />
-							{post?.comments?.map((comment) => (
-								<PostComment
-									comment={comment}
-									owner={post.owner._id}
-									key={comment.uid}
-								/>
-							))}
+	return (
+		<div className="flex flex-col gap-2">
+			<div className="w-96 grow px-2 pt-2 flex flex-col rounded-lg border  border-border dark:border-borderDark">
+				<div className="flex gap-2 items-center">
+					<div className="w-12 h-12 rounded-full !bg-coolGrey-2/70 dark:!bg-coolGrey-5/70 dark:bg-borderDark flex items-center justify-center dark:border-baseDark border-base shrink-0">
+						<div
+							className={`text-lg font-bold truncate -mt-1 ${initialsColor(
+								post?.owner.name
+							)}`}
+						>
+							{initials(post?.owner.name)}
 						</div>
 					</div>
+					<div className="flex text-sm text-coolGrey-7 dark:text-coolGrey-4 flex-col">
+						<div className="font-semibold">{post?.owner.name || "User"}</div>
+						<Text className="text-xs font-normal" color="dimmed">
+							{useTimeFromNow(post?.dateCreated.toString())}
+						</Text>
+					</div>
 				</div>
-				<Textarea
-					placeholder="Your comment"
-					className="!-mb-2"
-					variant="default"
-					size="sm"
-					styles={inputStyles()}
-					value={comment}
-					onChange={(event) => setComment(event.currentTarget.value)}
-					rightSection={
-						<IconSend
-							size={18}
-							className="text-coolGrey-7 hover:text-black dark:hover:text-coolGrey-1 cursor-pointer"
-							onClick={() => {
-								mutate(comment);
-								setComment("");
-							}}
-						/>
-					}
+
+				<Divider
+					className="!border-coolGrey-1 dark:!border-borderDark"
+					my={10}
 				/>
+				<div className="h-[calc(100dvh-13rem)] overflow-y-auto flex flex-col grow">
+					<div
+						ref={parent}
+						className="overflow-y-auto grow mt-auto flex flex-col pr-2"
+					>
+						<div className="h-1 w-10 rounded-lg bg-coolGrey-4 mx-auto mt-auto mb-2" />
+						{post?.comments?.map((comment) => (
+							<PostComment
+								comment={comment}
+								owner={post.owner._id}
+								key={comment.uid}
+							/>
+						))}
+					</div>
+				</div>
 			</div>
+			<Textarea
+				placeholder="Your comment"
+				className=" !rounded-t-none"
+				variant="default"
+				size="sm"
+				styles={inputStyles()}
+				onKeyDown={getHotkeyHandler([
+					["mod+Enter", sendComment],
+					["shift+Enter", sendComment],
+					["cmd+Enter", sendComment],
+				])}
+				value={comment}
+				onChange={(event) => setComment(event.currentTarget.value)}
+				rightSection={
+					<IconSend
+						size={18}
+						className="text-coolGrey-7 hover:text-black dark:hover:text-coolGrey-1 cursor-pointer"
+						onClick={() => sendComment}
+					/>
+				}
+			/>
 		</div>
 	);
 };
