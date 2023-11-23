@@ -46,7 +46,7 @@ export const createProject = async (req: any, res: any) => {
 
 	try {
 		await newProject.save();
-		res.status(201).json(newProject);
+		res.status(201).json({ project: newProject });
 	} catch (error) {
 		console.log(error);
 		res.status(409).json({ message: error.message });
@@ -525,16 +525,20 @@ export const createProjectChapter = async (req: any, res: any) => {
 				},
 			],
 		});
-		project.dateUpdated = {
-			user: userId,
+
+		const updated = {
 			date: new Date(),
+			user: userId,
 		};
 
-		project.history.push({
+		const history = {
 			date: new Date(),
 			user: userId,
 			action: `created a new chapter`,
-		});
+		};
+
+		project.dateUpdated = updated;
+		project.history.push(history);
 
 		project.collaborators?.find((collaborator) => {
 			if (collaborator.user === userId.toString()) {
@@ -551,7 +555,9 @@ export const createProjectChapter = async (req: any, res: any) => {
 		});
 
 		await project.save();
-		res.status(200).json(chapter);
+		res.status(200).json({
+			project,
+		});
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

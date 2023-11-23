@@ -1,23 +1,28 @@
 import { useMutation, useQueryClient } from "react-query";
-import { v4 as uuidv4 } from "uuid";
 import { createProject } from "../../api/project/projects";
-import axios from "axios";
 import { useToast } from "../useToast";
+import { useNavigate } from "react-router-dom";
 
 export const useCreateProject = () => {
 	const queryClient = useQueryClient();
-
-	return useMutation(
-		"project",
-		async () => {
-			const data = await createProject();
-			return data;
+	const navigate = useNavigate();
+	return useMutation("project", async () => await createProject(), {
+		onSuccess: ({ project }) => {
+			useToast("success", "Project created successfully 😃");
+			queryClient.setQueryData(["projects"], (old: any) => {
+				if (project.type === "standard") {
+					return {
+						...old,
+						standard: [...old.standard, project],
+					};
+				} else {
+					return {
+						...old,
+						collaboration: [...old.collaboration, project],
+					};
+				}
+			});
+			navigate(`/project/${project.uid}`);
 		},
-		{
-			onSuccess: (data) => {
-				useToast("success", "Project created successfully 😃");
-				queryClient.invalidateQueries(["projects"]);
-			},
-		}
-	);
+	});
 };
