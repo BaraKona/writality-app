@@ -41,34 +41,11 @@ export const SinglePost = () => {
 
 	if (isLoading) {
 		return (
-			<div className="h-[calc(100dvh-3rem)] place-items-center rounded-lg px-3 py-3">
-				<Breadcrumbs
-					items={[
-						{
-							label: "Posts",
-							path: "/posts",
-							icon: <IconClipboard size={18} />,
-							isLoading: false,
-						},
-						{
-							label: "Create",
-							path: "/posts/create",
-							icon: <IconArticle size={18} />,
-							isLoading: false,
-						},
-					]}
-				/>
-				<Divider
-					my="xs"
-					className="!border-coolGrey-1 dark:!border-borderDark"
-				/>
-				<div className="flex gap-3">
-					<Skeleton className="w-2/3" height={800} />
-					<Divider
-						className=" border-border dark:border-borderDark"
-						orientation="vertical"
-					/>
-					<Skeleton className="w-1/3" height={800} />
+			<div className="h-[calc(100dvh-3.1rem)] rounded-lg flex w-full">
+				<div className="flex grow gap-3 w-full">
+					<Skeleton className="w-full grow" />
+
+					<Skeleton className="!w-96" />
 				</div>
 			</div>
 		);
