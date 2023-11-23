@@ -32,8 +32,8 @@ export const ProfilePage = () => {
 	}
 
 	return (
-		<div className="flex flex-row gap-2">
-			<div className="place-items-center rounded-lg bg-base dark:bg-baseDark  flex-grow border-border dark:border-baseDark border overflow-y-auto h-[calc(100dvh-3.2rem)]">
+		<div className="flex flex-row ">
+			<div className="place-items-center rounded-lg bg-base dark:bg-baseDark  flex-grow pr-2 overflow-y-auto h-[calc(100dvh-3.2rem)]">
 				<BannerImage
 					image="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 					alt="Banner by Jez Timms on Unsplash"

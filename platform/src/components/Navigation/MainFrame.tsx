@@ -12,6 +12,7 @@ import {
 	IconUserCircle,
 	IconMoon,
 	IconSun,
+	IconSocial,
 } from "@tabler/icons-react";
 import { useTabContext } from "../../contexts/TabContext";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useThemeContext } from "../../Providers/ThemeProvider";
 import { IconUsersGroup } from "@tabler/icons-react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export const MainFrame: FC<{
 	children: ReactNode;
@@ -83,6 +85,10 @@ export const MainFrame: FC<{
 			title: "Help",
 			icon: <IconHelp size={18} />,
 		},
+		{
+			title: "Writing-groups",
+			icon: <IconSocial size={18} />,
+		},
 	];
 
 	const closeTab = (
@@ -144,9 +150,14 @@ export const MainFrame: FC<{
 		navigate(tab.path);
 	};
 
+	const [parent] = useAutoAnimate();
+
 	return (
 		<div className="w-[calc(100vw-19rem)] min-w-[992px] overflow-auto">
-			<div className="my-1.5 px-2 flex gap-1 content-start items-center">
+			<div
+				className="my-1.5 px-2 flex gap-1 content-start items-center"
+				ref={parent}
+			>
 				{tabs.map((tab) => (
 					<div
 						key={tab.id}
@@ -210,7 +221,7 @@ export const MainFrame: FC<{
 					)}
 				</div>
 			</div>
-			<section className="h-[calc(100dvh-3rem)] !rounded-lg overflow-y-auto px-2">
+			<section className="h-[calc(100dvh-3rem)] !rounded-lg overflow-y-auto pr-2 ml-2">
 				{children}
 			</section>
 		</div>

@@ -11,7 +11,6 @@ import {
 	IconUserCircle,
 	IconCubePlus,
 	IconCube,
-	IconRocket,
 	IconInbox,
 	Icon3dCubeSphere,
 	IconUserHeart,
@@ -121,8 +120,8 @@ export const Sidebar: FC<{}> = () => {
 									<IconTemplate size={18} />
 								</CommunityListItem>
 								<CommunityListItem
-									name="Writing Groups (coming soon)"
-									onClick={() => openPages("/writing-group")}
+									name="Writing-groups"
+									onClick={() => openPages("/writing-groups")}
 								>
 									<IconSocial size={18} />
 								</CommunityListItem>
@@ -149,9 +148,6 @@ export const Sidebar: FC<{}> = () => {
 							</CategoryListItem>
 
 							<CategoryListItem>
-								<CommunityListItem type="event" name="Coming Soon">
-									<IconRocket size={18} />
-								</CommunityListItem>
 								<CommunityListItem
 									name="Settings"
 									onClick={() => navigate("/settings")}

@@ -16,6 +16,8 @@ import { SingleUserPage } from "./pages/Users/SingleUserPage";
 import { VerifyEmailPage } from "./pages/auth/VerifyEmailPage";
 import { VerifiedPage } from "./pages/auth/VerifiedPage";
 import { OnboardingPage } from "./pages/onboarding/OnboardingPage";
+import { WritingGroupsPage } from "./pages/WritingGroupsPage";
+import { HelpPage } from "./pages/Help";
 
 const dashboardRoutes: RouteObject[] = [
 	{
@@ -39,6 +41,15 @@ const dashboardRoutes: RouteObject[] = [
 		path: "/stories",
 		element: <Stories />,
 	},
+	{
+		path: "/writing-groups",
+		element: <WritingGroupsPage />,
+	},
+	{
+		path: "/help",
+		element: <HelpPage />,
+	},
+
 	{
 		path: "/posts",
 		element: <PostsPage />,
