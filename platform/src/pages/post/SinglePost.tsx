@@ -5,17 +5,19 @@ import { useLocation, useParams } from "react-router-dom";
 import { Divider, Skeleton } from "@mantine/core";
 import { PostBody } from "../../components/Posts/PostBody";
 import { PostCommentSection } from "../../components/Posts/PostCommentSection";
-import { useAddFavouriteTab } from "../../hooks/user/useAddFavouriteTab";
+import { useAddBookmark } from "../../hooks/user/useAddBookmark";
 import { useSocket } from "../../Providers/SocketProvider";
 import { useQueryClient } from "react-query";
 import { useEffect } from "react";
+import { useRemoveBookmark } from "../../hooks/user/useRemoveBookmark";
 
 export const SinglePost = () => {
 	const { postId } = useParams<{ postId: string }>();
 	const { data: post, isLoading } = useSinglePost(postId as string);
 	const queryClient = useQueryClient();
 	const location = useLocation();
-	const { mutate } = useAddFavouriteTab();
+	const { mutate } = useAddBookmark();
+	const { mutate: removeBookmark } = useRemoveBookmark();
 
 	const { pusher } = useSocket();
 
@@ -102,6 +104,7 @@ export const SinglePost = () => {
 					breadCrumbs={breadcrumbs}
 					post={post}
 					isLoading={isLoading}
+					removeBookmark={() => removeBookmark(`/posts/${post?.uid}`)}
 					addFavourite={() =>
 						mutate({
 							url: location.pathname,

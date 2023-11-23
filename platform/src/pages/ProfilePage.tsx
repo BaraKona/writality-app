@@ -6,7 +6,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { useRemoveFavourite } from "../hooks/user/useRemoveFavouriteProject";
 import { ProfilePosts } from "../components/Profile/ProfilePosts";
 import { useUserPosts } from "../hooks/posts/useUserPosts";
-import { useAddFavouriteTab } from "../hooks/user/useAddFavouriteTab";
+import { useAddBookmark } from "../hooks/user/useAddBookmark";
 import { BannerImage } from "../components/BannerImage";
 import { Title } from "../components/Title";
 
@@ -15,7 +15,7 @@ export const ProfilePage = () => {
 	const { data: projects, isLoading } = useUserProfileProjects();
 	const { data: posts, isLoading: postLoading } = useUserPosts();
 	const { mutate } = useCreateProject();
-	const { mutate: mutateFavourite } = useAddFavouriteTab();
+	const { mutate: mutateFavourite } = useAddBookmark();
 	const { mutate: removeFavourite } = useRemoveFavourite();
 
 	function greeting() {

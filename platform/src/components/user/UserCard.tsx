@@ -3,9 +3,16 @@ import { IUser } from "../../interfaces/IUser";
 import { UserCountryRenderer } from "../UserCountryRenderer";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { IconBookmarkFilled, IconBookmarkPlus } from "@tabler/icons-react";
+import { useAddBookmark } from "../../hooks/user/useAddBookmark";
+import { useRemoveBookmark } from "../../hooks/user/useRemoveBookmark";
 
 export const UserCard: FC<{ user: IUser }> = ({ user }) => {
 	const navigate = useNavigate();
+	const { currentUser } = useAuthContext();
+	const { mutate: addBookmark } = useAddBookmark();
+	const { mutate: removeBookmark } = useRemoveBookmark();
 
 	return (
 		<div
@@ -22,6 +29,31 @@ export const UserCard: FC<{ user: IUser }> = ({ user }) => {
 					{initials(user.name)}
 				</div>
 			</div>
+			{currentUser.bookmarks.some((bookmark: any) =>
+				bookmark.url.includes(user.uid)
+			) ? (
+				<div className="absolute top-2 right-2 text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg">
+					<IconBookmarkFilled
+						size={18}
+						onClick={(e) => {
+							e.stopPropagation(), removeBookmark(`/users/${user.uid}`);
+						}}
+					/>
+				</div>
+			) : (
+				<button
+					className={`absolute top-2 right-2 text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg`}
+					onClick={(e) => {
+						e.stopPropagation(),
+							addBookmark({
+								url: `/users/${user.uid}`,
+								name: user.name,
+							});
+					}}
+				>
+					<IconBookmarkPlus size={18} />
+				</button>
+			)}
 			<div className="p-2 dark:border dark:border-borderDark border-t-none rounded-b-lg grow dark:hover:border-coolGrey-1/30 flex flex-col">
 				<div className="flex flex-col text-center mt-8 items-center">
 					<span className="text-lg font-bold">{user.name}</span>

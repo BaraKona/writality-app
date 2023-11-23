@@ -6,19 +6,21 @@ import {
 	postTypeColour,
 } from "../../utils/typeColours";
 import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
-import { IconBookmarkPlus } from "@tabler/icons-react";
+import { IconBookmarkFilled, IconBookmarkPlus } from "@tabler/icons-react";
 import { BannerImage } from "../BannerImage";
 import { BreadcrumbItemProp, Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
 import { useThemeContext } from "../../Providers/ThemeProvider";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export const PostBody: FC<{
 	post: IPost;
 	isLoading?: boolean;
 	addFavourite: () => void;
+	removeBookmark: () => void;
 	breadCrumbs?: BreadcrumbItemProp[];
-}> = ({ post, isLoading, addFavourite, breadCrumbs }) => {
+}> = ({ post, isLoading, addFavourite, breadCrumbs, removeBookmark }) => {
 	const { theme } = useThemeContext();
-
+	const { currentUser } = useAuthContext();
 	return (
 		<div className="overflow-y-auto h-[calc(100vh-3.4rem)] grow basis-[60rem] rounded-lg relative pr-3">
 			<BannerImage
@@ -33,16 +35,10 @@ export const PostBody: FC<{
 
 			<div className="px-2 mx-auto flex max-w-screen-xl gap-2">
 				<div className="max-w-screen-md mx-auto">
-					<Text
-						className="text-sm rounded-lg px-4 py-0.5 absolute top-10 right-1	 !text-coolGrey-4"
-						// style={{
-						// 	background: post?.theme?.time || gray,
-						// 	color: post?.theme?.text || blue,
-						// }}
-					>
+					<Text className="text-sm rounded-lg px-4 py-0.5 absolute top-12 right-1	 !text-coolGrey-4">
 						{useDefaultDateTime(post?.dateCreated.toString())}
 					</Text>
-					<div className="flex gap-1 absolute top-4 right-5">
+					<div className="flex gap-1 absolute top-4 right-5 items-center">
 						<Badge
 							color={collaborationTypeColour(post.collaborationType)}
 							variant={theme === "light" ? "light" : "filled"}
@@ -59,26 +55,34 @@ export const PostBody: FC<{
 						>
 							{post?.postType}
 						</Badge>
-						<div className="ml-auto cursor-pointer text-coolGrey-3 hover:text-coolGrey-1 group-hover:visible transition-all ease-in-out duration-300">
-							<IconBookmarkPlus size={18} onClick={addFavourite} />
-						</div>
+						{currentUser.bookmarks.some((bookmark: any) =>
+							bookmark.url.includes(post.uid)
+						) ? (
+							<button
+								className="text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg"
+								onClick={(e) => {
+									e.stopPropagation(), removeBookmark();
+								}}
+							>
+								<IconBookmarkFilled size={18} />
+							</button>
+						) : (
+							<button
+								className={`text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg`}
+								onClick={(e) => {
+									e.stopPropagation(), addFavourite();
+								}}
+							>
+								<IconBookmarkPlus size={18} />
+							</button>
+						)}
 					</div>
 
 					<Space h="md" />
-					<h1
-						className="font-bold my-8 text-coolGrey-7 dark:text-orange-800"
-						// style={{
-						// 	color: post?.theme?.projectTitle || blue,
-						// }}
-					>
+					<h1 className="font-bold my-8 text-coolGrey-7 dark:text-orange-800">
 						{post?.projectTitle}
 					</h1>
-					<h2
-						className="font-semibold text-coolGrey-7 dark:text-coolGrey-4"
-						// style={{
-						// 	color: post?.theme?.postTitle || gray2,
-						// }}
-					>
+					<h2 className="font-semibold text-coolGrey-7 dark:text-coolGrey-4">
 						{post?.postTitle}
 					</h2>
 					{post?.genres?.length > 0 && (

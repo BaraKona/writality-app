@@ -237,21 +237,29 @@ export const addbookmarks = async (req: any, res: any) => {
 	const { url, type, name } = req.body;
 	const userId = req.user.uid;
 
+	const bookmark = {
+		tabType: type,
+		url,
+		name,
+	};
+
 	try {
 		const user = await User.findOne({ uid: userId });
 		if (!user) {
 			res.status(404).json({ message: "User not found." });
 		} else {
 			if (user.bookmarks.find((tab: any) => tab.url === url)) {
-				res.status(200).json({ message: "Tab already bookmark." });
+				res.status(200).json({ message: "Bookmark already added" });
 			} else {
-				user.bookmarks.push({ tabType: type, url, name });
+				user.bookmarks.push(bookmark);
 				await user.save();
-				res.status(200).json({ message: "Tab bookmark successfully." });
+				res
+					.status(200)
+					.json({ message: `Added ${type} to bookmark`, bookmark });
 			}
 		}
 	} catch (error) {
-		res.status(404).json({ message: error.message });
+		res.status(404).json({ message: "Something went wrong" });
 	}
 };
 

@@ -6,17 +6,20 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { TabListItem } from "./TabListItem";
 import { useRemoveBookmark } from "../../hooks/user/useRemoveBookmark";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 export const FavouriteTabItems: FC<{}> = ({}) => {
 	const { currentUser } = useAuthContext();
 	const { mutate: removeBookmark } = useRemoveBookmark();
 	const navigate = useNavigate();
+
+	const [parent] = useAutoAnimate();
 
 	const posts = currentUser?.bookmarks?.filter(
 		(tab: any) => tab.tabType === "post"
 	);
 
 	return (
-		<>
+		<div ref={parent}>
 			{!currentUser ? (
 				<>
 					<Skeleton height={27} width={160} radius="md" mb={3} />
@@ -24,7 +27,7 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 					<Skeleton height={27} width={160} radius="md" mb={3} />
 				</>
 			) : (
-				<>
+				<div ref={parent}>
 					<div>
 						<Divider
 							className="!border-coolGrey-1 dark:!border-borderDark"
@@ -44,7 +47,7 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 							/>
 						);
 					})}
-				</>
+				</div>
 			)}
 			{currentUser && currentUser?.bookmarks?.length === 0 && (
 				<div className="text-blueTextLight text-center text-xs font-normal">
@@ -52,6 +55,6 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 					<IconBookmarkPlus size={16} className="mx-auto mt-2" />
 				</div>
 			)}
-		</>
+		</div>
 	);
 };

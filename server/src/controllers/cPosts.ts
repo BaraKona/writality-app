@@ -11,7 +11,8 @@ export const getPosts = async (req: any, res: any) => {
 			.populate({
 				path: "owner",
 				select: "-password -aboutMe -roles -interests -bookmarks",
-			});
+			})
+			.select("-comments");
 		res.status(200).json(posts);
 	} catch (error) {
 		console.log(error);
@@ -70,6 +71,7 @@ export const useSinglePost = async (req: any, res: any) => {
 				path: "comments.owner",
 				select: "-password -aboutMe -roles -interests -bookmarks",
 			});
+
 		res.status(200).json(post);
 	} catch (error) {
 		console.log(error);
