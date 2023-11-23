@@ -104,3 +104,10 @@ export const completeOnboarding = async (user: IUser) => {
 	const { data } = await userApi.post("/onboarding", { ...user });
 	return data;
 };
+
+export const removeBookmark = async (url: string) => {
+	const { data } = await userApi.patch("/bookmarks", {
+		url,
+	});
+	return data;
+};

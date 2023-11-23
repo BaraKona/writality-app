@@ -5,8 +5,10 @@ import { FC } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { TabListItem } from "./TabListItem";
+import { useRemoveBookmark } from "../../hooks/user/useRemoveBookmark";
 export const FavouriteTabItems: FC<{}> = ({}) => {
 	const { currentUser } = useAuthContext();
+	const { mutate: removeBookmark } = useRemoveBookmark();
 	const navigate = useNavigate();
 
 	const posts = currentUser?.bookmarks?.filter(
@@ -30,14 +32,15 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
 						/>
 					</div>
 
-					{posts?.map((tab: any, index: number) => {
+					{posts?.map((bookmark: any, index: number) => {
 						return (
 							<TabListItem
 								key={index}
-								type={tab.tabType as any}
-								url={tab.url}
-								name={tab.name || "Untitled"}
-								onClick={() => navigate(tab.url)}
+								type={bookmark.tabType as any}
+								url={bookmark.url}
+								name={bookmark.name || "Untitled"}
+								onClick={() => navigate(bookmark.url)}
+								removeFavourite={() => removeBookmark(bookmark.url)}
 							/>
 						);
 					})}

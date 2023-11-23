@@ -124,13 +124,15 @@ export const postComment = async (req: any, res: any) => {
 	const uid = uuidv4();
 	try {
 		const post = await Posts.findOne({ uid: postId });
-		post.comments.push({
+		const newComment = {
 			uid,
 			owner: userId,
 			content: comment,
 			likes: 0,
 			dateCreated: new Date(),
-		});
+		};
+
+		post.comments.push(newComment);
 		await post.save();
 
 		pusher.trigger(`post-${postId}`, "comments", {
@@ -139,7 +141,7 @@ export const postComment = async (req: any, res: any) => {
 			postId,
 		});
 
-		res.status(200).json(post);
+		res.status(200).json({ message: "comment posted", comment: newComment });
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 						<Analytics />
 						{/* </UserLoader> */}
 					</AuthContextWrapper>
-					<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+					<ReactQueryDevtools initialIsOpen={false} position="top-left" />
 					<Toaster position="bottom-right" />
 				</MantineProvider>
 			</QueryClientProvider>

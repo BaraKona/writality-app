@@ -13,6 +13,7 @@ import {
 	sendVerificationEmail,
 	verifyEmail,
 	completeOnboarding,
+	removeBookmark,
 } from "../controllers/cUser";
 import { protect } from "../middleware/jwtAuth";
 
@@ -27,12 +28,14 @@ router.post("/signup", createUser);
 router.post("/signin", signIn);
 router.post("/logout", signOut);
 router.post("/favourites/tabs", protect, addbookmarks);
+
 router.post("/favourites", protect, addFavouriteProject);
 router.post("/email/send-verification", protect, sendVerificationEmail);
 router.post("/email/verify", verifyEmail);
 router.post("/onboarding", protect, completeOnboarding);
 
 router.patch("/", protect, updateUserData);
+router.patch("/bookmarks", protect, removeBookmark);
 
 router.delete("/favourites", protect, removeFavouriteProject);
 

@@ -243,11 +243,33 @@ export const addbookmarks = async (req: any, res: any) => {
 			res.status(404).json({ message: "User not found." });
 		} else {
 			if (user.bookmarks.find((tab: any) => tab.url === url)) {
-				res.status(200).json({ message: "Tab already favourited." });
+				res.status(200).json({ message: "Tab already bookmark." });
 			} else {
 				user.bookmarks.push({ tabType: type, url, name });
 				await user.save();
-				res.status(200).json({ message: "Tab favourited successfully." });
+				res.status(200).json({ message: "Tab bookmark successfully." });
+			}
+		}
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const removeBookmark = async (req: any, res: any) => {
+	const { url } = req.body;
+	const userId = req.user.uid;
+
+	try {
+		const user = await User.findOne({ uid: userId });
+		if (!user) {
+			res.status(404).json({ message: "User not found." });
+		} else {
+			if (!user.bookmarks.find((tab: any) => tab.url === url)) {
+				res.status(200).json({ message: "Tab not bookmark." });
+			} else {
+				user.bookmarks = user.bookmarks.filter((tab: any) => tab.url !== url);
+				await user.save();
+				res.status(200).json({ message: "Tab removed successfully.", url });
 			}
 		}
 	} catch (error) {
