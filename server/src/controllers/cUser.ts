@@ -20,6 +20,7 @@ export const createUser = async (req: any, res: any) => {
 		uid: uuidv4(),
 		password: encryptedPassword,
 		createdAt: new Date(),
+		role: "beta-tester",
 	});
 	const userExists = await User.findOne({
 		email: email,

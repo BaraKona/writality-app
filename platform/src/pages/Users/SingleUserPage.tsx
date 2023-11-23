@@ -61,7 +61,7 @@ export const SingleUserPage: FC<{}> = () => {
 			</div>
 
 			<div className="flex w-full">
-				<div className="grow px-16 pb-6 relative border-r border-border dark:border-borderDark">
+				<div className="grow w-1/2 px-16 pb-6 relative border-r border-border dark:border-borderDark">
 					<div className="right-4 top-4 text-sm flex flex-col gap-2 absolute">
 						<div className="flex gap-2 items-center">
 							<IconClock size={20} /> Member since:{" "}
@@ -137,7 +137,7 @@ export const SingleUserPage: FC<{}> = () => {
 						))}
 					</div>
 				</div>
-				<div className="basis-[214rem]  border-border dark:border-borderDark py-2 min-h-[693px] flex">
+				<div className="w-1/2 border-border dark:border-borderDark pt-2 min-h-[693px] flex transition-all ease-in-out duration-300">
 					<SingleUserSection projects={projects} posts={posts} />
 				</div>
 			</div>

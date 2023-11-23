@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { IPost } from "../../interfaces/IPost";
 import { Badge, Text } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../Providers/ThemeProvider";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { IconBookmarkFilled, IconBookmarkPlus } from "@tabler/icons-react";
@@ -14,20 +13,18 @@ import {
 export const PostCard: FC<{
 	post: IPost;
 	openPost: (postId: string) => void;
-	className?: string;
-}> = ({ post, openPost, className }) => {
+	width?: string;
+}> = ({ post, openPost, width }) => {
 	const { mutate: addFavourite } = useAddFavouriteTab();
 	const { currentUser } = useAuthContext();
 
 	const { theme } = useThemeContext();
-	const navigate = useNavigate();
-	const gray = "#e5e7eb";
-	const gray2 = "#ced4da";
-	const blue = "#394251";
 
 	return (
 		<section
-			className="rounded-lg max-w-sm shadow relative hover:shadow-md cursor-pointer transition-all ease-in-out duration-300 flex flex-col"
+			className={`rounded-lg ${
+				width ? width : "w-[24rem]"
+			} shadow relative hover:shadow-md cursor-pointer transition-all ease-in-out duration-300 flex flex-col`}
 			onClick={() => openPost(post.uid)}
 		>
 			<div className="w-full bg-gradient-to-tr dark:from-purple-900 rounded-t-lg dark:to-sky-900 from-coolGrey-6 to-sky-800 -600 h-48" />

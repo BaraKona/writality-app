@@ -21,7 +21,7 @@ export const SingleUserSection: FC<{
 		<Tabs
 			defaultValue="projects"
 			keepMounted={false}
-			className="border-none important:border-none w-full !pl-2 !flex !flex-col !grow"
+			className="border-none important:border-none w-full !pl-2 !flex !flex-col !grow !pt-2"
 		>
 			<Tabs.List className="flex !items-center !border-none !gap-2 !mb-2 !grow-0">
 				<div className="flex gap-2 bg-coolGrey-1 dark:bg-hoverDark p-1.5 rounded-lg">
@@ -75,7 +75,7 @@ export const SingleUserSection: FC<{
 							<PostCard
 								post={post}
 								openPost={() => navigate(`/posts/${post.uid}`)}
-								className="min-w-[300px] h-80 max-w-[23.2rem]"
+								width="w-[23.0rem]"
 							/>
 						))}
 					</div>
