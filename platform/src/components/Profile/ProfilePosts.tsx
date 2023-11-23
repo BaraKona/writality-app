@@ -54,7 +54,12 @@ export const ProfilePosts: FC<{ posts: IPost[]; isLoading: boolean }> = ({
 			</div>
 			<div className="flex flex-col gap-2 pr-2 h-[calc(100dvh-5.5rem)] overflow-y-auto">
 				{posts?.map((post) => (
-					<PostCard post={post!} openPost={openPost} key={post.uid} />
+					<PostCard
+						post={post!}
+						openPost={openPost}
+						key={post.uid}
+						width="w-[22rem]"
+					/>
 				))}
 			</div>
 		</div>

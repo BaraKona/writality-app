@@ -57,7 +57,7 @@ export const getAllUsers = async (req: any, res: any) => {
 		const users = await User.find({
 			isPublic: true,
 		})
-			.select("-password")
+			.select("uid name email createdAt country roles aboutMe")
 			.sort({ createdAt: -1 });
 
 		res.status(200).json(users);

@@ -24,7 +24,7 @@ export const UsersPage = () => {
 					</div>
 				</Title>
 
-				<div className="flex gap-2 flex-wrap">
+				<div className="flex gap-2 flex-wrap pb-6">
 					{users?.map((user: IUser, index: number) => (
 						<UserCard user={user} key={index} />
 					))}
