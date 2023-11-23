@@ -258,7 +258,18 @@ export const CreatePostSection: FC<{
 						</div> */}
 					</div>
 					<div className="mt-5">
-						<BlueButton>Create Post</BlueButton>
+						<BlueButton
+							disabled={
+								!post.projectTitle ||
+								!post.postTitle ||
+								!post.description ||
+								!post.collaboration ||
+								!post.postType ||
+								!post.collaborationType
+							}
+						>
+							Create Post
+						</BlueButton>
 					</div>
 				</form>
 			</div>

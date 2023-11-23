@@ -17,7 +17,7 @@ export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 	const { mutate } = useSendComment(post.uid);
 
 	return (
-		<div className="w-96 flex-grow-0 p-2 flex flex-col">
+		<div className="w-96 flex-grow-0 px-2 pt-2 flex flex-col rounded-lg border border-border dark:border-borderDark">
 			<div className="flex gap-2 items-center">
 				<div className="w-12 h-12 rounded-full !bg-coolGrey-2/70 dark:!bg-coolGrey-5/70 dark:bg-borderDark flex items-center justify-center dark:border-baseDark border-base shrink-0">
 					<div
@@ -37,15 +37,16 @@ export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 			</div>
 
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark" my={10} />
-			<div className=" flex-grow-1 flex flex-col justify-between -mx-2">
+			<div className="grow flex flex-col justify-between -mx-2">
 				<div className="h-[calc(100dvh-17rem)] overflow-y-auto px-4 pl-2">
-					<ReadMoreText
+					{/* <ReadMoreText
 						text={post?.collaboration}
 						maxTextLength={200}
 						errorText="This post has no message to collaborators"
-					/>
+					/> */}
 					<div className="gap-2 mt-3 flex flex-col justify-between ">
 						<div ref={parent} className="overflow-y-auto flex-grow mt-auto">
+							<div className="h-1 w-10 rounded-lg bg-coolGrey-4 mx-auto mt-auto mb-2" />
 							{post?.comments?.map((comment) => (
 								<PostComment
 									comment={comment}
@@ -58,7 +59,7 @@ export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 				</div>
 				<Textarea
 					placeholder="Your comment"
-					className="mt-auto"
+					className="!-mb-2"
 					variant="default"
 					size="sm"
 					styles={inputStyles()}

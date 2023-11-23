@@ -7,7 +7,7 @@ import { Tooltip } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { DefaultPostBanner } from "../../assets/images";
 import { BannerImage } from "../../components/BannerImage";
-import { IconEdit, IconTemplate } from "@tabler/icons-react";
+import { IconEdit, IconClipboard } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { Title } from "../../components/Title";
 import { Loading } from "../../components/Loading";
@@ -26,7 +26,7 @@ export const PostsPage: FC = () => {
 	if (!posts) return <Loading isLoading={true} />;
 
 	return (
-		<div className="overflow-y-auto rounded-lg bg-base dark:bg-baseDark">
+		<div className="overflow-y-auto rounded-lg bg-base dark:bg-baseDark pb-5">
 			<Tooltip
 				label="Create a new post"
 				position="left"
@@ -34,18 +34,18 @@ export const PostsPage: FC = () => {
 				styles={tooltipStyles}
 			>
 				<button
-					className="bg-base p-2 hover:bg-gray-100 rounded-lg fixed right-5 top-14 border border-border dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
+					className="bg-base p-2 hover:bg-gray-100 rounded-lg fixed z-20 right-5 top-14 border border-border dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
 					onClick={openPostCreation}
 				>
 					<IconEdit size={18} />
 				</button>
 			</Tooltip>
 			<BannerImage image={DefaultPostBanner} alt="Post banner" />
-			<div className="max-w-screen-xl mx-auto">
+			<div className="px-2 mx-auto">
 				<Title>
 					<div className="flex gap-2">
-						<IconTemplate size={40} className="dark:text-purple-600" />
-						Users
+						<IconClipboard size={40} className="dark:text-purple-600" />
+						Project Posts Board
 					</div>
 				</Title>
 

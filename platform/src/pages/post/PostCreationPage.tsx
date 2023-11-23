@@ -1,8 +1,6 @@
 import { FC, useState } from "react";
-import { Breadcrumbs } from "../../components/Breadcrumbs/Breadcrumbs";
-import { IconArticle, IconTemplate } from "@tabler/icons-react";
+import { IconArticle, IconClipboard } from "@tabler/icons-react";
 import { CreatePostSection } from "../../components/Posts/CreatePostSection";
-import { Divider } from "@mantine/core";
 import { PostBody } from "../../components/Posts/PostBody";
 import { IPost } from "../../interfaces/IPost";
 import { useCreatePost } from "../../hooks/posts/useCreatePost";
@@ -39,7 +37,7 @@ export const PostCreationPage: FC<{}> = () => {
 		{
 			label: "Posts",
 			path: "/posts",
-			icon: <IconTemplate size={18} />,
+			icon: <IconClipboard size={18} />,
 			isLoading: false,
 		},
 		{

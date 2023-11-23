@@ -1,42 +1,23 @@
 import { FC } from "react";
 import { IPost } from "../../interfaces/IPost";
-import { Text, Badge, Group } from "@mantine/core";
-import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
+import { Badge, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../Providers/ThemeProvider";
+import { initials, initialsColor } from "../../utils/userIcons";
+import { IconBookmarkFilled, IconBookmarkPlus } from "@tabler/icons-react";
+import { useAddFavouriteTab } from "../../hooks/user/useAddFavouriteTab";
+import { useAuthContext } from "../../contexts/AuthContext";
 import {
 	collaborationTypeColour,
 	postTypeColour,
 } from "../../utils/typeColours";
-import { initials, initialsColor } from "../../utils/userIcons";
 export const PostCard: FC<{
 	post: IPost;
 	openPost: (postId: string) => void;
 	className?: string;
 }> = ({ post, openPost, className }) => {
-	const postCardPicture = () => {
-		const pictures = [
-			"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80",
-			"https://images.unsplash.com/photo-1510218830377-2e994ea9087d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1316&q=80",
-			"https://images.unsplash.com/photo-1516780236580-ef416334d5b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=698&q=80",
-			"https://images.unsplash.com/photo-1490709501740-c7ac36b7d587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80,",
-			"https://images.unsplash.com/photo-1546521677-b3a9b11bee6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80",
-		];
-		switch (post?.collaborationType) {
-			case "Accountability":
-				return pictures[0];
-			case "Collaboration":
-				return pictures[1];
-			case "Critique":
-				return pictures[2];
-			case "Feedback":
-				return pictures[3];
-			case "Other":
-				return pictures[4];
-			default:
-				return pictures[0];
-		}
-	};
+	const { mutate: addFavourite } = useAddFavouriteTab();
+	const { currentUser } = useAuthContext();
 
 	const { theme } = useThemeContext();
 	const navigate = useNavigate();
@@ -46,22 +27,38 @@ export const PostCard: FC<{
 
 	return (
 		<section
-			className={`flex flex-col gap-2 rounded-lg border-border border dark:border-borderDark p-4 shrink ${
-				className ? className : "basis-[26.3rem] h-80 max-w-[500px]"
-			} hover:border-coolGrey-3 dark:hover:shadow-none dark:hover:border-coolGrey-5 hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out`}
+			className="rounded-lg max-w-sm shadow relative hover:shadow-md cursor-pointer transition-all ease-in-out duration-300 flex flex-col"
+			onClick={() => openPost(post.uid)}
 		>
-			<div onClick={() => openPost(post.uid)}>
-				<Group
-					position="apart"
-					mt="xs"
-					mb="xs"
-					className="flex flex-row gap-1 items-start"
-				>
+			<div className="w-full bg-gradient-to-tr dark:from-purple-900 rounded-t-lg dark:to-sky-900 from-coolGrey-6 to-sky-800 -600 h-48" />
+			<div className="p-4 dark:border-borderDark dark:border-b rounded-b-lg dark:border-x flex flex-col grow">
+				<div className="flex-grow flex flex-col">
 					<UserRenderer post={post} />
-					<div className="flex gap-1">
+					{currentUser.bookmarks.some((bookmark: any) =>
+						bookmark.url.includes(post.uid)
+					) ? (
+						<div className="absolute top-2 right-2 text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg">
+							<IconBookmarkFilled size={18} />
+						</div>
+					) : (
+						<button
+							className={`absolute top-2 right-2 text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg`}
+							onClick={(e) => {
+								e.stopPropagation(),
+									addFavourite({
+										url: `/posts/${post.uid}`,
+										name: post.postTitle,
+									});
+							}}
+						>
+							<IconBookmarkPlus size={18} />
+						</button>
+					)}
+
+					<div className="flex gap-1 absolute right-2 top-40">
 						<Badge
 							color={collaborationTypeColour(post?.collaborationType)}
-							variant={theme === "light" ? "light" : "outline"}
+							variant={theme === "light" ? "light" : "filled"}
 							radius="sm"
 							size="md"
 						>
@@ -69,42 +66,45 @@ export const PostCard: FC<{
 						</Badge>
 						<Badge
 							color={postTypeColour(post?.postType)}
-							variant={theme === "light" ? "light" : "outline"}
+							variant={theme === "light" ? "light" : "filled"}
 							size="md"
 							radius="sm"
 						>
 							{post?.postType}
 						</Badge>
 					</div>
-				</Group>
+					<div className="flex flex-col grow">
+						<div className="text-coolGrey-7 dark:text-coolGrey-3 text-center text-lg clamp-2 h-14 flex items-center justify-center">
+							{post.projectTitle || "Untitled post"}
+						</div>
+						<div className="text-xs p-1 px-2 mb-4 mt-2 border rounded-md border-border dark:border-baseDark dark:bg-hoverDark bg-coolGrey-1 text-coolGrey-7 dark:text-yellow-400 line-clamp-1">
+							{post.postTitle || "Untitled post"}
+						</div>
 
-				<Text
-					weight={600}
-					size="md"
-					className="text-coolGrey-7 dark:text-coolGrey-3"
-				>
-					{post.projectTitle || "Untitled post"}
-				</Text>
-				<Text
-					weight={500}
-					size="xs"
-					className="text-coolGrey-7 dark:text-coolGrey-3"
-				>
-					{post.postTitle || "Untitled post"}
-				</Text>
-
-				<Text size="xs" color="dimmed" className="line-clamp-3 h-14">
-					{post.collaboration}
-				</Text>
-				{post.genres?.length > 0 && (
-					<div className="flex flex-wrap gap-2 my-4 cursor-default h-8 line-clamp-3">
-						{post.genres.map((genre) => (
-							<Text key={genre} size="xs" color="dimmed" weight={600}>
-								#{genre}
-							</Text>
-						))}
+						<Text
+							size="sm"
+							color="dimmed"
+							className="line-clamp-5 max-h-[7rem]"
+						>
+							{post.collaboration}
+						</Text>
+						<div className="mt-auto">
+							{post.genres?.length > 0 && (
+								<div className="flex flex-wrap gap-1 my-4 cursor-default h-9 line-clamp-4">
+									{post.genres.map((genre, index) => (
+										<p
+											key={index}
+											className="text-xs font-semibold leading-none h-4 dark:text-emerald-500"
+											color="dimmed"
+										>
+											&#183;{genre}
+										</p>
+									))}
+								</div>
+							)}
+						</div>
 					</div>
-				)}
+				</div>
 			</div>
 		</section>
 	);
@@ -112,21 +112,13 @@ export const PostCard: FC<{
 
 const UserRenderer = ({ post }: { post: IPost }) => {
 	return (
-		<div className="flex items-center gap-2 mb-3">
-			<div className="w-12 h-12 rounded-full bg-coolGrey-1/70 dark:bg-borderDark flex items-center justify-center">
-				<div
-					className={`text-xl font-bold truncate -mt-1 ${initialsColor(
-						post.owner.name
-					)}`}
-				>
-					{initials(post.owner.name)}
-				</div>
-			</div>
-			<div className="flex flex-col text-coolGrey-7 dark:text-coolGrey-3">
-				<Text className="text-xs font-semibold">{post?.owner.name}</Text>
-				<Text size="xs" color="dimmed">
-					{useDefaultDateTime(post?.dateCreated.toString())}
-				</Text>
+		<div className="w-10 h-10 rounded-full bg-base dark:bg-baseDark flex items-center justify-center absolute top-2 left-2 cursor-pointer transition-all ease-in-out duration-300 hover:shadow-md">
+			<div
+				className={`text-sm font-bold truncate -mt-1 ${initialsColor(
+					post.owner.name
+				)}`}
+			>
+				{initials(post.owner.name)}
 			</div>
 		</div>
 	);

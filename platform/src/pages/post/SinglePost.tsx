@@ -1,5 +1,5 @@
 import { Breadcrumbs } from "../../components/Breadcrumbs/Breadcrumbs";
-import { IconArticle, IconTemplate, IconHome } from "@tabler/icons-react";
+import { IconArticle, IconClipboard, IconHome } from "@tabler/icons-react";
 import { useSinglePost } from "../../hooks/posts/useSinglePost";
 import { useLocation, useParams } from "react-router-dom";
 import { Divider, Skeleton } from "@mantine/core";
@@ -45,7 +45,7 @@ export const SinglePost = () => {
 						{
 							label: "Posts",
 							path: "/posts",
-							icon: <IconTemplate size={18} />,
+							icon: <IconClipboard size={18} />,
 							isLoading: false,
 						},
 						{
@@ -81,7 +81,7 @@ export const SinglePost = () => {
 			isLoading: isLoading,
 			icon:
 				location.pathname.split("/")[1] === "posts" ? (
-					<IconTemplate size={18} />
+					<IconClipboard size={18} />
 				) : (
 					<IconHome size={18} />
 				),
@@ -95,25 +95,19 @@ export const SinglePost = () => {
 	];
 
 	return (
-		<div className="place-items-center rounded-lg px-3 py-3">
-			<Breadcrumbs items={breadcrumbs} />
-			<Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" />
-			<div className="flex gap-3">
+		<div className="place-items-center rounded-lg">
+			{/* <Divider my="xs" className="!border-coolGrey-1 dark:!border-borderDark" /> */}
+			<div className="flex">
 				<PostBody
+					breadCrumbs={breadcrumbs}
 					post={post}
 					isLoading={isLoading}
 					addFavourite={() =>
 						mutate({
-							type: "post",
 							url: location.pathname,
 							name: post?.projectTitle || post?.postTitle,
 						})
 					}
-				/>
-				<Divider
-					my="xs"
-					className="!border-coolGrey-1 dark:!border-borderDark"
-					orientation="vertical"
 				/>
 				<PostCommentSection post={post} />
 			</div>

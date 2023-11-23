@@ -6,7 +6,7 @@ import {
 	IconLogout,
 	IconHelp,
 	IconSettings,
-	IconTemplate,
+	IconClipboard,
 	IconBookmarks,
 	IconUserCircle,
 	IconCubePlus,
@@ -117,7 +117,7 @@ export const Sidebar: FC<{}> = () => {
 									name="Posts"
 									onClick={() => openPages("/posts")}
 								>
-									<IconTemplate size={18} />
+									<IconClipboard size={18} />
 								</CommunityListItem>
 								<CommunityListItem
 									name="Writing-groups"
