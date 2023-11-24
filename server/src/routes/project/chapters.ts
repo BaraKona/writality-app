@@ -1,21 +1,22 @@
 import express from "express";
 import { protect } from "../../middleware/jwtAuth";
 import {
-	createChapter,
-	getProjectChapters,
 	getSingleChapter,
 	updateChapterContent,
-	deleteSingleChapter,
 	mergeReplaceMain,
 	mergePositionMain,
 	updateChapterTitle,
 	getUserChapters,
+	createVersion,
 } from "../../controllers/project/cChapters";
 
 const router = express.Router();
 
 // router.post("/", protect, createChapter);
 router.patch("/content/:projectId/:chapterId/", protect, updateChapterContent);
+
+router.post("/version/create/:projectId/:chapterId", protect, createVersion);
+
 router.get("/single/:projectId/:chapterId/", protect, getSingleChapter);
 // router.get("/:userId/:projectId", protect, getProjectChapters);
 router.post("/chapters/:projectId", protect, getUserChapters);

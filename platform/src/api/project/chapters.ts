@@ -103,9 +103,10 @@ export const mergeReplaceMain = async (
 	chapterId: string,
 	branch: IChapterVersion
 ) => {
+	console.log({ branch });
 	const { data } = await chapterApi.patch(
 		`/merge/replace/${projectId}/${chapterId}`,
-		branch
+		{ branch }
 	);
 	return data;
 };
@@ -127,4 +128,8 @@ export const updateChapterTitle = async (
 		console.log(err);
 		useToast("error", "something went wrong 😖");
 	}
+};
+
+export const createVersion = async (projectId: string, chapterId: string) => {
+	return await chapterApi.post(`/version/create/${projectId}/${chapterId}`);
 };

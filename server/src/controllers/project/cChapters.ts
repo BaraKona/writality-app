@@ -31,7 +31,7 @@ export const createChapter = async (userId: string, projectId: string) => {
 			uid: uuidv4(),
 			type: "main",
 			content: "",
-			title: "",
+			title: "Untitled Chapter",
 			dateCreated: {
 				user: userId,
 				date: new Date(),
@@ -60,6 +60,45 @@ export const createChapter = async (userId: string, projectId: string) => {
 		return error;
 	}
 };
+
+export const createVersion = async (req: any, res: any) => {
+	const { projectId, chapterId } = req.params;
+
+	try {
+		const chapter = await Chapter.findOne({
+			projectId,
+			uid: chapterId,
+		});
+
+		const newVersion = new Version({
+			title: chapter.title,
+			owner: req.user._id,
+			projectId: projectId,
+			chapterId: chapterId,
+			content: chapter.content.content,
+			uid: uuidv4(),
+			dateCreated: {
+				user: req.user._id,
+				date: new Date(),
+			},
+			type: "main",
+			name: chapter.content.title,
+		});
+
+		await newVersion.save();
+
+		res.status(201).json({
+			message: "Version created successfully",
+			version: newVersion,
+		});
+		// res.status(201).json({ project: newProject });
+		// return newVersion;
+	} catch (error) {
+		console.log(error);
+		res.status(409).json({ message: error.message });
+	}
+};
+
 export const getAllChapters = async (req: any, res: any) => {
 	try {
 		const chapters = await Chapter.find();
@@ -273,8 +312,8 @@ export const mergePositionMain = async (req: any, res: any) => {
 
 export const mergeReplaceMain = async (req: any, res: any) => {
 	const { chapterId, projectId } = req.params;
-	const userId = req.user.uid;
-	const { content, title } = req.body;
+	const userId = req.user._id;
+	const { branch } = req.body;
 
 	try {
 		const chapter = await Chapter.findOne({
@@ -282,6 +321,14 @@ export const mergeReplaceMain = async (req: any, res: any) => {
 			projectId,
 			owner: userId,
 		});
+
+		console.log(branch);
+
+		if (!chapter) {
+			console.log("no chapter found");
+			res.status(404).json({ message: "Chapter not found" });
+		}
+
 		const newVersion = new Version({
 			...chapter.content,
 			uid: uuidv4(),
@@ -291,10 +338,12 @@ export const mergeReplaceMain = async (req: any, res: any) => {
 			},
 			type: "Main",
 			name: "previous main",
-			title,
+			title: chapter.content.title,
 		});
-		chapter.content.content = content;
-		chapter.content.title = title;
+
+		chapter.content.content = branch.content;
+
+		chapter.content.title = branch.title;
 		chapter.history.push({
 			date: new Date(),
 			user: userId,

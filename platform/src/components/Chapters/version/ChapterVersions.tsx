@@ -25,7 +25,7 @@ export const ChapterVersions: FC<{
 	}
 	const { project, chapter } = useParams();
 	const [searchParams] = useSearchParams();
-	const { mutate } = useCreateChapterVersion(
+	const { mutate: createVersion } = useCreateChapterVersion(
 		chapter as string,
 		project as string
 	);
@@ -34,7 +34,7 @@ export const ChapterVersions: FC<{
 		<ChapterSidebarWrapper>
 			<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center dark:text-coolGrey-4">
 				Versions
-				<ButtonWrapper className="ml-auto">
+				<ButtonWrapper className="ml-auto" onClick={() => createVersion()}>
 					<IconPlus
 						size={14}
 						className="text-coolGrey-4 dark:text-coolGrey-6 group-hover:text-black dark:hover:text-coolGrey-1"

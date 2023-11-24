@@ -57,11 +57,18 @@ export const getSingleChapterBranch = async (req: any, res: any) => {
 
 export const updateBranch = async (req: any, res: any) => {
 	const { chapterId, branchId } = req.params;
-	const { content, dateUpdated } = req.body;
+	const { content, title } = req.body;
+
+	console.log({ content, title });
 	try {
+		const dateUpdated = {
+			user: req.user.uid,
+			date: new Date(),
+		};
+
 		const branch = await Branch.findOneAndUpdate(
 			{ uid: branchId, chapterId },
-			{ content: content, dateUpdated: dateUpdated },
+			{ content: content, dateUpdated: dateUpdated, title },
 			{ new: true }
 		);
 		res.status(200).json(branch);

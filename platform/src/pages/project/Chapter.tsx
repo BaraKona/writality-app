@@ -53,6 +53,7 @@ export const Chapter = () => {
 	const [title, setTitle] = useState("");
 	const { chapter, project } = useParams();
 	const [editorContent, setEditorContent] = useState("");
+	const [branchTitle, setBranchTitle] = useState("");
 	const [wordCount, setWordCount] = useState(0);
 
 	const [sidebar, setSidebar] = useLocalStorage({
@@ -112,10 +113,7 @@ export const Chapter = () => {
 			updateBranch(chapter as string, branch as string, {
 				...currentBranch,
 				content: editorContent,
-				dateUpdated: {
-					user: currentUser.uid,
-					date: new Date(),
-				},
+				title: branchTitle,
 			}),
 		{
 			onSuccess: () => {
@@ -216,7 +214,7 @@ export const Chapter = () => {
 						key={chapter as string}
 						content={branch ? currentBranch : chapterContent?.content}
 						isLoading={isLoading}
-						setTitle={setTitle}
+						setTitle={branch ? setBranchTitle : setTitle}
 						isEditable={Boolean(branch) || currentProject?.type === "standard"}
 						setContent={setEditorContent}
 						editorContent={editorContent}
