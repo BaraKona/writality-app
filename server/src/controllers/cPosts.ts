@@ -7,7 +7,7 @@ export const getPosts = async (req: any, res: any) => {
 	try {
 		const posts = await Posts.find({})
 			.sort({ dateCreated: -1 })
-			.limit(25)
+			.limit(24)
 			.populate({
 				path: "owner",
 				select: "-password -aboutMe -roles -interests -bookmarks",

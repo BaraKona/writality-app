@@ -10,12 +10,13 @@ import { PostComment } from "../../pages/post/PostComment";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { getHotkeyHandler } from "@mantine/hooks";
+import { useNavigate } from "react-router-dom";
 
 export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 	const [comment, setComment] = useState("");
 	const [parent] = useAutoAnimate();
 	const { mutate } = useSendComment(post.uid);
-
+	const navigate = useNavigate();
 	function sendComment() {
 		mutate(comment);
 		setComment("");
@@ -35,7 +36,12 @@ export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 						</div>
 					</div>
 					<div className="flex text-sm text-coolGrey-7 dark:text-coolGrey-4 flex-col">
-						<div className="font-semibold">{post?.owner.name || "User"}</div>
+						<div
+							className="font-semibold hover:underline cursor-pointer"
+							onClick={() => navigate(`/users/${post?.owner.uid}`)}
+						>
+							{post?.owner.name || "User"}
+						</div>
 						<Text className="text-xs font-normal" color="dimmed">
 							{useTimeFromNow(post?.dateCreated.toString())}
 						</Text>

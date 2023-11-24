@@ -29,7 +29,9 @@ export const PostCard: FC<{
 			} shadow relative hover:shadow-md cursor-pointer transition-all ease-in-out duration-300 flex flex-col`}
 			onClick={() => openPost(post.uid)}
 		>
+			{/* <div className="w-full bg-gradient-to-tr dark:from-purple-900 rounded-t-lg dark:to-sky-900 from-coolGrey-6 to-sky-800 h-48" /> */}
 			<div className="w-full bg-gradient-to-tr dark:from-purple-900 rounded-t-lg dark:to-sky-900 from-coolGrey-6 to-sky-800 h-48" />
+
 			<div className="p-4 dark:border-borderDark dark:border-b rounded-b-lg dark:border-x flex flex-col grow">
 				<div className="flex-grow flex flex-col">
 					<UserRenderer post={post} />

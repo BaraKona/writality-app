@@ -9,8 +9,10 @@ import {
 	IconTrashX,
 } from "@tabler/icons-react";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
+import { useNavigate } from "react-router-dom";
 
 export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
+	const navigate = useNavigate();
 	if (!project?.history || project?.history?.length === 0) {
 		return (
 			<div className="col-span-3 items-center row-span-4 flex justify-center rounded-lg border border-border dark:border-borderDark p-2 overflow-y-auto">
@@ -62,8 +64,14 @@ export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 								)}
 
 								<div className="text-xs">
-									<Text variant="link" component="span" inherit>
-										{history.user.name.substring(0, 5)}{" "}
+									<Text
+										variant="link"
+										component="span"
+										inherit
+										className="hover:underline cursor-pointer"
+										onClick={() => navigate(`/users/${history.user.uid}`)}
+									>
+										{history.user.name}{" "}
 									</Text>
 									{history.action}
 									<Text size="xs" color="dimmed">
