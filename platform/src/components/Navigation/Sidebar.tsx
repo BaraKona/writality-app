@@ -84,7 +84,6 @@ export const Sidebar: FC<{}> = () => {
 		>
 			<Dialog
 				opened={userChat !== ""}
-				withCloseButton
 				onClose={() => setUserChat("")}
 				size="lg"
 				radius="md"
@@ -92,7 +91,7 @@ export const Sidebar: FC<{}> = () => {
 				position={{ bottom: 10, right: 8 }}
 				className="!bg-base dark:!bg-baseDark !text-coolGrey-7 dark:!text-coolGrey-4 dark:!border dark:!border-borderDark"
 			>
-				<TabChat chatId={userChat} />
+				<TabChat chatId={userChat} close={() => setUserChat("")} />
 			</Dialog>
 			<div className="flex overflow-y-auto h-full w-[20rem] min-w-[20rem]">
 				<div className="flex flex-col py-2 w-full">

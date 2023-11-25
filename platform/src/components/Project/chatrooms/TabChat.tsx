@@ -13,9 +13,12 @@ import { SmallText } from "../../texts/SmallText";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import { useSocket } from "../../../Providers/SocketProvider";
 import { useQueryClient } from "react-query";
+import { IconX } from "@tabler/icons-react";
 
-export const TabChat: FC<{ chatId: string }> = ({ chatId }) => {
-	if (!chatId) return null;
+export const TabChat: FC<{ chatId: string; close: () => void }> = ({
+	chatId,
+	close,
+}) => {
 	const [message, setMessage] = useState<string>("");
 	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
@@ -43,6 +46,8 @@ export const TabChat: FC<{ chatId: string }> = ({ chatId }) => {
 		});
 	}, [pusher, chatId]);
 
+	if (!chatId) return null;
+
 	return (
 		<section className="rounded-lg h-[calc(100vh-20rem)] flex flex-col relative">
 			{isLoading ? (
@@ -61,8 +66,14 @@ export const TabChat: FC<{ chatId: string }> = ({ chatId }) => {
 				</>
 			) : (
 				<div>
-					<div className="flex gap-2 grow">
+					<div className="flex gap-2 grow justify-between">
 						<div className="text-sm">{chat?.name}</div>
+						<button
+							className="p-1 hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-lg text-coolGrey-4 dark:text-coolGrey-5"
+							onClick={close}
+						>
+							<IconX size={14} />
+						</button>
 					</div>
 
 					<div

@@ -20,9 +20,6 @@ export const ChapterVersions: FC<{
 	chapterVersions: IChapterVersion[];
 	close: () => void;
 }> = ({ chapterVersions, setOpen, setVersion, close }) => {
-	if (!chapterVersions) {
-		return null;
-	}
 	const { project, chapter } = useParams();
 	const [searchParams] = useSearchParams();
 	const { mutate: createVersion } = useCreateChapterVersion(
@@ -30,6 +27,9 @@ export const ChapterVersions: FC<{
 		project as string
 	);
 
+	if (!chapterVersions) {
+		return null;
+	}
 	return (
 		<ChapterSidebarWrapper>
 			<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center dark:text-coolGrey-4">

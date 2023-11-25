@@ -51,7 +51,7 @@ export const ChapterHistory: FC<{
 				>
 					<div className="flex flex-col gap-1">
 						{history?.map((item, index) => (
-							<div className="relative flex gap-2 p-2">
+							<div className="relative flex gap-2 p-2" key={index}>
 								<div
 									className="min-w-[1rem] rounded-md mt-1 bg-orange-400 text-black p-1 self-start
 								"

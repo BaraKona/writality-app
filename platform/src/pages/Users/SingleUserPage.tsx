@@ -11,10 +11,7 @@ import { SingleUserSection } from "../../components/user/SingleUserSection";
 import { useSingleUserProjects } from "../../hooks/public/usePublicUserProject";
 import { useSingleUserPosts } from "../../hooks/posts/useSingleUserPosts";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { useLocalStorage } from "@mantine/hooks";
 import { useSendFriendRequest } from "../../hooks/notification/useSendFriendRequest";
-
-import { Divider } from "@mantine/core";
 
 export const SingleUserPage: FC<{}> = () => {
 	const { userId } = useParams();
@@ -28,12 +25,16 @@ export const SingleUserPage: FC<{}> = () => {
 	const maxTextLength = 400;
 	const navigate = useNavigate();
 
-	const [sidebarNav, setSidebarNav] = useLocalStorage({
-		key: "sidebarNav",
-	});
-
 	if (!user) {
 		return null;
+	}
+
+	function renderButton() {
+		const isFriend = currentUser.friends.some(
+			(friend: IUser["friends"][0]) => friend.user._id === user._id
+		);
+		const isUser = currentUser._id === user._id;
+		return !isFriend && !isUser;
 	}
 
 	return (
@@ -67,19 +68,12 @@ export const SingleUserPage: FC<{}> = () => {
 							<IconClock size={20} /> Member since:{" "}
 							{new Date(user.createdAt).toLocaleDateString()}
 						</div>
-						{currentUser && currentUser._id !== user._id ? (
+						{renderButton() && (
 							<button
 								className=" dark:bg-fuchsia-800/70 dark:hover:bg-fuchsia-800 rounded-lg p-1.5 hover:bg-gray-100 self-end"
 								onClick={() => sendFriendRequest(user.uid)}
 							>
 								<IconUserPlus size={20} />
-							</button>
-						) : (
-							<button
-								className="bg-coolGrey-2/70 dark:bg-sky-600/70 dark:hover:bg-sky-800 rounded-lg p-1.5 hover:bg-gray-100"
-								onClick={() => navigate("/settings/profile")}
-							>
-								Edit Profile
 							</button>
 						)}
 					</div>

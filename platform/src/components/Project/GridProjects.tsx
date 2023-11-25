@@ -27,7 +27,7 @@ export const GridProjects = ({
 					class: "text-xs -mx-12 dark:!text-coolGrey-4 !text-coolGrey-6",
 				},
 				editor: {
-					class: "dark:!bg-transparent !bg-base",
+					class: "!bg-transparent",
 				},
 			},
 		},
