@@ -1,21 +1,24 @@
 import { Divider, Select, Text } from "@mantine/core";
 import { ProjectType } from "../../../interfaces/IProject";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { IconExclamationCircle } from "@tabler/icons-react";
+import { inputStyles } from "../../../styles/inputStyles";
+import { useThemeContext } from "../../../Providers/ThemeProvider";
 export const ChangeProjectTypeSetting: FC<{
 	setIsEdited: Dispatch<SetStateAction<boolean>>;
 	currentProjectType: ProjectType;
 	setProjectType: Dispatch<SetStateAction<ProjectType>>;
 	projectType: ProjectType;
 }> = ({ setIsEdited, currentProjectType, setProjectType, projectType }) => {
+	const { theme } = useThemeContext();
 	const values = [
 		{ value: ProjectType.standard, label: "Standard" },
 		{ value: ProjectType.collaboration, label: "Collaboration" },
 	];
 
 	return (
-		<div className="max-w-md">
-			<div className="text-sm font-medium text-coolGrey-7">Project Type</div>
+		<div className="max-w-md text-coolGrey-7 dark:text-coolGrey-4">
+			<div className="text-sm font-medium ">Project Type</div>
 			<p className="text-xs font-light mb-2">
 				Change the type of project you are working on.
 			</p>
@@ -24,6 +27,7 @@ export const ChangeProjectTypeSetting: FC<{
 					placeholder="Collaboration"
 					defaultValue={currentProjectType}
 					data={values}
+					className="!text-coolGrey-7 dark:!text-coolGrey-4"
 					onChange={(value) => {
 						value !== currentProjectType
 							? setIsEdited(true)
@@ -31,31 +35,35 @@ export const ChangeProjectTypeSetting: FC<{
 						setProjectType(value as ProjectType);
 					}}
 					styles={{
+						// ...inputStyles(),
 						item: {
 							borderRadius: "0.375rem",
-							borderColor: "#e2e2e2",
-							color: "#394251",
+							borderColor: theme === "dark" ? "#394251" : "#e2e2e2",
+							color: theme === "dark" ? "#e2e2e2" : "#394251",
 							fontSize: "0.75rem",
 						},
-						// item hover style
-
 						input: {
 							borderColor: "#e2e2e2",
 							borderRadius: "0.375rem !important",
 							border: "1px solid #e2e2e2 !important",
-							color: "#394251",
+							color: theme === "dark" ? "#e2e2e2" : "#394251",
 							fontSize: "0.75rem !important",
 						},
 						label: {
-							color: "#394251",
+							color: theme === "dark" ? "#e2e2e2" : "#394251",
 							fontSize: "0.75rem",
 							fontWeight: 400,
+						},
+						dropdown: {
+							backgroundColor: theme === "dark" ? "#191a23" : "#fff",
+							border: theme === "dark" ? "1px solid #35384a" : "none",
+							borderRadius: "10px",
 						},
 					}}
 				/>
 				<Text
 					className="font-light mt-2 leading-normal"
-					size="xs"
+					size="sm"
 					color="dimmed"
 				>
 					{projectType === ProjectType.standard

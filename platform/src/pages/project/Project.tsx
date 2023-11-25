@@ -157,9 +157,9 @@ export function Project() {
 
 							<Tabs.Tab
 								className="!p-1.5 font-semibold !px-3 !text-coolGrey-6 dark:!text-coolGrey-4 hover:!bg-coolGrey-7 hover:!text-coolGrey-1 dark:hover:!bg-purple-800/50 transition-all ease-in-out duration-300 !rounded-lg !border-none data-[active]:!bg-coolGrey-7 dark:data-[active]:!text-coolGrey-1 dark:data-[active]:!bg-purple-800 data-[active]:!text-coolGrey-1"
-								value="board"
+								value="whiteboard"
 							>
-								Board
+								Whiteboard
 							</Tabs.Tab>
 
 							<Tabs.Tab
@@ -301,7 +301,7 @@ export function Project() {
 							<Loading isLoading={true} />
 						)}
 					</Tabs.Panel>
-					<Tabs.Panel value="board" ref={parent}>
+					<Tabs.Panel value="whiteboard" ref={parent}>
 						<ProjectBoard
 							project={currentProject}
 							updateBoard={updateProjectBoard}

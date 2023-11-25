@@ -9,8 +9,8 @@ export const ProjectNameSettings: React.FC<{
 	updateProjectName: () => void;
 }> = ({ project, isLoading, updateProjectName, setProjectTitle }) => {
 	return (
-		<div className="max-w-md">
-			<div className="text-sm font-medium text-coolGrey-7">Project Name</div>
+		<div className="max-w-md text-coolGrey-7 dark:text-coolGrey-4">
+			<div className="text-sm font-medium ">Project Name</div>
 			<p className="text-xs font-light mb-2">
 				Change the name of project your project.
 			</p>

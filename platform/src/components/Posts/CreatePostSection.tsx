@@ -113,7 +113,7 @@ export const CreatePostSection: FC<{
 						/>
 						<div className="w-full mt-4">
 							<Text size="xs" weight={600}>
-								Genre(s)
+								Genre(s) <span className="text-red-500">*</span>
 							</Text>
 							<div className=" mx-auto">
 								<Chip.Group
@@ -139,7 +139,7 @@ export const CreatePostSection: FC<{
 						</div>
 						<div className="w-full mt-4">
 							<Text size="xs" weight={600}>
-								Post Type (select one){" "}
+								Post Type (select one) <span className="text-red-500">*</span>
 							</Text>
 							<div>
 								<Chip.Group
@@ -166,7 +166,8 @@ export const CreatePostSection: FC<{
 						</div>
 						<div className="w-full mt-4">
 							<Text size="xs" weight={600}>
-								Collaboration (select one)
+								Collaboration (select one){" "}
+								<span className="text-red-500">*</span>
 							</Text>
 
 							<Chip.Group

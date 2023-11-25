@@ -126,7 +126,7 @@ export const ProjectListItem: FC<{
 								>
 									<span className="flex gap-1.5 items-start">
 										<IconFileText size={16} className="flex-shrink-0" />
-										{chapter.content.title || "Untitled Chapter"}
+										{chapter?.content?.title || "Untitled Chapter"}
 									</span>
 								</SmallText>
 							))}
