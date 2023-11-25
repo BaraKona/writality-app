@@ -44,7 +44,7 @@ export const TabChat: FC<{ chatId: string }> = ({ chatId }) => {
 	}, [pusher, chatId]);
 
 	return (
-		<section className="rounded-lg h-[calc(100vh-10rem)] overflow-y-auto flex flex-col relative">
+		<section className="rounded-lg h-[calc(100vh-20rem)] flex flex-col relative">
 			{isLoading ? (
 				<>
 					<div className="flex gap-2 grow">
@@ -60,13 +60,13 @@ export const TabChat: FC<{ chatId: string }> = ({ chatId }) => {
 					</div>
 				</>
 			) : (
-				<>
+				<div>
 					<div className="flex gap-2 grow">
 						<div className="text-sm">{chat?.name}</div>
 					</div>
 
 					<div
-						className="flex flex-col py-2 relative h-[calc(100vh-16rem)] overflow-auto w-full justify-end"
+						className="flex flex-col py-2 relative h-[calc(100vh-26rem)] overflow-y-auto w-full pr-2"
 						ref={parent}
 					>
 						{chat?.comments.map((comment: any, index: number) => (
@@ -97,7 +97,7 @@ export const TabChat: FC<{ chatId: string }> = ({ chatId }) => {
 							</div>
 						))}
 					</div>
-				</>
+				</div>
 			)}
 
 			<Textarea

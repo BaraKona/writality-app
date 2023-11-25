@@ -88,8 +88,9 @@ export const Sidebar: FC<{}> = () => {
 				onClose={() => setUserChat("")}
 				size="lg"
 				radius="md"
+				shadow="sm"
 				position={{ bottom: 10, right: 8 }}
-				className="!bg-base dark:!bg-baseDark !text-coolGrey-7 dark:!text-coolGrey-4 "
+				className="!bg-base dark:!bg-baseDark !text-coolGrey-7 dark:!text-coolGrey-4 dark:!border dark:!border-borderDark"
 			>
 				<TabChat chatId={userChat} />
 			</Dialog>
