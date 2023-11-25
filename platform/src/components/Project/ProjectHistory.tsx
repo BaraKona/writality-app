@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { IProject } from "../../interfaces/IProject";
-import { Text } from "@mantine/core";
+import { Divider, Text } from "@mantine/core";
 import {
 	IconCirclePlus,
 	IconDragDrop,
@@ -25,11 +25,12 @@ export const ProjectHistory: FC<{ project: IProject }> = ({ project }) => {
 	}
 
 	return (
-		<div className="col-span-3 row-span-4 items-start justify-center rounded-lg border border-border dark:border-borderDark py-4">
-			<div className="flex gap-2 items-center mb-3 px-4">
-				<IconHistory size={20} />
+		<div className="col-span-3 row-span-4 items-start justify-center rounded-lg border border-border dark:border-borderDark py-2">
+			<h3 className=" text-coolGrey-7 dark:text-coolGrey-4 font-medium text-xs flex py-1 gap-2 px-4 items-center">
+				<IconHistory size={18} />
 				Recent Activity
-			</div>
+			</h3>
+			<Divider className="!border-coolGrey-1 dark:!border-borderDark !my-2" />
 			<div className="flex gap-2 flex-col items-center w-full h-[28.5rem] overflow-y-auto px-4 pb-4">
 				{project?.history?.map((history, index) => {
 					return (

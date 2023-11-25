@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserChat } from "../../../hooks/chat/useUserChat";
 import { useComment } from "../../../hooks/chatRooms/useComment";
 import { useAuthContext } from "../../../contexts/AuthContext";
-import { Textarea } from "@mantine/core";
+import { Divider, Textarea } from "@mantine/core";
 import { inputStyles } from "../../../styles/inputStyles";
 import { Skeleton } from "@mantine/core";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -13,7 +13,7 @@ import { SmallText } from "../../texts/SmallText";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import { useSocket } from "../../../Providers/SocketProvider";
 import { useQueryClient } from "react-query";
-import { IconX } from "@tabler/icons-react";
+import { IconMessage2, IconX } from "@tabler/icons-react";
 
 export const TabChat: FC<{ chatId: string; close: () => void }> = ({
 	chatId,
@@ -67,7 +67,11 @@ export const TabChat: FC<{ chatId: string; close: () => void }> = ({
 			) : (
 				<div>
 					<div className="flex gap-2 grow justify-between">
-						<div className="text-sm">{chat?.name}</div>
+						{/* <div className="text-sm">{chat?.name}</div> */}
+						<h3 className=" text-coolGrey-7 dark:text-coolGrey-4 font-medium text-xs flex py-1 gap-2  items-center">
+							<IconMessage2 size={18} />
+							{chat?.name}
+						</h3>
 						<button
 							className="p-1 hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-lg text-coolGrey-4 dark:text-coolGrey-5"
 							onClick={close}
@@ -76,8 +80,9 @@ export const TabChat: FC<{ chatId: string; close: () => void }> = ({
 						</button>
 					</div>
 
+					<Divider className="!border-coolGrey-1 dark:!border-borderDark !my-2" />
 					<div
-						className="flex flex-col py-2 relative h-[calc(100vh-26rem)] overflow-y-auto w-full pr-2"
+						className="flex flex-col py-2 relative h-[calc(100vh-27.5rem)] overflow-y-auto w-full pr-2"
 						ref={parent}
 					>
 						{chat?.comments.map((comment: any, index: number) => (
