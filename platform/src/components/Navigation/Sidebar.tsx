@@ -20,7 +20,7 @@ import { cyclops8, cyclops7 } from "../../assets/icons";
 import { MainFrame } from "../Project";
 import { useSignout } from "../../hooks/user/useSignout";
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
-import { Divider } from "@mantine/core";
+import { Dialog, Divider } from "@mantine/core";
 import { IconUsersGroup } from "@tabler/icons-react";
 import { UserProjects } from "../ListItems/UserProjects";
 import { FavouriteTabItems } from "../ListItems/FavouriteTabItem";
@@ -35,6 +35,7 @@ import { useQueryClient } from "react-query";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { UserFriends } from "../ListItems/UserFriends";
 import { UserWritingGroups } from "../writingGroup/UserWritingGroups";
+import { TabChat } from "../Project/chatrooms/TabChat";
 
 export const Sidebar: FC<{}> = () => {
 	const navigate = useNavigate();
@@ -60,6 +61,10 @@ export const Sidebar: FC<{}> = () => {
 		defaultValue: home,
 	});
 
+	const [userChat, setUserChat] = useLocalStorage({
+		key: "userChat",
+	});
+
 	const { mutate: removeFavouriteProject } = useRemoveFavourite();
 
 	const openProject = (route: string) => {
@@ -77,6 +82,16 @@ export const Sidebar: FC<{}> = () => {
 			className="flex h-[calc(100dvh)] dark:bg-baseDark dark:text-coolGrey-4"
 			aria-label="Sidebar"
 		>
+			<Dialog
+				opened={userChat !== ""}
+				withCloseButton
+				onClose={() => setUserChat("")}
+				size="lg"
+				radius="md"
+				className="!bg-base dark:!bg-baseDark !text-coolGrey-7 dark:!text-coolGrey-4"
+			>
+				<TabChat chatId={userChat} />
+			</Dialog>
 			<div className="flex overflow-y-auto h-full w-[20rem] min-w-[20rem]">
 				<div className="flex flex-col py-2 w-full">
 					<Link to="/">

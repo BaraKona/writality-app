@@ -86,11 +86,11 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 			queryClient.invalidateQueries(["user"]);
 		});
 
-		return () => {
-			pusher.disconnect();
-			pusher.unsubscribe(`user-${user.uid}`);
-			pusher.unbind_all();
-		};
+		// return () => {
+		// 	pusher.disconnect();
+		// 	pusher.unsubscribe(`user-${user.uid}`);
+		// 	pusher.unbind_all();
+		// };
 	}, [user]);
 
 	return (

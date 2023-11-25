@@ -21,7 +21,7 @@ export const commentOnChat = async (
 	comment: string
 ) => {
 	if (!comment) {
-		useToast("error", "Please enter a comment 😞");
+		useToast("error", "Please enter a message 😞");
 		return null;
 	}
 	try {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Chat } from "../../components/Project/chatrooms/Chat";
 import { useSingleUser } from "../../hooks/public/useSingleUser";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BannerImage } from "../../components/BannerImage";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { Divider } from "@mantine/core";
@@ -10,10 +10,13 @@ import { useDefaultDate } from "../../hooks/useTimeFromNow";
 import { IUser } from "../../interfaces/IUser";
 import { useUserChat } from "../../hooks/chat/useUserChat";
 import { useComment } from "../../hooks/chatRooms/useComment";
+import { useSearchParams } from "react-router-dom";
 
 export const UserChat = () => {
 	const [comment, setComment] = useState<string>("");
-	const { userId, chatId } = useParams();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const chatId = searchParams.get("chatId");
+	const userId = searchParams.get("userId");
 	const { data: user } = useSingleUser(userId as string);
 	const { data: chat } = useUserChat(chatId as string);
 	const { mutate: sendMessage } = useComment(chatId as string);
@@ -36,6 +39,7 @@ export const UserChat = () => {
 					}}
 					title={chat?.name}
 				/>
+
 				<div className="basis-80 relative flex flex-col gap-2">
 					<BannerImage
 						image="https://images.unsplash.com/photo-1699796073840-bfdf7eedd447?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

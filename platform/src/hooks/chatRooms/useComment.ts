@@ -11,7 +11,7 @@ export const useComment = (projectId: string) => {
 		},
 		{
 			onSuccess: () => {
-				useToast("success", "Comment added! 😎");
+				useToast("success", "Message sent! 😎");
 				queryClient.invalidateQueries(["chat", projectId]);
 				queryClient.invalidateQueries(["userChat", projectId]);
 			},

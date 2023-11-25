@@ -1,8 +1,7 @@
-import { Breadcrumbs } from "../../components/Breadcrumbs/Breadcrumbs";
 import { IconArticle, IconClipboard, IconHome } from "@tabler/icons-react";
 import { useSinglePost } from "../../hooks/posts/useSinglePost";
 import { useLocation, useParams } from "react-router-dom";
-import { Divider, Skeleton } from "@mantine/core";
+import { Skeleton } from "@mantine/core";
 import { PostBody } from "../../components/Posts/PostBody";
 import { PostCommentSection } from "../../components/Posts/PostCommentSection";
 import { useAddBookmark } from "../../hooks/user/useAddBookmark";
@@ -29,14 +28,14 @@ export const SinglePost = () => {
 			queryClient.invalidateQueries(["post", post.uid]);
 		});
 
-		console.log(pusher);
-		return () => {
-			if (pusher) {
-				pusher.disconnect();
-				pusher.unsubscribe(`post-${post.uid}`);
-				pusher.unbind("comments");
-			}
-		};
+		// console.log(pusher);
+		// return () => {
+		// 	if (pusher) {
+		// 		pusher.disconnect();
+		// 		pusher.unsubscribe(`post-${post.uid}`);
+		// 		pusher.unbind("comments");
+		// 	}
+		// };
 	}, [post, pusher]);
 
 	if (isLoading) {

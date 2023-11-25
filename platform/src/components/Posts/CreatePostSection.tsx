@@ -149,6 +149,7 @@ export const CreatePostSection: FC<{
 									<Flex gap={5} wrap="wrap">
 										{typeChips.map((chip) => (
 											<Chip
+												required
 												key={chip.value}
 												value={chip.value}
 												color="orange"
@@ -170,6 +171,7 @@ export const CreatePostSection: FC<{
 
 							<Chip.Group
 								// @ts-ignore
+
 								onChange={(value) =>
 									setPost({ ...post, collaborationType: value as string })
 								}
@@ -177,6 +179,7 @@ export const CreatePostSection: FC<{
 								<Flex gap={5} wrap="wrap">
 									{collaborationChips.map((chip) => (
 										<Chip
+											required
 											key={chip.value}
 											value={chip.value}
 											color="violet"
