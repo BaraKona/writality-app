@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserChat } from "../../../hooks/chat/useUserChat";
 import { useComment } from "../../../hooks/chatRooms/useComment";
@@ -9,42 +9,39 @@ import { Skeleton } from "@mantine/core";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { initials, initialsColor } from "../../../utils/userIcons";
 import { getHotkeyHandler } from "@mantine/hooks";
+import { SmallText } from "../../texts/SmallText";
+import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
+import { useSocket } from "../../../Providers/SocketProvider";
+import { useQueryClient } from "react-query";
 
 export const TabChat: FC<{ chatId: string }> = ({ chatId }) => {
 	if (!chatId) return null;
 	const [message, setMessage] = useState<string>("");
+	const queryClient = useQueryClient();
 	const { currentUser } = useAuthContext();
 	const { data: chat, isLoading } = useUserChat(chatId as string);
 	const { mutate: send } = useComment(chatId as string);
 
-	const navigate = useNavigate();
+	const { pusher } = useSocket();
 
+	const navigate = useNavigate();
 	const [parent] = useAutoAnimate();
+
 	function sendMessage() {
 		if (message === "") return;
 		send({ chatId: chatId as string, comment: message });
 		setMessage("");
 	}
-	function renderUserIcon(comment: any, index: any) {
-		if (
-			chat.comments[index - 1] &&
-			chat.comments[index - 1].user.uid === comment.user.uid
-		) {
-			return null;
-		} else {
-			return (
-				<div className="absolute -top-5 w-10 h-10 rounded-full bg-base dark:bg-baseDark border border-border dark:border-borderDark flex items-center justify-center">
-					<div
-						className={`font-bold truncate -mt-1 ${initialsColor(
-							comment.user.name
-						)}`}
-					>
-						{initials(comment.user.name)}
-					</div>
-				</div>
-			);
-		}
-	}
+
+	useEffect(() => {
+		if (!pusher || !chatId) return;
+
+		const channel = pusher.subscribe(`chat-${chatId}`);
+		channel.bind("userChat", () => {
+			queryClient.invalidateQueries(["userChat", chatId]);
+			queryClient.invalidateQueries(["chat", chatId]);
+		});
+	}, [pusher, chatId]);
 
 	return (
 		<section className="rounded-lg h-[calc(100vh-10rem)] overflow-y-auto flex flex-col relative">
@@ -65,23 +62,38 @@ export const TabChat: FC<{ chatId: string }> = ({ chatId }) => {
 			) : (
 				<>
 					<div className="flex gap-2 grow">
-						<div className="text-sm">{chat.name}</div>
+						<div className="text-sm">{chat?.name}</div>
 					</div>
 
 					<div
-						className="flex flex-col gap-2 py-2 relative h-[calc(100vh-16rem)] overflow-auto w-full"
+						className="flex flex-col py-2 relative h-[calc(100vh-16rem)] overflow-auto w-full justify-end"
 						ref={parent}
 					>
-						{chat.comments.map((comment: any, index: number) => (
-							<div
-								className={`flex flex-col gap-1 p-2 rounded-lg relative ${
-									comment.user.uid === currentUser.uid
-										? "items-start bg-rose-300 dark:bg-rose-600/50 mt-6"
-										: "items-end bg-violet-500 dark:bg-indigo-600/50"
-								}`}
-							>
-								{comment.content}
-								{renderUserIcon(comment, index)}
+						{chat?.comments.map((comment: any, index: number) => (
+							<div className="flex gap-2 mb-2 grow-1 dark:bg-hoverDark/40 rounded-lg p-1 bg-coolGrey-1 pr-4">
+								<div className="w-12 h-12 rounded-full !bg-coolGrey-2/70 dark:!bg-coolGrey-5/70 dark:bg-borderDark flex items-center justify-center border-[5px] dark:border-baseDark border-base shrink-0">
+									<div
+										className={`text-base font-bold truncate -mt-1 ${initialsColor(
+											comment?.user.name
+										)}`}
+									>
+										{initials(comment?.user.name)}
+									</div>
+								</div>
+								<div className="flex-col flex mt-2 w-full">
+									<div className="flex gap-2">
+										<SmallText
+											className="text-coolGrey-7 dark:text-coolGrey-3 hover:underline cursor-pointer"
+											onClick={() => navigate(`/users/${comment?.user.uid}`)}
+										>
+											{comment?.user.name}
+										</SmallText>
+										<SmallText className="!text-cyan-700 ml-auto">
+											{useTimeFromNow(comment?.date.toString())}
+										</SmallText>
+									</div>
+									<p className="text-sm">{comment?.content}</p>
+								</div>
 							</div>
 						))}
 					</div>
@@ -89,8 +101,7 @@ export const TabChat: FC<{ chatId: string }> = ({ chatId }) => {
 			)}
 
 			<Textarea
-				placeholder="Your message - Shift + Enter to send "
-				className="dark:!bg-baseDark !text-coolGrey-7 dark:!text-coolGrey-4 !border !border-border dark:!border-borderDark !rounded-lg"
+				className="dark:!bg-baseDark !text-coolGrey-7 dark:!text-coolGrey-5 !border !border-border dark:!border-borderDark !rounded-lg"
 				variant="default"
 				size="md"
 				minRows={2}

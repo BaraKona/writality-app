@@ -1,3 +1,4 @@
+import { initPusher } from "../../pusherProvider";
 import Chat from "../../models/chat/chatSchema";
 import { v4 as uuidv4 } from "uuid";
 
@@ -53,6 +54,16 @@ export const commentOnChat = async (req: any, res: any) => {
 			isRead: false,
 		});
 		chat.dateUpdated = new Date();
+
+		const pusher = initPusher();
+
+		const recipient = chat.users.find((user) => user !== userId);
+
+		pusher.trigger(`chat-${chatId}`, `userChat`, {
+			comment,
+			userId,
+		});
+
 		await chat.save();
 		res.status(200).json(chat);
 	} catch (error) {

@@ -5,7 +5,7 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import Pusher, { Channel } from "pusher-js";
+import Pusher from "pusher-js";
 import { initPusher } from "../api/external/pusher";
 import { useQueryClient } from "react-query";
 
@@ -82,6 +82,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 		setPusher(pusher);
 
 		const channel = pusher.subscribe(`user-${user.uid}`);
+
 		channel.bind("notification", () => {
 			queryClient.invalidateQueries(["user"]);
 		});
