@@ -93,7 +93,7 @@ export const Sidebar: FC<{}> = () => {
 			>
 				<TabChat chatId={userChat} close={() => setUserChat("")} />
 			</Dialog>
-			<div className="flex overflow-y-auto h-full w-[20rem] min-w-[20rem]">
+			<div className="flex overflow-y-auto h-full w-[21rem] min-w-[21rem] bg-coolGrey-1 dark:bg-baseDarker rounded-lg">
 				<div className="flex flex-col py-2 w-full">
 					<Link to="/">
 						<div className="ml-2 px-1.5 mt-1 mb-1 flex">
@@ -127,7 +127,7 @@ export const Sidebar: FC<{}> = () => {
 									<IconUserCircle size={18} />
 								</CommunityListItem>
 								<CategoryListItem>
-									<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
+									<Divider className="!border-coolGrey-2 dark:!border-borderDark" />
 								</CategoryListItem>
 								<CommunityListItem
 									name="Posts"
@@ -149,7 +149,7 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 							<CategoryListItem>
-								<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
+								<Divider className="!border-coolGrey-2 dark:!border-borderDark" />
 							</CategoryListItem>
 							<CategoryListItem>
 								<CommunityListItem
@@ -160,7 +160,7 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 							<CategoryListItem className="mb-auto">
-								<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
+								<Divider className="!border-coolGrey-2 dark:!border-borderDark" />
 							</CategoryListItem>
 
 							<CategoryListItem>
@@ -181,7 +181,7 @@ export const Sidebar: FC<{}> = () => {
 								</CommunityListItem>
 							</CategoryListItem>
 						</div>
-						<CategoryListItem className="w-full rounded-lg border border-border dark:border-borderDark mt-1.5 h-[calc(100dvh-50px)]">
+						<CategoryListItem className="w-full rounded-lg bg-base dark:bg-baseDark mr-3 mt-1.5 h-[calc(100dvh-50px)]">
 							<section className="flex flex-row justify-center gap-1 mb-2">
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
@@ -205,7 +205,7 @@ export const Sidebar: FC<{}> = () => {
 									<IconSocial size={18} />
 								</SidebarTopNav>
 								<Divider
-									className="!border-coolGrey-1 dark:!border-borderDark mx-2"
+									className="!border-coolGrey-2 dark:!border-borderDark mx-2"
 									orientation="vertical"
 								/>
 								<SidebarTopNav
@@ -216,7 +216,7 @@ export const Sidebar: FC<{}> = () => {
 									<IconCubePlus size={18} />
 								</SidebarTopNav>
 								<Divider
-									className="!border-coolGrey-1 dark:!border-borderDark mx-2"
+									className="!border-coolGrey-2 dark:!border-borderDark mx-2"
 									orientation="vertical"
 								/>
 								<SidebarTopNav

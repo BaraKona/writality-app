@@ -25,7 +25,7 @@ export const PostCard: FC<{
 	return (
 		<section
 			className={`rounded-lg ${
-				width ? width : "w-[24rem]"
+				width ? width : "w-[23.85rem]"
 			} shadow relative hover:shadow-md cursor-pointer transition-all ease-in-out duration-300 flex flex-col`}
 			onClick={() => openPost(post.uid)}
 		>

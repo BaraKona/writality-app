@@ -6,7 +6,7 @@ import {
 	IconHelp,
 	IconPin,
 	IconSettings,
-	IconClipboard,
+	IconTemplate,
 	IconX,
 	IconPlus,
 	IconUserCircle,
@@ -71,7 +71,7 @@ export const MainFrame: FC<{
 		},
 		{
 			title: "Posts",
-			icon: <IconClipboard size={18} />,
+			icon: <IconTemplate size={18} />,
 		},
 		{
 			title: "Settings",
