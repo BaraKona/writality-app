@@ -265,6 +265,11 @@ export const updateProjectDescription = async (req: any, res: any) => {
 			}
 		});
 
+		initPusher().trigger(`project-${project.uid}`, "update", {
+			projectId: project.uid,
+			action: "create",
+		});
+
 		await project.save();
 		res.status(200).json(project);
 	} catch (error) {
@@ -304,6 +309,11 @@ export const updateProjectBoard = async (req: any, res: any) => {
 			if (collaborator.user === userId.toString()) {
 				collaborator.lastContribution = new Date();
 			}
+		});
+
+		initPusher().trigger(`project-${project.uid}`, "update", {
+			projectId: project.uid,
+			action: "create",
 		});
 
 		await project.save();
