@@ -1,6 +1,6 @@
 import { FC, ReactNode, useState } from "react";
 import { IProject } from "../../../interfaces/IProject";
-import { Divider, Skeleton } from "@mantine/core";
+import { Skeleton } from "@mantine/core";
 import { IconUsers } from "@tabler/icons-react";
 import { ProjectCollaboratorTable } from "./ProjectCollaboratorTable";
 import { InviteUserModal } from "../../Modals";
@@ -22,7 +22,7 @@ export const ProjectCollaborators: FC<{ project: IProject }> = ({
 	}
 
 	return (
-		<div className="rounded-lg p-4 h-[calc(100dvh-8rem)] bg-coolGrey-0 dark:bg-black">
+		<div className="rounded-lg p-4 h-[calc(100dvh-8rem)] bg-coolGrey-0 dark:bg-baseDarker">
 			<InviteUserModal
 				opened={openCollaborator}
 				setOpened={setOpenCollaborator}

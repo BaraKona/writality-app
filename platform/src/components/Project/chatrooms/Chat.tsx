@@ -26,7 +26,7 @@ export const Chat: FC<{
 					{title}
 				</div>
 			</div>
-			<div className="bg-coolGrey-1/40 dark:bg-black/20 rounded-lg grow flex">
+			<div className="bg-coolGrey-1/40 dark:bg-baseDarker/20 rounded-lg grow flex">
 				<div className="mx-auto max-w-3xl grow flex flex-col">
 					<div className="flex flex-col-reverse gap-2 grow">
 						<div

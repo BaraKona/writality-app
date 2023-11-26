@@ -90,7 +90,7 @@ export const ChatWrapper: FC<{}> = ({}) => {
 						<div className="bg-coolGrey-1 dark:bg-hoverDark rounded-lg p-4 flex items-center justify-between">
 							<SmallText>Chat participants</SmallText>
 						</div>
-						<div className="bg-coolGrey-1 dark:bg-black grow rounded-lg p-4 flex items-center justify-between"></div>
+						<div className="bg-coolGrey-1 dark:bg-baseDarker grow rounded-lg p-4 flex items-center justify-between"></div>
 					</div>
 				</Tabs.Panel>
 			</Tabs>

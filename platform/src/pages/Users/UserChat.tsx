@@ -55,7 +55,7 @@ export const UserChat = () => {
 							{initials(user?.name)}
 						</div>
 					</div>
-					<div className="grow dark:bg-black bg-coolGrey-1 rounded-lg p-4 py-10 flex gap-4 flex-col">
+					<div className="grow dark:bg-baseDarker bg-coolGrey-1 rounded-lg p-4 py-10 flex gap-4 flex-col">
 						<p
 							className="text-md font-bold hover:underline cursor-pointer"
 							onClick={() => navigate(`/users/${user.uid}`)}
