@@ -220,6 +220,7 @@ export const Chapter = () => {
 						editorContent={editorContent}
 						setWordCount={setWordCount}
 						wordCount={wordCount}
+						createBranch={() => setOpened(true)}
 					/>
 				)}
 				{merge && currentBranch && (

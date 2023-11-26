@@ -15,7 +15,7 @@ export const inputStyles = () => {
 			color: theme === "dark" ? "#fff" : "#000",
 			fontSize: "0.75rem !important",
 			marginBottom: "0.5rem",
-			backgroundColor: "transparent",
+			backgroundColor: "none",
 			"&:focus": {
 				outline: "none",
 				border: "none",

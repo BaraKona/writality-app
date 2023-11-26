@@ -14,6 +14,7 @@ import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { IconBook2, IconGitMerge } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { ButtonWrapper } from "../buttons/ButtonWrapper";
 
 export const EditorWrapper: FC<{
 	children: ReactNode;
@@ -106,7 +107,7 @@ export const EditorWrapper: FC<{
 				</Text>
 
 				<div
-					className="border-l border-border dark:border-borderDark group"
+					className="border-l border-border dark:border-borderDark group dark:hover:text-coolGrey-4"
 					onClick={save}
 				>
 					<Tooltip
@@ -115,12 +116,9 @@ export const EditorWrapper: FC<{
 						withArrow
 						styles={tooltipStyles}
 					>
-						<div className="ml-3 p-1.5 border-border dark:border-borderDark border rounded-lg cursor-pointer hover:bg-base hover:shadow transition-all ease-in-out duration-300">
-							<IconDeviceFloppy
-								size={18}
-								className="text-coolGrey-7 group-hover:text-black dark:hover:text-coolGrey-1"
-							/>
-						</div>
+						<ButtonWrapper className="p-2 ml-2">
+							<IconDeviceFloppy size={18} />
+						</ButtonWrapper>
 					</Tooltip>
 				</div>
 			</div>

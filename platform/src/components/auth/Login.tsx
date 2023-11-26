@@ -37,18 +37,14 @@ export default function Login() {
 					type="email"
 					placeholder="your@email.com"
 					className="mb-2"
-					styles={{
-						...inputStyles(),
-					}}
+					styles={inputStyles()}
 				/>
 				<PasswordInput
 					placeholder="YourUnique_Password!123"
 					ref={passwordRef}
 					required
-					styles={{
-						...inputStyles(),
-					}}
-					className="!border-border !dark:border-borderDark mb-2"
+					styles={inputStyles()}
+					variant="unstyled"
 				/>
 				<div className="flex justify-between my-5 text-xs">
 					<p className="text-coolGrey-7 dark:text-coolGrey-4">

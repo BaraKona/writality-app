@@ -2,11 +2,12 @@ import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/core/style.css";
 import { FC } from "react";
 import { IChapterContent } from "../../interfaces/IChapterContent";
-import { Skeleton, Textarea } from "@mantine/core";
+import { Divider, Skeleton, Textarea } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
 import { SmallText } from "../texts/SmallText";
 import { BlockNoteEditor } from "@blocknote/core";
 import { useThemeContext } from "../../Providers/ThemeProvider";
+import { ButtonWrapper } from "../buttons/ButtonWrapper";
 
 export const BlockEditor: FC<{
 	content: IChapterContent;
@@ -17,6 +18,7 @@ export const BlockEditor: FC<{
 	editorContent: string;
 	setWordCount: React.Dispatch<React.SetStateAction<number>>;
 	wordCount: number;
+	createBranch?: () => void;
 }> = ({
 	content,
 	isLoading,
@@ -26,6 +28,7 @@ export const BlockEditor: FC<{
 	editorContent,
 	setWordCount,
 	wordCount,
+	createBranch,
 }) => {
 	const editor = useBlockNote(
 		{
@@ -44,11 +47,12 @@ export const BlockEditor: FC<{
 					class: "dark:!text-coolGrey-3 !text-coolGrey-7",
 				},
 				editor: {
-					class: "dark:!bg-baseDark !bg-base",
+					class: "!bg-transparent",
 				},
 			},
+			editable: isEditable,
 		},
-		[content]
+		[content, isEditable]
 	);
 
 	const { theme } = useThemeContext();
@@ -104,10 +108,30 @@ export const BlockEditor: FC<{
 			</div>
 		);
 
-	editor.isEditable = isEditable ? isEditable : false;
+	// editor.isEditable = isEditable ? isEditable : false;
 
 	return (
-		<div className="h-[calc(100dvh-8.5rem)] w-full  rounded-lg relative">
+		<div className="h-[calc(100dvh-8.5rem)] w-full rounded-lg relative">
+			{!isEditable && (
+				<div className="absolute top-40 dark:bg-baseDarker bg-coolGrey-1 rounded-lg max-w-sm z-10 p-4 text-sm mx-auto right-0 left-0 flex flex-col shadow-md">
+					<p>
+						As you are working on a collaborative project, you cannot edit the
+						main directly. To update the main content, create a branch and merge
+						it with the main.
+					</p>
+					<Divider className="!border-border dark:!border-borderDark !my-4" />
+					<p>
+						Owner or admin can change this behaviour in the project settings.
+					</p>
+
+					<ButtonWrapper
+						className="mt-4 ml-auto px-4 py-1"
+						onClick={createBranch}
+					>
+						Create branch
+					</ButtonWrapper>
+				</div>
+			)}
 			<div className="max-w-4xl mx-auto pt-9 h-[calc(100dvh-8.7rem)] overflow-y-auto">
 				<Textarea
 					placeholder="Title"
@@ -126,7 +150,6 @@ export const BlockEditor: FC<{
 							lineHeight: "2.8rem !important",
 							height: "auto",
 							border: "none",
-							backgroundColor: "transparent",
 							color: theme === "dark" ? "#ddd" : "#374151",
 							margin: "0.5rem auto",
 							overflow: "hidden",

@@ -104,6 +104,14 @@ export const MergeBlockEditor: FC<{
 					  })
 					: null;
 			},
+			domAttributes: {
+				blockContainer: {
+					// class: "dark:!text-coolGrey-3 !text-coolGrey-7",
+				},
+				editor: {
+					class: "!bg-transparent",
+				},
+			},
 		},
 		[merge, initialContent]
 	);

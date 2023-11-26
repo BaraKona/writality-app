@@ -117,7 +117,7 @@ export const TabChat: FC<{ chatId: string; close: () => void }> = ({
 			)}
 
 			<Textarea
-				className="dark:!bg-baseDark !text-coolGrey-7 dark:!text-coolGrey-5 !border !border-border dark:!border-borderDark !rounded-lg"
+				className="dark:!bg-baseDarker !text-coolGrey-7 dark:!text-coolGrey-5 !border !border-border dark:!border-baseDark !rounded-lg"
 				variant="default"
 				size="md"
 				minRows={2}
