@@ -85,8 +85,6 @@ export function Project() {
 		}
 
 		if (id.includes("chapter")) {
-			console.log(id.split("-")[1]);
-			console.log(folderId);
 			moveChapterIntoFolder({ chapterId: id.split("_")[1], folderId });
 		}
 	}

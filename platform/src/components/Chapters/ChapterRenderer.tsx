@@ -25,6 +25,10 @@ export const ChapterRenderer: FC<{
 
 	const { theme } = useThemeContext();
 
+	function createFolder() {
+		createNewFolder(name), setName("");
+	}
+
 	return (
 		<div className="row-span-6 col-span-6 rounded-lg border border-border dark:border-borderDark">
 			<div className="flex gap-2 ml-2 font-medium items-center dark:text-coolGrey-4 p-1.5">
@@ -68,6 +72,7 @@ export const ChapterRenderer: FC<{
 							<form
 								onSubmit={(e) => {
 									e.preventDefault();
+									createFolder();
 								}}
 							>
 								<Menu.Label>Folder Name</Menu.Label>
@@ -77,12 +82,11 @@ export const ChapterRenderer: FC<{
 										className="pl-2"
 										onChange={(e) => setName(e.target.value)}
 										error={name.length < 1}
+										value={name}
 									/>
 									<button
 										className="p-1.5 mt-0.5 rounded-md hover:bg-coolGrey-1 dark:hover:bg-hoverDark text-coolGrey-7 dark:text-coolGrey-4"
-										onClick={() => {
-											createNewFolder(name), setName("");
-										}}
+										type="submit"
 									>
 										<IconFolderPlus size={18} />
 									</button>
