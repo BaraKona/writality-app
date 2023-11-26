@@ -86,7 +86,12 @@ export const TabChat: FC<{ chatId: string; close: () => void }> = ({
 						ref={parent}
 					>
 						{chat?.comments.map((comment: any, index: number) => (
-							<div className="flex gap-2 mb-2 grow-1 dark:bg-hoverDark/40 rounded-lg p-1 bg-coolGrey-1 pr-4">
+							<div
+								className={`flex gap-2 mb-2 grow-1 dark:bg-hoverDark/40 rounded-lg p-1 bg-coolGrey-1 pr-4 ${
+									index === 0 && "mt-auto"
+								}`}
+								key={index}
+							>
 								<div className="w-12 h-12 rounded-full !bg-coolGrey-2/70 dark:!bg-coolGrey-5/70 dark:bg-borderDark flex items-center justify-center border-[5px] dark:border-baseDark border-base shrink-0">
 									<div
 										className={`text-base font-bold truncate -mt-1 ${initialsColor(

@@ -30,11 +30,12 @@ export const Chat: FC<{
 				<div className="mx-auto max-w-3xl grow flex flex-col">
 					<div className="flex flex-col-reverse gap-2 grow">
 						<div
-							className="flex flex-grow flex-col justify-end gap-2 px-2"
+							className="flex flex-grow flex-col flow gap-2 px-2 h-[calc(100vh-26rem)] overflow-y-auto"
 							ref={parent}
 						>
 							{comments?.map((comment, index) => (
 								<Comment
+									index={index}
 									comment={comment}
 									connect={
 										index !== comments.length - 1 &&

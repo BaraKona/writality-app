@@ -9,11 +9,16 @@ import { useNavigate } from "react-router-dom";
 export const Comment: FC<{
 	comment: IChat["comments"][0];
 	connect: boolean;
-}> = ({ comment, connect }) => {
+	index: number;
+}> = ({ comment, connect, index }) => {
 	const navigate = useNavigate();
 
 	return (
-		<div className={`flex gap-3 ${connect ? "" : "mb-2"}`}>
+		<div
+			className={`flex gap-3 ${connect ? "" : "mb-2"} ${
+				index === 0 ? "mt-auto" : ""
+			}`}
+		>
 			<div className="relative">
 				<div className="mt-3 w-10 h-10 rounded-full bg-base dark:bg-baseDark flex items-center justify-center border border-border dark:border-borderDark">
 					<div
