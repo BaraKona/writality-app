@@ -4,7 +4,6 @@ import {
 	IconBook2,
 	IconBooks,
 	IconHelp,
-	IconPin,
 	IconSettings,
 	IconTemplate,
 	IconX,
@@ -100,21 +99,20 @@ export const MainFrame: FC<{
 		const prevTab = tabs[index - 1];
 		const nextTab = tabs[index + 1];
 
-		const filteredTabs = tabs.filter((t) => t.active === false);
-		if (tabs.length === 0) navigate("/profile");
-		if (prevTab) {
-			prevTab.active = true;
-			navigate(prevTab.path);
-		}
-		if (nextTab) {
-			nextTab.active = true;
-			navigate(nextTab.path);
-		}
+		if (tab.active) {
+			if (prevTab) {
+				prevTab.active = true;
+				navigate(prevTab.path);
+			}
 
-		if (!prevTab && !nextTab) {
-			navigate("/profile");
+			if (!prevTab && nextTab) {
+				nextTab.active = true;
+				navigate(nextTab.path);
+			}
 		}
-		setTabs(filteredTabs);
+		const newTabs = tabs.filter((t) => t.id !== tab.id);
+		console.log(newTabs);
+		setTabs(newTabs);
 	};
 
 	const addTab = () => {
@@ -165,7 +163,7 @@ export const MainFrame: FC<{
 							tab.active
 								? "bg-base border border-border dark:bg-hoverDark dark:border-hoverDark hover:bg-base hover:dark:bg-hoverDark cursor-default"
 								: "border border-primary cursor-pointer"
-						} flex items-center justify-between px-2 py-1.5 w-44 bg-base dark:bg-baseDark border border-border dark:border-borderDark hover:bg-base hover:dark:bg-baseDark  rounded-lg transition-all duration-500 ease-in-out min-w-0`}
+						} flex items-center justify-between px-2 py-1.5 w-44 group bg-base dark:bg-baseDark border border-border dark:border-borderDark hover:bg-base hover:dark:bg-baseDark  rounded-lg transition-all duration-500 ease-in-out min-w-0`}
 						onClick={() => changeTab(tab)}
 					>
 						<div
@@ -186,21 +184,15 @@ export const MainFrame: FC<{
 							<span className="ml-0.5 text-xs font-medium whitespace-nowrap w-[6.5rem] text-ellipsis overflow-hidden">
 								{tab.title}
 							</span>
-							<div className="flex gap-0.5 ml-auto">
-								{tab.active && (
-									<>
-										<IconPin
-											className="cursor-pointer text-coolGrey-4 hover:text-black dark:hover:text-coolGrey-1"
-											size={13}
-										/>
-										<IconX
-											className="cursor-pointer text-coolGrey-4 hover:text-black dark:hover:text-coolGrey-1"
-											onClick={(e) => closeTab(e, tab)}
-											size={13}
-										/>
-									</>
-								)}
-							</div>
+							<button className="flex gap-0.5 ml-auto">
+								<IconX
+									className={`"cursor-pointer text-coolGrey-4 hover:text-black dark:hover:text-coolGrey-1  ${
+										tab.active ? "block" : "hidden group-hover:block"
+									}`}
+									onClick={(e) => closeTab(e, tab)}
+									size={13}
+								/>
+							</button>
 						</div>
 					</div>
 				))}
