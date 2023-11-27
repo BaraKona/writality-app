@@ -8,9 +8,10 @@ import { SmallText } from "../texts/SmallText";
 import { BlockNoteEditor } from "@blocknote/core";
 import { useThemeContext } from "../../Providers/ThemeProvider";
 import { ButtonWrapper } from "../buttons/ButtonWrapper";
+import debounce from "lodash.debounce";
 
 export const BlockEditor: FC<{
-	content: IChapterContent;
+	content: IChapterContent["content"];
 	isLoading: boolean;
 	setTitle: React.Dispatch<React.SetStateAction<string>>;
 	isEditable?: boolean;
@@ -19,6 +20,14 @@ export const BlockEditor: FC<{
 	setWordCount: React.Dispatch<React.SetStateAction<number>>;
 	wordCount: number;
 	createBranch?: () => void;
+	title: string;
+	save: ({
+		content,
+		wordCount,
+	}: {
+		content: string;
+		wordCount: number;
+	}) => void | Promise<void>;
 }> = ({
 	content,
 	isLoading,
@@ -29,10 +38,12 @@ export const BlockEditor: FC<{
 	setWordCount,
 	wordCount,
 	createBranch,
+	save,
+	title,
 }) => {
 	const editor = useBlockNote(
 		{
-			initialContent: content?.content ? JSON.parse(content?.content) : null,
+			initialContent: content ? JSON.parse(content) : null,
 			onEditorReady: (editor) => {
 				setContent(JSON.stringify(editor.topLevelBlocks));
 				setWordCount(countWordsFromTopLevelBlocks(editor.topLevelBlocks));
@@ -40,6 +51,7 @@ export const BlockEditor: FC<{
 			onEditorContentChange: (editor) => {
 				setContent(JSON.stringify(editor.topLevelBlocks));
 				setWordCount(countWordsFromTopLevelBlocks(editor.topLevelBlocks));
+				saveDoc();
 			},
 
 			domAttributes: {
@@ -54,6 +66,13 @@ export const BlockEditor: FC<{
 		},
 		[content, isEditable]
 	);
+
+	const saveDoc = debounce(() => {
+		save({
+			content: JSON.stringify(editor.topLevelBlocks),
+			wordCount: countWordsFromTopLevelBlocks(editor.topLevelBlocks),
+		});
+	}, 3000);
 
 	const { theme } = useThemeContext();
 
@@ -135,7 +154,7 @@ export const BlockEditor: FC<{
 			<div className="max-w-4xl mx-auto pt-9 h-[calc(100dvh-8.7rem)] overflow-y-auto">
 				<Textarea
 					placeholder="Title"
-					defaultValue={content.title}
+					defaultValue={title}
 					onChange={(e) => (setTitle ? setTitle(e.target.value) : null)}
 					readOnly={!isEditable}
 					autosize

@@ -1,17 +1,22 @@
+import { useThemeContext } from "../Providers/ThemeProvider";
+
 export function modalStyles(mode: string) {
+	const { theme } = useThemeContext();
+
 	const modalStyle = {
 		content: {
-			background: mode === "dark" ? "#191a23" : "white",
-			border: "1px solid gray",
-			color: mode === "dark" ? "white" : "#394251",
+			background: theme === "dark" ? "#191a23" : "white",
+			border: "none",
+			color: theme === "dark" ? "white" : "#394251",
+			borderRadius: "10px",
 		},
 		header: {
-			background: mode === "dark" ? "#191a23" : "white",
-			color: mode === "dark" ? "white" : "#394251",
+			background: theme === "dark" ? "#191a23" : "white",
+			color: theme === "dark" ? "white" : "#394251",
 			borderBottom: "none",
 		},
 		title: {
-			color: mode === "dark" ? "white" : "#394251",
+			color: theme === "dark" ? "white" : "#394251",
 		},
 	};
 

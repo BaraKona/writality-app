@@ -270,11 +270,11 @@ export const Sidebar: FC<{}> = () => {
 								/>
 							)}
 							{sidebarNav === bookmarks && <FavouriteTabItems />}
+							{sidebarNav === friends && <UserFriends />}
+							{sidebarNav === writingGroup && <UserWritingGroups />}
 							{sidebarNav === inbox && (
 								<Notifications notification={currentUser?.inbox} />
 							)}
-							{sidebarNav === friends && <UserFriends />}
-							{sidebarNav === writingGroup && <UserWritingGroups />}
 						</CategoryListItem>
 					</div>
 				</div>

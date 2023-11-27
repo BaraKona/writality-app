@@ -142,6 +142,7 @@ export const ProfileSettings = () => {
 							data={interestList}
 							searchable
 							nothingFound="Nothing found"
+							variant="unstyled"
 						/>
 						<MultiSelect
 							label="Roles"
@@ -161,6 +162,7 @@ export const ProfileSettings = () => {
 							searchable
 							nothingFound="Nothing found"
 							limit={5}
+							variant="unstyled"
 						/>
 					</div>
 				</div>

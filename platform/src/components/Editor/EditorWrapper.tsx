@@ -100,13 +100,13 @@ export const EditorWrapper: FC<{
 					mr={3}
 					className="flex items-center"
 				>
-					<IconCloudUpload size={16} className="mr-1" />
+					<IconCloudUpload size={18} className="mr-1 text-sky-600" />
 					{content?.dateUpdated?.date
 						? "Last updated: " + useTimeFromNow(content.dateUpdated.date + "")
 						: "No updates yet"}
 				</Text>
 
-				<div
+				{/* <div
 					className="border-l border-border dark:border-borderDark group dark:hover:text-coolGrey-4"
 					onClick={save}
 				>
@@ -120,7 +120,7 @@ export const EditorWrapper: FC<{
 							<IconDeviceFloppy size={18} />
 						</ButtonWrapper>
 					</Tooltip>
-				</div>
+				</div> */}
 			</div>
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 			<div className=" overflow-y-hidden ">

@@ -18,12 +18,32 @@ export const useUpdateChapterContent = (
 				wordCount: content.wordCount,
 			}),
 		{
-			onSuccess: (data) => {
-				useToast("success", "Chapter updated successfully 😃");
-				queryClient.invalidateQueries(["project", projectId]);
-				queryClient.invalidateQueries(["projects"]);
-				queryClient.invalidateQueries(["chapter", chapterId]);
-				queryClient.invalidateQueries(["versions", chapterId]);
+			onSuccess: ({ history, version, title, dateUpdated }) => {
+				queryClient.setQueryData(["chapter", chapterId], (old: any) => {
+					return {
+						...old,
+						history,
+						title,
+						content: {
+							...old.content,
+							dateUpdated,
+						},
+					};
+				});
+
+				queryClient.setQueryData(
+					["chapter", "versions", chapterId],
+					(old?: any) => {
+						if (!old) return [version];
+						return [version, ...old];
+					}
+				);
+
+				// useToast("success", "Chapter updated successfully 😃");
+				// queryClient.invalidateQueries(["project", projectId]);
+				// queryClient.invalidateQueries(["projects"]);
+				// queryClient.invalidateQueries(["chapter", chapterId]);
+				// queryClient.invalidateQueries(["chapter", "versions", chapterId]);
 			},
 			onError: () => {
 				useToast("error", "something went wrong 😖");

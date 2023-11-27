@@ -4,10 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { CreateBranchModal } from "../../components/Modals/CreateBranchModal";
 import { getSingleChapter } from "../../api/project/chapters";
-import {
-	getAllChapterVersions,
-	deleteSingleChapterVersion,
-} from "../../api/project/versions";
+import { deleteSingleChapterVersion } from "../../api/project/versions";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -73,11 +70,6 @@ export const Chapter = () => {
 		["chapter", chapter],
 		() => getSingleChapter(project as string, chapter as string),
 		{ enabled: !!chapter && !!project && !!currentUser.uid }
-	);
-	const { data: chapterVersions } = useQuery(
-		["versions", chapter as string],
-		() => getAllChapterVersions(chapter as string),
-		{ enabled: !!chapterContent }
 	);
 	const { data: currentBranch, isSuccess: branchSuccess } = useQuery(
 		["currentBranch", branch as string],
@@ -212,7 +204,15 @@ export const Chapter = () => {
 				{!merge && (
 					<BlockEditor
 						key={chapter as string}
-						content={branch ? currentBranch : chapterContent?.content}
+						/* @ts-ignore */
+						save={
+							branch
+								? updateBranchMutation.mutate
+								: updateChapterContentMutation
+						}
+						content={
+							branch ? currentBranch.content : chapterContent?.content?.content
+						}
 						isLoading={isLoading}
 						setTitle={branch ? setBranchTitle : setTitle}
 						isEditable={Boolean(branch) || currentProject?.type === "standard"}
@@ -221,6 +221,7 @@ export const Chapter = () => {
 						setWordCount={setWordCount}
 						wordCount={wordCount}
 						createBranch={() => setOpened(true)}
+						title={branch ? currentBranch.title : chapterContent?.content.title}
 					/>
 				)}
 				{merge && currentBranch && (
@@ -267,14 +268,13 @@ export const Chapter = () => {
 								active={sidebar === "branches"}
 							/>
 						)}
-
 						<ChapterVersionMenu
-							chapterVersions={chapterVersions}
 							setOpen={setVersionModalOpen}
 							setVersion={setVersion}
 							close={() => closeSidebar()}
 							active={sidebar === "versions"}
 						/>
+
 						<ChapterHistoryMenu
 							history={chapterContent?.history}
 							close={() => closeSidebar()}

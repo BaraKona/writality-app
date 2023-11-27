@@ -3,6 +3,7 @@ import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
 import Project from "../../models/projectSchema";
 import { v4 as uuidv4 } from "uuid";
+import { useDefaultDateTime } from "../../dateProvider";
 
 export const createChapter = async (userId: string, projectId: string) => {
 	const id = uuidv4();
@@ -71,7 +72,7 @@ export const createVersion = async (req: any, res: any) => {
 		});
 
 		const newVersion = new Version({
-			title: chapter.title,
+			title: chapter.content.title,
 			owner: req.user._id,
 			projectId: projectId,
 			chapterId: chapterId,
@@ -82,7 +83,7 @@ export const createVersion = async (req: any, res: any) => {
 				date: new Date(),
 			},
 			type: "main",
-			name: chapter.content.title,
+			name: useDefaultDateTime(new Date()),
 		});
 
 		await newVersion.save();
@@ -182,43 +183,41 @@ export const updateChapterContent = async (req: any, res: any) => {
 			uid: chapterId,
 		});
 
-		Promise.all([
-			Version.create({
-				title: chapter.title,
-				owner: userId,
-				projectId: projectId,
-				chapterId: chapterId,
-				content: chapter.content.content,
-				uid: uuidv4(),
-				dateCreated: {
-					user: userId,
-					date: new Date(),
-				},
-				type: "main",
-				name: chapter.title,
-			}),
-			(chapter.content = {
-				...chapter.content,
-				title: title,
-				content: content,
-				uid: uuidv4(),
-				dateUpdated: {
-					user: userId,
-					date: new Date(),
-				},
-				type: "main",
-				dateCreated: {
-					user: chapter.content.dateCreated.user,
-					date: chapter.content.dateCreated.date,
-				},
-				wordCount,
-			}),
-		]);
+		const version = Version.create({
+			title: chapter.title,
+			owner: userId,
+			projectId: projectId,
+			chapterId: chapterId,
+			content: chapter.content.content,
+			uid: uuidv4(),
+			dateCreated: {
+				user: userId,
+				date: new Date(),
+			},
+			type: "main",
+			name: useDefaultDateTime(new Date()),
+		});
 
-		chapter.dateUpdated = {
-			user: userId,
-			date: new Date(),
-		};
+		(chapter.content = {
+			...chapter.content,
+			title: title,
+			content: content,
+			uid: uuidv4(),
+			dateUpdated: {
+				user: userId,
+				date: new Date(),
+			},
+			type: "main",
+			dateCreated: {
+				user: chapter.content.dateCreated.user,
+				date: chapter.content.dateCreated.date,
+			},
+			wordCount,
+		}),
+			(chapter.dateUpdated = {
+				user: userId,
+				date: new Date(),
+			});
 		chapter.history.push({
 			date: new Date(),
 			user: userId,
@@ -227,7 +226,14 @@ export const updateChapterContent = async (req: any, res: any) => {
 
 		await chapter.save();
 
-		res.status(200).json(chapter);
+		res.status(200).json({
+			message: "Chapter updated successfully",
+			content: chapter.content,
+			history: chapter.history,
+			version: version,
+			title: chapter.title,
+			dateUpdated: chapter.dateUpdated,
+		});
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

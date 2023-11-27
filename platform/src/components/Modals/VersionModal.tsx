@@ -2,7 +2,6 @@ import { Modal } from "@mantine/core";
 import React, { FC } from "react";
 import { IconTrash, IconReplace } from "@tabler/icons-react";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
-import { CreateChapterButton } from "../buttons";
 import { modalStyles } from "../../styles/modalStyles";
 import { useBlockNote, BlockNoteView } from "@blocknote/react";
 import { useThemeContext } from "../../Providers/ThemeProvider";
@@ -72,7 +71,7 @@ export const VersionModal: FC<{
 				styles={() => modalStyles(theme)}
 				scrollAreaComponent={Modal.NativeScrollArea}
 				onClose={() => setOpened(false)}
-				className="text-coolGrey-7 text-sm dark:!text-coolGrey-4 dark:!bg-baseDark !rounded-lg"
+				className="text-coolGrey-7 text-sm dark:!text-coolGrey-4 dark:!bg-baseDark !rounded-lg !border-none"
 				title="Version"
 			>
 				<div className="flex flex-wrap mx-auto text-coolGrey-7 dark:text-coolGrey-4">

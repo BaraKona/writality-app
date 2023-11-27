@@ -1,89 +1,54 @@
 import { FC } from "react";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
 import { IChapterVersion } from "../../../interfaces/IChapterVersion";
-import { Divider, ScrollArea, Text } from "@mantine/core";
-import {
-	IconHourglassLow,
-	IconPlus,
-	IconVersions,
-	IconX,
-} from "@tabler/icons-react";
-import { useCreateChapterVersion } from "../../../hooks/chapter/useCreateChapterVersion";
+import { Skeleton, Text } from "@mantine/core";
+import { IconFilePencil, IconVersions } from "@tabler/icons-react";
 import { useParams } from "react-router-dom";
-import { ButtonWrapper } from "../../buttons/ButtonWrapper";
-import { useSearchParams } from "react-router-dom";
-import { ChapterSidebarWrapper } from "../ChapterSidebarWrapper";
+import useChapterVersions from "../../../hooks/chapter/useChapterVersions";
 
 export const ChapterVersions: FC<{
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setVersion: React.Dispatch<React.SetStateAction<any>>;
-	chapterVersions: IChapterVersion[];
-	close: () => void;
-}> = ({ chapterVersions, setOpen, setVersion, close }) => {
-	const { project, chapter } = useParams();
-	const [searchParams] = useSearchParams();
-	const { mutate: createVersion } = useCreateChapterVersion(
-		chapter as string,
-		project as string
-	);
+}> = ({ setOpen, setVersion }) => {
+	const { chapter } = useParams();
 
-	if (!chapterVersions) {
-		return null;
-	}
+	const { data: versions, isLoading } = useChapterVersions(chapter as string);
+
 	return (
-		<ChapterSidebarWrapper>
-			<div className="flex font-medium my-2 px-2 text-coolGrey-7 gap-2 text-xs items-center dark:text-coolGrey-4">
-				Versions
-				<ButtonWrapper className="ml-auto" onClick={() => createVersion()}>
-					<IconPlus
-						size={14}
-						className="text-coolGrey-4 dark:text-coolGrey-6 group-hover:text-black dark:hover:text-coolGrey-1"
-					/>
-				</ButtonWrapper>
-				<ButtonWrapper onClick={close}>
-					<IconX
-						size={14}
-						className="text-coolGrey-4 dark:text-coolGrey-6 group-hover:text-black dark:hover:text-coolGrey-1"
-					/>
-				</ButtonWrapper>
-			</div>
-			<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
-			{chapterVersions.length > 0 ? (
-				<div>
-					<ScrollArea.Autosize
-						scrollbarSize={6}
-						styles={{
-							viewport: {
-								maxHeight: "calc(100dvh - 156px)",
-							},
-						}}
-					>
-						{chapterVersions.map((version: any, index) => (
-							<div
+		<>
+			{isLoading && (
+				<div className="flex items-center flex-col gap-1 h-[calc(100dvh-10rem)] p-1">
+					<Skeleton height={25} width="100%" />
+					<Skeleton height={25} width="100%" />
+					<Skeleton height={25} width="100%" />
+				</div>
+			)}
+			{versions?.length > 0 ? (
+				<div className="p-1">
+					<div className="h-[calc(100dvh-10rem)] overflow-y-auto flex gap-1 flex-col">
+						{versions?.map((version: IChapterVersion, index: number) => (
+							<button
+								onClick={() => {
+									setOpen(true), setVersion(version);
+								}}
 								key={index}
-								className="px-2 py-1 flex justify-between gap-2 items-center border-b border-border dark:border-borderDark group"
+								className="px-2 py-1 flex justify-between gap-2 items-center dark:hover:bg-hoverDark hover:bg-coolGrey-1 p-2 rounded-md group"
 							>
-								<div className="">
-									<div className="flex gap-1 transition-all ease-in-out duration-200 items-center text-xs cursor-default">
-										<div
-											onClick={() => {
-												setOpen(true), setVersion(version);
-											}}
-											className="group-hover:text-black dark:hover:text-coolGrey-1 text-coolGrey-4 dark:text-coolGrey-6 cursor-pointer"
-										>
-											<IconHourglassLow size={18} />
-										</div>
-										<p className="text-coolGrey-7 font-medium">
-											{version.name ? version.name : "Version"}:
-										</p>
+								<div className="flex gap-1 transition-all ease-in-out duration-200 items-center text-xs  text-coolGrey-6 dark:text-coolGrey-5">
+									<div className="p-0.5 text-teal-800/70 dark:text-teal-500 rounded-md text-coolGrey-1">
+										<IconFilePencil size={18} />
 									</div>
+
+									<p className="font-medium">
+										{version.name ? version.name : "Version"}:
+									</p>
 								</div>
 								<Text color="dimmed" size="xs">
-									{useTimeFromNow(version.dateCreated.date)}
+									{useTimeFromNow(version.dateCreated?.date)}
 								</Text>
-							</div>
+							</button>
 						))}
-					</ScrollArea.Autosize>
+					</div>
 				</div>
 			) : (
 				<div className="flex gap-2 items-center text-xs p-2">
@@ -93,6 +58,6 @@ export const ChapterVersions: FC<{
 					You do not have any versions saved for this chapter
 				</div>
 			)}
-		</ChapterSidebarWrapper>
+		</>
 	);
 };

@@ -1,3 +1,4 @@
+import { useDefaultDateTime } from "../../dateProvider";
 import Version from "../../models/versionSchema";
 import { v4 as uuidv4 } from "uuid";
 
@@ -10,7 +11,7 @@ export const createVersion = async (req: any, res: any) => {
 		type: "version",
 		content,
 		uid: uuidv4(),
-		name: "Untitled Version",
+		name: useDefaultDateTime(new Date()),
 		dateCreated: {
 			user: userId,
 			date: new Date(),

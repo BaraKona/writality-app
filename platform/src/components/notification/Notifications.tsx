@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { IUser } from "../../interfaces/IUser";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { Divider, Popover } from "@mantine/core";
 import {
 	Icon3dCubeSphere,
@@ -22,14 +21,11 @@ export const Notifications: FC<{
 }> = ({ notification }) => {
 	const { currentUser } = useAuthContext();
 
-	const navigate = useNavigate();
-
 	const { mutate: openNotification } = useOpenNotification();
 	const { mutate: acceptProjectInvitation } = useAcceptProjectInvitation();
 	const { mutate: acceptFriendRequest } = useAcceptFriendRequest();
 
 	const [parent] = useAutoAnimate();
-	// icons type = notificationType: reactNode
 
 	const icons: any = {
 		"project-invitation": (
@@ -63,9 +59,8 @@ export const Notifications: FC<{
 					<Popover
 						key={index}
 						width={300}
-						trapFocus
-						position="bottom"
 						withArrow
+						zIndex={1000}
 						shadow="md"
 						onOpen={() => {
 							!notification.notificationRead

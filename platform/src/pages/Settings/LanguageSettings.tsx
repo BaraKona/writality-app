@@ -52,6 +52,7 @@ export const LanguageSettings = () => {
 					searchable
 					nothingFound="Nothing found"
 					limit={5}
+					variant="unstyled"
 				/>
 				<Select
 					label="Primary language"

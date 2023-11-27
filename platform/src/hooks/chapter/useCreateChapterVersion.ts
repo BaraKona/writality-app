@@ -8,13 +8,15 @@ export const useCreateChapterVersion = (
 	const queryClient = useQueryClient();
 	return useMutation(() => createVersion(projectId, chapterId), {
 		onSuccess: ({ data }) => {
-			console.log(data);
 			useToast("success", `${data.message} 😃`);
-			queryClient.setQueryData(["versions", chapterId], (old: any) => {
-				return [...old, data.version];
-			});
+			queryClient.setQueryData(
+				["chapter", "versions", chapterId],
+				(old: any) => {
+					return [data.version, ...old];
+				}
+			);
 		},
-		onError: () => {
+		onError: (error: any) => {
 			useToast("error", "something went wrong, version not created 😖");
 		},
 	});
