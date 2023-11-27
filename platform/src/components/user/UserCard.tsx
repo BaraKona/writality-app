@@ -7,12 +7,13 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import {
 	IconBookmarkFilled,
 	IconBookmarkPlus,
-	IconTrophyFilled,
+	IconCircleLetterB,
 } from "@tabler/icons-react";
 import { useAddBookmark } from "../../hooks/user/useAddBookmark";
 import { useRemoveBookmark } from "../../hooks/user/useRemoveBookmark";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { Tooltip } from "@mantine/core";
+import { BetaIcon } from "../BetaIcon";
 
 export const UserCard: FC<{ user: IUser }> = ({ user }) => {
 	const navigate = useNavigate();
@@ -64,15 +65,7 @@ export const UserCard: FC<{ user: IUser }> = ({ user }) => {
 			<div className="p-2 dark:border dark:border-borderDark border-t-none rounded-b-lg grow dark:hover:border-coolGrey-1/30 flex flex-col">
 				<div className="flex flex-col text-center mt-8 items-center">
 					<span className="text-lg font-bold flex gap-2 items-center">
-						{user.name}{" "}
-						{user?.role === "beta-tester" && (
-							<Tooltip label="Beta tester" styles={tooltipStyles}>
-								<IconTrophyFilled
-									className="text-amber-400 dark:text-yellow-500"
-									size={20}
-								/>
-							</Tooltip>
-						)}
+						{user.name} {user?.role === "beta-tester" && <BetaIcon size={20} />}
 					</span>
 					<span className="text-sm text-coolGrey-5 dark:text-coolGrey-4 truncate">
 						{user.email}

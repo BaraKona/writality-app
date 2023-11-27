@@ -5,20 +5,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { UserCountryRenderer } from "../../components/UserCountryRenderer";
 import { ReadMoreText } from "../../components/ReadMoreText";
-import {
-	IconChevronLeft,
-	IconClock,
-	IconTrophyFilled,
-	IconUserPlus,
-} from "@tabler/icons-react";
+import { IconChevronLeft, IconClock, IconUserPlus } from "@tabler/icons-react";
 import { IUser } from "../../interfaces/IUser";
 import { SingleUserSection } from "../../components/user/SingleUserSection";
 import { useSingleUserProjects } from "../../hooks/public/usePublicUserProject";
 import { useSingleUserPosts } from "../../hooks/posts/useSingleUserPosts";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useSendFriendRequest } from "../../hooks/notification/useSendFriendRequest";
-import { Tooltip } from "@mantine/core";
-import { tooltipStyles } from "../../styles/tooltipStyles";
+import { BetaIcon } from "../../components/BetaIcon";
 
 export const SingleUserPage: FC<{}> = () => {
 	const { userId } = useParams();
@@ -86,16 +80,9 @@ export const SingleUserPage: FC<{}> = () => {
 					</div>
 					<div className="flex flex-col gap-2">
 						<div className="flex flex-col mt-20">
-							<h2 className="text-4xl font-bold text-coolGrey-8 dark:text-coolGrey-2 flex gap-2 items-end">
+							<h2 className="text-4xl font-bold text-coolGrey-8 dark:text-coolGrey-2 flex gap-2 items-center">
 								{user.name}
-								{user?.role === "beta-tester" && (
-									<Tooltip label="Beta tester" styles={tooltipStyles}>
-										<IconTrophyFilled
-											className="text-amber-400 dark:text-yellow-500"
-											size={24}
-										/>
-									</Tooltip>
-								)}
+								{user?.role === "beta-tester" && <BetaIcon size={24} />}
 							</h2>
 							<p>{user.email}</p>
 							<UserCountryRenderer country={user.country} />
