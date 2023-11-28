@@ -22,6 +22,7 @@ export const PostCard: FC<{
 
 	const { theme } = useThemeContext();
 
+	if (!post) return null;
 	return (
 		<section
 			className={`rounded-lg ${

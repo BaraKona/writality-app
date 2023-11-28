@@ -161,23 +161,23 @@ export const updateChapterContent = async (req: any, res: any) => {
 	const { content, title, wordCount } = req.body;
 	const userId = req.user._id;
 
-	const project = await Project.findOne({
-		$or: [
-			{ owner: userId, projectId },
-			{
-				collaborators: {
-					$elemMatch: { uid: userId, active: true },
-				},
-				projectId,
-			},
-		],
-	});
-
-	if (!project) {
-		res.status.res({ message: "You do not have access to this Project" });
-	}
-
 	try {
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, projectId },
+				{
+					collaborators: {
+						$elemMatch: { uid: userId, active: true },
+					},
+					projectId,
+				},
+			],
+		});
+
+		if (!project) {
+			res.status.res({ message: "You do not have access to this Project" });
+		}
+
 		const chapter = await Chapter.findOne({
 			projectId: projectId,
 			uid: chapterId,
@@ -224,7 +224,13 @@ export const updateChapterContent = async (req: any, res: any) => {
 			action: "updated",
 		});
 
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+
 		await chapter.save();
+		await project.save();
 
 		res.status(200).json({
 			message: "Chapter updated successfully",

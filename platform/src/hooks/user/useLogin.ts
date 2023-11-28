@@ -1,5 +1,4 @@
 import { useMutation } from "react-query";
-import { useAuthContext } from "../../contexts/AuthContext";
 import { useToast } from "../useToast";
 import { loginUser } from "../../api/user";
 export const useLogin = () => {
@@ -11,8 +10,11 @@ export const useLogin = () => {
 				window.location.href = "/";
 			}, 2000);
 		},
-		onError: ({ message }) => {
-			useToast("error", message);
+		onError: ({ response }) => {
+			useToast(
+				"error",
+				response?.data?.message || "something went wrong, please try again"
+			);
 		},
 	});
 };

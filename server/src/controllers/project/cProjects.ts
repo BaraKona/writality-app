@@ -119,9 +119,7 @@ export const getUserProfileProjects = async (req: any, res: any) => {
 				select: "projectId title uid content.title",
 			})
 			.sort({ dateCreated: 1 })
-			.select(
-				"-chat -history -collaborators -board -hasChat -dateUpdated -__v"
-			);
+			.select("-chat -history -collaborators -board -hasChat -__v");
 		res.status(200).json(projects);
 	} catch (error) {
 		console.log(error);
@@ -557,12 +555,13 @@ export const createProjectChapter = async (req: any, res: any) => {
 		});
 
 		project.chapters.push(chapter._id);
-
-		initPusher().trigger(`project-${project.uid}`, "update", {
-			projectId: project.uid,
-			chapterId: chapter.uid,
-			action: "create",
-		});
+		if (project.type === "collaboration") {
+			initPusher().trigger(`project-${project.uid}`, "update", {
+				projectId: project.uid,
+				chapterId: chapter.uid,
+				action: "create",
+			});
+		}
 
 		await project.save();
 		res.status(200).json({
