@@ -107,6 +107,7 @@ export const ProfileSettings = () => {
 							onChange={(e) =>
 								setUserState({ ...userState, name: e.target.value })
 							}
+							disabled={true}
 						/>
 						<Textarea
 							label="About me"
