@@ -34,7 +34,7 @@ export const SingleUserPage: FC<{}> = () => {
 		const isFriend = currentUser.friends.some(
 			(friend: IUser["friends"][0]) => friend.user._id === user._id
 		);
-		const isUser = currentUser._id === user._id;
+		const isUser = currentUser._id === user?._id;
 		return !isFriend && !isUser;
 	}
 
@@ -55,10 +55,10 @@ export const SingleUserPage: FC<{}> = () => {
 			<div className="absolute top-[10rem] left-16 w-32 h-32 rounded-full !bg-coolGrey-2/70 dark:!bg-coolGrey-5/70 dark:bg-borderDark flex items-center justify-center border-[10px] dark:border-baseDark border-base">
 				<div
 					className={`text-4xl font-bold truncate -mt-1 ${initialsColor(
-						user.name
+						user?.name
 					)}`}
 				>
-					{initials(user.name)}
+					{initials(user?.name)}
 				</div>
 			</div>
 
@@ -67,12 +67,12 @@ export const SingleUserPage: FC<{}> = () => {
 					<div className="right-4 top-4 text-sm flex flex-col gap-2 absolute">
 						<div className="flex gap-2 items-center">
 							<IconClock size={20} /> Member since:{" "}
-							{new Date(user.createdAt).toLocaleDateString()}
+							{new Date(user?.createdAt).toLocaleDateString()}
 						</div>
 						{renderButton() && (
 							<button
 								className=" dark:bg-fuchsia-800/70 dark:hover:bg-fuchsia-800 rounded-lg p-1.5 hover:bg-gray-100 self-end"
-								onClick={() => sendFriendRequest(user.uid)}
+								onClick={() => sendFriendRequest(user?.uid)}
 							>
 								<IconUserPlus size={20} />
 							</button>
@@ -85,11 +85,11 @@ export const SingleUserPage: FC<{}> = () => {
 								{user?.role === "beta-tester" && <BetaIcon size={24} />}
 							</h2>
 							{/* <p>{user.email}</p> */}
-							<UserCountryRenderer country={user.country} />
+							<UserCountryRenderer country={user?.country} />
 						</div>
 						<h2 className="font-bold my-4">Bio</h2>
 						<ReadMoreText
-							text={user.aboutMe}
+							text={user?.aboutMe}
 							maxTextLength={maxTextLength}
 							errorText="This user has not written anything about themselves yet."
 						/>
@@ -115,7 +115,7 @@ export const SingleUserPage: FC<{}> = () => {
 					</div>
 					<h2 className="font-bold my-4">Roles</h2>
 					<div className="flex flex-wrap gap-2">
-						{user.roles.length === 0 && (
+						{user?.roles?.length === 0 && (
 							<>
 								{[1, 2, 3, 4].map((i) => (
 									<span className="bg-coolGrey-1 dark:bg-coolGrey-8/60 capitalize p-2 rounded-lg h-24 w-24 text-sm flex items-center justify-center text-center">

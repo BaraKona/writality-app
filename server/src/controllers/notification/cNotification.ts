@@ -356,7 +356,7 @@ export const acceptFriendRequest = async (req: any, res: any) => {
 		const notification = {
 			notificationType: notificationType.friendAccept,
 			notificationBody: `${user.name} has accepted your friend request.`,
-			notificationTitle: "Friend request accepted",
+			notificationTitle: `You are now friends with ${user.name}. Send them a message saying hi 👋`,
 			notificationTime: new Date(),
 			notificationRead: false,
 			active: true,
@@ -365,8 +365,8 @@ export const acceptFriendRequest = async (req: any, res: any) => {
 
 		const notificationForFriend = {
 			notificationType: notificationType.friendAccept,
-			notificationBody: `You are now friends with ${friend.name}.`,
-			notificationTitle: "You are now friends",
+			notificationBody: `You are now friends with ${friend.name}. Send them a message saying hi 👋`,
+			notificationTitle: `You are now friends with ${friend.name}.`,
 			notificationTime: new Date(),
 			notificationRead: false,
 			active: true,
