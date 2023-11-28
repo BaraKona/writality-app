@@ -13,6 +13,7 @@ import { IconGitBranch, IconPlus, IconX } from "@tabler/icons-react";
 import { useSearchParams } from "react-router-dom";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
 import { ChapterSidebarWrapper } from "../ChapterSidebarWrapper";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 export const ChapterBranches: FC<{
 	openMergeModal: (type: string) => void;
 	chapterBranches: IChapterVersion[];
@@ -36,6 +37,7 @@ export const ChapterBranches: FC<{
 }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const merge = searchParams.get("merge");
+	const [parent] = useAutoAnimate();
 
 	if (isLoading) {
 		return (
@@ -86,24 +88,16 @@ export const ChapterBranches: FC<{
 			</div>
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
 			{chapterBranches?.length > 0 ? (
-				<div className="text-coolGrey-7">
-					<div className="flex justify-between gap-2 border-b border-border dark:border-borderDark items-center">
-						<div
-							className="flex gap-1 py-1 px-2 transition-all ease-in-out duration-200 items-center text-xs font-medium"
-							onClick={checkoutMain}
-						>
-							<div
-								className={`hover:text-black dark:hover:text-coolGrey-1 ${
-									currentBranch?.uid === mainContent?.uid
-										? "text-coolGrey-7"
-										: "text-blueTextLight"
-								}`}
-							>
-								<VscGitPullRequestCreate size={14} />
-							</div>
-							main
+				<div className="text-coolGrey-7 my-2 px-1" ref={parent}>
+					<button
+						className="flex gap-1 w-full hover:bg-coolGrey-1 dark:hover:bg-hoverDark p-1 rounded-md items-center px-2 text-sm font-semibold"
+						onClick={checkoutMain}
+					>
+						<div className="text-coolGrey-7 dark:text-coolGrey-6">
+							<VscGitPullRequestCreate size={14} />
 						</div>
-					</div>
+						main
+					</button>
 					<ScrollArea.Autosize
 						styles={{
 							viewport: {
@@ -115,25 +109,28 @@ export const ChapterBranches: FC<{
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}
-								className="flex flex-col gap-2 border-b border-border dark:border-borderDark py-1 px-2"
+								className="flex flex-col gap-2 border-b border-border dark:border-borderDark py-1"
+								ref={parent}
 							>
-								<div className="flex justify-between">
+								<button
+									className="flex justify-between hover:bg-coolGrey-1 dark:hover:bg-hoverDark p-1 rounded-md items-center px-2"
+									onClick={() =>
+										setSearchParams((prev) => {
+											prev.set("branch", branch.uid);
+											return prev;
+										})
+									}
+								>
 									<div className="flex gap-1">
-										<button
+										<div
 											className={`hover:text-black dark:hover:text-coolGrey-1 ${
 												branch.uid === currentBranch?.uid
 													? "text-black"
 													: "text-blueTextLight"
 											}`}
-											onClick={() =>
-												setSearchParams((prev) => {
-													prev.set("branch", branch.uid);
-													return prev;
-												})
-											}
 										>
 											<VscGitPullRequestCreate size={14} />
-										</button>
+										</div>
 										<p className="text-coolGrey-7 font-medium text-xs">
 											{branch.name ? branch.name : "Branch"}:
 										</p>
@@ -141,7 +138,7 @@ export const ChapterBranches: FC<{
 									<Text size="xs" color="dimmed">
 										{useTimeFromNow(branch.dateUpdated.date)}
 									</Text>
-								</div>
+								</button>
 								{branch.uid === currentBranch?.uid ? (
 									<div className="flex flex-row gap-1 transition-all ease-in-out duration-200">
 										<div className="flex ml-1.5 flex-col border-l border-border dark:border-borderDark gap-1 px-1">
