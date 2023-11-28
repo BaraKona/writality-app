@@ -74,11 +74,8 @@ export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 				variant="default"
 				size="sm"
 				styles={inputStyles()}
-				onKeyDown={getHotkeyHandler([
-					["mod+Enter", sendComment],
-					["shift+Enter", sendComment],
-					["Enter", sendComment],
-				])}
+				onKeyDown={getHotkeyHandler([["Enter", sendComment]])}
+				onSubmit={sendComment}
 				value={comment}
 				onChange={(event) => setComment(event.currentTarget.value)}
 				rightSection={

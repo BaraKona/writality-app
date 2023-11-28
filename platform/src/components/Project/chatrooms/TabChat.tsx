@@ -129,6 +129,7 @@ export const TabChat: FC<{ chatId: string; close: () => void }> = ({
 				maxRows={2}
 				onChange={(e) => setMessage(e.target.value)}
 				onKeyDown={getHotkeyHandler([["Enter", sendMessage]])}
+				onSubmit={sendMessage}
 				value={message}
 				styles={{
 					...inputStyles(),
