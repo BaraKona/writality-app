@@ -68,11 +68,7 @@ export const Chat: FC<{
 								minRows={4}
 								maxRows={4}
 								onChange={(e) => setComment(e.target.value)}
-								onKeyDown={getHotkeyHandler([
-									["mod+Enter", sendComment],
-									["shift+Enter", sendComment],
-									["cmd+Enter", sendComment],
-								])}
+								onKeyDown={getHotkeyHandler([["Enter", sendComment]])}
 								value={comment}
 								styles={{
 									...inputStyles(),
@@ -82,6 +78,7 @@ export const Chat: FC<{
 										border: "none !important",
 									},
 								}}
+								onSubmit={sendComment}
 							/>
 							<button
 								className="absolute text-sm bottom-3 right-2 text-coolGrey-7 hover:text-black dark:hover:text-coolGrey-1 bg-coolGrey-1 dark:bg-baseDark dark:border dark:border-borderDark rounded-lg px-2 py-1 transition-all duration-200 ease-in-out"
