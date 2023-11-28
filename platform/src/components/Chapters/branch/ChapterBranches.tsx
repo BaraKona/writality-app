@@ -143,7 +143,7 @@ export const ChapterBranches: FC<{
 										<div className="flex ml-3 flex-col border-l border-border dark:border-borderDark gap-1 px-1 py-1 w-full">
 											<button
 												onClick={() => openMergeModal("replace")}
-												className={`flex gap-1 p-1 text-coolGrey-7 dark:text-coolGrey-4 text-xs font-medium items-center rounded-md w-full hover:text-black dark:hover:text-coolGrey-1 px-2 border-border dark:border-borderDark group ${
+												className={`flex gap-1 p-1 text-coolGrey-7 dark:text-coolGrey-4 text-xs font-medium items-center rounded-md w-full hover:bg-coolGrey-1 dark:hover:bg-hoverDark px-2 border-border dark:border-borderDark group ${
 													merge === "replace"
 														? "bg-coolGrey-1 dark:bg-hoverDark"
 														: ""
