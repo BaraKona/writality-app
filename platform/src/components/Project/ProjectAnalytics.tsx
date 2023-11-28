@@ -24,12 +24,12 @@ export const ProjectAnalytics: FC<{}> = ({}) => {
 			<div className="w-full">
 				{isLoading ? (
 					<div className="flex flex-wrap gap-2 max-h-[18rem]">
-						<Skeleton height={112} width={118} />
-						<Skeleton height={112} width={118} />
-						<Skeleton height={112} width={118} />
-						<Skeleton height={112} width={118} />
-						<Skeleton height={112} width={118} />
-						<Skeleton height={112} width={118} />
+						<Skeleton height={112} width={116} />
+						<Skeleton height={112} width={116} />
+						<Skeleton height={112} width={116} />
+						<Skeleton height={112} width={116} />
+						<Skeleton height={112} width={116} />
+						<Skeleton height={112} width={116} />
 					</div>
 				) : (
 					<div className="flex gap-2 flex-wrap max-h-[18rem] overflow-y-auto dark:text-orange-500">
