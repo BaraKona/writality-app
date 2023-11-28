@@ -1,6 +1,6 @@
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/core/style.css";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { IChapterContent } from "../../interfaces/IChapterContent";
 import { Divider, Skeleton, Textarea } from "@mantine/core";
 import { inputStyles } from "../../styles/inputStyles";
@@ -41,6 +41,7 @@ export const BlockEditor: FC<{
 	save,
 	title,
 }) => {
+	const [close, setClose] = useState(false);
 	const editor = useBlockNote(
 		{
 			initialContent: content ? JSON.parse(content) : null,
@@ -109,7 +110,7 @@ export const BlockEditor: FC<{
 		return wordCount;
 	}
 
-	if (isLoading || !editor || !content)
+	if (isLoading || !editor)
 		return (
 			<div className="h-[calc(100dvh-8.5rem)] w-full border border-border dark:border-borderDark rounded-lg relative">
 				<div className="max-w-screen-md mx-auto p-9 h-[calc(100dvh-7.5rem)] overflow-y-auto">
@@ -131,7 +132,7 @@ export const BlockEditor: FC<{
 
 	return (
 		<div className="h-[calc(100dvh-8.5rem)] w-full rounded-lg relative">
-			{!isEditable && (
+			{!isEditable && !close && (
 				<div className="absolute top-40 dark:bg-baseDarker bg-coolGrey-1 rounded-lg max-w-sm z-10 p-4 text-sm mx-auto right-0 left-0 flex flex-col shadow-md">
 					<p>
 						As you are working on a collaborative project, you cannot edit the
@@ -143,12 +144,14 @@ export const BlockEditor: FC<{
 						Owner or admin can change this behaviour in the project settings.
 					</p>
 
-					<ButtonWrapper
-						className="mt-4 ml-auto px-4 py-1"
-						onClick={createBranch}
-					>
-						Create branch
-					</ButtonWrapper>
+					<div className="mt-4 flex gap-2 ml-auto">
+						<ButtonWrapper className=" px-4 py-1" onClick={createBranch}>
+							Create branch
+						</ButtonWrapper>
+						<ButtonWrapper onClick={() => setClose(true)} className="px-2">
+							close
+						</ButtonWrapper>
+					</div>
 				</div>
 			)}
 			<div className="max-w-4xl mx-auto pt-9 h-[calc(100dvh-8.7rem)] overflow-y-auto">
