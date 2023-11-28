@@ -42,7 +42,7 @@ export const ProjectChapters: FC<{
 						}
 					/>
 				))}
-			<div>
+			<div className="flex flex-col gap-1">
 				{project?.chapters?.map((chapter: IChapter, index: number) => (
 					<Chapter
 						openChapter={() => openChapter(chapter.projectId, chapter.uid)}

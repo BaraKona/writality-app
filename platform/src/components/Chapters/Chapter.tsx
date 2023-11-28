@@ -32,14 +32,14 @@ export const Chapter: FC<{
 			>
 				<IconFileText
 					size={16}
-					className="group-hover:text-black dark:group-hover:text-coolGrey-3 dark:hover:text-coolGrey-1"
+					className="group-hover:text-black dark:group-hover:text-coolGrey-3 dark:hover:text-coolGrey-1 shrink-0"
 				/>
-				<p className="text-coolGrey-4 dark:text-coolGrey-6 text-xs font-medium group-hover:text-coolGrey-7 dark:group-hover:text-coolGrey-3">
+				<p className="text-coolGrey-4 dark:text-coolGrey-6 text-xs font-medium group-hover:text-coolGrey-7 dark:group-hover:text-coolGrey-3 max-w-[80ch]">
 					{chapter.content.title || chapter.title || "Untitled Chapter"}
 				</p>
 			</div>
 			<div className="ml-auto flex gap-2 items-center">
-				<Text color="dimmed" size="xs">
+				<Text color="dimmed" size="xs" className="shrink-0">
 					{useTimeFromNow(chapter?.dateUpdated.date) ||
 						useTimeFromNow(chapter?.dateCreated.date)}
 				</Text>
@@ -47,7 +47,7 @@ export const Chapter: FC<{
 				<IconTrash
 					size={16}
 					onClick={openChapterModal}
-					className="text-coolGrey-7 hover:text-red-900 cursor-pointer"
+					className="text-coolGrey-7 hover:text-red-900 cursor-pointer shrink-0"
 				/>
 
 				{listenerId && (
@@ -55,7 +55,7 @@ export const Chapter: FC<{
 						<IconGripVertical
 							size={14}
 							{...listeners}
-							className="text-coolGrey-4 cursor-pointer"
+							className="text-coolGrey-4 cursor-pointer shrink-0"
 						/>
 					</ButtonWrapper>
 				)}

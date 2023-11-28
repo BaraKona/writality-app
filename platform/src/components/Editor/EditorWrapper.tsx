@@ -15,6 +15,7 @@ import { IconBook2, IconGitMerge } from "@tabler/icons-react";
 import { tooltipStyles } from "../../styles/tooltipStyles";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { ButtonWrapper } from "../buttons/ButtonWrapper";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export const EditorWrapper: FC<{
 	children: ReactNode;
@@ -123,7 +124,7 @@ export const EditorWrapper: FC<{
 				</div> */}
 			</div>
 			<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
-			<div className=" overflow-y-hidden ">
+			<div className=" overflow-y-hidden">
 				<div className="text-editor flex justify-between align-middle">
 					{children}
 				</div>

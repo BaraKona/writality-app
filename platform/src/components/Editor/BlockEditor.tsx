@@ -155,7 +155,9 @@ export const BlockEditor: FC<{
 				<Textarea
 					placeholder="Title"
 					defaultValue={title}
-					onChange={(e) => (setTitle ? setTitle(e.target.value) : null)}
+					onChange={(e) => {
+						setTitle ? setTitle(e.target.value) : null, saveDoc();
+					}}
 					readOnly={!isEditable}
 					autosize
 					minRows={1}

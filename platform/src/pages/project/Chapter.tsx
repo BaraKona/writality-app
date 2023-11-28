@@ -34,6 +34,7 @@ import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { ChapterMergeButton } from "../../components/Chapters/merge/ChapterMergeButton";
 import { MergeBranchModal } from "../../components/Chapters/merge/MergeChapterMondal";
 import { Divider } from "@mantine/core";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export const Chapter = () => {
 	const navigate = useNavigate();
@@ -129,6 +130,8 @@ export const Chapter = () => {
 		setSearchParams(searchParams);
 	};
 
+	const [parent] = useAutoAnimate();
+
 	return (
 		<>
 			<CreateBranchModal
@@ -211,7 +214,7 @@ export const Chapter = () => {
 								: updateChapterContentMutation
 						}
 						content={
-							branch ? currentBranch.content : chapterContent?.content?.content
+							branch ? currentBranch?.content : chapterContent?.content?.content
 						}
 						isLoading={isLoading}
 						setTitle={branch ? setBranchTitle : setTitle}
@@ -221,7 +224,9 @@ export const Chapter = () => {
 						setWordCount={setWordCount}
 						wordCount={wordCount}
 						createBranch={() => setOpened(true)}
-						title={branch ? currentBranch.title : chapterContent?.content.title}
+						title={
+							branch ? currentBranch?.title : chapterContent?.content.title
+						}
 					/>
 				)}
 				{merge && currentBranch && (
@@ -230,7 +235,7 @@ export const Chapter = () => {
 						main={chapterContent.content}
 					/>
 				)}
-				<div className="flex flex-row ">
+				<div className="flex flex-row" ref={parent}>
 					<ChapterSidebar active={Boolean(sidebar)}>
 						<ChapterBranchButton
 							setActive={() => setSidebar("branches")}
