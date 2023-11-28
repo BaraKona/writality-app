@@ -77,7 +77,7 @@ export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 				onKeyDown={getHotkeyHandler([
 					["mod+Enter", sendComment],
 					["shift+Enter", sendComment],
-					["cmd+Enter", sendComment],
+					["Enter", sendComment],
 				])}
 				value={comment}
 				onChange={(event) => setComment(event.currentTarget.value)}
@@ -85,7 +85,7 @@ export const PostCommentSection: FC<{ post: IPost }> = ({ post }) => {
 					<IconSend
 						size={18}
 						className="text-coolGrey-7 hover:text-black dark:hover:text-coolGrey-1 cursor-pointer"
-						onClick={() => sendComment}
+						onClick={() => sendComment()}
 					/>
 				}
 			/>
