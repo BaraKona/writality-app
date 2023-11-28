@@ -31,8 +31,8 @@ export const SingleUserPage: FC<{}> = () => {
 	}
 
 	function renderButton() {
-		const isFriend = currentUser.friends.some(
-			(friend: IUser["friends"][0]) => friend.user._id === user._id
+		const isFriend = currentUser?.friends?.some(
+			(friend: IUser["friends"][0]) => friend?.user._id === user._id
 		);
 		const isUser = currentUser._id === user?._id;
 		return !isFriend && !isUser;
