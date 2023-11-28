@@ -110,7 +110,7 @@ export const ChapterBranches: FC<{
 						{chapterBranches?.map((branch: any) => (
 							<div
 								key={branch.uid}
-								className="flex flex-col gap-2 border-b border-border dark:border-borderDark py-1"
+								className="flex flex-col gap-2 py-1"
 								ref={parent}
 							>
 								<button
