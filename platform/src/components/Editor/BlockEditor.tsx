@@ -156,8 +156,9 @@ export const BlockEditor: FC<{
 					placeholder="Title"
 					defaultValue={title}
 					onChange={(e) => {
-						setTitle ? setTitle(e.target.value) : null, saveDoc();
+						setTitle ? setTitle(e.target.value) : null;
 					}}
+					onBlur={saveDoc}
 					readOnly={!isEditable}
 					autosize
 					minRows={1}
