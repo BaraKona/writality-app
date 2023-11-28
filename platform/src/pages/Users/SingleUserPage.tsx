@@ -84,7 +84,7 @@ export const SingleUserPage: FC<{}> = () => {
 								{user.name}
 								{user?.role === "beta-tester" && <BetaIcon size={24} />}
 							</h2>
-							<p>{user.email}</p>
+							{/* <p>{user.email}</p> */}
 							<UserCountryRenderer country={user.country} />
 						</div>
 						<h2 className="font-bold my-4">Bio</h2>

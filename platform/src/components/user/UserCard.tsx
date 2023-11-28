@@ -67,9 +67,9 @@ export const UserCard: FC<{ user: IUser }> = ({ user }) => {
 					<span className="text-lg font-bold flex gap-2 items-center">
 						{user.name} {user?.role === "beta-tester" && <BetaIcon size={20} />}
 					</span>
-					<span className="text-sm text-coolGrey-5 dark:text-coolGrey-4 truncate">
+					{/* <span className="text-sm text-coolGrey-5 dark:text-coolGrey-4 truncate">
 						{user.email}
-					</span>
+					</span> */}
 					<UserCountryRenderer country={user.country} />
 				</div>
 				<div className="text-sm text-coolGrey-5 dark:text-coolGrey-5 h-[6.5rem] line-clamp-5 mt-2">
