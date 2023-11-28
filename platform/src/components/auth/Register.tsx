@@ -5,26 +5,34 @@ import { useSignUp } from "../../hooks/user/useSignup";
 import { AuthTitle } from "./AuthTitle";
 import { inputStyles } from "../../styles/inputStyles";
 import { BlueButton } from "../buttons/BlueButton";
+import { useToast } from "../../hooks";
 
 export function Register() {
 	const emailRef = useRef<HTMLDivElement>(null) as any;
 	const nameRef = useRef<HTMLDivElement>(null) as any;
 	const passwordRef = useRef<HTMLDivElement>(null) as any;
 	const passwordConfirmRef = useRef<HTMLDivElement>(null) as any;
+	const [name, setName] = React.useState("");
+	const [error, setError] = React.useState("");
 
 	const { mutate: signup, isLoading } = useSignUp();
 
 	const handleAccountCreation = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-			return alert("Passwords do not match");
+			useToast("error", "Passwords do not match");
+			return;
+		}
+
+		if (nameRef.current.value.length < 3) {
+			return setError("Username must be at least 3 characters long");
 		}
 
 		try {
 			signup({
 				email: emailRef.current.value,
 				password: passwordRef.current.value,
-				name: nameRef.current.value,
+				name: name,
 			});
 		} catch (error: unknown) {
 			console.log(error);
@@ -41,10 +49,21 @@ export function Register() {
 			<form onSubmit={handleAccountCreation}>
 				<TextInput
 					ref={nameRef}
+					pattern="^[a-zA-Z0-9_]*$"
+					value={name}
+					onChange={(e) => {
+						setName(e.currentTarget.value.replace(/\s/g, "")), setError("");
+					}}
 					type="text"
 					required
-					placeholder="Your Name"
-					label="Name"
+					placeholder="username"
+					label="Username"
+					onBlur={() => {
+						if (nameRef.current.value.length < 3) {
+							setError("Username must be at least 3 characters long");
+						}
+					}}
+					error={error}
 					styles={{
 						...inputStyles(),
 					}}

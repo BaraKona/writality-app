@@ -14,6 +14,22 @@ export const createUser = async (req: any, res: any) => {
 	}
 	const encryptedPassword = await bcrypt.hash(password, 10);
 
+	const userExists = await User.findOne({
+		email: email,
+	});
+
+	const nameExists = await User.findOne({
+		name: name,
+	});
+
+	if (userExists) {
+		return res.status(409).json({ message: "User already exists" });
+	}
+
+	if (nameExists) {
+		return res.status(409).json({ message: "Username taken" });
+	}
+
 	const newUser = new User({
 		name,
 		email: email.toLowerCase(),
@@ -22,12 +38,6 @@ export const createUser = async (req: any, res: any) => {
 		createdAt: new Date(),
 		role: "beta-tester",
 	});
-	const userExists = await User.findOne({
-		email: email,
-	});
-	if (userExists) {
-		return res.status(409).json({ message: "User already exists" });
-	}
 
 	try {
 		await newUser.save();

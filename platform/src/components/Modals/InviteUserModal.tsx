@@ -22,11 +22,11 @@ export const InviteUserModal: FC<{
 	const [error, setError] = useState<string>("");
 	const [success, setSuccess] = useState<string>("");
 	const { theme } = useThemeContext();
-	function findUser(email: string) {
+	function findUser(name: string) {
 		setSuccess("");
 		setError("");
 
-		if (users.filter((user: any) => user.email === email).length > 0) {
+		if (users.filter((user: any) => user.name === name).length > 0) {
 			setError("");
 			setValue("");
 			setSuccess(
@@ -35,12 +35,12 @@ export const InviteUserModal: FC<{
 
 			addProjectCollaborator({
 				projectId,
-				userId: users.find((user: any) => user.email === email).uid,
+				userId: users.find((user: any) => user.name === name).uid,
 			});
 			return;
 		}
 
-		setError("Hm, that didn't work. Double-check the email is correct");
+		setError("Hm, that didn't work. Double-check the name is correct");
 	}
 
 	function close() {
@@ -74,7 +74,7 @@ export const InviteUserModal: FC<{
 			<div className="mt-5 flex gap-2 items-center">
 				<div className="grow">
 					<TextInput
-						label="Find user (email)"
+						label="Find user (username)"
 						placeholder="Select user"
 						value={value}
 						onChange={(e) => setValue(e.currentTarget.value)}
