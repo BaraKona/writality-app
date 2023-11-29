@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserChat } from "../../../hooks/chat/useUserChat";
 import { useComment } from "../../../hooks/chatRooms/useComment";
-import { useAuthContext } from "../../../contexts/AuthContext";
 import { Divider, Textarea } from "@mantine/core";
 import { inputStyles } from "../../../styles/inputStyles";
 import { Skeleton } from "@mantine/core";
@@ -21,7 +20,6 @@ export const TabChat: FC<{ chatId: string; close: () => void }> = ({
 }) => {
 	const [message, setMessage] = useState<string>("");
 	const queryClient = useQueryClient();
-	const { currentUser } = useAuthContext();
 	const { data: chat, isLoading } = useUserChat(chatId as string);
 	const { mutate: send } = useComment(chatId as string);
 
@@ -85,7 +83,7 @@ export const TabChat: FC<{ chatId: string; close: () => void }> = ({
 						className="flex flex-col py-2 relative h-[calc(100vh-27.5rem)] overflow-y-auto w-full pr-2"
 						ref={parent}
 					>
-						{chat?.comments.map((comment: any, index: number) => (
+						{chat?.comments?.map((comment: any, index: number) => (
 							<div
 								className={`flex gap-2 mb-2 grow-1 dark:bg-hoverDark/40 rounded-lg p-1 bg-coolGrey-1 pr-4 ${
 									index === 0 && "mt-auto"

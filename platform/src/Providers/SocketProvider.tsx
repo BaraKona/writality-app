@@ -81,17 +81,15 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 		const pusher = initPusher();
 		setPusher(pusher);
 
-		const channel = pusher.subscribe(`user-${user.uid}`);
+		const channel = pusher.subscribe(`user-${user._id}`);
 
 		channel.bind("notification", () => {
 			queryClient.invalidateQueries(["user"]);
 		});
 
-		// return () => {
-		// 	pusher.disconnect();
-		// 	pusher.unsubscribe(`user-${user.uid}`);
-		// 	pusher.unbind_all();
-		// };
+		channel.bind("friend-update", () => {
+			queryClient.invalidateQueries(["user"]);
+		});
 	}, [user]);
 
 	return (

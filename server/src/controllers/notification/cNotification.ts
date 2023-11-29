@@ -1,15 +1,15 @@
 import User from "../../models/user/userSchema";
 import Project from "../../models/projectSchema";
 import { notificationType } from "../../models/user/userSchema";
-import { initPusher } from "../../pusherProvider";
 import { collaboratorRole } from "../../models/projectSchema";
 import Chat from "../../models/chat/chatSchema";
 import { v4 as uuidv4 } from "uuid";
+import { pusher } from "../../../index";
 
 export const sendProjectInvite = async (req: any, res: any) => {
 	const { projectId, userId } = req.params;
 	const inviteeId = req.user._id;
-	const pusher = initPusher();
+	// const pusher = initPusher();
 
 	try {
 		const project = await Project.findOne({ uid: projectId });
@@ -61,7 +61,7 @@ export const sendProjectInvite = async (req: any, res: any) => {
 		await user.save();
 		await project.save();
 
-		pusher.trigger(`user-${userId}`, "notification", {
+		pusher.trigger(`user-${user._id}`, "notification", {
 			notification,
 			userId,
 		});
@@ -76,10 +76,10 @@ export const sendProjectInvite = async (req: any, res: any) => {
 export const revokeProjectInvite = async (req: any, res: any) => {
 	const userId = req.user._id;
 	const { projectId, inviteeId } = req.params;
-	const pusher = initPusher();
+	// const pusher = initPusher();
 
 	try {
-		const user = await User.findOne({ uid: inviteeId });
+		const user = await User.findOne({ uid: userId });
 		const invitedUser = await User.findOne({ uid: inviteeId });
 		const project = await Project.findOne({
 			$or: [
@@ -111,8 +111,9 @@ export const revokeProjectInvite = async (req: any, res: any) => {
 
 		await user.save();
 		await project.save();
+		await invitedUser.save();
 
-		pusher.trigger(`user-${inviteeId}`, "notification", {
+		pusher.trigger(`user-${invitedUser._id}`, "notification", {
 			notification,
 			userId,
 		});
@@ -136,7 +137,7 @@ export const sendFriendRequest = async (req: any, res: any) => {
 			.status(400)
 			.json({ message: "You cannot send a friend request to yourself." });
 	}
-	const pusher = initPusher();
+	// const pusher = initPusher();
 
 	try {
 		const friend = await User.findOne({ uid: friendId });
@@ -173,15 +174,15 @@ export const sendFriendRequest = async (req: any, res: any) => {
 		await user.save();
 		await friend.save();
 
-		pusher.trigger(`user-${friendId}`, "notification", {
+		pusher.trigger(`user-${friend._id}`, "notification", {
 			notification,
 			userId,
 		});
 
-		pusher.trigger(`user-${userId}`, "notification", {
-			notification,
-			userId,
-		});
+		// pusher.trigger(`user-${userId}`, "notification", {
+		// 	notification,
+		// 	userId,
+		// });
 
 		res.status(200).json({ message: "Friend request sent successfully." });
 	} catch (error) {
@@ -217,7 +218,7 @@ export const openNotification = async (req: any, res: any) => {
 export const acceptProjectInvitation = async (req: any, res: any) => {
 	const userId = req.user._id;
 	const { notificationId, projectId } = req.params;
-	const pusher = initPusher();
+	// const pusher = initPusher();
 
 	try {
 		const user = await User.findOne({ _id: userId });
@@ -300,10 +301,10 @@ export const acceptProjectInvitation = async (req: any, res: any) => {
 			userId,
 		});
 
-		pusher.trigger(`user-${userId}`, "notification", {
-			notification,
-			userId,
-		});
+		// pusher.trigger(`user-${userId}`, "notification", {
+		// 	notification,
+		// 	userId,
+		// });
 
 		res.status(200).json({ projectId });
 	} catch (error) {
@@ -315,7 +316,7 @@ export const acceptProjectInvitation = async (req: any, res: any) => {
 export const acceptFriendRequest = async (req: any, res: any) => {
 	const userId = req.user._id;
 	const { userId: friendId, notificationId } = req.params;
-	const pusher = initPusher();
+	// const pusher = initPusher();
 
 	try {
 		const user = await User.findOne({ _id: userId });
@@ -335,7 +336,16 @@ export const acceptFriendRequest = async (req: any, res: any) => {
 		const chat = await Chat.create({
 			name: `${user.name} and ${friend.name}`,
 			comments: [],
-			users: [user._id, friend._id],
+			users: [
+				{
+					user: user._id.toString(),
+					isRead: false,
+				},
+				{
+					user: friend._id.toString(),
+					isRead: false,
+				},
+			],
 			dateCreated: Date.now(),
 			dateUpdated: Date.now(),
 			uid: uuidv4(),
@@ -383,15 +393,15 @@ export const acceptFriendRequest = async (req: any, res: any) => {
 		await user.save();
 		await friend.save();
 
-		pusher.trigger(`user-${friendId}`, "notification", {
+		pusher.trigger(`user-${friend._id}`, "notification", {
 			notification,
 			userId,
 		});
 
-		pusher.trigger(`user-${userId}`, "notification", {
-			notification: notificationForFriend,
-			userId,
-		});
+		// pusher.trigger(`user-${userId}`, "notification", {
+		// 	notification: notificationForFriend,
+		// 	userId,
+		// });
 
 		res.status(200).json({ message: "Friend request accepted successfully." });
 	} catch (error) {

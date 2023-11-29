@@ -11,7 +11,10 @@ interface IChat {
 		content: string;
 		isRead?: boolean;
 	}[];
-	users: string[];
+	users: {
+		user: string;
+		isRead: boolean;
+	}[];
 	dateCreated: Date;
 	dateUpdated: Date;
 }
@@ -21,6 +24,7 @@ const chatSchema = new Schema<IChat>({
 		type: String,
 		required: true,
 	},
+
 	uid: {
 		type: String,
 		required: true,
@@ -39,8 +43,14 @@ const chatSchema = new Schema<IChat>({
 	},
 	users: [
 		{
-			type: String,
-			ref: "User",
+			user: {
+				type: String,
+				ref: "User",
+			},
+			isRead: {
+				type: Boolean,
+				default: true,
+			},
 		},
 	],
 	comments: [

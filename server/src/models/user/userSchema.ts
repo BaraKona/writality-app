@@ -58,6 +58,7 @@ export interface IUser {
 	friends?: {
 		user: string;
 		dateAdded: Date;
+		chatRead?: boolean;
 		chat?: string;
 	}[];
 }
@@ -153,9 +154,13 @@ const userSchema = new Schema<IUser>({
 					ref: "User",
 				},
 				dateAdded: Date,
+				chatRead: {
+					type: Boolean,
+					default: true,
+				},
 				chat: {
 					type: String,
-					ref: "Chat",
+					ref: "chats",
 				},
 			},
 		],

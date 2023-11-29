@@ -55,7 +55,15 @@ export const getUser = async (req: any, res: any) => {
 	try {
 		const user = await User.findOne({ uid: userId })
 			.select("-password")
-			.populate("friends.user", "-password");
+			.populate({
+				path: "friends.user",
+				select: "uid name",
+			})
+			.populate({
+				path: "friends.chat",
+				select: "users",
+			});
+
 		res.status(200).json(user);
 	} catch (error) {
 		res.status(404).json({ message: error.message });

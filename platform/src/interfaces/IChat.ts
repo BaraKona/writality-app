@@ -6,6 +6,10 @@ export type IChat = {
 	projectId: string;
 	owner: string;
 	name: string;
+	users: {
+		user: IUser;
+		isRead: boolean;
+	}[];
 	comments: {
 		uid: string;
 		user: IUser;

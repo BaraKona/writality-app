@@ -1,3 +1,5 @@
+import { IChat } from "./IChat";
+
 export enum notificationType {
 	projectInvite = "project-invitation",
 	projectRevoke = "project-invitation-revoke",
@@ -51,7 +53,9 @@ export type IUser = {
 	friends: {
 		user: IUser;
 		dateAdded: string;
-		chat: string;
+		chat: IChat;
+
+		chatRead: boolean;
 	}[];
 	inbox?: notification[];
 };

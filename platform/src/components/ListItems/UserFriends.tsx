@@ -7,7 +7,7 @@ import { IUser } from "../../interfaces/IUser";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { useLocalStorage } from "@mantine/hooks";
 
-export const UserFriends: FC<{}> = () => {
+export const UserFriends: FC<{ chatId: string }> = ({ chatId }) => {
 	const { currentUser } = useAuthContext();
 	const [parent] = useAutoAnimate();
 	const [userChat, setUserChat] = useLocalStorage({
@@ -32,13 +32,17 @@ export const UserFriends: FC<{}> = () => {
 				{currentUser?.friends?.map((friend: IUser["friends"][0]) => (
 					<li
 						key={friend?.user?.uid}
-						onClick={() => setUserChat(`${friend?.chat}`)}
-						className={`p-2 py-1 gap-1 transition-all ease-in-out duration-500 cursor-pointer flex items-center text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-md ${
-							userChat?.split("_")[0] === friend?.chat &&
+						onClick={() => setUserChat(`${friend?.chat._id}`)}
+						className={`p-2 py-1 gap-1 relative transition-all ease-in-out duration-500 cursor-pointer flex items-center text-xs font-medium group hover:bg-coolGrey-1 dark:hover:bg-hoverDark rounded-md ${
+							userChat?.split("_")[0] === friend?.chat._id &&
 							`bg-coolGrey-1 dark:bg-hoverDark`
 						}`}
 					>
-						{/* <IconUser size={18} /> */}
+						{friend?.chat?.users?.find((user) => user.user === currentUser._id)
+							?.isRead === false &&
+							chatId !== friend?.chat._id && (
+								<div className="absolute w-2 h-2 rounded-full bg-green-500 dark:bg-green-400 top-3.5 right-2" />
+							)}
 						<div className=" w-7 h-7 rounded-full bg-base dark:bg-baseDark flex items-center justify-center border border-border dark:border-borderDark">
 							<div
 								className={`font-bold truncate flex items-center text-xs ${initialsColor(

@@ -224,7 +224,17 @@ export const Sidebar: FC<{}> = () => {
 									value={friends}
 									navigate={() => setSidebarNav(friends)}
 								>
-									<IconUserHeart size={18} />
+									<div className="relative">
+										<IconUserHeart size={18} />
+										{currentUser.friends.some(
+											(friend: IUser["friends"][0]) =>
+												friend?.chat?.users?.find(
+													(user) => user.user === currentUser._id
+												)?.isRead === false && userChat !== friend?.chat._id
+										) && (
+											<div className="absolute -top-1 -right-1 w-2 h-2 bg-fuchsia-500 rounded-full" />
+										)}
+									</div>
 								</SidebarTopNav>
 								<SidebarTopNav
 									sidebarNav={sidebarNav}
@@ -236,7 +246,7 @@ export const Sidebar: FC<{}> = () => {
 										{currentUser.inbox?.filter(
 											(inbox: any) => inbox?.notificationRead === false
 										).length > 0 && (
-											<div className="absolute top-0 right-0 w-2 h-2 bg-fuchsia-500 rounded-full" />
+											<div className="absolute -top-1 -right-1 w-2 h-2 bg-fuchsia-500 rounded-full" />
 										)}
 									</div>
 								</SidebarTopNav>
@@ -270,7 +280,7 @@ export const Sidebar: FC<{}> = () => {
 								/>
 							)}
 							{sidebarNav === bookmarks && <FavouriteTabItems />}
-							{sidebarNav === friends && <UserFriends />}
+							{sidebarNav === friends && <UserFriends chatId={userChat} />}
 							{sidebarNav === writingGroup && <UserWritingGroups />}
 							{sidebarNav === inbox && (
 								<Notifications notification={currentUser?.inbox} />

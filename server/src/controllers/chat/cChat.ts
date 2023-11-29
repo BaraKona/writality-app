@@ -1,6 +1,6 @@
-import { initPusher } from "../../pusherProvider";
 import Chat from "../../models/chat/chatSchema";
 import { v4 as uuidv4 } from "uuid";
+import { pusher } from "../../../index";
 
 export const createChat = async (req: any, res: any) => {
 	const { projectId, comments } = req.body;
@@ -15,11 +15,18 @@ export const createChat = async (req: any, res: any) => {
 };
 export const getUserChatById = async (req: any, res: any) => {
 	const { chatId } = req.params;
+	const userId = req.user._id;
 	try {
 		const chat = await Chat.findById(chatId).populate(
 			"comments.user",
 			"name uid"
 		);
+
+		chat.users.find(
+			(user) => user.user.toString() === userId.toString()
+		).isRead = true;
+		chat.save();
+		// console.log(chat.users);
 		res.status(200).json(chat);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
@@ -55,14 +62,19 @@ export const commentOnChat = async (req: any, res: any) => {
 		});
 		chat.dateUpdated = new Date();
 
-		const pusher = initPusher();
+		const recipient = chat.users.find(
+			(user) => user.user.toString() !== userId.toString()
+		);
 
-		const recipient = chat.users.find((user) => user !== userId);
-
-		pusher.trigger(`chat-${chatId}`, `userChat`, {
-			comment,
-			userId,
-		});
+		recipient.isRead = false;
+		pusher.triggerBatch([
+			{
+				channel: `chat-${chatId}`,
+				name: "userChat",
+				data: { comment, userId },
+			},
+			{ channel: `user-${recipient.user}`, name: "friend-update", data: {} },
+		]);
 
 		await chat.save();
 		res.status(200).json(chat);

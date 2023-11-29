@@ -14,6 +14,7 @@ import versions from "./src/routes/project/versions";
 import branches from "./src/routes/project/branches";
 import analytics from "./src/routes/analytics";
 import notification from "./src/routes/notification/notification";
+import { initPusher } from "./src/pusherProvider";
 
 const cookieParser = require("cookie-parser");
 const compression = require("compression");
@@ -61,6 +62,8 @@ app.use("/notifications", notification);
 app.get("/", (req, res) => {
 	res.send("Connected to server!");
 });
+
+export const pusher = initPusher();
 
 const PORT = process.env.PORT || 5000;
 
