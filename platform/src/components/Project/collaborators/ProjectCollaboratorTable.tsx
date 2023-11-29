@@ -45,20 +45,20 @@ export const ProjectCollaboratorTable: FC<{
 								key={index}
 							>
 								<div className="w-3/12 flex flex-col">
-									<Text className="!text-[1.1rem] font-semibold">
+									<Text className="!text-md font-semibold">
 										{collaborator.user.name}
 									</Text>
-									<p className="text-coolGrey-5 -mt-1">
+									{/* <p className="text-coolGrey-5 -mt-1">
 										{collaborator.user.email}
-									</p>
+									</p> */}
 								</div>
 								<div className="w-2/12">
-									<p className="text-coolGrey-5">
+									<p className="text-coolGrey-5 text-sm">
 										{useDefaultDate(collaborator.dateAdded)}
 									</p>
 								</div>
 								<div className="w-2/12">
-									<p className="text-coolGrey-5">
+									<p className="text-coolGrey-5 text-sm">
 										{collaborator?.lastContribution
 											? useTimeFromNow(collaborator?.lastContribution)
 											: "Never"}

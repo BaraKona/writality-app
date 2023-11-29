@@ -24,7 +24,11 @@ export const PostComment: FC<{
 			</div>
 			<div className="flex-col flex mt-2 w-full">
 				<div className="flex gap-2">
-					{isOwner && <SmallText className="text-pink-500">[Owner]</SmallText>}
+					{isOwner && (
+						<SmallText className=" dark:text-pink-400 text-pink-500">
+							[Owner]
+						</SmallText>
+					)}
 					<SmallText
 						className="text-coolGrey-7 dark:text-coolGrey-3 hover:underline cursor-pointer"
 						onClick={() => navigate(`/users/${comment?.owner.uid}`)}
