@@ -1,4 +1,4 @@
-import User from "../models/user/userSchema";
+import User, { notificationType } from "../models/user/userSchema";
 import Posts from "../models/postSchema";
 import { v4 as uuidv4 } from "uuid";
 import { pusher } from "../../index";
@@ -126,6 +126,8 @@ export const postComment = async (req: any, res: any) => {
 	const uid = uuidv4();
 	try {
 		const post = await Posts.findOne({ uid: postId });
+		const postOwner = await User.findById(post.owner);
+		const user = await User.findById(userId);
 		const newComment = {
 			uid,
 			owner: userId,
@@ -133,6 +135,26 @@ export const postComment = async (req: any, res: any) => {
 			likes: 0,
 			dateCreated: new Date(),
 		};
+
+		if (postOwner._id.toString() !== userId.toString()) {
+			const notification = {
+				notificationType: notificationType.postComment,
+				notificationBody: `${user.name} has commented on your post: ${post.postTitle} `,
+				notificationTitle: "You received a comment",
+				notificationTime: new Date(),
+				notificationRead: false,
+				active: true,
+				ctaId: postId,
+			};
+
+			postOwner.inbox.push(notification);
+
+			pusher.trigger(`user-${postOwner._id}`, "notification", {
+				notification,
+				userId,
+			});
+			await postOwner.save();
+		}
 
 		post.comments.push(newComment);
 		await post.save();

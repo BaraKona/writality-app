@@ -9,6 +9,7 @@ import {
 	IconInbox,
 	IconUserHeart,
 	IconUserPlus,
+	IconClipboard,
 } from "@tabler/icons-react";
 import { SmallText } from "../texts/SmallText";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -16,6 +17,8 @@ import { useOpenNotification } from "../../hooks/notification/useOpenNotificatio
 import { useAcceptProjectInvitation } from "../../hooks/notification/useAcceptProjectInvitation";
 import { NotificationActions } from "./NotificationActions";
 import { useAcceptFriendRequest } from "../../hooks/notification/useAcceptFriendRequest";
+import { ButtonWrapper } from "../buttons/ButtonWrapper";
+import { useNavigate } from "react-router-dom";
 export const Notifications: FC<{
 	notification: IUser["inbox"];
 }> = ({ notification }) => {
@@ -26,6 +29,7 @@ export const Notifications: FC<{
 	const { mutate: acceptFriendRequest } = useAcceptFriendRequest();
 
 	const [parent] = useAutoAnimate();
+	const navigate = useNavigate();
 
 	const icons: any = {
 		"project-invitation": (
@@ -47,6 +51,12 @@ export const Notifications: FC<{
 			<IconUserHeart
 				size={18}
 				className="text-emerald-600 dark:text-emerald-400"
+			/>
+		),
+		"post-comment": (
+			<IconClipboard
+				size={18}
+				className="text-purple-600 dark:text-purple-400"
 			/>
 		),
 	};
@@ -119,6 +129,15 @@ export const Notifications: FC<{
 												});
 											}}
 										/>
+									)}
+								{notification?.notificationType === "post-comment" &&
+									notification.active && (
+										<ButtonWrapper
+											className="p-2 px-4 text-xs ml-auto bg-coolGrey-1 dark:bg-baseDarker hover:!bg-coolGrey-2   "
+											onClick={() => navigate(`/posts/${notification.ctaId}`)}
+										>
+											View Post
+										</ButtonWrapper>
 									)}
 							</div>
 						</Popover.Dropdown>
