@@ -4,95 +4,88 @@ import { UserCountryRenderer } from "../UserCountryRenderer";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
-import {
-	IconBookmarkFilled,
-	IconBookmarkPlus,
-	IconCircleLetterB,
-} from "@tabler/icons-react";
+import { IconBookmarkFilled, IconBookmarkPlus } from "@tabler/icons-react";
 import { useAddBookmark } from "../../hooks/user/useAddBookmark";
 import { useRemoveBookmark } from "../../hooks/user/useRemoveBookmark";
-import { tooltipStyles } from "../../styles/tooltipStyles";
-import { Tooltip } from "@mantine/core";
 import { BetaIcon } from "../BetaIcon";
 
 export const UserCard: FC<{ user: IUser }> = ({ user }) => {
-	const navigate = useNavigate();
-	const { currentUser } = useAuthContext();
-	const { mutate: addBookmark } = useAddBookmark();
-	const { mutate: removeBookmark } = useRemoveBookmark();
+  const navigate = useNavigate();
+  const { currentUser } = useAuthContext();
+  const { mutate: addBookmark, isLoading: addLoading } = useAddBookmark();
+  const { mutate: removeBookmark, isLoading: removeLoading } =
+    useRemoveBookmark();
 
-	return (
-		<div
-			onClick={() => navigate(`/users/${user.uid}`)}
-			className="flex relative flex-col rounded-lg basis-[25rem] h-[25rem] max-w-[314px] hover:border-coolGrey-3 dark:hover:shadow-none shadow dark:hover:border-coolGrey-5 shadow\ hover:shadow-md cursor-pointer transition-all duration-200 ease-in-out"
-		>
-			<div className="h-24 w-full rounded-t-lg bg-gradient-to-tr  from-pink-600/60 via-pink-700/60 to-amber-600/80 flex items-center justify-center" />
-			<div className="w-20 h-20 rounded-full bg-coolGrey-1/70 dark:bg-borderDark/70 flex items-center justify-center absolute right-0 left-0 mx-auto top-14 border-base dark:border-baseDark dark:border-baseBorder border-[0.5rem]">
-				<div
-					className={`text-2xl font-bold truncate  ${initialsColor(
-						user.name
-					)} -mt-1`}
-				>
-					{initials(user.name)}
-				</div>
-			</div>
-			{currentUser.bookmarks.some((bookmark: any) =>
-				bookmark.url.includes(user.uid)
-			) ? (
-				<div className="absolute top-2 right-2 text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg">
-					<IconBookmarkFilled
-						size={18}
-						onClick={(e) => {
-							e.stopPropagation(), removeBookmark(`/users/${user.uid}`);
-						}}
-					/>
-				</div>
-			) : (
-				<button
-					className={`absolute top-2 right-2 text-coolGrey-3 hover:text-coolGrey-7 dark:text-coolGrey-4 hover:bg-coolGrey-1 dark:hover:bg-hoverDark  group-hover:visible transition-all ease-in-out duration-300 p-2 rounded-lg`}
-					onClick={(e) => {
-						e.stopPropagation(),
-							addBookmark({
-								url: `/users/${user.uid}`,
-								name: user.name,
-								type: "user",
-							});
-					}}
-				>
-					<IconBookmarkPlus size={18} />
-				</button>
-			)}
-			<div className="p-2 dark:border dark:border-borderDark border-t-none rounded-b-lg grow dark:hover:border-coolGrey-1/30 flex flex-col">
-				<div className="flex flex-col text-center mt-8 items-center">
-					<span className="text-lg font-bold flex gap-2 items-center">
-						{user.name} {user?.role === "beta-tester" && <BetaIcon size={20} />}
-					</span>
-					{/* <span className="text-sm text-coolGrey-5 dark:text-coolGrey-4 truncate">
+  return (
+    <div
+      onClick={() => navigate(`/users/${user.uid}`)}
+      className="shadow\ relative flex h-[25rem] max-w-[314px] basis-[25rem] cursor-pointer flex-col rounded-lg shadow transition-all duration-200 ease-in-out hover:border-coolGrey-3 hover:shadow-md dark:hover:border-coolGrey-5 dark:hover:shadow-none"
+    >
+      <div className="flex h-24 w-full items-center  justify-center rounded-t-lg bg-gradient-to-tr from-pink-600/60 via-pink-700/60 to-amber-600/80" />
+      <div className="dark:border-baseBorder absolute left-0 right-0 top-14 mx-auto flex h-20 w-20 items-center justify-center rounded-full border-[0.5rem] border-base bg-coolGrey-1/70 dark:border-baseDark dark:bg-borderDark/70">
+        <div
+          className={`truncate text-2xl font-bold  ${initialsColor(
+            user.name,
+          )} -mt-1`}
+        >
+          {initials(user.name)}
+        </div>
+      </div>
+      <button
+        className="absolute right-2 top-2 rounded-lg p-2 text-coolGrey-3 transition-all duration-300  ease-in-out hover:bg-coolGrey-1 hover:text-coolGrey-7 dark:text-coolGrey-4 dark:hover:bg-hoverDark"
+        onClick={(e) => {
+          e.stopPropagation(),
+            currentUser.bookmarks?.some(
+              (bookmark: any) => bookmark.url?.includes(user.uid),
+            )
+              ? removeBookmark(`/users/${user.uid}`)
+              : addBookmark({
+                  url: `/users/${user.uid}`,
+                  name: user.name,
+                  type: "user",
+                });
+        }}
+        disabled={removeLoading || addLoading}
+      >
+        {currentUser.bookmarks?.some(
+          (bookmark: any) => bookmark.url?.includes(user.uid),
+        ) ? (
+          <IconBookmarkFilled size={18} />
+        ) : (
+          <IconBookmarkPlus size={18} />
+        )}
+      </button>
+      <div className="border-t-none flex grow flex-col rounded-b-lg p-2 dark:border dark:border-borderDark dark:hover:border-coolGrey-1/30">
+        <div className="mt-8 flex flex-col items-center text-center">
+          <span className="flex items-center gap-2 text-lg font-bold">
+            {user.name} {user?.role === "beta-tester" && <BetaIcon size={20} />}
+          </span>
+          {/* <span className="text-sm text-coolGrey-5 dark:text-coolGrey-4 truncate">
 						{user.email}
 					</span> */}
-					<UserCountryRenderer country={user.country} />
-				</div>
-				<div className="text-sm text-coolGrey-5 dark:text-coolGrey-5 h-[6.5rem] line-clamp-5 mt-2">
-					{user.aboutMe ||
-						"User has not written anything about themselves yet."}
-				</div>
+          <UserCountryRenderer country={user.country} />
+        </div>
+        <div className="mt-2 line-clamp-5 h-[6.5rem] text-sm text-coolGrey-5 dark:text-coolGrey-5">
+          {user.aboutMe ||
+            "User has not written anything about themselves yet."}
+        </div>
 
-				<div className="flex gap-1.5 flex-wrap mt-auto h-14 line-clamp-2 ">
-					{user.roles?.length === 0 && (
-						<span className="text-xs rounded-lg bg-coolGrey-1 dark:bg-borderDark px-2 py-1 capitalize h-6">
-							No roles
-						</span>
-					)}
-					{user.roles?.map((role) => (
-						<span
-							className="text-xs rounded-lg bg-coolGrey-1 dark:bg-fuchsia-700 dark:text-coolGrey-8 px-2 py-1 capitalize h-6"
-							key={role}
-						>
-							{role}
-						</span>
-					))}
-				</div>
-			</div>
-		</div>
-	);
+        <div className="mt-auto line-clamp-2 flex h-14 flex-wrap gap-1.5 ">
+          {user.roles?.length === 0 && (
+            <span className="h-6 rounded-lg bg-coolGrey-1 px-2 py-1 text-xs capitalize dark:bg-borderDark">
+              No roles
+            </span>
+          )}
+          {user.roles?.map((role) => (
+            <span
+              className="h-6 rounded-lg bg-coolGrey-1 px-2 py-1 text-xs capitalize dark:bg-fuchsia-700 dark:text-coolGrey-8"
+              key={role}
+            >
+              {role}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
