@@ -3,93 +3,110 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&display=swap");
 :root {
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	// background-color: #ffff;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  // background-color: #ffff;
 
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-text-size-adjust: 100%;
-	scrollbar-width: thin !important;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-width: thin !important;
 }
 html,
 body {
-	/* font-family: 'Fredericka the Great', cursive; */
-	/* font-family: 'Raleway', sans-serif; */
-	/* font-family: 'Elsie Swash Caps', cursive; */
-	// font-family: "Cormorant Garamond", serif !important;
-	// font-family: "Arvo", serif !important;
-	// font-family: "Montserrat", sans-serif !important;
-	// font-family: "helvetica neue", helvetica, arial, sans-serif !important;
-	font-family: "Noto Sans JP", sans-serif !important;
-	font-size: 16px;
-	line-height: 24px;
-	font-weight: 400;
-	padding: 0;
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-	color: #394251;
+  /* font-family: 'Fredericka the Great', cursive; */
+  /* font-family: 'Raleway', sans-serif; */
+  /* font-family: 'Elsie Swash Caps', cursive; */
+  // font-family: "Cormorant Garamond", serif !important;
+  // font-family: "Arvo", serif !important;
+  // font-family: "Montserrat", sans-serif !important;
+  // font-family: "helvetica neue", helvetica, arial, sans-serif !important;
+  font-family: "Noto Sans JP", sans-serif !important;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Fira Sans,
+    Droid Sans,
+    Helvetica Neue,
+    sans-serif;
+  color: #394251;
+}
+// make password input dots pink
+input[type="password"],
+.opera input[type="password"],
+.webkit input[type="password"] {
+  -webkit-text-security: disc;
+  color: rgb(131, 107, 218);
 }
 
 a {
-	color: inherit;
-	text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 @media (prefers-color-scheme: dark) {
-	html {
-		color-scheme: light;
-	}
-	body {
-		color: #394251;
-		background-color: #ffff !important;
-	}
+  html {
+    color-scheme: light;
+  }
+  body {
+    color: #394251;
+    background-color: #ffff !important;
+  }
 }
 
 textarea:focus,
 input:focus,
 input:active {
-	outline: none;
+  outline: none;
 }
 .ql-container.ql-snow {
-	border: none !important;
+  border: none !important;
 }
 .ql-toolbar.ql-snow {
-	border: none !important;
+  border: none !important;
 }
 .ql-editor,
 .ql-editor:focus {
-	outline: none !important;
+  outline: none !important;
 }
 body {
-	min-width: 320px;
-	min-height: 100dvh;
+  min-width: 320px;
+  min-height: 100dvh;
 }
 
 h1 {
-	font-size: 3.2em;
-	line-height: 1.1;
+  font-size: 3.2em;
+  line-height: 1.1;
 }
 input,
 textarea,
 select {
-	font-family: inherit;
-	font-size: inherit;
-	line-height: inherit;
-	color: inherit;
-	border: none;
-	outline: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	background: none !important;
-	appearance: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none !important;
+  appearance: none;
 }
 input:focus,
 textarea:focus,
@@ -97,21 +114,21 @@ select:focus,
 input:active,
 textarea:active,
 select:active {
-	outline: none !important;
-	background: none;
+  outline: none !important;
+  background: none;
 }
 #root {
-	// max-width: 1280px;
-	margin: 0 auto;
+  // max-width: 1280px;
+  margin: 0 auto;
 }
 *::-webkit-scrollbar {
-	width: 8px;
+  width: 8px;
 }
 *::-webkit-scrollbar-track {
-	background: transparent !important; /* color of the tracking area */
+  background: transparent !important; /* color of the tracking area */
 }
 *::-webkit-scrollbar-thumb {
-	background-color: #9ca3af !important; /* color of the scroll thumb */
-	border-radius: 20px; /* roundness of the scroll thumb */
-	border: 3px solid #9ca3af !important; /* creates padding around scroll thumb */
+  background-color: #9ca3af !important; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid #9ca3af !important; /* creates padding around scroll thumb */
 }
