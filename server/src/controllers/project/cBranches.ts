@@ -59,7 +59,6 @@ export const updateBranch = async (req: any, res: any) => {
 	const { chapterId, branchId } = req.params;
 	const { content, title } = req.body;
 
-	console.log({ content, title });
 	try {
 		const dateUpdated = {
 			user: req.user.uid,
@@ -71,7 +70,15 @@ export const updateBranch = async (req: any, res: any) => {
 			{ content: content, dateUpdated: dateUpdated, title },
 			{ new: true }
 		);
-		res.status(200).json(branch);
+
+		console.log({content, title})
+
+		res.status(200).json({
+			branch: branch.content,
+			title: branch.title,
+			dateUpdated: branch.dateUpdated,
+		});
+
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });
