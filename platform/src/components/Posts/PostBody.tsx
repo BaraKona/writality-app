@@ -19,7 +19,7 @@ export const PostBody: FC<{
   removeBookmark?: () => void;
   breadCrumbs?: BreadcrumbItemProp[];
   isCreate?: boolean;
-  bookmarkLoading: boolean;
+  bookmarkLoading?: boolean;
 }> = ({
   post,
   isLoading,

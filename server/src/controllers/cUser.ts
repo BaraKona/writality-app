@@ -291,7 +291,7 @@ export const removeBookmark = async (req: any, res: any) => {
 			res.status(404).json({ message: "User not found." });
 		} else {
 			if (!user.bookmarks.find((tab: any) => tab.url === url)) {
-				res.status(200).json({ message: "Tab not bookmark." });
+				res.status(200).json({ message: "Tab not bookmarked." });
 			} else {
 				user.bookmarks = user.bookmarks.filter((tab: any) => tab.url !== url);
 				await user.save();
