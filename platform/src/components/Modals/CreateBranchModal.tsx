@@ -43,10 +43,6 @@ export const CreateBranchModal: FC<{
 			<div className="mt-5">
 				<TextInput
 					className="mb-3"
-					error={
-						(branchName.length > 18 && "Branch name is too long") ||
-						(branchName.length < 3 && "Branch name is too short")
-					}
 					placeholder="Branch name"
 					onChange={(e) => setBranchName(e.currentTarget.value)}
 					styles={inputStyles()}
