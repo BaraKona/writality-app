@@ -9,100 +9,85 @@ import { GridProjects } from "../Project/GridProjects";
 import { ListProjects } from "../Project/ListProjects";
 
 export const ProfileProjects: FC<{
-	projects: IProject[];
-	addFavourite: ({
-		type,
-		url,
-		name,
-	}: {
-		type: string;
-		url: string;
-		name: string;
-	}) => void;
-	createProject: () => void;
-	removeFavourite: (projectId: string) => void;
-	isLoading: boolean;
-}> = ({
-	projects,
-	createProject,
-	addFavourite,
-	removeFavourite,
-	isLoading,
-}) => {
-	const navigate = useNavigate();
+  projects: IProject[];
 
-	const [layout, setLayout] = useLocalStorage<"grid" | "list">({
-		key: "project-layout",
-		defaultValue: "grid",
-	});
+  createProject: () => void;
+  isLoading: boolean;
+}> = ({ projects, createProject, isLoading }) => {
+  const navigate = useNavigate();
 
-	if (isLoading) {
-		return (
-			<div>
-				<div className="text-xs font-medium mb-2">Your Projects</div>
-				<div className="flex gap-2">
-					{[...Array(5)].map((_, i) => (
-						<Skeleton key={i} height={150} width={250} />
-					))}
-				</div>
-			</div>
-		);
-	}
+  const [layout, setLayout] = useLocalStorage<"grid" | "list">({
+    key: "project-layout",
+    defaultValue: "grid",
+  });
 
-	if (!projects || projects.length === 0) {
-		return (
-			<div className="border-border dark:border-borderDark border rounded-lg h-[calc(100dvh-39rem)] flex content-center items-center">
-				<EmptyItem
-					title="Projects"
-					p1="You do not current have any projects. You may wish to work with other people or create your own project."
-					p2="Create your first project to get started"
-					createNewChapter={createProject}
-				/>
-			</div>
-		);
-	}
+  if (isLoading) {
+    return (
+      <div>
+        <div className="mb-2 text-xs font-medium">Your Projects</div>
+        <div className="flex gap-2">
+          {[...Array(5)].map((_, i) => (
+            <Skeleton key={i} height={150} width={250} />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
-	return (
-		<div className="">
-			<div className="text-md font-medium my-5 flex items-center justify-between">
-				Your Projects
-				<div className="flex gap-1">
-					<button
-						className={`border rounded-lg p-2 ${
-							layout === "grid"
-								? "border-transparent bg-coolGrey-1 dark:bg-hoverDark cursor-default"
-								: "border-coolGrey-2 dark:border-borderDark dark:hover:bg-hoverDark hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
-						}`}
-						onClick={() => setLayout("grid")}
-					>
-						<IconLayoutGrid size={16} />
-					</button>
-					<button
-						className={`border rounded-lg p-2 ${
-							layout === "list"
-								? "border-transparent bg-coolGrey-1 dark:bg-hoverDark cursor-default"
-								: "border-coolGrey-2 dark:border-borderDark dark:hover:bg-hoverDark hover:border-coolGrey-3 cursor-pointer transition-all ease-in-out duration-300 hover:shadow"
-						}`}
-						onClick={() => setLayout("list")}
-					>
-						<IconList size={16} />
-					</button>
-				</div>
-			</div>
+  if (!projects || projects.length === 0) {
+    return (
+      <div className="flex h-[calc(100dvh-39rem)] content-center items-center rounded-lg border border-border dark:border-borderDark">
+        <EmptyItem
+          title="Projects"
+          p1="You do not current have any projects. You may wish to work with other people or create your own project."
+          p2="Create your first project to get started"
+          createNewChapter={createProject}
+        />
+      </div>
+    );
+  }
 
-			{layout === "grid" ? (
-				<div className="flex flex-row flex-wrap gap-3">
-					{projects.map((project, index) => (
-						<GridProjects
-							key={index}
-							project={project}
-							onClick={() => navigate(`/project/${project.uid}/overview`)}
-						/>
-					))}
-				</div>
-			) : (
-				<ListProjects projects={projects} />
-			)}
-		</div>
-	);
+  return (
+    <div className="">
+      <div className="text-md my-5 flex items-center justify-between font-medium">
+        Your Projects
+        <div className="flex gap-1">
+          <button
+            className={`rounded-lg border p-2 ${
+              layout === "grid"
+                ? "cursor-default border-transparent bg-coolGrey-1 dark:bg-hoverDark"
+                : "cursor-pointer border-coolGrey-2 transition-all duration-300 ease-in-out hover:border-coolGrey-3 hover:shadow dark:border-borderDark dark:hover:bg-hoverDark"
+            }`}
+            onClick={() => setLayout("grid")}
+          >
+            <IconLayoutGrid size={16} />
+          </button>
+          <button
+            className={`rounded-lg border p-2 ${
+              layout === "list"
+                ? "cursor-default border-transparent bg-coolGrey-1 dark:bg-hoverDark"
+                : "cursor-pointer border-coolGrey-2 transition-all duration-300 ease-in-out hover:border-coolGrey-3 hover:shadow dark:border-borderDark dark:hover:bg-hoverDark"
+            }`}
+            onClick={() => setLayout("list")}
+          >
+            <IconList size={16} />
+          </button>
+        </div>
+      </div>
+
+      {layout === "grid" ? (
+        <div className="flex flex-row flex-wrap gap-3">
+          {projects.map((project, index) => (
+            <GridProjects
+              key={index}
+              project={project}
+              onClick={() => navigate(`/project/${project.uid}/overview`)}
+            />
+          ))}
+        </div>
+      ) : (
+        <ListProjects projects={projects} />
+      )}
+    </div>
+  );
 };

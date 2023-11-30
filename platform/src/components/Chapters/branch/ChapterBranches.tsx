@@ -130,7 +130,7 @@ export const ChapterBranches: FC<{
                     <div>
                       <VscGitPullRequestCreate size={14} />
                     </div>
-                    <p className="max-w-[10rem] truncate text-xs font-medium text-coolGrey-7 dark:text-coolGrey-4">
+                    <p className="max-w-[9rem] truncate text-xs font-medium text-coolGrey-7 dark:text-coolGrey-4">
                       {branch.name ? branch.name : "Branch"}:
                     </p>
                   </div>

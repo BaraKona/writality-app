@@ -2,112 +2,113 @@ import { FC, ReactNode } from "react";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
 import { useTimeFromNow } from "../../hooks/useTimeFromNow";
 import {
-	IconCloudUpload,
-	Icon3dCubeSphere,
-	IconDeviceFloppy,
-	IconFileText,
-	IconGitBranch,
+  IconCloudUpload,
+  Icon3dCubeSphere,
+  IconFileText,
+  IconGitBranch,
 } from "@tabler/icons-react";
-import { Divider, Flex, Skeleton, Text, Tooltip } from "@mantine/core";
+import { Divider, Flex, Skeleton, Text } from "@mantine/core";
 import { Breadcrumbs } from "../Breadcrumbs/Breadcrumbs";
 import { useSingleProject } from "../../hooks/projects/useSingleProject";
 import { IconBook2, IconGitMerge } from "@tabler/icons-react";
-import { tooltipStyles } from "../../styles/tooltipStyles";
 import { useLocation, useSearchParams } from "react-router-dom";
-import { ButtonWrapper } from "../buttons/ButtonWrapper";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export const EditorWrapper: FC<{
-	children: ReactNode;
-	content: IChapterVersion;
-	save: () => void;
-}> = ({ children, content, save }) => {
-	const { data: project, isLoading } = useSingleProject(content?.projectId);
-	const [searchParams] = useSearchParams();
-	const location = useLocation();
-	const merge = searchParams.get("merge");
-	const branch = searchParams.get("branch");
+  children: ReactNode;
+  mainContent: IChapterVersion;
+  branchContent: IChapterVersion;
+  // save: () => void;
+}> = ({ children, mainContent, branchContent }) => {
+  const { data: project, isLoading } = useSingleProject(mainContent?.projectId);
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const merge = searchParams.get("merge");
+  const branch = searchParams.get("branch");
 
-	if (isLoading || !content) {
-		return (
-			<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3.5 h-[calc(100dvh-3.2rem)] gap-2 rounded-lg border-border dark:border-borderDark border">
-				<div className="flex justify-between">
-					<Skeleton height={24} mt={6} width={100} />
-					<Skeleton height={24} mt={6} width={200} />
-				</div>
-				<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
-				<div className="flex">{children}</div>
-			</div>
-		);
-	}
-	const breadcrumbs = [
-		{
-			label: project?.title,
-			path: "/project/" + project?.uid + "/overview",
-			icon:
-				project?.type === "standard" ? (
-					<IconBook2
-						size={18}
-						className="text-neutral-600 dark:text-stone-500"
-					/>
-				) : (
-					<Icon3dCubeSphere size={18} className="text-cyan-800" />
-				),
-			isLoading: isLoading,
-		},
-		{
-			label: "[main] " + content.title || "[main] Untitled Chapter",
-			path: location.pathname,
-			icon: <IconFileText size={18} />,
-			isLoading: isLoading,
-		},
-	];
+  if (isLoading || !mainContent || (branch && !branchContent)) {
+    return (
+      <div className="flex h-[calc(100dvh-3.2rem)] flex-col gap-2 rounded-lg border border-border bg-base px-3 py-3.5 dark:border-borderDark dark:bg-baseDark">
+        <div className="flex justify-between">
+          <Skeleton height={24} mt={6} width={100} />
+          <Skeleton height={24} mt={6} width={200} />
+        </div>
+        <Divider className="!border-coolGrey-1 dark:!border-borderDark" />
+        <div className="flex">{children}</div>
+      </div>
+    );
+  }
+  const breadcrumbs = [
+    {
+      label: project?.title,
+      path: "/project/" + project?.uid + "/overview",
+      icon:
+        project?.type === "standard" ? (
+          <IconBook2
+            size={18}
+            className="text-neutral-600 dark:text-stone-500"
+          />
+        ) : (
+          <Icon3dCubeSphere size={18} className="text-cyan-800" />
+        ),
+      isLoading: isLoading,
+    },
+    {
+      label: "[main] " + mainContent.title || "[main] Untitled Chapter",
+      path: location.pathname,
+      icon: <IconFileText size={18} />,
+      isLoading: isLoading,
+    },
+  ];
 
-	if (branch) {
-		breadcrumbs.push({
-			label: "[" + content?.type + "] " + (content.name || "Untitled Chapter"),
-			path: location.pathname + "?branch=" + branch,
-			icon: <IconGitBranch size={18} />,
-			isLoading: isLoading,
-		});
-	}
+  if (branch) {
+    breadcrumbs.push({
+      label:
+        "[" +
+        branchContent?.type +
+        "] " +
+        (branchContent.name || "Untitled Chapter"),
+      path: location.pathname + "?branch=" + branch,
+      icon: <IconGitBranch size={18} />,
+      isLoading: isLoading,
+    });
+  }
 
-	if (merge === "replace") {
-		breadcrumbs.push({
-			label: "Replace main with " + content.name,
-			path: location.pathname + "?merge=" + merge,
-			icon: <IconGitMerge size={18} />,
-			isLoading: isLoading,
-		});
-	}
+  if (merge === "replace") {
+    breadcrumbs.push({
+      label: "Replace main with " + branchContent.name,
+      path: location.pathname + "?merge=" + merge,
+      icon: <IconGitMerge size={18} />,
+      isLoading: isLoading,
+    });
+  }
 
-	if (merge === "into") {
-		breadcrumbs.push({
-			label: "Merge " + content.name + " into main",
-			path: location.pathname + "?merge=" + merge,
-			icon: <IconGitMerge size={18} />,
-			isLoading: isLoading,
-		});
-	}
+  if (merge === "into") {
+    breadcrumbs.push({
+      label: "Merge " + branchContent.name + " into main",
+      path: location.pathname + "?merge=" + merge,
+      icon: <IconGitMerge size={18} />,
+      isLoading: isLoading,
+    });
+  }
 
-	return (
-		<div className="flex flex-col bg-base dark:bg-baseDark px-3 py-3 h-[calc(100dvh-3.2rem)] gap-2 rounded-lg border-border dark:border-t dark:border-none dark:border-baseDark border">
-			<div className=" flex font-medium gap-2  text-coolGrey-7 items-center">
-				<Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
-				<Text
-					size="xs"
-					color="dimmed"
-					ml="auto"
-					mr={3}
-					className="flex items-center"
-				>
-					<IconCloudUpload size={18} className="mr-1 text-sky-600" />
-					{content?.dateUpdated?.date
-						? "Last updated: " + useTimeFromNow(content.dateUpdated.date + "")
-						: "No updates yet"}
-				</Text>
+  return (
+    <div className="flex h-[calc(100dvh-3.2rem)] flex-col gap-2 rounded-lg border border-border bg-base px-3 py-3 dark:border-t dark:border-none dark:border-baseDark dark:bg-baseDark">
+      <div className=" flex items-center gap-2  font-medium text-coolGrey-7">
+        <Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
+        <Text
+          size="xs"
+          color="dimmed"
+          ml="auto"
+          mr={3}
+          className="flex items-center"
+        >
+          <IconCloudUpload size={18} className="mr-1 text-sky-600" />
+          {branch
+            ? `Last updated: ${useTimeFromNow(branchContent.dateUpdated.date)}`
+            : `Last updated: ${useTimeFromNow(mainContent.dateUpdated.date)}`}
+        </Text>
 
-				{/* <div
+        {/* <div
 					className="border-l border-border dark:border-borderDark group dark:hover:text-coolGrey-4"
 					onClick={save}
 				>
@@ -122,13 +123,13 @@ export const EditorWrapper: FC<{
 						</ButtonWrapper>
 					</Tooltip>
 				</div> */}
-			</div>
-			<Divider className="!border-coolGrey-1 dark:!border-borderDark" />
-			<div className=" overflow-y-hidden">
-				<div className="text-editor flex justify-between align-middle">
-					{children}
-				</div>
-			</div>
-		</div>
-	);
+      </div>
+      <Divider className="!border-coolGrey-1 dark:!border-borderDark" />
+      <div className=" overflow-y-hidden">
+        <div className="text-editor flex justify-between align-middle">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
 };
