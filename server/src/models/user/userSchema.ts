@@ -45,6 +45,8 @@ export interface IUser {
 	role?: string;
 	favouriteProjects?: string[];
 	dailyWordCount?: number;
+	monthlyWordCount?: number;
+	yearlyWordCount?: number;
 	allTimeWordCount?: number;
 	bookmarks?: {
 		tabType: string;
@@ -83,6 +85,14 @@ const userSchema = new Schema<IUser>({
 		default: false,
 	},
 	dailyWordCount: {
+		type: Number,
+		default: 0,
+	},
+	monthlyWordCount: {
+		type: Number,
+		default: 0,
+	},
+	yearlyWordCount: {
 		type: Number,
 		default: 0,
 	},

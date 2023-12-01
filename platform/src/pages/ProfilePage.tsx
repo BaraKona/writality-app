@@ -6,16 +6,18 @@ import { ProfilePosts } from "../components/Profile/ProfilePosts";
 import { BannerImage } from "../components/BannerImage";
 import { Title } from "../components/Title";
 import { initials, initialsColor } from "../utils/userIcons";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ProfileProjects } from "../components/Profile/ProfileProjects";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { ProfileFriends } from "../components/Profile/ProfileFriends";
 import { DailyCount } from "../components/Profile/DailyCount";
 import { Trophies } from "../components/Profile/Trophies";
 import { RecentNotifications } from "../components/Profile/RecentNotifications";
+import { useQueryClient } from "react-query";
 
 export const ProfilePage = () => {
   const { currentUser } = useAuthContext();
+  const queryClient = useQueryClient();
   const { data: projects, isLoading } = useUserProfileProjects();
 
   const [parent] = useAutoAnimate();

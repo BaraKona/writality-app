@@ -38,6 +38,8 @@ export type IUser = {
   role?: string;
   loginStreak?: number;
   dailyWordCount?: number;
+  monthlyWordCount?: number;
+  yearlyWordCount?: number;
   allTimeWordCount?: number;
   favouriteProjects?: string[];
   bookmarks?: {

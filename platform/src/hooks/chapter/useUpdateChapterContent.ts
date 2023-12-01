@@ -44,6 +44,8 @@ export const useUpdateChapterContent = (
             ...old,
             dailyWordCount: old.dailyWordCount + wordsAdded,
             allTimeWordCount: old.allTimeWordCount + wordsAdded,
+            monthlyWordCount: old.monthlyWordCount + wordsAdded,
+            yearlyWordCount: old.yearlyWordCount + wordsAdded,
           };
         });
 

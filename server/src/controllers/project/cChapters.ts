@@ -194,6 +194,8 @@ export const updateChapterContent = async (req: any, res: any) => {
 		const wordsAdded = wordCount > chapter.content.wordCount ? wordCount - chapter.content.wordCount : 0;
 		user.dailyWordCount += wordsAdded;
 		user.allTimeWordCount += wordsAdded;
+		user.monthlyWordCount += wordsAdded;
+		user.yearlyWordCount += wordsAdded;
 
 		const version = Version.create({
 			title: chapter.title,

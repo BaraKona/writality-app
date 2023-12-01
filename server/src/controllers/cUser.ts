@@ -76,6 +76,23 @@ export const getUser = async (req: any, res: any) => {
 			user.loginStreak = 1;
 		}
 
+		// reset monthly and yearly word count
+		if (
+			user.previousLogin &&
+			user.previousLogin.getMonth() !== today.getMonth()
+		) {
+			user.monthlyWordCount = 0;
+		}
+
+		if (
+			user.previousLogin &&
+			user.previousLogin.getFullYear() !== today.getFullYear()
+		) {
+			user.yearlyWordCount = 0;
+		}
+
+
+
 		await user.save();
 		res.status(200).json(user);
 	} catch (error) {

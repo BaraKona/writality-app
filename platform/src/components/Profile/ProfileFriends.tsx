@@ -12,7 +12,7 @@ export const ProfileFriends = () => {
 
   if (currentUser?.friends?.length === 0) {
     return (
-      <section className="flex h-72 w-full grow items-center justify-center gap-2 rounded-lg border border-border p-4 dark:border-none dark:bg-baseDarker">
+      <section className="flex h-56 w-full grow items-center justify-center gap-2 rounded-lg border border-border p-4 dark:border-none dark:bg-baseDarker">
         <EmptyItem
           title="No friends found 🫠"
           p1="Don't worry, you can always make new friends."
@@ -22,7 +22,7 @@ export const ProfileFriends = () => {
     );
   }
   return (
-    <section className="flex h-72 w-full max-w-[24rem] grow flex-col gap-2 rounded-lg border border-border p-2 dark:border-none dark:bg-baseDarker">
+    <section className="flex h-56 w-full max-w-[24rem] grow flex-col gap-2 rounded-lg border border-border p-2 dark:border-none dark:bg-baseDarker">
       <div className="flex items-center gap-2">
         <h2 className="flex items-center gap-2 text-lg font-semibold">
           <IconUserHeart size={20} stroke={2} />
