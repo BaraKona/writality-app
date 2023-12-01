@@ -49,9 +49,9 @@ export const ProfileProjects: FC<{
 
   return (
     <div className="">
-      <div className="text-md my-5 flex items-center justify-between font-medium">
-        Your Projects
-        <div className="flex gap-1">
+      <div className="text-md relative mb-2 flex items-center justify-between font-medium">
+        {/* Your Projects */}
+        <div className="absolute -top-12  right-0 ml-auto flex gap-1">
           <button
             className={`rounded-lg border p-2 ${
               layout === "grid"
