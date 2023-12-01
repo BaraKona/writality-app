@@ -4,7 +4,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 export const Trophies = () => {
   const { currentUser } = useAuthContext();
 
-  if (currentUser.role === "beta-tester") {
+  if (currentUser.role !== "beta-tester") {
     return (
       <section className="flex w-full max-w-[24rem] grow flex-col items-center justify-center gap-2 rounded-lg border border-border p-2 dark:border-none dark:bg-baseDarker">
         <IconTrophyOff size={100} className="text-yellow-500" />
