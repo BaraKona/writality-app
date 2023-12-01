@@ -37,11 +37,15 @@ export interface IUser {
 	password: string;
 	token: string;
 	uid: string;
+	loginStreak?: number;
+	previousLogin?: Date;
 	emailVerified?: boolean;
 	isOnboardingCompleted?: boolean;
 	createdAt: Date;
 	role?: string;
 	favouriteProjects?: string[];
+	dailyWordCount?: number;
+	allTimeWordCount?: number;
 	bookmarks?: {
 		tabType: string;
 		url: string;
@@ -78,6 +82,14 @@ const userSchema = new Schema<IUser>({
 		type: Boolean,
 		default: false,
 	},
+	dailyWordCount: {
+		type: Number,
+		default: 0,
+	},
+	allTimeWordCount: {
+		type: Number,
+		default: 0,
+	},
 	isOnboardingCompleted: {
 		type: Boolean,
 		default: false,
@@ -89,6 +101,13 @@ const userSchema = new Schema<IUser>({
 	password: {
 		type: String,
 		required: true,
+	},
+	previousLogin: {
+		type: Date,
+	},
+	loginStreak: {
+		type: Number,
+		default: 0,
 	},
 	token: {
 		type: String,

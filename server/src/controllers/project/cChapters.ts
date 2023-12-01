@@ -4,6 +4,7 @@ import Version from "../../models/versionSchema";
 import Project from "../../models/projectSchema";
 import { v4 as uuidv4 } from "uuid";
 import { useDefaultDateTime } from "../../dateProvider";
+import User from "../../models/user/userSchema";
 
 export const createChapter = async (userId: string, projectId: string) => {
 	const id = uuidv4();
@@ -174,7 +175,14 @@ export const updateChapterContent = async (req: any, res: any) => {
 			],
 		});
 
+		const user = await User.findById(userId);
+
+
 		if (!project) {
+			res.status.res({ message: "You do not have access to this Project" });
+		}
+
+		if (!user) {
 			res.status.res({ message: "You do not have access to this Project" });
 		}
 
@@ -182,6 +190,10 @@ export const updateChapterContent = async (req: any, res: any) => {
 			projectId: projectId,
 			uid: chapterId,
 		});
+
+		const wordsAdded = wordCount > chapter.content.wordCount ? wordCount - chapter.content.wordCount : 0;
+		user.dailyWordCount += wordsAdded;
+		user.allTimeWordCount += wordsAdded;
 
 		const version = Version.create({
 			title: chapter.title,
@@ -231,6 +243,7 @@ export const updateChapterContent = async (req: any, res: any) => {
 
 		await chapter.save();
 		await project.save();
+		await user.save();
 
 		res.status(200).json({
 			message: "Chapter updated successfully",
@@ -239,6 +252,7 @@ export const updateChapterContent = async (req: any, res: any) => {
 			version: version,
 			title: chapter.title,
 			dateUpdated: chapter.dateUpdated,
+			wordsAdded,
 		});
 	} catch (error) {
 		console.log(error);

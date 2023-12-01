@@ -1,16 +1,7 @@
 import { FC } from "react";
 import { IUser } from "../../interfaces/IUser";
-import { useAuthContext } from "../../contexts/AuthContext";
 import { Divider, Popover } from "@mantine/core";
-import {
-  Icon3dCubeSphere,
-  IconCubeOff,
-  IconCubePlus,
-  IconInbox,
-  IconUserHeart,
-  IconUserPlus,
-  IconClipboard,
-} from "@tabler/icons-react";
+import { IconInbox } from "@tabler/icons-react";
 import { SmallText } from "../texts/SmallText";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useOpenNotification } from "../../hooks/notification/useOpenNotification";
@@ -19,11 +10,12 @@ import { NotificationActions } from "./NotificationActions";
 import { useAcceptFriendRequest } from "../../hooks/notification/useAcceptFriendRequest";
 import { ButtonWrapper } from "../buttons/ButtonWrapper";
 import { useNavigate } from "react-router-dom";
+import { NotificationIcons } from "./NotificationIcons";
+
 export const Notifications: FC<{
   notification: IUser["inbox"];
-}> = ({ notification }) => {
-  const { currentUser } = useAuthContext();
-
+  recent?: boolean;
+}> = ({ notification, recent }) => {
   const { mutate: openNotification } = useOpenNotification();
   const { mutate: acceptProjectInvitation } = useAcceptProjectInvitation();
   const { mutate: acceptFriendRequest } = useAcceptFriendRequest();
@@ -31,40 +23,16 @@ export const Notifications: FC<{
   const [parent] = useAutoAnimate();
   const navigate = useNavigate();
 
-  const icons: any = {
-    "project-invitation": (
-      <IconCubePlus size={18} className="text-green-600 dark:text-green-400" />
-    ),
-    "project-invitation-revoke": (
-      <IconCubeOff size={18} className="text-rose-600 dark:text-rose-400" />
-    ),
-    "project-invitation-accept": (
-      <Icon3dCubeSphere
-        size={18}
-        className="text-blue-600 dark:text-blue-400"
-      />
-    ),
-    "friend-request": (
-      <IconUserPlus size={18} className="text-lime-600 dark:text-lime-400" />
-    ),
-    "friend-accept": (
-      <IconUserHeart
-        size={18}
-        className="text-emerald-600 dark:text-emerald-400"
-      />
-    ),
-    "post-comment": (
-      <IconClipboard
-        size={18}
-        className="text-purple-600 dark:text-purple-400"
-      />
-    ),
-  };
-
   return (
     <section ref={parent}>
-      <Divider className="!mb-2 !border-coolGrey-1 dark:!border-borderDark" />
-      <div className="flex h-[calc(100dvh-6.5rem)] flex-col gap-1 overflow-y-auto">
+      {recent ? null : (
+        <Divider className="!mb-2 !border-coolGrey-1 dark:!border-borderDark" />
+      )}
+      <div
+        className={`flex ${
+          recent ? "" : "h-[calc(100dvh-6.5rem)]"
+        } flex-col gap-1 overflow-y-auto`}
+      >
         {notification?.map((notification: any, index: number) => (
           <Popover
             key={index}
@@ -84,7 +52,7 @@ export const Notifications: FC<{
               >
                 <div className="flex w-full items-center justify-between gap-1">
                   <div className="flex gap-2">
-                    {icons[notification.notificationType]}
+                    <NotificationIcons notification={notification} />
                     <span className=" w-[12rem] overflow-hidden text-ellipsis whitespace-nowrap">
                       {notification.notificationTitle}
                     </span>
@@ -98,7 +66,7 @@ export const Notifications: FC<{
             <Popover.Dropdown className="!right-0 !border-border !bg-base !text-coolGrey-6 dark:!border-borderDark dark:!bg-baseDark dark:!text-coolGrey-4">
               <div className="flex flex-col gap-2 p-4 text-coolGrey-6 dark:text-coolGrey-4">
                 <p className=" flex items-center gap-4">
-                  {icons[notification.notificationType]}
+                  <NotificationIcons notification={notification} />
                   {notification.notificationTitle}
                 </p>
                 <Divider className="!mb-2 !border-coolGrey-1 dark:!border-borderDark" />
@@ -144,7 +112,7 @@ export const Notifications: FC<{
           </Popover>
         ))}
 
-        {currentUser && currentUser?.inbox?.length === 0 && (
+        {(!notification || notification.length === 0) && (
           <div className="flex flex-col  items-center justify-center gap-4 text-center text-xs font-normal text-blueTextLight">
             <SmallText className="text-center" light>
               Your inbox is empty. You will receive notifications and messages

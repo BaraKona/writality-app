@@ -57,13 +57,26 @@ export const getUser = async (req: any, res: any) => {
 			.select("-password")
 			.populate({
 				path: "friends.user",
-				select: "uid name",
+				select: "uid name country role",
 			})
 			.populate({
 				path: "friends.chat",
 				select: "users",
 			});
 
+		const today = new Date();
+
+		if (
+			user.previousLogin &&
+			user.previousLogin.getDate() === today.getDate() - 1
+		) {
+			user.loginStreak = user.loginStreak + 1;
+			user.dailyWordCount = 0;
+		} else {
+			user.loginStreak = 1;
+		}
+
+		await user.save();
 		res.status(200).json(user);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
