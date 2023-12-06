@@ -44,13 +44,13 @@ export const DailyCount: FC<{}> = ({}) => {
         </div>
         <div className=" rounded-lg border border-border p-2 dark:border-none dark:bg-baseDarker">
           <div className="text-sm text-coolGrey-5">
-            Words written this month: {monthlyWordCount} / {10000}
+            Words written this month: {monthlyWordCount} / {15000}
           </div>
           <Progress
             size="lg"
             color="cyan"
             value={
-              monthlyWordCount > 10000 ? 100 : (monthlyWordCount / 10000) * 100
+              monthlyWordCount > 15000 ? 100 : (monthlyWordCount / 15000) * 100
             }
             className="!border !border-border bg-base dark:!border-borderDark dark:!bg-baseDarker "
             classNames={{
@@ -60,13 +60,13 @@ export const DailyCount: FC<{}> = ({}) => {
         </div>
         <div className=" rounded-lg border border-border p-2 dark:border-none dark:bg-baseDarker">
           <div className="text-sm text-coolGrey-5">
-            Words written this year: {yearlyWordCount} / {500000}
+            Words written this year: {yearlyWordCount} / {200000}
           </div>
           <Progress
             size="lg"
             color="indigo"
             value={
-              yearlyWordCount > 500000 ? 100 : (yearlyWordCount / 500000) * 100
+              yearlyWordCount > 200000 ? 100 : (yearlyWordCount / 200000) * 100
             }
             className="!border !border-border bg-base dark:!border-borderDark dark:!bg-baseDarker "
             classNames={{
