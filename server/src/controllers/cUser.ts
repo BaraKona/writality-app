@@ -95,11 +95,11 @@ export const getUser = async (req: any, res: any) => {
 			})
 		}
 
-		if (lastLogin.date?.getMonth !== today.getMonth) {
+		if (lastLogin && lastLogin.date.getMonth !== today.getMonth) {
 			user.monthlyWordCount = 0
 		}
 
-		if (lastLogin.date?.getFullYear !== today.getFullYear) {
+		if (lastLogin && lastLogin.date.getFullYear !== today.getFullYear) {
 			user.yearlyWordCount = 0
 		}
 
