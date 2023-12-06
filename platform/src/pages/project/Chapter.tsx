@@ -103,19 +103,6 @@ export const Chapter = () => {
     branch as string,
     branchTitle || currentBranch?.title,
   );
-  // useMutation(
-  //   () =>
-  //     updateBranch(chapter as string, branch as string, {
-  //       ...currentBranch,
-  //       content: editorContent,
-  //       title: branchTitle,
-  //     }),
-  //   {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries(["currentBranch", branch as string]);
-  //     },
-  //   },
-  // );
 
   const closeSidebar = () => {
     setSidebar("");

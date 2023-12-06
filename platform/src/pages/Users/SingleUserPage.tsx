@@ -14,6 +14,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useSendFriendRequest } from "../../hooks/notification/useSendFriendRequest";
 import { BetaIcon } from "../../components/BetaIcon";
 import { Trophies } from "../../components/Profile/Trophies";
+import { useDefaultDate } from "../../hooks/useTimeFromNow";
 
 export const SingleUserPage: FC<{}> = () => {
   const { userId } = useParams();
@@ -38,6 +39,8 @@ export const SingleUserPage: FC<{}> = () => {
     const isUser = currentUser._id === user?._id;
     return !isFriend && !isUser;
   }
+
+  console.log(user.loginDates);
 
   return (
     <section className="relative overflow-y-auto rounded-lg">
@@ -69,6 +72,14 @@ export const SingleUserPage: FC<{}> = () => {
             <div className="flex items-center gap-2">
               <IconClock size={20} /> Member since:{" "}
               {new Date(user?.createdAt).toLocaleDateString()}
+            </div>
+            <div className="flex items-center gap-2">
+              <IconClock size={20} /> Last seen:{" "}
+              {user.loginDates && user.loginDates.length > 0
+                ? useDefaultDate(
+                    user?.loginDates[user?.loginDates.length - 1]?.date,
+                  )
+                : "never"}
             </div>
             {renderButton() && (
               <button
