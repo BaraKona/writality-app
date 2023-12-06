@@ -69,7 +69,7 @@ export const getUser = async (req: any, res: any) => {
 
 		const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
 
-		if (!lastLogin) {
+		if (!lastLogin ||  !lastLogin.date) {
 			user.loginStreak = 1
 			user.dailyWordCount = 0
 			user.loginDates = [{
@@ -95,17 +95,18 @@ export const getUser = async (req: any, res: any) => {
 			})
 		}
 
-		if (lastLogin.date.getMonth !== today.getMonth) {
+		if (lastLogin.date?.getMonth !== today.getMonth) {
 			user.monthlyWordCount = 0
 		}
 
-		if (lastLogin.date.getFullYear !== today.getFullYear) {
+		if (lastLogin.date?.getFullYear !== today.getFullYear) {
 			user.yearlyWordCount = 0
 		}
 
 		await user.save();
 		res.status(200).json(user);
 	} catch (error) {
+		console.log(error)
 		res.status(404).json({ message: error.message });
 	}
 };
