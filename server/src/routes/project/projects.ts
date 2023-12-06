@@ -20,6 +20,7 @@ import {
 	getUserProfileProjects,
 	getSingleUserProjects,
 	nestFolder,
+	updateFolderName
 } from "../../controllers/project/cProjects";
 
 const router = express.Router();
@@ -46,9 +47,11 @@ router.patch(
 	moveProjectChapterIntoFolder
 );
 router.patch("/folder/nest/:projectId/:folderId", protect, nestFolder);
+router.patch("/folder/name/:projectId/:folderId", protect, updateFolderName);
 
 router.post("/", protect, createProject);
 router.post("/folder/:projectId", protect, createFolder);
 router.post("/chapter/:projectId", protect, createProjectChapter);
+
 
 export default router;

@@ -74,7 +74,7 @@ export const BlockEditor: FC<{
       content: JSON.stringify(editor.topLevelBlocks),
       wordCount: countWordsFromTopLevelBlocks(editor.topLevelBlocks),
     });
-  }, 3000);
+  }, 500);
 
   const { theme } = useThemeContext();
 

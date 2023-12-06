@@ -691,6 +691,32 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 	}
 };
 
+export const updateFolderName = async (req: any, res: any) => {
+	const userId = req.user._id;
+	const { projectId, folderId } = req.params;
+	const { name } = req.body;
+
+	try {
+		const project = await Project.findOne({ owner: userId, uid: projectId });
+		const folder = project.folders.find((folder) => folder.uid === folderId);
+		folder.name = name;
+		project.dateUpdated = {
+			user: userId,
+			date: new Date(),
+		};
+		project.history.push({
+			date: new Date(),
+			user: userId,
+			action: `updated folder name`,
+		});
+		await project.save();
+		res.status(200).json(folder);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
 export const getOpenFolderChapters = async (req: any, res: any) => {
 	const userId = req.user._id;
 	const { projectId, folderId } = req.params;
