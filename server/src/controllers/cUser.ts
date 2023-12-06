@@ -54,7 +54,7 @@ export const getUser = async (req: any, res: any) => {
 	const userId = req.user.uid;
 	try {
 		const user = await User.findOne({ uid: userId })
-			.select("-password")
+			.select("-password,")
 			.populate({
 				path: "friends.user",
 				select: "uid name country role",
@@ -62,36 +62,46 @@ export const getUser = async (req: any, res: any) => {
 			.populate({
 				path: "friends.chat",
 				select: "users",
-			});
+			})
 
 		const today = new Date();
+		const lastLogin = user.loginDates[user.loginDates.length - 1]
 
-		if (
-			user.previousLogin &&
-			user.previousLogin.getDate() === today.getDate() - 1
-		) {
-			user.loginStreak = user.loginStreak + 1;
-			user.dailyWordCount = 0;
+		const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
+
+		if (!lastLogin) {
+			user.loginStreak = 1
+			user.dailyWordCount = 0
+			user.loginDates = [{
+				date: today,
+				wordCount: 0
+			}]
+		}
+		else if (lastLogin.date.toDateString() === today.toDateString()) {
+			// do nothing
+		} else if (lastLogin.date.toDateString() === yesterday.toDateString()) {
+			user.loginStreak += 1
+			user.dailyWordCount = 0
+			user.loginDates.push({
+				date: today,
+				wordCount: 0
+			})
 		} else {
-			user.loginStreak = 1;
+			user.loginStreak = 1
+			user.dailyWordCount = 0
+			user.loginDates.push({
+				date: today,
+				wordCount: 0
+			})
 		}
 
-		// reset monthly and yearly word count
-		if (
-			user.previousLogin &&
-			user.previousLogin.getMonth() !== today.getMonth()
-		) {
-			user.monthlyWordCount = 0;
+		if (lastLogin.date.getMonth !== today.getMonth) {
+			user.monthlyWordCount = 0
 		}
 
-		if (
-			user.previousLogin &&
-			user.previousLogin.getFullYear() !== today.getFullYear()
-		) {
-			user.yearlyWordCount = 0;
+		if (lastLogin.date.getFullYear !== today.getFullYear) {
+			user.yearlyWordCount = 0
 		}
-
-
 
 		await user.save();
 		res.status(200).json(user);

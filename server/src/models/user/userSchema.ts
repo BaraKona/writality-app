@@ -38,7 +38,10 @@ export interface IUser {
 	token: string;
 	uid: string;
 	loginStreak?: number;
-	previousLogin?: Date;
+	loginDates?: {
+		date: Date;
+		wordCount: number;
+	}[];
 	emailVerified?: boolean;
 	isOnboardingCompleted?: boolean;
 	createdAt: Date;
@@ -112,8 +115,14 @@ const userSchema = new Schema<IUser>({
 		type: String,
 		required: true,
 	},
-	previousLogin: {
-		type: Date,
+	loginDates: {
+		type: [
+			{
+				date: Date,
+				wordCount: Number,
+			},
+		],
+		default: [],
 	},
 	loginStreak: {
 		type: Number,
