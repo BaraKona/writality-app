@@ -54,7 +54,7 @@ export const getUser = async (req: any, res: any) => {
 	const userId = req.user.uid;
 	try {
 		const user = await User.findOne({ uid: userId })
-			.select("-password,")
+			.select("-password")
 			.populate({
 				path: "friends.user",
 				select: "uid name country role",

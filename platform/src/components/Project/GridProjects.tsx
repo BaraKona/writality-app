@@ -9,9 +9,11 @@ import { Divider } from "@mantine/core";
 export const GridProjects = ({
   project,
   onClick,
+  size,
 }: {
   project: IProject;
   onClick?: () => void;
+  size?: string;
 }) => {
   const editor = useBlockNote(
     {
@@ -37,7 +39,9 @@ export const GridProjects = ({
 
   return (
     <div
-      className="basis-[15.4rem] cursor-pointer gap-2 self-start rounded-lg border border-border p-4 pt-3 transition-all duration-200 ease-in-out hover:border-coolGrey-3 hover:shadow-md dark:border-borderDark dark:hover:border-coolGrey-5 dark:hover:shadow-none"
+      className={`${
+        size ? size : "basis-[15.4rem]"
+      } cursor-pointer gap-2 self-start rounded-lg border border-border p-4 pt-3 transition-all duration-200 ease-in-out hover:border-coolGrey-3 hover:shadow-md dark:border-borderDark dark:hover:border-coolGrey-5 dark:hover:shadow-none`}
       onClick={onClick}
       key={project.uid}
     >

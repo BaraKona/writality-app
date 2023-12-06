@@ -124,7 +124,7 @@ export const ProfilePage = () => {
         </div>
       </div>
       <div className="flex w-[24rem] flex-col gap-2">
-        <Trophies />
+        <Trophies currentUser={currentUser} />
         <DailyCount />
         <ProfileFriends />
         <RecentNotifications />

@@ -13,6 +13,7 @@ import { useSingleUserPosts } from "../../hooks/posts/useSingleUserPosts";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useSendFriendRequest } from "../../hooks/notification/useSendFriendRequest";
 import { BetaIcon } from "../../components/BetaIcon";
+import { Trophies } from "../../components/Profile/Trophies";
 
 export const SingleUserPage: FC<{}> = () => {
   const { userId } = useParams();
@@ -23,7 +24,7 @@ export const SingleUserPage: FC<{}> = () => {
 
   const { mutate: sendFriendRequest } = useSendFriendRequest();
 
-  const maxTextLength = 400;
+  const maxTextLength = 800;
   const navigate = useNavigate();
 
   if (!user) {
@@ -62,8 +63,8 @@ export const SingleUserPage: FC<{}> = () => {
         </div>
       </div>
 
-      <div className="flex w-full">
-        <div className="relative w-1/2 grow border-r border-border px-16 pb-6 dark:border-borderDark">
+      <div className="flex grow pl-16">
+        <div className="max-w-1/2 relative grow basis-[30rem]  px-4 pb-6 ">
           <div className="absolute right-4 top-4 flex flex-col gap-2 text-sm">
             <div className="flex items-center gap-2">
               <IconClock size={20} /> Member since:{" "}
@@ -87,17 +88,24 @@ export const SingleUserPage: FC<{}> = () => {
               {/* <p>{user.email}</p> */}
               <UserCountryRenderer country={user?.country} />
             </div>
-            <h2 className="my-4 font-bold">Bio</h2>
-            <ReadMoreText
-              text={user?.aboutMe}
-              maxTextLength={maxTextLength}
-              errorText="This user has not written anything about themselves yet."
-            />
+            <div className="flex justify-between gap-2">
+              <div>
+                <h2 className=" font-bold">Bio</h2>
+                <ReadMoreText
+                  text={user?.aboutMe}
+                  maxTextLength={maxTextLength}
+                  errorText="This user has not written anything about themselves yet."
+                />
+              </div>
+              <div className="flex min-w-[20rem]">
+                <Trophies currentUser={user} isPublic height="h-[14rem]" />
+              </div>
+            </div>
             <SingleUserSection projects={projects} posts={posts} />
           </div>
         </div>
-        <section className="flex">
-          <div className="flex min-h-[693px] w-1/2 flex-col border-border pt-2 transition-all duration-300 ease-in-out dark:border-borderDark">
+        <section className="flex w-1/2 max-w-[30rem] bg-coolGrey-0 px-4 dark:bg-baseDarker ">
+          <div className="flex min-h-[693px] flex-col border-border transition-all duration-300 ease-in-out dark:border-borderDark">
             <h2 className="my-4 font-bold">Interests</h2>
             <div className="flex flex-wrap gap-2">
               {user.interests.length === 0 && (
