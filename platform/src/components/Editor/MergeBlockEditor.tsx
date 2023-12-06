@@ -1,4 +1,5 @@
 import { BlockNoteEditor } from "@blocknote/core";
+// @ts-ignore
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/core/style.css";
 import { FC } from "react";

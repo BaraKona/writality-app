@@ -1,3 +1,4 @@
+// @ts-ignore
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
 import "@blocknote/core/style.css";
 import { FC, useState } from "react";
@@ -94,7 +95,7 @@ export const BlockEditor: FC<{
         block.type === "numberedListItem" ||
         block.type === "bulletListItem"
       ) {
-        wordCount += block.content.reduce((acc, content) => {
+        wordCount += block.content.reduce((acc: any, content: any) => {
           if (content.type === "text") {
             return acc + countWordsInText(content.text);
           }
