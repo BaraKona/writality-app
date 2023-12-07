@@ -21,7 +21,7 @@ module.exports = {
 				// borderDark: "rgba(255, 255, 255, 0.1)",
 				// hoverDark: "rgba(255, 255, 255, 0.05)",
 				border: "#ebebeb",
-				coolGrey: "#374151",
+				coolGrey: "#6b7280",
 				blueTextLight: "#868e99",
 				coolGrey: [
 					"#f6f7f9",

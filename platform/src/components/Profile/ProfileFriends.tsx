@@ -2,7 +2,6 @@ import { IconUserHeart } from "@tabler/icons-react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { EmptyItem } from "../Chapters/EmptyItem";
 import { useNavigate } from "react-router-dom";
-import { UserCountryRenderer } from "../UserCountryRenderer";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { BetaIcon } from "../BetaIcon";
 
@@ -12,7 +11,7 @@ export const ProfileFriends = () => {
 
   if (currentUser?.friends?.length === 0) {
     return (
-      <section className="flex h-56 w-full grow items-center justify-center gap-2 rounded-lg border border-border p-4 dark:border-none dark:bg-baseDarker">
+      <section className="flex h-56 w-full grow items-center justify-center gap-2 rounded-lg  p-4">
         <EmptyItem
           title="No friends found 🫠"
           p1="Don't worry, you can always make new friends."
@@ -22,26 +21,26 @@ export const ProfileFriends = () => {
     );
   }
   return (
-    <section className="flex h-56 w-full max-w-[24rem] grow flex-col gap-2 rounded-lg border border-border p-2 dark:border-none dark:bg-baseDarker">
+    <section className="flex h-56 w-full max-w-[24rem] grow flex-col gap-2 rounded-lg  p-2">
       <div className="flex items-center gap-2">
-        <h2 className="flex items-center gap-2 text-lg font-semibold">
-          <IconUserHeart size={20} stroke={2} />
+        <h2 className="flex items-center gap-2 text-sm font-semibold">
+          <IconUserHeart size={18} stroke={2} />
           Friends
         </h2>
         <span className="m-0 rounded-full text-xs  text-rose-700 dark:text-sky-400">
           {currentUser?.friends?.length}
         </span>
       </div>
-      <div className="flex flex-wrap items-start gap-2 overflow-auto">
+      <div className="flex flex-col items-start gap-2 overflow-auto">
         {currentUser?.friends?.map((friend: any) => (
           <div
             key={friend?.user.uid}
-            className="relative flex basis-[11rem] cursor-pointer flex-col gap-2 rounded-lg border border-border bg-base p-2 transition-all duration-300 ease-in-out hover:border-coolGrey-3 hover:shadow-md dark:border-borderDark dark:bg-baseDarker"
+            className="relative flex w-full cursor-pointer gap-2 rounded-lg  p-2 transition-all duration-300 ease-in-out hover:bg-coolGrey-2 dark:bg-baseDarker dark:hover:bg-hoverDark"
             onClick={() => navigate(`/users/${friend?.user.uid}`)}
           >
             <div className="flex items-center gap-2">
               {/* <div className="h-8 w-8 rounded-full bg-coolGrey-1" /> */}
-              <div className="dark:border-baseBorder  flex h-8 w-8 items-center justify-center rounded-full bg-coolGrey-1/70  dark:bg-borderDark/70">
+              <div className="dark:border-baseBorder  flex h-8 w-8 items-center justify-center rounded-full bg-coolGrey-3  dark:bg-borderDark/70">
                 <div
                   className={`truncate text-xs font-bold  ${initialsColor(
                     friend?.user.name,
@@ -54,8 +53,7 @@ export const ProfileFriends = () => {
                 {friend?.user.name}
               </p>
             </div>
-            <div className="ml-1.5 flex items-center justify-between gap-2">
-              <UserCountryRenderer country={friend?.user.country} />
+            <div className="ml-1.5 flex items-center gap-2">
               {friend?.user?.role === "beta-tester" && <BetaIcon size={18} />}
             </div>
           </div>

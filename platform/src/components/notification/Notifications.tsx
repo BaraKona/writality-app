@@ -25,13 +25,10 @@ export const Notifications: FC<{
 
   return (
     <section ref={parent}>
-      {recent ? null : (
-        <Divider className="!mb-2 !border-coolGrey-1 dark:!border-borderDark" />
-      )}
       <div
         className={`flex ${
           recent ? "" : "h-[calc(100dvh-6.5rem)]"
-        } flex-col gap-1 overflow-y-auto`}
+        } flex-col gap-1`}
       >
         {notification?.map((notification: any, index: number) => (
           <Popover

@@ -13,7 +13,7 @@ export const Trophies = ({
   if (currentUser.role !== "beta-tester") {
     return (
       <section
-        className={`flex w-full max-w-[24rem] grow flex-col items-center justify-center gap-2 rounded-lg border border-border p-2 dark:border-none dark:bg-baseDarker ${height}`}
+        className={`flex w-full max-w-[24rem] grow flex-col items-center justify-center gap-2 rounded-lg  p-2  dark:bg-baseDarker ${height}`}
       >
         <IconTrophyOff size={50} className="text-yellow-500" />
         {isPublic ? (
@@ -31,7 +31,7 @@ export const Trophies = ({
   }
   return (
     <section
-      className={`flex w-full max-w-[24rem] grow flex-col items-center justify-center gap-2 rounded-lg border border-border p-2 dark:border-none dark:bg-baseDarker ${height}`}
+      className={`flex w-full max-w-[24rem] grow flex-col items-center justify-center gap-2 rounded-lg  p-2  dark:bg-baseDarker ${height}`}
     >
       <IconBeta size={50} className="text-yellow-500" />
       {isPublic ? (
