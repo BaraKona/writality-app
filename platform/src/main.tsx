@@ -11,20 +11,20 @@ import { MantineProvider } from "./Providers/MantineProvider";
 import { ThemeProvider } from "./Providers/ThemeProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-	<React.StrictMode>
-		<ThemeProvider>
-			<QueryClientProvider client={new QueryClient()}>
-				<MantineProvider>
-					<AuthContextWrapper>
-						<AuthenticatedApp />
-						{/* <UserLoader> */}
-						<Analytics />
-						{/* </UserLoader> */}
-					</AuthContextWrapper>
-					<ReactQueryDevtools initialIsOpen={false} position="top-left" />
-					<Toaster position="bottom-right" />
-				</MantineProvider>
-			</QueryClientProvider>
-		</ThemeProvider>
-	</React.StrictMode>
+  <React.StrictMode>
+    <ThemeProvider>
+      <QueryClientProvider client={new QueryClient()}>
+        <MantineProvider>
+          <AuthContextWrapper>
+            <AuthenticatedApp />
+            {/* <UserLoader> */}
+            <Analytics />
+            {/* </UserLoader> */}
+          </AuthContextWrapper>
+          <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+          <Toaster position="bottom-right" />
+        </MantineProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  </React.StrictMode>,
 );

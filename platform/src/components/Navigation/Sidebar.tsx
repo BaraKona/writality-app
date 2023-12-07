@@ -95,28 +95,6 @@ export const Sidebar: FC<{}> = () => {
       </Dialog>
       <div className="flex h-full w-[21rem] min-w-[21rem] overflow-y-auto rounded-lg bg-coolGrey-1 dark:bg-baseDarker">
         <div className="flex w-full flex-col py-2">
-          <Link to="/">
-            <div className="mb-1 ml-2 mt-1 flex px-1.5">
-              {theme === "dark" ? (
-                <img
-                  src={cyclops7}
-                  alt="writality"
-                  width={23}
-                  height={23}
-                  className="inline-block"
-                />
-              ) : (
-                <img
-                  src={cyclops8}
-                  alt="writality"
-                  width={23}
-                  height={23}
-                  className="inline-block"
-                />
-              )}
-              <div className="px-2 text-sm font-semibold">Writality</div>
-            </div>
-          </Link>
           <div className="flex h-full">
             <div className="flex flex-col">
               <CategoryListItem>
@@ -181,7 +159,29 @@ export const Sidebar: FC<{}> = () => {
                 </CommunityListItem>
               </CategoryListItem>
             </div>
-            <CategoryListItem className="mr-3 mt-1.5 flex h-[calc(100dvh-50px)] w-full flex-col rounded-lg bg-base dark:bg-baseDark">
+            <CategoryListItem className="mr-3 mt-1.5 flex w-full grow flex-col rounded-lg bg-base dark:bg-baseDark">
+              <Link to="/" className="mb-2 self-center rounded-lg px-2 py-1">
+                <div className="mb-1 ml-2 mt-1 flex px-1.5">
+                  {theme === "dark" ? (
+                    <img
+                      src={cyclops7}
+                      alt="writality"
+                      width={23}
+                      height={23}
+                      className="inline-block"
+                    />
+                  ) : (
+                    <img
+                      src={cyclops8}
+                      alt="writality"
+                      width={23}
+                      height={23}
+                      className="inline-block"
+                    />
+                  )}
+                  <div className="px-2 text-sm font-semibold">Writality</div>
+                </div>
+              </Link>
               <section className="mb-2 flex flex-row justify-center gap-1">
                 <SidebarTopNav
                   sidebarNav={sidebarNav}
