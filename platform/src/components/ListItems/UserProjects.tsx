@@ -48,7 +48,6 @@ export const UserProjects: FC<{
                   projectId={project.uid}
                   projectFolders={project.folders}
                   type={project.type}
-                  chapters={project.chapters}
                 />
               );
             })}
