@@ -114,9 +114,8 @@ export const getProjectChapters = async (req: any, res: any) => {
 	const { userId, projectId } = req.params;
 	try {
 		const chapters = await Chapter.find({
-			owner: userId,
 			projectId,
-		});
+		}).select("name title uid dateCreated dateUpdated content.title parentId");
 		res.status(200).json(chapters);
 	} catch (error) {
 		res.status(404).json({ message: error.message });

@@ -98,7 +98,7 @@ export const Notifications: FC<{
                 {notification?.notificationType === "post-comment" &&
                   notification.active && (
                     <ButtonWrapper
-                      className="ml-auto bg-coolGrey-1 p-2 px-4 text-xs hover:!bg-coolGrey-2 dark:bg-baseDarker   "
+                      className="ml-auto bg-coolGrey-1 p-2 px-4 text-xs hover:!bg-coolGrey-2 dark:bg-baseDarker"
                       onClick={() => navigate(`/posts/${notification.ctaId}`)}
                     >
                       View Post

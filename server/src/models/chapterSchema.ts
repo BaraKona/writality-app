@@ -23,6 +23,7 @@ interface Chapter {
 	projectId: string;
 	uid: string;
 	owner: string;
+	parentId: string;
 	dateCreated: {
 		user: string;
 		date: Date;
@@ -44,6 +45,10 @@ const chapterSchema = new Schema<Chapter>({
 		required: true,
 	},
 	name: {
+		type: String,
+		required: false,
+	},
+	parentId: {
 		type: String,
 		required: false,
 	},

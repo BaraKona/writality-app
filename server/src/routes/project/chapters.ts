@@ -8,10 +8,13 @@ import {
 	updateChapterTitle,
 	getUserChapters,
 	createVersion,
+	getProjectChapters,
 } from "../../controllers/project/cChapters";
 
 const router = express.Router();
 
+
+router.get("/chapters/:projectId", protect, getProjectChapters);
 // router.post("/", protect, createChapter);
 router.patch("/content/:projectId/:chapterId/", protect, updateChapterContent);
 
@@ -36,5 +39,6 @@ router.put(
 	protect,
 	updateChapterTitle
 );
+
 
 export default router;

@@ -28,24 +28,26 @@ export const FolderListItem: FC<{
   className?: string;
   icon?: React.ReactNode;
   withNumber?: boolean;
-  folderChapters?: IChapter[];
+  // folderChapters?: IChapter[];
   small?: boolean;
   projectId: string;
   location: string;
   listenerId?: string;
   level: number;
+  chapters?: IChapter[];
 }> = ({
   className,
   folder,
   icon,
   withNumber,
-  folderChapters,
+  // folderChapters,
   small,
   projectId,
   location,
   listenerId,
   allFolders,
   level,
+  chapters,
 }) => {
   const [parent] = useAutoAnimate();
   const navigate = useNavigate();
@@ -69,6 +71,10 @@ export const FolderListItem: FC<{
   const children = allFolders?.filter(
     (childFolder: IProject["folders"][0]) =>
       childFolder?.parentId === folder.uid,
+  );
+
+  const folderChapters = chapters?.filter(
+    (chapter: IChapter) => chapter.parentId === folder.uid,
   );
 
   const levelColour = [
@@ -193,10 +199,15 @@ export const FolderListItem: FC<{
               folder={folder}
               location={location}
               projectId={projectId}
-              folderChapters={folder.chapters}
+              // folderChapters={folder.chapters}
               small={small}
               withNumber={withNumber}
               className={className}
+              chapters={
+                chapters?.filter(
+                  (chapter: IChapter) => chapter.parentId === folder.uid,
+                ) || []
+              }
               listenerId={`folder_${folder.uid}`}
               allFolders={allFolders}
               icon={icon}

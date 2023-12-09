@@ -653,19 +653,32 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 			],
 		});
 
-		// remove from all folders
-		project.folders.forEach((folder) => {
-			folder.chapters = folder.chapters.filter((id) => id !== chapterId);
-		});
+		if (!project) {
+			res.status(404).json({ message: "Project not found." });
+		}
 
-		project.folders.forEach((folder) => {
-			if (folder.uid === folderId) {
-				folder.chapters.push(chapterId);
-			}
-		});
+		const chapter = await Chapter.findById(chapterId);
+
+		if (!chapter) {
+			res.status(404).json({ message: "Chapter not found." });
+		}
+
+		chapter.parentId = folderId;
+
+
+		// remove from all folders
+		// project.folders.forEach((folder) => {
+		// 	folder.chapters = folder.chapters.filter((id) => id !== chapterId);
+		// });
+
+		// project.folders.forEach((folder) => {
+		// 	if (folder.uid === folderId) {
+		// 		folder.chapters.push(chapterId);
+		// 	}
+		// });
 
 		// remove from chapters
-		project.chapters = project.chapters.filter((id) => id !== chapterId);
+		// project.chapters = project.chapters.filter((id) => id !== chapterId);
 
 		project.dateUpdated = {
 			user: userId,
@@ -684,6 +697,8 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 		});
 
 		await project.save();
+		await chapter.save();
+
 		res.status(200).json(folderId);
 	} catch (error) {
 		console.log(error);
