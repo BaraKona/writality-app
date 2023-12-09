@@ -7,59 +7,59 @@ import { ButtonWrapper } from "../buttons/ButtonWrapper";
 import { useDraggableContext } from "../DragAndDrop/DraggableProvider";
 
 export const Chapter: FC<{
-	chapter: IChapter;
-	openChapter: () => void;
-	openChapterModal: () => void;
-	disabled: boolean;
-	listenerId?: string;
+  chapter: IChapter;
+  openChapter: () => void;
+  openChapterModal: () => void;
+  disabled: boolean;
+  listenerId?: string;
 }> = ({ chapter, openChapter, openChapterModal, disabled, listenerId }) => {
-	const { Draggable } = useDraggableContext();
+  const { Draggable } = useDraggableContext();
 
-	const { attributes, listeners, setNodeRef, style } = Draggable({
-		id: listenerId || "",
-	});
+  const { attributes, listeners, setNodeRef, style } = Draggable({
+    id: listenerId || "",
+  });
 
-	return (
-		<div
-			className="flex gap-3 dark:hover:bg-hoverDark hover:bg-coolGrey-1 rounded-md border-border bg-base dark:bg-baseDark dark:border-borderDark cursor-default py-1 px-2.5 items-center"
-			{...attributes}
-			ref={setNodeRef}
-			style={style}
-		>
-			<div
-				className=" text-coolGrey-7 dark:text-coolGrey-5 flex place-items-center gap-1 cursor-pointer group grow"
-				onClick={openChapter}
-			>
-				<IconFileText
-					size={16}
-					className="group-hover:text-black dark:group-hover:text-coolGrey-3 dark:hover:text-coolGrey-1 shrink-0"
-				/>
-				<p className="text-coolGrey-4 dark:text-coolGrey-6 text-xs font-medium group-hover:text-coolGrey-7 dark:group-hover:text-coolGrey-3 max-w-[80ch]">
-					{chapter.content.title || chapter.title || "Untitled Chapter"}
-				</p>
-			</div>
-			<div className="ml-auto flex gap-2 items-center">
-				<Text color="dimmed" size="xs" className="shrink-0">
-					{useTimeFromNow(chapter?.dateUpdated.date) ||
-						useTimeFromNow(chapter?.dateCreated.date)}
-				</Text>
+  return (
+    <div
+      className="flex cursor-default items-center gap-3 rounded-md border-border bg-base px-2.5 hover:bg-coolGrey-1 dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
+      {...attributes}
+      ref={setNodeRef}
+      style={style}
+    >
+      <div
+        className=" group flex grow cursor-pointer place-items-center gap-1 py-1 text-coolGrey-7 dark:text-coolGrey-5"
+        onClick={openChapter}
+      >
+        <IconFileText
+          size={16}
+          className="shrink-0 group-hover:text-black dark:hover:text-coolGrey-1 dark:group-hover:text-coolGrey-3"
+        />
+        <p className="max-w-[80ch] text-xs font-medium text-coolGrey-4 group-hover:text-coolGrey-7 dark:text-coolGrey-6 dark:group-hover:text-coolGrey-3">
+          {chapter.content.title || chapter.title || "Untitled Chapter"}
+        </p>
+      </div>
+      <div className="ml-auto flex items-center gap-2">
+        <Text color="dimmed" size="xs" className="shrink-0">
+          {useTimeFromNow(chapter?.dateUpdated.date) ||
+            useTimeFromNow(chapter?.dateCreated.date)}
+        </Text>
 
-				<IconTrash
-					size={16}
-					onClick={openChapterModal}
-					className="text-coolGrey-7 hover:text-red-900 cursor-pointer shrink-0"
-				/>
+        <IconTrash
+          size={16}
+          onClick={openChapterModal}
+          className="shrink-0 cursor-pointer text-coolGrey-7 hover:text-red-900"
+        />
 
-				{listenerId && (
-					<ButtonWrapper>
-						<IconGripVertical
-							size={14}
-							{...listeners}
-							className="text-coolGrey-4 cursor-pointer shrink-0"
-						/>
-					</ButtonWrapper>
-				)}
-			</div>
-		</div>
-	);
+        {listenerId && (
+          <ButtonWrapper>
+            <IconGripVertical
+              size={14}
+              {...listeners}
+              className="shrink-0 cursor-pointer text-coolGrey-4"
+            />
+          </ButtonWrapper>
+        )}
+      </div>
+    </div>
+  );
 };

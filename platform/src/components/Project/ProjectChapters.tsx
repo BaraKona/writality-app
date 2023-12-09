@@ -27,10 +27,6 @@ export const ProjectChapters: FC<{
 
   const { Draggable } = useDraggableContext();
 
-  const { attributes, listeners, setNodeRef, style } = Draggable({
-    id: "folder_empty",
-  });
-
   return (
     <Droppable id="root" type="folder">
       <div

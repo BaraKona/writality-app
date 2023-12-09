@@ -21,12 +21,12 @@ export const SidebarNav = () => {
 
   return (
     <div className="flex grow flex-col">
-      <CategoryListItem>
+      <CategoryListItem className="flex flex-col">
         <CommunityListItem name="Profile" onClick={() => navigate("/profile")}>
           <IconUserCircle size={18} />
         </CommunityListItem>
         <CategoryListItem>
-          <Divider className="!border-coolGrey-2 dark:!border-borderDark" />
+          <Divider className="!my-2 !border-coolGrey-4 dark:!border-borderDark" />
         </CategoryListItem>
         <CommunityListItem name="Posts" onClick={() => navigate("/posts")}>
           <IconClipboard size={18} />
@@ -42,7 +42,7 @@ export const SidebarNav = () => {
         </CommunityListItem>
       </CategoryListItem>
       <CategoryListItem>
-        <Divider className="!border-coolGrey-2 dark:!border-borderDark" />
+        <Divider className="!my-2 !border-coolGrey-4 dark:!border-borderDark" />
       </CategoryListItem>
       <CategoryListItem>
         <CommunityListItem name="Users" onClick={() => navigate("/users")}>
@@ -50,7 +50,7 @@ export const SidebarNav = () => {
         </CommunityListItem>
       </CategoryListItem>
       <CategoryListItem className="mb-auto">
-        <Divider className="!border-coolGrey-2 dark:!border-borderDark" />
+        <Divider className="!my-2 !border-coolGrey-4 dark:!border-borderDark" />
       </CategoryListItem>
 
       <CategoryListItem>

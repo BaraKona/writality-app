@@ -40,7 +40,7 @@ export const ProfilePage = () => {
 
   return (
     <div className="flex flex-row ">
-      <div className="relative h-[calc(100dvh-3.2rem)] flex-grow place-items-center overflow-y-auto rounded-lg bg-base pr-2 dark:bg-baseDark">
+      <div className="relative h-[calc(100dvh-3.4rem)] flex-grow place-items-center overflow-y-auto rounded-lg bg-base pr-2 dark:bg-baseDark">
         <BannerImage
           image="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Banner by Jez Timms on Unsplash"

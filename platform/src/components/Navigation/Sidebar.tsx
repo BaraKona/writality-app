@@ -59,7 +59,7 @@ export const Sidebar: FC<{}> = () => {
 
   return (
     <aside
-      className="flex h-[calc(100dvh)] dark:bg-baseDark dark:text-coolGrey-4"
+      className="flex h-[calc(100dvh)] p-2 dark:bg-baseDark dark:text-coolGrey-4"
       aria-label="Sidebar"
     >
       <Dialog
@@ -73,11 +73,11 @@ export const Sidebar: FC<{}> = () => {
       >
         <TabChat chatId={userChat} close={() => setUserChat("")} />
       </Dialog>
-      <div className="flex w-[21rem] min-w-[21rem] grow rounded-lg bg-coolGrey-1 dark:bg-baseDarker">
-        <div className="flex w-full grow flex-col py-2">
-          <div className="flex h-full grow ">
+      <div className="flex w-[21rem] min-w-[21rem] rounded-lg bg-coolGrey-2 dark:bg-baseDarker">
+        <div className="flex w-full grow flex-col">
+          <div className="flex h-full grow py-3">
             <SidebarNav />
-            <CategoryListItem className="mr-3 mt-1.5 flex h-full w-full grow flex-col rounded-lg bg-base dark:bg-baseDark">
+            <CategoryListItem className="mr-3 flex h-full w-full grow flex-col rounded-lg bg-base py-2 dark:bg-baseDark">
               <Link to="/" className="mb-2 self-center rounded-lg px-2 py-1">
                 <div className="mb-1 ml-2 mt-1 flex px-1.5">
                   {theme === "dark" ? (

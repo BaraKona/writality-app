@@ -11,12 +11,12 @@ export const ProfileFriends = () => {
 
   if (currentUser?.friends?.length === 0) {
     return (
-      <section className="flex h-56 w-full grow items-center justify-center gap-2 rounded-lg  p-4">
-        <EmptyItem
-          title="No friends found 🫠"
-          p1="Don't worry, you can always make new friends."
-          className="!mt-4 flex items-center justify-center"
-        />
+      <section className="flex h-56 w-full grow flex-col items-center justify-center gap-2 rounded-lg  p-4">
+        <p className="text-xs">No friends found 🫠</p>
+        <p className="text-center text-xs">
+          Don't worry, you can always make new friends by inviting them to
+          Collab.
+        </p>
       </section>
     );
   }

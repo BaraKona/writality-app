@@ -58,10 +58,13 @@ export const SidebarTopNav = ({
       >
         <IconSocial size={18} />
       </SidebarTopNavItem>
-      <Divider
+      {/* <Divider
         className="mx-2 !border-coolGrey-2 dark:!border-borderDark"
         orientation="vertical"
-      />
+      /> */}
+
+      <div className="mx-2" />
+
       <SidebarTopNavItem
         sidebarNav={sidebarNav}
         value="create project"
@@ -69,10 +72,12 @@ export const SidebarTopNav = ({
       >
         <IconCubePlus size={18} />
       </SidebarTopNavItem>
-      <Divider
+      {/* <Divider
         className="mx-2 !border-coolGrey-2 dark:!border-borderDark"
         orientation="vertical"
-      />
+      /> */}
+
+      <div className="mx-2" />
       <SidebarTopNavItem
         sidebarNav={sidebarNav}
         value={friends}

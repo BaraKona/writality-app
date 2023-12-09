@@ -6,8 +6,8 @@ export const useCreateChapter = (projectId: string) => {
   const queryClient = useQueryClient();
   return useMutation(() => createProjectChapter(projectId), {
     onSuccess: ({ chapter }) => {
-      console.log(chapter);
-      queryClient.setQueryData(["project-chapters", projectId], (old: any) => {
+      queryClient.setQueryData(["project-chapters", projectId], (old?: any) => {
+        if (!old) return [chapter];
         return [...old, chapter];
       });
       useToast("success", "Chapter created successfully 😃");

@@ -236,7 +236,8 @@ export function Project() {
                 >
                   <>
                     {currentProject?.folders?.length === 0 &&
-                    currentProject.chapters.length === 0 ? (
+                    projectChapters &&
+                    projectChapters.length === 0 ? (
                       <NoChapters
                         createNewChapter={createNewChapter}
                         title="Chapters"
