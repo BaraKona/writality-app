@@ -25,8 +25,7 @@ export const RecentNotifications = () => {
 
   return (
     <section className="flex h-64 w-full max-w-[24rem] grow flex-col gap-2 rounded-lg  p-2 dark:border-none dark:bg-baseDarker">
-      {}
-      <h2 className="flex   items-center gap-2 text-sm font-semibold">
+      <h2 className="flex items-center gap-2 text-sm font-semibold">
         <IconMail size={18} /> Unread Notifications
       </h2>
       <div className="flex flex-col gap-2 overflow-auto">

@@ -11,7 +11,7 @@ export const DailyCount: FC<{}> = ({}) => {
   const dailyWordCount = currentUser?.dailyWordCount || 0;
   const monthlyWordCount = currentUser?.monthlyWordCount || 0;
   const yearlyWordCount = currentUser?.yearlyWordCount || 0;
-  const today = new Date();
+
   return (
     <div className="flex min-h-[5rem] shrink basis-[12rem] flex-col justify-center gap-4">
       <div className="flex h-14 gap-2">
@@ -34,7 +34,7 @@ export const DailyCount: FC<{}> = ({}) => {
             Words written today: {dailyWordCount} / {500}
           </div>
           <Progress
-            size="lg"
+            size="md"
             label="today"
             value={dailyWordCount > 500 ? 100 : (dailyWordCount / 500) * 100}
             className="!border-none !border-border bg-base dark:!border-borderDark dark:!bg-baseDark "
@@ -49,15 +49,14 @@ export const DailyCount: FC<{}> = ({}) => {
             Words written this month: {monthlyWordCount} / {15000}
           </div>
           <Progress
-            size="lg"
-            label={today.getMonth().toString()}
+            size="md"
             value={
               monthlyWordCount > 15000 ? 100 : (monthlyWordCount / 15000) * 100
             }
             className="!border-none !border-border bg-base dark:!border-borderDark dark:!bg-baseDark "
             classNames={{
               root: "dark:bg-baseDark",
-              bar: "dark:!bg-emerald-400 !bg-coolGrey-7",
+              bar: "dark:!bg-emerald-400 !bg-coolGrey-7 ",
             }}
           />
         </div>
@@ -66,7 +65,7 @@ export const DailyCount: FC<{}> = ({}) => {
             Words written this year: {yearlyWordCount} / {200000}
           </div>
           <Progress
-            size="lg"
+            size="md"
             value={
               yearlyWordCount > 200000 ? 100 : (yearlyWordCount / 200000) * 100
             }

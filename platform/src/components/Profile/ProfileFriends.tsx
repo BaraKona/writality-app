@@ -35,10 +35,10 @@ export const ProfileFriends = () => {
         {currentUser?.friends?.map((friend: any) => (
           <div
             key={friend?.user.uid}
-            className="relative flex w-full cursor-pointer gap-2 rounded-lg  p-2 transition-all duration-300 ease-in-out hover:bg-coolGrey-2 dark:bg-baseDarker dark:hover:bg-hoverDark"
+            className="relative flex w-full cursor-pointer gap-2 rounded-lg  p-1 px-2 transition-all duration-300 ease-in-out hover:bg-coolGrey-2 dark:bg-baseDarker dark:hover:bg-hoverDark"
             onClick={() => navigate(`/users/${friend?.user.uid}`)}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex grow items-center gap-2">
               {/* <div className="h-8 w-8 rounded-full bg-coolGrey-1" /> */}
               <div className="dark:border-baseBorder  flex h-8 w-8 items-center justify-center rounded-full bg-coolGrey-3  dark:bg-borderDark/70">
                 <div
@@ -53,7 +53,7 @@ export const ProfileFriends = () => {
                 {friend?.user.name}
               </p>
             </div>
-            <div className="ml-1.5 flex items-center gap-2">
+            <div className="ml-auto flex min-w-[1rem] items-center gap-2">
               {friend?.user?.role === "beta-tester" && <BetaIcon size={18} />}
             </div>
           </div>

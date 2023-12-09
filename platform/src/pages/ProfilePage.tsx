@@ -123,7 +123,7 @@ export const ProfilePage = () => {
           </div> */}
         </div>
       </div>
-      <div className="bg-coolGrey flex w-[24rem] flex-col gap-1 rounded-lg bg-coolGrey-1 px-2 dark:bg-baseDarker">
+      <div className="bg-coolGrey flex w-[20rem] flex-col gap-1 rounded-lg bg-coolGrey-1 px-2 dark:bg-baseDarker">
         <Trophies currentUser={currentUser} />
         <DailyCount />
         <ProfileFriends />
