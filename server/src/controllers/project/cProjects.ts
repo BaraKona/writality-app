@@ -613,11 +613,13 @@ export const deleteProjectChapter = async (req: any, res: any) => {
 			user: userId,
 			date: new Date(),
 		};
-		project.history.push({
+
+		const history = {
 			date: new Date(),
 			user: userId,
 			action: `deleted chapter named ${chapter.title}`,
-		});
+		};
+		project.history.push(history);
 
 		project.collaborators.find((collaborator) => {
 			if (collaborator.user === userId.toString()) {
@@ -627,7 +629,7 @@ export const deleteProjectChapter = async (req: any, res: any) => {
 
 		project.chapters = project.chapters.filter((id) => id !== chapterId);
 		await project.save();
-		res.status(200).json({ message: "Chapter deleted successfully." });
+		res.status(200).json({ message: "Chapter deleted successfully.", history });
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

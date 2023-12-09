@@ -28,6 +28,7 @@ export const FolderListItem: FC<{
   className?: string;
   icon?: React.ReactNode;
   withNumber?: boolean;
+  openDeleteModal?: (folderId: string) => void;
   // folderChapters?: IChapter[];
   small?: boolean;
   projectId: string;
@@ -47,6 +48,7 @@ export const FolderListItem: FC<{
   listenerId,
   allFolders,
   level,
+  openDeleteModal,
   chapters,
 }) => {
   const [parent] = useAutoAnimate();
@@ -238,7 +240,9 @@ export const FolderListItem: FC<{
                     navigate(`/project/${projectId}/chapter/${chapter.uid}`)
                   }
                   chapter={chapter}
-                  openChapterModal={() => null}
+                  openChapterModal={() =>
+                    openDeleteModal ? openDeleteModal(chapter.uid) : null
+                  }
                   disabled={false}
                   listenerId={`chapter_${chapter._id}`}
                 />
