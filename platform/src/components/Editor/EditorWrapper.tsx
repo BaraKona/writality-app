@@ -27,7 +27,7 @@ export const EditorWrapper: FC<{
 
   if (isLoading || !mainContent || (branch && !branchContent)) {
     return (
-      <div className="flex h-[calc(100dvh-3.2rem)] flex-col gap-2 rounded-lg border border-border bg-base px-3 py-3.5 dark:border-borderDark dark:bg-baseDark">
+      <div className="flex grow flex-col gap-2 rounded-lg border border-border  px-3 py-3.5 dark:border-borderDark dark:bg-baseDark">
         <div className="flex justify-between">
           <Skeleton height={24} mt={6} width={100} />
           <Skeleton height={24} mt={6} width={200} />
@@ -92,8 +92,8 @@ export const EditorWrapper: FC<{
   }
 
   return (
-    <div className="flex h-[calc(100dvh-3.2rem)] flex-col gap-2 rounded-lg border border-border bg-base px-3 py-3 dark:border-t dark:border-none dark:border-baseDark dark:bg-baseDark">
-      <div className=" flex items-center gap-2  font-medium text-coolGrey-7">
+    <div className="flex h-full grow flex-col gap-2 rounded-lg py-3 dark:border-t dark:border-none dark:border-baseDark ">
+      <div className=" flex items-center gap-2 font-medium text-coolGrey-7">
         <Flex>{breadcrumbs && <Breadcrumbs items={breadcrumbs} />}</Flex>
         <Text
           size="xs"
@@ -107,25 +107,9 @@ export const EditorWrapper: FC<{
             ? `Last updated: ${useTimeFromNow(branchContent.dateUpdated.date)}`
             : `Last updated: ${useTimeFromNow(mainContent.dateUpdated.date)}`}
         </Text>
-
-        {/* <div
-					className="border-l border-border dark:border-borderDark group dark:hover:text-coolGrey-4"
-					onClick={save}
-				>
-					<Tooltip
-						label="Save"
-						position="left"
-						withArrow
-						styles={tooltipStyles}
-					>
-						<ButtonWrapper className="p-2 ml-2">
-							<IconDeviceFloppy size={18} />
-						</ButtonWrapper>
-					</Tooltip>
-				</div> */}
       </div>
       <Divider className="!border-coolGrey-1 dark:!border-borderDark" />
-      <div className=" overflow-y-hidden">
+      <div className="grow overflow-y-hidden">
         <div className="text-editor flex justify-between align-middle">
           {children}
         </div>

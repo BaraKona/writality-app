@@ -113,7 +113,7 @@ export const BlockEditor: FC<{
 
   if (isLoading || !editor)
     return (
-      <div className="relative h-[calc(100dvh-8.5rem)] w-full rounded-lg border border-border dark:border-borderDark">
+      <div className="relative w-full grow rounded-lg border border-border dark:border-borderDark">
         <div className="mx-auto h-[calc(100dvh-7.5rem)] max-w-screen-md overflow-y-auto p-9">
           <Skeleton height={50} width="100%" radius="sm" mb={10} mt={20} />
           <Skeleton height={10} width="100%" radius="sm" mb={10} mt={20} />
@@ -132,7 +132,7 @@ export const BlockEditor: FC<{
   // editor.isEditable = isEditable ? isEditable : false;
 
   return (
-    <div className="relative h-[calc(100dvh-8.5rem)] w-full rounded-lg">
+    <div className="relative w-full grow rounded-lg">
       {!isEditable && !close && (
         <div className="absolute left-0 right-0 top-40 z-10 mx-auto flex max-w-sm flex-col rounded-lg bg-coolGrey-1 p-4 text-sm shadow-md dark:bg-baseDarker">
           <p>

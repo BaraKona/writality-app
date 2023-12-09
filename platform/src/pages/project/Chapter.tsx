@@ -122,7 +122,7 @@ export const Chapter = () => {
   const [parent] = useAutoAnimate();
 
   return (
-    <>
+    <section className="flex h-full grow rounded-lg ">
       <CreateBranchModal
         branchName={branchName}
         setBranchName={setBranchName}
@@ -182,16 +182,6 @@ export const Chapter = () => {
         setText={setText}
       />
       <EditorWrapper
-        // save={
-        //   branch
-        //     ? () =>
-
-        //     : () =>
-        //         updateChapterContentMutation({
-        //           content: editorContent,
-        //           wordCount,
-        //         })
-        // }
         branchContent={currentBranch}
         mainContent={chapterContent?.content}
       >
@@ -246,7 +236,7 @@ export const Chapter = () => {
               </>
             )}
           </ChapterSidebar>
-          <div>
+          <div className="flex grow">
             {sidebar === "branches" && (
               <ChapterBranchMenu
                 chapterId={chapter as string}
@@ -275,6 +265,6 @@ export const Chapter = () => {
           </div>
         </div>
       </EditorWrapper>
-    </>
+    </section>
   );
 };

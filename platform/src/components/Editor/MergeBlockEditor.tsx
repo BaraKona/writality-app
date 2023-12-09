@@ -118,7 +118,7 @@ export const MergeBlockEditor: FC<{
   );
 
   return (
-    <div className="relative h-[calc(100dvh-8.5rem)]  w-full rounded-lg">
+    <div className="relative w-full grow rounded-lg">
       <div className="mx-auto h-[calc(100dvh-8.7rem)] max-w-4xl overflow-y-auto pt-9">
         <Textarea
           placeholder="Title"

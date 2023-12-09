@@ -210,7 +210,7 @@ export const MainFrame: FC<{
           )}
         </div>
       </div>
-      <section className="ml-2 h-[calc(100dvh-3rem)] overflow-y-auto !rounded-lg">
+      <section className="ml-2 flex grow flex-col overflow-y-auto !rounded-lg">
         {children}
       </section>
     </div>

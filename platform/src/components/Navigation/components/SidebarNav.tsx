@@ -26,7 +26,7 @@ export const SidebarNav = () => {
           <IconUserCircle size={18} />
         </CommunityListItem>
         <CategoryListItem>
-          <Divider className="!my-2 !border-coolGrey-4 dark:!border-borderDark" />
+          <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
         </CategoryListItem>
         <CommunityListItem name="Posts" onClick={() => navigate("/posts")}>
           <IconClipboard size={18} />
@@ -42,7 +42,7 @@ export const SidebarNav = () => {
         </CommunityListItem>
       </CategoryListItem>
       <CategoryListItem>
-        <Divider className="!my-2 !border-coolGrey-4 dark:!border-borderDark" />
+        <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
       </CategoryListItem>
       <CategoryListItem>
         <CommunityListItem name="Users" onClick={() => navigate("/users")}>
@@ -50,7 +50,7 @@ export const SidebarNav = () => {
         </CommunityListItem>
       </CategoryListItem>
       <CategoryListItem className="mb-auto">
-        <Divider className="!my-2 !border-coolGrey-4 dark:!border-borderDark" />
+        <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
       </CategoryListItem>
 
       <CategoryListItem>

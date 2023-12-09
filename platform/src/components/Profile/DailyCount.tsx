@@ -35,7 +35,6 @@ export const DailyCount: FC<{}> = ({}) => {
           </div>
           <Progress
             size="md"
-            label="today"
             value={dailyWordCount > 500 ? 100 : (dailyWordCount / 500) * 100}
             className="!border-none !border-border bg-base dark:!border-borderDark dark:!bg-baseDark "
             classNames={{

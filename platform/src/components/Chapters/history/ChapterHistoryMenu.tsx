@@ -6,13 +6,13 @@ import { IChapter } from "../../../interfaces/IChapter";
 import { tooltipStyles } from "../../../styles/tooltipStyles";
 import { useSearchParams } from "react-router-dom";
 export const ChapterHistoryMenu: FC<{
-	history: IChapter["history"];
-	close: () => void;
-	active: boolean;
+  history: IChapter["history"];
+  close: () => void;
+  active: boolean;
 }> = ({ history, close, active }) => {
-	return (
-		<div className={`${active ? "" : "hidden"}`}>
-			<ChapterHistory history={history} close={close} />
-		</div>
-	);
+  return (
+    <div className={`${active ? "flex grow" : "hidden"}`}>
+      <ChapterHistory history={history} close={close} />
+    </div>
+  );
 };
