@@ -65,7 +65,7 @@ export const ProjectChapters: FC<{
         <div className="flex flex-col gap-1">
           {chaptersWithoutFolders.map((chapter: IChapter, index: number) => (
             <Chapter
-              openChapter={() => openChapter(chapter.projectId, chapter.uid)}
+              openChapter={() => openChapter(project.uid, chapter.uid)}
               key={index}
               chapter={chapter}
               openChapterModal={() => openChapterModal(chapter.uid)}
