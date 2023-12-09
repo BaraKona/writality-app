@@ -565,7 +565,7 @@ export const createProjectChapter = async (req: any, res: any) => {
 
 		await project.save();
 		res.status(200).json({
-			project,
+			chapter
 		});
 	} catch (error) {
 		console.log(error);
@@ -663,22 +663,12 @@ export const moveProjectChapterIntoFolder = async (req: any, res: any) => {
 			res.status(404).json({ message: "Chapter not found." });
 		}
 
-		chapter.parentId = folderId;
 
-
-		// remove from all folders
-		// project.folders.forEach((folder) => {
-		// 	folder.chapters = folder.chapters.filter((id) => id !== chapterId);
-		// });
-
-		// project.folders.forEach((folder) => {
-		// 	if (folder.uid === folderId) {
-		// 		folder.chapters.push(chapterId);
-		// 	}
-		// });
-
-		// remove from chapters
-		// project.chapters = project.chapters.filter((id) => id !== chapterId);
+		if (folderId !== 'root') {
+			chapter.parentId = folderId;
+		} else {
+			chapter.parentId =	null;
+		}
 
 		project.dateUpdated = {
 			user: userId,
@@ -782,14 +772,18 @@ export const nestFolder = async (req: any, res: any) => {
 			(folder) => folder.uid === folderToNestId
 		);
 
-		const folder = project.folders.find((folder) => folder.uid === folderId);
+		const folder = project.folders.find((folder) => folder.uid === folderId) || 'root'
 
-		if (!folder || !folderToNest) {
+		if (!folderToNest) {
 			res.status(404).json({ message: "Folder not found." });
 			return;
 		}
 
-		folderToNest.parentId = folder.uid;
+		if (folder === 'root') {
+			folderToNest.parentId = null;
+		} else {
+			folderToNest.parentId = folder.uid;
+		}
 
 		project.dateUpdated = {
 			user: userId,
@@ -798,7 +792,8 @@ export const nestFolder = async (req: any, res: any) => {
 		project.history.push({
 			date: new Date(),
 			user: userId,
-			action: `moved folder ${folderToNest.name} into ${folder.name}`,
+			// @ts-ignore
+			action: `moved folder ${folderToNest.name} into ${folder?.name || 'root'}`,
 		});
 
 		project.collaborators.find((collaborator) => {
