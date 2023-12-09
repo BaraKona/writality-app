@@ -51,7 +51,7 @@ export function Project() {
     project as string,
   );
   const { mutate: updateProjectBoard } = useProjectBoard(project as string);
-  const { data: projectChapters } = useProjectChapters(project as string);
+  const { data: projectChapters } = useProjectChapters(project as string, true);
 
   const { mutateAsync: deleteChapter } = useDeleteChapter(
     project as string,
