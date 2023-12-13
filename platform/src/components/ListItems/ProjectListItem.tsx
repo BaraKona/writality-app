@@ -42,52 +42,49 @@ export const ProjectListItem: FC<{
   );
 
   return (
-    <div
-      className={`w-full transition-all duration-500 ease-in-out dark:text-coolGrey-4 ${
-        Boolean(sidebarProjectOpen) && ""
-      } `}
+    <section
+      className={`w-full transition-all duration-500 ease-in-out dark:text-coolGrey-4`}
     >
-      <ul className="flex items-center">
-        <li
-          onClick={onClick}
-          className={`group flex cursor-pointer gap-1 rounded-md p-2 py-1 text-xs font-medium transition-all duration-500 ease-in-out hover:bg-coolGrey-1 dark:hover:bg-hoverDark
+      <li
+        onClick={onClick}
+        className={`group flex cursor-pointer gap-1 rounded-md p-2 py-1 text-xs font-medium transition-all duration-500 ease-in-out hover:bg-coolGrey-1 dark:hover:bg-hoverDark
 				${
           project === projectId
             ? "bg-coolGrey-1 dark:bg-hoverDark dark:hover:border-hoverDark"
             : "dark:bg-baseDark"
         }`}
+      >
+        <ButtonWrapper
+          className="!rounded-md hover:bg-coolGrey-0 dark:hover:border-hoverDark dark:hover:bg-hoverDark"
+          onClick={(e: any) => {
+            e.stopPropagation(),
+              setSidebarProjectOpen(
+                sidebarProjectOpen === projectId ? "" : projectId,
+              );
+          }}
         >
-          <ButtonWrapper
-            className="!rounded-md hover:bg-coolGrey-0 dark:hover:border-hoverDark dark:hover:bg-hoverDark"
-            onClick={(e: any) => {
-              e.stopPropagation(),
-                setSidebarProjectOpen(
-                  sidebarProjectOpen === projectId ? "" : projectId,
-                );
-            }}
+          {sidebarProjectOpen ? (
+            <IconChevronDown className="text-coolGrey-5" size={16} />
+          ) : (
+            <IconChevronRight className="text-coolGrey-5" size={16} />
+          )}
+        </ButtonWrapper>
+        <div className="flex items-center justify-between gap-1">
+          <div
+            className={`flex items-center gap-1 ${
+              type === "standard"
+                ? "text-stone-500 dark:text-stone-400"
+                : "text-sky-700 dark:text-cyan-600"
+            }`}
           >
-            {sidebarProjectOpen ? (
-              <IconChevronDown className="text-coolGrey-5" size={16} />
-            ) : (
-              <IconChevronRight className="text-coolGrey-5" size={16} />
-            )}
-          </ButtonWrapper>
-          <div className="flex items-center justify-between gap-1">
-            <div
-              className={`flex items-center gap-1 ${
-                type === "standard"
-                  ? "text-stone-500 dark:text-stone-400"
-                  : "text-sky-700 dark:text-cyan-600"
-              }`}
-            >
-              <IconRenderer type={type} open={Boolean(sidebarProjectOpen)} />
-              <span className=" w-full overflow-hidden text-ellipsis whitespace-nowrap">
-                {name}
-              </span>
-            </div>
+            <IconRenderer type={type} open={Boolean(sidebarProjectOpen)} />
+            <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+              {name}
+            </span>
           </div>
-        </li>
-      </ul>
+        </div>
+      </li>
+
       <div className="ml-3">
         <div ref={parent}>
           {sidebarProjectOpen && (
@@ -144,6 +141,6 @@ export const ProjectListItem: FC<{
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };

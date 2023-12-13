@@ -35,10 +35,10 @@ export const UserProjects: FC<{
   }
 
   return (
-    <div className="flex grow">
+    <div className="flex w-full grow">
       {projects?.length > 0 && (
-        <section className="grow" ref={parent}>
-          <div className="flex grow flex-col gap-1">
+        <section className="w-full" ref={parent}>
+          <div className="flex w-full grow flex-col gap-1">
             {projects?.map((project: IProject, index: number) => {
               return (
                 <ProjectListItem
