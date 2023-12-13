@@ -62,31 +62,31 @@ export const MainFrame: FC<{
   const tabIcons = [
     {
       title: "Profile",
-      icon: <IconUserCircle stroke={2.2} size={18} />,
+      icon: <IconUserCircle stroke={2.2} size={16} />,
     },
     {
       title: "Stories",
-      icon: <IconBooks size={18} />,
+      icon: <IconBooks size={16} />,
     },
     {
       title: "Posts",
-      icon: <IconTemplate size={18} />,
+      icon: <IconTemplate size={16} />,
     },
     {
       title: "Settings",
-      icon: <IconSettings size={18} />,
+      icon: <IconSettings size={16} />,
     },
     {
       title: "Users",
-      icon: <IconUsersGroup size={18} />,
+      icon: <IconUsersGroup size={16} />,
     },
     {
       title: "Help",
-      icon: <IconHelp size={18} />,
+      icon: <IconHelp size={16} />,
     },
     {
       title: "Writing-groups",
-      icon: <IconSocial size={18} />,
+      icon: <IconSocial size={16} />,
     },
   ];
 
@@ -156,28 +156,30 @@ export const MainFrame: FC<{
         {tabs.map((tab) => (
           <div
             key={tab.id}
-            className={` ${
+            className={`${
               tab.active
-                ? "cursor-default border border-border bg-base hover:bg-base dark:border-hoverDark dark:bg-hoverDark hover:dark:bg-hoverDark"
-                : "cursor-pointer border border-primary"
-            } group flex w-44 min-w-0 items-center justify-between rounded-lg border border-border bg-base px-2 py-1.5 transition-all duration-500  ease-in-out hover:bg-base dark:border-borderDark dark:bg-baseDark hover:dark:bg-baseDark`}
+                ? "cursor-default bg-coolGrey-2 dark:bg-hoverDark "
+                : "cursor-pointer"
+            } group flex w-44 min-w-0 items-center justify-between rounded-lg px-2 py-1.5 transition-all duration-500  ease-in-out hover:bg-coolGrey-2 dark:bg-baseDark dark:hover:bg-hoverDark `}
             onClick={() => changeTab(tab)}
           >
             <div
               className={`flex w-full flex-row items-center text-coolGrey-7 dark:text-coolGrey-4`}
             >
-              {tabIcons.find((t) => t.title === tab.title)?.icon ||
-                (tab.active ? (
-                  <IconBook
-                    size={18}
-                    className="text-neutral-600 dark:text-stone-500"
-                  />
-                ) : (
-                  <IconBook2
-                    size={18}
-                    className="text-neutral-600 dark:text-stone-500"
-                  />
-                ))}
+              <span className="rounded bg-base p-0.5 text-coolGrey-7 dark:bg-baseDark">
+                {tabIcons.find((t) => t.title === tab.title)?.icon ||
+                  (tab.active ? (
+                    <IconBook
+                      size={16}
+                      className="text-neutral-600 dark:text-stone-500"
+                    />
+                  ) : (
+                    <IconBook2
+                      size={16}
+                      className="text-neutral-600 dark:text-stone-500"
+                    />
+                  ))}
+              </span>
               <span className="ml-0.5 w-[6.5rem] overflow-hidden text-ellipsis whitespace-nowrap text-xs font-medium">
                 {tab.title}
               </span>
