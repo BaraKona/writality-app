@@ -24,7 +24,7 @@ export const FavouriteTabItems: FC<{}> = ({}) => {
           <Skeleton height={27} width={160} radius="md" mb={3} />
         </>
       ) : (
-        <div ref={parent}>
+        <div ref={parent} className="flex flex-col gap-1">
           {bookmarks?.map((bookmark: any, index: number) => {
             return (
               <TabListItem
