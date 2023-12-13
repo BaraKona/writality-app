@@ -63,7 +63,7 @@ export const Sidebar: FC<{}> = () => {
       aria-label="Sidebar"
     >
       <Dialog
-        opened={userChat !== ""}
+        opened={Boolean(userChat)}
         onClose={() => setUserChat("")}
         size="lg"
         radius="md"
