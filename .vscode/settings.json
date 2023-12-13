@@ -1,4 +1,8 @@
 {
 	"DockerRun.DisableDockerrc": true,
-	"cSpell.words": ["Colour", "formkit"]
+	"cSpell.words": [
+		"Colour",
+		"Colours",
+		"formkit"
+	]
 }

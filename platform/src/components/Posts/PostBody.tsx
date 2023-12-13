@@ -4,7 +4,7 @@ import { Text, Space, Badge, Divider } from "@mantine/core";
 import {
   collaborationTypeColour,
   postTypeColour,
-} from "../../utils/typeColours";
+} from "../../utils/typeColour";
 import { useDefaultDateTime } from "../../hooks/useTimeFromNow";
 import { IconBookmarkFilled, IconBookmarkPlus } from "@tabler/icons-react";
 import { BannerImage } from "../BannerImage";

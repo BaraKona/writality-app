@@ -77,7 +77,7 @@ export const Sidebar: FC<{}> = () => {
         <div className="flex w-full grow flex-col">
           <div className="flex h-full grow py-3">
             <SidebarNav />
-            <CategoryListItem className="mr-3 flex h-full w-full grow flex-col rounded-lg bg-base py-2 dark:bg-baseDark">
+            <CategoryListItem className="mr-3 flex h-full w-full grow flex-col rounded-lg bg-base py-2 shadow dark:bg-baseDark">
               <Link to="/" className="mb-2 self-center rounded-lg px-2 py-1">
                 <div className="mb-1 ml-2 mt-1 flex px-1.5">
                   {theme === "dark" ? (

@@ -9,7 +9,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import {
   collaborationTypeColour,
   postTypeColour,
-} from "../../utils/typeColours";
+} from "../../utils/typeColour";
 import { useRemoveBookmark } from "../../hooks/user/useRemoveBookmark";
 export const PostCard: FC<{
   post: IPost;

@@ -4,16 +4,25 @@ import { v4 as uuidv4 } from "uuid";
 import { pusher } from "../../index";
 
 export const getPosts = async (req: any, res: any) => {
+
+	const query = req.query.search || req.query.postType || req.query.collaborationType ? {
+		$or: [
+			{ genres: { $in: req.query.genre } },
+			{ postType: req.query.postType },
+			{ collaborationType: req.query.collaborationType},
+		],
+	} : {};
+
 	try {
-		const posts = await Posts.find({})
-			.sort({ dateCreated: -1 })
-			.limit(24)
-			.populate({
+    const posts = await Posts.find(query)
+		.sort({ dateCreated: -1 })
+		.limit(24)
+		.populate({
 				path: "owner",
 				select: "-password -aboutMe -roles -interests -bookmarks",
-			})
-			.select("-comments");
-		res.status(200).json(posts);
+		})
+		.select("-comments");
+    res.status(200).json(posts);
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });
