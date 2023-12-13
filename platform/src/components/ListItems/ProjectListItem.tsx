@@ -40,10 +40,11 @@ export const ProjectListItem: FC<{
   const chaptersWithoutFolders = chapters?.filter(
     (chapter: IChapter) => !chapter.parentId,
   );
+
   return (
     <div
-      className={`transition-all duration-500 ease-in-out dark:text-coolGrey-4 ${
-        sidebarProjectOpen ? "" : ""
+      className={`w-full transition-all duration-500 ease-in-out dark:text-coolGrey-4 ${
+        Boolean(sidebarProjectOpen) && ""
       } `}
     >
       <ul className="flex items-center">
@@ -80,7 +81,7 @@ export const ProjectListItem: FC<{
               }`}
             >
               <IconRenderer type={type} open={Boolean(sidebarProjectOpen)} />
-              <span className=" w-[12rem] overflow-hidden text-ellipsis whitespace-nowrap">
+              <span className=" w-full overflow-hidden text-ellipsis whitespace-nowrap">
                 {name}
               </span>
             </div>
