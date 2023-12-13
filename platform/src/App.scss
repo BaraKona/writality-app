@@ -122,9 +122,10 @@ select:active {
   margin: 0 auto;
 }
 *::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 *::-webkit-scrollbar-track {
+  width: 4px !important;
   background: transparent !important; /* color of the tracking area */
 }
 *::-webkit-scrollbar-thumb {
