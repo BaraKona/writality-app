@@ -41,7 +41,7 @@ export const ProfilePosts: FC<{}> = ({}) => {
   }
 
   return (
-    <div className="relative h-[calc(100dvh-3.2rem)] rounded-lg pl-2">
+    <div className="relative h-[calc(100dvh-3.5rem)] rounded-lg pl-2">
       <button
         className="absolute -top-12 right-0 justify-between rounded-lg border border-border p-2 text-xs transition-all duration-300 ease-in-out hover:border-coolGrey-3 hover:shadow dark:border-borderDark dark:hover:bg-hoverDark"
         onClick={() => navigate("/posts/create")}
