@@ -57,13 +57,16 @@ export const SidebarNav = ({
           <IconUsersGroup size={18} />
         </CommunityListItem>
       </CategoryListItem>
-      <CategoryListItem className="mb-auto">
+      <CategoryListItem>
         <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
       </CategoryListItem>
 
+      <CategoryListItem className="mt-auto">
+        <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
+      </CategoryListItem>
       <CategoryListItem>
         <CommunityListItem
-          name="Sidebar"
+          name={sidebarOpen ? "Collapse" : "Expand"}
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           {sidebarOpen ? (
@@ -72,6 +75,13 @@ export const SidebarNav = ({
             <IconLayoutSidebarLeftExpandFilled size={18} />
           )}
         </CommunityListItem>
+      </CategoryListItem>
+
+      <CategoryListItem>
+        <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
+      </CategoryListItem>
+
+      <CategoryListItem>
         <CommunityListItem
           name="Settings"
           onClick={() => navigate("/settings")}

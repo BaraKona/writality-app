@@ -55,7 +55,7 @@ export const ProjectListItem: FC<{
         }`}
       >
         <ButtonWrapper
-          className="!rounded-md hover:bg-coolGrey-0 dark:hover:border-hoverDark dark:hover:bg-hoverDark"
+          className="self-start !rounded-md hover:bg-coolGrey-0 dark:hover:border-hoverDark dark:hover:bg-hoverDark"
           onClick={(e: any) => {
             e.stopPropagation(),
               setSidebarProjectOpen(
@@ -69,18 +69,16 @@ export const ProjectListItem: FC<{
             <IconChevronRight className="text-coolGrey-5" size={16} />
           )}
         </ButtonWrapper>
-        <div className="flex items-center justify-between gap-1">
+        <div className="flex items-center justify-between gap-1 ">
           <div
-            className={`flex items-center gap-1 ${
+            className={`flex items-start gap-1 ${
               type === "standard"
                 ? "text-stone-500 dark:text-stone-400"
                 : "text-sky-700 dark:text-cyan-600"
             }`}
           >
             <IconRenderer type={type} open={Boolean(sidebarProjectOpen)} />
-            <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-              {name}
-            </span>
+            <span className="max-w-[80ch]">{name}</span>
           </div>
         </div>
       </li>
@@ -131,7 +129,7 @@ export const ProjectListItem: FC<{
                     navigate(`project/${projectId}/chapter/${chapter.uid}`)
                   }
                 >
-                  <span className="flex items-start gap-1.5">
+                  <span className="flex  items-start gap-1.5">
                     <IconFileText size={16} className="flex-shrink-0" />
                     {chapter?.content?.title || "Untitled Chapter"}
                   </span>

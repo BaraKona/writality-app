@@ -27,7 +27,7 @@ export const Chapter: FC<{
       style={style}
     >
       <div
-        className=" group flex grow cursor-pointer place-items-center gap-1 py-1 text-coolGrey-7 dark:text-coolGrey-5"
+        className=" group flex grow cursor-pointer place-items-start gap-1 py-1 text-coolGrey-7 dark:text-coolGrey-5"
         onClick={openChapter}
       >
         <IconFileText
