@@ -28,14 +28,16 @@ export const SidebarNav = ({
   const { mutate: signOut } = useSignout();
 
   return (
-    <div className="flex grow flex-col">
+    <div className="flex max-w-[3.2rem] grow flex-col">
       <CategoryListItem className="flex flex-col">
         <CommunityListItem name="Profile" onClick={() => navigate("/profile")}>
           <IconUserCircle size={18} />
         </CommunityListItem>
-        <CategoryListItem>
-          <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
-        </CategoryListItem>
+      </CategoryListItem>
+      <CategoryListItem>
+        <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
+      </CategoryListItem>
+      <CategoryListItem>
         <CommunityListItem name="Posts" onClick={() => navigate("/posts")}>
           <IconClipboard size={18} />
         </CommunityListItem>

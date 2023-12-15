@@ -25,11 +25,7 @@ export const Notifications: FC<{
 
   return (
     <section ref={parent}>
-      <div
-        className={`flex ${
-          recent ? "" : "h-[calc(100dvh-6.5rem)]"
-        } flex-col gap-1`}
-      >
+      <div className={`flex grow flex-col gap-1`}>
         {notification?.map((notification: any, index: number) => (
           <Popover
             key={index}
@@ -50,7 +46,7 @@ export const Notifications: FC<{
                 <div className="flex w-full items-center justify-between gap-1">
                   <div className="flex gap-2">
                     <NotificationIcons notification={notification} />
-                    <span className=" w-[12rem] overflow-hidden text-ellipsis whitespace-nowrap">
+                    <span className=" w-[12.5rem] overflow-hidden text-ellipsis whitespace-nowrap">
                       {notification.notificationTitle}
                     </span>
                   </div>
