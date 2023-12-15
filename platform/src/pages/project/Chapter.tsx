@@ -14,9 +14,7 @@ import {
   VersionModal,
 } from "../../components/Modals";
 import { useMergeReplace } from "../../hooks/chapter/useMergeReplace";
-import { ChapterBranchMenu } from "../../components/Chapters/branch/ChapterBranchMenu";
 import { ChapterVersionMenu } from "../../components/Chapters/version/ChapterVersionMenu";
-import { ChapterHistoryMenu } from "../../components/Chapters/history/ChapterHistoryMenu";
 import { ChapterSidebar } from "../../components/Chapters/ChapterSidebar";
 import { ChapterVersionButton } from "../../components/Chapters/version/ChapterVersionButton";
 import { ChapterHistoryButton } from "../../components/Chapters/history/ChapterHistoryButton";
@@ -32,6 +30,7 @@ import { MergeBranchModal } from "../../components/Chapters/merge/MergeChapterMo
 import { Divider } from "@mantine/core";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useUpdateBranchContent } from "../../hooks/chapter/useUpdateBranchContent";
+import { ChapterBranches, ChapterHistory } from "../../components/Chapters";
 
 export const Chapter = () => {
   const navigate = useNavigate();
@@ -238,30 +237,31 @@ export const Chapter = () => {
           </ChapterSidebar>
           <div className="flex grow" ref={parent}>
             {sidebar === "branches" && (
-              <ChapterBranchMenu
-                chapterId={chapter as string}
+              <ChapterBranches
                 openMergeModal={openMerge}
                 currentBranch={branch ? currentBranch : chapterContent}
-                mainContent={chapterContent?.content}
+                chapterId={chapter as string}
                 checkoutMain={() => navigateToMain()}
                 openDeleteBranch={setOpenDeleteBranch}
                 openBranchModal={() => setOpened(true)}
                 close={() => closeSidebar()}
-                active={sidebar === "branches"}
               />
             )}
-            <ChapterVersionMenu
-              setOpen={setVersionModalOpen}
-              setVersion={setVersion}
-              close={() => closeSidebar()}
-              active={sidebar === "versions"}
-            />
+            {sidebar === "versions" && (
+              <ChapterVersionMenu
+                setOpen={setVersionModalOpen}
+                setVersion={setVersion}
+                close={() => closeSidebar()}
+                active={sidebar === "versions"}
+              />
+            )}
 
-            <ChapterHistoryMenu
-              history={chapterContent?.history}
-              close={() => closeSidebar()}
-              active={sidebar === "history"}
-            />
+            {sidebar === "history" && (
+              <ChapterHistory
+                history={chapterContent?.history}
+                close={() => closeSidebar()}
+              />
+            )}
           </div>
         </div>
       </EditorWrapper>

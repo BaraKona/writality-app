@@ -22,32 +22,24 @@ export const ChapterVersionMenu: FC<{
   );
 
   return (
-    <div
-      className={`${
-        active ? "flex grow" : "hidden"
-      }  transition-all duration-500 ease-in-out`}
-    >
-      <ChapterSidebarWrapper>
-        <div className="my-2 flex items-center gap-2 px-2 text-xs font-medium text-coolGrey-7 dark:text-coolGrey-4">
-          Versions
-          <ButtonWrapper className="ml-auto" onClick={createVersion}>
-            <IconPlus
-              size={14}
-              className="text-coolGrey-4 group-hover:text-black dark:text-coolGrey-6 dark:hover:text-coolGrey-1"
-            />
-          </ButtonWrapper>
-          <ButtonWrapper onClick={close}>
-            <IconX
-              size={14}
-              className="text-coolGrey-4 group-hover:text-black dark:text-coolGrey-6 dark:hover:text-coolGrey-1"
-            />
-          </ButtonWrapper>
-        </div>
-        <Divider className="!border-coolGrey-1 dark:!border-borderDark" />
-        {active && (
-          <ChapterVersions setOpen={setOpen} setVersion={setVersion} />
-        )}
-      </ChapterSidebarWrapper>
-    </div>
+    <ChapterSidebarWrapper>
+      <div className="my-2 flex items-center gap-2 px-2 text-xs font-medium text-coolGrey-7 dark:text-coolGrey-4">
+        Versions
+        <ButtonWrapper className="ml-auto" onClick={createVersion}>
+          <IconPlus
+            size={14}
+            className="text-coolGrey-4 group-hover:text-black dark:text-coolGrey-6 dark:hover:text-coolGrey-1"
+          />
+        </ButtonWrapper>
+        <ButtonWrapper onClick={close}>
+          <IconX
+            size={14}
+            className="text-coolGrey-4 group-hover:text-black dark:text-coolGrey-6 dark:hover:text-coolGrey-1"
+          />
+        </ButtonWrapper>
+      </div>
+      <Divider className="!border-coolGrey-1 dark:!border-borderDark" />
+      {active && <ChapterVersions setOpen={setOpen} setVersion={setVersion} />}
+    </ChapterSidebarWrapper>
   );
 };

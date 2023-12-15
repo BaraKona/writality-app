@@ -5,7 +5,6 @@ import {
   VscGitMerge,
   VscGitPullRequestClosed,
 } from "react-icons/vsc";
-import { IChapterVersion } from "../../../interfaces/IChapterVersion";
 
 import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { Divider, ScrollArea, Skeleton, Text } from "@mantine/core";
@@ -14,11 +13,11 @@ import { useSearchParams } from "react-router-dom";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
 import { ChapterSidebarWrapper } from "../ChapterSidebarWrapper";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useQuery } from "react-query";
+import { getAllBranches } from "../../../api/project/branches";
 export const ChapterBranches: FC<{
   openMergeModal: (type: string) => void;
-  chapterBranches: IChapterVersion[];
-  isLoading: boolean;
-  mainContent: IChapterContent;
+  chapterId: string;
   currentBranch: IChapterContent;
   checkoutMain: any;
   openDeleteBranch: React.Dispatch<SetStateAction<boolean>>;
@@ -26,17 +25,19 @@ export const ChapterBranches: FC<{
   close: () => void;
 }> = ({
   openMergeModal,
-  chapterBranches,
-  mainContent,
+  chapterId,
   currentBranch,
   checkoutMain,
   openDeleteBranch,
   openBranchModal,
   close,
-  isLoading,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const merge = searchParams.get("merge");
+  const { data: chapterBranches, isLoading } = useQuery(
+    ["chapterBranches", chapterId],
+    () => getAllBranches(chapterId as string),
+  );
   const [parent] = useAutoAnimate();
 
   if (isLoading) {
