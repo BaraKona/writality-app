@@ -49,6 +49,11 @@ export const Sidebar: FC<{}> = () => {
     key: "userChat",
   });
 
+  const [sidebarOpen, setSidebarOpen] = useLocalStorage({
+    key: "sidebarOpen",
+    defaultValue: true,
+  });
+
   const { mutate: removeFavouriteProject } = useRemoveFavourite();
 
   const openProject = (route: string) => {
@@ -73,68 +78,77 @@ export const Sidebar: FC<{}> = () => {
       >
         <TabChat chatId={userChat} close={() => setUserChat("")} />
       </Dialog>
-      <div className="flex w-[21rem] min-w-[21rem] rounded-lg bg-coolGrey-2 dark:bg-baseDarker">
+      <div
+        className={`flex ${
+          sidebarOpen ? "w-[21rem] min-w-[21rem]" : ""
+        } rounded-lg bg-coolGrey-2 dark:bg-baseDarker`}
+      >
         <div className="flex w-full grow flex-col">
           <div className="flex h-full grow py-3">
-            <SidebarNav />
-            <CategoryListItem className="mr-3 flex h-full w-full grow flex-col rounded-lg bg-base py-2 shadow dark:bg-baseDark">
-              <Link to="/" className="mb-2 self-center rounded-lg px-2 py-1">
-                <div className="mb-1 ml-2 mt-1 flex px-1.5">
-                  {theme === "dark" ? (
-                    <img
-                      src={cyclops7}
-                      alt="writality"
-                      width={23}
-                      height={23}
-                      className="inline-block"
-                    />
-                  ) : (
-                    <img
-                      src={cyclops8}
-                      alt="writality"
-                      width={23}
-                      height={23}
-                      className="inline-block"
+            <SidebarNav
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+            />
+            {sidebarOpen && (
+              <CategoryListItem className="mr-3 flex h-full w-full grow flex-col rounded-lg bg-base py-2 shadow dark:bg-baseDark">
+                <Link to="/" className="mb-2 self-center rounded-lg px-2 py-1">
+                  <div className="mb-1 ml-2 mt-1 flex px-1.5">
+                    {theme === "dark" ? (
+                      <img
+                        src={cyclops7}
+                        alt="writality"
+                        width={23}
+                        height={23}
+                        className="inline-block"
+                      />
+                    ) : (
+                      <img
+                        src={cyclops8}
+                        alt="writality"
+                        width={23}
+                        height={23}
+                        className="inline-block"
+                      />
+                    )}
+                    <div className="px-2 text-sm font-semibold">Writality</div>
+                  </div>
+                </Link>
+                <SidebarTopNav
+                  sidebarNav={sidebarNav}
+                  setSidebarNav={setSidebarNav}
+                  createProject={createProject}
+                />
+                <Divider className="!mb-2 !border-coolGrey-1 dark:!border-borderDark" />
+                <section className="flex grow overflow-y-auto">
+                  {sidebarNav === home && (
+                    <UserProjects
+                      projects={projects?.standard}
+                      isLoading={isProjectLoading}
+                      openProject={openProject}
+                      removeFavouriteProject={removeFavouriteProject}
+                      createProject={createProject}
+                      tab={home}
                     />
                   )}
-                  <div className="px-2 text-sm font-semibold">Writality</div>
-                </div>
-              </Link>
-              <SidebarTopNav
-                sidebarNav={sidebarNav}
-                setSidebarNav={setSidebarNav}
-                createProject={createProject}
-              />
-              <Divider className="!mb-2 !border-coolGrey-1 dark:!border-borderDark" />
-              <section className="flex grow overflow-y-auto">
-                {sidebarNav === home && (
-                  <UserProjects
-                    projects={projects?.standard}
-                    isLoading={isProjectLoading}
-                    openProject={openProject}
-                    removeFavouriteProject={removeFavouriteProject}
-                    createProject={createProject}
-                    tab={home}
-                  />
-                )}
-                {sidebarNav === collabs && (
-                  <UserProjects
-                    projects={projects?.collaboration}
-                    isLoading={isProjectLoading}
-                    openProject={openProject}
-                    removeFavouriteProject={removeFavouriteProject}
-                    createProject={createProject}
-                    tab={collabs}
-                  />
-                )}
-                {sidebarNav === bookmarks && <FavouriteTabItems />}
-                {sidebarNav === friends && <UserFriends chatId={userChat} />}
-                {sidebarNav === writingGroup && <UserWritingGroups />}
-                {sidebarNav === inbox && (
-                  <Notifications notification={currentUser?.inbox} />
-                )}
-              </section>
-            </CategoryListItem>
+                  {sidebarNav === collabs && (
+                    <UserProjects
+                      projects={projects?.collaboration}
+                      isLoading={isProjectLoading}
+                      openProject={openProject}
+                      removeFavouriteProject={removeFavouriteProject}
+                      createProject={createProject}
+                      tab={collabs}
+                    />
+                  )}
+                  {sidebarNav === bookmarks && <FavouriteTabItems />}
+                  {sidebarNav === friends && <UserFriends chatId={userChat} />}
+                  {sidebarNav === writingGroup && <UserWritingGroups />}
+                  {sidebarNav === inbox && (
+                    <Notifications notification={currentUser?.inbox} />
+                  )}
+                </section>
+              </CategoryListItem>
+            )}
           </div>
         </div>
       </div>

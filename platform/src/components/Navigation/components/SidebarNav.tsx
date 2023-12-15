@@ -10,12 +10,20 @@ import {
   IconSettings,
   IconHelp,
   IconLogout,
+  IconLayoutSidebarLeftCollapseFilled,
+  IconLayoutSidebarLeftExpandFilled,
 } from "@tabler/icons-react";
 
 import { useNavigate } from "react-router-dom";
 import { useSignout } from "../../../hooks/user/useSignout";
 
-export const SidebarNav = () => {
+export const SidebarNav = ({
+  sidebarOpen,
+  setSidebarOpen,
+}: {
+  sidebarOpen: boolean;
+  setSidebarOpen: (value: boolean) => void;
+}) => {
   const navigate = useNavigate();
   const { mutate: signOut } = useSignout();
 
@@ -54,6 +62,16 @@ export const SidebarNav = () => {
       </CategoryListItem>
 
       <CategoryListItem>
+        <CommunityListItem
+          name="Sidebar"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          {sidebarOpen ? (
+            <IconLayoutSidebarLeftCollapseFilled size={18} />
+          ) : (
+            <IconLayoutSidebarLeftExpandFilled size={18} />
+          )}
+        </CommunityListItem>
         <CommunityListItem
           name="Settings"
           onClick={() => navigate("/settings")}
