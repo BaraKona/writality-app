@@ -236,7 +236,7 @@ export const Chapter = () => {
               </>
             )}
           </ChapterSidebar>
-          <div className="flex grow">
+          <div className="flex grow" ref={parent}>
             {sidebar === "branches" && (
               <ChapterBranchMenu
                 chapterId={chapter as string}
