@@ -119,7 +119,7 @@ export const Sidebar: FC<{}> = () => {
                   createProject={createProject}
                 />
                 <Divider className="!mb-2 !border-coolGrey-1 dark:!border-borderDark" />
-                <section className="flex grow overflow-y-auto">
+                <section className="flex grow overflow-y-auto" ref={parent}>
                   {sidebarNav === home && (
                     <UserProjects
                       projects={projects?.standard}
