@@ -14,7 +14,7 @@ export const CommunityListItem: FC<{
 
   return (
     <Tooltip label={name} position="right" withArrow styles={tooltipStyles}>
-      <li onClick={onClick} className="cursor-default list-none">
+      <li onClick={onClick} className="cursor-default list-none ">
         <div
           className={`mb-0.5 flex items-center rounded-lg p-2 text-xs font-medium transition-all duration-500 ease-in-out hover:bg-base dark:text-coolGrey-4 dark:hover:bg-baseDark ${
             type === "event"

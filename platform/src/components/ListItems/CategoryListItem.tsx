@@ -8,7 +8,7 @@ export const CategoryListItem: FC<{
   className?: string;
 }> = ({ children, button, loading, className }) => {
   return (
-    <ul className={`p-2 py-0 ${className}`}>
+    <ul className={`p-2 py-0 ${className} self-start`}>
       <li>
         <h2
           className={`ml-0.5 flex items-center justify-between rounded-lg text-xs font-normal`}
