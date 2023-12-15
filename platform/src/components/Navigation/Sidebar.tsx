@@ -84,7 +84,7 @@ export const Sidebar: FC<{}> = () => {
         } rounded-lg bg-coolGrey-2 dark:bg-baseDarker`}
       >
         <div className="flex w-full grow flex-col">
-          <div className="flex h-full grow py-3">
+          <div className="flex h-full grow py-3" ref={parent}>
             <SidebarNav
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
