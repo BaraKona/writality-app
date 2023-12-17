@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { Progress } from "@mantine/core";
+import { IconFlame, IconLanguage } from "@tabler/icons-react";
 export const DailyCount: FC<{}> = ({}) => {
   const { currentUser } = useAuthContext();
 
@@ -13,19 +14,19 @@ export const DailyCount: FC<{}> = ({}) => {
   const yearlyWordCount = currentUser?.yearlyWordCount || 0;
 
   return (
-    <div className="flex min-h-[5rem] shrink basis-[12rem] flex-col justify-center gap-4">
-      <div className="flex h-14 gap-2">
-        <div className="flex grow flex-col rounded-lg p-2 text-center text-sm   dark:border-none dark:bg-baseDarker  dark:text-coolGrey-6">
-          <p className="text-lg font-semibold text-emerald-600 dark:text-emerald-400">
-            {currentUser?.loginStreak}
+    <div className="flex min-h-[5rem] shrink basis-[10rem] flex-col justify-center gap-2">
+      <div className="flex h-12 gap-2">
+        <div className="flex grow flex-col rounded-lg p-1 text-center text-xs dark:border-none dark:bg-baseDarker  dark:text-coolGrey-6">
+          <p className="flex items-center justify-center text-lg font-semibold text-orange-600 dark:text-orange-400">
+            {currentUser?.loginStreak} <IconFlame size={20} />
           </p>
-          login streak
+          days
         </div>
-        <div className="flex grow flex-col rounded-lg p-2 text-center text-sm   dark:border-none dark:bg-baseDarker dark:text-coolGrey-6">
-          <p className="text-lg font-semibold text-emerald-600 dark:text-emerald-400">
-            {currentUser?.allTimeWordCount || 0}
+        <div className="flex grow flex-col rounded-lg p-1 text-center text-xs dark:border-none dark:bg-baseDarker dark:text-coolGrey-6">
+          <p className="flex items-center justify-center text-lg font-semibold text-gray-600 dark:text-gray-400">
+            {currentUser?.allTimeWordCount || 0} <IconLanguage size={20} />
           </p>
-          words written
+          words
         </div>
       </div>
       <div className="flex flex-col gap-1">
