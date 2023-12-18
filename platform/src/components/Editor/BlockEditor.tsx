@@ -115,16 +115,16 @@ export const BlockEditor: FC<{
     return (
       <div className="relative w-full grow rounded-lg border border-border dark:border-borderDark">
         <div className="mx-auto h-[calc(100dvh-7.5rem)] max-w-screen-md overflow-y-auto p-9">
-          <Skeleton height={50} width="100%" radius="sm" mb={10} mt={20} />
-          <Skeleton height={10} width="100%" radius="sm" mb={10} mt={20} />
-          <Skeleton height={20} width="100%" radius="sm" mb={3} />
-          <Skeleton height={20} width="100%" radius="sm" mb={3} />
-          <Skeleton height={20} width="100%" radius="sm" mb={3} />
-          <Skeleton height={20} width="100%" radius="sm" mb={3} />
-          <Skeleton height={10} width="100%" radius="sm" mb={10} mt={15} />
-          <Skeleton height={20} width="100%" radius="sm" mb={3} />
-          <Skeleton height={20} width="100%" radius="sm" mb={3} />
-          <Skeleton height={20} width="100%" radius="sm" mb={3} />
+          <Skeleton height={75} width="100%" radius="sm" mb={10} mt={20} />
+          <Skeleton height={15} width="25%" radius="sm" mb={10} mt={20} />
+          <Skeleton height={30} width="100%" radius="sm" mb={3} />
+          <Skeleton height={30} width="80%" radius="sm" mb={3} />
+          <Skeleton height={30} width="95%" radius="sm" mb={3} />
+          <Skeleton height={30} width="65%" radius="sm" mb={3} />
+          <Skeleton height={15} width="85%" radius="sm" mb={10} mt={20} />
+          <Skeleton height={30} width="70%" radius="sm" mb={3} />
+          <Skeleton height={30} width="90%" radius="sm" mb={3} />
+          <Skeleton height={30} width="90%" radius="sm" mb={3} />
         </div>
       </div>
     );

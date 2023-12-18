@@ -24,13 +24,12 @@ export const UserProjects: FC<{
 
   if (isLoading) {
     return (
-      <>
-        <Skeleton height={10} width="100%" radius="sm" mb={10} mt={20} />
-        <Skeleton height={20} width="100%" radius="sm" mb={3} />
-        <Skeleton height={20} width="100%" radius="sm" mb={3} />
-        <Skeleton height={20} width="100%" radius="sm" mb={3} />
-        <Skeleton height={20} width="100%" radius="sm" mb={3} />
-      </>
+      <div className="flex w-full flex-col gap-1">
+        <Skeleton height={25} width="100%" radius="sm" mb={3} />
+        <Skeleton height={40} width="100%" radius="sm" mb={3} />
+        <Skeleton height={25} width="100%" radius="sm" mb={3} />
+        <Skeleton height={60} width="100%" radius="sm" mb={3} />
+      </div>
     );
   }
 

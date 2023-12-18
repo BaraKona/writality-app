@@ -18,12 +18,12 @@ export const ChapterVersions: FC<{
     <div className="">
       {isLoading && (
         <div className="flex grow flex-col gap-1 overflow-y-auto">
-          <Skeleton height={25} width="100%" />
-          <Skeleton height={25} width="100%" />
-          <Skeleton height={25} width="100%" />
+          <Skeleton height={15} width="100%" />
+          <Skeleton height={15} width="100%" />
+          <Skeleton height={15} width="100%" />
         </div>
       )}
-      {versions?.length > 0 ? (
+      {versions?.length !== 0 ? (
         <div className="flex h-[calc(100vh-10rem)] grow flex-col gap-1 overflow-y-auto">
           {versions?.map((version: IChapterVersion, index: number) => (
             <button

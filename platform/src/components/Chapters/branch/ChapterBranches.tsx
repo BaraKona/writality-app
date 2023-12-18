@@ -18,6 +18,7 @@ import { getAllBranches } from "../../../api/project/branches";
 export const ChapterBranches: FC<{
   openMergeModal: (type: string) => void;
   chapterId: string;
+  main: IChapterContent;
   currentBranch: IChapterContent;
   checkoutMain: any;
   openDeleteBranch: React.Dispatch<SetStateAction<boolean>>;
@@ -26,6 +27,7 @@ export const ChapterBranches: FC<{
 }> = ({
   openMergeModal,
   chapterId,
+  main,
   currentBranch,
   checkoutMain,
   openDeleteBranch,
@@ -94,11 +96,18 @@ export const ChapterBranches: FC<{
           ref={parent}
         >
           <button
-            className="flex w-full items-center gap-1 rounded-md p-1 px-2 text-xs font-semibold hover:bg-coolGrey-1 dark:hover:bg-hoverDark"
+            className="flex w-full items-center justify-between gap-1 rounded-md p-1 px-2 text-xs font-semibold hover:bg-coolGrey-1 dark:hover:bg-hoverDark"
             onClick={checkoutMain}
           >
-            <VscGitPullRequestCreate size={14} />
-            main
+            <div className="flex items-center gap-1">
+              <VscGitPullRequestCreate size={14} />
+              <p className="max-w-[9rem] truncate text-xs font-medium text-coolGrey-7 dark:text-coolGrey-4">
+                main:
+              </p>
+            </div>
+            <Text size="xs" color="dimmed">
+              {useTimeFromNow(main?.dateUpdated?.date)}
+            </Text>
           </button>
           <ScrollArea.Autosize
             styles={{

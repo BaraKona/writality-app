@@ -239,6 +239,7 @@ export const Chapter = () => {
             {sidebar === "branches" && (
               <ChapterBranches
                 openMergeModal={openMerge}
+                main={chapterContent?.content}
                 currentBranch={branch ? currentBranch : chapterContent}
                 chapterId={chapter as string}
                 checkoutMain={() => navigateToMain()}
