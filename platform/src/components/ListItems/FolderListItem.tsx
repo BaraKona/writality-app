@@ -94,12 +94,12 @@ export const FolderListItem: FC<{
           {...attributes}
           ref={setNodeRef}
           style={style}
-          className={`z-[100] flex cursor-pointer px-1 py-0.5 hover:bg-coolGrey-1 dark:hover:bg-hoverDark ${className} ${
+          className={`z-[100] flex cursor-pointer items-center px-1 py-1.5 hover:bg-coolGrey-1 dark:hover:bg-hoverDark ${className} ${
             openedFolder === folder.uid ? "" : "mb-1"
           }`}
         >
           <SmallText
-            className={`flex grow items-center gap-1.5 ${
+            className={`flex grow items-center gap-1.5 py-0.5 ${
               levelColour[level % levelColour.length]
             } `}
             onClick={() =>

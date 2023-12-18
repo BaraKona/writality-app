@@ -50,7 +50,7 @@ export const ProjectChapters: FC<{
               chapters={chaptersWithFolders}
               openDeleteModal={openChapterModal}
               // openedFolder={openedFolder}
-              className="flex items-end justify-between rounded-lg px-2.5 py-1.5 dark:border-borderDark "
+              className="flex items-end justify-between rounded-lg px-2.5 dark:border-borderDark "
               icon={
                 <ButtonWrapper>
                   <IconDotsVertical size={14} className="cursor-pointer" />
