@@ -207,7 +207,7 @@ export const FolderListItem: FC<{
               className={className}
               chapters={
                 chapters?.filter(
-                  (chapter: IChapter) => chapter.parentId === folder.uid,
+                  (chapter: IChapter) => chapter.parentId !== null,
                 ) || []
               }
               listenerId={`folder_${folder.uid}`}
