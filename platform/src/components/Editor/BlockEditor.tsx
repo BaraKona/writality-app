@@ -10,6 +10,7 @@ import { BlockNoteEditor } from "@blocknote/core";
 import { useThemeContext } from "../../Providers/ThemeProvider";
 import { ButtonWrapper } from "../buttons/ButtonWrapper";
 import debounce from "lodash.debounce";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export const BlockEditor: FC<{
   content: IChapterContent["content"];
@@ -43,6 +44,8 @@ export const BlockEditor: FC<{
   title,
 }) => {
   const [close, setClose] = useState(false);
+  const { currentUser } = useAuthContext();
+
   const editor = useBlockNote(
     {
       initialContent: content ? JSON.parse(content) : null,
@@ -51,6 +54,14 @@ export const BlockEditor: FC<{
         setWordCount(countWordsFromTopLevelBlocks(editor.topLevelBlocks));
       },
       onEditorContentChange: (editor) => {
+        const editedId = editor.getTextCursorPosition().block.id;
+        const block = editor.getBlock(editedId);
+
+        // @ts-ignore
+        block.userId = currentUser?._id;
+        // @ts-ignore
+        block.dateUpdated = new Date().toISOString();
+
         setContent(JSON.stringify(editor.topLevelBlocks));
         setWordCount(countWordsFromTopLevelBlocks(editor.topLevelBlocks));
         saveDoc();
@@ -73,6 +84,11 @@ export const BlockEditor: FC<{
     save({
       content: JSON.stringify(editor.topLevelBlocks),
       wordCount: countWordsFromTopLevelBlocks(editor.topLevelBlocks),
+    });
+    const text = JSON.stringify(editor.topLevelBlocks);
+
+    console.log({
+      text,
     });
   }, 500);
 

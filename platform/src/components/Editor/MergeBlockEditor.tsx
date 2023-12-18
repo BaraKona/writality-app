@@ -5,11 +5,11 @@ import "@blocknote/core/style.css";
 import { FC } from "react";
 import { IChapterContent } from "../../interfaces/IChapterContent";
 import { IChapterVersion } from "../../interfaces/IChapterVersion";
-import { highlightDifferences } from "../../utils/textDiffMatch";
 import { useSearchParams } from "react-router-dom";
 import { inputStyles } from "../../styles/inputStyles";
-import { Textarea } from "@mantine/core";
+import { Skeleton, Textarea } from "@mantine/core";
 import { useThemeContext } from "../../Providers/ThemeProvider";
+import { useAuthContext } from "../../contexts/AuthContext";
 const emptyContent = JSON.stringify([
   {
     id: "77388834-76ac-4d3c-9477-c6b92a71e260",
@@ -36,59 +36,69 @@ export const MergeBlockEditor: FC<{
 }> = ({ main, branch }) => {
   const { theme } = useThemeContext();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { currentUser } = useAuthContext();
   // const [initialContent, setInitialContent] = useState<string | null>(null);
   const merge = searchParams.get("merge");
 
-  // if (merge === "replace") {
-  // 	const editor: BlockNoteEditor | null = useBlockNote({
-  // 		initialContent: JSON.parse(branch?.content),
-  // 		onEditorReady(editor) {
-  // 			editor?.topLevelBlocks.forEach((block) => {
-  // 				editor.updateBlock(block?.id, {
-  // 					props: {
-  // 						...block.props,
-  // 						textColor: "blue",
-  // 					},
-  // 				});
-  // 			});
-  // 		},
-  // 	});
-  // 	return (
-  // 		<div className="h-[calc(100dvh-7.3rem)] border bg-base border-border dark:border-borderDark rounded-lg w-full">
-  // 			<div className="max-w-4xl mx-auto py-10 h-[calc(100dvh-7.5rem)] overflow-y-auto">
-  // 				<Textarea
-  // 					placeholder="Title"
-  // 					defaultValue={branch.title}
-  // 					minRows={1}
-  // 					maxRows={4}
-  // 					styles={{
-  // 						...inputStyles,
-  // 						input: {
-  // 							...inputStyles.input,
-  // 							fontSize: "3rem !important",
-  // 							fontWeight: 800,
-  // 							padding: "0 3rem",
-  // 							height: "auto",
-  // 							border: "none",
-  // 							backgroundColor: "transparent",
-  // 							color: "#25262b",
-  // 							margin: "1rem auto",
-  // 						},
-  // 					}}
-  // 				/>
-  // 				<BlockNoteView editor={editor} />
-  // 			</div>
-  // 		</div>
-  // 	);
-  // }
+  const compareBlocks = (
+    originalBlocks: BlockNoteEditor["topLevelBlocks"],
+    editedBlocks: BlockNoteEditor["topLevelBlocks"],
+  ): BlockNoteEditor["topLevelBlocks"] => {
+    /** @ts-ignore*/
+    return originalBlocks.map((block) => {
+      const editedBlock = editedBlocks.find(
+        (b) =>
+          b.id === block.id &&
+          // @ts-ignore
+          (Date.parse(b.dateUpdated) > Date.parse(block.dateUpdated) ||
+            // @ts-ignore
+            (b?.userId !== block?.userId && block.content !== b.content)),
+      );
+
+      const deletedBlock = originalBlocks.find(
+        (b) => b.id === block.id && !editedBlocks.find((eb) => eb.id === b.id),
+      );
+
+      if (deletedBlock) {
+        return {
+          ...block,
+          content: "-",
+          props: {
+            ...block.props,
+            textColor: "red",
+            styles: {
+              strike: true,
+            },
+          },
+        };
+      }
+
+      if (!editedBlock) {
+        return block;
+      }
+
+      if (editedBlock.content !== block.content) {
+        return {
+          ...block,
+          props: {
+            ...block.props,
+            textColor: "red",
+            styles: {
+              strike: true,
+            },
+          },
+        };
+      }
+
+      return block;
+    });
+  };
+
   const initialContent: string | null =
     merge === "replace"
       ? branch?.content
       : JSON.stringify(
-          highlightDifferences(
-            JSON.parse(main?.content || emptyContent),
-            JSON.parse(branch?.content),
-          ),
+          compareBlocks(JSON.parse(main?.content || emptyContent), JSON.parse(branch?.content)),
         );
   const editor: BlockNoteEditor | null = useBlockNote(
     {
@@ -105,6 +115,10 @@ export const MergeBlockEditor: FC<{
             })
           : null;
       },
+      onTextCursorPositionChange(editor) {
+        console.log("changed");
+        console.log(editor.getTextCursorPosition());
+      },
       domAttributes: {
         blockContainer: {
           // class: "dark:!text-coolGrey-3 !text-coolGrey-7",
@@ -113,9 +127,36 @@ export const MergeBlockEditor: FC<{
           class: "!bg-transparent",
         },
       },
+
+      editable: false,
     },
-    [merge, initialContent],
+    [merge, initialContent, branch],
   );
+  interface RichTextBlock {
+    id: string;
+    type: string;
+    props: { [key: string]: any };
+    content: string[];
+    children: any[];
+  }
+
+  if (!merge || !editor || !branch || !main || !initialContent)
+    return (
+      <div className="relative w-full grow rounded-lg border border-border dark:border-borderDark">
+        <div className="mx-auto h-[calc(100dvh-7.5rem)] max-w-screen-md overflow-y-auto p-9">
+          <Skeleton height={75} width="100%" radius="sm" mb={10} mt={20} />
+          <Skeleton height={15} width="25%" radius="sm" mb={10} mt={20} />
+          <Skeleton height={30} width="100%" radius="sm" mb={3} />
+          <Skeleton height={30} width="80%" radius="sm" mb={3} />
+          <Skeleton height={30} width="95%" radius="sm" mb={3} />
+          <Skeleton height={30} width="65%" radius="sm" mb={3} />
+          <Skeleton height={15} width="85%" radius="sm" mb={10} mt={20} />
+          <Skeleton height={30} width="70%" radius="sm" mb={3} />
+          <Skeleton height={30} width="90%" radius="sm" mb={3} />
+          <Skeleton height={30} width="90%" radius="sm" mb={3} />
+        </div>
+      </div>
+    );
 
   return (
     <div className="relative w-full grow rounded-lg">
