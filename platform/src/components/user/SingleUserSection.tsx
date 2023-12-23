@@ -4,7 +4,6 @@ import { IProject } from "../../interfaces/IProject";
 import { GridProjects } from "../Project/GridProjects";
 import { NoChapters } from "../Chapters";
 import { IPost } from "../../interfaces/IPost";
-import { PostCard } from "../Posts/PostCard";
 import { useNavigate } from "react-router-dom";
 import { PostList } from "../Posts/PostList";
 
@@ -47,10 +46,12 @@ export const SingleUserSection: FC<{
         className="flex !grow !rounded-md !p-0 dark:border-l-black/70"
       >
         {projects.length === 0 ? (
-          <NoChapters
-            title="User has no public projects"
-            p1="This user does not have any public projects. If you know them, you can still send them a message"
-          />
+          <div className="w-full rounded-lg border border-border dark:border-none dark:bg-baseDarker">
+            <NoChapters
+              title="User has no public projects"
+              p1="This user does not have any public projects. If you know them, you can still send them a message"
+            />
+          </div>
         ) : (
           <div className="flex flex-row flex-wrap content-start gap-2">
             {projects.map((project) => (
@@ -66,18 +67,15 @@ export const SingleUserSection: FC<{
         className="flex !grow !rounded-md !p-0 dark:border-l-black/70"
       >
         {posts.length === 0 ? (
-          <NoChapters
-            title="User has no posts"
-            p1="This user does has not created any posts. If you know them, you can still send them a message"
-          />
+          <div className="w-full rounded-lg border border-border dark:border-none dark:bg-baseDarker">
+            <NoChapters
+              title="User has no posts"
+              p1="This user does has not created any posts. If you know them, you can still send them a message"
+            />
+          </div>
         ) : (
           <div className="flex w-full flex-row flex-wrap content-start gap-2">
             {posts?.map((post) => (
-              // <PostCard
-              //   post={post}
-              //   openPost={() => navigate(`/posts/${post.uid}`)}
-              //   width="w-[20.3rem]"
-              // />
               <PostList openPost={() => navigate(`/posts/${post.uid}`)} post={post} />
             ))}
           </div>

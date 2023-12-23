@@ -133,10 +133,12 @@ export const SingleUserPage: FC<{}> = () => {
         )}
       </section>
 
-      <section className="mx-auto mt-2 flex max-w-screen-2xl flex-wrap px-6">
+      <section className="flex-w]rap mx-auto mt-2 flex max-w-screen-2xl px-6">
         <div className="flex w-80 flex-col gap-4 self-start">
-          <Trophies currentUser={user} isPublic height="h-[14rem]" />
-          <div className="flex flex-col gap-2 rounded-lg p-4 dark:bg-baseDarker">
+          <div className="rounded-lg border border-border dark:border-none dark:bg-baseDarker">
+            <Trophies currentUser={user} isPublic height="h-[14rem]" />
+          </div>
+          <div className="flex flex-col gap-2 rounded-lg border border-border p-4 dark:border-none dark:bg-baseDarker">
             <h2 className="text-sm font-bold">Interests</h2>
             <div className="flex flex-wrap gap-2">
               {user?.interests.length === 0 ? (
@@ -158,7 +160,7 @@ export const SingleUserPage: FC<{}> = () => {
               )}
             </div>
           </div>
-          <div className="flex flex-col gap-2 rounded-lg p-4 dark:bg-baseDarker">
+          <div className="flex flex-col gap-2 rounded-lg border border-border p-4 dark:border-none dark:bg-baseDarker">
             <h2 className="text-sm font-bold">Roles</h2>
             <div className="flex flex-wrap gap-2">
               {user?.roles?.length === 0 ? (
@@ -198,7 +200,7 @@ export const SingleUserPage: FC<{}> = () => {
           </div>
         </div>
 
-        <div className="w-80 self-start rounded-lg dark:bg-baseDarker">
+        <div className="w-80 self-start rounded-lg border border-border dark:border-none dark:bg-baseDarker">
           <ProfileFriends user={user} />
         </div>
       </section>

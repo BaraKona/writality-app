@@ -1,24 +1,32 @@
 import { IconUserHeart } from "@tabler/icons-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { BetaIcon } from "../BetaIcon";
 import { IUser } from "../../interfaces/IUser";
 
-export const ProfileFriends = ({ user }: { user: IUser }) => {
+export const ProfileFriends = ({ user, height }: { user: IUser; height?: string }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   if (user?.friends?.length === 0) {
     return (
       <section className="flex h-56 w-full grow flex-col items-center justify-center gap-2 rounded-lg  p-4">
         <p className="text-xs">No friends found 🫠</p>
         <p className="text-center text-xs">
-          Don't worry, you can always make new friends by inviting them to Collab.
+          {location.pathname === "/profile" ? (
+            <>
+              You have no friends 😔. Your friends will appear here (hopefully soonish 🤞) and you
+              can chat with them.
+            </>
+          ) : (
+            <>This user has no friends 😔. Their friends will appear here (hopefully soonish 🤞)</>
+          )}
         </p>
       </section>
     );
   }
   return (
-    <section className="flex w-full max-w-[24rem] grow flex-col gap-2 rounded-lg  p-2">
+    <section className="flex w-full max-w-[24rem] flex-col gap-2 rounded-lg p-2">
       <div className="flex items-center gap-2">
         <h2 className="flex items-center gap-2 text-sm font-semibold">
           <IconUserHeart size={18} stroke={2} />
@@ -28,7 +36,7 @@ export const ProfileFriends = ({ user }: { user: IUser }) => {
           {user?.friends?.length}
         </span>
       </div>
-      <div className="flex grow flex-col items-start gap-2 overflow-auto">
+      <div className={`flex grow flex-col items-start gap-2 overflow-y-auto ${height}`}>
         {user?.friends?.map((friend: any) => (
           <div
             key={friend?.user.uid}

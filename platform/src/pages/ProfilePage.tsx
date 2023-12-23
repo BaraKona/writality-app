@@ -13,11 +13,9 @@ import { ProfileFriends } from "../components/Profile/ProfileFriends";
 import { DailyCount } from "../components/Profile/DailyCount";
 import { Trophies } from "../components/Profile/Trophies";
 import { RecentNotifications } from "../components/Profile/RecentNotifications";
-import { useQueryClient } from "react-query";
 
 export const ProfilePage = () => {
   const { currentUser } = useAuthContext();
-  const queryClient = useQueryClient();
   const { data: projects, isLoading } = useUserProfileProjects();
 
   const [parent] = useAutoAnimate();
@@ -28,7 +26,6 @@ export const ProfilePage = () => {
   function greeting() {
     const today = new Date();
     const curHr = today.getHours();
-
     if (curHr < 12) {
       return "Good Morning";
     } else if (curHr < 18) {
@@ -74,7 +71,6 @@ export const ProfilePage = () => {
           </div>
           <Tabs
             className=" !my-4 w-full border-none"
-            // onTabChange={(tab) => navigate(`/profile/${tab}`)}
             defaultValue="projects"
             radius={"md"}
             keepMounted={false}
@@ -109,7 +105,7 @@ export const ProfilePage = () => {
       <div className="bg-coolGrey flex w-[20rem] flex-col gap-1 rounded-lg bg-coolGrey-1 px-2 dark:bg-baseDarker">
         <Trophies currentUser={currentUser} />
         <DailyCount />
-        <ProfileFriends user={currentUser} />
+        <ProfileFriends user={currentUser} height="h-[16rem]" />
         <RecentNotifications />
       </div>
     </div>
