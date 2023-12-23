@@ -29,14 +29,13 @@ export const Notifications: FC<{
         {notification?.map((notification: any, index: number) => (
           <Popover
             key={index}
-            width={300}
+            width={250}
             withArrow
             zIndex={1000}
             shadow="md"
+            position="top"
             onOpen={() => {
-              !notification.notificationRead
-                ? openNotification(notification._id)
-                : null;
+              !notification.notificationRead ? openNotification(notification._id) : null;
             }}
           >
             <Popover.Target>
@@ -65,41 +64,36 @@ export const Notifications: FC<{
                 <Divider className="!mb-2 !border-coolGrey-1 dark:!border-borderDark" />
                 <p className="text-sm">{notification.notification}</p>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-normal">
-                    {notification.notificationBody}
-                  </span>
+                  <span className="text-xs font-normal">{notification.notificationBody}</span>
                 </div>
-                {notification?.notificationType === "project-invitation" &&
-                  notification.active && (
-                    <NotificationActions
-                      onClick={() => {
-                        acceptProjectInvitation({
-                          projectId: notification.ctaId,
-                          notificationId: notification._id,
-                        });
-                      }}
-                    />
-                  )}
-                {notification?.notificationType === "friend-request" &&
-                  notification.active && (
-                    <NotificationActions
-                      onClick={() => {
-                        acceptFriendRequest({
-                          userId: notification.ctaId,
-                          notificationId: notification._id,
-                        });
-                      }}
-                    />
-                  )}
-                {notification?.notificationType === "post-comment" &&
-                  notification.active && (
-                    <ButtonWrapper
-                      className="ml-auto bg-coolGrey-1 p-2 px-4 text-xs hover:!bg-coolGrey-2 dark:bg-baseDarker"
-                      onClick={() => navigate(`/posts/${notification.ctaId}`)}
-                    >
-                      View Post
-                    </ButtonWrapper>
-                  )}
+                {notification?.notificationType === "project-invitation" && notification.active && (
+                  <NotificationActions
+                    onClick={() => {
+                      acceptProjectInvitation({
+                        projectId: notification.ctaId,
+                        notificationId: notification._id,
+                      });
+                    }}
+                  />
+                )}
+                {notification?.notificationType === "friend-request" && notification.active && (
+                  <NotificationActions
+                    onClick={() => {
+                      acceptFriendRequest({
+                        userId: notification.ctaId,
+                        notificationId: notification._id,
+                      });
+                    }}
+                  />
+                )}
+                {notification?.notificationType === "post-comment" && notification.active && (
+                  <ButtonWrapper
+                    className="ml-auto bg-coolGrey-1 p-2 px-4 text-xs hover:!bg-coolGrey-2 dark:bg-baseDarker"
+                    onClick={() => navigate(`/posts/${notification.ctaId}`)}
+                  >
+                    View Post
+                  </ButtonWrapper>
+                )}
               </div>
             </Popover.Dropdown>
           </Popover>
@@ -108,8 +102,7 @@ export const Notifications: FC<{
         {(!notification || notification.length === 0) && (
           <div className="flex flex-col  items-center justify-center gap-4 text-center text-xs font-normal text-blueTextLight">
             <SmallText className="text-center" light>
-              Your inbox is empty. You will receive notifications and messages
-              here.
+              Your inbox is empty. You will receive notifications and messages here.
             </SmallText>
             <IconInbox size={16} className="mx-auto mt-2" />
           </div>

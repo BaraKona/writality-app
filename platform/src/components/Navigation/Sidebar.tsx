@@ -85,10 +85,7 @@ export const Sidebar: FC<{}> = () => {
       >
         <div className="flex w-full grow flex-col">
           <div className="flex h-full grow py-3" ref={parent}>
-            <SidebarNav
-              sidebarOpen={sidebarOpen}
-              setSidebarOpen={setSidebarOpen}
-            />
+            <SidebarNav sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             {sidebarOpen && (
               <CategoryListItem className="mr-3 flex h-full w-full grow flex-col rounded-lg bg-base py-2 shadow dark:bg-baseDark">
                 <Link to="/" className="mb-2 self-center rounded-lg px-2 py-1">
@@ -143,9 +140,7 @@ export const Sidebar: FC<{}> = () => {
                   {sidebarNav === bookmarks && <FavouriteTabItems />}
                   {sidebarNav === friends && <UserFriends chatId={userChat} />}
                   {sidebarNav === writingGroup && <UserWritingGroups />}
-                  {sidebarNav === inbox && (
-                    <Notifications notification={currentUser?.inbox} />
-                  )}
+                  {sidebarNav === inbox && <Notifications notification={currentUser?.inbox} />}
                 </section>
               </CategoryListItem>
             )}
