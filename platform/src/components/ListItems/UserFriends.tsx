@@ -17,8 +17,8 @@ export const UserFriends: FC<{ chatId: string }> = ({ chatId }) => {
     return (
       <section className="grow" ref={parent}>
         <SmallText className="text-center" light>
-          You have no friends 😔. Your friends will appear here (hopefully
-          soonish 🤞) and you can chat with them.
+          You have no friends 😔. Your friends will appear here (hopefully soonish 🤞) and you can
+          chat with them.
         </SmallText>
       </section>
     );
@@ -31,12 +31,10 @@ export const UserFriends: FC<{ chatId: string }> = ({ chatId }) => {
             key={friend?.user?.uid}
             onClick={() => setUserChat(`${friend?.chat._id}`)}
             className={`group relative flex cursor-pointer items-center gap-1 rounded-md p-2 py-1 text-xs font-medium transition-all duration-500 ease-in-out hover:bg-coolGrey-1 dark:hover:bg-hoverDark ${
-              userChat?.split("_")[0] === friend?.chat._id &&
-              `bg-coolGrey-1 dark:bg-hoverDark`
+              userChat?.split("_")[0] === friend?.chat._id && `bg-coolGrey-1 dark:bg-hoverDark`
             }`}
           >
-            {friend?.chat?.users?.find((user) => user.user === currentUser._id)
-              ?.isRead === false &&
+            {friend?.chat?.users?.find((user) => user.user === currentUser._id)?.isRead === false &&
               chatId !== friend?.chat._id && (
                 <div className="absolute right-2 top-3.5 h-2 w-2 rounded-full bg-green-500 dark:bg-green-400" />
               )}

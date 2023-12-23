@@ -20,6 +20,7 @@
 		"@mantine/carousel": "^6.0.16",
 		"@mantine/core": "^6.0.16",
 		"@mantine/hooks": "^6.0.16",
+		"@preact/signals": "^1.2.2",
 		"@tabler/icons-react": "^2.41.0",
 		"@types/diff": "^5.0.3",
 		"@vercel/analytics": "^1.0.1",

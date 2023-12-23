@@ -46,11 +46,7 @@ export const ProfilePage = () => {
           alt="Banner by Jez Timms on Unsplash"
         />
         <div className="dark:border-baseBorder absolute left-16 top-[10.5rem] mx-auto flex h-28 w-28 items-center justify-center rounded-full border-[0.75rem] border-base bg-coolGrey-1/70 dark:border-baseDark dark:bg-borderDark/70">
-          <div
-            className={`truncate text-4xl font-bold  ${initialsColor(
-              currentUser.name,
-            )} -mt-2`}
-          >
+          <div className={`truncate text-4xl font-bold  ${initialsColor(currentUser.name)} -mt-2`}>
             {initials(currentUser.name)}
           </div>
         </div>
@@ -61,10 +57,9 @@ export const ProfilePage = () => {
           </Title>
           <div className="flex max-w-3xl flex-col">
             <p className="-mt-4 text-sm text-coolGrey-4 dark:text-coolGrey-3">
-              "So here is why I write what I do: We all have futures. We all
-              have pasts. We all have stories. And we all, every single one of
-              us, no matter who we are and no matter what’s been taken from us
-              or what poison we’ve internalized or how hard we’ve had to work to
+              "So here is why I write what I do: We all have futures. We all have pasts. We all have
+              stories. And we all, every single one of us, no matter who we are and no matter what’s
+              been taken from us or what poison we’ve internalized or how hard we’ve had to work to
               expel it –– we all get to dream."
             </p>
             <div>
@@ -100,11 +95,7 @@ export const ProfilePage = () => {
             </Tabs.List>
             <Tabs.Panel value="projects" ref={parent}>
               <div className="flex flex-col gap-2 rounded-lg py-2">
-                <ProfileProjects
-                  projects={projects}
-                  createProject={mutate}
-                  isLoading={isLoading}
-                />
+                <ProfileProjects projects={projects} createProject={mutate} isLoading={isLoading} />
               </div>
             </Tabs.Panel>
             <Tabs.Panel value="posts" ref={parent}>
@@ -113,20 +104,12 @@ export const ProfilePage = () => {
               </div>
             </Tabs.Panel>
           </Tabs>
-
-          {/* <div className="flex flex-col gap-2 rounded-lg py-2">
-            <ProfileProjects
-              projects={projects}
-              createProject={mutate}
-              isLoading={isLoading}
-            />
-          </div> */}
         </div>
       </div>
       <div className="bg-coolGrey flex w-[20rem] flex-col gap-1 rounded-lg bg-coolGrey-1 px-2 dark:bg-baseDarker">
         <Trophies currentUser={currentUser} />
         <DailyCount />
-        <ProfileFriends />
+        <ProfileFriends user={currentUser} />
         <RecentNotifications />
       </div>
     </div>

@@ -6,6 +6,7 @@ import { NoChapters } from "../Chapters";
 import { IPost } from "../../interfaces/IPost";
 import { PostCard } from "../Posts/PostCard";
 import { useNavigate } from "react-router-dom";
+import { PostList } from "../Posts/PostList";
 
 export const SingleUserSection: FC<{
   projects?: IProject[];
@@ -53,7 +54,7 @@ export const SingleUserSection: FC<{
         ) : (
           <div className="flex flex-row flex-wrap content-start gap-2">
             {projects.map((project) => (
-              <GridProjects project={project} size="basis-[15.1rem]" />
+              <GridProjects project={project} size="basis-[16.5rem]" />
             ))}
           </div>
         )}
@@ -72,11 +73,12 @@ export const SingleUserSection: FC<{
         ) : (
           <div className="flex w-full flex-row flex-wrap content-start gap-2">
             {posts?.map((post) => (
-              <PostCard
-                post={post}
-                openPost={() => navigate(`/posts/${post.uid}`)}
-                width="w-[20.3rem]"
-              />
+              // <PostCard
+              //   post={post}
+              //   openPost={() => navigate(`/posts/${post.uid}`)}
+              //   width="w-[20.3rem]"
+              // />
+              <PostList openPost={() => navigate(`/posts/${post.uid}`)} post={post} />
             ))}
           </div>
         )}

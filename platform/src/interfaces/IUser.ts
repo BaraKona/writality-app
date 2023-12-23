@@ -1,5 +1,3 @@
-import { IChat } from "./IChat";
-
 export enum notificationType {
   projectInvite = "project-invitation",
   projectRevoke = "project-invitation-revoke",
@@ -27,21 +25,26 @@ interface notification {
   ctaId?: string;
 }
 
-export type IUser = {
-  _id: string;
+export interface IUser {
   name: string;
   email: string;
   password: string;
   token: string;
   uid: string;
+  loginStreak?: number;
+  loginDates?: {
+    date: Date;
+    wordCount: number;
+  }[];
+  emailVerified?: boolean;
+  isOnboardingCompleted?: boolean;
   createdAt: Date;
   role?: string;
-  loginStreak?: number;
+  favouriteProjects?: string[];
   dailyWordCount?: number;
   monthlyWordCount?: number;
   yearlyWordCount?: number;
   allTimeWordCount?: number;
-  favouriteProjects?: string[];
   bookmarks?: {
     tabType: string;
     url: string;
@@ -55,12 +58,18 @@ export type IUser = {
   languages?: string[];
   primaryLanguage?: string;
   isPublic: boolean;
+  inbox: notification[];
   friends: {
     user: IUser;
-    dateAdded: string;
-    chat: IChat;
+    dateAdded: Date;
+    chatRead?: boolean;
 
-    chatRead: boolean;
+    chat: {
+      _id: string;
+      users: {
+        user: IUser;
+        isRead: boolean;
+      }[];
+    };
   }[];
-  inbox?: notification[];
-};
+}

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { initials, initialsColor } from "../../utils/userIcons";
 import { UserCountryRenderer } from "../../components/UserCountryRenderer";
 import { ReadMoreText } from "../../components/ReadMoreText";
-import { IconChevronLeft, IconClock, IconUserPlus } from "@tabler/icons-react";
+import { IconChevronLeft, IconMessage, IconUserPlus } from "@tabler/icons-react";
 import { IUser } from "../../interfaces/IUser";
 import { SingleUserSection } from "../../components/user/SingleUserSection";
 import { useSingleUserProjects } from "../../hooks/public/usePublicUserProject";
@@ -15,6 +15,8 @@ import { useSendFriendRequest } from "../../hooks/notification/useSendFriendRequ
 import { BetaIcon } from "../../components/BetaIcon";
 import { Trophies } from "../../components/Profile/Trophies";
 import { useDefaultDate } from "../../hooks/useTimeFromNow";
+import { useLocalStorage } from "@mantine/hooks";
+import { ProfileFriends } from "../../components/Profile/ProfileFriends";
 
 export const SingleUserPage: FC<{}> = () => {
   const { userId } = useParams();
@@ -28,77 +30,160 @@ export const SingleUserPage: FC<{}> = () => {
   const maxTextLength = 800;
   const navigate = useNavigate();
 
+  const [userChat, setUserChat] = useLocalStorage({
+    key: "userChat",
+  });
+
   if (!user) {
     return null;
   }
 
   function renderButton() {
     const isFriend = currentUser?.friends?.some(
+      // @ts-ignore
       (friend: IUser["friends"][0]) => friend?.user._id === user._id,
     );
     const isUser = currentUser._id === user?._id;
     return !isFriend && !isUser;
   }
 
-  console.log(user.loginDates);
-
   return (
     <section className="relative overflow-y-auto rounded-lg">
       <BannerImage
-        image="https://images.unsplash.com/photo-1544604860-206456f08229"
+        image="https://images.unsplash.com/photo-1502485019198-a625bd53ceb7"
         alt="Post banner"
-        styling="rounded-br-none"
+        styling="rounded-b-none"
+        height="h-[20rem] "
       />
-
       <button
         className="absolute left-2 top-2 rounded-lg border border-border bg-base p-1.5 hover:bg-gray-100 dark:border-borderDark dark:bg-baseDark dark:hover:bg-hoverDark"
         onClick={() => navigate("/users")}
       >
         <IconChevronLeft size={18} />
       </button>
-      <div className="absolute left-16 top-[10rem] flex h-32 w-32 items-center justify-center rounded-full border-[10px] border-base !bg-coolGrey-2/70 dark:border-baseDark dark:!bg-coolGrey-5/70 dark:bg-borderDark">
-        <div
-          className={`-mt-1 truncate text-4xl font-bold ${initialsColor(
-            user?.name,
-          )}`}
-        >
-          {initials(user?.name)}
-        </div>
-      </div>
 
-      <div className="flex grow pl-16">
-        <div className="max-w-1/2 relative grow basis-[30rem]  px-4 pb-6 ">
-          <div className="absolute right-4 top-4 flex flex-col gap-2 text-sm">
-            <div className="flex items-center gap-2">
-              <IconClock size={20} /> Member since:{" "}
-              {new Date(user?.createdAt).toLocaleDateString()}
+      <section className="relative mx-auto -mt-[20rem] flex h-[20rem] w-full max-w-sm flex-col items-center justify-center gap-3">
+        {user?.role === "beta-tester" && <BetaIcon size={24} />}
+        <div className="mx-auto flex h-32 w-32 border-spacing-1 items-center justify-center rounded-full border-[6px] border-dashed border-emerald-600 dark:border-base">
+          <div className="flex h-full w-full items-center justify-center rounded-full bg-base/80 bg-blend-darken dark:bg-baseDark">
+            <div className={`-mt-1 truncate text-4xl font-bold ${initialsColor(user?.name)}`}>
+              {initials(user?.name)}
             </div>
-            <div className="flex items-center gap-2">
-              <IconClock size={20} /> Last seen:{" "}
-              {user.loginDates && user.loginDates.length > 0
-                ? useDefaultDate(
-                    user?.loginDates[user?.loginDates.length - 1]?.date,
-                  )
-                : "never"}
-            </div>
-            {renderButton() && (
-              <button
-                className=" self-end rounded-lg p-1.5 hover:bg-gray-100 dark:bg-fuchsia-800/70 dark:hover:bg-fuchsia-800"
-                onClick={() => sendFriendRequest(user?.uid)}
-              >
-                <IconUserPlus size={20} />
-              </button>
-            )}
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="mt-20 flex flex-col">
-              <h2 className="flex items-center gap-2 text-4xl font-bold text-coolGrey-8 dark:text-coolGrey-2">
-                {user.name}
-                {user?.role === "beta-tester" && <BetaIcon size={24} />}
-              </h2>
-              {/* <p>{user.email}</p> */}
-              <UserCountryRenderer country={user?.country} />
+        </div>
+        <div className="flex flex-col items-center justify-end text-coolGrey-4">
+          <h2 className="text-xl font-bold">{user?.name}</h2>
+          <UserCountryRenderer country={user?.country} />
+        </div>
+      </section>
+      <section
+        className={`flex h-20 items-center gap-10 rounded-b-lg rounded-bl-lg
+         bg-slate-700 px-16 dark:bg-baseDarker`}
+      >
+        <div className="flex flex-col items-center text-sm">
+          <p className="text-coolGrey-4">Member since:</p>
+          <p className="text-base font-bold">{useDefaultDate(user?.createdAt)}</p>
+        </div>
+        <div className="flex flex-col items-center text-sm">
+          <p className="text-coolGrey-4">Last seen</p>
+          <p className="text-base font-bold">
+            {user.loginDates && user.loginDates.length > 0
+              ? useDefaultDate(user?.loginDates[user?.loginDates.length - 1]?.date)
+              : "never"}
+          </p>
+        </div>
+        <div className="flex flex-col items-center text-sm">
+          <p className="text-coolGrey-4">Streak</p>
+          <p className="text-base font-bold">{user?.loginStreak}</p>
+        </div>
+        <div className="flex flex-col items-center text-sm">
+          <p className="text-coolGrey-4">Words written</p>
+          <p className="text-base font-bold">{user?.allTimeWordCount}</p>
+        </div>
+        <div className="flex flex-col items-center text-sm">
+          <p className="text-coolGrey-4">Projects</p>
+          <p className="text-base font-bold">{projects?.length}</p>
+        </div>
+        <div className="flex flex-col items-center text-sm">
+          <p className="text-coolGrey-4">Posts</p>
+          <p className="text-base font-bold">{posts?.length}</p>
+        </div>
+
+        {renderButton() ? (
+          <button
+            className="ml-auto flex items-center gap-2 rounded-lg bg-green-500 p-1.5 px-4 text-sm font-semibold hover:bg-gray-100 dark:bg-green-700 dark:text-baseDarker dark:hover:bg-green-800"
+            onClick={() => sendFriendRequest(user?.uid)}
+          >
+            <IconUserPlus size={18} /> Add friend
+          </button>
+        ) : (
+          <button
+            className="ml-auto flex items-center gap-2 rounded-lg bg-green-500 p-1.5 px-4 text-sm font-semibold hover:bg-gray-100 dark:bg-green-700 dark:text-baseDarker dark:hover:bg-green-800"
+            onClick={() =>
+              setUserChat(
+                `${currentUser?.friends?.find(
+                  // @ts-ignore
+                  (friend: IUser["friends"][0]) => friend?.user._id === user._id,
+                )?.chat._id}`,
+              )
+            }
+          >
+            <IconMessage size={18} /> Send message
+          </button>
+        )}
+      </section>
+
+      <section className="mx-auto mt-2 flex max-w-screen-2xl flex-wrap px-6">
+        <div className="flex w-80 flex-col gap-4 self-start">
+          <Trophies currentUser={user} isPublic height="h-[14rem]" />
+          <div className="flex flex-col gap-2 rounded-lg p-4 dark:bg-baseDarker">
+            <h2 className="text-sm font-bold">Interests</h2>
+            <div className="flex flex-wrap gap-2">
+              {user?.interests.length === 0 ? (
+                <>
+                  {[1, 2, 3].map((i) => (
+                    <span className="flex items-center justify-center rounded-lg bg-coolGrey-1 p-1.5 px-4  text-center text-sm capitalize dark:bg-coolGrey-8/60">
+                      no interests
+                    </span>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {user?.interests.map((interest: IUser["interests"]) => (
+                    <span className="flex items-center justify-center rounded-lg bg-orange-300 p-1.5 px-4 text-center text-sm capitalize dark:bg-orange-900">
+                      {interest}
+                    </span>
+                  ))}
+                </>
+              )}
             </div>
+          </div>
+          <div className="flex flex-col gap-2 rounded-lg p-4 dark:bg-baseDarker">
+            <h2 className="text-sm font-bold">Roles</h2>
+            <div className="flex flex-wrap gap-2">
+              {user?.roles?.length === 0 ? (
+                <>
+                  {[1, 2, 3, 4].map((i) => (
+                    <span className="flex items-center justify-center rounded-lg bg-coolGrey-1 p-1.5 px-4 text-center text-sm capitalize dark:bg-coolGrey-8/60">
+                      no roles
+                    </span>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {user.roles.map((role: IUser["roles"]) => (
+                    <span className="flex items-center justify-center rounded-lg bg-rose-400 p-1.5 px-4  text-center text-sm capitalize dark:bg-pink-950">
+                      {role}
+                    </span>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-1/2 relative grow basis-[30rem]  px-4 pb-6 ">
+          <div className="flex flex-col gap-2">
             <div className="flex justify-between gap-2">
               <div>
                 <h2 className=" font-bold">Bio</h2>
@@ -108,56 +193,15 @@ export const SingleUserPage: FC<{}> = () => {
                   errorText="This user has not written anything about themselves yet."
                 />
               </div>
-              <div className="flex min-w-[20rem]">
-                <Trophies currentUser={user} isPublic height="h-[14rem]" />
-              </div>
             </div>
             <SingleUserSection projects={projects} posts={posts} />
           </div>
         </div>
-        <section className="flex w-1/2 max-w-[30rem] bg-coolGrey-0 px-4 dark:bg-baseDarker ">
-          <div className="flex min-h-[693px] flex-col border-border transition-all duration-300 ease-in-out dark:border-borderDark">
-            <h2 className="my-4 font-bold">Interests</h2>
-            <div className="flex flex-wrap gap-2">
-              {user.interests.length === 0 && (
-                <>
-                  {[1, 2, 3].map((i) => (
-                    <span className="flex h-24 w-24 items-center justify-center rounded-lg bg-coolGrey-1 p-2 text-center text-sm capitalize dark:bg-coolGrey-8/60">
-                      no interests
-                    </span>
-                  ))}
-                </>
-              )}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {user.interests.map((interest: IUser["interests"]) => (
-                <span className="flex  h-24 w-24 items-center justify-center rounded-lg bg-orange-300 p-2 text-center text-sm capitalize dark:bg-orange-900">
-                  {interest}
-                </span>
-              ))}
-            </div>
-            <h2 className="my-4 font-bold">Roles</h2>
-            <div className="flex flex-wrap gap-2">
-              {user?.roles?.length === 0 && (
-                <>
-                  {[1, 2, 3, 4].map((i) => (
-                    <span className="flex h-24 w-24 items-center justify-center rounded-lg bg-coolGrey-1 p-2 text-center text-sm capitalize dark:bg-coolGrey-8/60">
-                      no roles
-                    </span>
-                  ))}
-                </>
-              )}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {user.roles.map((role: IUser["roles"]) => (
-                <span className="flex h-24 w-24 items-center justify-center rounded-lg bg-rose-400 p-2 text-center text-sm capitalize dark:bg-pink-950">
-                  {role}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
-      </div>
+
+        <div className="w-80 self-start rounded-lg dark:bg-baseDarker">
+          <ProfileFriends user={user} />
+        </div>
+      </section>
     </section>
   );
 };

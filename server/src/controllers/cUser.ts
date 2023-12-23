@@ -116,6 +116,7 @@ export const getAllUsers = async (req: any, res: any) => {
 		const users = await User.find({
 			isPublic: true,
 			emailVerified: true,
+			isOnboardingCompleted: true,
 		})
 			.select("uid name email createdAt country roles aboutMe role")
 			.sort({ createdAt: -1 });
@@ -129,7 +130,10 @@ export const getAllUsers = async (req: any, res: any) => {
 export const getSingleUser = async (req: any, res: any) => {
 	const userId = req.params.userId;
 	try {
-		const user = await User.findOne({ uid: userId }).select("-password");
+		const user = await (await User.findOne({ uid: userId }).select("-password")).populate({
+			path: "friends.user",
+			select: "uid name country role",
+		})
 		res.status(200).json(user);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
