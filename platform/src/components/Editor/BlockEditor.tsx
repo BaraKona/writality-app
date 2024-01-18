@@ -23,13 +23,7 @@ export const BlockEditor: FC<{
   wordCount: number;
   createBranch?: () => void;
   title: string;
-  save: ({
-    content,
-    wordCount,
-  }: {
-    content: string;
-    wordCount: number;
-  }) => void | Promise<void>;
+  save: ({ content, wordCount }: { content: string; wordCount: number }) => void | Promise<void>;
 }> = ({
   content,
   isLoading,
@@ -94,9 +88,7 @@ export const BlockEditor: FC<{
 
   const { theme } = useThemeContext();
 
-  function countWordsFromTopLevelBlocks(
-    topLevelBlocks: BlockNoteEditor["topLevelBlocks"],
-  ) {
+  function countWordsFromTopLevelBlocks(topLevelBlocks: BlockNoteEditor["topLevelBlocks"]) {
     let wordCount = 0;
 
     function countWordsInText(text: string) {
@@ -152,14 +144,11 @@ export const BlockEditor: FC<{
       {!isEditable && !close && (
         <div className="absolute left-0 right-0 top-40 z-10 mx-auto flex max-w-sm flex-col rounded-lg bg-coolGrey-1 p-4 text-sm shadow-md dark:bg-baseDarker">
           <p>
-            As you are working on a collaborative project, you cannot edit the
-            main directly. To update the main content, create a branch and merge
-            it with the main.
+            As you are working on a collaborative project, you cannot edit the main directly. To
+            update the main content, create a branch and merge it with the main.
           </p>
           <Divider className="!my-4 !border-border dark:!border-borderDark" />
-          <p>
-            Owner or admin can change this behaviour in the project settings.
-          </p>
+          <p>Owner or admin can change this behaviour in the project settings.</p>
 
           <div className="ml-auto mt-4 flex gap-2">
             <ButtonWrapper className=" px-4 py-1" onClick={createBranch}>

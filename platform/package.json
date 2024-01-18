@@ -9,8 +9,8 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@blocknote/core": "^0.10.0",
-		"@blocknote/react": "^0.10.0",
+		"@blocknote/core": "^0.11.0",
+		"@blocknote/react": "^0.11.0",
 		"@dnd-kit/core": "^6.0.8",
 		"@dnd-kit/modifiers": "^6.0.1",
 		"@dnd-kit/sortable": "^7.0.2",
