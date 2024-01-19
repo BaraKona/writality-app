@@ -1,10 +1,6 @@
 import { FC, SetStateAction } from "react";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
-import {
-  VscGitPullRequestCreate,
-  VscGitMerge,
-  VscGitPullRequestClosed,
-} from "react-icons/vsc";
+import { VscGitPullRequestCreate, VscGitMerge, VscGitPullRequestClosed } from "react-icons/vsc";
 
 import { IChapterContent } from "../../../interfaces/IChapterContent";
 import { Divider, ScrollArea, Skeleton, Text } from "@mantine/core";
@@ -36,9 +32,8 @@ export const ChapterBranches: FC<{
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const merge = searchParams.get("merge");
-  const { data: chapterBranches, isLoading } = useQuery(
-    ["chapterBranches", chapterId],
-    () => getAllBranches(chapterId as string),
+  const { data: chapterBranches, isLoading } = useQuery(["chapterBranches", chapterId], () =>
+    getAllBranches(chapterId as string),
   );
   const [parent] = useAutoAnimate();
 
@@ -91,10 +86,7 @@ export const ChapterBranches: FC<{
       </div>
       <Divider className="!border-coolGrey-1 dark:!border-borderDark" />
       {chapterBranches?.length > 0 ? (
-        <div
-          className="my-2 px-1 text-coolGrey-7 dark:text-coolGrey-4"
-          ref={parent}
-        >
+        <div className="my-2 px-1 text-coolGrey-7 dark:text-coolGrey-4" ref={parent}>
           <button
             className="flex w-full items-center justify-between gap-1 rounded-md p-1 px-2 text-xs font-semibold hover:bg-coolGrey-1 dark:hover:bg-hoverDark"
             onClick={checkoutMain}
@@ -115,14 +107,11 @@ export const ChapterBranches: FC<{
                 maxHeight: "calc(100dvh - 156px)",
               },
             }}
+            placeholder={<Skeleton height={30} width="100%" />}
             scrollbarSize={6}
           >
             {chapterBranches?.map((branch: any) => (
-              <div
-                key={branch.uid}
-                className="flex flex-col gap-2 py-1"
-                ref={parent}
-              >
+              <div key={branch.uid} className="flex flex-col gap-2 py-1" ref={parent}>
                 <button
                   className={`flex items-center justify-between rounded-md p-1 px-2 text-xs hover:bg-coolGrey-1 dark:hover:bg-hoverDark ${
                     branch.uid === currentBranch?.uid
@@ -154,9 +143,7 @@ export const ChapterBranches: FC<{
                       <button
                         onClick={() => openMergeModal("replace")}
                         className={`group flex w-full items-center gap-1 rounded-md border-border p-1 px-2 text-xs font-medium text-coolGrey-7 hover:bg-coolGrey-1 dark:border-borderDark dark:text-coolGrey-4 dark:hover:bg-hoverDark ${
-                          merge === "replace"
-                            ? "bg-coolGrey-1 dark:bg-hoverDark"
-                            : ""
+                          merge === "replace" ? "bg-coolGrey-1 dark:bg-hoverDark" : ""
                         }`}
                       >
                         <VscGitMerge size={14} /> Merge branch replace main
@@ -164,9 +151,7 @@ export const ChapterBranches: FC<{
                       <button
                         onClick={() => openMergeModal("into")}
                         className={`flex w-full items-center gap-1 rounded-md p-1 px-2 text-xs font-medium text-coolGrey-7 hover:bg-coolGrey-1 dark:text-coolGrey-4 dark:hover:bg-hoverDark ${
-                          merge === "into"
-                            ? "bg-coolGrey-1 dark:bg-hoverDark"
-                            : ""
+                          merge === "into" ? "bg-coolGrey-1 dark:bg-hoverDark" : ""
                         }`}
                       >
                         <VscGitMerge size={14} />

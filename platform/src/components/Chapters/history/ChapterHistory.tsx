@@ -1,14 +1,7 @@
 import { FC } from "react";
 import { Text, ScrollArea, Divider } from "@mantine/core";
 import { useTimeFromNow } from "../../../hooks/useTimeFromNow";
-import {
-  IconMessageDots,
-  IconFilePlus,
-  IconGitMerge,
-  IconRefresh,
-  IconX,
-  IconFileScissors,
-} from "@tabler/icons-react";
+import { IconFilePlus, IconGitMerge, IconX, IconFileScissors } from "@tabler/icons-react";
 import { IChapter } from "../../../interfaces/IChapter";
 import { ButtonWrapper } from "../../buttons/ButtonWrapper";
 import { ChapterSidebarWrapper } from "../ChapterSidebarWrapper";
@@ -44,6 +37,7 @@ export const ChapterHistory: FC<{
         </div>
         <Divider className="!border-coolGrey-1 dark:!border-borderDark" />
         <ScrollArea.Autosize
+          placeholder=""
           scrollbarSize={6}
           className="px-2"
           styles={{

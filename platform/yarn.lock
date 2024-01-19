@@ -225,55 +225,7 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
-"@blocknote/core@0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@blocknote/core/-/core-0.10.0.tgz#5f6949c0f8cda43b5b3754c0b116d4fbda6e36d6"
-  integrity sha512-8IJvD97762qviBcjoN+Vm+sSvBiaHeMu/ylw4BwQnYzZXBZHmhtVkWjBM4zXwY5hQCQIo4qcrvtkwyOIqiE54Q==
-  dependencies:
-    "@emotion/cache" "^11.10.5"
-    "@emotion/serialize" "^1.1.1"
-    "@emotion/utils" "^1.2.0"
-    "@tiptap/core" "^2.0.3"
-    "@tiptap/extension-bold" "^2.0.3"
-    "@tiptap/extension-code" "^2.0.3"
-    "@tiptap/extension-collaboration" "^2.0.3"
-    "@tiptap/extension-collaboration-cursor" "^2.0.3"
-    "@tiptap/extension-dropcursor" "^2.0.3"
-    "@tiptap/extension-gapcursor" "^2.0.3"
-    "@tiptap/extension-hard-break" "^2.0.3"
-    "@tiptap/extension-history" "^2.0.3"
-    "@tiptap/extension-horizontal-rule" "^2.0.3"
-    "@tiptap/extension-italic" "^2.0.3"
-    "@tiptap/extension-link" "^2.0.3"
-    "@tiptap/extension-paragraph" "^2.0.3"
-    "@tiptap/extension-strike" "^2.0.3"
-    "@tiptap/extension-table-cell" "^2.0.3"
-    "@tiptap/extension-table-header" "^2.0.3"
-    "@tiptap/extension-table-row" "^2.0.3"
-    "@tiptap/extension-text" "^2.0.3"
-    "@tiptap/extension-underline" "^2.0.3"
-    "@tiptap/pm" "^2.0.3"
-    hast-util-from-dom "^4.2.0"
-    prosemirror-model "^1.18.3"
-    prosemirror-state "^1.4.3"
-    prosemirror-tables "^1.3.4"
-    prosemirror-transform "^1.7.2"
-    prosemirror-view "^1.31.4"
-    rehype-format "^5.0.0"
-    rehype-parse "^8.0.4"
-    rehype-remark "^9.1.2"
-    rehype-stringify "^9.0.3"
-    remark-gfm "^3.0.1"
-    remark-parse "^10.0.1"
-    remark-rehype "^10.1.0"
-    remark-stringify "^10.0.2"
-    unified "^10.1.2"
-    uuid "^8.3.2"
-    y-prosemirror "1.0.20"
-    y-protocols "^1.0.5"
-    yjs "^13.6.1"
-
-"@blocknote/core@^0.10.0":
+"@blocknote/core@0.10.1", "@blocknote/core@^0.10.1":
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/@blocknote/core/-/core-0.10.1.tgz#2a55da981dbaa1efd88431409311c7efb4d7ead4"
   integrity sha512-3IbBwKqfKpSskcFwR8gjiL0W5hvuGv9NRyBCCtSnHdgpEg+5O6PVsMulzh82nOqe4Ahb9cii8ET4gFEZkD154g==
@@ -321,12 +273,12 @@
     y-protocols "^1.0.5"
     yjs "^13.6.1"
 
-"@blocknote/react@0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@blocknote/react/-/react-0.10.0.tgz#67c7ce6ced83a1b25cac6892901cdaa4610f2cd5"
-  integrity sha512-03cwbaI/Bau0pVxyv8ZhhKgX1M2av7C/XvUe3lS7yrmNvWlrvAhLA3LU8+oVdVwezl6KYliOU9Q3hec0uAGhkg==
+"@blocknote/react@0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@blocknote/react/-/react-0.10.1.tgz#109e709198348281796c01362b5bca315956c89a"
+  integrity sha512-rp+43SyrrdMnq4rCsqFz2T6c5FHKpzrYCpaZI6CaZPs3eTbySaAtc40OT9JHz6eF91fqVHGXomq/hqF0okeVTw==
   dependencies:
-    "@blocknote/core" "^0.10.0"
+    "@blocknote/core" "^0.10.1"
     "@emotion/react" "^11.10.5"
     "@mantine/core" "^5.6.1"
     "@mantine/hooks" "^5.6.1"
@@ -1115,7 +1067,7 @@
   resolved "https://registry.yarnpkg.com/@kurkle/color/-/color-0.3.2.tgz#5acd38242e8bde4f9986e7913c8fdf49d3aa199f"
   integrity sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==
 
-"@mantine/carousel@^6.0.16":
+"@mantine/carousel@^6.0.21":
   version "6.0.21"
   resolved "https://registry.yarnpkg.com/@mantine/carousel/-/carousel-6.0.21.tgz#3e2a77e365014b314f90e8b474b350432c926640"
   integrity sha512-cQAQ5RlVhSrYA8aez/euzs5nQKcGcwxVTS/gf46GEZ0gcDJXlymZPbc2OopH/WDczEaMWOF7wz8R9+uG1hYNCg==
@@ -1133,7 +1085,7 @@
     "@radix-ui/react-scroll-area" "1.0.2"
     react-textarea-autosize "8.3.4"
 
-"@mantine/core@^6.0.16":
+"@mantine/core@^6.0.21":
   version "6.0.21"
   resolved "https://registry.yarnpkg.com/@mantine/core/-/core-6.0.21.tgz#6e3a1b8d0f6869518a644d5f5e3d55a5db7e1e51"
   integrity sha512-Kx4RrRfv0I+cOCIcsq/UA2aWcYLyXgW3aluAuW870OdXnbII6qg7RW28D+r9D76SHPxWFKwIKwmcucAG08Divg==
@@ -1150,7 +1102,7 @@
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.10.5.tgz#568586a0fa649be46f057ddc920bf98761017ffb"
   integrity sha512-hFQp71QZDfivPzfIUOQZfMKLiOL/Cn2EnzacRlbUr55myteTfzYN8YMt+nzniE/6c4IRopFHEAdbKEtfyQc6kg==
 
-"@mantine/hooks@^6.0.16":
+"@mantine/hooks@^6.0.21":
   version "6.0.21"
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-6.0.21.tgz#bc009d8380ad18455b90f3ddaf484de16a13da95"
   integrity sha512-sYwt5wai25W6VnqHbS5eamey30/HD5dNXaZuaVEAJ2i2bBv8C0cCiczygMDpAFiSYdXoSMRr/SZ2CrrPTzeNew==
@@ -2375,9 +2327,9 @@ eastasianwidth@^0.2.0:
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
 
 electron-to-chromium@^1.4.601:
-  version "1.4.637"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.637.tgz#ed8775cf5e0c380c3e8452e9818a0e4b7a671ac4"
-  integrity sha512-G7j3UCOukFtxVO1vWrPQUoDk3kL70mtvjc/DC/k2o7lE0wAdq+Vwp1ipagOow+BH0uVztFysLWbkM/RTIrbK3w==
+  version "1.4.639"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.639.tgz#c6f9cc685f9efb2980d2cfc95a27f8142c9adf28"
+  integrity sha512-CkKf3ZUVZchr+zDpAlNLEEy2NJJ9T64ULWaDgy3THXXlPVPkLu3VOs9Bac44nebVtdwl2geSj6AxTtGDOxoXhg==
 
 embla-carousel-react@^8.0.0-rc10:
   version "8.0.0-rc19"
@@ -4725,17 +4677,17 @@ react-remove-scroll@^2.5.5:
     use-sidecar "^1.1.2"
 
 react-router-dom@^6.6.1:
-  version "6.21.2"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.21.2.tgz#5fba851731a194fa32c31990c4829c5e247f650a"
-  integrity sha512-tE13UukgUOh2/sqYr6jPzZTzmzc70aGRP4pAjG2if0IP3aUT+sBtAKUJh0qMh0zylJHGLmzS+XWVaON4UklHeg==
+  version "6.21.3"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.21.3.tgz#ef3a7956a3699c7b82c21fcb3dbc63c313ed8c5d"
+  integrity sha512-kNzubk7n4YHSrErzjLK72j0B5i969GsuCGazRl3G6j1zqZBLjuSlYBdVdkDOgzGdPIffUOc9nmgiadTEVoq91g==
   dependencies:
     "@remix-run/router" "1.14.2"
-    react-router "6.21.2"
+    react-router "6.21.3"
 
-react-router@6.21.2:
-  version "6.21.2"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.21.2.tgz#8820906c609ae7e4e8f926cc8eb5ce161428b956"
-  integrity sha512-jJcgiwDsnaHIeC+IN7atO0XiSRCrOsQAHHbChtJxmgqG2IaYQXSnhqGb5vk2CU/wBQA12Zt+TkbuJjIn65gzbA==
+react-router@6.21.3:
+  version "6.21.3"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.21.3.tgz#8086cea922c2bfebbb49c6594967418f1f167d70"
+  integrity sha512-a0H638ZXULv1OdkmiK6s6itNhoy33ywxmUFT/xtSoVyf9VnC7n7+VT4LjVzdIHSaF5TIh9ylUgxMXksHTgGrKg==
   dependencies:
     "@remix-run/router" "1.14.2"
 
@@ -5539,9 +5491,9 @@ vite-plugin-rewrite-all@^1.0.2:
     connect-history-api-fallback "^1.6.0"
 
 vite@^4.1.5:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-4.5.1.tgz#3370986e1ed5dbabbf35a6c2e1fb1e18555b968a"
-  integrity sha512-AXXFaAJ8yebyqzoNB9fu2pHoo/nWX+xZlaRwoeYUxEqBO+Zj4msE5G+BhGBll9lYEKv9Hfks52PAF2X7qDYXQA==
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-4.5.2.tgz#d6ea8610e099851dad8c7371599969e0f8b97e82"
+  integrity sha512-tBCZBNSBbHQkaGyhGCDUGqeo2ph8Fstyp6FMSvTtsXeZSPpSMGlviAOav2hxVTqFcx8Hj/twtWKsMJXNY0xI8w==
   dependencies:
     esbuild "^0.18.10"
     postcss "^8.4.27"
