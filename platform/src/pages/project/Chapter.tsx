@@ -8,11 +8,7 @@ import { deleteSingleChapterVersion } from "../../api/project/versions";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import { getSingleBranch, deleteBranch } from "../../api/project/branches";
-import {
-  UpdateContentModal,
-  DeleteModal,
-  VersionModal,
-} from "../../components/Modals";
+import { UpdateContentModal, DeleteModal, VersionModal } from "../../components/Modals";
 import { useMergeReplace } from "../../hooks/chapter/useMergeReplace";
 import { ChapterVersionMenu } from "../../components/Chapters/version/ChapterVersionMenu";
 import { ChapterSidebar } from "../../components/Chapters/ChapterSidebar";
@@ -31,6 +27,8 @@ import { Divider } from "@mantine/core";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useUpdateBranchContent } from "../../hooks/chapter/useUpdateBranchContent";
 import { ChapterBranches, ChapterHistory } from "../../components/Chapters";
+import { ChapterShareButton } from "../../components/Chapters/share/ChapterShareButton";
+import { ShareChapterModal } from "../../components/Chapters/share/ShareChapterModal";
 
 export const Chapter = () => {
   const navigate = useNavigate();
@@ -40,6 +38,8 @@ export const Chapter = () => {
   const [opened, setOpened] = useState(false);
   const [branchName, setBranchName] = useState("chapter-v1");
   const [mergeOpened, setMergeOpened] = useState(false);
+  const [shareChapterModalOpen, setShareChapterModalOpen] = useState(false);
+
   const [versionModalOpen, setVersionModalOpen] = useState(false);
   const [UpdateContentModalOpen, setUpdateContentModalOpen] = useState(false);
   const [openDeleteBranch, setOpenDeleteBranch] = useState(false);
@@ -59,9 +59,7 @@ export const Chapter = () => {
   const branch = searchParams.get("branch");
   const merge = searchParams.get("merge");
 
-  const { data: currentProject, isLoading: projectLoading } = useSingleProject(
-    project as string,
-  );
+  const { data: currentProject, isLoading: projectLoading } = useSingleProject(project as string);
 
   const { data: chapterContent, isLoading } = useQuery(
     ["chapter", chapter],
@@ -86,10 +84,7 @@ export const Chapter = () => {
     },
   );
 
-  const { mutate: replaceMain } = useMergeReplace(
-    project as string,
-    chapter as string,
-  );
+  const { mutate: replaceMain } = useMergeReplace(project as string, chapter as string);
 
   const { mutate: updateChapterContentMutation } = useUpdateChapterContent(
     project as string,
@@ -148,15 +143,8 @@ export const Chapter = () => {
         opened={UpdateContentModalOpen}
         setText={() => {
           currentBranch
-            ? setText(
-                JSON.parse(localStorage.getItem(currentBranch?.uid) as string)
-                  .text,
-              )
-            : setText(
-                JSON.parse(
-                  localStorage.getItem(chapterContent?.content.uid) as string,
-                ).text,
-              );
+            ? setText(JSON.parse(localStorage.getItem(currentBranch?.uid) as string).text)
+            : setText(JSON.parse(localStorage.getItem(chapterContent?.content.uid) as string).text);
           setUpdateContentModalOpen(false);
         }}
       />
@@ -165,33 +153,29 @@ export const Chapter = () => {
         setMergeOpened={setMergeOpened}
         currentBranch={currentBranch}
         mergeBranch={
-          merge === "replace"
-            ? () => replaceMain(currentBranch)
-            : () => console.log("ff")
+          merge === "replace" ? () => replaceMain(currentBranch) : () => console.log("ff")
         }
       />
       <VersionModal
         setOpened={setVersionModalOpen}
         opened={versionModalOpen}
-        deleteVersion={() =>
-          deleteSingleChapterVersion(chapter as string, version.uid)
-        }
+        deleteVersion={() => deleteSingleChapterVersion(chapter as string, version.uid)}
         version={version}
         currentContent={branch ? currentBranch : chapterContent?.content}
         setText={setText}
       />
-      <EditorWrapper
-        branchContent={currentBranch}
-        mainContent={chapterContent?.content}
-      >
+      <ShareChapterModal
+        opened={shareChapterModalOpen}
+        setShareChapterModalOpen={setShareChapterModalOpen}
+        chapter={chapterContent}
+      />
+      <EditorWrapper branchContent={currentBranch} mainContent={chapterContent?.content}>
         {!merge && (
           <BlockEditor
             key={(chapter as string) + branch}
             /* @ts-ignore */
             save={branch ? updateBranchMutation : updateChapterContentMutation}
-            content={
-              branch ? currentBranch?.content : chapterContent?.content?.content
-            }
+            content={branch ? currentBranch?.content : chapterContent?.content?.content}
             isLoading={isLoading}
             setTitle={branch ? setBranchTitle : setTitle}
             isEditable={Boolean(branch) || currentProject?.type === "standard"}
@@ -200,16 +184,11 @@ export const Chapter = () => {
             setWordCount={setWordCount}
             wordCount={wordCount}
             createBranch={() => setOpened(true)}
-            title={
-              branch ? currentBranch?.title : chapterContent?.content.title
-            }
+            title={branch ? currentBranch?.title : chapterContent?.content.title}
           />
         )}
         {merge && currentBranch && (
-          <MergeBlockEditor
-            branch={currentBranch}
-            main={chapterContent.content}
-          />
+          <MergeBlockEditor branch={currentBranch} main={chapterContent.content} />
         )}
         <div className="flex flex-row" ref={parent}>
           <ChapterSidebar active={Boolean(sidebar)}>
@@ -227,13 +206,12 @@ export const Chapter = () => {
             />
             {merge === "replace" && (
               <>
-                <Divider
-                  my={2}
-                  className="!border-coolGrey-1 dark:!border-borderDark"
-                />
+                <Divider my={2} className="!border-coolGrey-1 dark:!border-borderDark" />
                 <ChapterMergeButton setOpen={() => setMergeOpened(true)} />
               </>
             )}
+            <Divider my={2} className="!border-coolGrey-1 dark:!border-borderDark" />
+            <ChapterShareButton setOpen={() => setShareChapterModalOpen(true)} />
           </ChapterSidebar>
           <div className="flex grow" ref={parent}>
             {sidebar === "branches" && (
@@ -258,10 +236,7 @@ export const Chapter = () => {
             )}
 
             {sidebar === "history" && (
-              <ChapterHistory
-                history={chapterContent?.history}
-                close={() => closeSidebar()}
-              />
+              <ChapterHistory history={chapterContent?.history} close={() => closeSidebar()} />
             )}
           </div>
         </div>

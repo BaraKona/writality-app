@@ -47,7 +47,8 @@
 		"react-router-dom": "^6.6.1",
 		"remark-gfm": "^3.0.1",
 		"sass": "^1.55.0",
-		"uuid": "^9.0.0"
+		"uuid": "^9.0.0",
+		"vite-plugin-rewrite-all": "^1.0.2"
 	},
 	"devDependencies": {
 		"@tailwindcss/forms": "^0.5.3",

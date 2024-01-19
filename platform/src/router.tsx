@@ -18,6 +18,7 @@ import { VerifiedPage } from "./pages/auth/VerifiedPage";
 import { OnboardingPage } from "./pages/onboarding/OnboardingPage";
 import { WritingGroupsPage } from "./pages/WritingGroupsPage";
 import { HelpPage } from "./pages/Help";
+import { SharedChapter } from "./pages/shared/SharedChapter";
 
 const dashboardRoutes: RouteObject[] = [
   {
@@ -77,6 +78,11 @@ const dashboardRoutes: RouteObject[] = [
   {
     path: "/posts/:postId",
     element: <SinglePost />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/shared/:chapterId/:token",
+    element: <SharedChapter />,
     errorElement: <Error />,
   },
   // {
@@ -149,7 +155,14 @@ export const publicRouter = createBrowserRouter([
     path: "*",
     loader: () => redirect("/"),
   },
-
+  {
+    path: "/shared/:chapterId/:token",
+    element: (
+      <section className="flex h-screen grow items-center dark:bg-baseDarker">
+        <SharedChapter />
+      </section>
+    ),
+  },
   {
     path: "/auth/login",
     element: <LoginPage />,

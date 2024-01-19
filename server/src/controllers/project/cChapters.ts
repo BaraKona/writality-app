@@ -3,6 +3,7 @@ import Branch from "../../models/branchSchema";
 import Version from "../../models/versionSchema";
 import Project from "../../models/projectSchema";
 import { v4 as uuidv4 } from "uuid";
+import jwt from "jsonwebtoken";
 import { useDefaultDateTime } from "../../dateProvider";
 import User from "../../models/user/userSchema";
 
@@ -135,6 +136,7 @@ export const getSingleChapter = async (req: any, res: any) => {
 						$elemMatch: { uid: userId, active: true },
 					},
 					projectId,
+					type: "collaboration",
 				},
 			],
 		});
@@ -145,7 +147,9 @@ export const getSingleChapter = async (req: any, res: any) => {
 		const chapter = await Chapter.findOne({
 			projectId: projectId,
 			uid: chapterId,
-		}).populate("history.user", "name uid");
+		})
+			.select("-shared.code")
+			.populate("history.user", "name uid");
 
 		chapter.history = chapter.history?.reverse();
 
@@ -176,7 +180,6 @@ export const updateChapterContent = async (req: any, res: any) => {
 
 		const user = await User.findById(userId);
 
-
 		if (!project) {
 			res.status.res({ message: "You do not have access to this Project" });
 		}
@@ -190,7 +193,10 @@ export const updateChapterContent = async (req: any, res: any) => {
 			uid: chapterId,
 		});
 
-		const wordsAdded = wordCount > chapter.content.wordCount ? wordCount - chapter.content.wordCount : 0;
+		const wordsAdded =
+			wordCount > chapter.content.wordCount
+				? wordCount - chapter.content.wordCount
+				: 0;
 		user.dailyWordCount += wordsAdded;
 		user.allTimeWordCount += wordsAdded;
 		user.monthlyWordCount += wordsAdded;
@@ -435,6 +441,95 @@ export const getUserChapters = async (req: any, res: any) => {
 		});
 
 		res.status(200).json(chapters);
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const createSharedChapter = async (req: any, res: any) => {
+	const userId = req.user._id;
+	const { projectId, chapterId } = req.params;
+
+	try {
+		const project = await Project.findOne({
+			$or: [
+				{ owner: userId, uid: projectId },
+				{
+					collaborators: {
+						$elemMatch: { user: userId, active: true, role: "admin" },
+					},
+					uid: projectId,
+					type: "collaboration",
+				},
+			],
+		});
+
+		if (!project) {
+			console.log("No access to project");
+			res
+				.status(404)
+				.json({ message: "You do not have access to share this project" });
+		}
+
+		const chapter = await Chapter.findOne({
+			projectId,
+			uid: chapterId,
+		});
+
+		if (!chapter) {
+			console.log("no chapter found");
+			res.status(404).json({ message: "Chapter not found" });
+		}
+
+		const code = uuidv4();
+		const id = chapter._id;
+
+		const token = jwt.sign({ id }, code, {
+			expiresIn: "100y",
+		});
+
+		chapter.shared = {
+			code,
+			access: true,
+			token,
+		};
+
+		await chapter.save();
+
+		res.status(201).json({
+			message: "Chapter shared successfully",
+			token: chapter.shared.token,
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const getSharedChapter = async (req: any, res: any) => {
+	const { token, chapterId } = req.params;
+
+	try {
+		const chapter = await Chapter.findOne({
+			uid: chapterId,
+			"shared.token": token,
+		});
+
+		if (!chapter || !chapter.shared.access) {
+			console.log("no chapter found");
+			res.status(404).json({ message: "Chapter not found" });
+		}
+
+		const decoded = jwt.verify(token, chapter.shared.code);
+
+		// @ts-ignore
+		if (chapter._id.toString() !== decoded.id) {
+			console.log("disparity in chapter id and decoded chapter id");
+			res.status(404).json({ message: "Chapter not found" });
+		}
+
+		res.status(200).json(chapter);
 	} catch (error) {
 		console.log(error);
 		res.status(404).json({ message: error.message });

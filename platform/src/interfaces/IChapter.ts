@@ -24,4 +24,11 @@ export type IChapter = {
     user: IUser;
     action: string;
   }[];
+  position: string;
+  wordCount: number;
+  children: IChapter[];
+  shared: {
+    token: string;
+    access: string;
+  }
 };

@@ -9,14 +9,18 @@ import {
 	getUserChapters,
 	createVersion,
 	getProjectChapters,
+	getSharedChapter,
+	createSharedChapter,
 } from "../../controllers/project/cChapters";
 
 const router = express.Router();
 
-
 router.get("/chapters/:projectId", protect, getProjectChapters);
+router.get("/shared/:chapterId/:token", getSharedChapter);
+
 // router.post("/", protect, createChapter);
 router.patch("/content/:projectId/:chapterId/", protect, updateChapterContent);
+router.patch("/shared/:projectId/:chapterId/", protect, createSharedChapter);
 
 router.post("/version/create/:projectId/:chapterId", protect, createVersion);
 
@@ -29,6 +33,7 @@ router.patch(
 	protect,
 	mergeReplaceMain
 );
+
 router.patch(
 	"/merge/position/:userId/:projectId/:chapterId/",
 	protect,
@@ -39,6 +44,5 @@ router.put(
 	protect,
 	updateChapterTitle
 );
-
 
 export default router;

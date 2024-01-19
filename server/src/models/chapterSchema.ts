@@ -38,6 +38,11 @@ interface Chapter {
 		action: string;
 	}[];
 	content: IChapterContent;
+	shared: {
+		code: string;
+		access: boolean;
+		token: string;
+	};
 }
 const chapterSchema = new Schema<Chapter>({
 	owner: {
@@ -151,6 +156,20 @@ const chapterSchema = new Schema<Chapter>({
 		wordCount: {
 			type: Number,
 			default: 0,
+		},
+	},
+	shared: {
+		code: {
+			type: String,
+			required: false,
+		},
+		access: {
+			type: Boolean,
+			required: false,
+		},
+		token: {
+			type: String,
+			required: false,
 		},
 	},
 });

@@ -18,10 +18,7 @@ export const getProjectChapters = async (projectId: string) => {
   return data;
 };
 
-export const getSingleChapter = async (
-  projectId: string,
-  chapterId: string,
-) => {
+export const getSingleChapter = async (projectId: string, chapterId: string) => {
   const { data } = await chapterApi.get(`/single/${projectId}/${chapterId}`);
   return data;
 };
@@ -47,15 +44,9 @@ export const updateChapterContent = async ({
   return data;
 };
 
-export const deleteSingleChapter = async (
-  userId: string,
-  projectId: string,
-  chapterId: string,
-) => {
+export const deleteSingleChapter = async (userId: string, projectId: string, chapterId: string) => {
   try {
-    const { data } = await chapterApi.delete(
-      `/${userId}/${projectId}/${chapterId}`,
-    );
+    const { data } = await chapterApi.delete(`/${userId}/${projectId}/${chapterId}`);
     useToast("success", "Chapter deleted successfully 😃");
     return data;
   } catch (err: any) {
@@ -81,10 +72,12 @@ export const mergePositionMain = async (
   },
 ) => {
   try {
-    const { data } = await chapterApi.patch(
-      `/merge/position/${userId}/${projectId}/${chapterId}`,
-      { position, content, history, dateUpdated },
-    );
+    const { data } = await chapterApi.patch(`/merge/position/${userId}/${projectId}/${chapterId}`, {
+      position,
+      content,
+      history,
+      dateUpdated,
+    });
     useToast("success", "Chapter merged successfully 😃");
     return data;
   } catch (err: any) {
@@ -99,10 +92,7 @@ export const mergeReplaceMain = async (
   branch: IChapterVersion,
 ) => {
   console.log({ branch });
-  const { data } = await chapterApi.patch(
-    `/merge/replace/${projectId}/${chapterId}`,
-    { branch },
-  );
+  const { data } = await chapterApi.patch(`/merge/replace/${projectId}/${chapterId}`, { branch });
   return data;
 };
 
@@ -113,10 +103,7 @@ export const updateChapterTitle = async (
   title: string,
 ) => {
   try {
-    const { data } = await chapterApi.put(
-      `/title/${userId}/${projectId}/${chapterId}`,
-      { title },
-    );
+    const { data } = await chapterApi.put(`/title/${userId}/${projectId}/${chapterId}`, { title });
     useToast("success", "Chapter title updated successfully 😃");
     return data;
   } catch (err: any) {
@@ -127,4 +114,14 @@ export const updateChapterTitle = async (
 
 export const createVersion = async (projectId: string, chapterId: string) => {
   return await chapterApi.post(`/version/create/${projectId}/${chapterId}`);
+};
+
+export const createSharedChapter = async (projectId: string, chapterId: string) => {
+  const { data } = await chapterApi.patch(`/shared/${projectId}/${chapterId}`);
+  return data;
+};
+
+export const getSharedChapter = async (chapterId: string, token: string) => {
+  const { data } = await chapterApi.get(`/shared/${chapterId}/${token}`);
+  return data;
 };
