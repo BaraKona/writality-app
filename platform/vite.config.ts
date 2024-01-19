@@ -51,7 +51,7 @@ export default defineConfig({
 			},
 		},
 	},
-	base: "/",
+	base: "./platform/",
 	server: {
 		host: true,
 	},
