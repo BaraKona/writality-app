@@ -45,11 +45,11 @@ export const ShareChapterModal: FC<{
             <Space h="md" />
             <div className="relative flex overflow-hidden">
               <div className="max-w-xl text-ellipsis text-wrap rounded-md border border-coolGrey-4 bg-coolGrey-6 p-1 px-2 text-coolGrey-4 underline dark:border-borderDark dark:bg-baseDarker dark:text-coolGrey-6">
-                {import.meta.env.VITE_API_APP_URL}/shared/{currentChapter?._id}/
+                {import.meta.env.VITE_API_APP_URL}/shared/{currentChapter?._id}?token=
                 {currentChapter?.shared?.token}
               </div>
               <CopyButton
-                value={`${import.meta.env.VITE_API_APP_URL}/shared/${currentChapter?.uid}/${currentChapter?.shared?.token}`}
+                value={`${import.meta.env.VITE_API_APP_URL}/shared/${currentChapter?.uid}?token=${currentChapter?.shared?.token}`}
               >
                 {({ copied, copy }) => (
                   <ButtonWrapper

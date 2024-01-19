@@ -7,11 +7,15 @@ import { inputStyles } from "../../styles/inputStyles";
 import { useThemeContext } from "../../Providers/ThemeProvider";
 import { SmallText } from "../../components/texts/SmallText";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export const SharedChapter = () => {
   const [wordCount, setWordCount] = useState(0);
 
-  const { chapterId, token } = useParams<{ chapterId: string; token: string }>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const token = searchParams.get("token");
+
+  const { chapterId } = useParams<{ chapterId: string }>();
 
   const { theme } = useThemeContext();
   const { data: chapter } = useSharedChapter(chapterId as string, token as string);
@@ -70,8 +74,7 @@ export const SharedChapter = () => {
     <section className="relative mx-auto flex h-[calc(100vh-3.5rem)] max-w-screen-md grow flex-col items-center justify-center rounded-lg border border-border bg-base dark:border-borderDark dark:bg-baseDark">
       <div className="mx-auto max-w-4xl grow overflow-y-auto pt-9">
         <Textarea
-          placeholder="Title"
-          value={chapter?.title}
+          value={chapter?.content?.title}
           readOnly={true}
           autosize
           minRows={1}

@@ -81,7 +81,7 @@ const dashboardRoutes: RouteObject[] = [
     errorElement: <Error />,
   },
   {
-    path: "/shared/:chapterId/:token",
+    path: "/shared/:chapterId",
     element: <SharedChapter />,
     errorElement: <Error />,
   },
@@ -128,7 +128,7 @@ export const verificationRouter = createBrowserRouter([
     element: <VerifyEmailPage />,
   },
   {
-    path: "/shared/:chapterId/:token",
+    path: "/shared/:chapterId",
     element: (
       <section className="flex h-screen grow items-center dark:bg-baseDarker">
         <SharedChapter />
@@ -152,7 +152,7 @@ export const onboardingRouter = createBrowserRouter([
     element: <OnboardingPage />,
   },
   {
-    path: "/shared/:chapterId/:token",
+    path: "/shared/:chapterId",
     element: (
       <section className="flex h-screen grow items-center dark:bg-baseDarker">
         <SharedChapter />
@@ -172,7 +172,7 @@ export const publicRouter = createBrowserRouter([
     loader: () => redirect("/"),
   },
   {
-    path: "/shared/:chapterId/:token",
+    path: "/shared/:chapterId",
     element: (
       <section className="flex h-screen grow items-center dark:bg-baseDarker">
         <SharedChapter />
