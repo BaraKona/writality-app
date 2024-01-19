@@ -128,6 +128,14 @@ export const verificationRouter = createBrowserRouter([
     element: <VerifyEmailPage />,
   },
   {
+    path: "/shared/:chapterId/:token",
+    element: (
+      <section className="flex h-screen grow items-center dark:bg-baseDarker">
+        <SharedChapter />
+      </section>
+    ),
+  },
+  {
     path: "/verify-email/",
     element: <VerifiedPage />,
   },
@@ -142,6 +150,14 @@ export const onboardingRouter = createBrowserRouter([
   {
     path: "/onboarding",
     element: <OnboardingPage />,
+  },
+  {
+    path: "/shared/:chapterId/:token",
+    element: (
+      <section className="flex h-screen grow items-center dark:bg-baseDarker">
+        <SharedChapter />
+      </section>
+    ),
   },
   {
     path: "*",
