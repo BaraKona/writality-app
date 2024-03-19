@@ -9,10 +9,6 @@ import { initials, initialsColor } from "../utils/userIcons";
 import { useNavigate } from "react-router-dom";
 import { ProfileProjects } from "../components/Profile/ProfileProjects";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { ProfileFriends } from "../components/Profile/ProfileFriends";
-import { DailyCount } from "../components/Profile/DailyCount";
-import { Trophies } from "../components/Profile/Trophies";
-import { RecentNotifications } from "../components/Profile/RecentNotifications";
 
 export const ProfilePage = () => {
   const { currentUser } = useAuthContext();
@@ -102,12 +98,12 @@ export const ProfilePage = () => {
           </Tabs>
         </div>
       </div>
-      <div className="bg-coolGrey flex w-[20rem] flex-col gap-1 rounded-lg bg-coolGrey-1 px-2 dark:bg-baseDarker">
+      {/* <div className="bg-coolGrey flex w-[20rem] flex-col gap-1 rounded-lg bg-coolGrey-1 px-2 dark:bg-baseDarker">
         <Trophies currentUser={currentUser} />
         <DailyCount />
         <ProfileFriends user={currentUser} height="h-[16rem]" />
         <RecentNotifications />
-      </div>
+      </div> */}
     </div>
   );
 };

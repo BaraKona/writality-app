@@ -3,9 +3,6 @@ import { CategoryListItem } from "../../ListItems";
 import { CommunityListItem } from "../../ListItems";
 import {
   IconUserCircle,
-  IconClipboard,
-  IconSocial,
-  IconBooks,
   IconUsersGroup,
   IconSettings,
   IconHelp,
@@ -34,23 +31,20 @@ export const SidebarNav = ({
           <IconUserCircle size={18} />
         </CommunityListItem>
       </CategoryListItem>
-      <CategoryListItem>
+      {/* <CategoryListItem>
         <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
-      </CategoryListItem>
-      <CategoryListItem>
+      </CategoryListItem> */}
+      {/* <CategoryListItem>
         <CommunityListItem name="Posts" onClick={() => navigate("/posts")}>
           <IconClipboard size={18} />
-        </CommunityListItem>
-        <CommunityListItem
-          name="Writing-groups"
-          onClick={() => navigate("/writing-groups")}
-        >
+        </CommunityListItem> *
+        <CommunityListItem name="Writing-groups" onClick={() => navigate("/writing-groups")}>
           <IconSocial size={18} />
         </CommunityListItem>
         <CommunityListItem name="Stories" onClick={() => navigate("/stories")}>
           <IconBooks size={18} />
         </CommunityListItem>
-      </CategoryListItem>
+      </CategoryListItem> */}
       <CategoryListItem>
         <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
       </CategoryListItem>
@@ -84,10 +78,7 @@ export const SidebarNav = ({
       </CategoryListItem>
 
       <CategoryListItem>
-        <CommunityListItem
-          name="Settings"
-          onClick={() => navigate("/settings")}
-        >
+        <CommunityListItem name="Settings" onClick={() => navigate("/settings")}>
           <IconSettings size={18} />
         </CommunityListItem>
         <CommunityListItem name="Help" onClick={() => navigate("/help")}>

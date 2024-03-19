@@ -1,49 +1,45 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { CategoryListItem } from "../ListItems";
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import { cyclops8, cyclops7 } from "../../assets/icons";
+import { Outlet, useNavigate } from "react-router-dom";
 import { MainFrame } from "../Project";
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
 import { Dialog, Divider } from "@mantine/core";
 import { UserProjects } from "../ListItems/UserProjects";
-import { FavouriteTabItems } from "../ListItems/FavouriteTabItem";
 import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useLocalStorage } from "@mantine/hooks";
 import { useThemeContext } from "../../Providers/ThemeProvider";
-import { IUser } from "../../interfaces/IUser";
-import { Notifications } from "../notification/Notifications";
 import { useQueryClient } from "react-query";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { UserFriends } from "../ListItems/UserFriends";
-import { UserWritingGroups } from "../writingGroup/UserWritingGroups";
 import { TabChat } from "../Project/chatrooms/TabChat";
 import { SidebarNav } from "./components/SidebarNav";
-import { SidebarTopNav } from "./components/SidebarTopNav";
 import { useCreateProject } from "../../hooks/projects/useCreateProject";
+import { SidebarTopNav } from "./components/SidebarTopNav";
 
 export const Sidebar: FC<{}> = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   /* @ts-ignore*/
-  const { data: currentUser } = queryClient.getQueryState<IUser>("user");
+  // const { data: currentUser } = queryClient.getQueryState<IUser>("user");
 
   const { data: projects, isLoading: isProjectLoading } = useUserProjects();
   const { theme } = useThemeContext();
 
-  const bookmarks = "bookmarks";
+  // const bookmarks = "bookmarks";
   const home = "projects";
-  const collabs = "collaborations";
-  const inbox = "inbox";
-  const friends = "friends";
-  const writingGroup = "writing group";
+  // const collabs = "collaborations";
+  // const inbox = "inbox";
+  // const friends = "friends";
+  // const writingGroup = "writing group";
 
   const { mutate: createProject } = useCreateProject();
 
-  const [sidebarNav, setSidebarNav] = useLocalStorage({
-    key: "sidebarNav",
-    defaultValue: home,
-  });
+  // const [sidebarNav, setSidebarNav] = useLocalStorage({
+  //   key: "sidebarNav",
+  //   defaultValue: home,
+  // });
+
+  const [sidebarNav, setSidebarNav] = useState(home);
 
   const [userChat, setUserChat] = useLocalStorage({
     key: "userChat",
@@ -87,8 +83,8 @@ export const Sidebar: FC<{}> = () => {
           <div className="flex h-full grow py-3" ref={parent}>
             <SidebarNav sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             {sidebarOpen && (
-              <CategoryListItem className="mr-3 flex h-full w-full grow flex-col rounded-lg bg-base py-2 shadow dark:bg-baseDark">
-                <Link to="/" className="mb-2 self-center rounded-lg px-2 py-1">
+              <CategoryListItem className="flex, mr-3 h-full w-full grow flex-col rounded-lg bg-base py-2 shadow dark:bg-baseDark">
+                {/* <Link to="/" className="mb-2 self-center rounded-lg px-2 py-1">
                   <div className="mb-1 ml-2 mt-1 flex px-1.5">
                     {theme === "dark" ? (
                       <img
@@ -110,37 +106,37 @@ export const Sidebar: FC<{}> = () => {
                     <div className="px-2 text-sm font-semibold">Writality</div>
                   </div>
                 </Link>
-                <SidebarTopNav
-                  sidebarNav={sidebarNav}
-                  setSidebarNav={setSidebarNav}
-                  createProject={createProject}
-                />
-                <Divider className="!mb-2 !border-coolGrey-1 dark:!border-borderDark" />
-                <section className="flex grow overflow-y-auto" ref={parent}>
-                  {sidebarNav === home && (
-                    <UserProjects
-                      projects={projects?.standard}
-                      isLoading={isProjectLoading}
-                      openProject={openProject}
-                      removeFavouriteProject={removeFavouriteProject}
-                      createProject={createProject}
-                      tab={home}
-                    />
+                {sidebarNav === home && (
                   )}
                   {sidebarNav === collabs && (
                     <UserProjects
-                      projects={projects?.collaboration}
-                      isLoading={isProjectLoading}
-                      openProject={openProject}
-                      removeFavouriteProject={removeFavouriteProject}
-                      createProject={createProject}
-                      tab={collabs}
+                    projects={projects?.collaboration}
+                    isLoading={isProjectLoading}
+                    openProject={openProject}
+                    removeFavouriteProject={removeFavouriteProject}
+                    createProject={createProject}
+                    tab={collabs}
                     />
-                  )}
-                  {sidebarNav === bookmarks && <FavouriteTabItems />}
-                  {sidebarNav === friends && <UserFriends chatId={userChat} />}
-                  {sidebarNav === writingGroup && <UserWritingGroups />}
-                  {sidebarNav === inbox && <Notifications notification={currentUser?.inbox} />}
+                    )}
+                    {sidebarNav === bookmarks && <FavouriteTabItems />}
+                    {sidebarNav === friends && <UserFriends chatId={userChat} />}
+                    {sidebarNav === writingGroup && <UserWritingGroups />}
+                  {sidebarNav === inbox && <Notifications notification={currentUser?.inbox} />} */}
+                <section className="flex grow flex-col overflow-y-auto" ref={parent}>
+                  <SidebarTopNav
+                    sidebarNav={sidebarNav}
+                    setSidebarNav={setSidebarNav}
+                    createProject={createProject}
+                  />
+                  <Divider className="!mb-2 !border-coolGrey-1 dark:!border-borderDark" />
+                  <UserProjects
+                    projects={projects?.standard}
+                    isLoading={isProjectLoading}
+                    openProject={openProject}
+                    removeFavouriteProject={removeFavouriteProject}
+                    createProject={createProject}
+                    tab={home}
+                  />
                 </section>
               </CategoryListItem>
             )}

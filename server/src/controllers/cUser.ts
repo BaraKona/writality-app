@@ -62,51 +62,52 @@ export const getUser = async (req: any, res: any) => {
 			.populate({
 				path: "friends.chat",
 				select: "users",
-			})
+			});
 
 		const today = new Date();
-		const lastLogin = user.loginDates[user.loginDates.length - 1]
+		const lastLogin = user.loginDates[user.loginDates.length - 1];
 
-		const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
+		const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
 
-		if (!lastLogin ||  !lastLogin.date) {
-			user.loginStreak = 1
-			user.dailyWordCount = 0
-			user.loginDates = [{
-				date: today,
-				wordCount: 0
-			}]
-		}
-		else if (lastLogin.date.toDateString() === today.toDateString()) {
+		if (!lastLogin || !lastLogin.date) {
+			user.loginStreak = 1;
+			user.dailyWordCount = 0;
+			user.loginDates = [
+				{
+					date: today,
+					wordCount: 0,
+				},
+			];
+		} else if (lastLogin.date.toDateString() === today.toDateString()) {
 			// do nothing
 		} else if (lastLogin.date.toDateString() === yesterday.toDateString()) {
-			user.loginStreak += 1
-			user.dailyWordCount = 0
+			user.loginStreak += 1;
+			user.dailyWordCount = 0;
 			user.loginDates.push({
 				date: today,
-				wordCount: 0
-			})
+				wordCount: 0,
+			});
 		} else {
-			user.loginStreak = 1
-			user.dailyWordCount = 0
+			user.loginStreak = 1;
+			user.dailyWordCount = 0;
 			user.loginDates.push({
 				date: today,
-				wordCount: 0
-			})
+				wordCount: 0,
+			});
 		}
 
 		if (lastLogin && lastLogin.date.getMonth !== today.getMonth) {
-			user.monthlyWordCount = 0
+			user.monthlyWordCount = 0;
 		}
 
 		if (lastLogin && lastLogin.date.getFullYear !== today.getFullYear) {
-			user.yearlyWordCount = 0
+			user.yearlyWordCount = 0;
 		}
 
 		await user.save();
 		res.status(200).json(user);
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 		res.status(404).json({ message: error.message });
 	}
 };
@@ -130,10 +131,12 @@ export const getAllUsers = async (req: any, res: any) => {
 export const getSingleUser = async (req: any, res: any) => {
 	const userId = req.params.userId;
 	try {
-		const user = await (await User.findOne({ uid: userId }).select("-password")).populate({
+		const user = await (
+			await User.findOne({ uid: userId }).select("-password")
+		).populate({
 			path: "friends.user",
 			select: "uid name country role",
-		})
+		});
 		res.status(200).json(user);
 	} catch (error) {
 		res.status(404).json({ message: error.message });

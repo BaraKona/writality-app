@@ -2,9 +2,7 @@ import { createBrowserRouter, redirect, RouteObject } from "react-router-dom";
 import { LoginPage, RegisterPage, ResetPage } from "./pages/auth";
 import { Sidebar } from "./components/Navigation";
 import { Chapter, Project } from "./pages/project";
-import { PostsPage } from "./pages/post/PostsPage";
 import { ProfilePage } from "./pages/ProfilePage";
-import { Stories } from "./pages/Stories";
 import { Error } from "./pages/Error";
 import { FourOFour } from "./pages/404";
 import { SinglePost } from "./pages/post/SinglePost";
@@ -16,7 +14,6 @@ import { SingleUserPage } from "./pages/Users/SingleUserPage";
 import { VerifyEmailPage } from "./pages/auth/VerifyEmailPage";
 import { VerifiedPage } from "./pages/auth/VerifiedPage";
 import { OnboardingPage } from "./pages/onboarding/OnboardingPage";
-import { WritingGroupsPage } from "./pages/WritingGroupsPage";
 import { HelpPage } from "./pages/Help";
 import { SharedChapter } from "./pages/shared/SharedChapter";
 
@@ -38,24 +35,24 @@ const dashboardRoutes: RouteObject[] = [
     path: "/users/:userId",
     element: <SingleUserPage />,
   },
-  {
-    path: "/stories",
-    element: <Stories />,
-  },
-  {
-    path: "/writing-groups",
-    element: <WritingGroupsPage />,
-  },
+  // {
+  //   path: "/stories",
+  //   element: <Stories />,
+  // },
+  // {
+  //   path: "/writing-groups",
+  //   element: <WritingGroupsPage />,
+  // },
   {
     path: "/help",
     element: <HelpPage />,
   },
 
-  {
-    path: "/posts",
-    element: <PostsPage />,
-    errorElement: <Error />,
-  },
+  // {
+  //   path: "/posts",
+  //   element: <PostsPage />,
+  //   errorElement: <Error />,
+  // },
   {
     path: "/users",
     element: <UsersPage />,

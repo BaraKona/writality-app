@@ -6,6 +6,8 @@ const generateToken = (res: any, userId: string) => {
 			expiresIn: "30d",
 		});
 
+		console.log("hit");
+
 		res.cookie("access_token", token, {
 			path: "/",
 			httpOnly: true,

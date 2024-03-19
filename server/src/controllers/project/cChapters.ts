@@ -202,20 +202,24 @@ export const updateChapterContent = async (req: any, res: any) => {
 		user.monthlyWordCount += wordsAdded;
 		user.yearlyWordCount += wordsAdded;
 
-		const version = Version.create({
-			title: chapter.title,
-			owner: userId,
-			projectId: projectId,
-			chapterId: chapterId,
-			content: chapter.content.content,
-			uid: uuidv4(),
-			dateCreated: {
-				user: userId,
-				date: new Date(),
-			},
-			type: "main",
-			name: useDefaultDateTime(new Date()),
-		});
+		// only create version if 100 words have been added
+		const version =
+			wordsAdded > 100
+				? Version.create({
+						title: chapter.title,
+						owner: userId,
+						projectId: projectId,
+						chapterId: chapterId,
+						content: chapter.content.content,
+						uid: uuidv4(),
+						dateCreated: {
+							user: userId,
+							date: new Date(),
+						},
+						type: "main",
+						name: useDefaultDateTime(new Date()),
+				  })
+				: null;
 
 		(chapter.content = {
 			...chapter.content,
@@ -256,7 +260,7 @@ export const updateChapterContent = async (req: any, res: any) => {
 			message: "Chapter updated successfully",
 			content: chapter.content,
 			history: chapter.history,
-			version: version,
+			version: version ? version : null,
 			title: chapter.title,
 			dateUpdated: chapter.dateUpdated,
 			wordsAdded,
