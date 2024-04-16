@@ -6,16 +6,12 @@ import { MainFrame } from "../Project";
 import { useRemoveFavourite } from "../../hooks/user/useRemoveFavouriteProject";
 import { Dialog, Divider } from "@mantine/core";
 import { UserProjects } from "../ListItems/UserProjects";
-import { FavouriteTabItems } from "../ListItems/FavouriteTabItem";
 import { useUserProjects } from "../../hooks/projects/useUserProjects";
 import { useLocalStorage } from "@mantine/hooks";
 import { useThemeContext } from "../../Providers/ThemeProvider";
 import { IUser } from "../../interfaces/IUser";
-import { Notifications } from "../notification/Notifications";
 import { useQueryClient } from "react-query";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { UserFriends } from "../ListItems/UserFriends";
-import { UserWritingGroups } from "../writingGroup/UserWritingGroups";
 import { TabChat } from "../Project/chatrooms/TabChat";
 import { SidebarNav } from "./components/SidebarNav";
 import { SidebarTopNav } from "./components/SidebarTopNav";
@@ -127,7 +123,7 @@ export const Sidebar: FC<{}> = () => {
                       tab={home}
                     />
                   )}
-                  {sidebarNav === collabs && (
+                  {/* {sidebarNav === collabs && (
                     <UserProjects
                       projects={projects?.collaboration}
                       isLoading={isProjectLoading}
@@ -136,11 +132,11 @@ export const Sidebar: FC<{}> = () => {
                       createProject={createProject}
                       tab={collabs}
                     />
-                  )}
-                  {sidebarNav === bookmarks && <FavouriteTabItems />}
-                  {sidebarNav === friends && <UserFriends chatId={userChat} />}
-                  {sidebarNav === writingGroup && <UserWritingGroups />}
-                  {sidebarNav === inbox && <Notifications notification={currentUser?.inbox} />}
+                  )} */}
+                  {/* {sidebarNav === bookmarks && <FavouriteTabItems />} */}
+                  {/* {sidebarNav === friends && <UserFriends chatId={userChat} />} */}
+                  {/* {sidebarNav === writingGroup && <UserWritingGroups />} */}
+                  {/* {sidebarNav === inbox && <Notifications notification={currentUser?.inbox} />} */}
                 </section>
               </CategoryListItem>
             )}

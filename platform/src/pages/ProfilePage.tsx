@@ -2,7 +2,6 @@ import { Tabs, Text } from "@mantine/core";
 import { useUserProfileProjects } from "../hooks/projects/useUserProfileProjects";
 import { useCreateProject } from "../hooks/projects/useCreateProject";
 import { useAuthContext } from "../contexts/AuthContext";
-import { ProfilePosts } from "../components/Profile/ProfilePosts";
 import { BannerImage } from "../components/BannerImage";
 import { Title } from "../components/Title";
 import { initials, initialsColor } from "../utils/userIcons";
@@ -82,23 +81,23 @@ export const ProfilePage = () => {
               >
                 Your Projects
               </Tabs.Tab>
-              <Tabs.Tab
+              {/* <Tabs.Tab
                 className="!rounded-lg !border-none !p-[0.6rem] !px-3 font-semibold !text-coolGrey-6 transition-all duration-300 ease-in-out hover:!bg-coolGrey-7 hover:!text-coolGrey-1 data-[active]:!bg-coolGrey-7 data-[active]:!text-coolGrey-1 dark:!text-coolGrey-4 dark:hover:!bg-purple-800/50 dark:data-[active]:!bg-purple-800 dark:data-[active]:!text-coolGrey-1"
                 value="posts"
               >
                 Your Posts
-              </Tabs.Tab>
+              </Tabs.Tab> */}
             </Tabs.List>
             <Tabs.Panel value="projects" ref={parent}>
               <div className="flex flex-col gap-2 rounded-lg py-2">
                 <ProfileProjects projects={projects} createProject={mutate} isLoading={isLoading} />
               </div>
             </Tabs.Panel>
-            <Tabs.Panel value="posts" ref={parent}>
+            {/* <Tabs.Panel value="posts" ref={parent}>
               <div className="flex flex-col gap-2 rounded-lg py-2">
                 <ProfilePosts />
               </div>
-            </Tabs.Panel>
+            </Tabs.Panel> */}
           </Tabs>
         </div>
       </div>
