@@ -77,3 +77,5 @@ mongoose
 	)
 	// tslint:disable-next-line: no-console
 	.catch((error) => console.log(error.message));
+
+export default app;
