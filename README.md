@@ -72,7 +72,7 @@ npm run dev
 npm start
 ```
 
-6. Open your web browser and navigate to http://localhost:3000 to access the platform.
+6. Open your web browser and navigate to http://localhost:5173 to access the platform.
 
 ## Contributing
 
