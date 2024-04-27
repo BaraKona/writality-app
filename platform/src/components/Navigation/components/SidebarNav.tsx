@@ -8,6 +8,10 @@ import {
   IconLogout,
   IconLayoutSidebarLeftCollapseFilled,
   IconLayoutSidebarLeftExpandFilled,
+  IconClipboard,
+  IconBooks,
+  IconUsersGroup,
+  IconSocial,
 } from "@tabler/icons-react";
 
 import { useNavigate } from "react-router-dom";
@@ -30,34 +34,37 @@ export const SidebarNav = ({
           <IconUserCircle size={18} />
         </CommunityListItem>
       </CategoryListItem>
-      {/* <CategoryListItem>
-        <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
-      </CategoryListItem> */}
-      {/* <CategoryListItem>
-        <CommunityListItem name="Posts" onClick={() => navigate("/posts")}>
-          <IconClipboard size={18} />
-        </CommunityListItem>
-        <CommunityListItem
-          name="Writing-groups"
-          onClick={() => navigate("/writing-groups")}
-        >
-          <IconSocial size={18} />
-        </CommunityListItem>
-        <CommunityListItem name="Stories" onClick={() => navigate("/stories")}>
-          <IconBooks size={18} />
-        </CommunityListItem>
-      </CategoryListItem>
-      <CategoryListItem>
-        <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
-      </CategoryListItem> */}
-      {/* <CategoryListItem>
-        <CommunityListItem name="Users" onClick={() => navigate("/users")}>
-          <IconUsersGroup size={18} />
-        </CommunityListItem>
-      </CategoryListItem>
-      <CategoryListItem>
-        <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
-      </CategoryListItem> */}
+      <>
+        {import.meta.env.VITE_API_WITH_FULL_FUNCTIONALITY && (
+          <>
+            <CategoryListItem>
+              <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
+            </CategoryListItem>
+            <CategoryListItem>
+              <CommunityListItem name="Posts" onClick={() => navigate("/posts")}>
+                <IconClipboard size={18} />
+              </CommunityListItem>
+              <CommunityListItem name="Writing-groups" onClick={() => navigate("/writing-groups")}>
+                <IconSocial size={18} />
+              </CommunityListItem>
+              <CommunityListItem name="Stories" onClick={() => navigate("/stories")}>
+                <IconBooks size={18} />
+              </CommunityListItem>
+            </CategoryListItem>
+            <CategoryListItem>
+              <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
+            </CategoryListItem>
+            <CategoryListItem>
+              <CommunityListItem name="Users" onClick={() => navigate("/users")}>
+                <IconUsersGroup size={18} />
+              </CommunityListItem>
+            </CategoryListItem>
+            <CategoryListItem>
+              <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />
+            </CategoryListItem>
+          </>
+        )}
+      </>
 
       <CategoryListItem className="mt-auto">
         <Divider className="!border-gray-4 !my-2 dark:!border-borderDark" />

@@ -113,18 +113,18 @@ export const getUser = async (req: any, res: any) => {
 };
 
 export const getAllUsers = async (req: any, res: any) => {
-	// try {
-	// 	const users = await User.find({
-	// 		isPublic: true,
-	// 		emailVerified: true,
-	// 		isOnboardingCompleted: true,
-	// 	})
-	// 		.select("uid name email createdAt country roles aboutMe role")
-	// 		.sort({ createdAt: -1 });
-	// 	res.status(200).json(users);
-	// } catch (error) {
-	// 	res.status(404).json({ message: error.message });
-	// }
+	try {
+		const users = await User.find({
+			isPublic: true,
+			emailVerified: true,
+			isOnboardingCompleted: true,
+		})
+			.select("uid name email createdAt country roles aboutMe role")
+			.sort({ createdAt: -1 });
+		res.status(200).json(users);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
 };
 
 export const getSingleUser = async (req: any, res: any) => {
