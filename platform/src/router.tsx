@@ -13,6 +13,12 @@ import { VerifiedPage } from "./pages/auth/VerifiedPage";
 import { OnboardingPage } from "./pages/onboarding/OnboardingPage";
 import { HelpPage } from "./pages/Help";
 import { SharedChapter } from "./pages/shared/SharedChapter";
+import { UserChat } from "./pages/Users/UserChat";
+import { SingleUserPage } from "./pages/Users/SingleUserPage";
+import { Stories } from "./pages/Stories";
+import { WritingGroupsPage } from "./pages/WritingGroupsPage";
+import { PostsPage } from "./pages/post/PostsPage";
+import { UsersPage } from "./pages/Users/UsersPage";
 
 const dashboardRoutes: RouteObject[] = [
   {
@@ -24,37 +30,11 @@ const dashboardRoutes: RouteObject[] = [
     path: "/profile",
     element: <ProfilePage />,
   },
-  // {
-  //   path: "/chat/:userId/:chatId",
-  //   element: <UserChat />,
-  // },
-  // {
-  //   path: "/users/:userId",
-  //   element: <SingleUserPage />,
-  // },
-  // {
-  //   path: "/stories",
-  //   element: <Stories />,
-  // },
-  // {
-  //   path: "/writing-groups",
-  //   element: <WritingGroupsPage />,
-  // },
   {
     path: "/help",
     element: <HelpPage />,
   },
 
-  // {
-  //   path: "/posts",
-  //   element: <PostsPage />,
-  //   errorElement: <Error />,
-  // },
-  // {
-  //   path: "/users",
-  //   element: <UsersPage />,
-  //   errorElement: <Error />,
-  // },
   {
     path: "/settings",
     loader: () => redirect("/settings/profile"),
@@ -79,11 +59,6 @@ const dashboardRoutes: RouteObject[] = [
     element: <SharedChapter />,
     errorElement: <Error />,
   },
-  // {
-  // 	path: "/profile/posts/:postId",
-  // 	element: <SinglePost />,
-  // 	errorElement: <Error />,
-  // },
   {
     path: "/project/:project/:projectTab/chapter/:chapter/",
     element: <Project />,
@@ -100,6 +75,42 @@ const dashboardRoutes: RouteObject[] = [
     errorElement: <Error />,
   },
 ];
+
+if (import.meta.env.VITE_API_WITH_FULL_FUNCTIONALITY) {
+  dashboardRoutes.push(
+    {
+      path: "/chat/:userId/:chatId",
+      element: <UserChat />,
+    },
+    {
+      path: "/users/:userId",
+      element: <SingleUserPage />,
+    },
+    {
+      path: "/stories",
+      element: <Stories />,
+    },
+    {
+      path: "/writing-groups",
+      element: <WritingGroupsPage />,
+    },
+    {
+      path: "/posts",
+      element: <PostsPage />,
+      errorElement: <Error />,
+    },
+    {
+      path: "/users",
+      element: <UsersPage />,
+      errorElement: <Error />,
+    },
+    {
+      path: "/profile/posts/:postId",
+      element: <SinglePost />,
+      errorElement: <Error />,
+    },
+  );
+}
 
 export const router = createBrowserRouter([
   {

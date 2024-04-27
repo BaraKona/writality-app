@@ -13,18 +13,18 @@ Welcome to the Collaborative Writing Platform, a platform for writers to come to
 - Versioning: writers can use GitHub-like versioning on their writing projects, allowing them to easily track and manage changes to their documents over time.
 
 Examples of Platform:
+
 - View of user page:
-![Screenshot 2023-11-16 at 23-46-42 Writality](https://github.com/BaraKona/writality-app/assets/62246274/6c3d3946-7cbe-44a4-b068-0bf29b12b730)
+  ![Screenshot 2023-11-16 at 23-46-42 Writality](https://github.com/BaraKona/writality-app/assets/62246274/6c3d3946-7cbe-44a4-b068-0bf29b12b730)
 
 - View of the project:
-![Screenshot 2023-11-16 at 23-43-18 Writality](https://github.com/BaraKona/writality-app/assets/62246274/4e7041d2-fcd7-4fcd-92ab-ebb97a10f4dc)
-
+  ![Screenshot 2023-11-16 at 23-43-18 Writality](https://github.com/BaraKona/writality-app/assets/62246274/4e7041d2-fcd7-4fcd-92ab-ebb97a10f4dc)
 
 - Chapter Editor
-![Screenshot 2023-11-16 at 23-46-20 Writality](https://github.com/BaraKona/writality-app/assets/62246274/4969d74d-4987-4b48-81cd-12e334c50c58)
+  ![Screenshot 2023-11-16 at 23-46-20 Writality](https://github.com/BaraKona/writality-app/assets/62246274/4969d74d-4987-4b48-81cd-12e334c50c58)
 
 - Single Post View
-![Screenshot 2023-11-16 at 23-47-21 Writality](https://github.com/BaraKona/writality-app/assets/62246274/44859805-6d26-4bd9-be73-038ea08c2228)
+  ![Screenshot 2023-11-16 at 23-47-21 Writality](https://github.com/BaraKona/writality-app/assets/62246274/44859805-6d26-4bd9-be73-038ea08c2228)
 
 <!--
 - View of the project:
@@ -36,9 +36,15 @@ Examples of Platform:
 - Single Post View
 ![Screen Shot 2023-09-28 at 10 44 48](https://github.com/BaraKona/writality-app/assets/62246274/2dfe80cd-cca9-4d90-8e8d-5b4698991391)
 -->
+
 ## Getting started
 
 To get started using the Collaborative Writing Platform, follow these steps:
+
+Prerequisites:
+
+- Node.js installed on your local machine (v18 or later)
+- copy the .env.example file to .env and fill in the required environment variables
 
 1. Clone this repository to your local machine
 

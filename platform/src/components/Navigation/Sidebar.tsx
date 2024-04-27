@@ -16,6 +16,10 @@ import { TabChat } from "../Project/chatrooms/TabChat";
 import { SidebarNav } from "./components/SidebarNav";
 import { SidebarTopNav } from "./components/SidebarTopNav";
 import { useCreateProject } from "../../hooks/projects/useCreateProject";
+import { Notifications } from "../notification/Notifications";
+import { UserWritingGroups } from "../writingGroup/UserWritingGroups";
+import { UserFriends } from "../ListItems/UserFriends";
+import { FavouriteTabItems } from "../ListItems/FavouriteTabItem";
 
 export const Sidebar: FC<{}> = () => {
   const navigate = useNavigate();
@@ -35,7 +39,7 @@ export const Sidebar: FC<{}> = () => {
   const writingGroup = "writing group";
 
   const { mutate: createProject } = useCreateProject();
-
+  console.log(import.meta.env.VITE_API_WITH_FULL_FUNCTIONALITY);
   const [sidebarNav, setSidebarNav] = useLocalStorage({
     key: "sidebarNav",
     defaultValue: home,
@@ -123,20 +127,28 @@ export const Sidebar: FC<{}> = () => {
                       tab={home}
                     />
                   )}
-                  {/* {sidebarNav === collabs && (
-                    <UserProjects
-                      projects={projects?.collaboration}
-                      isLoading={isProjectLoading}
-                      openProject={openProject}
-                      removeFavouriteProject={removeFavouriteProject}
-                      createProject={createProject}
-                      tab={collabs}
-                    />
-                  )} */}
-                  {/* {sidebarNav === bookmarks && <FavouriteTabItems />} */}
-                  {/* {sidebarNav === friends && <UserFriends chatId={userChat} />} */}
-                  {/* {sidebarNav === writingGroup && <UserWritingGroups />} */}
-                  {/* {sidebarNav === inbox && <Notifications notification={currentUser?.inbox} />} */}
+                  <>
+                    {import.meta.env.VITE_API_WITH_FULL_FUNCTIONALITY && (
+                      <>
+                        {sidebarNav === collabs && (
+                          <UserProjects
+                            projects={projects?.collaboration}
+                            isLoading={isProjectLoading}
+                            openProject={openProject}
+                            removeFavouriteProject={removeFavouriteProject}
+                            createProject={createProject}
+                            tab={collabs}
+                          />
+                        )}
+                        {sidebarNav === bookmarks && <FavouriteTabItems />}
+                        {sidebarNav === friends && <UserFriends chatId={userChat} />}
+                        {sidebarNav === writingGroup && <UserWritingGroups />}
+                        {sidebarNav === inbox && (
+                          <Notifications notification={currentUser?.inbox} />
+                        )}
+                      </>
+                    )}
+                  </>
                 </section>
               </CategoryListItem>
             )}
