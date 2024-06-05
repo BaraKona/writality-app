@@ -56,26 +56,26 @@ git clone https://github.com/BaraKona/Writality
 
 ```
 cd platform
-npm install
+yarn install
 ```
 
 3. Install the dependencies for Server
 
 ```
 cd server
-npm install
+yarn install
 ```
 
 4. Start the front end
 
 ```
-npm run dev
+yarn dev
 ```
 
 5. Start the server
 
 ```
-npm start
+yarn dev
 ```
 
 6. Open your web browser and navigate to http://localhost:5173 to access the platform.
