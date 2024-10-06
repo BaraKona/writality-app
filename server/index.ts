@@ -4,16 +4,6 @@ import cors from "cors";
 import mongoose from "mongoose";
 import http from "http";
 
-import users from "./src/routes/users";
-import chats from "./src/routes/chat/chat";
-import posts from "./src/routes/posts";
-
-import projects from "./src/routes/project/projects";
-import chapters from "./src/routes/project/chapters";
-import versions from "./src/routes/project/versions";
-import branches from "./src/routes/project/branches";
-import analytics from "./src/routes/analytics";
-import notification from "./src/routes/notification/notification";
 import { initPusher } from "./src/pusherProvider";
 
 const cookieParser = require("cookie-parser");
@@ -32,35 +22,35 @@ app.use(express.json({ limit: "3mb" }));
 app.use(express.urlencoded({ limit: "3mb", extended: true }));
 app.use(cookieParser());
 app.use(
-	compression({
-		level: 6,
-	})
+  compression({
+    level: 6,
+  })
 );
 
 // configure cors
 app.use(
-	cors({
-		origin: [process.env.PLATFORM_URL],
-		credentials: true,
-	})
+  cors({
+    origin: [process.env.PLATFORM_URL],
+    credentials: true,
+  })
 );
 
 // Routes for the API
-app.use("/users", users);
-app.use("/chats", chats);
-app.use("/posts", posts);
+// app.use("/users", users);
+// app.use("/chats", chats);
+// app.use("/posts", posts);
 
-app.use("/projects", projects);
-app.use("/chapters", chapters);
-app.use("/versions", versions);
-app.use("/branches", branches);
+// app.use("/projects", projects);
+// app.use("/chapters", chapters);
+// app.use("/versions", versions);
+// app.use("/branches", branches);
 
-app.use("/analytics", analytics);
-app.use("/notifications", notification);
+// app.use("/analytics", analytics);
+// app.use("/notifications", notification);
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
-	res.send("Connected to server!");
+  res.send("Connected to server!");
 });
 
 export const pusher = initPusher();
@@ -69,13 +59,13 @@ const PORT = process.env.PORT || 5000;
 
 // start the Express server and connect to the database
 mongoose
-	.connect(process.env.CONNECTION_URL)
-	.then(() =>
-		// disable tslint for this line
-		// tslint:disable-next-line: no-console
-		server.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
-	)
-	// tslint:disable-next-line: no-console
-	.catch((error) => console.log(error.message));
+  .connect(process.env.CONNECTION_URL)
+  .then(() =>
+    // disable tslint for this line
+    // tslint:disable-next-line: no-console
+    server.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
+  )
+  // tslint:disable-next-line: no-console
+  .catch((error) => console.log(error.message));
 
 export default app;
