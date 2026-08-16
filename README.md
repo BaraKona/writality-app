@@ -1,3 +1,5 @@
+
+
 # Collaborative Writing Platform
 
 Welcome to the Collaborative Writing Platform, a platform for writers to come together and create amazing content. This platform is built using [Vite](https://vitejs.dev/)
@@ -49,7 +51,7 @@ Prerequisites:
 1. Clone this repository to your local machine
 
 ```
-git clone https://github.com/BaraKona/Writality
+git clone https://github.com/BaraKona/writality-app
 ```
 
 2. Install the dependencies for Front End
